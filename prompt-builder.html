@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="pt-BR" style="color-scheme: dark;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prompt Studio — Copy EI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="/marked.min.js"></script>
+<style>
+  :root {
+    --bg: #0c0c0c;
+    --bg-elevated: #141414;
+    --bg-card: #1a1a1a;
+    --bg-card-hover: #222222;
+    --fg: #f0f0f0;
+    --fg-muted: #888888;
+    --fg-dim: #555555;
+    --primary: #34d399;
+    --primary-dim: rgba(52, 211, 153, 0.15);
+    --primary-glow: rgba(52, 211, 153, 0.06);
+    --border: rgba(255,255,255,0.07);
+    --border-hover: rgba(255,255,255,0.14);
+    --accent-violet: #a78bfa;
+    --accent-amber: #fbbf24;
+    --accent-blue: #60a5fa;
+    --accent-rose: #fb7185;
+    --accent-cyan: #22d3ee;
+    --accent-orange: #fb923c;
+    --accent-pink: #f472b6;
+    --accent-yellow: #facc15;
+    --font-display: 'Space Grotesk', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    --radius: 10px;
+    --radius-sm: 6px;
+    --radius-lg: 14px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-display);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
+  /* ─── Header ─── */
+  .header {
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-elevated);
+    flex-shrink: 0;
+    gap: 16px;
+  }
+
+  .header-left { display: flex; align-items: center; gap: 12px; }
+
+  .logo-mark {
+    width: 28px; height: 28px;
+    border-radius: 7px;
+    background: var(--primary-dim);
+    border: 1px solid rgba(52,211,153,0.25);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .logo-mark svg { width: 14px; height: 14px; color: var(--primary); }
+
+  .app-name { font-size: 0.9rem; font-weight: 600; letter-spacing: -0.01em; }
+  .app-name span { color: var(--fg-muted); font-weight: 400; }
+
+  .header-center { flex: 1; max-width: 420px; }
+
+  .context-pills { display: flex; gap: 6px; align-items: center; flex-wrap: nowrap; overflow: hidden; }
+
+  .context-pill {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 3px 10px 3px 7px; border-radius: 100px;
+    font-size: 0.7rem; font-weight: 500; white-space: nowrap;
+    opacity: 0; transform: scale(0.85); transition: all 0.2s ease;
+  }
+  .context-pill.visible { opacity: 1; transform: scale(1); }
+  .context-pill .pill-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+  .context-pill.skill-pill { background: rgba(52,211,153,0.1); color: var(--primary); border: 1px solid rgba(52,211,153,0.2); }
+  .context-pill.folder-pill { background: rgba(96,165,250,0.1); color: var(--accent-blue); border: 1px solid rgba(96,165,250,0.2); }
+  .context-pill.skill-pill .pill-dot { background: var(--primary); }
+  .context-pill.folder-pill .pill-dot { background: var(--accent-blue); }
+
+  .pill-overflow {
+    font-family: var(--font-mono); font-size: 0.65rem; color: var(--fg-dim);
+    padding: 3px 8px; border: 1px solid var(--border); border-radius: 100px; white-space: nowrap;
+  }
+
+  .header-right { display: flex; align-items: center; gap: 10px; }
+
+  .status-dot { display: flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 0.68rem; color: var(--fg-dim); }
+  .status-dot .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--primary); animation: statusPulse 2.5s ease-in-out infinite; }
+  @keyframes statusPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+  .btn-icon {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 5px 12px; background: transparent; color: var(--fg-muted);
+    font-size: 0.75rem; font-weight: 500;
+    border: 1px solid var(--border); border-radius: var(--radius-sm);
+    cursor: pointer; transition: all var(--transition); font-family: var(--font-display);
+  }
+  .btn-icon:hover { color: var(--fg); border-color: var(--border-hover); }
+  .btn-icon.danger:hover { color: var(--accent-rose); border-color: rgba(251,113,133,0.3); background: rgba(251,113,133,0.05); }
+
+  /* ─── Main Layout ─── */
+  .main {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 320px 1fr 1fr;
+    overflow: hidden;
+  }
+
+  /* ─── Left Panel ─── */
+  .panel-left {
+    border-right: 1px solid var(--border);
+    display: flex; flex-direction: column; overflow: hidden;
+    background: var(--bg-elevated);
+  }
+
+  .panel-header {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-shrink: 0;
+  }
+
+  .panel-title {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 0.68rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.1em; color: var(--fg-muted);
+  }
+  .panel-title svg { width: 12px; height: 12px; color: var(--primary); }
+
+  .panel-count {
+    font-family: var(--font-mono); font-size: 0.65rem; color: var(--fg-dim);
+    background: rgba(255,255,255,0.04); padding: 2px 8px;
+    border-radius: 100px; border: 1px solid var(--border); transition: all 0.2s;
+  }
+  .panel-count.has-items { color: var(--primary); background: var(--primary-dim); border-color: rgba(52,211,153,0.2); }
+
+  /* ─── Skills Grid ─── */
+  .skills-section { flex: 1; overflow-y: auto; padding: 8px; }
+  .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+
+  .skill-card {
+    position: relative; padding: 10px 11px;
+    border-radius: var(--radius-sm); border: 1px solid var(--border);
+    background: var(--bg-card); cursor: pointer;
+    transition: all var(--transition); user-select: none; overflow: hidden;
+    animation: fadeInUp 0.3s ease both;
+  }
+  .skill-card::before {
+    content: ''; position: absolute; inset: 0; opacity: 0;
+    transition: opacity var(--transition); border-radius: inherit;
+  }
+  .skill-card:hover { border-color: var(--border-hover); background: var(--bg-card-hover); }
+  .skill-card.active { border-color: var(--skill-color, var(--primary)); background: var(--bg-card-hover); }
+  .skill-card.active::before { background: var(--skill-color-dim, var(--primary-dim)); opacity: 1; }
+
+  .skill-card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 6px; position: relative; }
+
+  .skill-icon {
+    width: 26px; height: 26px; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border); flex-shrink: 0; transition: all var(--transition);
+  }
+  .skill-card.active .skill-icon { background: var(--skill-color-dim, var(--primary-dim)); border-color: var(--skill-color-border, rgba(52,211,153,0.3)); }
+
+  .skill-check {
+    width: 15px; height: 15px; border-radius: 4px;
+    border: 1px solid var(--border); background: transparent;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: all var(--transition);
+  }
+  .skill-card.active .skill-check { background: var(--skill-color, var(--primary)); border-color: var(--skill-color, var(--primary)); }
+  .skill-check svg { width: 8px; height: 8px; color: #0c0c0c; opacity: 0; transform: scale(0.5); transition: all 0.15s ease; }
+  .skill-card.active .skill-check svg { opacity: 1; transform: scale(1); }
+
+  .skill-name { font-size: 0.75rem; font-weight: 600; line-height: 1.2; position: relative; transition: color var(--transition); }
+  .skill-card.active .skill-name { color: var(--skill-color, var(--primary)); }
+  .skill-desc { font-size: 0.64rem; color: var(--fg-dim); line-height: 1.35; position: relative; transition: color var(--transition); margin-top: 3px; }
+  .skill-card.active .skill-desc { color: var(--fg-muted); }
+
+  /* ─── Folders ─── */
+  .folders-section { border-top: 1px solid var(--border); overflow-y: auto; max-height: 190px; padding: 6px 8px; }
+  .folder-tree { display: flex; flex-direction: column; gap: 2px; }
+
+  .folder-item {
+    display: flex; align-items: center; gap: 7px;
+    padding: 5px 7px; border-radius: var(--radius-sm);
+    cursor: pointer; transition: all var(--transition);
+    user-select: none; border: 1px solid transparent; position: relative;
+  }
+  .folder-item:hover { background: rgba(255,255,255,0.03); border-color: var(--border); }
+  .folder-item.active { background: rgba(96,165,250,0.07); border-color: rgba(96,165,250,0.2); }
+  .folder-item.child { padding-left: 20px; }
+  .folder-item.child::before { content: ''; position: absolute; left: 10px; top: 50%; width: 6px; height: 1px; background: var(--border-hover); }
+
+  .folder-checkbox {
+    width: 13px; height: 13px; border-radius: 3px;
+    border: 1px solid var(--border); background: transparent;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; transition: all var(--transition);
+  }
+  .folder-item.active .folder-checkbox { background: var(--accent-blue); border-color: var(--accent-blue); }
+  .folder-checkbox svg { width: 7px; height: 7px; color: #0c0c0c; opacity: 0; transform: scale(0.5); transition: all 0.15s ease; }
+  .folder-item.active .folder-checkbox svg { opacity: 1; transform: scale(1); }
+
+  .folder-icon { font-size: 12px; flex-shrink: 0; }
+  .folder-name { font-size: 0.74rem; font-family: var(--font-mono); color: var(--fg-muted); flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color var(--transition); }
+  .folder-item.active .folder-name { color: var(--accent-blue); }
+  .folder-files { font-family: var(--font-mono); font-size: 0.6rem; color: var(--fg-dim); white-space: nowrap; }
+
+  /* ─── API Key section ─── */
+  .api-key-section {
+    border-top: 1px solid var(--border);
+    padding: 10px 12px;
+    flex-shrink: 0;
+  }
+
+  .api-key-label {
+    font-size: 0.65rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--fg-dim); margin-bottom: 6px;
+    display: flex; align-items: center; gap: 5px;
+  }
+
+  .api-key-input {
+    width: 100%;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 7px 10px;
+    color: var(--fg-muted);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    outline: none;
+    transition: border-color var(--transition);
+  }
+  .api-key-input:focus { border-color: rgba(52,211,153,0.3); color: var(--fg); }
+  .api-key-input::placeholder { color: var(--fg-dim); }
+
+  /* ─── Center Panel — Prompt ─── */
+  .panel-center {
+    border-right: 1px solid var(--border);
+    display: flex; flex-direction: column; overflow: hidden;
+  }
+
+  .prompt-area { flex: 1; display: flex; flex-direction: column; padding: 16px; gap: 12px; overflow: hidden; }
+
+  .prompt-label-row { display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+
+  .prompt-label {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 0.68rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--fg-muted);
+  }
+  .prompt-label svg { width: 12px; height: 12px; color: var(--primary); }
+
+  .char-count { font-family: var(--font-mono); font-size: 0.65rem; color: var(--fg-dim); }
+
+  .prompt-wrapper { flex: 1; position: relative; min-height: 0; }
+
+  .prompt-textarea {
+    width: 100%; height: 100%;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    color: var(--fg);
+    font-family: var(--font-display);
+    font-size: 0.9rem; line-height: 1.7;
+    resize: none; outline: none;
+    transition: border-color var(--transition);
+  }
+  .prompt-textarea::placeholder { color: var(--fg-dim); font-style: italic; }
+  .prompt-textarea:focus { border-color: rgba(52,211,153,0.3); box-shadow: 0 0 0 3px rgba(52,211,153,0.04); }
+
+  .context-summary {
+    flex-shrink: 0; padding: 10px 12px;
+    background: var(--bg-elevated); border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    display: flex; align-items: center; gap: 10px; min-height: 40px;
+  }
+  .context-label { font-family: var(--font-mono); font-size: 0.62rem; color: var(--fg-dim); white-space: nowrap; flex-shrink: 0; }
+  .context-tags { display: flex; flex-wrap: wrap; gap: 4px; flex: 1; min-height: 18px; align-items: center; }
+  .empty-context { font-size: 0.7rem; color: var(--fg-dim); font-style: italic; }
+
+  .ctx-tag {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 2px 8px; border-radius: 100px;
+    font-size: 0.66rem; font-weight: 500; white-space: nowrap;
+    cursor: pointer; transition: all 0.15s ease;
+  }
+  .ctx-tag:hover { opacity: 0.7; }
+  .ctx-tag.skill { background: var(--skill-tag-bg, var(--primary-dim)); color: var(--skill-tag-color, var(--primary)); border: 1px solid var(--skill-tag-border, rgba(52,211,153,0.2)); }
+  .ctx-tag.folder { background: rgba(96,165,250,0.1); color: var(--accent-blue); border: 1px solid rgba(96,165,250,0.2); }
+  .ctx-tag .remove { width: 12px; height: 12px; opacity: 0.6; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; }
+
+  /* ─── Attachments ─── */
+  .attach-zone {
+    flex-shrink: 0;
+    border: 1px dashed var(--border);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    transition: all var(--transition);
+    cursor: pointer;
+    position: relative;
+  }
+  .attach-zone:hover, .attach-zone.drag-over {
+    border-color: rgba(52,211,153,0.4);
+    background: var(--primary-glow);
+  }
+  .attach-zone input[type=file] {
+    position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+  }
+  .attach-zone-inner {
+    display: flex; align-items: center; gap: 10px; pointer-events: none;
+  }
+  .attach-zone-icon { font-size: 15px; flex-shrink: 0; }
+  .attach-zone-text { font-size: 0.75rem; color: var(--fg-dim); }
+  .attach-zone-text strong { color: var(--fg-muted); font-weight: 500; }
+
+  .attach-chips { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
+
+  .attach-chip {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 3px 8px 3px 7px;
+    border-radius: 6px; border: 1px solid var(--border);
+    background: var(--bg-card); font-size: 0.7rem;
+    max-width: 180px; cursor: default;
+    animation: fadeInUp 0.2s ease both;
+  }
+  .attach-chip .chip-icon { font-size: 11px; flex-shrink: 0; }
+  .attach-chip .chip-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--fg-muted); flex: 1; }
+  .attach-chip .chip-size { font-family: var(--font-mono); font-size: 0.6rem; color: var(--fg-dim); white-space: nowrap; }
+  .attach-chip .chip-remove { font-size: 10px; color: var(--fg-dim); cursor: pointer; flex-shrink: 0; opacity: 0.6; }
+  .attach-chip .chip-remove:hover { color: var(--accent-rose); opacity: 1; }
+  .attach-chip.img-chip { border-color: rgba(167,139,250,0.3); background: rgba(167,139,250,0.07); }
+  .attach-chip.doc-chip { border-color: rgba(96,165,250,0.3); background: rgba(96,165,250,0.07); }
+  .attach-chip.audio-chip { border-color: rgba(251,191,36,0.3); background: rgba(251,191,36,0.07); }
+
+  /* ─── Audio recorder ─── */
+  .audio-section {
+    flex-shrink: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    transition: border-color var(--transition);
+  }
+  .audio-section.recording { border-color: rgba(251,113,133,0.5); }
+
+  .audio-bar {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 12px;
+    background: var(--bg-elevated);
+  }
+
+  .btn-mic {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--bg-card);
+    color: var(--fg-muted);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: all var(--transition); flex-shrink: 0;
+    font-size: 13px;
+  }
+  .btn-mic:hover { border-color: var(--accent-rose); color: var(--accent-rose); background: rgba(251,113,133,0.08); }
+  .btn-mic.recording {
+    background: var(--accent-rose); border-color: var(--accent-rose);
+    color: #fff; animation: micPulse 1s ease-in-out infinite;
+  }
+  @keyframes micPulse { 0%,100%{box-shadow:0 0 0 0 rgba(251,113,133,0.4)} 50%{box-shadow:0 0 0 6px rgba(251,113,133,0)} }
+
+  .audio-status { font-size: 0.72rem; color: var(--fg-dim); flex: 1; }
+  .audio-status.active { color: var(--accent-rose); }
+
+  .transcript-box {
+    display: none;
+    padding: 8px 12px;
+    background: var(--bg-card);
+    border-top: 1px solid var(--border);
+    font-size: 0.78rem;
+    color: var(--fg-muted);
+    line-height: 1.5;
+    max-height: 80px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+  }
+  .transcript-box.visible { display: block; }
+
+  .audio-actions { display: flex; gap: 6px; }
+
+  /* ─── Right Panel — Output ─── */
+  .panel-right {
+    display: flex; flex-direction: column; overflow: hidden;
+    background: var(--bg);
+  }
+
+  .output-header {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-elevated);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-shrink: 0;
+  }
+
+  .output-title { display: flex; align-items: center; gap: 7px; font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--fg-muted); }
+  .output-title svg { width: 12px; height: 12px; color: var(--primary); }
+
+  .output-actions { display: flex; gap: 6px; align-items: center; }
+
+  .output-meta { font-family: var(--font-mono); font-size: 0.62rem; color: var(--fg-dim); }
+
+  .output-body {
+    flex: 1; overflow-y: auto;
+    padding: 20px 22px;
+    font-size: 0.88rem; line-height: 1.75;
+  }
+
+  .output-empty {
+    height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 12px; color: var(--fg-dim); text-align: center;
+  }
+
+  .output-empty-icon {
+    width: 48px; height: 48px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    background: var(--bg-elevated);
+  }
+
+  .output-empty p { font-size: 0.82rem; }
+  .output-empty span { font-size: 0.72rem; color: var(--fg-dim); font-style: italic; }
+
+  /* ─── Markdown output ─── */
+  .output-content { color: var(--fg); }
+  .output-content h1, .output-content h2, .output-content h3 {
+    font-weight: 700; letter-spacing: -0.02em; margin: 1.5em 0 0.6em;
+    line-height: 1.25;
+  }
+  .output-content h1 { font-size: 1.4rem; color: var(--fg); }
+  .output-content h2 { font-size: 1.15rem; color: var(--fg); padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  .output-content h3 { font-size: 1rem; color: var(--primary); }
+  .output-content p { margin: 0.7em 0; }
+  .output-content ul, .output-content ol { padding-left: 1.4em; margin: 0.6em 0; }
+  .output-content li { margin: 0.3em 0; }
+  .output-content strong { color: var(--fg); font-weight: 600; }
+  .output-content em { color: var(--fg-muted); font-style: italic; }
+  .output-content code {
+    font-family: var(--font-mono); font-size: 0.82em;
+    background: rgba(255,255,255,0.07); padding: 2px 6px;
+    border-radius: 4px; color: var(--primary);
+  }
+  .output-content pre {
+    background: var(--bg-elevated); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 14px 16px;
+    overflow-x: auto; margin: 1em 0;
+  }
+  .output-content pre code { background: none; padding: 0; color: var(--fg-muted); font-size: 0.8rem; }
+  .output-content blockquote {
+    border-left: 3px solid var(--primary); padding: 2px 0 2px 16px;
+    margin: 1em 0; color: var(--fg-muted); font-style: italic;
+  }
+  .output-content hr { border: none; border-top: 1px solid var(--border); margin: 1.5em 0; }
+  .output-content a { color: var(--accent-blue); text-decoration: underline; text-underline-offset: 3px; }
+
+  /* Cursor blink while streaming */
+  .stream-cursor::after {
+    content: '▋';
+    color: var(--primary);
+    animation: blink 0.8s step-end infinite;
+    margin-left: 2px;
+  }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+  /* ─── Footer Bar ─── */
+  .footer-bar {
+    height: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 20px;
+    border-top: 1px solid var(--border);
+    background: var(--bg-elevated);
+    flex-shrink: 0; gap: 16px;
+  }
+
+  .footer-left { display: flex; align-items: center; gap: 14px; }
+
+  .footer-stat { display: flex; align-items: center; gap: 5px; font-size: 0.72rem; color: var(--fg-dim); }
+  .footer-stat strong { font-family: var(--font-mono); color: var(--fg-muted); font-weight: 500; }
+  .footer-stat .active-num { color: var(--primary); }
+
+  .divider-v { width: 1px; height: 14px; background: var(--border); }
+
+  .footer-right { display: flex; align-items: center; gap: 8px; }
+
+  .btn-generate {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 9px 22px;
+    background: var(--primary); color: #0c0c0c;
+    font-size: 0.83rem; font-weight: 700;
+    border: none; border-radius: var(--radius-sm);
+    cursor: pointer; transition: all var(--transition);
+    font-family: var(--font-display); letter-spacing: -0.01em;
+    position: relative; overflow: hidden;
+  }
+  .btn-generate::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, transparent, rgba(255,255,255,0.15), transparent);
+    transform: translateX(-100%); transition: transform 0.5s ease;
+  }
+  .btn-generate:hover::before { transform: translateX(100%); }
+  .btn-generate:hover { opacity: 0.92; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(52,211,153,0.25); }
+  .btn-generate:active { transform: translateY(0); }
+  .btn-generate svg { width: 13px; height: 13px; }
+  .btn-generate:disabled { opacity: 0.35; cursor: not-allowed; transform: none; box-shadow: none; }
+  .btn-generate.loading { background: var(--bg-card); color: var(--primary); border: 1px solid rgba(52,211,153,0.3); }
+  .btn-generate.loading::before { display: none; }
+
+  /* Spinner */
+  .spinner {
+    width: 13px; height: 13px;
+    border: 2px solid rgba(52,211,153,0.3);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ─── Toast ─── */
+  .toast {
+    position: fixed; bottom: 70px; left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--bg-card-hover); border: 1px solid var(--border-hover);
+    color: var(--fg); padding: 9px 18px;
+    border-radius: var(--radius-sm); font-size: 0.78rem; font-weight: 500;
+    opacity: 0; transition: all 0.25s ease;
+    pointer-events: none; white-space: nowrap; z-index: 100;
+    display: flex; align-items: center; gap: 7px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  .toast .toast-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--primary); flex-shrink: 0; }
+
+  /* ─── Animations ─── */
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .skill-card:nth-child(1) { animation-delay: 0.03s; }
+  .skill-card:nth-child(2) { animation-delay: 0.06s; }
+  .skill-card:nth-child(3) { animation-delay: 0.09s; }
+  .skill-card:nth-child(4) { animation-delay: 0.12s; }
+  .skill-card:nth-child(5) { animation-delay: 0.15s; }
+  .skill-card:nth-child(6) { animation-delay: 0.18s; }
+  .skill-card:nth-child(7) { animation-delay: 0.21s; }
+  .skill-card:nth-child(8) { animation-delay: 0.24s; }
+  .skill-card:nth-child(9) { animation-delay: 0.27s; }
+  .skill-card:nth-child(10) { animation-delay: 0.3s; }
+</style>
+</head>
+<body>
+
+<!-- ─── Header ─── -->
+<header class="header">
+  <div class="header-left">
+    <div class="logo-mark">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M3 8h10M8 3l5 5-5 5"/>
+      </svg>
+    </div>
+    <span class="app-name">Prompt Studio <span>/ Copy EI</span></span>
+  </div>
+
+  <div class="header-center">
+    <div class="context-pills" id="headerPills">
+      <span id="pillsEmpty" style="font-size:0.7rem;color:var(--fg-dim);font-style:italic;">nenhum contexto ativo</span>
+    </div>
+  </div>
+
+  <div class="header-right">
+    <div class="status-dot" id="headerStatus">
+      <div class="dot"></div>
+      <span id="headerStatusText">pronto</span>
+    </div>
+    <button class="btn-icon danger" onclick="clearAll()">
+      <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M2 2l8 8M10 2l-8 8"/>
+      </svg>
+      limpar
+    </button>
+  </div>
+</header>
+
+<!-- ─── Main ─── -->
+<div class="main">
+
+  <!-- ─── Left Panel — Skills + Folders ─── -->
+  <aside class="panel-left">
+
+    <div class="panel-header">
+      <div class="panel-title">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="2" y="2" width="5" height="5" rx="1"/>
+          <rect x="9" y="2" width="5" height="5" rx="1"/>
+          <rect x="2" y="9" width="5" height="5" rx="1"/>
+          <rect x="9" y="9" width="5" height="5" rx="1"/>
+        </svg>
+        Skills
+      </div>
+      <span class="panel-count" id="skillCount">0 / 10</span>
+    </div>
+
+    <div class="skills-section">
+      <div class="skills-grid" id="skillsGrid">
+
+        <div class="skill-card" data-skill="copy-senior"
+             style="--skill-color:#34d399;--skill-color-dim:rgba(52,211,153,0.12);--skill-color-border:rgba(52,211,153,0.3)"
+             onclick="toggleSkill(this)">
+          <div class="skill-card-top">
+            <div class="skill-icon">✍️</div>
+            <div class="skill-check"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          </div>
+          <div class="skill-name">Copy Senior</div>
+          <div class="skill-desc">VSLs, ads, páginas, DR frameworks</div>
+        </div>
+
+        <div class="skill-card" data-skill="alex-hormozi-pitch"
+             style="--skill-color:#fbbf24;--skill-color-dim:rgba(251,191,36,0.12);--skill-color-border:rgba(251,191,36,0.3)"
+             onclick="toggleSkill(this)">
+          <div class="skill-card-top">
+            <div class="skill-icon">💰</div>
+            <div class="skill-check"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          </div>
+          <div class="skill-name">Hormozi Pitch</div>
+          <div class="skill-desc">Ofertas irresistíveis, value stack</div>
+        </div>
+
+        <div class="skill-card" data-skill="landing-page-copywriter"
+             style="--skill-color:#a78bfa;--skill-color-dim:rgba(167,139,250,0.12);--skill-color-border:rgba(167,139,250,0.3)"
+             onclick="toggleSkill(this)">
+          <div class="skill-card-top">
+            <div class="skill-icon">📄</div>
+            <div class="skill-check"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          </div>
+          <div class="skill-name">Landing Page</div>
+          <div class="skill-desc">PAS, AIDA, StoryBrand copy</div>
+        </div>
+
+        <div class="skill-card" data-skill="frontend-design"
+             style="--skill-color:#22d3ee;--skill-color-dim:rgba(34,211,238,0.12);--skill-color-border:rgba(34,211,238,0.3)"
+             onclick="toggleSkill(this)">
+          <div class="skill-card-top">
+            <div class="skill-icon">🎨</div>
+            <div class="skill-check"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          </div>
+          <div class="skill-name">Frontend Design</div>
+          <div class="skill-desc">Interfaces premium e componentes</div>
+        </div>
+
+        <div class="skill-card" data-skill="claude-api"
+             style="--skill-color:#60a5fa;--skill-color-dim:rgba(96,165,250,0.12);--skill-color-border:rgba(96,165,250,0.3)"
+             onclick="toggleSkill(this)">
+          <div class="skill-card-top">
+            <div class="skill-icon">🤖</div>
+            <div class="skill-check"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          </div>
+          <div class="skill-name">Claude API</div>
+          <div class="skill-desc">Anthropic SDK e agentes</div>
+        </div>
+
+        <div class="skill-card" data-skill="skill-creator"
+             style="--skill-color:#fb923c;--skill-color-dim:rgba(251,146,60,0.12);--skill-color-border:rgba(251,146,60,0.3)"
+             onclick="toggleSkill(this)">
+          <div class="skill-card-top">
+            <div class="skill-icon">⚡</div>
+            <div class="skill-check"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          </div>
+          <div class="skill-name">Skill Creator</div>
+          <div class="skill-desc">Criar e otimizar skills</div>
+        </div>
+
+        <div class="skill-card" data-skill="web-design-guidelines"
+             style="--skill-color:#f472b6;--skill-color-dim:rgba(244,114,182,0.12);--skill-color-border:rgba(244,114,182,0.3)"
+             onclick="toggleSkill(this)">
+          <div class="skill-card-top">
+            <div class="skill-icon">🔍</div>
+            <div class="skill-check"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          </div>
+          <div class="skill-name">Web Guidelines</div>
+          <div class="skill-desc">Review de UI e acessibilidade</div>
+        </div>
+
+        <div class="skill-card" data-skill="simplify"
+             style="--skill-color:#facc15;--skill-color-dim:rgba(250,204,21,0.12);--skill-color-border:rgba(250,204,21,0.3)"
+             onclick="toggleSkill(this)">
+          <div class="skill-card-top">
+            <div class="skill-icon">🔧</div>
+            <div class="skill-check"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          </div>
+          <div class="skill-name">Simplify</div>
+          <div class="skill-desc">Qualidade e eficiência de código</div>
+        </div>
+
+        <div class="skill-card" data-skill="loop"
+             style="--skill-color:#fb7185;--skill-color-dim:rgba(251,113,133,0.12);--skill-color-border:rgba(251,113,133,0.3)"
+             onclick="toggleSkill(this)">
+          <div class="skill-card-top">
+            <div class="skill-icon">🔄</div>
+            <div class="skill-check"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          </div>
+          <div class="skill-name">Loop</div>
+          <div class="skill-desc">Tarefas em intervalo recorrente</div>
+        </div>
+
+        <div class="skill-card" data-skill="keybindings-help"
+             style="--skill-color:#86efac;--skill-color-dim:rgba(134,239,172,0.12);--skill-color-border:rgba(134,239,172,0.3)"
+             onclick="toggleSkill(this)">
+          <div class="skill-card-top">
+            <div class="skill-icon">⌨️</div>
+            <div class="skill-check"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          </div>
+          <div class="skill-name">Keybindings</div>
+          <div class="skill-desc">Customizar atalhos de teclado</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Folders -->
+    <div class="panel-header" style="flex-shrink:0;">
+      <div class="panel-title">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M2 4.5C2 3.67 2.67 3 3.5 3H6l1.5 2H13c.83 0 1.5.67 1.5 1.5v6c0 .83-.67 1.5-1.5 1.5h-9C3.17 14 2.5 13.33 2.5 12.5v-8z"/>
+        </svg>
+        Pastas
+      </div>
+      <span class="panel-count" id="folderCount">0</span>
+    </div>
+
+    <div class="folders-section">
+      <div class="folder-tree">
+
+        <div class="folder-item" data-folder="EI/" onclick="toggleFolder(this)">
+          <div class="folder-checkbox"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          <span class="folder-icon">📁</span>
+          <span class="folder-name">EI/</span>
+          <span class="folder-files">3 arquivos</span>
+        </div>
+
+        <div class="folder-item child" data-folder="EI/Metodologia/" onclick="toggleFolder(this)">
+          <div class="folder-checkbox"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          <span class="folder-icon">📂</span>
+          <span class="folder-name">Metodologia/</span>
+          <span class="folder-files">Framework, CEDE</span>
+        </div>
+
+        <div class="folder-item child" data-folder="EI/ICP/" onclick="toggleFolder(this)">
+          <div class="folder-checkbox"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          <span class="folder-icon">📂</span>
+          <span class="folder-name">ICP/</span>
+          <span class="folder-files">Pesquisa RMBC</span>
+        </div>
+
+        <div class="folder-item" data-folder="DR Expert/" onclick="toggleFolder(this)">
+          <div class="folder-checkbox"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          <span class="folder-icon">📁</span>
+          <span class="folder-name">DR Expert/</span>
+          <span class="folder-files">referências DR</span>
+        </div>
+
+        <div class="folder-item" data-folder="Livros/" onclick="toggleFolder(this)">
+          <div class="folder-checkbox"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          <span class="folder-icon">📚</span>
+          <span class="folder-name">Livros/</span>
+          <span class="folder-files">biblioteca</span>
+        </div>
+
+        <div class="folder-item" data-folder=".agents/" onclick="toggleFolder(this)">
+          <div class="folder-checkbox"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          <span class="folder-icon">🤖</span>
+          <span class="folder-name">.agents/</span>
+          <span class="folder-files">agentes</span>
+        </div>
+
+        <div class="folder-item" data-folder=".claude/" onclick="toggleFolder(this)">
+          <div class="folder-checkbox"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          <span class="folder-icon">⚙️</span>
+          <span class="folder-name">.claude/</span>
+          <span class="folder-files">config, skills</span>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Claude Code badge -->
+    <div class="api-key-section">
+      <div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:var(--primary-dim);border:1px solid rgba(52,211,153,0.2);border-radius:6px;">
+        <div style="width:6px;height:6px;border-radius:50%;background:var(--primary);animation:statusPulse 2.5s ease-in-out infinite;flex-shrink:0;"></div>
+        <span style="font-size:0.7rem;color:var(--primary);font-weight:500;">Usando Claude Code CLI</span>
+        <span style="font-family:var(--font-mono);font-size:0.62rem;color:var(--fg-dim);margin-left:auto;">sua assinatura</span>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- ─── Center Panel — Prompt ─── -->
+  <section class="panel-center">
+    <div class="prompt-area">
+
+      <div class="prompt-label-row">
+        <div class="prompt-label">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M2 4h12M2 8h8M2 12h10"/>
+          </svg>
+          Prompt
+        </div>
+        <span class="char-count" id="charCount">0 caracteres</span>
+      </div>
+
+      <div class="prompt-wrapper">
+        <textarea
+          class="prompt-textarea"
+          id="promptTextarea"
+          placeholder="Descreva o que você quer criar...
+
+Ex: escreva 5 variações de headline para o Raio-X, usando os frameworks de copy e os dados do ICP"
+          oninput="updateCharCount(this)"
+        ></textarea>
+      </div>
+
+      <!-- ─── Attach zone ─── -->
+      <div class="attach-zone" id="attachZone"
+        ondragover="onDragOver(event)"
+        ondragleave="onDragLeave(event)"
+        ondrop="onDrop(event)">
+        <input type="file" id="fileInput" multiple
+          accept=".pdf,.txt,.md,.csv,.json,.js,.ts,.py,.html,.css,.xml,.yaml,.yml,.png,.jpg,.jpeg,.gif,.webp"
+          onchange="onFileChange(event)">
+        <div class="attach-zone-inner">
+          <span class="attach-zone-icon">📎</span>
+          <div class="attach-zone-text">
+            <strong>Anexar arquivo</strong> — arraste ou clique &middot; PDF, imagens, texto
+          </div>
+        </div>
+      </div>
+      <div class="attach-chips" id="attachChips"></div>
+
+      <!-- ─── Audio recorder ─── -->
+      <div class="audio-section" id="audioSection">
+        <div class="audio-bar">
+          <button class="btn-mic" id="micBtn" onclick="toggleMic()" title="Gravar voz">🎙️</button>
+          <span class="audio-status" id="audioStatus">Clique para gravar voz</span>
+          <div class="audio-actions">
+            <button id="clearTranscriptBtn" style="display:none;padding:3px 9px;font-size:0.7rem;border:1px solid var(--border);border-radius:4px;background:transparent;color:var(--fg-muted);cursor:pointer;" onclick="clearTranscript()">limpar</button>
+          </div>
+        </div>
+        <div class="transcript-box" id="transcriptBox"></div>
+      </div>
+
+      <div class="context-summary">
+        <span class="context-label">contexto</span>
+        <div class="context-tags" id="contextTags">
+          <span class="empty-context" id="contextEmpty">selecione skills e pastas</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── Right Panel — Output ─── -->
+  <section class="panel-right">
+    <div class="output-header">
+      <div class="output-title">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="2" y="2" width="12" height="12" rx="2"/>
+          <path d="M5 6l3 3 3-3" stroke-linecap="round"/>
+        </svg>
+        Output
+      </div>
+      <div class="output-actions">
+        <span class="output-meta" id="tokenMeta"></span>
+        <button class="btn-icon" onclick="copyOutput()" id="copyOutputBtn" style="display:none">
+          <svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="5" y="5" width="9" height="10" rx="1.5"/>
+            <path d="M11 5V3.5A1.5 1.5 0 0 0 9.5 2h-7A1.5 1.5 0 0 0 1 3.5v7A1.5 1.5 0 0 0 2.5 12H5"/>
+          </svg>
+          copiar
+        </button>
+        <button class="btn-icon" id="saveOutputBtn" style="display:none" onclick="showSaveModal()">
+          <svg width="11" height="11" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M13 13H3a1 1 0 0 1-1-1V4l3-2h7a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1z"/>
+            <path d="M5 13V9h6v4M5 2v3h5"/>
+          </svg>
+          salvar
+        </button>
+        <button class="btn-icon" onclick="clearOutput()" id="clearOutputBtn" style="display:none">limpar</button>
+      </div>
+    </div>
+
+    <div class="output-body" id="outputBody">
+      <div class="output-empty" id="outputEmpty">
+        <div class="output-empty-icon">✦</div>
+        <p>O resultado vai aparecer aqui</p>
+        <span>configure o contexto, escreva um prompt e clique em Gerar</span>
+      </div>
+      <div class="output-content" id="outputContent" style="display:none"></div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ─── Footer Bar ─── -->
+<footer class="footer-bar">
+  <div class="footer-left">
+    <div class="footer-stat">
+      <strong class="active-num" id="footerSkillCount">0</strong>
+      <span>skills</span>
+    </div>
+    <div class="divider-v"></div>
+    <div class="footer-stat">
+      <strong class="active-num" id="footerFolderCount">0</strong>
+      <span>pastas</span>
+    </div>
+    <div class="divider-v"></div>
+    <div class="footer-stat">
+      <span id="footerStatus" style="font-style:italic;color:var(--fg-dim);">configure o contexto para começar</span>
+    </div>
+  </div>
+
+  <div class="footer-right">
+    <button class="btn-generate" id="generateBtn" onclick="generate()" disabled>
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 8h10M9 4l4 4-4 4"/>
+      </svg>
+      Gerar
+    </button>
+  </div>
+</footer>
+
+<!-- ─── Toast ─── -->
+<div class="toast" id="toast">
+  <div class="toast-dot"></div>
+  <span id="toastMsg">Copiado!</span>
+</div>
+
+<script>
+  const state = { skills: new Set(), folders: new Set(), attachments: [], audioTranscript: '' };
+
+  const skillColors = {
+    'copy-senior':             { bg: 'rgba(52,211,153,0.12)',  color: '#34d399', border: 'rgba(52,211,153,0.25)' },
+    'alex-hormozi-pitch':      { bg: 'rgba(251,191,36,0.12)',  color: '#fbbf24', border: 'rgba(251,191,36,0.25)' },
+    'landing-page-copywriter': { bg: 'rgba(167,139,250,0.12)', color: '#a78bfa', border: 'rgba(167,139,250,0.25)' },
+    'frontend-design':         { bg: 'rgba(34,211,238,0.12)',  color: '#22d3ee', border: 'rgba(34,211,238,0.25)' },
+    'claude-api':              { bg: 'rgba(96,165,250,0.12)',  color: '#60a5fa', border: 'rgba(96,165,250,0.25)' },
+    'skill-creator':           { bg: 'rgba(251,146,60,0.12)',  color: '#fb923c', border: 'rgba(251,146,60,0.25)' },
+    'web-design-guidelines':   { bg: 'rgba(244,114,182,0.12)', color: '#f472b6', border: 'rgba(244,114,182,0.25)' },
+    'simplify':                { bg: 'rgba(250,204,21,0.12)',  color: '#facc15', border: 'rgba(250,204,21,0.25)' },
+    'loop':                    { bg: 'rgba(251,113,133,0.12)', color: '#fb7185', border: 'rgba(251,113,133,0.25)' },
+    'keybindings-help':        { bg: 'rgba(134,239,172,0.12)', color: '#86efac', border: 'rgba(134,239,172,0.25)' },
+  };
+
+  // ─── Selection toggles ───
+  function toggleSkill(el) {
+    const skill = el.dataset.skill;
+    state.skills.has(skill) ? state.skills.delete(skill) : state.skills.add(skill);
+    el.classList.toggle('active');
+    updateUI();
+  }
+
+  function toggleFolder(el) {
+    const folder = el.dataset.folder;
+    state.folders.has(folder) ? state.folders.delete(folder) : state.folders.add(folder);
+    el.classList.toggle('active');
+    updateUI();
+  }
+
+  function removeSkill(skill) {
+    state.skills.delete(skill);
+    document.querySelector(`[data-skill="${skill}"]`)?.classList.remove('active');
+    updateUI();
+  }
+
+  function removeFolder(folder) {
+    state.folders.delete(folder);
+    document.querySelector(`[data-folder="${folder}"]`)?.classList.remove('active');
+    updateUI();
+  }
+
+  // ─── UI update ───
+  function updateUI() {
+    const sc = state.skills.size;
+    const fc = state.folders.size;
+    const total = sc + fc;
+    const hasPrompt = document.getElementById('promptTextarea').value.trim().length > 0;
+
+    document.getElementById('skillCount').textContent = `${sc} / 10`;
+    document.getElementById('folderCount').textContent = fc;
+    document.getElementById('footerSkillCount').textContent = sc;
+    document.getElementById('footerFolderCount').textContent = fc;
+    document.getElementById('skillCount').className = 'panel-count' + (sc > 0 ? ' has-items' : '');
+    document.getElementById('folderCount').className = 'panel-count' + (fc > 0 ? ' has-items' : '');
+
+    const status = document.getElementById('footerStatus');
+    if (total === 0) {
+      status.textContent = 'configure o contexto para começar';
+      status.style.fontStyle = 'italic';
+      status.style.color = 'var(--fg-dim)';
+    } else {
+      status.textContent = `${total} item${total > 1 ? 'ns' : ''} no contexto`;
+      status.style.fontStyle = 'normal';
+      status.style.color = 'var(--primary)';
+    }
+
+    // Context tags
+    const container = document.getElementById('contextTags');
+    const empty = document.getElementById('contextEmpty');
+    container.querySelectorAll('.ctx-tag').forEach(t => t.remove());
+
+    if (total === 0) {
+      empty.style.display = 'inline';
+    } else {
+      empty.style.display = 'none';
+      state.skills.forEach(skill => {
+        const c = skillColors[skill] || skillColors['copy-senior'];
+        const tag = document.createElement('span');
+        tag.className = 'ctx-tag skill';
+        tag.style.setProperty('--skill-tag-bg', c.bg);
+        tag.style.setProperty('--skill-tag-color', c.color);
+        tag.style.setProperty('--skill-tag-border', c.border);
+        tag.innerHTML = `${skill} <span class="remove" onclick="removeSkill('${skill}')">✕</span>`;
+        container.appendChild(tag);
+      });
+      state.folders.forEach(folder => {
+        const tag = document.createElement('span');
+        tag.className = 'ctx-tag folder';
+        tag.innerHTML = `${folder} <span class="remove" onclick="removeFolder('${folder}')">✕</span>`;
+        container.appendChild(tag);
+      });
+    }
+
+    // Header pills
+    updateHeaderPills();
+
+    // Generate button
+    document.getElementById('generateBtn').disabled = total === 0 || !hasPrompt;
+  }
+
+  function updateHeaderPills() {
+    const container = document.getElementById('headerPills');
+    const empty = document.getElementById('pillsEmpty');
+    container.querySelectorAll('.context-pill').forEach(p => p.remove());
+
+    const total = state.skills.size + state.folders.size;
+    if (total === 0) { empty.style.display = 'inline'; return; }
+    empty.style.display = 'none';
+
+    let shown = 0;
+    const maxShow = 3;
+    [...state.skills].slice(0, maxShow).forEach(skill => {
+      if (shown >= maxShow) return;
+      const pill = document.createElement('span');
+      pill.className = 'context-pill skill-pill visible';
+      pill.innerHTML = `<span class="pill-dot"></span>${skill}`;
+      container.appendChild(pill);
+      shown++;
+    });
+    [...state.folders].slice(0, maxShow - shown).forEach(folder => {
+      if (shown >= maxShow) return;
+      const pill = document.createElement('span');
+      pill.className = 'context-pill folder-pill visible';
+      pill.innerHTML = `<span class="pill-dot"></span>${folder}`;
+      container.appendChild(pill);
+      shown++;
+    });
+    const remaining = total - shown;
+    if (remaining > 0) {
+      const ov = document.createElement('span');
+      ov.className = 'pill-overflow';
+      ov.textContent = `+${remaining}`;
+      container.appendChild(ov);
+    }
+  }
+
+  function updateCharCount(el) {
+    const len = el.value.length;
+    document.getElementById('charCount').textContent = `${len.toLocaleString('pt-BR')} caractere${len !== 1 ? 's' : ''}`;
+    updateUI();
+  }
+
+  // ─── Generate ───
+  let abortController = null;
+  let rawMarkdown = '';
+  let isStreaming = false;
+
+  async function generate() {
+    const prompt = document.getElementById('promptTextarea').value.trim();
+    if (!prompt) return;
+
+    if (isStreaming && abortController) {
+      abortController.abort();
+      return;
+    }
+
+    // Reset output
+    rawMarkdown = '';
+    isStreaming = true;
+    document.getElementById('outputEmpty').style.display = 'none';
+    const outputContent = document.getElementById('outputContent');
+    outputContent.style.display = 'block';
+    outputContent.innerHTML = '<span class="stream-cursor"> </span>';
+    document.getElementById('copyOutputBtn').style.display = 'none';
+    document.getElementById('clearOutputBtn').style.display = 'none';
+    document.getElementById('tokenMeta').textContent = '';
+
+    // Update button to stop
+    const btn = document.getElementById('generateBtn');
+    btn.classList.add('loading');
+    btn.innerHTML = `<div class="spinner"></div> Gerando...`;
+
+    // Set status
+    setHeaderStatus('gerando...', true);
+
+    abortController = new AbortController();
+
+    try {
+      const res = await fetch('/api/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          prompt,
+          skills: [...state.skills],
+          folders: [...state.folders],
+          attachments: state.attachments,
+          audioTranscript: state.audioTranscript || undefined,
+        }),
+        signal: abortController.signal,
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || 'Erro na API');
+      }
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop();
+
+        for (const line of lines) {
+          if (line.startsWith('event: ')) continue;
+          if (line.startsWith('data: ')) {
+            try {
+              const data = JSON.parse(line.slice(6));
+
+              if (data.text !== undefined) {
+                rawMarkdown += data.text;
+                renderOutput(rawMarkdown, true);
+              } else if (data.inputTokens !== undefined) {
+                document.getElementById('tokenMeta').textContent =
+                  `↑ ${data.inputTokens.toLocaleString()} · ↓ ${data.outputTokens.toLocaleString()} tokens`;
+              } else if (data.message) {
+                throw new Error(data.message);
+              }
+            } catch (e) {
+              if (e.message && !e.message.includes('JSON')) throw e;
+            }
+          }
+        }
+      }
+
+      // Final render without cursor
+      renderOutput(rawMarkdown, false);
+      document.getElementById('copyOutputBtn').style.display = 'inline-flex';
+      document.getElementById('saveOutputBtn').style.display = 'inline-flex';
+      document.getElementById('clearOutputBtn').style.display = 'inline-flex';
+      setHeaderStatus('pronto', false);
+
+    } catch (err) {
+      if (err.name === 'AbortError') {
+        renderOutput(rawMarkdown + '\n\n*— geração interrompida —*', false);
+        setHeaderStatus('interrompido', false);
+      } else {
+        outputContent.innerHTML = `<div style="color:var(--accent-rose);padding:12px;border:1px solid rgba(251,113,133,0.2);border-radius:8px;font-size:0.85rem;">
+          ⚠️ <strong>Erro:</strong> ${err.message}
+        </div>`;
+        setHeaderStatus('erro', false);
+        showToast('Erro: ' + err.message);
+      }
+    } finally {
+      isStreaming = false;
+      abortController = null;
+      btn.classList.remove('loading');
+      btn.innerHTML = `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg> Gerar`;
+      updateUI();
+    }
+  }
+
+  function renderOutput(markdown, withCursor) {
+    const el = document.getElementById('outputContent');
+    const html = marked.parse(markdown);
+    el.innerHTML = html + (withCursor ? '<span class="stream-cursor"></span>' : '');
+    // Auto-scroll
+    const body = document.getElementById('outputBody');
+    body.scrollTop = body.scrollHeight;
+  }
+
+  function setHeaderStatus(text, active) {
+    document.getElementById('headerStatusText').textContent = text;
+    const dot = document.querySelector('.status-dot .dot');
+    if (active) {
+      dot.style.background = 'var(--accent-amber)';
+      dot.style.animationDuration = '0.6s';
+    } else {
+      dot.style.background = 'var(--primary)';
+      dot.style.animationDuration = '2.5s';
+    }
+  }
+
+  function copyOutput() {
+    if (!rawMarkdown) return;
+    navigator.clipboard?.writeText(rawMarkdown) || fallbackCopy(rawMarkdown);
+    showToast('Output copiado!');
+  }
+
+  function clearOutput() {
+    rawMarkdown = '';
+    document.getElementById('outputContent').style.display = 'none';
+    document.getElementById('outputContent').innerHTML = '';
+    document.getElementById('outputEmpty').style.display = 'flex';
+    document.getElementById('copyOutputBtn').style.display = 'none';
+    document.getElementById('saveOutputBtn').style.display = 'none';
+    document.getElementById('clearOutputBtn').style.display = 'none';
+    document.getElementById('tokenMeta').textContent = '';
+  }
+
+  function clearAll() {
+    state.skills.clear();
+    state.folders.clear();
+    document.querySelectorAll('.skill-card.active').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.folder-item.active').forEach(el => el.classList.remove('active'));
+    document.getElementById('promptTextarea').value = '';
+    document.getElementById('charCount').textContent = '0 caracteres';
+    clearOutput();
+    updateUI();
+    showToast('Tudo limpo');
+  }
+
+  function fallbackCopy(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+  }
+
+  let toastTimeout;
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    document.getElementById('toastMsg').textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => toast.classList.remove('show'), 2200);
+  }
+
+  // Ctrl+Enter to generate
+  document.addEventListener('keydown', e => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+      const btn = document.getElementById('generateBtn');
+      if (!btn.disabled) generate();
+    }
+  });
+
+  // ─── Save modal ───
+  function showSaveModal() {
+    const existing = document.getElementById('saveModal');
+    if (existing) existing.remove();
+
+    const suggestion = 'output-' + new Date().toISOString().slice(0,10);
+
+    const modal = document.createElement('div');
+    modal.id = 'saveModal';
+    modal.style.cssText = `
+      position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;
+      display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);
+    `;
+    modal.innerHTML = `
+      <div style="background:var(--bg-card);border:1px solid var(--border-hover);border-radius:14px;padding:28px 32px;width:380px;box-shadow:0 20px 60px rgba(0,0,0,0.6);">
+        <div style="font-size:0.68rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--fg-muted);margin-bottom:16px;">Salvar em EI/</div>
+        <div style="font-size:0.95rem;font-weight:600;margin-bottom:6px;color:var(--fg);">Nome do arquivo</div>
+        <div style="font-size:0.78rem;color:var(--fg-dim);margin-bottom:16px;">Será salvo em <code style="background:rgba(255,255,255,0.07);padding:2px 6px;border-radius:4px;font-size:0.75rem;color:var(--primary);">EI/</code> como <code style="background:rgba(255,255,255,0.07);padding:2px 6px;border-radius:4px;font-size:0.75rem;color:var(--primary);">.md</code></div>
+        <input
+          id="saveFilenameInput"
+          type="text"
+          value="${suggestion}"
+          style="width:100%;background:var(--bg-elevated);border:1px solid var(--border);border-radius:6px;padding:10px 13px;color:var(--fg);font-family:var(--font-mono);font-size:0.82rem;outline:none;margin-bottom:20px;transition:border-color 0.2s;"
+          onfocus="this.style.borderColor='rgba(52,211,153,0.4)'"
+          onblur="this.style.borderColor='var(--border)'"
+        />
+        <div style="display:flex;gap:8px;justify-content:flex-end;">
+          <button onclick="document.getElementById('saveModal').remove()"
+            style="padding:8px 18px;background:transparent;color:var(--fg-muted);border:1px solid var(--border);border-radius:6px;cursor:pointer;font-family:var(--font-display);font-size:0.82rem;">
+            Cancelar
+          </button>
+          <button onclick="saveOutput()"
+            style="padding:8px 20px;background:var(--primary);color:#0c0c0c;border:none;border-radius:6px;cursor:pointer;font-family:var(--font-display);font-size:0.82rem;font-weight:700;">
+            Salvar
+          </button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
+    setTimeout(() => document.getElementById('saveFilenameInput')?.select(), 50);
+  }
+
+  async function saveOutput() {
+    const filename = document.getElementById('saveFilenameInput')?.value?.trim();
+    if (!filename || !rawMarkdown) return;
+
+    try {
+      const res = await fetch('/api/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content: rawMarkdown, filename }),
+      });
+      const data = await res.json();
+      if (data.saved) {
+        document.getElementById('saveModal')?.remove();
+        showToast(`Salvo em ${data.saved}`);
+      } else {
+        showToast('Erro ao salvar: ' + (data.error || 'desconhecido'));
+      }
+    } catch (e) {
+      showToast('Erro ao salvar: ' + e.message);
+    }
+  }
+
+  updateUI();
+
+  // ─── Attachments ───
+  function fmtSize(bytes) {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+  }
+
+  function chipIcon(type) {
+    if (type === 'image') return '🖼️';
+    if (type === 'text') return '📄';
+    return '📎';
+  }
+
+  function chipClass(type) {
+    if (type === 'image') return 'attach-chip img-chip';
+    return 'attach-chip doc-chip';
+  }
+
+  function renderChips() {
+    const container = document.getElementById('attachChips');
+    container.innerHTML = '';
+    state.attachments.forEach((att, i) => {
+      const chip = document.createElement('div');
+      chip.className = chipClass(att.type);
+      chip.innerHTML = `
+        <span class="chip-icon">${chipIcon(att.type)}</span>
+        <span class="chip-name" title="${att.name}">${att.name}</span>
+        <span class="chip-size">${fmtSize(att.size)}</span>
+        <span class="chip-remove" onclick="removeAttachment(${i})">✕</span>`;
+      container.appendChild(chip);
+    });
+  }
+
+  async function uploadFile(file) {
+    const form = new FormData();
+    form.append('file', file);
+    try {
+      const res = await fetch('/api/upload', { method: 'POST', body: form });
+      const data = await res.json();
+      if (data.error) throw new Error(data.error);
+      state.attachments.push({
+        id: data.id,
+        name: data.name,
+        size: data.size,
+        type: data.type,
+        content: data.content || null,
+        path: data.path || null,
+      });
+      renderChips();
+    } catch (e) {
+      showToast('Erro ao anexar: ' + e.message);
+    }
+  }
+
+  async function removeAttachment(i) {
+    const att = state.attachments[i];
+    if (att?.id) {
+      try { await fetch('/api/upload/' + att.id, { method: 'DELETE' }); } catch {}
+    }
+    state.attachments.splice(i, 1);
+    renderChips();
+  }
+
+  function onFileChange(e) {
+    [...e.target.files].forEach(uploadFile);
+    e.target.value = '';
+  }
+
+  function onDragOver(e) {
+    e.preventDefault();
+    document.getElementById('attachZone').classList.add('drag-over');
+  }
+
+  function onDragLeave() {
+    document.getElementById('attachZone').classList.remove('drag-over');
+  }
+
+  function onDrop(e) {
+    e.preventDefault();
+    document.getElementById('attachZone').classList.remove('drag-over');
+    [...e.dataTransfer.files].forEach(uploadFile);
+  }
+
+  // ─── Audio / Speech ───
+  let recognition = null;
+  let micActive = false;
+
+  function toggleMic() {
+    if (micActive) stopMic();
+    else startMic();
+  }
+
+  function startMic() {
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR) { showToast('Seu navegador não suporta reconhecimento de voz'); return; }
+
+    recognition = new SR();
+    recognition.lang = 'pt-BR';
+    recognition.interimResults = true;
+    recognition.continuous = true;
+
+    recognition.onstart = () => {
+      micActive = true;
+      document.getElementById('micBtn').classList.add('recording');
+      document.getElementById('audioStatus').textContent = 'Gravando... fale agora';
+      document.getElementById('audioStatus').classList.add('active');
+      document.getElementById('audioSection').classList.add('recording');
+    };
+
+    recognition.onresult = (e) => {
+      let interim = '', final = '';
+      for (let i = e.resultIndex; i < e.results.length; i++) {
+        const t = e.results[i][0].transcript;
+        if (e.results[i].isFinal) final += t + ' ';
+        else interim += t;
+      }
+      if (final) state.audioTranscript += final;
+      const box = document.getElementById('transcriptBox');
+      box.textContent = state.audioTranscript + interim;
+      box.classList.add('visible');
+      document.getElementById('clearTranscriptBtn').style.display = 'inline-block';
+    };
+
+    recognition.onerror = (e) => {
+      showToast('Erro de áudio: ' + e.error);
+      stopMic();
+    };
+
+    recognition.onend = () => { if (micActive) recognition.start(); };
+
+    recognition.start();
+  }
+
+  function stopMic() {
+    micActive = false;
+    if (recognition) { recognition.onend = null; recognition.stop(); recognition = null; }
+    document.getElementById('micBtn').classList.remove('recording');
+    document.getElementById('audioStatus').textContent = 'Clique para gravar voz';
+    document.getElementById('audioStatus').classList.remove('active');
+    document.getElementById('audioSection').classList.remove('recording');
+  }
+
+  function clearTranscript() {
+    state.audioTranscript = '';
+    const box = document.getElementById('transcriptBox');
+    box.textContent = '';
+    box.classList.remove('visible');
+    document.getElementById('clearTranscriptBtn').style.display = 'none';
+  }
+</script>
+</body>
+</html>

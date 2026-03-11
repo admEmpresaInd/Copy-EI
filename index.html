@@ -1,0 +1,1669 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masterclass Empresa Independente — Saia do Operacional em 90 Dias</title>
+<meta name="description" content="A Masterclass ao vivo onde você implementa o mesmo sistema que 300+ empresários usaram para parar de ser o gargalo do próprio negócio.">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #000000;
+  --card: #0d0d0d;
+  --card2: #111111;
+  --teal: #02B9A9;
+  --teal-lt: #6EDCD2;
+  --teal-dark-start: #074B45;
+  --green-cta: #22C55E;
+  --green-hover: #16A34A;
+  --white: #F1F1F1;
+  --gray: #5A9E98;
+  --gray-lt: #9DD0CB;
+  --beige: #E0F7F5;
+  --mint: #B8FFF9;
+  --red: #EF4444;
+  --font: 'Montserrat', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--white);
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Grid Background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Animations */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+@keyframes shimmer {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+@keyframes terminalBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+@keyframes countUp {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Container */
+.container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 32px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Highlight text */
+.highlight {
+  background: linear-gradient(90deg, var(--teal) 0%, var(--teal-lt) 50%, var(--teal) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.teal { color: var(--teal); }
+
+/* Section */
+section {
+  padding: 100px 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* Typography */
+h1 {
+  font-size: clamp(1.7rem, 2.8vw, 2.6rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+h2 {
+  font-size: clamp(1.6rem, 3.2vw, 2.8rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+h3 {
+  font-size: clamp(1.15rem, 2vw, 1.6rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+p {
+  color: rgba(241,241,241,0.75);
+  font-size: clamp(0.95rem, 1.1vw, 1.1rem);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 18px 36px;
+  border-radius: 10px;
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.btn-primary {
+  background: var(--green-cta);
+  color: #000;
+  font-size: 1.1rem;
+}
+.btn-primary:hover {
+  background: var(--green-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(34,197,94,0.4);
+}
+.btn-sub {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: rgba(241,241,241,0.5);
+  margin-top: 12px;
+  text-align: center;
+}
+
+/* Cards */
+.card {
+  background: var(--card);
+  border: 1px solid rgba(2,185,169,0.14);
+  border-radius: 16px;
+  padding: 32px;
+  transition: all 0.3s ease;
+}
+.card:hover {
+  border-color: rgba(2,185,169,0.3);
+  box-shadow: 0 8px 40px rgba(2,185,169,0.08);
+}
+
+/* ===================== HERO ===================== */
+.hero {
+  padding: 120px 0 80px;
+  text-align: center;
+}
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--teal);
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+.hero-eyebrow .dot {
+  width: 6px; height: 6px;
+  background: var(--teal);
+  border-radius: 50%;
+  animation: pulse 1.5s infinite;
+}
+.hero h1 {
+  font-size: clamp(2rem, 4.5vw, 3.4rem);
+  max-width: 900px;
+  margin: 0 auto 20px;
+}
+.hero .sub {
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  color: rgba(241,241,241,0.65);
+  max-width: 700px;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+}
+.hero-cta { margin-bottom: 48px; }
+
+/* Proof bar */
+.proof-bar {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+.proof-item {
+  text-align: center;
+}
+.proof-item .number {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 900;
+  color: var(--teal);
+  display: block;
+  line-height: 1;
+}
+.proof-item .label {
+  font-size: 0.82rem;
+  color: rgba(241,241,241,0.5);
+  margin-top: 4px;
+}
+
+/* ===================== DOR EMOCIONAL ===================== */
+.pain {
+  background: linear-gradient(135deg, var(--teal-dark-start) 0%, var(--bg) 100%);
+}
+.pain .container {
+  max-width: 800px;
+  text-align: center;
+}
+.pain h2 {
+  margin-bottom: 32px;
+}
+.pain p {
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
+  margin-bottom: 20px;
+  color: rgba(241,241,241,0.7);
+}
+.pain .transition {
+  font-size: 1.1rem;
+  color: var(--teal-lt);
+  font-weight: 600;
+  margin-top: 36px;
+  font-style: italic;
+}
+
+/* ===================== SINTOMAS ===================== */
+.symptoms h2 {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 60px;
+}
+.symptoms-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+.symptom-card {
+  padding: 28px;
+}
+.symptom-card .num {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--teal);
+  font-weight: 700;
+  margin-bottom: 10px;
+  display: block;
+}
+.symptom-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  color: var(--white);
+}
+.symptom-card p {
+  font-size: 0.92rem;
+  color: rgba(241,241,241,0.6);
+  line-height: 1.6;
+}
+.symptoms-bottom {
+  text-align: center;
+  margin-top: 48px;
+}
+.symptoms-bottom p {
+  font-size: 1.05rem;
+  color: rgba(241,241,241,0.65);
+}
+.symptoms-bottom strong {
+  color: var(--teal);
+  font-size: 1.3rem;
+  display: block;
+  margin-top: 8px;
+}
+
+/* ===================== CASES ===================== */
+.cases { background: var(--card); }
+.cases h2 {
+  text-align: center;
+  margin-bottom: 60px;
+}
+.cases-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.case-card {
+  background: var(--bg);
+  border: 1px solid rgba(2,185,169,0.14);
+  border-radius: 16px;
+  padding: 32px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+.case-card:hover {
+  border-color: rgba(2,185,169,0.35);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 48px rgba(2,185,169,0.1);
+}
+.case-card .name {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+.case-card .desc {
+  font-size: 0.85rem;
+  color: rgba(241,241,241,0.5);
+  margin-bottom: 20px;
+}
+.case-card .before-after {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.case-card .val {
+  font-family: var(--mono);
+  font-weight: 700;
+}
+.case-card .val.before {
+  color: rgba(241,241,241,0.4);
+  font-size: 1rem;
+  text-decoration: line-through;
+}
+.case-card .arrow {
+  color: var(--teal);
+  font-size: 1.2rem;
+}
+.case-card .val.after {
+  color: var(--green-cta);
+  font-size: 1.3rem;
+}
+.case-card .result {
+  background: rgba(2,185,169,0.1);
+  border: 1px solid rgba(2,185,169,0.2);
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--teal);
+}
+.case-card .quote {
+  margin-top: 16px;
+  font-size: 0.88rem;
+  color: rgba(241,241,241,0.55);
+  font-style: italic;
+  line-height: 1.5;
+}
+.cases-transition {
+  text-align: center;
+  margin-top: 48px;
+  font-size: 1.05rem;
+  color: rgba(241,241,241,0.6);
+}
+.cases-transition strong {
+  color: var(--white);
+}
+
+/* ===================== SOLUÇÃO ===================== */
+.solution h2 {
+  text-align: center;
+  max-width: 860px;
+  margin: 0 auto 24px;
+}
+.solution > .container > p {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 16px;
+}
+.solution-intro {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 48px;
+}
+.solution-intro ul {
+  list-style: none;
+  text-align: left;
+  max-width: 600px;
+  margin: 24px auto 0;
+}
+.solution-intro ul li {
+  padding: 8px 0;
+  padding-left: 28px;
+  position: relative;
+  color: rgba(241,241,241,0.75);
+  font-size: 1rem;
+}
+.solution-intro ul li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--green-cta);
+  font-weight: 700;
+}
+
+/* Comparison table */
+.comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 48px;
+}
+.comparison-col {
+  border-radius: 16px;
+  padding: 32px;
+}
+.comparison-col.without {
+  background: rgba(239,68,68,0.05);
+  border: 1px solid rgba(239,68,68,0.15);
+}
+.comparison-col.with {
+  background: rgba(2,185,169,0.05);
+  border: 1px solid rgba(2,185,169,0.2);
+}
+.comparison-col h3 {
+  font-size: 1rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.comparison-col.without h3 { color: var(--red); }
+.comparison-col.with h3 { color: var(--teal); }
+.comparison-col ul {
+  list-style: none;
+}
+.comparison-col ul li {
+  padding: 10px 0;
+  padding-left: 28px;
+  position: relative;
+  font-size: 0.92rem;
+  color: rgba(241,241,241,0.65);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.comparison-col ul li:last-child { border-bottom: none; }
+.comparison-col.without ul li::before {
+  content: '✕';
+  position: absolute;
+  left: 0;
+  color: var(--red);
+  font-weight: 700;
+}
+.comparison-col.with ul li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--green-cta);
+  font-weight: 700;
+}
+
+/* ===================== AGENDA ===================== */
+.agenda {
+  background: var(--card);
+}
+.agenda h2 {
+  text-align: center;
+  margin-bottom: 8px;
+}
+.agenda .agenda-sub {
+  text-align: center;
+  color: rgba(241,241,241,0.55);
+  margin-bottom: 60px;
+  font-size: 1.05rem;
+}
+.timeline {
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--teal) 0%, rgba(2,185,169,0.1) 100%);
+}
+.timeline-item {
+  display: flex;
+  gap: 28px;
+  margin-bottom: 40px;
+  position: relative;
+}
+.timeline-item:last-child { margin-bottom: 0; }
+.timeline-dot {
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  background: var(--bg);
+  border: 2px solid var(--teal);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--teal);
+  z-index: 1;
+}
+.timeline-dot.break {
+  border-color: rgba(241,241,241,0.2);
+  color: rgba(241,241,241,0.4);
+}
+.timeline-content h3 {
+  font-size: 1.05rem;
+  margin-bottom: 10px;
+  color: var(--white);
+}
+.timeline-content ul {
+  list-style: none;
+}
+.timeline-content ul li {
+  padding: 4px 0;
+  padding-left: 20px;
+  position: relative;
+  font-size: 0.9rem;
+  color: rgba(241,241,241,0.6);
+}
+.timeline-content ul li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--teal);
+}
+.timeline-content .break-text {
+  color: rgba(241,241,241,0.4);
+  font-size: 0.9rem;
+}
+
+/* ===================== FERRAMENTA (IA) ===================== */
+.tool h2 {
+  text-align: center;
+  margin-bottom: 8px;
+}
+.tool .tool-sub {
+  text-align: center;
+  color: rgba(241,241,241,0.55);
+  max-width: 650px;
+  margin: 0 auto 48px;
+  font-size: 1rem;
+}
+
+/* Terminal window */
+.terminal {
+  background: #0D0D0F;
+  border-radius: 20px;
+  border: 1px solid rgba(2,185,169,0.12);
+  overflow: hidden;
+  max-width: 700px;
+  margin: 0 auto 48px;
+}
+.terminal-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.terminal-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+}
+.terminal-dot.r { background: #FF5F57; }
+.terminal-dot.y { background: #FFBD2E; }
+.terminal-dot.g { background: #28CA41; }
+.terminal-body {
+  padding: 24px;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  line-height: 1.8;
+}
+.terminal-body .prompt { color: var(--teal); }
+.terminal-body .output { color: rgba(241,241,241,0.55); }
+.terminal-body .success { color: var(--green-cta); }
+.terminal-body .cursor-blink {
+  display: inline-block;
+  width: 8px;
+  height: 16px;
+  background: var(--teal);
+  animation: terminalBlink 1s step-end infinite;
+  vertical-align: middle;
+  margin-left: 4px;
+}
+
+.tool-features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.tool-feature {
+  text-align: center;
+  padding: 28px 20px;
+}
+.tool-feature .icon {
+  font-size: 1.6rem;
+  margin-bottom: 12px;
+  display: block;
+}
+.tool-feature h3 {
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+  color: var(--white);
+}
+.tool-feature p {
+  font-size: 0.85rem;
+  color: rgba(241,241,241,0.55);
+}
+.tool-bottom {
+  text-align: center;
+  margin-top: 40px;
+}
+.tool-bottom p {
+  font-size: 1.05rem;
+  color: var(--teal-lt);
+  font-weight: 600;
+}
+.tool-bottom .small {
+  font-size: 0.85rem;
+  color: rgba(241,241,241,0.45);
+  font-weight: 400;
+  margin-top: 8px;
+}
+
+/* ===================== VALUE STACK ===================== */
+.value-stack h2 {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.stack-table {
+  max-width: 700px;
+  margin: 0 auto;
+}
+.stack-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 24px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.stack-row:last-child { border-bottom: none; }
+.stack-row .item {
+  font-size: 0.95rem;
+  color: rgba(241,241,241,0.75);
+  flex: 1;
+}
+.stack-row .item.featured {
+  color: var(--teal);
+  font-weight: 600;
+}
+.stack-row .price {
+  font-family: var(--mono);
+  font-weight: 700;
+  color: rgba(241,241,241,0.4);
+  text-decoration: line-through;
+  font-size: 0.95rem;
+  min-width: 80px;
+  text-align: right;
+}
+.stack-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px;
+  margin-top: 16px;
+  background: rgba(2,185,169,0.08);
+  border: 1px solid rgba(2,185,169,0.2);
+  border-radius: 12px;
+}
+.stack-total .label {
+  font-size: 1rem;
+  color: rgba(241,241,241,0.6);
+}
+.stack-total .total {
+  font-family: var(--mono);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: rgba(241,241,241,0.4);
+  text-decoration: line-through;
+}
+
+/* ===================== BONUS ===================== */
+.bonus {
+  background: var(--card);
+}
+.bonus-box {
+  border: 2px solid var(--teal);
+  border-radius: 20px;
+  padding: 48px;
+  box-shadow: 0 0 60px rgba(2,185,169,0.1);
+  max-width: 900px;
+  margin: 0 auto;
+}
+.bonus-box .eyebrow {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--teal);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.bonus-box h2 {
+  margin-bottom: 8px;
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+}
+.bonus-box .valor {
+  color: rgba(241,241,241,0.5);
+  font-size: 0.95rem;
+  margin-bottom: 36px;
+}
+.bonus-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.bonus-step {
+  padding: 20px;
+  background: var(--bg);
+  border-radius: 12px;
+  border: 1px solid rgba(2,185,169,0.1);
+}
+.bonus-step .step-num {
+  font-family: var(--mono);
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 900;
+  color: rgba(2,185,169,0.15);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.bonus-step h4 {
+  font-size: 0.9rem;
+  color: var(--teal);
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+.bonus-step p {
+  font-size: 0.82rem;
+  color: rgba(241,241,241,0.5);
+  line-height: 1.5;
+}
+
+/* ===================== ACESSO INSTANTÂNEO ===================== */
+.instant h2 {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.instant-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.instant-card {
+  padding: 32px;
+}
+.instant-card .icon {
+  font-size: 2rem;
+  margin-bottom: 16px;
+  display: block;
+}
+.instant-card h3 {
+  font-size: 1.05rem;
+  margin-bottom: 10px;
+  color: var(--white);
+}
+.instant-card p {
+  font-size: 0.9rem;
+  color: rgba(241,241,241,0.55);
+}
+
+/* ===================== OFERTA ===================== */
+.offer {
+  background: linear-gradient(135deg, var(--teal-dark-start) 0%, var(--bg) 100%);
+  text-align: center;
+}
+.offer h2 {
+  margin-bottom: 8px;
+}
+.offer .price-from {
+  font-size: 1rem;
+  color: rgba(241,241,241,0.5);
+  margin-bottom: 4px;
+}
+.offer .price-from s {
+  color: rgba(241,241,241,0.35);
+}
+.offer .price-big {
+  font-size: clamp(3rem, 7vw, 5rem);
+  font-weight: 900;
+  color: var(--green-cta);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.offer .price-big .currency {
+  font-size: 0.4em;
+  vertical-align: super;
+}
+.offer .roi-text {
+  max-width: 600px;
+  margin: 24px auto 36px;
+  font-size: 1rem;
+  color: rgba(241,241,241,0.65);
+}
+.offer .roi-text strong {
+  color: var(--teal-lt);
+}
+.offer .payments {
+  font-size: 0.85rem;
+  color: rgba(241,241,241,0.4);
+  margin-top: 16px;
+}
+.offer-benefits {
+  list-style: none;
+  max-width: 500px;
+  margin: 0 auto 36px;
+  text-align: left;
+}
+.offer-benefits li {
+  padding: 8px 0;
+  padding-left: 28px;
+  position: relative;
+  color: rgba(241,241,241,0.7);
+  font-size: 0.95rem;
+}
+.offer-benefits li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--green-cta);
+  font-weight: 700;
+}
+
+/* ===================== GARANTIA ===================== */
+.guarantee {
+  text-align: center;
+}
+.guarantee-box {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 48px;
+  border: 1px solid rgba(34,197,94,0.2);
+  border-radius: 20px;
+  background: rgba(34,197,94,0.03);
+}
+.guarantee-box .shield {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  display: block;
+}
+.guarantee-box h2 {
+  margin-bottom: 20px;
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+}
+.guarantee-box p {
+  font-size: 1rem;
+  margin-bottom: 16px;
+}
+.guarantee-box .bold-line {
+  color: var(--green-cta);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+/* ===================== BREIER ===================== */
+.presenter {
+  background: var(--card);
+}
+.presenter-inner {
+  display: flex;
+  gap: 48px;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.presenter-text { flex: 1; }
+.presenter-text h2 {
+  margin-bottom: 20px;
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+}
+.presenter-text p {
+  margin-bottom: 16px;
+}
+.presenter-stats {
+  display: flex;
+  gap: 32px;
+  margin-top: 28px;
+}
+.presenter-stat {
+  text-align: center;
+}
+.presenter-stat .num {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: var(--teal);
+  display: block;
+  line-height: 1;
+}
+.presenter-stat .lbl {
+  font-size: 0.78rem;
+  color: rgba(241,241,241,0.5);
+  margin-top: 4px;
+}
+.presenter-photo {
+  width: 280px;
+  min-width: 280px;
+  height: 340px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(2,185,169,0.15) 0%, rgba(2,185,169,0.05) 100%);
+  border: 1px solid rgba(2,185,169,0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 5rem;
+  color: rgba(2,185,169,0.3);
+}
+
+/* ===================== URGÊNCIA ===================== */
+.urgency {
+  text-align: center;
+  background: linear-gradient(135deg, var(--teal-dark-start) 0%, var(--bg) 100%);
+}
+.urgency h2 {
+  margin-bottom: 20px;
+}
+.urgency p {
+  max-width: 650px;
+  margin: 0 auto 16px;
+  font-size: 1rem;
+}
+.urgency .warn {
+  color: var(--teal);
+  font-weight: 600;
+  font-size: 1.05rem;
+  margin-top: 24px;
+}
+
+/* ===================== FAQ ===================== */
+.faq h2 {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.faq-list {
+  max-width: 760px;
+  margin: 0 auto;
+}
+.faq-item {
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 24px 0;
+}
+.faq-item:last-child { border-bottom: none; }
+.faq-q {
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--white);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.faq-q::after {
+  content: '+';
+  font-size: 1.4rem;
+  color: var(--teal);
+  font-weight: 300;
+  min-width: 20px;
+  text-align: center;
+  transition: transform 0.3s;
+}
+.faq-item.open .faq-q::after {
+  content: '−';
+}
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+}
+.faq-item.open .faq-a {
+  max-height: 300px;
+  padding-top: 14px;
+}
+.faq-a p {
+  font-size: 0.92rem;
+  color: rgba(241,241,241,0.6);
+  line-height: 1.7;
+}
+
+/* ===================== CTA FINAL ===================== */
+.final-cta {
+  text-align: center;
+  padding: 120px 0;
+  background: var(--card);
+}
+.final-cta h2 {
+  max-width: 700px;
+  margin: 0 auto 12px;
+}
+.final-cta .sub {
+  font-size: 1.15rem;
+  color: rgba(241,241,241,0.6);
+  margin-bottom: 36px;
+}
+.final-cta .whatsapp {
+  margin-top: 24px;
+  font-size: 0.9rem;
+  color: rgba(241,241,241,0.4);
+}
+.final-cta .whatsapp a {
+  color: var(--teal);
+  text-decoration: none;
+}
+.final-cta .whatsapp a:hover {
+  text-decoration: underline;
+}
+
+/* ===================== FOOTER ===================== */
+footer {
+  text-align: center;
+  padding: 40px 0;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  position: relative;
+  z-index: 1;
+}
+footer p {
+  font-size: 0.78rem;
+  color: rgba(241,241,241,0.3);
+}
+footer a {
+  color: rgba(241,241,241,0.3);
+  text-decoration: none;
+}
+footer a:hover { color: var(--teal); }
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 900px) {
+  .symptoms-grid { grid-template-columns: 1fr; }
+  .cases-grid { grid-template-columns: 1fr; }
+  .comparison { grid-template-columns: 1fr; }
+  .tool-features { grid-template-columns: 1fr; }
+  .bonus-grid { grid-template-columns: 1fr; }
+  .instant-grid { grid-template-columns: 1fr; }
+  .presenter-inner { flex-direction: column-reverse; text-align: center; }
+  .presenter-stats { justify-content: center; }
+  .presenter-photo { width: 200px; min-width: 200px; height: 240px; margin: 0 auto; }
+  .proof-bar { gap: 28px; }
+}
+@media (max-width: 600px) {
+  .container { padding: 0 20px; }
+  section { padding: 72px 0; }
+  .hero { padding: 80px 0 60px; }
+  .bonus-box { padding: 28px; }
+  .guarantee-box { padding: 32px; }
+  .btn { padding: 16px 28px; font-size: 0.95rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-eyebrow fade-up">
+      <span class="dot"></span>
+      MASTERCLASS AO VIVO · 26 DE MARÇO
+    </div>
+    <h1 class="fade-up">Saia do operacional em 90 dias e <span class="highlight">escale sua empresa até 4×</span> — mesmo com time enxuto</h1>
+    <p class="sub fade-up">A Masterclass ao vivo onde você implementa o mesmo sistema que 300+ empresários usaram para parar de ser o gargalo do próprio negócio</p>
+    <div class="hero-cta fade-up">
+      <a href="#oferta" class="btn btn-primary">QUERO MINHA VAGA POR R$19,90</a>
+      <span class="btn-sub">Vagas limitadas · Satisfação garantida ou seu dinheiro de volta</span>
+    </div>
+    <div class="proof-bar fade-up">
+      <div class="proof-item">
+        <span class="number">+300</span>
+        <span class="label">empresários já implementaram</span>
+      </div>
+      <div class="proof-item">
+        <span class="number">4×</span>
+        <span class="label">de crescimento médio</span>
+      </div>
+      <div class="proof-item">
+        <span class="number">84%</span>
+        <span class="label">de acerto em contratações</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== DOR EMOCIONAL ==================== -->
+<section class="pain">
+  <div class="container">
+    <h2 class="fade-up">Você construiu a empresa.<br><span class="highlight">Mas a empresa te prendeu.</span></h2>
+    <p class="fade-up">Você é o primeiro a chegar e o último a sair. Trabalha mais que qualquer funcionário, mas no fim do mês o lucro não reflete nem metade do seu esforço.</p>
+    <p class="fade-up">Se você tira férias, o WhatsApp não para. Se você não responde, nada anda. Se você contrata alguém novo, passa semanas treinando — e torce pra pessoa não pedir demissão em 3 meses.</p>
+    <p class="fade-up">Você não abriu uma empresa. Você criou um emprego onde o patrão é o que mais trabalha e o que menos descansa.</p>
+    <p class="transition fade-up">E o pior: você sabe que precisa mudar, mas não tem tempo nem energia pra descobrir como.</p>
+  </div>
+</section>
+
+<!-- ==================== SINTOMAS ==================== -->
+<section class="symptoms">
+  <div class="container">
+    <h2 class="fade-up">Se você se reconhece em pelo menos 3 desses sinais, <span class="highlight">essa Masterclass foi feita pra você</span></h2>
+    <div class="symptoms-grid">
+      <div class="card symptom-card fade-up">
+        <span class="num">01</span>
+        <h3>Você virou o funcionário mais caro da empresa</h3>
+        <p>Sua hora vale R$200, R$500, talvez R$1.000. Mas você gasta ela respondendo e-mail, cobrando tarefa e apagando incêndio. Trabalho de R$15/hora feito pela pessoa mais cara da operação.</p>
+      </div>
+      <div class="card symptom-card fade-up">
+        <span class="num">02</span>
+        <h3>Nada acontece sem o seu OK</h3>
+        <p>Equipe trava esperando sua aprovação. Você é o gargalo e sabe disso — mas não confia em delegar porque da última vez deu errado.</p>
+      </div>
+      <div class="card symptom-card fade-up">
+        <span class="num">03</span>
+        <h3>Contrata no desespero, demite com frustração</h3>
+        <p>Precisa de alguém urgente, contrata pelo feeling, e em 60 dias está procurando de novo. Cada contratação errada custa entre R$10K e R$50K.</p>
+      </div>
+      <div class="card symptom-card fade-up">
+        <span class="num">04</span>
+        <h3>Os mesmos problemas voltam toda semana</h3>
+        <p>Parece déjà vu. Os "incêndios" de hoje são os mesmos de 3 meses atrás. Não existe processo documentado, então cada pessoa resolve do seu jeito.</p>
+      </div>
+      <div class="card symptom-card fade-up">
+        <span class="num">05</span>
+        <h3>Quer crescer, mas precisaria trabalhar 20h por dia</h3>
+        <p>O modelo atual não escala. Pra faturar mais, você teria que se multiplicar. E como isso é impossível, o negócio trava num platô.</p>
+      </div>
+      <div class="card symptom-card fade-up">
+        <span class="num">06</span>
+        <h3>Todo mundo fala de IA, mas você não sabe por onde começar</h3>
+        <p>Já viu promessas de "automatize tudo com IA". Já testou ChatGPT. Mas na prática, não conseguiu aplicar nada de verdade no dia a dia da empresa.</p>
+      </div>
+    </div>
+    <div class="symptoms-bottom fade-up">
+      <p>Seu problema não é falta de vendas, falta de equipe ou falta de esforço.</p>
+      <strong class="highlight">Seu problema é falta de sistema.</strong>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CASES ==================== -->
+<section class="cases">
+  <div class="container">
+    <h2 class="fade-up">Eles tinham os mesmos problemas que você. <span class="highlight">Veja o que mudou:</span></h2>
+    <div class="cases-grid">
+      <div class="case-card fade-up">
+        <div class="name">Marlon Jonck</div>
+        <div class="desc">Empresário</div>
+        <div class="before-after">
+          <span class="val before">R$50K</span>
+          <span class="arrow">→</span>
+          <span class="val after">R$100K+</span>
+        </div>
+        <div class="result">+100% em 60 dias</div>
+        <p class="quote">"Eu vivia apagando incêndio. Depois que implementei o sistema, minha equipe começou a resolver sozinha."</p>
+      </div>
+      <div class="case-card fade-up">
+        <div class="name">Rejuv Cosméticos</div>
+        <div class="desc">Indústria cosmética</div>
+        <div class="before-after">
+          <span class="val before">R$1,1Mi</span>
+          <span class="arrow">→</span>
+          <span class="val after">R$1,7Mi</span>
+        </div>
+        <div class="result">+54% em 90 dias</div>
+        <p class="quote">Saiu de uma operação centralizada no dono para uma estrutura com processos claros e time autônomo.</p>
+      </div>
+      <div class="case-card fade-up">
+        <div class="name">Daniel Tenório</div>
+        <div class="desc">Empresário</div>
+        <div class="before-after">
+          <span class="val before">R$80K</span>
+          <span class="arrow">→</span>
+          <span class="val after">R$2,2Mi</span>
+        </div>
+        <div class="result">27× de crescimento</div>
+        <p class="quote">R$80K → R$450K → R$1,4M → R$2,2M. Cada salto aconteceu quando parou de fazer e começou a liderar com sistema.</p>
+      </div>
+    </div>
+    <p class="cases-transition fade-up">Eles não são gênios. Não tiveram sorte. Eles implementaram um sistema.<br><strong>E no dia 26 de março, você vai implementar o mesmo.</strong></p>
+  </div>
+</section>
+
+<!-- ==================== SOLUÇÃO ==================== -->
+<section class="solution">
+  <div class="container">
+    <h2 class="fade-up">Em 7 horas, você monta o sistema que te tira do operacional — <span class="highlight">e usa IA pra fazer o trabalho pesado</span></h2>
+    <div class="solution-intro fade-up">
+      <p>A Masterclass Empresa Independente não é palestra. Não é motivação. Não é teoria.</p>
+      <p style="margin-top: 12px;">É um dia inteiro de implementação guiada onde você sai com:</p>
+      <ul>
+        <li>Seus processos documentados (o que levaria semanas, a IA faz em minutos)</li>
+        <li>Um método de contratação que acerta 84% das vezes</li>
+        <li>Tarefas operacionais automatizadas que te liberam 15h por semana</li>
+        <li>Um plano de 90 dias personalizado pro seu negócio</li>
+      </ul>
+      <p style="margin-top: 16px; color: rgba(241,241,241,0.65);">Tudo isso usando um assistente de IA que você vai configurar ao vivo, na Masterclass, comigo.</p>
+    </div>
+    <div class="comparison fade-up">
+      <div class="comparison-col without">
+        <h3>Sem sistema</h3>
+        <ul>
+          <li>Faz tudo na mão, gasta horas em planilha</li>
+          <li>Contrata por feeling, erra 60% das vezes</li>
+          <li>Processos na sua cabeça, time perdido</li>
+          <li>Reuniões intermináveis de alinhamento</li>
+          <li>Trabalha 60h/semana, lucra pouco</li>
+        </ul>
+      </div>
+      <div class="comparison-col with">
+        <h3>Com o Sistema E.I. + IA</h3>
+        <ul>
+          <li>IA automatiza 80% do operacional repetitivo</li>
+          <li>Score automático de candidatos — 84% de acerto</li>
+          <li>47 processos documentados em 8 minutos</li>
+          <li>Relatórios automáticos, alinhamento sem reunião</li>
+          <li>15h livres por semana com 40% mais lucro</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== AGENDA ==================== -->
+<section class="agenda">
+  <div class="container">
+    <h2 class="fade-up">26 de março · Quinta-feira · <span class="highlight">Ao vivo no Zoom</span></h2>
+    <p class="agenda-sub fade-up">7 horas de imersão. Você entra com problemas, sai com sistema implementado.</p>
+    <div class="timeline fade-up">
+      <div class="timeline-item">
+        <div class="timeline-dot">9h</div>
+        <div class="timeline-content">
+          <h3>Diagnóstico: descubra onde você está preso</h3>
+          <ul>
+            <li>Mapeie onde suas horas estão sendo desperdiçadas</li>
+            <li>Classifique cada tarefa: Delegar, Eliminar, Automatizar ou Manter</li>
+            <li>Descubra quanto dinheiro você perde fazendo trabalho operacional</li>
+            <li>Configure seu assistente de IA ao vivo</li>
+          </ul>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">11h</div>
+        <div class="timeline-content">
+          <h3>Processos: documente tudo em minutos (não semanas)</h3>
+          <ul>
+            <li>Use a IA para criar todos os processos-chave automaticamente</li>
+            <li>Framework MEDIR para processos que o time realmente segue</li>
+            <li>Sistema de revisão pra nunca ficarem desatualizados</li>
+          </ul>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot break">13h</div>
+        <div class="timeline-content">
+          <p class="break-text">Almoço — Pausa de 1 hora</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">14h</div>
+        <div class="timeline-content">
+          <h3>Contratação + Delegação: pare de errar e de microgerenciar</h3>
+          <ul>
+            <li>Defina o perfil exato de quem você precisa</li>
+            <li>Crie anúncios que atraem profissionais sérios</li>
+            <li>Onboarding que gera resultado nas primeiras semanas</li>
+            <li>Aprenda a delegar de vez — sem ficar em cima</li>
+          </ul>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">16h</div>
+        <div class="timeline-content">
+          <h3>Cultura + Plano de 90 dias: escale sem depender de você</h3>
+          <ul>
+            <li>Transforme valores da empresa em comportamentos reais</li>
+            <li>Crie o "sistema operacional invisível"</li>
+            <li>Saia com seu plano de 90 dias desenhado</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FERRAMENTA IA ==================== -->
+<section class="tool">
+  <div class="container">
+    <h2 class="fade-up">Seu novo braço direito <span class="highlight">não pede aumento, não falta e trabalha 24h</span></h2>
+    <p class="tool-sub fade-up">Na Masterclass, você vai configurar um assistente de IA que executa tarefas reais na sua empresa — sem precisar saber programar.</p>
+
+    <div class="terminal fade-up">
+      <div class="terminal-header">
+        <div class="terminal-dot r"></div>
+        <div class="terminal-dot y"></div>
+        <div class="terminal-dot g"></div>
+      </div>
+      <div class="terminal-body">
+        <div><span class="prompt">empresa@ia ~$</span> <span class="output">documente o processo de onboarding</span></div>
+        <br>
+        <div><span class="success">✓</span> <span class="output">Analisando estrutura atual...</span></div>
+        <div><span class="success">✓</span> <span class="output">Processo de Onboarding gerado — 12 etapas</span></div>
+        <div><span class="success">✓</span> <span class="output">Checklist criado para o gestor</span></div>
+        <div><span class="success">✓</span> <span class="output">Template de e-mail de boas-vindas pronto</span></div>
+        <br>
+        <div><span class="prompt">empresa@ia ~$</span> <span class="output">analise os 47 currículos da vaga de vendedor</span></div>
+        <br>
+        <div><span class="success">✓</span> <span class="output">47 candidatos analisados — Score gerado</span></div>
+        <div><span class="success">✓</span> <span class="output">Top 5 recomendados com justificativa</span></div>
+        <div><span class="success">✓</span> <span class="output">3 candidatos eliminados por red flags</span></div>
+        <br>
+        <div><span class="prompt">empresa@ia ~$</span> <span class="cursor-blink"></span></div>
+      </div>
+    </div>
+
+    <div class="tool-features">
+      <div class="card tool-feature fade-up">
+        <span class="icon">⚡</span>
+        <h3>Documenta processos</h3>
+        <p>Você explica como funciona, ele escreve o passo a passo completo em minutos</p>
+      </div>
+      <div class="card tool-feature fade-up">
+        <span class="icon">👥</span>
+        <h3>Triagem de currículos</h3>
+        <p>Analisa candidatos e dá score automático baseado no perfil que você definiu</p>
+      </div>
+      <div class="card tool-feature fade-up">
+        <span class="icon">📊</span>
+        <h3>Gera relatórios</h3>
+        <p>Puxa dados das suas ferramentas e monta análises prontas pra decisão</p>
+      </div>
+      <div class="card tool-feature fade-up">
+        <span class="icon">📝</span>
+        <h3>Cria documentos</h3>
+        <p>De contratos a manuais de onboarding, tudo em português</p>
+      </div>
+      <div class="card tool-feature fade-up">
+        <span class="icon">🔗</span>
+        <h3>Conecta com suas ferramentas</h3>
+        <p>Funciona com Planilhas, Notion, CRM, Slack e o que você já usa</p>
+      </div>
+      <div class="card tool-feature fade-up">
+        <span class="icon">💰</span>
+        <h3>Menos de R$20/mês</h3>
+        <p>A mesma tecnologia usada por Uber, Netflix e Spotify</p>
+      </div>
+    </div>
+    <div class="tool-bottom fade-up">
+      <p>Você conversa em português. Ele executa. Sem código. Sem complicação.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== VALUE STACK ==================== -->
+<section class="value-stack">
+  <div class="container">
+    <h2 class="fade-up">Tudo que você leva <span class="highlight">nesse único dia:</span></h2>
+    <div class="stack-table fade-up">
+      <div class="stack-row">
+        <span class="item">Masterclass ao vivo — 7h de imersão prática + IA configurada</span>
+        <span class="price">R$397</span>
+      </div>
+      <div class="stack-row">
+        <span class="item">Ferramenta Matriz Tempo × Impacto</span>
+        <span class="price">R$197</span>
+      </div>
+      <div class="stack-row">
+        <span class="item">Kit Completo de Contratação com Scorecard + IA</span>
+        <span class="price">R$197</span>
+      </div>
+      <div class="stack-row">
+        <span class="item">Templates de Processos prontos pra usar</span>
+        <span class="price">R$97</span>
+      </div>
+      <div class="stack-row">
+        <span class="item featured">★ Acesso ao Sistema Empresa Independente completo (9 etapas)</span>
+        <span class="price">R$697</span>
+      </div>
+      <div class="stack-total">
+        <span class="label">Valor total</span>
+        <span class="total">R$1.585</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== BÔNUS ==================== -->
+<section class="bonus">
+  <div class="container">
+    <div class="bonus-box fade-up">
+      <div class="eyebrow">BÔNUS EXCLUSIVO</div>
+      <h2>Acesso completo ao <span class="highlight">Sistema Empresa Independente</span></h2>
+      <p class="valor">Valor: R$697 — incluso na sua inscrição</p>
+      <div class="bonus-grid">
+        <div class="bonus-step">
+          <div class="step-num">01</div>
+          <h4>Matriz Tempo</h4>
+          <p>Identifique onde cada hora sua é desperdiçada</p>
+        </div>
+        <div class="bonus-step">
+          <div class="step-num">02</div>
+          <h4>Delegação</h4>
+          <p>8 passos pra delegar de vez</p>
+        </div>
+        <div class="bonus-step">
+          <div class="step-num">03</div>
+          <h4>Contratação com IA</h4>
+          <p>Score automático que prevê se o candidato vai dar certo</p>
+        </div>
+        <div class="bonus-step">
+          <div class="step-num">04</div>
+          <h4>Estruturação</h4>
+          <p>Missão, visão e valores definidos em horas</p>
+        </div>
+        <div class="bonus-step">
+          <div class="step-num">05</div>
+          <h4>Processos</h4>
+          <p>Mapeamento completo com sugestões automáticas da IA</p>
+        </div>
+        <div class="bonus-step">
+          <div class="step-num">06</div>
+          <h4>Ritos de Gestão</h4>
+          <p>Reuniões e rituais que funcionam</p>
+        </div>
+        <div class="bonus-step">
+          <div class="step-num">07</div>
+          <h4>Projetos & KPIs</h4>
+          <p>Indicadores que mostram o que realmente importa</p>
+        </div>
+        <div class="bonus-step">
+          <div class="step-num">08</div>
+          <h4>Pessoas</h4>
+          <p>Avaliações e plano de desenvolvimento do time</p>
+        </div>
+        <div class="bonus-step">
+          <div class="step-num">09</div>
+          <h4>Formação de Líderes</h4>
+          <p>Crie líderes internos pra empresa rodar sem você</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ACESSO INSTANTÂNEO ==================== -->
+<section class="instant">
+  <div class="container">
+    <h2 class="fade-up">Ao garantir sua vaga, você já sai com ferramentas na mão — <span class="highlight">antes mesmo da Masterclass</span></h2>
+    <div class="instant-grid">
+      <div class="card instant-card fade-up">
+        <span class="icon">📊</span>
+        <h3>Matriz Tempo × Impacto</h3>
+        <p>Ferramenta prática pra mapear onde seu tempo está sendo desperdiçado e priorizar o que delegar primeiro. Chegue no dia 26 já com o diagnóstico feito.</p>
+      </div>
+      <div class="card instant-card fade-up">
+        <span class="icon">🎓</span>
+        <h3>Aula: Libere até 30h/semana</h3>
+        <p>Aula exclusiva mostrando como liberar até 30 horas semanais da sua agenda. Assista antes da Masterclass e chegue preparado pra implementar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== OFERTA ==================== -->
+<section class="offer" id="oferta">
+  <div class="container">
+    <h2 class="fade-up">R$1.585 em ferramentas e método.<br><span class="highlight">Seu investimento hoje:</span></h2>
+    <div class="price-big fade-up"><span class="currency">R$</span>19,90</div>
+    <div class="roi-text fade-up">
+      <p>R$19,90 é menos que um almoço executivo. Mas o que você vai implementar nessas 7 horas pode:</p>
+    </div>
+    <ul class="offer-benefits fade-up">
+      <li>Liberar 15 horas por semana da sua agenda</li>
+      <li>Cortar pela metade os erros de contratação</li>
+      <li>Documentar todos os processos da empresa em um único dia</li>
+      <li>Criar um plano real pra sair do operacional em 90 dias</li>
+    </ul>
+    <p class="fade-up" style="color: rgba(241,241,241,0.6); max-width: 550px; margin: 0 auto 36px;">Se cada hora da sua semana vale R$100, liberar 15h significa <strong style="color: var(--teal-lt);">R$6.000/mês a mais no seu bolso</strong> — só em tempo recuperado.</p>
+    <div class="fade-up">
+      <a href="#" class="btn btn-primary">QUERO MINHA VAGA POR R$19,90</a>
+      <span class="btn-sub">Pix · Cartão · Boleto</span>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== GARANTIA ==================== -->
+<section class="guarantee">
+  <div class="container">
+    <div class="guarantee-box fade-up">
+      <span class="shield">🛡️</span>
+      <h2>Garantia total. <span class="highlight">O risco é nosso, não seu.</span></h2>
+      <p>Participe da Masterclass inteira. Se ao final do dia você sentir que não valeu, devolvemos 100% do seu dinheiro. Sem pergunta. Sem burocracia. Sem prazo de espera.</p>
+      <p>Se o método funciona pra +300 empresários de clínica médica a e-commerce, de consultoria a varejo — funciona pra você também. Mas se por qualquer motivo você discordar, o risco é inteiramente nosso.</p>
+      <p class="bold-line">Você não tem nada a perder. Tem 7 horas de sistema pra ganhar.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== BREIER ==================== -->
+<section class="presenter">
+  <div class="container">
+    <div class="presenter-inner fade-up">
+      <div class="presenter-text">
+        <h2>Quem vai conduzir sua <span class="highlight">Masterclass</span></h2>
+        <p><strong style="color: var(--white);">Breier</strong> escalou a Gold Club para múltiplos 9 dígitos de faturamento — trabalhando menos horas do que quando começou.</p>
+        <p>O método que ele usa é o mesmo que você vai implementar no dia 26 de março. Não é teoria de livro. É o sistema que ele roda na própria empresa, todo dia.</p>
+        <p>Mais de 300 empresários já validaram esse sistema em segmentos diferentes: clínica médica, e-commerce, consultoria, indústria, varejo físico, serviços.</p>
+        <div class="presenter-stats">
+          <div class="presenter-stat">
+            <span class="num">+300</span>
+            <span class="lbl">Empresários</span>
+          </div>
+          <div class="presenter-stat">
+            <span class="num">9 dígitos</span>
+            <span class="lbl">Faturamento</span>
+          </div>
+          <div class="presenter-stat">
+            <span class="num">4×</span>
+            <span class="lbl">Crescimento médio</span>
+          </div>
+        </div>
+      </div>
+      <div class="presenter-photo">B</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== URGÊNCIA ==================== -->
+<section class="urgency">
+  <div class="container fade-up">
+    <h2>26 de março. Uma única sessão ao vivo. <span class="highlight">Vagas limitadas.</span></h2>
+    <p>Essa Masterclass acontece ao vivo, uma única vez, com exercícios práticos em tempo real. Não é gravação. Não é "assista quando quiser". É um dia de implementação guiada com o Breier.</p>
+    <p>As vagas são limitadas porque queremos dar atenção individual no Zoom. Quando acabar, acabou.</p>
+    <p class="warn">O preço de R$19,90 é do lote atual. Nos próximos lotes, o valor sobe.</p>
+  </div>
+</section>
+
+<!-- ==================== FAQ ==================== -->
+<section class="faq">
+  <div class="container">
+    <h2 class="fade-up">Perguntas <span class="highlight">frequentes</span></h2>
+    <div class="faq-list fade-up">
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          Preciso saber programar ou entender de tecnologia?
+        </div>
+        <div class="faq-a"><p>Não. Zero. Você conversa em português com a IA, ela executa. Na Masterclass, configuramos tudo junto, ao vivo. Se você sabe copiar e colar, consegue fazer.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          O evento fica gravado?
+        </div>
+        <div class="faq-a"><p>A Masterclass ao vivo não inclui gravação — os exercícios práticos só funcionam em tempo real. Mas ao finalizar sua inscrição, você terá a opção de adicionar o Curso Gravado como complemento.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          Pra quem é essa Masterclass?
+        </div>
+        <div class="faq-a"><p>Pra empresários que já faturam e querem escalar sem trabalhar mais horas. Se a empresa depende demais de você, se o time não funciona sem sua presença, se o lucro não cresce proporcional ao esforço — e você quer usar IA pra resolver isso — é pra você.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          Minha empresa é pequena. Funciona?
+        </div>
+        <div class="faq-a"><p>Sim. O sistema foi validado em +300 empresas de todos os tamanhos e segmentos. O que importa é que você já tem operação rodando e quer criar independência operacional. Tamanho não é requisito — intenção de escalar é.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          Qual a diferença entre isso e um curso online?
+        </div>
+        <div class="faq-a"><p>Cursos ensinam conceitos. Essa Masterclass te faz implementar ao vivo. Você trabalha no SEU negócio durante o evento — com exercícios guiados, IA configurada, templates preenchidos e plano de 90 dias desenhado pra SUA empresa.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          Tem garantia?
+        </div>
+        <div class="faq-a"><p>Total. Participou e não gostou? 100% do dinheiro de volta, sem burocracia.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+          Vou conseguir implementar tudo em 1 dia?
+        </div>
+        <div class="faq-a"><p>O dia te dá o mapa completo e o ponto de partida implementado. Você sai com IA configurada, processos documentados, método de contratação montado e plano de ação de 90 dias. O trabalho que levaria meses sozinho é feito em 7 horas.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CTA FINAL ==================== -->
+<section class="final-cta">
+  <div class="container fade-up">
+    <h2>A empresa pode continuar dependendo de você.<br><span class="highlight">Ou você pode montar o sistema que te liberta.</span></h2>
+    <p class="sub">7 horas. R$19,90. Um dia que muda a forma como sua empresa funciona.</p>
+    <a href="#oferta" class="btn btn-primary">GARANTIR MINHA VAGA — VAGAS LIMITADAS</a>
+    <span class="btn-sub">26 de março · Ao vivo no Zoom · Garantia total de satisfação</span>
+    <p class="whatsapp">Ainda tem dúvidas? <a href="#">Fale com a equipe no WhatsApp</a></p>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer>
+  <div class="container">
+    <p><a href="#">Política de Privacidade</a> · <a href="#">Termos de Uso</a></p>
+    <p style="margin-top: 8px;">© 2026 Empresa Independente. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<!-- Scroll Animation -->
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

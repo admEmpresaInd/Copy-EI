@@ -1319,7 +1319,7 @@ Ex: escreva 5 variações de headline para o Raio-X, usando os frameworks de cop
       <div style="background:var(--bg-card);border:1px solid var(--border-hover);border-radius:14px;padding:28px 32px;width:380px;box-shadow:0 20px 60px rgba(0,0,0,0.6);">
         <div style="font-size:0.68rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;color:var(--fg-muted);margin-bottom:16px;">Salvar em EI/</div>
         <div style="font-size:0.95rem;font-weight:600;margin-bottom:6px;color:var(--fg);">Nome do arquivo</div>
-        <div style="font-size:0.78rem;color:var(--fg-dim);margin-bottom:16px;">Será salvo em <code style="background:rgba(255,255,255,0.07);padding:2px 6px;border-radius:4px;font-size:0.75rem;color:var(--primary);">EI/</code> como <code style="background:rgba(255,255,255,0.07);padding:2px 6px;border-radius:4px;font-size:0.75rem;color:var(--primary);">.md</code></div>
+        <div style="font-size:0.78rem;color:var(--fg-dim);margin-bottom:16px;">Será salvo em <code style="background:rgba(255,255,255,0.07);padding:2px 6px;border-radius:4px;font-size:0.75rem;color:var(--primary);">EI/</code> como <code style="background:rgba(255,255,255,0.07);padding:2px 6px;border-radius:4px;font-size:0.75rem;color:var(--primary);">.html</code></div>
         <input
           id="saveFilenameInput"
           type="text"
@@ -1349,11 +1349,71 @@ Ex: escreva 5 variações de headline para o Raio-X, usando os frameworks de cop
     const filename = document.getElementById('saveFilenameInput')?.value?.trim();
     if (!filename || !rawMarkdown) return;
 
+    const renderedHtml = document.getElementById('outputContent').innerHTML;
+    const html = `<!DOCTYPE html>
+<html lang="pt-BR" style="color-scheme:dark;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${filename}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0c0c0c; --bg-elevated: #141414; --bg-card: #1a1a1a;
+    --fg: #f0f0f0; --fg-muted: #888888; --fg-dim: #555555;
+    --primary: #34d399; --border: rgba(255,255,255,0.07);
+    --accent-violet: #a78bfa; --accent-amber: #fbbf24; --accent-blue: #60a5fa;
+    --accent-rose: #fb7185; --accent-cyan: #22d3ee;
+    --font-display: 'Space Grotesk', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --radius: 10px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--fg); font-family: var(--font-display); line-height: 1.7; padding: 48px 24px; -webkit-font-smoothing: antialiased; }
+  .page { max-width: 720px; margin: 0 auto; }
+  .page-header { margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  .page-title { font-size: 1.1rem; font-weight: 600; color: var(--fg-muted); letter-spacing: -0.01em; }
+  .page-date { font-size: 0.75rem; color: var(--fg-dim); margin-top: 4px; font-family: var(--font-mono); }
+  ::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+  /* Markdown output */
+  h1,h2,h3,h4,h5,h6 { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.02em; margin: 1.6em 0 0.6em; color: var(--fg); }
+  h1 { font-size: 1.8rem; color: var(--primary); }
+  h2 { font-size: 1.35rem; }
+  h3 { font-size: 1.1rem; color: var(--fg-muted); }
+  p { margin: 0.75em 0; color: var(--fg); }
+  ul, ol { padding-left: 1.5em; margin: 0.75em 0; }
+  li { margin: 0.3em 0; }
+  strong { font-weight: 600; color: var(--fg); }
+  em { color: var(--fg-muted); font-style: italic; }
+  code { font-family: var(--font-mono); font-size: 0.82em; background: rgba(255,255,255,0.07); padding: 2px 6px; border-radius: 4px; color: var(--primary); }
+  pre { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; overflow-x: auto; margin: 1em 0; }
+  pre code { background: none; padding: 0; color: var(--fg); font-size: 0.85em; }
+  blockquote { border-left: 3px solid var(--primary); margin: 1em 0; padding: 8px 16px; background: rgba(52,211,153,0.05); color: var(--fg-muted); border-radius: 0 6px 6px 0; }
+  hr { border: none; border-top: 1px solid var(--border); margin: 2em 0; }
+  a { color: var(--primary); text-decoration: none; } a:hover { text-decoration: underline; }
+  table { width: 100%; border-collapse: collapse; margin: 1em 0; font-size: 0.88rem; }
+  th { background: var(--bg-elevated); padding: 10px 14px; text-align: left; font-weight: 600; border: 1px solid var(--border); }
+  td { padding: 9px 14px; border: 1px solid var(--border); color: var(--fg-muted); }
+  tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="page-header">
+    <div class="page-title">${filename}</div>
+    <div class="page-date">${new Date().toLocaleString('pt-BR')}</div>
+  </div>
+  ${renderedHtml}
+</div>
+</body>
+</html>`;
+
     try {
       const res = await fetch('/api/save', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ content: rawMarkdown, filename }),
+        body: JSON.stringify({ content: html, filename, html: true }),
       });
       const data = await res.json();
       if (data.saved) {

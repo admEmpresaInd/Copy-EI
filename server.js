@@ -231,9 +231,11 @@ app.post('/api/generate', async (req, res) => {
 
 // ─── Save output ───
 app.post('/api/save', (req, res) => {
-  const { content, filename } = req.body;
+  const { content, filename, html } = req.body;
   if (!content) return res.status(400).json({ error: 'content required' });
-  const name = ((filename || `output-${Date.now()}`).replace(/[^a-zA-Z0-9\-_. ]/g, '').replace(/\s+/g, '-').trim() || 'output') + (filename?.endsWith('.md') ? '' : '.md');
+  const ext = html ? '.html' : '.md';
+  const base = (filename || `output-${Date.now()}`).replace(/[^a-zA-Z0-9\-_. ]/g, '').replace(/\s+/g, '-').trim() || 'output';
+  const name = base.endsWith(ext) ? base : base.replace(/\.(md|html)$/, '') + ext;
   fs.writeFileSync(path.join(ROOT, 'EI', name), content, 'utf-8');
   res.json({ saved: `EI/${name}` });
 });

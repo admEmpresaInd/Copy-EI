@@ -6,6 +6,11 @@
       "sourceType": "github",
       "computedHash": "c4e5077e5fe501fc40d6d3dfda35a87c09d49d5d468ce13ab0d939fcb00dbc8e"
     },
+    "connect-apps": {
+      "source": "composiohq/awesome-claude-skills",
+      "sourceType": "github",
+      "computedHash": "38a5ff4889310593cd0b7408d05ab4dfc847936d51b794be235d33ebe2647eca"
+    },
     "frontend-design": {
       "source": "anthropics/skills",
       "sourceType": "github",
@@ -25,6 +30,11 @@
       "source": "vercel-labs/agent-skills",
       "sourceType": "github",
       "computedHash": "d8e7d3afe37dcc8a97b99ffb5afdb4d0919ae0092ea8b68f44eb201f035e33ac"
+    },
+    "writing-x-posts": {
+      "source": "jamesgray007/hoai-course",
+      "sourceType": "github",
+      "computedHash": "4d0bf949585833e938934011dfe991ea5f0e30d2d8ef7b0a9f2ff099da9a059c"
     }
   }
 }

@@ -146,7 +146,7 @@ function runClaude(fullPrompt, imageFiles = []) {
 
 // ─── Generate ───
 app.post('/api/generate', async (req, res) => {
-  const { prompt, skills = [], folders = [], attachments = [] } = req.body;
+  const { prompt, skills = [], folders = [], attachments = [], messages = [] } = req.body;
   if (!prompt) return res.status(400).json({ error: 'prompt required' });
 
   const MAX_SKILL = 6000, MAX_FILE = 4000, MAX_TOTAL = 40000;
@@ -197,7 +197,15 @@ app.post('/api/generate', async (req, res) => {
     parts.push(`# TRANSCRIÇÃO DE ÁUDIO\n${req.body.audioTranscript}`);
   }
 
-  parts.push(`# SOLICITAÇÃO\n\n${prompt}`);
+  // Conversation history
+  if (messages.length > 0) {
+    const history = messages.map(m =>
+      `${m.role === 'user' ? 'Usuário' : 'Assistente'}: ${m.content}`
+    ).join('\n\n');
+    parts.push(`# HISTÓRICO DA CONVERSA\n\n${history}`);
+  }
+
+  parts.push(`# ${messages.length > 0 ? 'NOVA MENSAGEM' : 'SOLICITAÇÃO'}\n\n${prompt}`);
   let fullPrompt = parts.join('\n\n---\n\n');
 
   if (fullPrompt.length > MAX_TOTAL) {

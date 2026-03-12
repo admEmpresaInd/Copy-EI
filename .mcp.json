@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "apify": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@apify/actors-mcp-server",
+        "--tools",
+        "actors,apify/facebook-ads-scraper"
+      ],
+      "env": {
+        "APIFY_TOKEN": "apify_api_v6XPlKjArPb2f9ESwo1n4JyeXXxePi2g2UHa"
+      }
+    }
+  }
+}

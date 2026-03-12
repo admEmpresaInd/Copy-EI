@@ -491,6 +491,86 @@
   .output-content hr { border: none; border-top: 1px solid var(--border); margin: 1.5em 0; }
   .output-content a { color: var(--accent-blue); text-decoration: underline; text-underline-offset: 3px; }
 
+  /* ─── Conversation thread ─── */
+  .conv-message {
+    margin-bottom: 24px;
+    animation: fadeInUp 0.2s ease both;
+  }
+  .conv-role {
+    font-size: 0.65rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.08em; margin-bottom: 6px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .conv-role.user { color: var(--accent-blue); }
+  .conv-role.assistant { color: var(--primary); }
+  .conv-role-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+  .conv-role.user .conv-role-dot { background: var(--accent-blue); }
+  .conv-role.assistant .conv-role-dot { background: var(--primary); }
+  .conv-bubble {
+    padding: 12px 16px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    font-size: 0.87rem; line-height: 1.7;
+  }
+  .conv-bubble.user {
+    background: rgba(96,165,250,0.06);
+    border-color: rgba(96,165,250,0.15);
+    color: var(--fg-muted);
+    white-space: pre-wrap;
+  }
+  .conv-bubble.assistant {
+    background: var(--bg-elevated);
+  }
+  .conv-divider {
+    border: none; border-top: 1px solid var(--border);
+    margin: 20px 0;
+  }
+
+  /* ─── Follow-up bar ─── */
+  .followup-bar {
+    border-top: 1px solid var(--border);
+    padding: 10px 16px;
+    background: var(--bg-elevated);
+    flex-shrink: 0;
+    display: flex; gap: 8px; align-items: flex-end;
+  }
+  .followup-input {
+    flex: 1;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 9px 12px;
+    color: var(--fg);
+    font-family: var(--font-display);
+    font-size: 0.85rem; line-height: 1.5;
+    resize: none; outline: none;
+    min-height: 38px; max-height: 120px;
+    transition: border-color var(--transition);
+  }
+  .followup-input::placeholder { color: var(--fg-dim); }
+  .followup-input:focus { border-color: rgba(52,211,153,0.3); }
+  .btn-followup {
+    padding: 9px 16px;
+    background: var(--primary); color: #0c0c0c;
+    font-size: 0.8rem; font-weight: 700;
+    border: none; border-radius: var(--radius-sm);
+    cursor: pointer; font-family: var(--font-display);
+    transition: all var(--transition); white-space: nowrap;
+    flex-shrink: 0; align-self: flex-end;
+  }
+  .btn-followup:hover { opacity: 0.88; }
+  .btn-followup:disabled { opacity: 0.35; cursor: not-allowed; }
+  .btn-clear-conv {
+    padding: 9px 12px;
+    background: transparent; color: var(--fg-dim);
+    font-size: 0.75rem;
+    border: 1px solid var(--border); border-radius: var(--radius-sm);
+    cursor: pointer; font-family: var(--font-display);
+    transition: all var(--transition); white-space: nowrap;
+    flex-shrink: 0; align-self: flex-end;
+  }
+  .btn-clear-conv:hover { color: var(--accent-rose); border-color: rgba(251,113,133,0.3); }
+
   /* Cursor blink while streaming */
   .stream-cursor::after {
     content: '▋';
@@ -580,6 +660,9 @@
   .skill-card:nth-child(8) { animation-delay: 0.24s; }
   .skill-card:nth-child(9) { animation-delay: 0.27s; }
   .skill-card:nth-child(10) { animation-delay: 0.3s; }
+  .skill-card:nth-child(11) { animation-delay: 0.33s; }
+  .skill-card:nth-child(12) { animation-delay: 0.36s; }
+  .skill-card:nth-child(13) { animation-delay: 0.39s; }
 </style>
 </head>
 <body>
@@ -745,6 +828,61 @@
           </div>
           <div class="skill-name">Keybindings</div>
           <div class="skill-desc">Customizar atalhos de teclado</div>
+        </div>
+
+        <div class="skill-card" data-skill="writing-x-posts"
+             style="--skill-color:#38bdf8;--skill-color-dim:rgba(56,189,248,0.12);--skill-color-border:rgba(56,189,248,0.3)"
+             onclick="toggleSkill(this)">
+          <div class="skill-card-top">
+            <div class="skill-icon">𝕏</div>
+            <div class="skill-check"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          </div>
+          <div class="skill-name">Writing X Posts</div>
+          <div class="skill-desc">Posts virais para X/Twitter</div>
+        </div>
+
+        <div class="skill-card" data-skill="ui-ux-pro-max"
+             style="--skill-color:#e879f9;--skill-color-dim:rgba(232,121,249,0.12);--skill-color-border:rgba(232,121,249,0.3)"
+             onclick="toggleSkill(this)">
+          <div class="skill-card-top">
+            <div class="skill-icon">🎨</div>
+            <div class="skill-check"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          </div>
+          <div class="skill-name">UI/UX Pro Max</div>
+          <div class="skill-desc">50+ estilos, 161 paletas, design systems</div>
+        </div>
+
+        <div class="skill-card" data-skill="writing-linkedin-posts"
+             style="--skill-color:#0ea5e9;--skill-color-dim:rgba(14,165,233,0.12);--skill-color-border:rgba(14,165,233,0.3)"
+             onclick="toggleSkill(this)">
+          <div class="skill-card-top">
+            <div class="skill-icon">💼</div>
+            <div class="skill-check"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          </div>
+          <div class="skill-name">LinkedIn Posts</div>
+          <div class="skill-desc">Conteúdo autêntico estilo Top Voice</div>
+        </div>
+
+        <div class="skill-card" data-skill="pinterest-posts"
+             style="--skill-color:#f43f5e;--skill-color-dim:rgba(244,63,94,0.12);--skill-color-border:rgba(244,63,94,0.3)"
+             onclick="toggleSkill(this)">
+          <div class="skill-card-top">
+            <div class="skill-icon">📌</div>
+            <div class="skill-check"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          </div>
+          <div class="skill-name">Pinterest Posts</div>
+          <div class="skill-desc">Pins otimizados com SEO e CTA</div>
+        </div>
+
+        <div class="skill-card" data-skill="gemini-image"
+             style="--skill-color:#8b5cf6;--skill-color-dim:rgba(139,92,246,0.12);--skill-color-border:rgba(139,92,246,0.3)"
+             onclick="toggleSkill(this)">
+          <div class="skill-card-top">
+            <div class="skill-icon">🖼️</div>
+            <div class="skill-check"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          </div>
+          <div class="skill-name">Gemini Image</div>
+          <div class="skill-desc">Geração de imagens via Gemini AI</div>
         </div>
 
       </div>
@@ -929,6 +1067,22 @@ Ex: escreva 5 variações de headline para o Raio-X, usando os frameworks de cop
       </div>
       <div class="output-content" id="outputContent" style="display:none"></div>
     </div>
+
+    <!-- ─── Follow-up bar ─── -->
+    <div class="followup-bar" id="followupBar" style="display:none">
+      <textarea
+        class="followup-input"
+        id="followupInput"
+        placeholder="Continue a conversa..."
+        rows="1"
+        oninput="autoResizeFollowup(this)"
+        onkeydown="onFollowupKey(event)"
+      ></textarea>
+      <button class="btn-clear-conv" onclick="clearConversation()" title="Limpar conversa">↺ limpar</button>
+      <button class="btn-followup" id="followupBtn" onclick="sendFollowup()">
+        Enviar
+      </button>
+    </div>
   </section>
 
 </div>
@@ -968,7 +1122,7 @@ Ex: escreva 5 variações de headline para o Raio-X, usando os frameworks de cop
 </div>
 
 <script>
-  const state = { skills: new Set(), folders: new Set(), attachments: [], audioTranscript: '' };
+  const state = { skills: new Set(), folders: new Set(), attachments: [], audioTranscript: '', conversationHistory: [] };
 
   const skillColors = {
     'copy-senior':             { bg: 'rgba(52,211,153,0.12)',  color: '#34d399', border: 'rgba(52,211,153,0.25)' },
@@ -981,6 +1135,11 @@ Ex: escreva 5 variações de headline para o Raio-X, usando os frameworks de cop
     'simplify':                { bg: 'rgba(250,204,21,0.12)',  color: '#facc15', border: 'rgba(250,204,21,0.25)' },
     'loop':                    { bg: 'rgba(251,113,133,0.12)', color: '#fb7185', border: 'rgba(251,113,133,0.25)' },
     'keybindings-help':        { bg: 'rgba(134,239,172,0.12)', color: '#86efac', border: 'rgba(134,239,172,0.25)' },
+    'writing-x-posts':         { bg: 'rgba(56,189,248,0.12)',  color: '#38bdf8', border: 'rgba(56,189,248,0.25)' },
+    'ui-ux-pro-max':           { bg: 'rgba(232,121,249,0.12)', color: '#e879f9', border: 'rgba(232,121,249,0.25)' },
+    'writing-linkedin-posts':  { bg: 'rgba(14,165,233,0.12)',  color: '#0ea5e9', border: 'rgba(14,165,233,0.25)' },
+    'pinterest-posts':         { bg: 'rgba(244,63,94,0.12)',   color: '#f43f5e', border: 'rgba(244,63,94,0.25)' },
+    'gemini-image':            { bg: 'rgba(139,92,246,0.12)',  color: '#8b5cf6', border: 'rgba(139,92,246,0.25)' },
   };
 
   // ─── Selection toggles ───
@@ -1119,32 +1278,68 @@ Ex: escreva 5 variações de headline para o Raio-X, usando os frameworks de cop
   async function generate() {
     const prompt = document.getElementById('promptTextarea').value.trim();
     if (!prompt) return;
+    await runGenerate(prompt, true);
+  }
 
+  async function sendFollowup() {
+    const input = document.getElementById('followupInput');
+    const prompt = input.value.trim();
+    if (!prompt || isStreaming) return;
+    input.value = '';
+    autoResizeFollowup(input);
+    await runGenerate(prompt, false);
+  }
+
+  function onFollowupKey(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendFollowup();
+    }
+  }
+
+  function autoResizeFollowup(el) {
+    el.style.height = 'auto';
+    el.style.height = Math.min(el.scrollHeight, 120) + 'px';
+    document.getElementById('followupBtn').disabled = el.value.trim().length === 0;
+  }
+
+  async function runGenerate(prompt, isFirst) {
     if (isStreaming && abortController) {
       abortController.abort();
       return;
     }
 
-    // Reset output
     rawMarkdown = '';
     isStreaming = true;
+
     document.getElementById('outputEmpty').style.display = 'none';
     const outputContent = document.getElementById('outputContent');
     outputContent.style.display = 'block';
-    outputContent.innerHTML = '<span class="stream-cursor"> </span>';
+
+    // Add user message to conversation display
+    state.conversationHistory.push({ role: 'user', content: prompt });
+    renderConversation(true);
+
     document.getElementById('copyOutputBtn').style.display = 'none';
     document.getElementById('clearOutputBtn').style.display = 'none';
     document.getElementById('tokenMeta').textContent = '';
 
-    // Update button to stop
+    // Disable follow-up while streaming
+    const followupBtn = document.getElementById('followupBtn');
+    const followupInput = document.getElementById('followupInput');
+    if (followupBtn) followupBtn.disabled = true;
+    if (followupInput) followupInput.disabled = true;
+
+    // Update generate button
     const btn = document.getElementById('generateBtn');
     btn.classList.add('loading');
     btn.innerHTML = `<div class="spinner"></div> Gerando...`;
-
-    // Set status
     setHeaderStatus('gerando...', true);
 
     abortController = new AbortController();
+
+    // Build messages list = all except last user message (server adds the last one as "prompt")
+    const historyToSend = state.conversationHistory.slice(0, -1);
 
     try {
       const res = await fetch('/api/generate', {
@@ -1152,10 +1347,11 @@ Ex: escreva 5 variações de headline para o Raio-X, usando os frameworks de cop
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           prompt,
-          skills: [...state.skills],
-          folders: [...state.folders],
-          attachments: state.attachments,
-          audioTranscript: state.audioTranscript || undefined,
+          skills: isFirst ? [...state.skills] : [...state.skills],
+          folders: isFirst ? [...state.folders] : [...state.folders],
+          attachments: isFirst ? state.attachments : [],
+          audioTranscript: isFirst ? (state.audioTranscript || undefined) : undefined,
+          messages: historyToSend,
         }),
         signal: abortController.signal,
       });
@@ -1182,10 +1378,9 @@ Ex: escreva 5 variações de headline para o Raio-X, usando os frameworks de cop
           if (line.startsWith('data: ')) {
             try {
               const data = JSON.parse(line.slice(6));
-
               if (data.text !== undefined) {
                 rawMarkdown += data.text;
-                renderOutput(rawMarkdown, true);
+                renderConversation(true, rawMarkdown);
               } else if (data.inputTokens !== undefined) {
                 document.getElementById('tokenMeta').textContent =
                   `↑ ${data.inputTokens.toLocaleString()} · ↓ ${data.outputTokens.toLocaleString()} tokens`;
@@ -1199,19 +1394,25 @@ Ex: escreva 5 variações de headline para o Raio-X, usando os frameworks de cop
         }
       }
 
-      // Final render without cursor
-      renderOutput(rawMarkdown, false);
+      // Finalize
+      state.conversationHistory.push({ role: 'assistant', content: rawMarkdown });
+      renderConversation(false);
       document.getElementById('copyOutputBtn').style.display = 'inline-flex';
       document.getElementById('saveOutputBtn').style.display = 'inline-flex';
       document.getElementById('clearOutputBtn').style.display = 'inline-flex';
+      document.getElementById('followupBar').style.display = 'flex';
+      document.getElementById('followupBtn').disabled = true;
       setHeaderStatus('pronto', false);
 
     } catch (err) {
       if (err.name === 'AbortError') {
-        renderOutput(rawMarkdown + '\n\n*— geração interrompida —*', false);
+        state.conversationHistory.push({ role: 'assistant', content: rawMarkdown + '\n\n*— geração interrompida —*' });
+        renderConversation(false);
         setHeaderStatus('interrompido', false);
       } else {
-        outputContent.innerHTML = `<div style="color:var(--accent-rose);padding:12px;border:1px solid rgba(251,113,133,0.2);border-radius:8px;font-size:0.85rem;">
+        // Remove the pending user message from history on error
+        state.conversationHistory.pop();
+        outputContent.innerHTML += `<div style="color:var(--accent-rose);padding:12px;border:1px solid rgba(251,113,133,0.2);border-radius:8px;font-size:0.85rem;margin-top:12px;">
           ⚠️ <strong>Erro:</strong> ${err.message}
         </div>`;
         setHeaderStatus('erro', false);
@@ -1222,17 +1423,73 @@ Ex: escreva 5 variações de headline para o Raio-X, usando os frameworks de cop
       abortController = null;
       btn.classList.remove('loading');
       btn.innerHTML = `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg> Gerar`;
+      if (followupInput) followupInput.disabled = false;
       updateUI();
     }
   }
 
-  function renderOutput(markdown, withCursor) {
+  function renderConversation(streaming, streamingText = '') {
     const el = document.getElementById('outputContent');
-    const html = marked.parse(markdown);
-    el.innerHTML = html + (withCursor ? '<span class="stream-cursor"></span>' : '');
-    // Auto-scroll
+    const messages = [...state.conversationHistory];
+
+    // If streaming, replace last assistant message with current streaming text
+    const streamingMsg = streaming && streamingText !== ''
+      ? { role: 'assistant', content: streamingText, streaming: true }
+      : null;
+
+    // Build HTML
+    let html = '';
+    const displayMessages = streamingMsg
+      ? [...messages, streamingMsg]
+      : messages;
+
+    displayMessages.forEach((msg, i) => {
+      const isUser = msg.role === 'user';
+      const isLast = i === displayMessages.length - 1;
+
+      html += `<div class="conv-message">`;
+      html += `<div class="conv-role ${isUser ? 'user' : 'assistant'}">
+        <span class="conv-role-dot"></span>
+        ${isUser ? 'Você' : 'Claude'}
+      </div>`;
+
+      if (isUser) {
+        html += `<div class="conv-bubble user">${escapeHtml(msg.content)}</div>`;
+      } else {
+        const content = marked.parse(msg.content);
+        html += `<div class="conv-bubble assistant">${content}${msg.streaming ? '<span class="stream-cursor"></span>' : ''}</div>`;
+      }
+
+      html += `</div>`;
+      if (!isLast) html += `<hr class="conv-divider">`;
+    });
+
+    el.innerHTML = html;
     const body = document.getElementById('outputBody');
     body.scrollTop = body.scrollHeight;
+  }
+
+  function escapeHtml(text) {
+    return text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function clearConversation() {
+    state.conversationHistory = [];
+    rawMarkdown = '';
+    document.getElementById('outputContent').style.display = 'none';
+    document.getElementById('outputContent').innerHTML = '';
+    document.getElementById('outputEmpty').style.display = 'flex';
+    document.getElementById('followupBar').style.display = 'none';
+    document.getElementById('followupInput').value = '';
+    document.getElementById('copyOutputBtn').style.display = 'none';
+    document.getElementById('saveOutputBtn').style.display = 'none';
+    document.getElementById('clearOutputBtn').style.display = 'none';
+    document.getElementById('tokenMeta').textContent = '';
+    showToast('Conversa limpa');
   }
 
   function setHeaderStatus(text, active) {
@@ -1254,14 +1511,7 @@ Ex: escreva 5 variações de headline para o Raio-X, usando os frameworks de cop
   }
 
   function clearOutput() {
-    rawMarkdown = '';
-    document.getElementById('outputContent').style.display = 'none';
-    document.getElementById('outputContent').innerHTML = '';
-    document.getElementById('outputEmpty').style.display = 'flex';
-    document.getElementById('copyOutputBtn').style.display = 'none';
-    document.getElementById('saveOutputBtn').style.display = 'none';
-    document.getElementById('clearOutputBtn').style.display = 'none';
-    document.getElementById('tokenMeta').textContent = '';
+    clearConversation();
   }
 
   function clearAll() {

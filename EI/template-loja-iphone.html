@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">iPhone Store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- ═══════════════════════════════════════════════════════
+       TEMA — altere apenas estas variáveis para cada cliente
+  ═══════════════════════════════════════════════════════════ -->
+  <style>
+    :root {
+      /* Cor principal do cliente (botões, destaques, hover) */
+      --accent:       #F5A623;
+      --accent-rgb:   245, 166, 35;
+      --accent-dark:  #D4891A;
+
+      /* Fundos */
+      --bg:           #0C0C0E;
+      --bg-card:      #131315;
+      --bg-card-2:    #1A1A1D;
+
+      /* Textos */
+      --text:         #F0EFE9;
+      --text-muted:   #7A7A82;
+      --text-subtle:  #3F3F46;
+
+      /* Bordas */
+      --border:       rgba(255,255,255,0.07);
+      --border-hover: rgba(255,255,255,0.14);
+
+      /* WhatsApp (não altere) */
+      --wa:           #25D366;
+      --wa-dark:      #1DAA52;
+
+      /* Tipografia */
+      --font-display: 'Instrument Serif', Georgia, serif;
+      --font-body:    'Outfit', system-ui, sans-serif;
+
+      /* Raios */
+      --radius-sm:    8px;
+      --radius-md:    16px;
+      --radius-lg:    24px;
+
+      /* Transições */
+      --ease:         cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+  </style>
+
+  <style>
+    /* ═══ RESET & BASE ═══ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 16px;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ═══ UTILITÁRIOS ═══ */
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; overflow: hidden; clip: rect(0,0,0,0);
+      white-space: nowrap; border: 0;
+    }
+
+    /* ═══ GRAIN OVERLAY ═══ */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 128px 128px;
+      pointer-events: none;
+      z-index: 0;
+      opacity: .6;
+    }
+    body > * { position: relative; z-index: 1; }
+
+    /* ═══ NAVBAR ═══ */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: rgba(12,12,14,.85);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      gap: 16px;
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-style: italic;
+      color: var(--text);
+      letter-spacing: -.01em;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+      font-size: .875rem;
+      font-weight: 500;
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--wa);
+      color: #fff;
+      font-weight: 600;
+      font-size: .875rem;
+      padding: 10px 20px;
+      border-radius: 100px;
+      transition: background .2s, transform .2s var(--ease);
+      white-space: nowrap;
+      min-height: 44px;
+    }
+    .nav-cta:hover { background: var(--wa-dark); transform: translateY(-1px); }
+    .nav-cta svg { flex-shrink: 0; }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+    }
+
+    /* ═══ HERO ═══ */
+    .hero {
+      padding: 96px 0 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 600px;
+      background: radial-gradient(ellipse, rgba(var(--accent-rgb),.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(var(--accent-rgb),.12);
+      border: 1px solid rgba(var(--accent-rgb),.25);
+      color: var(--accent);
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+      animation: fadeUp .6s var(--ease) both;
+    }
+    .hero-headline {
+      font-family: var(--font-display);
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      line-height: 1.08;
+      letter-spacing: -.03em;
+      margin-bottom: 20px;
+      animation: fadeUp .6s .1s var(--ease) both;
+    }
+    .hero-headline em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: var(--text-muted);
+      max-width: 520px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+      animation: fadeUp .6s .2s var(--ease) both;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeUp .6s .3s var(--ease) both;
+    }
+    .btn-wa {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--wa);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 15px 28px;
+      border-radius: 100px;
+      transition: all .25s var(--ease);
+      border: none;
+      cursor: pointer;
+      min-height: 52px;
+    }
+    .btn-wa:hover { background: var(--wa-dark); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(37,211,102,.3); }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--text);
+      font-weight: 500;
+      font-size: 1rem;
+      padding: 15px 28px;
+      border-radius: 100px;
+      border: 1px solid var(--border-hover);
+      cursor: pointer;
+      transition: all .25s var(--ease);
+      min-height: 52px;
+    }
+    .btn-secondary:hover { border-color: rgba(var(--accent-rgb),.4); color: var(--accent); background: rgba(var(--accent-rgb),.06); }
+
+    .hero-trust {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      flex-wrap: wrap;
+      margin-top: 48px;
+      animation: fadeUp .6s .4s var(--ease) both;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .85rem;
+      color: var(--text-muted);
+    }
+    .trust-icon {
+      width: 32px; height: 32px;
+      background: var(--bg-card-2);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .9rem;
+    }
+
+    /* ═══ STATS BAR ═══ */
+    .stats-bar {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-card);
+      padding: 28px 0;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+    .stat-item {
+      text-align: center;
+      padding: 12px 16px;
+      border-right: 1px solid var(--border);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      line-height: 1;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+    .stat-label {
+      font-size: .8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+    @media (max-width: 640px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stat-item:nth-child(2) { border-right: none; }
+      .stat-item:nth-child(3) { border-right: 1px solid var(--border); border-top: 1px solid var(--border); }
+      .stat-item:nth-child(4) { border-right: none; border-top: 1px solid var(--border); }
+    }
+
+    /* ═══ SEÇÕES ═══ */
+    .section {
+      padding: 80px 0;
+    }
+    .section-label {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      line-height: 1.15;
+      letter-spacing: -.025em;
+      margin-bottom: 14px;
+    }
+    .section-sub {
+      color: var(--text-muted);
+      font-size: 1rem;
+      max-width: 480px;
+      line-height: 1.7;
+    }
+    .section-header { margin-bottom: 48px; }
+
+    /* ═══ PRODUTOS ═══ */
+    #produtos { padding-top: 80px; }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .product-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: border-color .3s, transform .3s var(--ease), box-shadow .3s;
+      position: relative;
+    }
+    .product-card:hover {
+      border-color: rgba(var(--accent-rgb),.3);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,.4), 0 0 0 1px rgba(var(--accent-rgb),.15);
+    }
+    .product-card.destaque {
+      border-color: rgba(var(--accent-rgb),.35);
+      background: linear-gradient(180deg, rgba(var(--accent-rgb),.06) 0%, var(--bg-card) 40%);
+    }
+    .product-badge {
+      position: absolute;
+      top: 16px; right: 16px;
+      background: var(--accent);
+      color: #000;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 100px;
+    }
+    .product-img-wrap {
+      position: relative;
+      height: 220px;
+      background: linear-gradient(135deg, var(--bg-card-2) 0%, rgba(var(--accent-rgb),.05) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .product-img-wrap img {
+      height: 180px;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 20px 40px rgba(0,0,0,.5));
+      transition: transform .4s var(--ease);
+    }
+    .product-card:hover .product-img-wrap img {
+      transform: translateY(-6px) scale(1.03);
+    }
+    .product-img-fallback {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .product-img-fallback svg {
+      width: 80px; height: 80px;
+      opacity: .2;
+    }
+    .product-body { padding: 20px; }
+    .product-model {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      letter-spacing: -.01em;
+    }
+    .product-desc {
+      font-size: .8rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .storage-tabs {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .storage-tab {
+      padding: 6px 12px;
+      border-radius: 100px;
+      border: 1px solid var(--border);
+      font-size: .78rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all .2s;
+      background: transparent;
+      color: var(--text-muted);
+    }
+    .storage-tab.active, .storage-tab:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(var(--accent-rgb),.1);
+    }
+    .product-price-area { margin-bottom: 16px; }
+    .product-installment {
+      font-size: .78rem;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+    .product-price {
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: -.02em;
+      line-height: 1;
+    }
+    .product-price span {
+      font-size: .9rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      vertical-align: super;
+      font-family: var(--font-body);
+    }
+    .btn-product-wa {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--wa);
+      color: #fff;
+      font-weight: 600;
+      font-size: .9rem;
+      padding: 13px;
+      border-radius: var(--radius-sm);
+      border: none;
+      cursor: pointer;
+      transition: all .25s var(--ease);
+      min-height: 48px;
+    }
+    .btn-product-wa:hover { background: var(--wa-dark); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(37,211,102,.25); }
+
+    /* ═══ DIFERENCIAIS ═══ */
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+    }
+    .benefit-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 28px 24px;
+      transition: border-color .3s, background .3s;
+    }
+    .benefit-card:hover {
+      border-color: rgba(var(--accent-rgb),.25);
+      background: var(--bg-card-2);
+    }
+    .benefit-icon {
+      width: 48px; height: 48px;
+      background: rgba(var(--accent-rgb),.12);
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px;
+      color: var(--accent);
+    }
+    .benefit-title {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .benefit-text {
+      font-size: .875rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+    }
+
+    /* ═══ DEPOIMENTOS ═══ */
+    .testimonials-section {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .testimonial-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      position: relative;
+    }
+    .testimonial-stars {
+      display: flex;
+      gap: 2px;
+      margin-bottom: 14px;
+    }
+    .testimonial-stars svg { color: var(--accent); }
+    .testimonial-text {
+      font-size: .9rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .testimonial-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--bg-card-2);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700;
+      font-size: .875rem;
+      color: var(--accent);
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+    }
+    .testimonial-name { font-weight: 600; font-size: .875rem; }
+    .testimonial-city { font-size: .78rem; color: var(--text-muted); }
+
+    /* ═══ FAQ ═══ */
+    .faq-list { max-width: 680px; }
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+    .faq-question {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 20px 0;
+      text-align: left;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text);
+      font-size: .95rem;
+      font-weight: 500;
+      font-family: var(--font-body);
+      transition: color .2s;
+      min-height: 60px;
+    }
+    .faq-question:hover { color: var(--accent); }
+    .faq-icon {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--bg-card-2);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: all .25s var(--ease);
+      color: var(--text-muted);
+    }
+    .faq-item.open .faq-icon {
+      background: rgba(var(--accent-rgb),.12);
+      border-color: rgba(var(--accent-rgb),.3);
+      color: var(--accent);
+      transform: rotate(45deg);
+    }
+    .faq-answer {
+      font-size: .875rem;
+      color: var(--text-muted);
+      line-height: 1.75;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .35s var(--ease), padding .35s;
+    }
+    .faq-item.open .faq-answer {
+      max-height: 300px;
+      padding-bottom: 20px;
+    }
+
+    /* ═══ CTA FINAL ═══ */
+    .cta-section {
+      padding: 100px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      bottom: -150px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(var(--accent-rgb),.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-headline {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      line-height: 1.1;
+      letter-spacing: -.03em;
+      margin-bottom: 16px;
+    }
+    .cta-headline em { font-style: italic; color: var(--accent); }
+    .cta-sub {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 440px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+    .cta-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-wa-lg {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--wa);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 17px 36px;
+      border-radius: 100px;
+      border: none;
+      cursor: pointer;
+      transition: all .25s var(--ease);
+      min-height: 56px;
+      position: relative;
+    }
+    .btn-wa-lg::before {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: inherit;
+      background: var(--wa);
+      opacity: .35;
+      animation: pulse 2s infinite;
+      z-index: -1;
+    }
+    .btn-wa-lg:hover { background: var(--wa-dark); transform: translateY(-2px); box-shadow: 0 16px 50px rgba(37,211,102,.35); }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: .3; }
+      50% { transform: scale(1.08); opacity: 0; }
+    }
+
+    /* ═══ FOOTER ═══ */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+    }
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-logo {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.1rem;
+    }
+    .footer-logo span { color: var(--accent); }
+    .footer-copy {
+      font-size: .78rem;
+      color: var(--text-subtle);
+    }
+    .footer-wa {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .85rem;
+      font-weight: 500;
+      color: var(--wa);
+      transition: opacity .2s;
+    }
+    .footer-wa:hover { opacity: .8; }
+
+    /* ═══ FAB WHATSAPP ═══ */
+    .fab-wa {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 200;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--wa);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 32px rgba(37,211,102,.4);
+      cursor: pointer;
+      transition: all .25s var(--ease);
+      border: none;
+    }
+    .fab-wa:hover { background: var(--wa-dark); transform: scale(1.1); box-shadow: 0 12px 40px rgba(37,211,102,.5); }
+    .fab-wa::before {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: var(--wa);
+      opacity: .3;
+      animation: pulse 2.5s infinite;
+      z-index: -1;
+    }
+    .fab-tooltip {
+      position: absolute;
+      right: 70px;
+      background: var(--bg-card-2);
+      border: 1px solid var(--border-hover);
+      color: var(--text);
+      font-size: .8rem;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 8px;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateX(8px);
+      transition: all .2s;
+      pointer-events: none;
+    }
+    .fab-wa:hover .fab-tooltip {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ═══ ANIMAÇÕES ═══ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .6s var(--ease), transform .6s var(--ease);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    @media (max-width: 480px) {
+      .hero { padding: 60px 0 56px; }
+      .section { padding: 60px 0; }
+      .fab-wa { bottom: 20px; right: 20px; }
+      .products-grid { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════
+     CONFIG — altere aqui para cada cliente
+     Não precisa mexer no HTML/CSS abaixo
+════════════════════════════════════════════════════════ -->
+<script>
+const CONFIG = {
+
+  /* ── IDENTIDADE ── */
+  loja: {
+    nome:       "iPhone Premium",         // nome que aparece no logo e título
+    nomeSufixo: "Store",                  // ex: "Store", "Shop", "Oficial"
+    slogan:     "iPhones originais com o melhor preço da cidade",
+    whatsapp:   "5511999999999",          // DDI + DDD + número, sem espaços
+    mensagem:   "Olá! Vim pelo site e tenho interesse em comprar um iPhone. Pode me ajudar? 😊",
+    instagram:  "@iphonepremium",         // opcional, aparece no footer
+    cidade:     "São Paulo, SP",
+  },
+
+  /* ── HERO ── */
+  hero: {
+    badge:      "Entrega em até 24h",
+    titulo:     ["O iPhone que você", "quer, pelo preço", "que você merece."],
+    subtitulo:  "Atendimento pelo WhatsApp, entrega rápida e garantia em todo o Brasil. Sem burocracia.",
+    ctaPrincipal: "Comprar pelo WhatsApp",
+    ctaSecundario: "Ver modelos",
+    trust: [
+      { emoji: "✓", texto: "100% original Apple" },
+      { emoji: "✓", texto: "Nota fiscal garantida" },
+      { emoji: "✓", texto: "Parcelamento em 12x" },
+      { emoji: "✓", texto: "Entrega expressa 24h" },
+    ],
+  },
+
+  /* ── STATS ── */
+  stats: [
+    { numero: "2.400+",  label: "iPhones vendidos"   },
+    { numero: "5 ★",     label: "Avaliação média"    },
+    { numero: "24h",     label: "Entrega expressa"   },
+    { numero: "100%",    label: "Original Apple"     },
+  ],
+
+  /* ── PRODUTOS ──
+     imagem: caminho da imagem (PNG com fundo transparente).
+             Se não tiver, deixe null e aparecerá um ícone.
+  ── */
+  produtos: [
+    {
+      modelo:   "iPhone 15 Pro Max",
+      badge:    "Mais pedido",
+      descricao: "Chip A17 Pro · Câmera 48MP · Titânio · USB-C",
+      imagem:   null, // ex: "imagens/15promax.png"
+      destaque: true,
+      opcoes: [
+        { gb: "256GB",  preco: "9.499",  parcelas: "12x de R$ 950" },
+        { gb: "512GB",  preco: "10.999", parcelas: "12x de R$ 1.100" },
+        { gb: "1TB",    preco: "12.999", parcelas: "12x de R$ 1.300" },
+      ],
+    },
+    {
+      modelo:   "iPhone 15 Pro",
+      badge:    "Novo",
+      descricao: "Chip A17 Pro · Câmera 48MP · Action Button",
+      imagem:   null,
+      destaque: false,
+      opcoes: [
+        { gb: "128GB", preco: "7.999",  parcelas: "12x de R$ 800" },
+        { gb: "256GB", preco: "8.999",  parcelas: "12x de R$ 900" },
+        { gb: "512GB", preco: "10.499", parcelas: "12x de R$ 1.050" },
+      ],
+    },
+    {
+      modelo:   "iPhone 15",
+      badge:    null,
+      descricao: "Chip A16 Bionic · Dynamic Island · USB-C",
+      imagem:   null,
+      destaque: false,
+      opcoes: [
+        { gb: "128GB", preco: "5.999",  parcelas: "12x de R$ 600" },
+        { gb: "256GB", preco: "6.999",  parcelas: "12x de R$ 700" },
+        { gb: "512GB", preco: "8.499",  parcelas: "12x de R$ 850" },
+      ],
+    },
+    {
+      modelo:   "iPhone 14",
+      badge:    "Ótimo custo",
+      descricao: "Chip A15 Bionic · Câmera 12MP · Chip de emergência",
+      imagem:   null,
+      destaque: false,
+      opcoes: [
+        { gb: "128GB", preco: "4.499",  parcelas: "12x de R$ 450" },
+        { gb: "256GB", preco: "5.299",  parcelas: "12x de R$ 530" },
+        { gb: "512GB", preco: "6.499",  parcelas: "12x de R$ 650" },
+      ],
+    },
+    {
+      modelo:   "iPhone 13",
+      badge:    null,
+      descricao: "Chip A15 Bionic · Câmera dupla 12MP · 5G",
+      imagem:   null,
+      destaque: false,
+      opcoes: [
+        { gb: "128GB", preco: "3.499",  parcelas: "12x de R$ 350" },
+        { gb: "256GB", preco: "3.999",  parcelas: "12x de R$ 400" },
+        { gb: "512GB", preco: "4.799",  parcelas: "12x de R$ 480" },
+      ],
+    },
+    {
+      modelo:   "iPhone SE (3ª geração)",
+      badge:    "Mais em conta",
+      descricao: "Chip A15 · 5G · O menor preço de entrada",
+      imagem:   null,
+      destaque: false,
+      opcoes: [
+        { gb: "64GB",  preco: "2.799",  parcelas: "12x de R$ 280" },
+        { gb: "128GB", preco: "2.999",  parcelas: "12x de R$ 300" },
+        { gb: "256GB", preco: "3.499",  parcelas: "12x de R$ 350" },
+      ],
+    },
+  ],
+
+  /* ── DIFERENCIAIS ── */
+  diferenciais: [
+    {
+      titulo: "100% original Apple",
+      texto:  "Todos os iPhones são novos, lacrados e acompanham nota fiscal. Zero risco de produto falsificado.",
+    },
+    {
+      titulo: "Atendimento humano no WhatsApp",
+      texto:  "Nada de robô. Você fala direto com nosso especialista que tira todas as suas dúvidas antes de comprar.",
+    },
+    {
+      titulo: "Entrega expressa em 24h",
+      texto:  "Comprando até as 14h, seu iPhone sai no mesmo dia. Rastreamento em tempo real pelo próprio WhatsApp.",
+    },
+    {
+      titulo: "Parcelamos em até 12x",
+      texto:  "Parcele no cartão de crédito sem burocracias. Você escolhe a quantidade de parcelas que couber no seu bolso.",
+    },
+    {
+      titulo: "Garantia de 1 ano",
+      texto:  "Todo aparelho tem garantia de 12 meses. Qualquer problema, é só chamar no WhatsApp que resolvemos.",
+    },
+    {
+      titulo: "Pós-venda de verdade",
+      texto:  "A nossa relação não termina na venda. Suporte completo para configuração, transferência de dados e dúvidas.",
+    },
+  ],
+
+  /* ── DEPOIMENTOS ── */
+  depoimentos: [
+    {
+      nome:   "Carla Mendes",
+      cidade: "São Paulo, SP",
+      texto:  "Comprei o iPhone 15 Pro e chegou no dia seguinte, lacrado e com nota fiscal. Atendimento incrível, responderam tudo pelo WhatsApp super rápido. Já indiquei pra três amigas!",
+      estrelas: 5,
+    },
+    {
+      nome:   "Rafael Santos",
+      cidade: "Campinas, SP",
+      texto:  "Estava com medo de comprar online mas fui muito bem atendido. Tiraram todas as minhas dúvidas antes de fechar. Aparelho chegou perfeito. Nota 10!",
+      estrelas: 5,
+    },
+    {
+      nome:   "Juliana Costa",
+      cidade: "Rio de Janeiro, RJ",
+      texto:  "Melhor preço que encontrei depois de pesquisar muito. Comprei o 14 parcelado em 12x e deu certíssimo. Processo todo simples pelo WhatsApp mesmo.",
+      estrelas: 5,
+    },
+  ],
+
+  /* ── FAQ ── */
+  faq: [
+    {
+      pergunta: "Os iPhones são originais e novos?",
+      resposta: "Sim! Todos os iPhones são 100% originais Apple, novos e lacrados. Acompanham nota fiscal e garantia de 1 ano. Nunca trabalhamos com produto recondicionado ou importado sem nota.",
+    },
+    {
+      pergunta: "Como funciona o processo de compra?",
+      resposta: "É simples: clique em qualquer botão do WhatsApp, informe o modelo e armazenamento desejado, escolha a forma de pagamento e receba o link de pagamento seguro. Após confirmação, o iPhone é enviado em até 24h.",
+    },
+    {
+      pergunta: "Quais formas de pagamento são aceitas?",
+      resposta: "Aceitamos PIX, cartão de crédito (parcelado em até 12x) e boleto bancário. Para pagamento via PIX ou boleto, há desconto adicional. Consulte pelo WhatsApp.",
+    },
+    {
+      pergunta: "Qual o prazo de entrega?",
+      resposta: "Para compras realizadas até 14h em dias úteis, o envio acontece no mesmo dia. Em geral, a entrega leva de 1 a 3 dias úteis dependendo da sua região. Você recebe o código de rastreamento pelo próprio WhatsApp.",
+    },
+    {
+      pergunta: "E se eu tiver algum problema com o aparelho?",
+      resposta: "Qualquer problema dentro do prazo de garantia (1 ano), é só chamar no WhatsApp. Resolvemos de forma simples — troca ou reparo autorizado pela Apple, sem custo para você.",
+    },
+    {
+      pergunta: "Entregam para todo o Brasil?",
+      resposta: "Sim! Entregamos para todos os estados brasileiros via Correios ou transportadora. Para São Paulo capital e grande São Paulo, temos opção de motoboy para entrega no mesmo dia.",
+    },
+  ],
+
+  /* ── CTA FINAL ── */
+  cta: {
+    titulo:    ["Pronto para ter seu", "novo iPhone?"],
+    subtitulo: "Chame no WhatsApp agora. Em menos de 2 minutos você já tem tudo resolvido.",
+    botao:     "Falar com especialista agora",
+  },
+
+};
+</script>
+
+<!-- ════════════════════════════════════
+     ESTRUTURA HTML — não precisa editar
+════════════════════════════════════════ -->
+
+<!-- NAV -->
+<nav class="nav" role="navigation" aria-label="Navegação principal">
+  <div class="container">
+    <div class="nav-inner">
+      <a class="nav-logo" href="#" id="nav-logo" aria-label="Ir para o topo"></a>
+      <ul class="nav-links" id="nav-links"></ul>
+      <a class="nav-cta" id="nav-cta" href="#" aria-label="Falar no WhatsApp">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.116.546 4.109 1.503 5.845L.057 23.428a.75.75 0 00.914.914l5.583-1.446A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.927 0-3.738-.511-5.299-1.406l-.381-.221-3.313.858.858-3.313-.221-.381A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        <span id="nav-cta-text"></span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="inicio" aria-labelledby="hero-heading">
+  <div class="container">
+    <div class="hero-badge" id="hero-badge"></div>
+    <h1 class="hero-headline" id="hero-headline"></h1>
+    <p class="hero-sub" id="hero-sub"></p>
+    <div class="hero-actions">
+      <a class="btn-wa" id="hero-btn-wa" href="#">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.116.546 4.109 1.503 5.845L.057 23.428a.75.75 0 00.914.914l5.583-1.446A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.927 0-3.738-.511-5.299-1.406l-.381-.221-3.313.858.858-3.313-.221-.381A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        <span id="hero-btn-wa-text"></span>
+      </a>
+      <a class="btn-secondary" href="#produtos">
+        <span id="hero-btn-sec-text"></span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+      </a>
+    </div>
+    <div class="hero-trust" id="hero-trust"></div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar" role="region" aria-label="Estatísticas">
+  <div class="container">
+    <div class="stats-grid" id="stats-grid"></div>
+  </div>
+</div>
+
+<!-- PRODUTOS -->
+<section class="section" id="produtos" aria-labelledby="produtos-heading">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-label">Catálogo</p>
+      <h2 class="section-title" id="produtos-heading">Escolha o seu modelo</h2>
+      <p class="section-sub">Todos originais, novos e lacrados. Parcelamento em até 12x sem juros. Clique no modelo e fale direto pelo WhatsApp.</p>
+    </div>
+    <div class="products-grid" id="products-grid"></div>
+  </div>
+</section>
+
+<!-- DIFERENCIAIS -->
+<section class="section" id="sobre" aria-labelledby="diferenciais-heading">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-label">Por que aqui?</p>
+      <h2 class="section-title" id="diferenciais-heading">Comprar aqui é diferente</h2>
+      <p class="section-sub">Não somos mais uma loja. Somos especialistas em iPhone que se importam com cada cliente.</p>
+    </div>
+    <div class="benefits-grid" id="benefits-grid"></div>
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section class="section testimonials-section" aria-labelledby="depoimentos-heading">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-label">Depoimentos</p>
+      <h2 class="section-title" id="depoimentos-heading">Quem comprou, aprovou</h2>
+      <p class="section-sub">Mais de 2.400 clientes satisfeitos. Veja o que estão dizendo.</p>
+    </div>
+    <div class="testimonials-grid" id="testimonials-grid"></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq" aria-labelledby="faq-heading">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-label">Dúvidas</p>
+      <h2 class="section-title" id="faq-heading">Perguntas frequentes</h2>
+      <p class="section-sub">Respondemos as dúvidas mais comuns. Algo diferente? Chame no WhatsApp.</p>
+    </div>
+    <div class="faq-list" id="faq-list"></div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-section" aria-labelledby="cta-heading">
+  <div class="container">
+    <h2 class="cta-headline" id="cta-headline"></h2>
+    <p class="cta-sub" id="cta-sub"></p>
+    <div class="cta-actions">
+      <a class="btn-wa-lg" id="cta-btn-wa" href="#">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.116.546 4.109 1.503 5.845L.057 23.428a.75.75 0 00.914.914l5.583-1.446A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.927 0-3.738-.511-5.299-1.406l-.381-.221-3.313.858.858-3.313-.221-.381A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        <span id="cta-btn-text"></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo" id="footer-logo"></div>
+      <p class="footer-copy" id="footer-copy"></p>
+      <a class="footer-wa" id="footer-wa" href="#">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.116.546 4.109 1.503 5.845L.057 23.428a.75.75 0 00.914.914l5.583-1.446A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.927 0-3.738-.511-5.299-1.406l-.381-.221-3.313.858.858-3.313-.221-.381A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        <span id="footer-wa-text"></span>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<!-- FAB WHATSAPP -->
+<a class="fab-wa" id="fab-wa" href="#" aria-label="Falar no WhatsApp">
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.116.546 4.109 1.503 5.845L.057 23.428a.75.75 0 00.914.914l5.583-1.446A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.927 0-3.738-.511-5.299-1.406l-.381-.221-3.313.858.858-3.313-.221-.381A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+  <span class="fab-tooltip">Falar no WhatsApp</span>
+</a>
+
+<!-- ═══ RENDERIZADOR ═══ -->
+<script>
+(function () {
+  /* ── helpers ── */
+  const $ = id => document.getElementById(id);
+  const waURL = msg => `https://wa.me/${CONFIG.loja.whatsapp}?text=${encodeURIComponent(msg)}`;
+  const defaultMsg = CONFIG.loja.mensagem;
+
+  function buildWAMsg(produto, opcao) {
+    return `Olá! Vi o site e quero saber mais sobre o *${produto.modelo} ${opcao.gb}* (R$ ${opcao.preco}). Pode me ajudar? 😊`;
+  }
+
+  /* SVG ícone iPhone fallback */
+  const phoneSVG = `<svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="22" y="8" width="36" height="64" rx="8" stroke="currentColor" stroke-width="2.5"/>
+    <rect x="30" y="14" width="20" height="4" rx="2" fill="currentColor" opacity=".3"/>
+    <circle cx="40" cy="65" r="3" fill="currentColor" opacity=".3"/>
+    <rect x="27" y="22" width="26" height="36" rx="3" fill="currentColor" opacity=".06"/>
+  </svg>`;
+
+  /* ── benefício ícones ── */
+  const benefitIcons = [
+    `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>`,
+    `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>`,
+    `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>`,
+    `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>`,
+    `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+    `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>`,
+  ];
+
+  /* ── título da página ── */
+  document.title = `${CONFIG.loja.nome} ${CONFIG.loja.nomeSufixo}`;
+
+  /* ── NAV ── */
+  $('nav-logo').innerHTML = `${CONFIG.loja.nome} <span>${CONFIG.loja.nomeSufixo}</span>`;
+  $('nav-logo').href = '#inicio';
+  $('nav-cta-text').textContent = 'Falar no WhatsApp';
+  $('nav-cta').href = waURL(defaultMsg);
+  $('nav-cta').target = '_blank';
+  $('nav-cta').rel = 'noopener';
+  $('nav-links').innerHTML = `
+    <li><a href="#produtos">Modelos</a></li>
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  `;
+
+  /* ── HERO ── */
+  $('hero-badge').innerHTML = `<svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5" fill="currentColor" opacity=".3"/><circle cx="6" cy="6" r="2.5" fill="currentColor"/></svg> ${CONFIG.hero.badge}`;
+  $('hero-headline').innerHTML = CONFIG.hero.titulo.map((l, i) => i === 1 ? `<em>${l}</em>` : l).join('<br>');
+  $('hero-sub').textContent = CONFIG.hero.subtitulo;
+  $('hero-btn-wa-text').textContent = CONFIG.hero.ctaPrincipal;
+  $('hero-btn-wa').href = waURL(defaultMsg);
+  $('hero-btn-wa').target = '_blank';
+  $('hero-btn-wa').rel = 'noopener';
+  $('hero-btn-sec-text').textContent = CONFIG.hero.ctaSecundario;
+  $('hero-trust').innerHTML = CONFIG.hero.trust.map(t => `
+    <div class="trust-item">
+      <div class="trust-icon" aria-hidden="true">${t.emoji}</div>
+      <span>${t.texto}</span>
+    </div>
+  `).join('');
+
+  /* ── STATS ── */
+  $('stats-grid').innerHTML = CONFIG.stats.map(s => `
+    <div class="stat-item">
+      <div class="stat-number">${s.numero}</div>
+      <div class="stat-label">${s.label}</div>
+    </div>
+  `).join('');
+
+  /* ── PRODUTOS ── */
+  $('products-grid').innerHTML = CONFIG.produtos.map((p, pi) => {
+    const opcoes = p.opcoes;
+    const primeiraOpcao = opcoes[0];
+    const id = `prod-${pi}`;
+    const imgHtml = p.imagem
+      ? `<img src="${p.imagem}" alt="${p.modelo}" loading="lazy" width="160" height="180"
+             onerror="this.parentElement.innerHTML='<div class=\\'product-img-fallback\\'>${phoneSVG.replace(/"/g,'&quot;')}<span style=\\'font-size:.8rem;color:var(--text-muted);\\'>${p.modelo}</span></div>'">`
+      : `<div class="product-img-fallback">${phoneSVG}<span style="font-size:.8rem;color:var(--text-muted);">${p.modelo}</span></div>`;
+
+    return `
+    <article class="product-card reveal${p.destaque ? ' destaque' : ''}" id="${id}" style="transition-delay:${pi * 60}ms">
+      ${p.badge ? `<div class="product-badge">${p.badge}</div>` : ''}
+      <div class="product-img-wrap">${imgHtml}</div>
+      <div class="product-body">
+        <h3 class="product-model">${p.modelo}</h3>
+        <p class="product-desc">${p.descricao}</p>
+        <div class="storage-tabs" role="group" aria-label="Armazenamento">
+          ${opcoes.map((o, oi) => `
+            <button
+              class="storage-tab${oi === 0 ? ' active' : ''}"
+              onclick="selectOption(${pi}, ${oi})"
+              aria-pressed="${oi === 0}"
+              data-pi="${pi}" data-oi="${oi}">
+              ${o.gb}
+            </button>
+          `).join('')}
+        </div>
+        <div class="product-price-area">
+          <div class="product-installment" id="${id}-installment">${primeiraOpcao.parcelas}</div>
+          <div class="product-price" id="${id}-price">
+            <span>R$</span>${primeiraOpcao.preco}
+          </div>
+        </div>
+        <a class="btn-product-wa" id="${id}-wa"
+           href="${waURL(buildWAMsg(p, primeiraOpcao))}"
+           target="_blank" rel="noopener"
+           aria-label="Comprar ${p.modelo} ${primeiraOpcao.gb} no WhatsApp">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.116.546 4.109 1.503 5.845L.057 23.428a.75.75 0 00.914.914l5.583-1.446A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.927 0-3.738-.511-5.299-1.406l-.381-.221-3.313.858.858-3.313-.221-.381A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+          Comprar pelo WhatsApp
+        </a>
+      </div>
+    </article>`;
+  }).join('');
+
+  /* ── DIFERENCIAIS ── */
+  $('benefits-grid').innerHTML = CONFIG.diferenciais.map((d, i) => `
+    <div class="benefit-card reveal" style="transition-delay:${i * 60}ms">
+      <div class="benefit-icon" aria-hidden="true">${benefitIcons[i % benefitIcons.length]}</div>
+      <h3 class="benefit-title">${d.titulo}</h3>
+      <p class="benefit-text">${d.texto}</p>
+    </div>
+  `).join('');
+
+  /* ── DEPOIMENTOS ── */
+  $('testimonials-grid').innerHTML = CONFIG.depoimentos.map(d => `
+    <div class="testimonial-card reveal">
+      <div class="testimonial-stars" aria-label="${d.estrelas} de 5 estrelas">
+        ${Array(d.estrelas).fill('<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>').join('')}
+      </div>
+      <p class="testimonial-text">"${d.texto}"</p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar" aria-hidden="true">${d.nome.charAt(0)}</div>
+        <div>
+          <div class="testimonial-name">${d.nome}</div>
+          <div class="testimonial-city">${d.cidade}</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  /* ── FAQ ── */
+  $('faq-list').innerHTML = CONFIG.faq.map((f, i) => `
+    <div class="faq-item reveal" id="faq-item-${i}">
+      <button class="faq-question" onclick="toggleFaq(${i})"
+              aria-expanded="false" aria-controls="faq-answer-${i}">
+        <span>${f.pergunta}</span>
+        <span class="faq-icon" aria-hidden="true">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8">
+            <line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/>
+          </svg>
+        </span>
+      </button>
+      <div class="faq-answer" id="faq-answer-${i}" role="region">${f.resposta}</div>
+    </div>
+  `).join('');
+
+  /* ── CTA FINAL ── */
+  const ctaTit = CONFIG.cta.titulo;
+  $('cta-headline').innerHTML = ctaTit.map((l, i) => i === 1 ? `<em>${l}</em>` : l).join('<br>');
+  $('cta-sub').textContent = CONFIG.cta.subtitulo;
+  $('cta-btn-text').textContent = CONFIG.cta.botao;
+  $('cta-btn-wa').href = waURL(defaultMsg);
+  $('cta-btn-wa').target = '_blank';
+  $('cta-btn-wa').rel = 'noopener';
+
+  /* ── FOOTER ── */
+  const logoHtml = `${CONFIG.loja.nome} <span style="color:var(--accent)">${CONFIG.loja.nomeSufixo}</span>`;
+  $('footer-logo').innerHTML = logoHtml;
+  $('footer-copy').textContent = `© ${new Date().getFullYear()} ${CONFIG.loja.nome}${CONFIG.loja.instagram ? ' · ' + CONFIG.loja.instagram : ''}`;
+  $('footer-wa').href = waURL(defaultMsg);
+  $('footer-wa').target = '_blank';
+  $('footer-wa').rel = 'noopener';
+  $('footer-wa-text').textContent = CONFIG.loja.whatsapp;
+
+  /* ── FAB ── */
+  $('fab-wa').href = waURL(defaultMsg);
+  $('fab-wa').target = '_blank';
+  $('fab-wa').rel = 'noopener';
+
+  /* ── INTERAÇÕES ── */
+  window.selectOption = function (pi, oi) {
+    const p = CONFIG.produtos[pi];
+    const opcao = p.opcoes[oi];
+    const id = `prod-${pi}`;
+
+    // tabs
+    const tabs = document.querySelectorAll(`[data-pi="${pi}"]`);
+    tabs.forEach((t, idx) => {
+      t.classList.toggle('active', idx === oi);
+      t.setAttribute('aria-pressed', idx === oi ? 'true' : 'false');
+    });
+
+    // preço
+    $(`${id}-price`).innerHTML = `<span>R$</span>${opcao.preco}`;
+    $(`${id}-installment`).textContent = opcao.parcelas;
+
+    // link WhatsApp
+    $(`${id}-wa`).href = waURL(buildWAMsg(p, opcao));
+    $(`${id}-wa`).setAttribute('aria-label', `Comprar ${p.modelo} ${opcao.gb} no WhatsApp`);
+  };
+
+  window.toggleFaq = function (i) {
+    const item = $(`faq-item-${i}`);
+    const btn = item.querySelector('.faq-question');
+    const isOpen = item.classList.contains('open');
+    // fecha todos
+    document.querySelectorAll('.faq-item.open').forEach(el => {
+      el.classList.remove('open');
+      el.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+    });
+    if (!isOpen) {
+      item.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+    }
+  };
+
+  /* ── REVEAL on scroll ── */
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+  }
+
+})();
+</script>
+
+</body>
+</html>

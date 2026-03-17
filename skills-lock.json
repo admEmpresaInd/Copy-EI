@@ -21,6 +21,16 @@
       "sourceType": "github",
       "computedHash": "af0145f315f49ed498f27478d3a4f17842cbf23d7fe724a05075938027162fc2"
     },
+    "market-research-reports": {
+      "source": "davila7/claude-code-templates",
+      "sourceType": "github",
+      "computedHash": "cf1440b6e3057d587297a39bd0303b3db3eb91195e17e07916f6243fbfc7f5ca"
+    },
+    "product-frameworks": {
+      "source": "yonatangross/orchestkit",
+      "sourceType": "github",
+      "computedHash": "d88af33f18667f30443f6a15206602c50cd91435ef73f5dce918e5b0b9891834"
+    },
     "skill-creator": {
       "source": "anthropics/skills",
       "sourceType": "github",

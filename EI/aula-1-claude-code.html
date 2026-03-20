@@ -1,0 +1,2225 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aula 1 — Fundamentos do Claude Code</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #111111;
+  --bg-card: #1a1a1a;
+  --bg-card-hover: #202020;
+  --bg-muted: #262626;
+  --border: rgba(255,255,255,0.08);
+  --border-hover: rgba(255,255,255,0.16);
+  --text: #f5f5f5;
+  --text-muted: #888;
+  --text-dim: #555;
+  --primary: #34d399;
+  --primary-dim: rgba(52,211,153,0.12);
+  --primary-border: rgba(52,211,153,0.25);
+  --cyan: #22d3ee;
+  --cyan-dim: rgba(34,211,238,0.1);
+  --violet: #a78bfa;
+  --violet-dim: rgba(167,139,250,0.1);
+  --amber: #fbbf24;
+  --amber-dim: rgba(251,191,36,0.1);
+  --blue: #60a5fa;
+  --blue-dim: rgba(96,165,250,0.1);
+  --rose: #fb7185;
+  --rose-dim: rgba(251,113,133,0.1);
+  --orange: #fb923c;
+  --orange-dim: rgba(251,146,60,0.1);
+  --radius: 12px;
+  --radius-lg: 16px;
+  --radius-sm: 8px;
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'DM Sans', sans-serif;
+  --display: 'DM Serif Display', serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* NOISE TEXTURE */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+/* ===== LAYOUT ===== */
+.container { max-width: 900px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+.container--wide { max-width: 1100px; }
+.container--narrow { max-width: 720px; }
+
+/* ===== HEADER ===== */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(17,17,17,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 24px;
+}
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+.logo-icon {
+  width: 32px; height: 32px;
+  background: var(--primary);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 13px;
+  color: #0a2e24;
+  flex-shrink: 0;
+}
+.logo-text { font-weight: 600; font-size: 15px; color: var(--text); }
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
+}
+.header-nav a {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 13px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+.header-nav a:hover { color: var(--primary); background: var(--primary-dim); }
+.badge-aula {
+  background: var(--primary-dim);
+  border: 1px solid var(--primary-border);
+  color: var(--primary);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ===== HERO ===== */
+.hero {
+  padding: 80px 24px 60px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-glow {
+  position: absolute;
+  top: -100px; left: 50%; transform: translateX(-50%);
+  width: 600px; height: 400px;
+  background: radial-gradient(ellipse, rgba(52,211,153,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-inner { max-width: 900px; margin: 0 auto; position: relative; }
+.hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.pill {
+  background: var(--primary-dim);
+  border: 1px solid var(--primary-border);
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 14px;
+  border-radius: 999px;
+}
+.pill--cyan {
+  background: var(--cyan-dim);
+  border-color: rgba(34,211,238,0.25);
+  color: var(--cyan);
+}
+.pill--violet {
+  background: var(--violet-dim);
+  border-color: rgba(167,139,250,0.25);
+  color: var(--violet);
+}
+.divider-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--text-dim); }
+
+.hero h1 {
+  font-family: var(--display);
+  font-size: clamp(36px, 5vw, 58px);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+.hero h1 em {
+  font-style: italic;
+  background: linear-gradient(135deg, var(--primary), var(--cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-sub {
+  font-size: 18px;
+  color: var(--text-muted);
+  max-width: 600px;
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+
+.tool-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 48px;
+}
+.tool-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 13px;
+  color: var(--text-muted);
+  transition: all 0.2s;
+  cursor: default;
+}
+.tool-pill:hover { border-color: var(--border-hover); color: var(--text); }
+.tool-pill-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+.hero-stats {
+  display: flex;
+  gap: 32px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+}
+.stat-item { text-align: center; }
+.stat-num { font-size: 24px; font-weight: 700; color: var(--primary); display: block; }
+.stat-label { font-size: 12px; color: var(--text-muted); }
+
+/* ===== SECTIONS ===== */
+section {
+  padding: 72px 24px;
+  position: relative;
+}
+section + section {
+  border-top: 1px solid var(--border);
+}
+
+.section-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--primary);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-label::before {
+  content: '';
+  display: inline-block;
+  width: 16px; height: 1px;
+  background: var(--primary);
+}
+
+.section-title {
+  font-family: var(--display);
+  font-size: clamp(28px, 3.5vw, 42px);
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.section-desc {
+  font-size: 17px;
+  color: var(--text-muted);
+  max-width: 620px;
+  line-height: 1.7;
+  margin-bottom: 48px;
+}
+
+/* ===== ECOSYSTEM MAP ===== */
+.ecosystem-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 32px;
+}
+.eco-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  transition: all 0.25s;
+  text-decoration: none;
+  display: block;
+}
+.eco-card:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
+}
+.eco-icon {
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+.eco-card h3 { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+.eco-card p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+.eco-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.flow-connector {
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 13px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.flow-connector::before, .flow-connector::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+}
+
+/* ===== TOOL SECTIONS ===== */
+.tool-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 36px;
+}
+.tool-icon-large {
+  width: 56px; height: 56px;
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 26px;
+  flex-shrink: 0;
+}
+.tool-title-group h2 {
+  font-family: var(--display);
+  font-size: 30px;
+  font-weight: 400;
+  margin-bottom: 6px;
+}
+.tool-title-group p { color: var(--text-muted); font-size: 15px; }
+
+.concept-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.concept-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+}
+.concept-card h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.concept-card h4 span { font-size: 16px; }
+.concept-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+/* ANALOGY BOX */
+.analogy-box {
+  background: linear-gradient(135deg, var(--primary-dim), rgba(34,211,238,0.06));
+  border: 1px solid var(--primary-border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-top: 16px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.analogy-box .icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+.analogy-box p { font-size: 14px; color: var(--text); line-height: 1.65; }
+.analogy-box strong { color: var(--primary); }
+
+/* SKILLS SHOWCASE */
+.skills-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.skill-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  transition: all 0.2s;
+}
+.skill-item:hover { border-color: var(--primary-border); background: var(--bg-card-hover); }
+.skill-trigger {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--primary);
+  background: var(--primary-dim);
+  padding: 4px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.skill-desc { font-size: 13px; color: var(--text-muted); }
+.skill-meta {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+/* ===== CODE BLOCKS ===== */
+.code-block {
+  background: #0d0d0d;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 16px 0;
+}
+.code-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  background: rgba(255,255,255,0.02);
+}
+.code-dots {
+  display: flex;
+  gap: 6px;
+}
+.code-dots span {
+  width: 10px; height: 10px; border-radius: 50%;
+}
+.code-dots .red { background: #ff5f57; }
+.code-dots .yellow { background: #febc2e; }
+.code-dots .green { background: #28c840; }
+.code-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-dim);
+}
+.code-block pre {
+  padding: 18px 20px;
+  overflow-x: auto;
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.75;
+  color: #cdd6f4;
+}
+.code-block pre .comment { color: #585b70; }
+.code-block pre .cmd { color: var(--primary); }
+.code-block pre .str { color: #a6e3a1; }
+.code-block pre .kw { color: var(--cyan); }
+.code-block pre .flag { color: var(--amber); }
+.code-block pre .prompt { color: var(--text-dim); user-select: none; }
+.code-block pre .out { color: #9399b2; }
+
+/* ===== TUTORIAL SECTION ===== */
+.tutorial-nav {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 48px;
+}
+.tut-nav-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 13px;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.tut-nav-item:hover { border-color: var(--primary-border); color: var(--primary); }
+.tut-nav-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--primary);
+  background: var(--primary-dim);
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* STEP */
+.step-block {
+  margin-bottom: 56px;
+  scroll-margin-top: 80px;
+}
+.step-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.step-number {
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--primary);
+  background: var(--primary-dim);
+  border: 1px solid var(--primary-border);
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+.step-title h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.step-title p { font-size: 14px; color: var(--text-muted); }
+
+.step-body { padding-left: 52px; }
+
+/* SUB-STEPS */
+.sub-steps {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+.sub-steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--text-muted);
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.sub-steps li::before {
+  content: '→';
+  color: var(--primary);
+  font-size: 12px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* CALLOUT BOXES */
+.callout {
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  font-size: 13px;
+  line-height: 1.65;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin: 12px 0;
+}
+.callout--tip { background: rgba(52,211,153,0.07); border: 1px solid rgba(52,211,153,0.2); color: #b6f5e3; }
+.callout--warn { background: rgba(251,191,36,0.07); border: 1px solid rgba(251,191,36,0.2); color: #fde68a; }
+.callout--info { background: rgba(96,165,250,0.07); border: 1px solid rgba(96,165,250,0.2); color: #bfdbfe; }
+.callout-icon { font-size: 16px; flex-shrink: 0; }
+
+/* ===== CHECKLIST ===== */
+.checklist {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+.check-icon {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--primary-dim);
+  border: 1px solid var(--primary-border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--primary);
+}
+
+/* ===== DIVIDER ===== */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 0 24px;
+}
+
+/* ===== PROGRESS STRIP ===== */
+.progress-strip {
+  display: flex;
+  gap: 4px;
+  padding: 16px 24px;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+}
+.prog-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--text-dim);
+  white-space: nowrap;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+.prog-item.active { color: var(--primary); background: var(--primary-dim); }
+.prog-item .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.prog-arrow { color: var(--text-dim); font-size: 10px; }
+
+/* ===== FOOTER ===== */
+footer {
+  border-top: 1px solid var(--border);
+  background: var(--bg-card);
+  padding: 40px 24px;
+}
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.footer-copy { font-size: 13px; color: var(--text-dim); }
+.footer-copy strong { color: var(--text-muted); }
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+.animate { opacity: 0; transform: translateY(24px); }
+.animate.visible {
+  animation: fadeUp 0.6s ease forwards;
+}
+.animate.stagger-1 { animation-delay: 0.1s; }
+.animate.stagger-2 { animation-delay: 0.2s; }
+.animate.stagger-3 { animation-delay: 0.3s; }
+.animate.stagger-4 { animation-delay: 0.4s; }
+.animate.stagger-5 { animation-delay: 0.5s; }
+
+/* ===== TABLE ===== */
+.table-wrap { overflow-x: auto; margin: 16px 0; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th {
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border);
+}
+td {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  color: var(--text-muted);
+  vertical-align: top;
+}
+td:first-child { color: var(--text); font-weight: 500; }
+tr:hover td { background: rgba(255,255,255,0.02); }
+td code {
+  font-family: var(--mono);
+  font-size: 12px;
+  background: var(--bg-muted);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--primary);
+}
+
+/* ===== COMPARISON TABLE ===== */
+.comp-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.comp-cell {
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.comp-cell.before { background: rgba(251,113,133,0.06); border: 1px solid rgba(251,113,133,0.15); color: #fca5a5; }
+.comp-cell.after { background: rgba(52,211,153,0.06); border: 1px solid var(--primary-border); color: #a7f3d0; }
+.comp-cell .ci { flex-shrink: 0; font-size: 14px; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 640px) {
+  .header-nav { display: none; }
+  .hero-stats { flex-wrap: wrap; gap: 20px; }
+  .ecosystem-grid { grid-template-columns: 1fr 1fr; }
+  .concept-grid { grid-template-columns: 1fr; }
+  .comp-row { grid-template-columns: 1fr; }
+  .step-body { padding-left: 0; }
+}
+
+/* ===== SPECIAL STYLES ===== */
+.kbd {
+  font-family: var(--mono);
+  font-size: 12px;
+  background: var(--bg-muted);
+  border: 1px solid var(--border);
+  padding: 2px 8px;
+  border-radius: 4px;
+  color: var(--cyan);
+}
+.inline-code {
+  font-family: var(--mono);
+  font-size: 13px;
+  background: var(--bg-muted);
+  padding: 2px 7px;
+  border-radius: 4px;
+  color: var(--primary);
+}
+a { color: var(--primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+@media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
+
+.highlight-box {
+  background: linear-gradient(135deg, var(--bg-card), rgba(52,211,153,0.04));
+  border: 1px solid var(--primary-border);
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
+  margin: 24px 0;
+}
+.highlight-box h4 { font-size: 16px; font-weight: 600; color: var(--text); margin-bottom: 10px; }
+.highlight-box p { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+
+/* INDEX SIDEBAR */
+.sticky-index {
+  position: fixed;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 50;
+}
+.idx-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--text-dim);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  display: block;
+  position: relative;
+}
+.idx-dot:hover, .idx-dot.active { background: var(--primary); transform: scale(1.4); }
+.idx-dot::after {
+  content: attr(data-label);
+  position: absolute;
+  right: 16px;
+  top: 50%; transform: translateY(-50%);
+  font-size: 11px;
+  color: var(--text);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 3px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s;
+}
+.idx-dot:hover::after { opacity: 1; }
+
+@media (max-width: 1200px) { .sticky-index { display: none; } }
+
+/* ===== OS TABS ===== */
+.os-switcher { margin-bottom: 40px; }
+.os-tabs {
+  display: inline-flex;
+  gap: 4px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 4px;
+}
+.os-tab {
+  padding: 10px 28px;
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  background: transparent;
+  font-family: var(--sans);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 1;
+}
+.os-tab.active {
+  background: var(--bg-muted);
+  color: var(--text);
+  box-shadow: 0 1px 6px rgba(0,0,0,0.35);
+}
+.os-tab:hover:not(.active) { color: var(--text); }
+.os-win { display: none; }
+.os-mac { display: block; }
+body.windows .os-mac { display: none; }
+body.windows .os-win { display: block; }
+</style>
+</head>
+<body>
+
+<!-- STICKY NAV INDEX -->
+<nav class="sticky-index">
+  <a href="#ecossistema" class="idx-dot" data-label="Ecossistema"></a>
+  <a href="#claude-code" class="idx-dot" data-label="Claude Code"></a>
+  <a href="#skills" class="idx-dot" data-label="Skills"></a>
+  <a href="#github" class="idx-dot" data-label="GitHub"></a>
+  <a href="#supabase" class="idx-dot" data-label="Supabase"></a>
+  <a href="#vercel" class="idx-dot" data-label="Vercel"></a>
+  <a href="#tutorial" class="idx-dot" data-label="Tutorial Mac"></a>
+</nav>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">EI</div>
+      <span class="logo-text">Empresa Independente</span>
+    </a>
+    <ul class="header-nav">
+      <li><a href="#ecossistema">Ecossistema</a></li>
+      <li><a href="#claude-code">Claude Code</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#github">GitHub</a></li>
+      <li><a href="#supabase">Supabase</a></li>
+      <li><a href="#vercel">Vercel</a></li>
+      <li><a href="#tutorial">Tutorial Mac</a></li>
+    </ul>
+    <span class="badge-aula">Aula 1</span>
+  </div>
+</header>
+
+<!-- PROGRESS BAR -->
+<div class="progress-strip">
+  <div class="prog-item active"><div class="dot"></div> Aula 1 — Fundamentos</div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+    <div class="hero-meta">
+      <span class="pill">Módulo 1</span>
+      <span class="divider-dot"></span>
+      <span class="pill pill--cyan">Fundamentos</span>
+      <span class="divider-dot"></span>
+      <span style="font-size:12px; color: var(--text-dim);">Hoje, 20 Mar 2026</span>
+    </div>
+    <h1>Bem-vindo ao<br><em>programa de implementação</em><br>de Claude Code</h1>
+    <p class="hero-sub">
+      Nesta primeira aula você vai entender o ecossistema completo: o que é cada ferramenta,
+      como elas se conectam, e vai instalar tudo no seu Mac com um passo a passo detalhado.
+    </p>
+    <div class="tool-pills">
+      <div class="tool-pill">
+        <span class="tool-pill-dot" style="background: var(--primary)"></span>
+        Claude Code
+      </div>
+      <div class="tool-pill">
+        <span class="tool-pill-dot" style="background: var(--cyan)"></span>
+        Skills
+      </div>
+      <div class="tool-pill">
+        <span class="tool-pill-dot" style="background: var(--violet)"></span>
+        GitHub
+      </div>
+      <div class="tool-pill">
+        <span class="tool-pill-dot" style="background: var(--amber)"></span>
+        Supabase
+      </div>
+      <div class="tool-pill">
+        <span class="tool-pill-dot" style="background: var(--blue)"></span>
+        Vercel
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num">5</span>
+        <span class="stat-label">ferramentas</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">1</span>
+        <span class="stat-label">ecossistema</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">~40min</span>
+        <span class="stat-label">instalação total</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">0</span>
+        <span class="stat-label">código prévio necessário</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ECOSSISTEMA -->
+<section id="ecossistema">
+  <div class="container container--wide">
+    <div class="section-label">01 — Visão Geral</div>
+    <h2 class="section-title">O Ecossistema completo</h2>
+    <p class="section-desc">
+      Cinco ferramentas que se conectam para permitir que você construa,
+      publique e mantenha aplicações de software usando linguagem natural.
+    </p>
+
+    <div class="ecosystem-grid">
+      <!-- Claude Code -->
+      <a href="#claude-code" class="eco-card animate stagger-1">
+        <div class="eco-icon" style="background: rgba(52,211,153,0.1);">🤖</div>
+        <h3>Claude Code</h3>
+        <p>O agente de IA que escreve e edita código por você, direto no terminal.</p>
+        <span class="eco-tag" style="background: var(--primary-dim); color: var(--primary);">IA + Terminal</span>
+      </a>
+      <!-- Skills -->
+      <a href="#skills" class="eco-card animate stagger-2">
+        <div class="eco-icon" style="background: var(--cyan-dim);">⚡</div>
+        <h3>Skills</h3>
+        <p>Extensões que dão capacidades especializadas ao Claude Code (copy, design, deploy...).</p>
+        <span class="eco-tag" style="background: var(--cyan-dim); color: var(--cyan);">Extensões</span>
+      </a>
+      <!-- GitHub -->
+      <a href="#github" class="eco-card animate stagger-3">
+        <div class="eco-icon" style="background: var(--violet-dim);">🗂️</div>
+        <h3>GitHub</h3>
+        <p>Onde o código vive. Histórico, colaboração, backup e integração com Vercel.</p>
+        <span class="eco-tag" style="background: var(--violet-dim); color: var(--violet);">Repositório</span>
+      </a>
+      <!-- Supabase -->
+      <a href="#supabase" class="eco-card animate stagger-4">
+        <div class="eco-icon" style="background: var(--amber-dim);">🗄️</div>
+        <h3>Supabase</h3>
+        <p>Banco de dados, autenticação e arquivos. O "backend" dos seus projetos.</p>
+        <span class="eco-tag" style="background: var(--amber-dim); color: var(--amber);">Backend</span>
+      </a>
+      <!-- Vercel -->
+      <a href="#vercel" class="eco-card animate stagger-5">
+        <div class="eco-icon" style="background: var(--blue-dim);">🚀</div>
+        <h3>Vercel</h3>
+        <p>Publica seu projeto na internet em segundos. Deploy automático a cada mudança.</p>
+        <span class="eco-tag" style="background: var(--blue-dim); color: var(--blue);">Deploy</span>
+      </a>
+    </div>
+
+    <!-- FLOW -->
+    <div class="highlight-box animate">
+      <h4>Como as ferramentas se conectam</h4>
+      <p>
+        Você conversa com o <strong style="color: var(--primary)">Claude Code</strong> no terminal → ele escreve o código usando <strong style="color: var(--cyan)">Skills</strong> especializadas → salva no <strong style="color: var(--violet)">GitHub</strong> → o código se conecta ao <strong style="color: var(--amber)">Supabase</strong> para dados e login → e é publicado automaticamente no <strong style="color: var(--blue)">Vercel</strong> para o mundo acessar.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- CLAUDE CODE -->
+<section id="claude-code">
+  <div class="container">
+    <div class="section-label">02 — Claude Code</div>
+
+    <div class="tool-header">
+      <div class="tool-icon-large" style="background: rgba(52,211,153,0.12); border: 1px solid var(--primary-border);">🤖</div>
+      <div class="tool-title-group">
+        <h2 class="section-title" style="margin-bottom: 4px;">O que é Claude Code?</h2>
+        <p>Uma IA que programa com você usando linguagem natural, direto no terminal.</p>
+      </div>
+    </div>
+
+    <p style="font-size: 15px; color: var(--text-muted); margin-bottom: 28px; line-height: 1.7;">
+      Claude Code é um <strong style="color:var(--text)">agente de IA desenvolvido pela Anthropic</strong> que roda no seu terminal.
+      Em vez de abrir o ChatGPT, copiar código e colar em algum lugar, o Claude Code
+      <em>age diretamente</em> — ele lê seus arquivos, escreve código, cria projetos inteiros,
+      faz commits no Git e muito mais, tudo a partir de uma conversa em texto.
+    </p>
+
+    <div class="concept-grid">
+      <div class="concept-card animate stagger-1">
+        <h4><span>💬</span> Linguagem natural</h4>
+        <p>Você fala o que quer em português. O Claude entende o contexto e escreve o código correto.</p>
+      </div>
+      <div class="concept-card animate stagger-2">
+        <h4><span>📁</span> Acessa seus arquivos</h4>
+        <p>Ele lê e edita arquivos do seu projeto em tempo real — não é só sugestão, é ação real.</p>
+      </div>
+      <div class="concept-card animate stagger-3">
+        <h4><span>🔁</span> Conversa contínua</h4>
+        <p>Mantém contexto da conversa. Você pode pedir ajustes, correções e refinamentos iterativamente.</p>
+      </div>
+      <div class="concept-card animate stagger-4">
+        <h4><span>🛠️</span> Executa comandos</h4>
+        <p>Roda npm install, git commit, testa código — tudo sem você precisar digitar cada comando.</p>
+      </div>
+    </div>
+
+    <div class="analogy-box animate">
+      <div class="icon">💡</div>
+      <p>
+        <strong>Analogia:</strong> imagine ter um programador sênior sentado ao seu lado, disponível 24h.
+        Você descreve o que precisa em português, ele escreve, você aprova ou pede ajuste.
+        É exatamente isso que o <strong>Claude Code</strong> faz — só que no terminal do seu computador.
+      </p>
+    </div>
+
+    <div style="margin-top: 28px;">
+      <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 8px; font-family: var(--mono);">// como parece na prática</p>
+      <div class="code-block">
+        <div class="code-header">
+          <div class="code-dots"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+          <span class="code-label">Terminal — Claude Code em ação</span>
+        </div>
+        <pre><span class="prompt">$ </span><span class="cmd">claude</span>
+
+<span class="out">✓ Claude Code iniciado — digite sua tarefa em português</span>
+
+<span class="prompt">Você: </span>Cria uma página de captura com formulário de nome e email
+
+<span class="out">╭─ Claude ──────────────────────────────────────────────────╮
+│ Vou criar a página. Criando index.html com o formulário...│
+│                                                            │
+│ ✓ Criado: index.html                                       │
+│ ✓ Criado: styles.css                                       │
+│ ✓ Formulário com validação e design responsivo             │
+╰────────────────────────────────────────────────────────────╯</span>
+
+<span class="prompt">Você: </span>Deixa o botão verde e adiciona uma mensagem de sucesso</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-label">03 — Skills</div>
+    <div class="tool-header">
+      <div class="tool-icon-large" style="background: var(--cyan-dim); border: 1px solid rgba(34,211,238,0.25);">⚡</div>
+      <div class="tool-title-group">
+        <h2 class="section-title" style="margin-bottom: 4px;">O que são Skills?</h2>
+        <p>Módulos especializados que ampliam as capacidades do Claude Code.</p>
+      </div>
+    </div>
+
+    <p style="font-size: 15px; color: var(--text-muted); margin-bottom: 28px; line-height: 1.7;">
+      Skills são como <strong style="color:var(--text)">aplicativos instalados no Claude Code</strong>.
+      Elas carregam instruções, frameworks, ferramentas e contexto especializado para áreas específicas:
+      copywriting, design de interfaces, análise de mercado, deploy, e muito mais.
+      Quando você digita <span class="inline-code">/nome-da-skill</span>, o Claude muda de modo
+      e passa a operar com expertise naquele domínio.
+    </p>
+
+    <div class="analogy-box animate" style="background: linear-gradient(135deg, var(--cyan-dim), rgba(52,211,153,0.04)); border-color: rgba(34,211,238,0.25);">
+      <div class="icon">💡</div>
+      <p>
+        <strong style="color: var(--cyan)">Analogia:</strong> pense nas Skills como <strong>consultores especialistas</strong> que você pode acionar.
+        O Claude base é um generalista excelente. Quando você ativa a skill <strong>/copy-senior</strong>,
+        ele vira um copywriter especialista em direct response. Quando ativa <strong>/frontend-design</strong>,
+        vira um designer de interfaces premium.
+      </p>
+    </div>
+
+    <div style="margin: 32px 0 16px;">
+      <p style="font-size: 13px; color: var(--text-dim); margin-bottom: 12px; font-family: var(--mono);">// skills disponíveis no seu programa</p>
+    </div>
+
+    <div class="skills-list">
+      <div class="skill-item animate stagger-1">
+        <span class="skill-trigger">/copy-senior</span>
+        <span class="skill-desc">Copywriter sênior de direct response — VSLs, ads, páginas de venda, emails</span>
+        <span class="skill-meta">Copy & Persuasão</span>
+      </div>
+      <div class="skill-item animate stagger-2">
+        <span class="skill-trigger">/frontend-design</span>
+        <span class="skill-desc">Cria interfaces web e landing pages com design premium e produção real</span>
+        <span class="skill-meta">Design & UI</span>
+      </div>
+      <div class="skill-item animate stagger-3">
+        <span class="skill-trigger">/marketing-skills</span>
+        <span class="skill-desc">42 skills de marketing: SEO, CRO, conteúdo, campanhas, growth, inteligência</span>
+        <span class="skill-meta">Marketing</span>
+      </div>
+      <div class="skill-item animate stagger-4">
+        <span class="skill-trigger">/instagram-post</span>
+        <span class="skill-desc">Cria e publica conteúdo no Instagram — estático ou carrossel</span>
+        <span class="skill-meta">Social Media</span>
+      </div>
+      <div class="skill-item animate stagger-5">
+        <span class="skill-trigger">/engineering-skills</span>
+        <span class="skill-desc">23 skills de engenharia: arquitetura, fullstack, DevOps, segurança, IA/ML</span>
+        <span class="skill-meta">Engenharia</span>
+      </div>
+      <div class="skill-item animate">
+        <span class="skill-trigger">/alex-hormozi-pitch</span>
+        <span class="skill-desc">Cria ofertas irresistíveis usando o framework de $100M Offers</span>
+        <span class="skill-meta">Vendas & Oferta</span>
+      </div>
+    </div>
+
+    <div class="callout callout--info" style="margin-top: 24px;">
+      <span class="callout-icon">ℹ️</span>
+      <span>Skills ficam na pasta <span class="inline-code">.claude/skills/</span> do seu projeto. Você pode criar skills próprias, compartilhá-las com a equipe e instalar novas a qualquer momento.</span>
+    </div>
+  </div>
+</section>
+
+<!-- GITHUB -->
+<section id="github">
+  <div class="container">
+    <div class="section-label">04 — GitHub</div>
+    <div class="tool-header">
+      <div class="tool-icon-large" style="background: var(--violet-dim); border: 1px solid rgba(167,139,250,0.25);">🗂️</div>
+      <div class="tool-title-group">
+        <h2 class="section-title" style="margin-bottom: 4px;">O que é GitHub?</h2>
+        <p>A plataforma onde o código do seu projeto vive, com histórico e colaboração.</p>
+      </div>
+    </div>
+
+    <p style="font-size: 15px; color: var(--text-muted); margin-bottom: 28px; line-height: 1.7;">
+      GitHub é uma plataforma baseada no <strong style="color:var(--text)">Git</strong>, um sistema de controle de versão.
+      Ele guarda todo o histórico do seu código — cada alteração, quem fez, quando.
+      Funciona como um <em>Google Drive inteligente para código</em>, mas muito mais poderoso:
+      permite colaboração, rollback de mudanças, branches para testar features, e integração automática com Vercel para deploy.
+    </p>
+
+    <div class="concept-grid">
+      <div class="concept-card animate stagger-1">
+        <h4><span>📦</span> Repositório</h4>
+        <p>Uma pasta no GitHub que contém todo o código de um projeto. Pública ou privada.</p>
+      </div>
+      <div class="concept-card animate stagger-2">
+        <h4><span>💾</span> Commit</h4>
+        <p>"Salvar com mensagem" — cada commit registra o que mudou e por quê. É o histórico do projeto.</p>
+      </div>
+      <div class="concept-card animate stagger-3">
+        <h4><span>🌿</span> Branch</h4>
+        <p>Uma versão paralela do código para testar algo sem afetar o principal (main).</p>
+      </div>
+      <div class="concept-card animate stagger-4">
+        <h4><span>🔀</span> Push / Pull</h4>
+        <p>Push = enviar alterações para o GitHub. Pull = baixar alterações do GitHub.</p>
+      </div>
+    </div>
+
+    <div class="analogy-box animate" style="background: linear-gradient(135deg, var(--violet-dim), rgba(52,211,153,0.04)); border-color: rgba(167,139,250,0.25);">
+      <div class="icon">💡</div>
+      <p>
+        <strong style="color: var(--violet)">Analogia:</strong> o GitHub é como um <strong>Google Drive com máquina do tempo</strong>.
+        Você salva seu código, pode ver como estava em qualquer data no passado, restaurar versões antigas,
+        ter múltiplas "cópias paralelas" do projeto e trabalhar com outras pessoas sem conflito.
+      </p>
+    </div>
+
+    <div style="margin-top: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+      <div>
+        <p style="font-size: 12px; color: var(--text-dim); margin-bottom: 8px; font-family: var(--mono);">// sem controle de versão</p>
+        <div class="concept-card" style="border-color: rgba(251,113,133,0.2);">
+          <p style="font-size: 13px; color: #fca5a5;">❌ site_final_v2_DEFINITIVO_2.html<br>❌ site_copia_backup_novo.html<br>❌ "Qual era a versão que funcionava?"<br>❌ Medo de mudar e quebrar tudo</p>
+        </div>
+      </div>
+      <div>
+        <p style="font-size: 12px; color: var(--text-dim); margin-bottom: 8px; font-family: var(--mono);">// com GitHub</p>
+        <div class="concept-card" style="border-color: var(--primary-border);">
+          <p style="font-size: 13px; color: #a7f3d0;">✅ Um arquivo só, histórico completo<br>✅ git log → ver todas as mudanças<br>✅ git checkout → voltar a qualquer versão<br>✅ Edite com confiança, sempre tem backup</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUPABASE -->
+<section id="supabase">
+  <div class="container">
+    <div class="section-label">05 — Supabase</div>
+    <div class="tool-header">
+      <div class="tool-icon-large" style="background: var(--amber-dim); border: 1px solid rgba(251,191,36,0.25);">🗄️</div>
+      <div class="tool-title-group">
+        <h2 class="section-title" style="margin-bottom: 4px;">O que é Supabase?</h2>
+        <p>O banco de dados, autenticação e storage dos seus projetos — tudo em um lugar.</p>
+      </div>
+    </div>
+
+    <p style="font-size: 15px; color: var(--text-muted); margin-bottom: 28px; line-height: 1.7;">
+      Supabase é um <strong style="color:var(--text)">backend como serviço (BaaS)</strong> open-source.
+      Ele oferece banco de dados PostgreSQL, sistema de login/autenticação, armazenamento de arquivos
+      e APIs prontas — tudo sem precisar configurar um servidor.
+      É o que permite que sua aplicação salve dados, tenha usuários logados e guarde imagens.
+    </p>
+
+    <div class="concept-grid">
+      <div class="concept-card animate stagger-1">
+        <h4><span>🗃️</span> Banco de Dados</h4>
+        <p>PostgreSQL completo. Tabelas, relacionamentos, queries SQL. Você cria a estrutura no painel visual.</p>
+      </div>
+      <div class="concept-card animate stagger-2">
+        <h4><span>🔐</span> Autenticação</h4>
+        <p>Login com email, Google, GitHub etc. Gerenciamento de usuários e sessões já prontos.</p>
+      </div>
+      <div class="concept-card animate stagger-3">
+        <h4><span>📸</span> Storage</h4>
+        <p>Armazenamento de arquivos (imagens, PDFs, vídeos) com URLs públicas ou privadas.</p>
+      </div>
+      <div class="concept-card animate stagger-4">
+        <h4><span>⚡</span> Realtime</h4>
+        <p>Atualizações em tempo real — quando alguém salva no banco, outros usuários veem na hora.</p>
+      </div>
+    </div>
+
+    <div class="analogy-box animate" style="background: linear-gradient(135deg, var(--amber-dim), rgba(52,211,153,0.04)); border-color: rgba(251,191,36,0.25);">
+      <div class="icon">💡</div>
+      <p>
+        <strong style="color: var(--amber)">Analogia:</strong> pense no Supabase como o <strong>"Google Firebase mas melhor"</strong>.
+        É o lugar onde sua aplicação guarda informações — os cadastros de clientes, os pedidos,
+        as fotos de perfil, as sessões de login. Sem ele, sua aplicação não tem memória.
+      </p>
+    </div>
+
+    <div class="callout callout--tip" style="margin-top: 24px;">
+      <span class="callout-icon">✅</span>
+      <span>O plano gratuito do Supabase inclui 500MB de banco de dados, 1GB de storage e 50.000 usuários — mais do que suficiente para começar qualquer projeto.</span>
+    </div>
+  </div>
+</section>
+
+<!-- VERCEL -->
+<section id="vercel">
+  <div class="container">
+    <div class="section-label">06 — Vercel</div>
+    <div class="tool-header">
+      <div class="tool-icon-large" style="background: var(--blue-dim); border: 1px solid rgba(96,165,250,0.25);">🚀</div>
+      <div class="tool-title-group">
+        <h2 class="section-title" style="margin-bottom: 4px;">O que é Vercel?</h2>
+        <p>A plataforma que coloca sua aplicação na internet em segundos, automaticamente.</p>
+      </div>
+    </div>
+
+    <p style="font-size: 15px; color: var(--text-muted); margin-bottom: 28px; line-height: 1.7;">
+      Vercel é uma plataforma de <strong style="color:var(--text)">hospedagem e deploy contínuo</strong>.
+      Você conecta seu repositório do GitHub e a Vercel faz o resto:
+      toda vez que você faz um <em>push</em> para o GitHub, a Vercel automaticamente
+      atualiza o site ao vivo. Você nunca precisa fazer upload de arquivos manualmente,
+      configurar servidores ou se preocupar com infraestrutura.
+    </p>
+
+    <div class="concept-grid">
+      <div class="concept-card animate stagger-1">
+        <h4><span>🔄</span> Deploy automático</h4>
+        <p>Push no GitHub → site atualizado em 30 segundos. Automático, sem nenhuma ação extra.</p>
+      </div>
+      <div class="concept-card animate stagger-2">
+        <h4><span>🌐</span> URL instantânea</h4>
+        <p>Cada projeto ganha uma URL pública imediatamente (ex: meu-projeto.vercel.app).</p>
+      </div>
+      <div class="concept-card animate stagger-3">
+        <h4><span>🔒</span> HTTPS grátis</h4>
+        <p>SSL/HTTPS configurado automaticamente. Seu site é seguro sem custo extra.</p>
+      </div>
+      <div class="concept-card animate stagger-4">
+        <h4><span>📊</span> Analytics</h4>
+        <p>Vê quantas pessoas acessaram, de onde, qual performance — painel completo.</p>
+      </div>
+    </div>
+
+    <div class="analogy-box animate" style="background: linear-gradient(135deg, var(--blue-dim), rgba(52,211,153,0.04)); border-color: rgba(96,165,250,0.25);">
+      <div class="icon">💡</div>
+      <p>
+        <strong style="color: var(--blue)">Analogia:</strong> Vercel é o <strong>"Shopify da hospedagem de aplicações"</strong>.
+        Em vez de contratar servidor, configurar DNS, instalar certificados de segurança...
+        você conecta seu GitHub, e em 2 cliques seu projeto está online, com URL, HTTPS e deploy automático.
+      </p>
+    </div>
+
+    <div style="margin-top: 24px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px;">
+      <p style="font-size: 12px; font-family: var(--mono); color: var(--text-dim); margin-bottom: 14px;">// fluxo completo de uma mudança</p>
+      <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+        <div style="text-align: center;">
+          <div style="background: var(--primary-dim); border: 1px solid var(--primary-border); border-radius: 8px; padding: 10px 16px; font-size: 13px; color: var(--primary);">1. Você edita</div>
+          <div style="font-size: 11px; color: var(--text-dim); margin-top: 4px;">no Claude Code</div>
+        </div>
+        <span style="color: var(--primary); font-size: 18px;">→</span>
+        <div style="text-align: center;">
+          <div style="background: var(--violet-dim); border: 1px solid rgba(167,139,250,0.25); border-radius: 8px; padding: 10px 16px; font-size: 13px; color: var(--violet);">2. git push</div>
+          <div style="font-size: 11px; color: var(--text-dim); margin-top: 4px;">para o GitHub</div>
+        </div>
+        <span style="color: var(--primary); font-size: 18px;">→</span>
+        <div style="text-align: center;">
+          <div style="background: var(--blue-dim); border: 1px solid rgba(96,165,250,0.25); border-radius: 8px; padding: 10px 16px; font-size: 13px; color: var(--blue);">3. Vercel detecta</div>
+          <div style="font-size: 11px; color: var(--text-dim); margin-top: 4px;">automaticamente</div>
+        </div>
+        <span style="color: var(--primary); font-size: 18px;">→</span>
+        <div style="text-align: center;">
+          <div style="background: rgba(52,211,153,0.15); border: 1px solid var(--primary-border); border-radius: 8px; padding: 10px 16px; font-size: 13px; color: var(--primary);">4. Site atualizado</div>
+          <div style="font-size: 11px; color: var(--text-dim); margin-top: 4px;">em ~30 segundos</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================
+     TUTORIAL MAC
+============================= -->
+<section id="tutorial" style="background: linear-gradient(180deg, #111111 0%, #0d0d0d 100%);">
+  <div class="container container--wide">
+    <div class="section-label">07 — Tutorial Mac</div>
+    <h2 class="section-title">Instalação completa no Mac</h2>
+    <p class="section-desc">
+      Passo a passo detalhado para instalar todas as ferramentas do ecossistema no macOS.
+      Siga na ordem — cada etapa depende da anterior.
+    </p>
+
+    <div class="callout callout--warn" style="margin-bottom: 36px;">
+      <span class="callout-icon">⚠️</span>
+      <span><strong>Antes de começar:</strong> você vai precisar abrir o <strong>Terminal</strong>. Pressione <span class="kbd">⌘ + Espaço</span>, digite <strong>Terminal</strong> e pressione Enter. Deixe ele aberto durante toda a instalação.</span>
+    </div>
+
+    <!-- NAV DOS PASSOS -->
+    <div class="tutorial-nav">
+      <a href="#step-homebrew" class="tut-nav-item">
+        <div class="tut-nav-num">1</div>Homebrew
+      </a>
+      <a href="#step-node" class="tut-nav-item">
+        <div class="tut-nav-num">2</div>Node.js
+      </a>
+      <a href="#step-cursor" class="tut-nav-item">
+        <div class="tut-nav-num">3</div>Cursor
+      </a>
+      <a href="#step-claude" class="tut-nav-item">
+        <div class="tut-nav-num">4</div>Claude Code
+      </a>
+      <a href="#step-github" class="tut-nav-item">
+        <div class="tut-nav-num">5</div>Git + GitHub
+      </a>
+      <a href="#step-supabase" class="tut-nav-item">
+        <div class="tut-nav-num">6</div>Supabase
+      </a>
+      <a href="#step-vercel" class="tut-nav-item">
+        <div class="tut-nav-num">7</div>Vercel
+      </a>
+      <a href="#step-teste" class="tut-nav-item">
+        <div class="tut-nav-num">8</div>Teste Final
+      </a>
+    </div>
+
+    <div class="os-switcher">
+      <p style="font-size:12px; color: var(--text-dim); margin-bottom: 10px; font-family: var(--mono);">// selecione seu sistema operacional</p>
+      <div class="os-tabs">
+        <button class="os-tab active" data-os="mac" onclick="setOS('mac')">🍎 macOS</button>
+        <button class="os-tab" data-os="win" onclick="setOS('win')">🪟 Windows</button>
+      </div>
+    </div>
+
+    <!-- ===== PASSO 1: HOMEBREW / WINGET ===== -->
+    <div class="step-block" id="step-homebrew">
+      <div class="step-header">
+        <div class="step-number">1</div>
+        <div class="step-title">
+          <h3 class="os-mac">Instalar o Homebrew</h3>
+          <h3 class="os-win">Verificar / Instalar o Winget</h3>
+          <p class="os-mac">O gerenciador de pacotes do Mac — facilita instalar qualquer ferramenta de desenvolvimento.</p>
+          <p class="os-win">O gerenciador de pacotes do Windows 11 — já vem instalado na maioria dos sistemas modernos.</p>
+        </div>
+      </div>
+      <div class="step-body">
+
+        <!-- macOS -->
+        <div class="os-mac">
+          <div class="analogy-box" style="margin-bottom: 20px; background: rgba(52,211,153,0.05);">
+            <div class="icon">💡</div>
+            <p><strong>O que é o Homebrew?</strong> É como a App Store, mas para ferramentas de desenvolvedor. Com um comando você instala qualquer programa sem precisar procurar no Google, baixar instalador, arrastar para Applications...</p>
+          </div>
+          <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 12px;">Cole este comando no Terminal e pressione Enter:</p>
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+              <span class="code-label">Terminal (macOS)</span>
+            </div>
+            <pre><span class="prompt">$ </span><span class="cmd">/bin/bash</span> -c <span class="str">"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</span></pre>
+          </div>
+          <div class="callout callout--warn">
+            <span class="callout-icon">⚠️</span>
+            <span>O processo vai pedir sua <strong>senha do Mac</strong>. Você não vai ver os caracteres enquanto digita — isso é normal. Digite e pressione Enter.</span>
+          </div>
+          <p style="font-size: 14px; color: var(--text-muted); margin-top: 16px; margin-bottom: 12px;">Se você usa Mac com chip <strong>Apple Silicon (M1/M2/M3/M4)</strong>, após a instalação o terminal vai mostrar instruções para adicionar o Homebrew ao PATH. Execute os comandos sugeridos (começam com <span class="inline-code">echo</span> e <span class="inline-code">source</span>).</p>
+          <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 12px;">Verifique se instalou corretamente:</p>
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+              <span class="code-label">Verificação</span>
+            </div>
+            <pre><span class="prompt">$ </span><span class="cmd">brew</span> --version
+<span class="out">Homebrew 4.x.x</span>   <span class="comment">← deve aparecer algo assim ✅</span></pre>
+          </div>
+        </div>
+
+        <!-- Windows -->
+        <div class="os-win">
+          <div class="callout callout--warn" style="margin-bottom: 20px;">
+            <span class="callout-icon">⚠️</span>
+            <span>Abra o <strong>PowerShell como Administrador</strong> para TODOS os passos desta instalação: pressione <span class="kbd">Win + X</span> e escolha <strong>"Terminal (Admin)"</strong> ou <strong>"Windows PowerShell (Admin)"</strong>. Mantenha ele aberto durante toda a instalação.</span>
+          </div>
+          <div class="analogy-box" style="margin-bottom: 20px; background: rgba(52,211,153,0.05);">
+            <div class="icon">💡</div>
+            <p><strong>O que é o winget?</strong> É o gerenciador de pacotes oficial da Microsoft, embutido no Windows 11. Funciona como o Homebrew do Mac: um comando instala qualquer ferramenta sem baixar instaladores manualmente.</p>
+          </div>
+          <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 12px;">Verifique se o winget está disponível:</p>
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+              <span class="code-label">PowerShell (Admin)</span>
+            </div>
+            <pre><span class="prompt">PS> </span><span class="cmd">winget</span> --version
+<span class="out">v1.x.x</span>   <span class="comment">← deve aparecer assim ✅</span></pre>
+          </div>
+          <div class="callout callout--info" style="margin: 12px 0 20px;">
+            <span class="callout-icon">ℹ️</span>
+            <span><strong>Windows 11:</strong> winget já vem instalado. <strong>Windows 10:</strong> instale o <strong>"App Installer"</strong> na Microsoft Store e reinicie o PowerShell.</span>
+          </div>
+          <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 12px;">Libere a execução de scripts no PowerShell (necessário apenas uma vez):</p>
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+              <span class="code-label">PowerShell (Admin)</span>
+            </div>
+            <pre><span class="prompt">PS> </span>Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+<span class="out">Execution policy changed. ✅</span></pre>
+          </div>
+          <div class="callout callout--tip" style="margin-top: 8px;">
+            <span class="callout-icon">✅</span>
+            <span>Este comando permite ao PowerShell executar scripts e pacotes instalados via npm. Precisa ser feito apenas uma vez.</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===== PASSO 2: NODE.JS ===== -->
+    <div class="step-block" id="step-node">
+      <div class="step-header">
+        <div class="step-number">2</div>
+        <div class="step-title">
+          <h3>Instalar o Node.js</h3>
+          <p>O ambiente de execução JavaScript que o Claude Code precisa para funcionar.</p>
+        </div>
+      </div>
+      <div class="step-body">
+
+        <!-- macOS -->
+        <div class="os-mac">
+          <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 16px;">
+            Vamos usar o <strong style="color: var(--text)">nvm</strong> (Node Version Manager) — permite ter múltiplas versões do Node e trocar entre elas facilmente.
+          </p>
+          <p style="font-size: 13px; color: var(--text-dim); margin-bottom: 8px; font-family: var(--mono);">// passo 2.1 — instalar o nvm</p>
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+              <span class="code-label">Terminal (macOS)</span>
+            </div>
+            <pre><span class="prompt">$ </span><span class="cmd">curl</span> -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash</pre>
+          </div>
+          <p style="font-size: 14px; color: var(--text-muted); margin: 16px 0 8px;">Depois de instalar, <strong>feche e reabra o Terminal</strong>, e então instale o Node.js:</p>
+          <p style="font-size: 13px; color: var(--text-dim); margin-bottom: 8px; font-family: var(--mono);">// passo 2.2 — instalar Node.js LTS (versão estável)</p>
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+              <span class="code-label">Terminal (novo)</span>
+            </div>
+            <pre><span class="prompt">$ </span><span class="cmd">nvm</span> install --lts
+<span class="out">Installing latest LTS version...
+Now using node v22.x.x</span>
+
+<span class="prompt">$ </span><span class="cmd">node</span> --version
+<span class="out">v22.x.x</span>   <span class="comment">← deve aparecer assim ✅</span>
+
+<span class="prompt">$ </span><span class="cmd">npm</span> --version
+<span class="out">10.x.x</span>   <span class="comment">← npm instalado junto ✅</span></pre>
+          </div>
+        </div>
+
+        <!-- Windows -->
+        <div class="os-win">
+          <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 16px;">
+            Vamos usar o <strong style="color: var(--text)">nvm-windows</strong> (Node Version Manager para Windows) — instalado via winget.
+          </p>
+          <p style="font-size: 13px; color: var(--text-dim); margin-bottom: 8px; font-family: var(--mono);">// passo 2.1 — instalar o nvm-windows</p>
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+              <span class="code-label">PowerShell (Admin)</span>
+            </div>
+            <pre><span class="prompt">PS> </span><span class="cmd">winget</span> install CoreyButler.NVMforWindows
+<span class="out">Successfully installed. ✅</span></pre>
+          </div>
+          <p style="font-size: 14px; color: var(--text-muted); margin: 16px 0 8px;"><strong>Feche e reabra o PowerShell como Admin</strong>, e então instale o Node.js:</p>
+          <p style="font-size: 13px; color: var(--text-dim); margin-bottom: 8px; font-family: var(--mono);">// passo 2.2 — instalar Node.js LTS</p>
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+              <span class="code-label">PowerShell (Admin — novo)</span>
+            </div>
+            <pre><span class="prompt">PS> </span><span class="cmd">nvm</span> install lts
+<span class="out">Downloading and installing Node.js LTS...</span>
+
+<span class="prompt">PS> </span><span class="cmd">nvm</span> use lts
+<span class="out">Now using node v22.x.x</span>
+
+<span class="prompt">PS> </span><span class="cmd">node</span> --version
+<span class="out">v22.x.x</span>   <span class="comment">← deve aparecer assim ✅</span>
+
+<span class="prompt">PS> </span><span class="cmd">npm</span> --version
+<span class="out">10.x.x</span>   <span class="comment">← npm instalado junto ✅</span></pre>
+          </div>
+          <div class="callout callout--tip" style="margin-top: 12px;">
+            <span class="callout-icon">✅</span>
+            <span>No nvm-windows, sempre use <span class="inline-code">nvm use lts</span> após reiniciar o PowerShell para ativar a versão correta do Node.</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===== PASSO 3: CURSOR ===== -->
+    <div class="step-block" id="step-cursor">
+      <div class="step-header">
+        <div class="step-number">3</div>
+        <div class="step-title">
+          <h3>Instalar o Cursor</h3>
+          <p>O editor de código com IA integrada — onde você vai visualizar e trabalhar nos seus projetos.</p>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="analogy-box" style="margin-bottom: 20px; background: rgba(52,211,153,0.05);">
+          <div class="icon">💡</div>
+          <p><strong>O que é o Cursor?</strong> É um editor de código baseado no VS Code, com IA integrada. Você escreve, edita e visualiza seus arquivos aqui. O Claude Code roda no terminal integrado do Cursor — os dois trabalham juntos no mesmo ambiente.</p>
+        </div>
+
+        <!-- macOS -->
+        <div class="os-mac">
+          <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 12px;">Instale via Homebrew:</p>
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+              <span class="code-label">Terminal (macOS)</span>
+            </div>
+            <pre><span class="prompt">$ </span><span class="cmd">brew</span> install --cask cursor
+<span class="out">cursor was successfully installed! ✅</span></pre>
+          </div>
+          <div class="callout callout--info" style="margin-top: 12px;">
+            <span class="callout-icon">ℹ️</span>
+            <span>Alternativa: baixe o instalador diretamente em <strong>cursor.com</strong> e arraste para a pasta Applications.</span>
+          </div>
+        </div>
+
+        <!-- Windows -->
+        <div class="os-win">
+          <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 12px;">Instale via winget:</p>
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+              <span class="code-label">PowerShell (Admin)</span>
+            </div>
+            <pre><span class="prompt">PS> </span><span class="cmd">winget</span> install Anysphere.Cursor
+<span class="out">Successfully installed. ✅</span></pre>
+          </div>
+          <div class="callout callout--info" style="margin-top: 12px;">
+            <span class="callout-icon">ℹ️</span>
+            <span>Alternativa: baixe o instalador diretamente em <strong>cursor.com</strong> e execute o arquivo <strong>.exe</strong>.</span>
+          </div>
+        </div>
+
+        <p style="font-size: 13px; color: var(--text-dim); margin: 24px 0 12px; font-family: var(--mono);">// configuração inicial</p>
+        <ul class="sub-steps">
+          <li>Abra o Cursor — aparece no Launchpad (Mac) ou no Menu Iniciar (Windows)</li>
+          <li>Clique em <strong>"Sign In"</strong> e crie uma conta gratuita em cursor.com</li>
+          <li>Na tela de configuração, pode pular as opções de IA por enquanto — vamos usar o Claude Code no terminal</li>
+          <li>Familiarize-se com a interface: é idêntica ao VS Code — mesmos atalhos, mesmas extensões</li>
+        </ul>
+
+        <div class="concept-grid" style="margin-top: 24px;">
+          <div class="concept-card">
+            <h4><span>⌘K</span> Gerar código inline</h4>
+            <p>Abre o prompt dentro do arquivo para pedir ao Cursor que escreva ou edite código na posição do cursor.</p>
+          </div>
+          <div class="concept-card">
+            <h4><span>⌘L</span> Chat lateral</h4>
+            <p>Chat com contexto do projeto inteiro — ótimo para perguntas, análise e refatoração de código.</p>
+          </div>
+          <div class="concept-card">
+            <h4><span>⌃`</span> Terminal integrado</h4>
+            <p>Abre o terminal dentro do Cursor — é aqui que você vai rodar o Claude Code nos próximos passos.</p>
+          </div>
+        </div>
+
+        <div class="callout callout--tip" style="margin-top: 16px;">
+          <span class="callout-icon">✅</span>
+          <span>No Windows os atalhos usam <span class="kbd">Ctrl</span> no lugar de <span class="kbd">⌘</span>: <span class="kbd">Ctrl+K</span>, <span class="kbd">Ctrl+L</span> e <span class="kbd">Ctrl+`</span>.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PASSO 4: CLAUDE CODE ===== -->
+    <div class="step-block" id="step-claude">
+      <div class="step-header">
+        <div class="step-number">4</div>
+        <div class="step-title">
+          <h3>Instalar o Claude Code</h3>
+          <p>O agente de IA que vai escrever código para você.</p>
+        </div>
+      </div>
+      <div class="step-body">
+        <p style="font-size: 13px; color: var(--text-dim); margin-bottom: 8px; font-family: var(--mono);">// instalar via npm (gerenciador do Node)</p>
+        <div class="code-block">
+          <div class="code-header">
+            <div class="code-dots"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+            <span class="code-label">Terminal</span>
+          </div>
+          <pre><span class="prompt">$ </span><span class="cmd">npm</span> install -g @anthropic-ai/claude-code
+<span class="out">added 47 packages in 8s</span>
+
+<span class="prompt">$ </span><span class="cmd">claude</span> --version
+<span class="out">@anthropic-ai/claude-code@1.x.x</span>   <span class="comment">← instalado ✅</span></pre>
+        </div>
+
+        <p style="font-size: 14px; color: var(--text-muted); margin: 20px 0 12px;"><strong style="color: var(--text)">Agora, inicie o Claude Code pela primeira vez:</strong></p>
+
+        <div class="code-block">
+          <div class="code-header">
+            <div class="code-dots"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+            <span class="code-label">Primeiro acesso</span>
+          </div>
+          <pre><span class="prompt">$ </span><span class="cmd">claude</span>
+
+<span class="out">Welcome to Claude Code!
+
+? How would you like to authenticate?
+  ❯ Claude.ai account (recommended)
+    Anthropic API key</span></pre>
+        </div>
+
+        <div class="callout callout--tip" style="margin-top: 12px;">
+          <span class="callout-icon">✅</span>
+          <span>Selecione <strong>"Claude.ai account"</strong> e faça login com sua conta claude.ai. Se você ainda não tem uma conta, crie em <strong>claude.ai</strong> antes deste passo. O plano Pro é necessário para usar o Claude Code.</span>
+        </div>
+
+        <div class="callout callout--info" style="margin-top: 10px;">
+          <span class="callout-icon">ℹ️</span>
+          <span>O Claude Code vai abrir um link no browser para autorizar o acesso. Faça login, autorize e volte para o Terminal. Você verá a mensagem <strong>"Authentication successful"</strong>.</span>
+        </div>
+
+        <p style="font-size: 14px; color: var(--text-muted); margin: 20px 0 12px;"><strong style="color: var(--text)">Teste básico — crie uma pasta e peça algo ao Claude:</strong></p>
+        <div class="os-mac">
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+              <span class="code-label">Terminal (macOS)</span>
+            </div>
+            <pre><span class="prompt">$ </span>mkdir meu-primeiro-projeto && cd meu-primeiro-projeto
+<span class="prompt">$ </span><span class="cmd">claude</span>
+
+<span class="out">✓ Claude Code pronto</span>
+
+<span class="prompt">Você: </span>Cria um arquivo index.html com "Olá Mundo!" em HTML básico
+
+<span class="out">╭─ Claude ──────────────────────────────────────╮
+│ ✓ Criado: index.html                           │
+╰────────────────────────────────────────────────╯</span>
+
+<span class="prompt">$ </span>open index.html   <span class="comment"># abre no browser</span></pre>
+          </div>
+        </div>
+        <div class="os-win">
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+              <span class="code-label">PowerShell (Admin)</span>
+            </div>
+            <pre><span class="prompt">PS> </span>mkdir meu-primeiro-projeto; cd meu-primeiro-projeto
+<span class="prompt">PS> </span><span class="cmd">claude</span>
+
+<span class="out">✓ Claude Code pronto</span>
+
+<span class="prompt">Você: </span>Cria um arquivo index.html com "Olá Mundo!" em HTML básico
+
+<span class="out">╭─ Claude ──────────────────────────────────────╮
+│ ✓ Criado: index.html                           │
+╰────────────────────────────────────────────────╯</span>
+
+<span class="prompt">PS> </span>start index.html   <span class="comment"># abre no browser</span></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PASSO 4: GIT + GITHUB ===== -->
+    <div class="step-block" id="step-github">
+      <div class="step-header">
+        <div class="step-number">5</div>
+        <div class="step-title">
+          <h3>Configurar Git + GitHub</h3>
+          <p>Controle de versão local e conta na plataforma de repositórios.</p>
+        </div>
+      </div>
+      <div class="step-body">
+
+        <p style="font-size: 13px; color: var(--text-dim); margin-bottom: 8px; font-family: var(--mono);">// 4.1 — criar conta no GitHub</p>
+        <div class="callout callout--info" style="margin-bottom: 20px;">
+          <span class="callout-icon">🌐</span>
+          <span>Acesse <strong>github.com</strong> e crie uma conta gratuita se ainda não tiver. Use o mesmo email que você usará para os projetos. Plano Free é suficiente para começar.</span>
+        </div>
+
+        <p style="font-size: 13px; color: var(--text-dim); margin-bottom: 8px; font-family: var(--mono);">// 4.2 — instalar e configurar o Git</p>
+        <div class="os-mac">
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+              <span class="code-label">Terminal (macOS)</span>
+            </div>
+            <pre><span class="comment"># instalar Git via Homebrew (versão mais atual)</span>
+<span class="prompt">$ </span><span class="cmd">brew</span> install git
+
+<span class="comment"># configurar seu nome e email (use os mesmos do GitHub)</span>
+<span class="prompt">$ </span><span class="cmd">git</span> config --global user.name <span class="str">"Seu Nome"</span>
+<span class="prompt">$ </span><span class="cmd">git</span> config --global user.email <span class="str">"seu@email.com"</span>
+
+<span class="comment"># verificar configuração</span>
+<span class="prompt">$ </span><span class="cmd">git</span> config --global --list
+<span class="out">user.name=Seu Nome
+user.email=seu@email.com</span>   <span class="comment">← ✅</span></pre>
+          </div>
+        </div>
+        <div class="os-win">
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+              <span class="code-label">PowerShell (Admin)</span>
+            </div>
+            <pre><span class="comment"># instalar Git via winget</span>
+<span class="prompt">PS> </span><span class="cmd">winget</span> install Git.Git
+
+<span class="comment"># feche e reabra o PowerShell, depois configure:</span>
+<span class="prompt">PS> </span><span class="cmd">git</span> config --global user.name <span class="str">"Seu Nome"</span>
+<span class="prompt">PS> </span><span class="cmd">git</span> config --global user.email <span class="str">"seu@email.com"</span>
+
+<span class="comment"># verificar configuração</span>
+<span class="prompt">PS> </span><span class="cmd">git</span> config --global --list
+<span class="out">user.name=Seu Nome
+user.email=seu@email.com</span>   <span class="comment">← ✅</span></pre>
+          </div>
+        </div>
+
+        <p style="font-size: 13px; color: var(--text-dim); margin: 20px 0 8px; font-family: var(--mono);">// 4.3 — criar chave SSH (conexão segura com o GitHub)</p>
+        <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 12px;">A chave SSH é como uma senha permanente e automática que identifica seu computador para o GitHub.</p>
+        <div class="os-mac">
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+              <span class="code-label">Gerar chave SSH (macOS)</span>
+            </div>
+            <pre><span class="comment"># gerar a chave (substitua pelo seu email)</span>
+<span class="prompt">$ </span><span class="cmd">ssh-keygen</span> -t ed25519 -C <span class="str">"seu@email.com"</span>
+
+<span class="out">Generating public/private ed25519 key pair.
+Enter file in which to save the key: </span><span class="comment">← pressione Enter</span>
+<span class="out">Enter passphrase: </span><span class="comment">← pressione Enter (sem senha)</span>
+<span class="out">Your identification has been saved in ~/.ssh/id_ed25519 ✅</span>
+
+<span class="comment"># adicionar ao ssh-agent</span>
+<span class="prompt">$ </span>eval <span class="str">"$(ssh-agent -s)"</span>
+<span class="prompt">$ </span><span class="cmd">ssh-add</span> ~/.ssh/id_ed25519
+
+<span class="comment"># copiar a chave pública</span>
+<span class="prompt">$ </span><span class="cmd">cat</span> ~/.ssh/id_ed25519.pub
+<span class="out">ssh-ed25519 AAAAC3Nza... seu@email.com</span>   <span class="comment">← copie TUDO isso</span></pre>
+          </div>
+        </div>
+        <div class="os-win">
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+              <span class="code-label">Gerar chave SSH (Windows — PowerShell)</span>
+            </div>
+            <pre><span class="comment"># gerar a chave (substitua pelo seu email)</span>
+<span class="prompt">PS> </span><span class="cmd">ssh-keygen</span> -t ed25519 -C <span class="str">"seu@email.com"</span>
+
+<span class="out">Generating public/private ed25519 key pair.
+Enter file in which to save the key: </span><span class="comment">← pressione Enter</span>
+<span class="out">Enter passphrase: </span><span class="comment">← pressione Enter (sem senha)</span>
+<span class="out">Your identification has been saved in C:\Users\Voce\.ssh\id_ed25519 ✅</span>
+
+<span class="comment"># adicionar ao ssh-agent (habilite o serviço primeiro)</span>
+<span class="prompt">PS> </span>Get-Service ssh-agent | Set-Service -StartupType Automatic
+<span class="prompt">PS> </span>Start-Service ssh-agent
+<span class="prompt">PS> </span><span class="cmd">ssh-add</span> $env:USERPROFILE\.ssh\id_ed25519
+
+<span class="comment"># copiar a chave pública (PowerShell)</span>
+<span class="prompt">PS> </span>Get-Content $env:USERPROFILE\.ssh\id_ed25519.pub
+<span class="out">ssh-ed25519 AAAAC3Nza... seu@email.com</span>   <span class="comment">← copie TUDO isso</span></pre>
+          </div>
+        </div>
+
+        <p style="font-size: 13px; color: var(--text-dim); margin: 20px 0 8px; font-family: var(--mono);">// 4.4 — adicionar chave no GitHub</p>
+        <ul class="sub-steps">
+          <li>Acesse <strong>github.com → Settings → SSH and GPG keys</strong></li>
+          <li>Clique em <strong>"New SSH key"</strong></li>
+          <li>No campo <strong>Title</strong>, escreva <em>"Meu Mac"</em></li>
+          <li>No campo <strong>Key</strong>, cole tudo que copiou no passo anterior</li>
+          <li>Clique em <strong>"Add SSH key"</strong> e confirme com sua senha do GitHub</li>
+        </ul>
+
+        <p style="font-size: 13px; color: var(--text-dim); margin: 16px 0 8px; font-family: var(--mono);">// 4.5 — testar conexão</p>
+        <div class="code-block">
+          <div class="code-header">
+            <div class="code-dots"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+            <span class="code-label">Teste SSH</span>
+          </div>
+          <pre><span class="prompt">$ </span><span class="cmd">ssh</span> -T git@github.com
+<span class="out">Hi seu-usuario! You've successfully authenticated ✅</span></pre>
+        </div>
+
+        <p style="font-size: 13px; color: var(--text-dim); margin: 20px 0 8px; font-family: var(--mono);">// 4.6 — instalar GitHub CLI (opcional mas útil)</p>
+        <div class="os-mac">
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+              <span class="code-label">GitHub CLI (macOS)</span>
+            </div>
+            <pre><span class="prompt">$ </span><span class="cmd">brew</span> install gh
+<span class="prompt">$ </span><span class="cmd">gh</span> auth login   <span class="comment"># siga as instruções para autenticar</span></pre>
+          </div>
+        </div>
+        <div class="os-win">
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+              <span class="code-label">GitHub CLI (Windows)</span>
+            </div>
+            <pre><span class="prompt">PS> </span><span class="cmd">winget</span> install GitHub.cli
+<span class="comment"># feche e reabra o PowerShell, depois:</span>
+<span class="prompt">PS> </span><span class="cmd">gh</span> auth login   <span class="comment"># siga as instruções para autenticar</span></pre>
+          </div>
+        </div>
+        <div class="callout callout--tip">
+          <span class="callout-icon">✅</span>
+          <span>O GitHub CLI (<span class="inline-code">gh</span>) permite criar repositórios, abrir PRs e fazer outras operações do GitHub direto no terminal. O Claude Code usa ele internamente para algumas tarefas.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PASSO 5: SUPABASE ===== -->
+    <div class="step-block" id="step-supabase">
+      <div class="step-header">
+        <div class="step-number">6</div>
+        <div class="step-title">
+          <h3>Configurar o Supabase</h3>
+          <p>Criar conta e instalar a CLI para gerenciar projetos do terminal.</p>
+        </div>
+      </div>
+      <div class="step-body">
+        <p style="font-size: 13px; color: var(--text-dim); margin-bottom: 8px; font-family: var(--mono);">// 5.1 — criar conta</p>
+        <div class="callout callout--info" style="margin-bottom: 20px;">
+          <span class="callout-icon">🌐</span>
+          <span>Acesse <strong>supabase.com</strong> e clique em <strong>"Start your project"</strong>. Recomendo criar conta com o GitHub (mais rápido). O plano Free é gratuito para sempre e suficiente para projetos iniciais.</span>
+        </div>
+
+        <p style="font-size: 13px; color: var(--text-dim); margin-bottom: 8px; font-family: var(--mono);">// 5.2 — instalar Supabase CLI</p>
+        <div class="os-mac">
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+              <span class="code-label">Terminal (macOS)</span>
+            </div>
+            <pre><span class="prompt">$ </span><span class="cmd">brew</span> install supabase/tap/supabase
+
+<span class="comment"># verificar instalação</span>
+<span class="prompt">$ </span><span class="cmd">supabase</span> --version
+<span class="out">1.x.x</span>   <span class="comment">← ✅</span>
+
+<span class="comment"># fazer login com sua conta supabase.com</span>
+<span class="prompt">$ </span><span class="cmd">supabase</span> login
+<span class="out">You are now logged in. ✅</span></pre>
+          </div>
+        </div>
+        <div class="os-win">
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+              <span class="code-label">PowerShell (Admin)</span>
+            </div>
+            <pre><span class="comment"># no Windows, instalar via npm (não tem brew)</span>
+<span class="prompt">PS> </span><span class="cmd">npm</span> install -g supabase
+
+<span class="comment"># verificar instalação</span>
+<span class="prompt">PS> </span><span class="cmd">supabase</span> --version
+<span class="out">1.x.x</span>   <span class="comment">← ✅</span>
+
+<span class="comment"># fazer login com sua conta supabase.com</span>
+<span class="prompt">PS> </span><span class="cmd">supabase</span> login
+<span class="out">You are now logged in. ✅</span></pre>
+          </div>
+        </div>
+
+        <p style="font-size: 13px; color: var(--text-dim); margin: 20px 0 8px; font-family: var(--mono);">// 5.3 — criar seu primeiro projeto no painel</p>
+        <ul class="sub-steps">
+          <li>No painel do Supabase (supabase.com/dashboard), clique em <strong>"New project"</strong></li>
+          <li>Escolha um nome para o projeto (ex: <em>meu-primeiro-app</em>)</li>
+          <li>Defina uma senha forte para o banco de dados e <strong>guarde em um lugar seguro</strong></li>
+          <li>Selecione a região <strong>South America (São Paulo)</strong> para menor latência</li>
+          <li>Clique em <strong>"Create new project"</strong> e aguarde ~2 minutos</li>
+        </ul>
+
+        <div class="callout callout--tip" style="margin-top: 12px;">
+          <span class="callout-icon">✅</span>
+          <span>Guarde a <strong>URL do projeto</strong> e a <strong>chave pública (anon key)</strong> — você vai encontrar em <em>Settings → API</em>. Elas são necessárias para conectar suas aplicações ao banco.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PASSO 6: VERCEL ===== -->
+    <div class="step-block" id="step-vercel">
+      <div class="step-header">
+        <div class="step-number">7</div>
+        <div class="step-title">
+          <h3>Configurar o Vercel</h3>
+          <p>Criar conta e instalar a CLI para fazer deploy direto do terminal.</p>
+        </div>
+      </div>
+      <div class="step-body">
+        <p style="font-size: 13px; color: var(--text-dim); margin-bottom: 8px; font-family: var(--mono);">// 6.1 — criar conta</p>
+        <div class="callout callout--info" style="margin-bottom: 20px;">
+          <span class="callout-icon">🌐</span>
+          <span>Acesse <strong>vercel.com</strong> e clique em <strong>"Sign Up"</strong>. Use a opção <strong>"Continue with GitHub"</strong> — isso vai conectar sua conta Vercel ao GitHub automaticamente, facilitando muito o deploy.</span>
+        </div>
+
+        <p style="font-size: 13px; color: var(--text-dim); margin-bottom: 8px; font-family: var(--mono);">// 6.2 — instalar Vercel CLI</p>
+        <div class="code-block">
+          <div class="code-header">
+            <div class="code-dots"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+            <span class="code-label">Terminal</span>
+          </div>
+          <pre><span class="prompt">$ </span><span class="cmd">npm</span> install -g vercel
+
+<span class="comment"># verificar</span>
+<span class="prompt">$ </span><span class="cmd">vercel</span> --version
+<span class="out">Vercel CLI 39.x.x</span>   <span class="comment">← ✅</span>
+
+<span class="comment"># fazer login</span>
+<span class="prompt">$ </span><span class="cmd">vercel</span> login
+<span class="out">? Log in to Vercel
+  ❯ Continue with GitHub  ← escolha esta opção</span>
+
+<span class="out">✅ Logged in as seu-usuario (github)</span></pre>
+        </div>
+
+        <p style="font-size: 13px; color: var(--text-dim); margin: 20px 0 8px; font-family: var(--mono);">// 6.3 — conectar GitHub ao Vercel (painel)</p>
+        <ul class="sub-steps">
+          <li>No painel da Vercel, clique em <strong>"Add New → Project"</strong></li>
+          <li>Clique em <strong>"Import Git Repository"</strong></li>
+          <li>Autorize o Vercel a acessar seus repositórios do GitHub</li>
+          <li>Pronto — agora qualquer projeto do GitHub pode ser importado com 1 clique</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ===== PASSO 7: TESTE FINAL ===== -->
+    <div class="step-block" id="step-teste">
+      <div class="step-header">
+        <div class="step-number">8</div>
+        <div class="step-title">
+          <h3>Teste Final — Tudo junto</h3>
+          <p>Criar um projeto, salvar no GitHub e publicar na internet com Vercel.</p>
+        </div>
+      </div>
+      <div class="step-body">
+        <p style="font-size: 15px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.7;">
+          Este é o fluxo completo que você vai repetir em todos os projetos.
+          Execute uma vez agora para confirmar que tudo está funcionando.
+        </p>
+
+        <div class="os-mac">
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+              <span class="code-label">Fluxo completo (macOS)</span>
+            </div>
+            <pre><span class="comment"># 1. Criar pasta do projeto</span>
+<span class="prompt">$ </span>mkdir meu-app && cd meu-app
+
+<span class="comment"># 2. Iniciar Git</span>
+<span class="prompt">$ </span><span class="cmd">git</span> init
+
+<span class="comment"># 3. Pedir ao Claude que crie uma landing page</span>
+<span class="prompt">$ </span><span class="cmd">claude</span>
+<span class="out">✓ Claude Code pronto</span>
+
+<span class="prompt">Você: </span>Cria uma landing page moderna com título "Meu Primeiro App", subtítulo e botão de CTA
+
+<span class="out">╭─ Claude ──────────────────────────────────────────────────╮
+│ ✓ Criado: index.html                                       │
+│ ✓ Criado: styles.css                                       │
+│ Layout responsivo com gradiente e animações                │
+╰────────────────────────────────────────────────────────────╯</span>
+
+<span class="comment"># 4. Sair do Claude Code (Ctrl+C) e commitar</span>
+<span class="prompt">$ </span><span class="cmd">git</span> add .
+<span class="prompt">$ </span><span class="cmd">git</span> commit -m <span class="str">"feat: landing page inicial"</span>
+
+<span class="comment"># 5. Criar repositório no GitHub e fazer push</span>
+<span class="prompt">$ </span><span class="cmd">gh</span> repo create meu-app --public --source=. --push
+<span class="out">✓ Created repository seu-usuario/meu-app on GitHub</span>
+<span class="out">✓ Pushed commits to github.com/seu-usuario/meu-app</span>
+
+<span class="comment"># 6. Fazer deploy na Vercel</span>
+<span class="prompt">$ </span><span class="cmd">vercel</span> --prod
+<span class="out">✓ Deployed to https://meu-app.vercel.app ✅ 🎉</span></pre>
+          </div>
+        </div>
+        <div class="os-win">
+          <div class="code-block">
+            <div class="code-header">
+              <div class="code-dots"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+              <span class="code-label">Fluxo completo (Windows — PowerShell)</span>
+            </div>
+            <pre><span class="comment"># 1. Criar pasta do projeto</span>
+<span class="prompt">PS> </span>mkdir meu-app; cd meu-app
+
+<span class="comment"># 2. Iniciar Git</span>
+<span class="prompt">PS> </span><span class="cmd">git</span> init
+
+<span class="comment"># 3. Pedir ao Claude que crie uma landing page</span>
+<span class="prompt">PS> </span><span class="cmd">claude</span>
+<span class="out">✓ Claude Code pronto</span>
+
+<span class="prompt">Você: </span>Cria uma landing page moderna com título "Meu Primeiro App", subtítulo e botão de CTA
+
+<span class="out">╭─ Claude ──────────────────────────────────────────────────╮
+│ ✓ Criado: index.html                                       │
+│ ✓ Criado: styles.css                                       │
+│ Layout responsivo com gradiente e animações                │
+╰────────────────────────────────────────────────────────────╯</span>
+
+<span class="comment"># 4. Sair do Claude Code (Ctrl+C) e commitar</span>
+<span class="prompt">PS> </span><span class="cmd">git</span> add .
+<span class="prompt">PS> </span><span class="cmd">git</span> commit -m <span class="str">"feat: landing page inicial"</span>
+
+<span class="comment"># 5. Criar repositório no GitHub e fazer push</span>
+<span class="prompt">PS> </span><span class="cmd">gh</span> repo create meu-app --public --source=. --push
+<span class="out">✓ Created repository seu-usuario/meu-app on GitHub</span>
+<span class="out">✓ Pushed commits to github.com/seu-usuario/meu-app</span>
+
+<span class="comment"># 6. Fazer deploy na Vercel</span>
+<span class="prompt">PS> </span><span class="cmd">vercel</span> --prod
+<span class="out">✓ Deployed to https://meu-app.vercel.app ✅ 🎉</span></pre>
+          </div>
+        </div>
+
+        <div class="analogy-box" style="margin-top: 20px; background: linear-gradient(135deg, rgba(52,211,153,0.1), rgba(34,211,238,0.05)); border-color: var(--primary-border);">
+          <div class="icon">🎉</div>
+          <p>
+            <strong>Parabéns!</strong> Se chegou até aqui com tudo funcionando, você tem o ecossistema completo instalado.
+            A URL gerada pela Vercel é real e pública — qualquer pessoa no mundo pode acessar
+            o projeto que você criou com o Claude Code em poucos minutos.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHECKLIST FINAL -->
+    <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 28px 32px; margin-top: 40px;">
+      <h3 style="font-size: 18px; font-weight: 600; color: var(--text); margin-bottom: 20px;">✅ Checklist de instalação</h3>
+      <div class="two-col">
+        <ul class="checklist">
+          <li>
+            <div class="check-icon">✓</div>
+            <span>Homebrew (Mac) / Winget (Windows) instalado</span>
+          </li>
+          <li>
+            <div class="check-icon">✓</div>
+            <span>Node.js v20+ instalado via nvm</span>
+          </li>
+          <li>
+            <div class="check-icon">✓</div>
+            <span>Cursor instalado e conta criada</span>
+          </li>
+          <li>
+            <div class="check-icon">✓</div>
+            <span>Claude Code instalado e autenticado</span>
+          </li>
+        </ul>
+        <ul class="checklist">
+          <li>
+            <div class="check-icon">✓</div>
+            <span>Git configurado com nome e email</span>
+          </li>
+          <li>
+            <div class="check-icon">✓</div>
+            <span>Conta GitHub criada com SSH configurado</span>
+          </li>
+          <li>
+            <div class="check-icon">✓</div>
+            <span>Conta Supabase criada e CLI logada</span>
+          </li>
+          <li>
+            <div class="check-icon">✓</div>
+            <span>Conta Vercel criada e CLI logada</span>
+          </li>
+          <li>
+            <div class="check-icon">✓</div>
+            <span>Primeiro projeto publicado na internet</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">EI</div>
+      <span class="logo-text">Empresa Independente</span>
+    </a>
+    <div class="footer-copy">
+      Programa de Implementação Claude Code — <strong>Aula 1</strong> de 8 · 20 Mar 2026
+    </div>
+    <div class="footer-copy" style="font-size: 12px;">
+      Dúvidas? Fale no grupo do programa.
+    </div>
+  </div>
+</footer>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.animate').forEach(el => observer.observe(el));
+
+// Active nav index dots
+const sections = document.querySelectorAll('section[id]');
+const dots = document.querySelectorAll('.idx-dot');
+
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      dots.forEach(dot => {
+        dot.classList.toggle('active', dot.getAttribute('href') === '#' + id);
+      });
+    }
+  });
+}, { threshold: 0.3 });
+
+sections.forEach(s => sectionObserver.observe(s));
+
+// OS Tab switcher
+function setOS(os) {
+  document.body.classList.toggle('windows', os === 'win');
+  document.querySelectorAll('.os-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.os === os);
+  });
+  localStorage.setItem('preferred-os', os);
+}
+const savedOS = localStorage.getItem('preferred-os') || 'mac';
+setOS(savedOS);
+</script>
+</body>
+</html>

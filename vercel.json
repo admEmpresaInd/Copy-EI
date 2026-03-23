@@ -1,6 +1,7 @@
 {
-  "outputDirectory": ".",
+  "version": 2,
   "routes": [
-    { "src": "/", "dest": "/EI/ia-operating-system-pagina-de-vendas.html" }
+    { "src": "/", "dest": "/EI/ia-operating-system-pagina-de-vendas.html" },
+    { "src": "/analise", "dest": "/EI/hormozi-analise-consultoria-ia.html" }
   ]
 }

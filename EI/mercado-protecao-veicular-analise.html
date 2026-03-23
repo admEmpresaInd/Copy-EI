@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Análise de Mercado — Proteção Veicular Brasil + 5 Ideias de Software</title>
+<meta name="description" content="Análise estratégica do mercado de proteção veicular brasileiro com 5 oportunidades de software para agências de tráfego pago.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+/* ─── TOKENS ────────────────────────────────────────── */
+:root {
+  --bg:           #111111;
+  --bg-card:      #1a1a1a;
+  --bg-card-2:    #1f1f1f;
+  --bg-muted:     #262626;
+  --primary:      #34d399;
+  --primary-dim:  rgba(52,211,153,0.10);
+  --primary-glow: rgba(52,211,153,0.20);
+  --fg:           #fafafa;
+  --fg-muted:     #a3a3a3;
+  --fg-sub:       rgba(255,255,255,0.35);
+  --border:       rgba(255,255,255,0.08);
+  --border-hover: rgba(255,255,255,0.18);
+  --red:          #ef4444;
+
+  /* Accent colors per idea */
+  --emerald:      #34d399;
+  --violet:       #a78bfa;
+  --amber:        #fbbf24;
+  --blue:         #60a5fa;
+  --rose:         #fb7185;
+  --cyan:         #22d3ee;
+
+  --font: 'Inter', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --r-sm: 6px; --r-md: 10px; --r-lg: 14px; --r-xl: 20px;
+  --tr: 0.25s ease;
+}
+
+/* ─── RESET ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font);
+  font-weight: 400;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+/* ─── GRID BACKGROUND ─────────────────────────────── */
+.grid-bg { position: relative; }
+.grid-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+}
+.grid-bg > * { position: relative; z-index: 1; }
+
+/* ─── LAYOUT ─────────────────────────────────────── */
+.container       { max-width: 1152px; margin: 0 auto; padding: 0 24px; }
+.container-wide  { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.container-narrow{ max-width: 896px;  margin: 0 auto; padding: 0 24px; }
+.container-sm    { max-width: 768px;  margin: 0 auto; padding: 0 24px; }
+section          { position: relative; }
+
+/* ─── TYPOGRAPHY ─────────────────────────────────── */
+.label {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+h1 {
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+h3 { font-size: 1.1rem; font-weight: 600; }
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary) 0%, #6ee7b7 50%, var(--primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── BADGES ─────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 9999px;
+  border: 1px solid rgba(52,211,153,0.25);
+  background: rgba(52,211,153,0.07);
+  padding: 6px 16px;
+  font-size: 13px;
+  color: var(--primary);
+  font-weight: 500;
+}
+.badge-section {
+  display: inline-block;
+  border-radius: 9999px;
+  background: rgba(52,211,153,0.10);
+  padding: 4px 14px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--primary);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-family: var(--mono);
+}
+
+/* ─── BUTTONS ─────────────────────────────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--primary);
+  color: #0a2e24;
+  font-weight: 700;
+  font-size: 15px;
+  padding: 14px 32px;
+  border-radius: var(--r-md);
+  border: none;
+  cursor: pointer;
+  transition: var(--tr);
+  box-shadow: 0 0 30px rgba(52,211,153,0.25), 0 0 80px rgba(52,211,153,0.1);
+}
+.btn-primary:hover { background: #5eead4; transform: translateY(-1px); }
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--fg);
+  font-weight: 600;
+  font-size: 15px;
+  padding: 14px 32px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--border-hover);
+  cursor: pointer;
+  transition: var(--tr);
+}
+.btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+
+/* ─── CARDS ───────────────────────────────────────── */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  transition: border-color var(--tr), transform var(--tr);
+}
+.card:hover { border-color: var(--border-hover); }
+.card-glow:hover {
+  border-color: rgba(52,211,153,0.3);
+  box-shadow: 0 0 20px rgba(52,211,153,0.08);
+}
+
+/* ─── GRID ────────────────────────────────────────── */
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+@media (max-width: 900px) {
+  .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+}
+
+/* ─── SECTION SPACING ─────────────────────────────── */
+.section { padding: 80px 0; }
+.section-lg { padding: 112px 0; }
+.section-header { margin-bottom: 56px; text-align: center; }
+.section-header h2 { margin-top: 12px; margin-bottom: 16px; }
+.section-header p { color: var(--fg-muted); font-size: 1.05rem; max-width: 600px; margin: 0 auto; }
+
+/* ─── ANIMATIONS ──────────────────────────────────── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(52,211,153,0.15); }
+  50%       { box-shadow: 0 0 40px rgba(52,211,153,0.30); }
+}
+.animate-in { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.animate-in.visible { opacity: 1; transform: translateY(0); }
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+.delay-4 { transition-delay: 0.4s; }
+.delay-5 { transition-delay: 0.5s; }
+
+/* ─── HEADER ──────────────────────────────────────── */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(17,17,17,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 0;
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1152px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 15px;
+}
+.logo-icon {
+  width: 32px; height: 32px;
+  background: var(--primary);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  color: #0a2e24;
+  font-weight: 800;
+  font-size: 13px;
+  font-family: var(--mono);
+}
+.header-tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--fg-muted);
+  background: var(--bg-muted);
+  padding: 4px 12px;
+  border-radius: 9999px;
+  border: 1px solid var(--border);
+}
+
+/* ─── HERO ────────────────────────────────────────── */
+.hero {
+  padding: 100px 0 80px;
+  text-align: center;
+  overflow: hidden;
+}
+.hero-glow {
+  position: absolute;
+  top: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(52,211,153,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero .label { margin-bottom: 20px; display: block; }
+.hero h1 { margin-bottom: 24px; }
+.hero p {
+  color: var(--fg-muted);
+  font-size: 1.15rem;
+  max-width: 580px;
+  margin: 0 auto 40px;
+}
+.hero-cta {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 60px;
+}
+.hero-meta {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: var(--fg-muted);
+}
+.hero-meta span { display: flex; align-items: center; gap: 6px; }
+.hero-meta .dot { width: 6px; height: 6px; background: var(--primary); border-radius: 50%; }
+
+/* ─── STATS BAR ───────────────────────────────────── */
+.stats-bar { padding: 0 0 80px; }
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+@media (max-width: 768px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 28px 24px;
+  text-align: center;
+  transition: border-color var(--tr);
+}
+.stat-card:hover { border-color: rgba(52,211,153,0.3); }
+.stat-number {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--primary);
+  font-family: var(--mono);
+  display: block;
+  margin-bottom: 6px;
+}
+.stat-label { font-size: 13px; color: var(--fg-muted); }
+
+/* ─── MARKET CONTEXT ──────────────────────────────── */
+.context-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 48px;
+}
+@media (max-width: 768px) { .context-grid { grid-template-columns: 1fr; } }
+.context-table { width: 100%; border-collapse: collapse; }
+.context-table tr { border-bottom: 1px solid var(--border); }
+.context-table tr:last-child { border-bottom: none; }
+.context-table td { padding: 12px 0; font-size: 14px; vertical-align: top; }
+.context-table td:first-child { color: var(--fg-muted); width: 45%; }
+.context-table td:last-child { color: var(--fg); font-weight: 500; }
+
+/* ─── PAIN POINTS ─────────────────────────────────── */
+.pain-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 48px;
+}
+@media (max-width: 900px) { .pain-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .pain-grid { grid-template-columns: 1fr; } }
+.pain-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 24px;
+  transition: var(--tr);
+}
+.pain-card:hover { border-color: rgba(255,255,255,0.15); transform: translateY(-2px); }
+.pain-number {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--primary);
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+  display: block;
+}
+.pain-card h3 { margin-bottom: 8px; font-size: 1rem; }
+.pain-card p { font-size: 13px; color: var(--fg-muted); line-height: 1.6; }
+
+/* ─── IDEAS ───────────────────────────────────────── */
+.idea-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  padding: 40px;
+  margin-bottom: 24px;
+  transition: border-color var(--tr);
+  position: relative;
+  overflow: hidden;
+}
+.idea-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--idea-color), transparent);
+  opacity: 0.6;
+}
+.idea-card:hover { border-color: var(--idea-color); }
+.idea-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  margin-bottom: 32px;
+}
+.idea-icon {
+  width: 56px; height: 56px;
+  min-width: 56px;
+  border-radius: var(--r-lg);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+.idea-tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--idea-color);
+  margin-bottom: 8px;
+  display: block;
+}
+.idea-header h3 { font-size: 1.4rem; margin-bottom: 8px; }
+.idea-header p { font-size: 14px; color: var(--fg-muted); }
+.idea-badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+.idea-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  background: var(--primary-dim);
+  color: var(--primary);
+  font-family: var(--mono);
+}
+.idea-body {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+@media (max-width: 900px) { .idea-body { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .idea-body { grid-template-columns: 1fr; } }
+.idea-section-title {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--idea-color);
+  font-family: var(--mono);
+  margin-bottom: 12px;
+}
+.idea-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.idea-list li {
+  font-size: 13px;
+  color: var(--fg-muted);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.5;
+}
+.idea-list li::before {
+  content: '→';
+  color: var(--idea-color);
+  flex-shrink: 0;
+  font-size: 12px;
+  margin-top: 1px;
+}
+.idea-revenue {
+  background: rgba(52,211,153,0.06);
+  border: 1px solid rgba(52,211,153,0.15);
+  border-radius: var(--r-md);
+  padding: 16px;
+  margin-top: 28px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.idea-revenue-item { text-align: center; }
+.idea-revenue-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--primary);
+  font-family: var(--mono);
+  display: block;
+}
+.idea-revenue-label { font-size: 11px; color: var(--fg-muted); margin-top: 2px; }
+.idea-revenue-divider { width: 1px; height: 36px; background: var(--border); }
+.idea-traffic-box {
+  margin-top: 20px;
+  background: rgba(52,211,153,0.04);
+  border: 1px dashed rgba(52,211,153,0.20);
+  border-radius: var(--r-md);
+  padding: 14px 18px;
+  font-size: 13px;
+  color: var(--fg-muted);
+}
+.idea-traffic-box strong { color: var(--primary); }
+
+/* ─── MATRIX ──────────────────────────────────────── */
+.matrix-table { width: 100%; border-collapse: collapse; margin-top: 40px; }
+.matrix-table thead th {
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--fg-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-family: var(--mono);
+  border-bottom: 1px solid var(--border);
+}
+.matrix-table tbody td {
+  padding: 16px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+.matrix-table tbody tr:last-child td { border-bottom: none; }
+.matrix-table tbody tr:hover td { background: rgba(255,255,255,0.02); }
+.matrix-table tbody td:first-child { font-weight: 600; }
+.stars { color: var(--primary); letter-spacing: 2px; }
+.tag-fast { background: rgba(52,211,153,0.12); color: var(--primary); font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 9999px; font-family: var(--mono); }
+.tag-medium { background: rgba(251,191,36,0.12); color: var(--amber); font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 9999px; font-family: var(--mono); }
+.tag-slow { background: rgba(167,139,250,0.12); color: var(--violet); font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 9999px; font-family: var(--mono); }
+
+/* ─── ROADMAP ─────────────────────────────────────── */
+.roadmap-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 48px;
+}
+@media (max-width: 768px) { .roadmap-grid { grid-template-columns: 1fr; } }
+.roadmap-phase {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  padding: 32px 28px;
+  position: relative;
+  overflow: hidden;
+}
+.roadmap-phase::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--phase-color);
+}
+.phase-number {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin-bottom: 16px;
+}
+.phase-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+.phase-period {
+  font-size: 12px;
+  color: var(--fg-muted);
+  font-family: var(--mono);
+  margin-bottom: 20px;
+}
+.phase-tag {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  display: inline-block;
+  margin-bottom: 20px;
+  color: var(--phase-color);
+  background: var(--phase-bg);
+}
+.phase-actions { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.phase-actions li {
+  font-size: 13px;
+  color: var(--fg-muted);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.5;
+}
+.phase-dot {
+  width: 6px; height: 6px;
+  min-width: 6px;
+  border-radius: 50%;
+  background: var(--phase-color);
+  margin-top: 6px;
+}
+
+/* ─── CONTEXT HIGHLIGHT ───────────────────────────── */
+.highlight-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--primary);
+  border-radius: var(--r-lg);
+  padding: 24px 28px;
+  margin-top: 24px;
+}
+.highlight-box p { font-size: 14px; color: var(--fg-muted); }
+.highlight-box strong { color: var(--fg); }
+
+/* ─── COMPARISON ──────────────────────────────────── */
+.comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 40px;
+}
+@media (max-width: 768px) { .comparison-grid { grid-template-columns: 1fr; } }
+.comp-col { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 28px; }
+.comp-col-bad { border-color: rgba(239,68,68,0.2); }
+.comp-col-good { border-color: rgba(52,211,153,0.2); }
+.comp-header { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
+.comp-icon-bad { color: var(--red); font-size: 18px; }
+.comp-icon-good { color: var(--primary); font-size: 18px; }
+.comp-title { font-weight: 700; font-size: 1rem; }
+.comp-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.comp-list li { font-size: 13px; color: var(--fg-muted); display: flex; gap: 10px; align-items: flex-start; }
+.comp-x { color: var(--red); font-weight: 700; flex-shrink: 0; }
+.comp-check { color: var(--primary); font-weight: 700; flex-shrink: 0; }
+
+/* ─── FINAL CTA ───────────────────────────────────── */
+.cta-section {
+  padding: 100px 0;
+  text-align: center;
+  position: relative;
+}
+.cta-glow {
+  position: absolute;
+  bottom: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(52,211,153,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.cta-box {
+  background: var(--bg-card);
+  border: 1px solid rgba(52,211,153,0.25);
+  border-radius: var(--r-xl);
+  padding: 56px 48px;
+  max-width: 700px;
+  margin: 0 auto;
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+.cta-box h2 { margin-bottom: 16px; }
+.cta-box p { color: var(--fg-muted); margin-bottom: 36px; font-size: 1rem; }
+.cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+/* ─── FOOTER ──────────────────────────────────────── */
+footer {
+  background: var(--bg-card);
+  border-top: 1px solid var(--border);
+  padding: 40px 0;
+  text-align: center;
+}
+footer p { font-size: 13px; color: var(--fg-muted); }
+
+/* ─── TOC NAV ─────────────────────────────────────── */
+.toc {
+  position: fixed;
+  left: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+@media (max-width: 1300px) { .toc { display: none; } }
+.toc-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--border-hover);
+  cursor: pointer;
+  transition: var(--tr);
+  border: none;
+  padding: 0;
+  position: relative;
+}
+.toc-dot.active, .toc-dot:hover { background: var(--primary); }
+.toc-dot::after {
+  content: attr(data-label);
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 11px;
+  white-space: nowrap;
+  color: var(--fg-muted);
+  opacity: 0;
+  transition: var(--tr);
+  pointer-events: none;
+  font-family: var(--mono);
+}
+.toc-dot:hover::after { opacity: 1; }
+
+/* ─── DIVIDER ─────────────────────────────────────── */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 0;
+}
+
+/* ─── SCROLL INDICATOR ────────────────────────────── */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  background: var(--primary);
+  z-index: 100;
+  transition: width 0.1s linear;
+}
+
+</style>
+</head>
+<body>
+
+<!-- Scroll Progress -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- TOC Navigation -->
+<nav class="toc" id="toc">
+  <button class="toc-dot active" data-section="hero" data-label="Início"></button>
+  <button class="toc-dot" data-section="mercado" data-label="Mercado"></button>
+  <button class="toc-dot" data-section="dores" data-label="Dores"></button>
+  <button class="toc-dot" data-section="softwares" data-label="Softwares"></button>
+  <button class="toc-dot" data-section="matriz" data-label="Priorização"></button>
+  <button class="toc-dot" data-section="roadmap" data-label="Roadmap"></button>
+  <button class="toc-dot" data-section="cta" data-label="Próximos Passos"></button>
+</nav>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-icon">PV</div>
+      <span>Proteção Veicular</span>
+    </div>
+    <span class="header-tag">Análise de Mercado + 5 Ideias de Software · 2026</span>
+  </div>
+</header>
+
+<!-- ─── HERO ───────────────────────────────────────── -->
+<section class="hero grid-bg" id="hero">
+  <div class="hero-glow"></div>
+  <div class="container-narrow">
+    <span class="badge animate-in">
+      <span style="width:6px;height:6px;background:var(--primary);border-radius:50%;display:inline-block;animation:float 2s ease-in-out infinite;"></span>
+      Análise Estratégica · Mercado de Proteção Veicular
+    </span>
+
+    <h1 class="animate-in delay-1" style="margin-top:28px;">
+      O mercado que movimenta<br>
+      <span class="gradient-text">R$ 12 bilhões ao ano</span><br>
+      ainda tem muito espaço
+    </h1>
+
+    <p class="animate-in delay-2">
+      Uma análise completa do setor de proteção veicular no Brasil, com 5 oportunidades de software para agências de tráfego que querem aumentar LTV e abrir novos canais de aquisição.
+    </p>
+
+    <div class="hero-cta animate-in delay-3">
+      <a href="#softwares" class="btn-primary">Ver as 5 Ideias →</a>
+      <a href="#mercado" class="btn-outline">Contexto do Mercado</a>
+    </div>
+
+    <div class="hero-meta animate-in delay-4">
+      <span><span class="dot"></span> 4,5 milhões de associados</span>
+      <span><span class="dot"></span> 2.200 associações ativas</span>
+      <span><span class="dot"></span> Regulamentação LC 213/2025</span>
+      <span><span class="dot"></span> Crescimento de 10% ao ano</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── STATS BAR ──────────────────────────────────── -->
+<section class="stats-bar">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-card animate-in">
+        <span class="stat-number">R$ 12B</span>
+        <span class="stat-label">Faturamento anual estimado do setor</span>
+      </div>
+      <div class="stat-card animate-in delay-1">
+        <span class="stat-number">4,5M</span>
+        <span class="stat-label">Associados ativos no Brasil</span>
+      </div>
+      <div class="stat-card animate-in delay-2">
+        <span class="stat-number">2.200</span>
+        <span class="stat-label">Associações cadastradas na SUSEP</span>
+      </div>
+      <div class="stat-card animate-in delay-3">
+        <span class="stat-number">+10%</span>
+        <span class="stat-label">Crescimento projetado ao ano</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── MERCADO ────────────────────────────────────── -->
+<section class="section" id="mercado">
+  <div class="container">
+    <div class="section-header animate-in">
+      <span class="badge-section">Panorama</span>
+      <h2>Como funciona esse mercado</h2>
+      <p>As associações de proteção veicular operam pelo princípio do mutualismo — e isso cria desafios operacionais únicos que geram demanda por software especializado.</p>
+    </div>
+
+    <div class="context-grid animate-in">
+      <!-- Como funciona -->
+      <div class="card">
+        <div class="label" style="margin-bottom:20px;">Modelo de Negócio</div>
+        <table class="context-table">
+          <tr>
+            <td>Mecanismo</td>
+            <td>Rateio mutualista entre associados</td>
+          </tr>
+          <tr>
+            <td>Mensalidade</td>
+            <td>R$ 150–500/mês (variável)</td>
+          </tr>
+          <tr>
+            <td>Adesão</td>
+            <td>R$ 300–800 (taxa única)</td>
+          </tr>
+          <tr>
+            <td>LTV médio</td>
+            <td>R$ 3.600–10.000 por associado</td>
+          </tr>
+          <tr>
+            <td>CAC estimado</td>
+            <td>R$ 120–1.500 dependendo do canal</td>
+          </tr>
+          <tr>
+            <td>Permanência média</td>
+            <td>18–36 meses</td>
+          </tr>
+          <tr>
+            <td>Vantagem vs seguro</td>
+            <td>30–40% mais barato, sem análise de perfil</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Benchmark de mercado -->
+      <div class="card">
+        <div class="label" style="margin-bottom:20px;">Estrutura Interna Típica</div>
+        <table class="context-table">
+          <tr>
+            <td>Comercial/Vendas</td>
+            <td>Captação e gestão de representantes</td>
+          </tr>
+          <tr>
+            <td>Sinistros</td>
+            <td>Abertura, análise e aprovação</td>
+          </tr>
+          <tr>
+            <td>Financeiro</td>
+            <td>Rateio, inadimplência, cobrança</td>
+          </tr>
+          <tr>
+            <td>Rede Credenciada</td>
+            <td>Oficinas, guincheiros, rastreadores</td>
+          </tr>
+          <tr>
+            <td>Compliance</td>
+            <td>Estatuto, SUSEP, contratos</td>
+          </tr>
+          <tr>
+            <td>Marketing</td>
+            <td>Tráfego pago, geração de leads</td>
+          </tr>
+          <tr>
+            <td>TI/Sistemas</td>
+            <td>ERP, app do associado</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- Highlight: Regulamentação -->
+    <div class="highlight-box animate-in" style="margin-top:24px;">
+      <div class="label" style="margin-bottom:10px;">⚡ Marco Regulatório — LC 213/2025</div>
+      <p>A <strong>Lei Complementar 213</strong>, sancionada em janeiro de 2025, regulamentou o setor pela primeira vez. Todas as associações precisam se cadastrar na SUSEP até julho de 2025 e adequar seus processos. <strong>Isso criou uma janela de oportunidade histórica para softwares de compliance e gestão.</strong></p>
+    </div>
+
+    <!-- Comparação protecao vs seguro -->
+    <div style="margin-top:40px;" class="animate-in">
+      <div class="label" style="margin-bottom:20px;">Proteção Veicular vs Seguro Tradicional</div>
+      <div class="comparison-grid">
+        <div class="comp-col comp-col-bad">
+          <div class="comp-header">
+            <span class="comp-icon-bad">✕</span>
+            <span class="comp-title" style="color:var(--red);">Seguro Auto Tradicional</span>
+          </div>
+          <ul class="comp-list">
+            <li><span class="comp-x">✕</span> R$ 2.500–7.000 por ano (R$ 208–583/mês)</li>
+            <li><span class="comp-x">✕</span> Análise de perfil obrigatória (idade, histórico)</li>
+            <li><span class="comp-x">✕</span> Franquia obrigatória (~R$ 2.000)</li>
+            <li><span class="comp-x">✕</span> Burocracia de contratação</li>
+            <li><span class="comp-x">✕</span> Menos acessível para veículos populares</li>
+          </ul>
+        </div>
+        <div class="comp-col comp-col-good">
+          <div class="comp-header">
+            <span class="comp-icon-good">✓</span>
+            <span class="comp-title" style="color:var(--primary);">Proteção Veicular</span>
+          </div>
+          <ul class="comp-list">
+            <li><span class="comp-check">✓</span> R$ 150–500/mês — 30% a 40% mais barato</li>
+            <li><span class="comp-check">✓</span> Sem análise de perfil do motorista</li>
+            <li><span class="comp-check">✓</span> Geralmente sem franquia</li>
+            <li><span class="comp-check">✓</span> Adesão simples e rápida</li>
+            <li><span class="comp-check">✓</span> Acessível para qualquer veículo</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── DORES ───────────────────────────────────────── -->
+<section class="section" id="dores" style="background: rgba(255,255,255,0.01);">
+  <div class="container">
+    <div class="section-header animate-in">
+      <span class="badge-section">Oportunidade</span>
+      <h2>As 5 dores críticas do setor</h2>
+      <p>Cada dor é um problema real e recorrente que as associações pagam para resolver — ou sofrem por não conseguir resolver. São os alicerces das ideias de software.</p>
+    </div>
+
+    <div class="pain-grid">
+      <div class="pain-card animate-in">
+        <span class="pain-number">DOR 01</span>
+        <h3>Compliance com a LC 213/2025</h3>
+        <p>2.200 associações precisam se adequar às novas exigências da SUSEP. A maioria não tem estrutura jurídica nem tecnológica para fazer isso sozinha.</p>
+      </div>
+      <div class="pain-card animate-in delay-1">
+        <span class="pain-number">DOR 02</span>
+        <h3>Transparência do Rateio</h3>
+        <p>Os associados não entendem como a mensalidade é calculada. Isso gera desconfiança, reclamações no Procon e altas taxas de cancelamento.</p>
+      </div>
+      <div class="pain-card animate-in delay-2">
+        <span class="pain-number">DOR 03</span>
+        <h3>Gestão de Representantes</h3>
+        <p>O maior canal de aquisição são os representantes autônomos. A gestão hoje é feita por WhatsApp, planilha e ligação — caótica e inescalável.</p>
+      </div>
+      <div class="pain-card animate-in delay-3">
+        <span class="pain-number">DOR 04</span>
+        <h3>Fraudes em Sinistros</h3>
+        <p>A "Operação Seguro Fake" revelou R$ 650M em fraudes. As associações analisam sinistros manualmente, sem tecnologia para detectar padrões suspeitos.</p>
+      </div>
+      <div class="pain-card animate-in delay-4">
+        <span class="pain-number">DOR 05</span>
+        <h3>Visibilidade de Marketing</h3>
+        <p>Investem pesado em tráfego pago, mas não têm dashboard unificado de CPL, CAC e LTV por canal. Decisões de mídia baseadas em feeling, não em dados.</p>
+      </div>
+      <div class="pain-card animate-in delay-5" style="background: linear-gradient(135deg, rgba(52,211,153,0.05), rgba(52,211,153,0.02)); border-color: rgba(52,211,153,0.2);">
+        <span class="pain-number" style="color: var(--fg-muted);">CONTEXTO</span>
+        <h3 style="color: var(--primary);">Softwares existentes no mercado</h3>
+        <p>SAPV, Dwith/GCA, Power CRM, Arco/SIGA, Deltabit — todos são ERPs genéricos ou CRMs de leads. <strong style="color:var(--fg);">Nenhum resolve as dores acima de forma especializada.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── SOFTWARES ──────────────────────────────────── -->
+<section class="section-lg" id="softwares">
+  <div class="container">
+    <div class="section-header animate-in">
+      <span class="badge-section">As 5 Ideias</span>
+      <h2>Software para proteção veicular</h2>
+      <p>Cinco produtos construídos sobre as dores reais do setor, com modelo de negócio validado e sinergia direta com serviços de tráfego pago.</p>
+    </div>
+
+    <!-- IDEIA 1: LeadStation -->
+    <div class="idea-card animate-in" style="--idea-color: var(--emerald);">
+      <div class="idea-header">
+        <div class="idea-icon" style="background: rgba(52,211,153,0.12);">📊</div>
+        <div>
+          <span class="idea-tag">💡 Ideia 01 · Mais Fácil de Lançar</span>
+          <h3>LeadStation</h3>
+          <p>Dashboard unificado de marketing e tráfego especializado para proteção veicular</p>
+          <div class="idea-badge-row">
+            <span class="idea-badge">Go-to-market: Semanas</span>
+            <span class="idea-badge" style="background:rgba(52,211,153,0.05);color:var(--fg-muted);">Dificuldade: Baixa</span>
+            <span class="idea-badge" style="background:rgba(52,211,153,0.05);color:var(--fg-muted);">Sinergia com tráfego: ★★★★★</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="idea-body">
+        <div>
+          <div class="idea-section-title">O Problema</div>
+          <ul class="idea-list">
+            <li>Associações investem em Google, Meta e TikTok sem visão unificada de performance</li>
+            <li>Não sabem CPL, CAC e LTV por canal — decisões baseadas em feeling</li>
+            <li>Sem benchmarks do setor para comparar com a média</li>
+            <li>Relatório de mídia manual e demorado</li>
+          </ul>
+        </div>
+        <div>
+          <div class="idea-section-title">Como Funciona</div>
+          <ul class="idea-list">
+            <li>Dashboard unificado: Google Ads + Meta Ads + TikTok Ads</li>
+            <li>Funil integrado: lead → cotação → assinatura → LTV</li>
+            <li>Benchmarks do setor (CPL médio, ROAS, churn rate)</li>
+            <li>Alertas: "sua campanha está com CPL 40% acima da média"</li>
+            <li>Relatório PDF semanal gerado automaticamente</li>
+          </ul>
+        </div>
+        <div>
+          <div class="idea-section-title">Por Que É Estratégico</div>
+          <ul class="idea-list">
+            <li>Você pode lançar hoje com Looker Studio + Google Sheets — sem programar</li>
+            <li>Clientes de tráfego que veem resultado claramente cancelam menos</li>
+            <li>Você vende LeadStation junto com a gestão de tráfego como bundle</li>
+            <li>Ferramenta de retenção disfarçada de produto</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="idea-revenue" style="margin-top:28px;">
+        <div class="idea-revenue-item">
+          <span class="idea-revenue-value">R$ 297–797</span>
+          <div class="idea-revenue-label">por associação/mês</div>
+        </div>
+        <div class="idea-revenue-divider"></div>
+        <div class="idea-revenue-item">
+          <span class="idea-revenue-value">Semanas</span>
+          <div class="idea-revenue-label">para lançar MVP</div>
+        </div>
+        <div class="idea-revenue-divider"></div>
+        <div class="idea-revenue-item">
+          <span class="idea-revenue-value">Bundle</span>
+          <div class="idea-revenue-label">R$ 3–8k/mês com tráfego</div>
+        </div>
+      </div>
+
+      <div class="idea-traffic-box">
+        🚦 <strong>Sinergia com Tráfego:</strong> Este é o produto que transforma seus clientes de tráfego em clientes permanentes. O cliente vê o ROI em tempo real, não cancela — e quando quer crescer, já sabe a quem ligar.
+      </div>
+    </div>
+
+    <!-- IDEIA 2: SUSEPReady -->
+    <div class="idea-card animate-in" style="--idea-color: var(--amber);">
+      <div class="idea-header">
+        <div class="idea-icon" style="background: rgba(251,191,36,0.12);">⚖️</div>
+        <div>
+          <span class="idea-tag">💡 Ideia 02 · Janela de Oportunidade Urgente</span>
+          <h3>SUSEPReady</h3>
+          <p>Plataforma de compliance para adequação à LC 213/2025 — o produto do momento</p>
+          <div class="idea-badge-row">
+            <span class="idea-badge" style="background:rgba(251,191,36,0.10);color:var(--amber);">Go-to-market: Meses</span>
+            <span class="idea-badge" style="background:rgba(52,211,153,0.05);color:var(--fg-muted);">Urgência: Máxima (jul/2025)</span>
+            <span class="idea-badge" style="background:rgba(52,211,153,0.05);color:var(--fg-muted);">Sinergia com tráfego: ★★★★</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="idea-body">
+        <div>
+          <div class="idea-section-title" style="color:var(--amber);">O Problema</div>
+          <ul class="idea-list">
+            <li>LC 213/2025 obrigou todas as associações a se adequarem à SUSEP</li>
+            <li>Prazo: julho de 2025 — quem não se adequar encerra atividades</li>
+            <li>A maioria não tem know-how jurídico nem tecnológico para isso</li>
+            <li>Documentação, estatutos e processos precisam ser reformulados</li>
+          </ul>
+        </div>
+        <div>
+          <div class="idea-section-title" style="color:var(--amber);">Como Funciona</div>
+          <ul class="idea-list">
+            <li>Diagnóstico: questionário mapeia onde a associação está vs onde precisa estar</li>
+            <li>Gerador de documentos: estatuto, regulamento interno, política de reservas</li>
+            <li>Painel de compliance: indicadores verde/amarelo/vermelho por exigência</li>
+            <li>Calendário regulatório com alertas de prazos e renovações</li>
+            <li>Vault de documentos organizados por exigência SUSEP</li>
+          </ul>
+        </div>
+        <div>
+          <div class="idea-section-title" style="color:var(--amber);">Por Que É Estratégico</div>
+          <ul class="idea-list">
+            <li>Produto de porta de entrada: você entra com compliance e constrói confiança</li>
+            <li>Senso de urgência genuíno — a dor é real e o prazo é fixo</li>
+            <li>Associação regularizada e profissionalizada quer crescer → precisa de tráfego</li>
+            <li>Nenhum software do mercado foi feito especificamente para a LC 213/2025</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="idea-revenue" style="margin-top:28px;background:rgba(251,191,36,0.05);border-color:rgba(251,191,36,0.20);">
+        <div class="idea-revenue-item">
+          <span class="idea-revenue-value" style="color:var(--amber);">R$ 2.400–6.000</span>
+          <div class="idea-revenue-label">licença anual</div>
+        </div>
+        <div class="idea-revenue-divider"></div>
+        <div class="idea-revenue-item">
+          <span class="idea-revenue-value" style="color:var(--amber);">R$ 3–8k</span>
+          <div class="idea-revenue-label">adequação assistida</div>
+        </div>
+        <div class="idea-revenue-divider"></div>
+        <div class="idea-revenue-item">
+          <span class="idea-revenue-value" style="color:var(--amber);">2025</span>
+          <div class="idea-revenue-label">janela de oportunidade</div>
+        </div>
+      </div>
+
+      <div class="idea-traffic-box">
+        🚦 <strong>Sinergia com Tráfego:</strong> Associação que se regulariza e quer crescer precisa de lead. Você entra como parceiro de compliance e se posiciona naturalmente como a agência de crescimento.
+      </div>
+    </div>
+
+    <!-- IDEIA 3: RepNet -->
+    <div class="idea-card animate-in" style="--idea-color: var(--violet);">
+      <div class="idea-header">
+        <div class="idea-icon" style="background: rgba(167,139,250,0.12);">🏆</div>
+        <div>
+          <span class="idea-tag">💡 Ideia 03 · Maior Gap do Mercado</span>
+          <h3>RepNet</h3>
+          <p>Plataforma de gestão e gamificação de representantes autônomos</p>
+          <div class="idea-badge-row">
+            <span class="idea-badge" style="background:rgba(167,139,250,0.10);color:var(--violet);">Go-to-market: 3–6 meses</span>
+            <span class="idea-badge" style="background:rgba(52,211,153,0.05);color:var(--fg-muted);">Gap de mercado: Alto</span>
+            <span class="idea-badge" style="background:rgba(52,211,153,0.05);color:var(--fg-muted);">Sinergia com tráfego: ★★★★</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="idea-body">
+        <div>
+          <div class="idea-section-title" style="color:var(--violet);">O Problema</div>
+          <ul class="idea-list">
+            <li>O maior canal de aquisição são os representantes autônomos</li>
+            <li>Gestão hoje: WhatsApp, planilha Excel, ligação — caótica</li>
+            <li>Os melhores representantes somem sem aviso, os ruins ficam sem treinamento</li>
+            <li>A associação não sabe quem está performando em tempo real</li>
+            <li>Pagamento de comissão é manual e gera conflitos</li>
+          </ul>
+        </div>
+        <div>
+          <div class="idea-section-title" style="color:var(--violet);">Como Funciona</div>
+          <ul class="idea-list">
+            <li>Cadastro e onboarding digital de representantes</li>
+            <li>Rastreamento: leads, contratos, conversão, comissão gerada</li>
+            <li>Gamificação: ranking mensal, metas, troféus, bonificações automáticas</li>
+            <li>Material de vendas centralizado: scripts, vídeos, calculadora de cotação</li>
+            <li>Calculadora de comissão em tempo real para o representante</li>
+            <li>Pagamento automático via Pix integrado</li>
+          </ul>
+        </div>
+        <div>
+          <div class="idea-section-title" style="color:var(--violet);">Por Que É Estratégico</div>
+          <ul class="idea-list">
+            <li>Nenhum software do mercado foca especificamente nesse canal</li>
+            <li>Power CRM e outros focam em leads digitais — não em representantes</li>
+            <li>Associações que escalam representantes precisam de leads digitais para alimentá-los</li>
+            <li>"O RepNet organiza sua rede — o tráfego alimenta ela"</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="idea-revenue" style="margin-top:28px;background:rgba(167,139,250,0.05);border-color:rgba(167,139,250,0.20);">
+        <div class="idea-revenue-item">
+          <span class="idea-revenue-value" style="color:var(--violet);">R$ 497–1.497</span>
+          <div class="idea-revenue-label">por associação/mês</div>
+        </div>
+        <div class="idea-revenue-divider"></div>
+        <div class="idea-revenue-item">
+          <span class="idea-revenue-value" style="color:var(--violet);">Hierarquia</span>
+          <div class="idea-revenue-label">coordenador → representante</div>
+        </div>
+        <div class="idea-revenue-divider"></div>
+        <div class="idea-revenue-item">
+          <span class="idea-revenue-value" style="color:var(--violet);">Upsell</span>
+          <div class="idea-revenue-label">módulo de treinamento premium</div>
+        </div>
+      </div>
+
+      <div class="idea-traffic-box">
+        🚦 <strong>Sinergia com Tráfego:</strong> Associações com rede de representantes organizada e escalando precisam de volume de leads digitais para distribuir. Você vira o parceiro natural de crescimento.
+      </div>
+    </div>
+
+    <!-- IDEIA 4: RateioClaro -->
+    <div class="idea-card animate-in" style="--idea-color: var(--blue);">
+      <div class="idea-header">
+        <div class="idea-icon" style="background: rgba(96,165,250,0.12);">🔍</div>
+        <div>
+          <span class="idea-tag">💡 Ideia 04 · Redução de Churn</span>
+          <h3>RateioClaro</h3>
+          <p>Portal de transparência do fundo mutualista — o associado entende o que paga</p>
+          <div class="idea-badge-row">
+            <span class="idea-badge" style="background:rgba(96,165,250,0.10);color:var(--blue);">Go-to-market: 3–6 meses</span>
+            <span class="idea-badge" style="background:rgba(52,211,153,0.05);color:var(--fg-muted);">Modelo: B2B2C</span>
+            <span class="idea-badge" style="background:rgba(52,211,153,0.05);color:var(--fg-muted);">Sinergia com tráfego: ★★★</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="idea-body">
+        <div>
+          <div class="idea-section-title" style="color:var(--blue);">O Problema</div>
+          <ul class="idea-list">
+            <li>Associados não entendem como o rateio é calculado</li>
+            <li>Mensalidade variável sem explicação gera desconfiança e cancelamento</li>
+            <li>Centenas de reclamações no Procon e Reclame Aqui sobre opacidade</li>
+            <li>ERPs existentes são B2B — nenhum tem portal voltado ao associado</li>
+          </ul>
+        </div>
+        <div>
+          <div class="idea-section-title" style="color:var(--blue);">Como Funciona</div>
+          <ul class="idea-list">
+            <li>Portal/app white-label do associado — personalizado por associação</li>
+            <li>Step-by-step visual de como o rateio do mês foi calculado</li>
+            <li>Quantos sinistros ocorreram no grupo e qual foi o impacto</li>
+            <li>Projeção de mensalidade para os próximos meses</li>
+            <li>Histórico completo de pagamentos e eventos</li>
+            <li>Comunicação proativa antes do boleto chegar</li>
+          </ul>
+        </div>
+        <div>
+          <div class="idea-section-title" style="color:var(--blue);">Por Que É Estratégico</div>
+          <ul class="idea-list">
+            <li>Associações que reduzem churn crescem mais rápido</li>
+            <li>O produto resolve a causa raiz do cancelamento — não o sintoma</li>
+            <li>Associação que retém bem quer crescer → precisa de mais entrada</li>
+            <li>Pitch natural: "RateioClaro retém — agora vamos acelerar a entrada?"</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="idea-revenue" style="margin-top:28px;background:rgba(96,165,250,0.05);border-color:rgba(96,165,250,0.20);">
+        <div class="idea-revenue-item">
+          <span class="idea-revenue-value" style="color:var(--blue);">R$ 297–997</span>
+          <div class="idea-revenue-label">por associação/mês</div>
+        </div>
+        <div class="idea-revenue-divider"></div>
+        <div class="idea-revenue-item">
+          <span class="idea-revenue-value" style="color:var(--blue);">R$ 1.500–3.000</span>
+          <div class="idea-revenue-label">setup fee</div>
+        </div>
+        <div class="idea-revenue-divider"></div>
+        <div class="idea-revenue-item">
+          <span class="idea-revenue-value" style="color:var(--blue);">White-label</span>
+          <div class="idea-revenue-label">personalizado por cliente</div>
+        </div>
+      </div>
+
+      <div class="idea-traffic-box">
+        🚦 <strong>Sinergia com Tráfego:</strong> Associação que churna menos tem mais associados ativos, base crescente e maior capacidade de investimento em mídia paga. Seu ticket de tráfego cresce junto.
+      </div>
+    </div>
+
+    <!-- IDEIA 5: FraudGuard -->
+    <div class="idea-card animate-in" style="--idea-color: var(--rose);">
+      <div class="idea-header">
+        <div class="idea-icon" style="background: rgba(251,113,133,0.12);">🛡️</div>
+        <div>
+          <span class="idea-tag">💡 Ideia 05 · Maior ROI Demonstrável</span>
+          <h3>FraudGuard</h3>
+          <p>Motor de detecção de fraudes com IA para sinistros — protege o fundo mutualista</p>
+          <div class="idea-badge-row">
+            <span class="idea-badge" style="background:rgba(251,113,133,0.10);color:var(--rose);">Go-to-market: 9–18 meses</span>
+            <span class="idea-badge" style="background:rgba(52,211,153,0.05);color:var(--fg-muted);">Dificuldade: Alta (IA)</span>
+            <span class="idea-badge" style="background:rgba(52,211,153,0.05);color:var(--fg-muted);">Potencial de Receita: ★★★★★</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="idea-body">
+        <div>
+          <div class="idea-section-title" style="color:var(--rose);">O Problema</div>
+          <ul class="idea-list">
+            <li>"Operação Seguro Fake": associação de BH fraudou R$ 650M</li>
+            <li>Análise de sinistros hoje é 100% manual e sem padrão</li>
+            <li>Fraudes destroem o fundo de rateio e prejudicam todos os associados</li>
+            <li>Nenhum software do mercado tem IA dedicada para proteção veicular</li>
+          </ul>
+        </div>
+        <div>
+          <div class="idea-section-title" style="color:var(--rose);">Como Funciona</div>
+          <ul class="idea-list">
+            <li>Score de risco (0–100) para cada sinistro aberto</li>
+            <li>Alertas: mesma oficina + mesmo representante + mesmo modelo de BO</li>
+            <li>OCR de documentos: valida BO, notas fiscais, laudos automaticamente</li>
+            <li>Geolocalização do evento vs localização habitual do veículo</li>
+            <li>Network analysis: CPF/CNPJ de beneficiários, oficinas e representantes</li>
+            <li>Fila de aprovação por prioridade de risco</li>
+          </ul>
+        </div>
+        <div>
+          <div class="idea-section-title" style="color:var(--rose);">Por Que É Estratégico</div>
+          <ul class="idea-list">
+            <li>ROI mais fácil de demonstrar: "economizamos R$ X em fraudes este mês"</li>
+            <li>Modelo por sucesso: % do valor economizado em fraudes detectadas</li>
+            <li>Integra via API com ERPs existentes — não precisa substituir nada</li>
+            <li>Associação financeiramente saudável investe mais em crescimento</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="idea-revenue" style="margin-top:28px;background:rgba(251,113,133,0.05);border-color:rgba(251,113,133,0.20);">
+        <div class="idea-revenue-item">
+          <span class="idea-revenue-value" style="color:var(--rose);">R$ 997–2.997</span>
+          <div class="idea-revenue-label">por associação/mês</div>
+        </div>
+        <div class="idea-revenue-divider"></div>
+        <div class="idea-revenue-item">
+          <span class="idea-revenue-value" style="color:var(--rose);">% sucesso</span>
+          <div class="idea-revenue-label">sobre fraudes bloqueadas</div>
+        </div>
+        <div class="idea-revenue-divider"></div>
+        <div class="idea-revenue-item">
+          <span class="idea-revenue-value" style="color:var(--rose);">R$ 5–15k</span>
+          <div class="idea-revenue-label">setup + treinamento do modelo</div>
+        </div>
+      </div>
+
+      <div class="idea-traffic-box">
+        🚦 <strong>Sinergia com Tráfego:</strong> Associação com fundo saudável e sem fraudes cresce com confiança — e cresce querendo mais associados. Você vende o crescimento.
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── MATRIZ ──────────────────────────────────────── -->
+<section class="section" id="matriz" style="background: rgba(255,255,255,0.01);">
+  <div class="container-narrow">
+    <div class="section-header animate-in">
+      <span class="badge-section">Priorização</span>
+      <h2>Por onde começar</h2>
+      <p>Nem todo produto deve ser construído ao mesmo tempo. Veja a análise comparativa para definir a ordem de execução.</p>
+    </div>
+
+    <div class="animate-in" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden;">
+      <table class="matrix-table">
+        <thead>
+          <tr>
+            <th>Software</th>
+            <th>Receita</th>
+            <th>Dificuldade</th>
+            <th>Velocidade</th>
+            <th>Sinergia</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>📊 LeadStation</td>
+            <td><span style="color:var(--primary);font-weight:600;">Alta</span></td>
+            <td><span style="color:var(--primary);font-weight:600;">Baixa</span></td>
+            <td><span class="tag-fast">Semanas</span></td>
+            <td><span class="stars">★★★★★</span></td>
+          </tr>
+          <tr>
+            <td>⚖️ SUSEPReady</td>
+            <td><span style="color:var(--amber);font-weight:600;">Alta</span></td>
+            <td><span style="color:var(--amber);font-weight:600;">Média</span></td>
+            <td><span class="tag-medium">Urgente 2025</span></td>
+            <td><span class="stars">★★★★</span><span style="color:var(--fg-muted);">☆</span></td>
+          </tr>
+          <tr>
+            <td>🏆 RepNet</td>
+            <td><span style="color:var(--primary);font-weight:600;">Alta</span></td>
+            <td><span style="color:var(--amber);font-weight:600;">Média</span></td>
+            <td><span class="tag-medium">3–6 meses</span></td>
+            <td><span class="stars">★★★★</span><span style="color:var(--fg-muted);">☆</span></td>
+          </tr>
+          <tr>
+            <td>🔍 RateioClaro</td>
+            <td><span style="color:var(--amber);font-weight:600;">Média-Alta</span></td>
+            <td><span style="color:var(--amber);font-weight:600;">Média</span></td>
+            <td><span class="tag-medium">3–6 meses</span></td>
+            <td><span class="stars">★★★</span><span style="color:var(--fg-muted);">☆☆</span></td>
+          </tr>
+          <tr>
+            <td>🛡️ FraudGuard</td>
+            <td><span style="color:var(--rose);font-weight:600;">Muito Alta</span></td>
+            <td><span style="color:var(--rose);font-weight:600;">Alta (IA)</span></td>
+            <td><span class="tag-slow">9–18 meses</span></td>
+            <td><span class="stars">★★★</span><span style="color:var(--fg-muted);">☆☆</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="highlight-box animate-in" style="margin-top:24px;">
+      <div class="label" style="margin-bottom:10px;">💡 Insight de Priorização</div>
+      <p>O <strong>LeadStation</strong> é o único dos 5 que você pode lançar agora, sem desenvolver software — começa como dashboard em Looker Studio, valida o mercado e depois evolui para SaaS. O <strong>SUSEPReady</strong> tem timing único: 2025 é o ano da regulamentação, e quem chegar primeiro captura o mercado.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── ROADMAP ─────────────────────────────────────── -->
+<section class="section-lg" id="roadmap">
+  <div class="container">
+    <div class="section-header animate-in">
+      <span class="badge-section">Execução</span>
+      <h2>Roadmap de 18 meses</h2>
+      <p>Da validação rápida até a construção de um produto de escala — sem queimar caixa prematuramente.</p>
+    </div>
+
+    <div class="roadmap-grid">
+      <!-- Fase 1 -->
+      <div class="roadmap-phase animate-in" style="--phase-color: var(--emerald); --phase-bg: rgba(52,211,153,0.08);">
+        <div class="phase-number">Fase 01</div>
+        <div class="phase-title">Validação Rápida</div>
+        <div class="phase-period">0 – 3 meses</div>
+        <div class="phase-tag">LeadStation MVP</div>
+        <ul class="phase-actions">
+          <li>
+            <div class="phase-dot"></div>
+            Monta o LeadStation com Looker Studio + Google Sheets + APIs do Meta e Google
+          </li>
+          <li>
+            <div class="phase-dot"></div>
+            Oferece para seus clientes atuais de tráfego por R$ 300–500/mês
+          </li>
+          <li>
+            <div class="phase-dot"></div>
+            Valida willingness-to-pay e coleta feedbacks do produto
+          </li>
+          <li>
+            <div class="phase-dot"></div>
+            Documenta os processos que precisam ser automatizados
+          </li>
+          <li>
+            <div class="phase-dot"></div>
+            Define se a evolução para SaaS faz sentido com os dados reais
+          </li>
+        </ul>
+      </div>
+
+      <!-- Fase 2 -->
+      <div class="roadmap-phase animate-in delay-2" style="--phase-color: var(--amber); --phase-bg: rgba(251,191,36,0.08);">
+        <div class="phase-number">Fase 02</div>
+        <div class="phase-title">Produto de Entrada</div>
+        <div class="phase-period">3 – 9 meses</div>
+        <div class="phase-tag" style="color:var(--amber);background:rgba(251,191,36,0.08);">SUSEPReady</div>
+        <ul class="phase-actions">
+          <li>
+            <div class="phase-dot" style="background:var(--amber);"></div>
+            Desenvolve o SUSEPReady aproveitando o timing da LC 213/2025
+          </li>
+          <li>
+            <div class="phase-dot" style="background:var(--amber);"></div>
+            Faz parceria com um advogado especialista em regulatório do setor
+          </li>
+          <li>
+            <div class="phase-dot" style="background:var(--amber);"></div>
+            Usa como produto de prospecção para novas associações (não só seus clientes)
+          </li>
+          <li>
+            <div class="phase-dot" style="background:var(--amber);"></div>
+            Pitch: compliance + tráfego como solução completa de crescimento
+          </li>
+          <li>
+            <div class="phase-dot" style="background:var(--amber);"></div>
+            Mede CAC de associações adquiridas via SUSEPReady vs canal direto
+          </li>
+        </ul>
+      </div>
+
+      <!-- Fase 3 -->
+      <div class="roadmap-phase animate-in delay-4" style="--phase-color: var(--violet); --phase-bg: rgba(167,139,250,0.08);">
+        <div class="phase-number">Fase 03</div>
+        <div class="phase-title">Escala de LTV</div>
+        <div class="phase-period">9 – 18 meses</div>
+        <div class="phase-tag" style="color:var(--violet);background:rgba(167,139,250,0.08);">RepNet ou RateioClaro</div>
+        <ul class="phase-actions">
+          <li>
+            <div class="phase-dot" style="background:var(--violet);"></div>
+            Com base e credibilidade estabelecidas, lança segundo produto de expansão
+          </li>
+          <li>
+            <div class="phase-dot" style="background:var(--violet);"></div>
+            Escolhe entre RepNet (foco em aquisição) ou RateioClaro (foco em retenção) baseado nos dados das fases anteriores
+          </li>
+          <li>
+            <div class="phase-dot" style="background:var(--violet);"></div>
+            Começa a construir o posicionamento de "plataforma" — não só agência
+          </li>
+          <li>
+            <div class="phase-dot" style="background:var(--violet);"></div>
+            FraudGuard fica como produto aspiracional — parceria com empresa de IA ou captação de sócio tech
+          </li>
+          <li>
+            <div class="phase-dot" style="background:var(--violet);"></div>
+            Avalia modelo de receita: bundle tráfego + SaaS por conta gerenciada
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- KPIs de sucesso -->
+    <div style="margin-top:48px;" class="animate-in">
+      <div class="label" style="text-align:center;margin-bottom:24px;">KPIs de Sucesso por Fase</div>
+      <div class="grid-3">
+        <div class="card" style="text-align:center;">
+          <div style="font-size:2rem;margin-bottom:8px;">📊</div>
+          <div style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:var(--primary);margin-bottom:6px;">10 clientes</div>
+          <div style="font-size:13px;color:var(--fg-muted);">Fase 1: associações pagando pelo LeadStation MVP</div>
+        </div>
+        <div class="card" style="text-align:center;">
+          <div style="font-size:2rem;margin-bottom:8px;">⚖️</div>
+          <div style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:var(--amber);margin-bottom:6px;">30 clientes</div>
+          <div style="font-size:13px;color:var(--fg-muted);">Fase 2: associações no SUSEPReady + 5 convertidas para tráfego</div>
+        </div>
+        <div class="card" style="text-align:center;">
+          <div style="font-size:2rem;margin-bottom:8px;">🏆</div>
+          <div style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:var(--violet);margin-bottom:6px;">R$ 100k MRR</div>
+          <div style="font-size:13px;color:var(--fg-muted);">Fase 3: receita recorrente combinada de SaaS + tráfego</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ─── FINAL CTA ───────────────────────────────────── -->
+<section class="cta-section" id="cta">
+  <div class="cta-glow"></div>
+  <div class="container-sm">
+    <div class="cta-box animate-in">
+      <span class="badge-section" style="display:inline-block;margin-bottom:20px;">Próximos Passos</span>
+      <h2>Você já tem o maior ativo:<br>acesso ao mercado</h2>
+      <p>Como agência de tráfego para proteção veicular, você tem credibilidade, relacionamento e dados do setor. Os softwares acima transformam esse ativo em receita recorrente escalável.</p>
+      <div class="cta-btns">
+        <a href="#softwares" class="btn-primary">Ver as 5 Ideias Novamente →</a>
+        <a href="#matriz" class="btn-outline">Matriz de Priorização</a>
+      </div>
+      <div style="margin-top:32px;padding-top:24px;border-top:1px solid var(--border);">
+        <div style="font-size:13px;color:var(--fg-muted);">
+          Comece pelo <strong style="color:var(--primary);">LeadStation</strong> — você pode validar ainda esse mês, sem desenvolver nada.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─────────────────────────────────────── -->
+<footer>
+  <div class="container">
+    <p>Análise estratégica de mercado · Proteção Veicular Brasil · 2026</p>
+    <p style="margin-top:8px;font-size:11px;color:var(--fg-sub);">Dados baseados em fontes públicas: Fenacor, InfoMoney, AAAPV, SUSEP, Insurance Corp, Power CRM · Atualizado em março/2026</p>
+  </div>
+</footer>
+
+<!-- ─── SCRIPTS ─────────────────────────────────────── -->
+<script>
+// Scroll Progress Bar
+const progressBar = document.getElementById('scrollProgress');
+window.addEventListener('scroll', () => {
+  const winScroll = document.documentElement.scrollTop;
+  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const pct = (winScroll / height) * 100;
+  progressBar.style.width = pct + '%';
+});
+
+// Scroll Reveal (IntersectionObserver)
+const observerOpts = { threshold: 0.08, rootMargin: '0px 0px -40px 0px' };
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, observerOpts);
+document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
+
+// TOC Navigation
+const sections = ['hero','mercado','dores','softwares','matriz','roadmap','cta'];
+const tocDots = document.querySelectorAll('.toc-dot');
+
+const tocObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      tocDots.forEach(d => d.classList.remove('active'));
+      const active = document.querySelector(`.toc-dot[data-section="${id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { threshold: 0.4 });
+
+sections.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) tocObserver.observe(el);
+});
+
+tocDots.forEach(dot => {
+  dot.addEventListener('click', () => {
+    const id = dot.dataset.section;
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Análise Hormozi — Consultoria IA: Separar ou Escalar?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --background: #141414;
+    --foreground: #fafafa;
+    --primary: #34d399;
+    --primary-fg: #0a2e24;
+    --muted: #333333;
+    --muted-fg: #a3a3a3;
+    --card: #1e1e1e;
+    --border: rgba(255,255,255,0.09);
+    --destructive: #ef4444;
+    --emerald: #34d399;
+    --violet: #a78bfa;
+    --amber: #fbbf24;
+    --blue: #60a5fa;
+    --rose: #fb7185;
+    --cyan: #22d3ee;
+    --orange: #fb923c;
+    --font: 'Space Grotesk', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --radius: 10px;
+    --radius-lg: 14px;
+    --radius-xl: 18px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ── GLOW ── */
+  .glow-emerald { box-shadow: 0 0 20px rgba(52,211,153,0.15), 0 0 60px rgba(52,211,153,0.05); }
+  .glow-emerald-strong { box-shadow: 0 0 30px rgba(52,211,153,0.25), 0 0 80px rgba(52,211,153,0.1); }
+  .glow-violet { box-shadow: 0 0 20px rgba(167,139,250,0.15), 0 0 60px rgba(167,139,250,0.05); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeInLeft {
+    from { opacity: 0; transform: translateX(-30px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes gradientShift {
+    0%,100% { background-position: 0% 50%; }
+    50%      { background-position: 100% 50%; }
+  }
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(-8px); }
+  }
+  @keyframes pulse-glow {
+    0%,100% { box-shadow: 0 0 20px rgba(52,211,153,0.15); }
+    50%      { box-shadow: 0 0 40px rgba(52,211,153,0.35); }
+  }
+
+  .animate-fade-in-up { animation: fadeInUp 0.7s ease-out forwards; }
+  .d1 { animation-delay: 0.1s; }
+  .d2 { animation-delay: 0.2s; }
+  .d3 { animation-delay: 0.3s; }
+  .d4 { animation-delay: 0.4s; }
+  .d5 { animation-delay: 0.5s; }
+  .d6 { animation-delay: 0.6s; }
+  .opacity-0 { opacity: 0; }
+
+  .scroll-hidden { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease-out, transform 0.7s ease-out; }
+  .scroll-visible { opacity: 1; transform: translateY(0); }
+  .stagger-1 { transition-delay: 0.1s; }
+  .stagger-2 { transition-delay: 0.2s; }
+  .stagger-3 { transition-delay: 0.3s; }
+  .stagger-4 { transition-delay: 0.4s; }
+
+  /* ── GRADIENT TEXT ── */
+  .text-gradient {
+    background: linear-gradient(135deg, var(--primary), #6ee7b7, var(--cyan));
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 6s ease infinite;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(20,20,20,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-icon {
+    width: 32px; height: 32px;
+    background: var(--primary);
+    color: var(--primary-fg);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 13px;
+  }
+  .logo-text { font-weight: 700; font-size: 15px; color: var(--foreground); }
+  .header-badge {
+    font-size: 11px; font-family: var(--mono);
+    color: var(--muted-fg);
+    background: rgba(52,211,153,0.07);
+    border: 1px solid rgba(52,211,153,0.15);
+    padding: 4px 12px; border-radius: 99px;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 80px 24px; }
+  section.compact { padding: 48px 24px; }
+  .container-sm  { max-width: 720px;  margin: 0 auto; }
+  .container-md  { max-width: 900px;  margin: 0 auto; }
+  .container-lg  { max-width: 1100px; margin: 0 auto; }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 100px 24px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-glow {
+    position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(52,211,153,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 16px; border-radius: 99px;
+    border: 1px solid rgba(52,211,153,0.2);
+    background: rgba(52,211,153,0.05);
+    font-size: 12px; color: var(--primary);
+    margin-bottom: 24px;
+  }
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+  }
+  .hero p {
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    color: var(--muted-fg);
+    max-width: 580px;
+    margin: 0 auto 36px;
+    line-height: 1.8;
+  }
+  .hero-meta {
+    display: flex; align-items: center; justify-content: center; gap: 24px;
+    flex-wrap: wrap;
+  }
+  .hero-meta span {
+    font-size: 12px; color: var(--muted-fg);
+    font-family: var(--mono);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .hero-meta span::before { content: '▸'; color: var(--primary); }
+
+  /* ── SECTION LABEL ── */
+  .section-label {
+    display: inline-block;
+    padding: 4px 12px; border-radius: 99px;
+    background: rgba(52,211,153,0.1);
+    font-size: 11px; font-weight: 600;
+    color: var(--primary);
+    letter-spacing: 0.05em; text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  h2 {
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .section-desc {
+    font-size: 1rem;
+    color: var(--muted-fg);
+    max-width: 560px;
+    margin: 0 auto 48px;
+    line-height: 1.8;
+  }
+  .text-center { text-align: center; }
+
+  /* ── VERDICT CARD ── */
+  .verdict-card {
+    background: linear-gradient(135deg, rgba(52,211,153,0.08) 0%, rgba(34,211,238,0.04) 100%);
+    border: 1px solid rgba(52,211,153,0.25);
+    border-radius: var(--radius-xl);
+    padding: 40px;
+    margin-bottom: 48px;
+    animation: pulse-glow 4s ease-in-out infinite;
+  }
+  .verdict-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 11px; font-weight: 500;
+    color: var(--primary); letter-spacing: 0.08em;
+    text-transform: uppercase; margin-bottom: 16px;
+  }
+  .verdict-tag::before {
+    content: '';
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--primary);
+    animation: pulse-glow 2s infinite;
+  }
+  .verdict-card h3 {
+    font-size: 1.4rem; font-weight: 700;
+    margin-bottom: 16px; color: var(--foreground);
+  }
+  .verdict-card p { color: var(--muted-fg); line-height: 1.8; }
+  .verdict-card strong { color: var(--primary); }
+
+  /* ── VALUE EQUATION ── */
+  .equation-box {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    text-align: center;
+    font-family: var(--mono);
+    margin-bottom: 32px;
+  }
+  .equation-formula {
+    font-size: 1.1rem;
+    color: var(--foreground);
+    margin-bottom: 8px;
+  }
+  .equation-formula .eq-top { color: var(--primary); }
+  .equation-formula .eq-bottom { color: var(--muted-fg); }
+  .equation-formula .eq-div {
+    display: block;
+    width: 200px; height: 1px;
+    background: var(--border);
+    margin: 8px auto;
+  }
+  .eq-score {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 16px;
+    font-size: 1.6rem; font-weight: 700;
+  }
+  .eq-score.low { color: var(--destructive); }
+  .eq-score.mid { color: var(--amber); }
+  .eq-score.high { color: var(--primary); }
+
+  /* ── COMPARISON GRID ── */
+  .eq-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 48px; }
+  @media (max-width: 768px) { .eq-grid { grid-template-columns: 1fr; } }
+  .eq-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .eq-card.highlight {
+    border-color: rgba(52,211,153,0.3);
+    background: linear-gradient(135deg, rgba(52,211,153,0.06) 0%, var(--card) 100%);
+  }
+  .eq-card-label {
+    font-size: 10px; font-family: var(--mono); letter-spacing: 0.08em;
+    text-transform: uppercase; margin-bottom: 12px;
+  }
+  .eq-card-label.current { color: var(--destructive); }
+  .eq-card-label.separate { color: var(--amber); }
+  .eq-card-label.recommended { color: var(--primary); }
+  .eq-card h4 { font-size: 1rem; font-weight: 700; margin-bottom: 16px; }
+  .eq-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.82rem;
+  }
+  .eq-row:last-child { border-bottom: none; }
+  .eq-row span:first-child { color: var(--muted-fg); }
+  .eq-row .score { font-family: var(--mono); font-weight: 600; }
+  .score-low { color: var(--destructive); }
+  .score-mid { color: var(--amber); }
+  .score-high { color: var(--primary); }
+  .eq-total {
+    margin-top: 20px; padding-top: 16px;
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    font-weight: 700;
+  }
+  .eq-total .value { font-family: var(--mono); font-size: 1.4rem; }
+  .rec-badge {
+    position: absolute; top: 16px; right: 16px;
+    font-size: 10px; font-weight: 600;
+    background: var(--primary); color: var(--primary-fg);
+    padding: 3px 10px; border-radius: 99px;
+  }
+
+  /* ── ICP TABLE ── */
+  .icp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 48px; }
+  @media (max-width: 768px) { .icp-grid { grid-template-columns: 1fr; } }
+  .icp-card {
+    background: var(--card);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .icp-header {
+    padding: 20px 24px 16px;
+    font-weight: 700; font-size: 0.95rem;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .icp-header.a { background: linear-gradient(90deg, rgba(52,211,153,0.1) 0%, transparent 100%); border-bottom: 1px solid rgba(52,211,153,0.15); }
+  .icp-header.b { background: linear-gradient(90deg, rgba(167,139,250,0.1) 0%, transparent 100%); border-bottom: 1px solid rgba(167,139,250,0.15); }
+  .icp-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .icp-dot.a { background: var(--primary); }
+  .icp-dot.b { background: var(--violet); }
+  .icp-rows { padding: 8px 0; }
+  .icp-row {
+    padding: 10px 24px;
+    display: flex; gap: 12px;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.85rem;
+    align-items: flex-start;
+  }
+  .icp-row:last-child { border-bottom: none; }
+  .icp-row-label { color: var(--muted-fg); min-width: 110px; font-size: 0.78rem; font-family: var(--mono); padding-top: 2px; }
+  .icp-row-val { color: var(--foreground); line-height: 1.5; }
+
+  /* ── LADDER ── */
+  .ladder { display: flex; flex-direction: column; gap: 4px; margin-bottom: 48px; max-width: 600px; margin-left: auto; margin-right: auto; }
+  .ladder-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 28px 32px;
+    position: relative;
+    transition: border-color 0.3s;
+  }
+  .ladder-item:hover { border-color: rgba(52,211,153,0.2); }
+  .ladder-item.active {
+    border-color: rgba(52,211,153,0.3);
+    background: linear-gradient(135deg, rgba(52,211,153,0.06) 0%, var(--card) 100%);
+  }
+  .ladder-item.future {
+    border-color: rgba(167,139,250,0.2);
+    background: linear-gradient(135deg, rgba(167,139,250,0.05) 0%, var(--card) 100%);
+    opacity: 0.75;
+  }
+  .ladder-connector {
+    display: flex; align-items: center; justify-content: center;
+    color: var(--primary); font-size: 1.2rem; padding: 2px 0;
+  }
+  .ladder-num {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em;
+    text-transform: uppercase; margin-bottom: 8px;
+  }
+  .ladder-num.a { color: var(--primary); }
+  .ladder-num.b { color: var(--violet); }
+  .ladder-num.c { color: var(--muted-fg); }
+  .ladder-item h4 { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; }
+  .ladder-item p { font-size: 0.85rem; color: var(--muted-fg); margin-bottom: 12px; }
+  .ladder-meta { display: flex; gap: 12px; flex-wrap: wrap; }
+  .ladder-tag {
+    font-size: 11px; font-family: var(--mono);
+    padding: 3px 10px; border-radius: 99px;
+  }
+  .ladder-tag.price { background: rgba(52,211,153,0.1); color: var(--primary); }
+  .ladder-tag.price-v { background: rgba(167,139,250,0.1); color: var(--violet); }
+  .ladder-tag.price-o { background: rgba(251,191,36,0.1); color: var(--amber); }
+  .ladder-tag.time { background: rgba(96,165,250,0.1); color: var(--blue); }
+  .ladder-tag.icp { background: rgba(255,255,255,0.05); color: var(--muted-fg); }
+
+  /* ── GRAND SLAM OFFERS ── */
+  .offers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 48px; }
+  @media (max-width: 768px) { .offers-grid { grid-template-columns: 1fr; } }
+  .offer-card {
+    border-radius: var(--radius-xl);
+    padding: 36px;
+    border: 1px solid;
+    position: relative;
+    overflow: hidden;
+  }
+  .offer-card.emerald {
+    background: linear-gradient(135deg, rgba(52,211,153,0.07) 0%, var(--card) 60%);
+    border-color: rgba(52,211,153,0.25);
+  }
+  .offer-card.violet {
+    background: linear-gradient(135deg, rgba(167,139,250,0.07) 0%, var(--card) 60%);
+    border-color: rgba(167,139,250,0.25);
+  }
+  .offer-step {
+    font-size: 10px; font-family: var(--mono); letter-spacing: 0.1em;
+    text-transform: uppercase; margin-bottom: 12px;
+  }
+  .offer-step.a { color: var(--primary); }
+  .offer-step.b { color: var(--violet); }
+  .offer-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 6px; }
+  .offer-subtitle { font-size: 0.82rem; color: var(--muted-fg); margin-bottom: 24px; font-style: italic; line-height: 1.6; }
+  .offer-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+  .offer-table th {
+    font-size: 10px; font-family: var(--mono); letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--muted-fg);
+    padding: 8px 0; border-bottom: 1px solid var(--border);
+    text-align: left;
+  }
+  .offer-table td {
+    font-size: 0.82rem; padding: 9px 0;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .offer-table td:first-child { color: var(--muted-fg); width: 60%; }
+  .offer-table td:last-child { color: var(--primary); font-family: var(--mono); font-size: 0.78rem; text-align: right; }
+  .offer-table tr:last-child td { border-bottom: none; font-weight: 700; }
+  .offer-price-block {
+    display: flex; align-items: flex-end; gap: 12px;
+    padding: 20px 0 0;
+    border-top: 1px solid var(--border);
+    margin-top: 4px;
+  }
+  .offer-price {
+    font-size: 2rem; font-weight: 700;
+  }
+  .offer-price.emerald { color: var(--primary); }
+  .offer-price.violet { color: var(--violet); }
+  .offer-price-label { font-size: 0.78rem; color: var(--muted-fg); padding-bottom: 6px; }
+  .offer-guarantee {
+    margin-top: 20px;
+    padding: 16px;
+    border-radius: var(--radius);
+    font-size: 0.82rem;
+    line-height: 1.7;
+  }
+  .offer-guarantee.emerald { background: rgba(52,211,153,0.06); border: 1px solid rgba(52,211,153,0.15); color: var(--muted-fg); }
+  .offer-guarantee.violet { background: rgba(167,139,250,0.06); border: 1px solid rgba(167,139,250,0.15); color: var(--muted-fg); }
+  .offer-guarantee strong { color: var(--foreground); }
+
+  /* ── LTV BAR ── */
+  .ltv-block {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    margin-bottom: 48px;
+  }
+  .ltv-block h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 24px; }
+  .ltv-row { margin-bottom: 20px; }
+  .ltv-label {
+    display: flex; justify-content: space-between;
+    font-size: 0.82rem; margin-bottom: 8px;
+  }
+  .ltv-label span:first-child { color: var(--muted-fg); }
+  .ltv-label span:last-child { font-family: var(--mono); font-weight: 600; }
+  .ltv-bar-bg { height: 8px; background: rgba(255,255,255,0.05); border-radius: 99px; overflow: hidden; }
+  .ltv-bar { height: 100%; border-radius: 99px; transition: width 1.2s ease-out; }
+  .ltv-bar.current { background: var(--destructive); width: 55%; }
+  .ltv-bar.separate { background: var(--amber); width: 65%; }
+  .ltv-bar.recommended { background: var(--primary); width: 100%; }
+
+  /* ── RECOMMENDATION BLOCK ── */
+  .rec-block {
+    background: linear-gradient(135deg, rgba(52,211,153,0.06) 0%, rgba(34,211,238,0.03) 100%);
+    border: 1px solid rgba(52,211,153,0.2);
+    border-radius: var(--radius-xl);
+    padding: 40px;
+    margin-bottom: 48px;
+  }
+  .rec-phases { display: flex; flex-direction: column; gap: 16px; margin-top: 28px; }
+  .rec-phase {
+    display: flex; gap: 20px; align-items: flex-start;
+  }
+  .rec-phase-num {
+    width: 36px; height: 36px;
+    border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 13px; font-weight: 600;
+  }
+  .rec-phase-num.p1 { background: rgba(52,211,153,0.15); color: var(--primary); }
+  .rec-phase-num.p2 { background: rgba(167,139,250,0.15); color: var(--violet); }
+  .rec-phase-num.p3 { background: rgba(251,191,36,0.15); color: var(--amber); }
+  .rec-phase-content h5 { font-size: 0.9rem; font-weight: 700; margin-bottom: 4px; }
+  .rec-phase-content p { font-size: 0.83rem; color: var(--muted-fg); line-height: 1.7; }
+
+  /* ── PARTNER QUOTE ── */
+  .quote-block {
+    background: var(--card);
+    border-left: 3px solid var(--primary);
+    border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+    padding: 24px 28px;
+    margin-bottom: 48px;
+  }
+  .quote-block p { font-size: 0.95rem; color: var(--muted-fg); font-style: italic; line-height: 1.8; margin-bottom: 12px; }
+  .quote-block strong { color: var(--primary); font-style: normal; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: rgba(255,255,255,0.02);
+    border-top: 1px solid var(--border);
+    padding: 32px 24px;
+    text-align: center;
+  }
+  footer .logo { justify-content: center; margin-bottom: 8px; }
+  footer p { font-size: 12px; color: var(--muted-fg); font-family: var(--mono); }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 0 24px;
+  }
+
+  /* ── MISC ── */
+  .mb-8 { margin-bottom: 32px; }
+  .mb-6 { margin-bottom: 24px; }
+  .mt-4 { margin-top: 16px; }
+  .check { color: var(--primary); margin-right: 6px; }
+  .cross { color: var(--destructive); margin-right: 6px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="#" class="logo">
+    <div class="logo-icon">EI</div>
+    <span class="logo-text">Empresa Independente</span>
+  </a>
+  <span class="header-badge">Análise Estratégica · Hormozi Framework</span>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="container-sm">
+    <div class="badge animate-fade-in-up opacity-0 d1">
+      ⚡ Decisão de Produto
+    </div>
+    <h1 class="animate-fade-in-up opacity-0 d2">
+      Separar ou <span class="text-gradient">Escalar?</span>
+    </h1>
+    <p class="animate-fade-in-up opacity-0 d3">
+      Análise completa usando o framework de Alex Hormozi ($100M Offers)
+      sobre a estrutura da Consultoria de IA — dois produtos em um ou Escada de Valor?
+    </p>
+    <div class="hero-meta animate-fade-in-up opacity-0 d4">
+      <span>Framework: Hormozi $100M Offers</span>
+      <span>Value Equation Analysis</span>
+      <span>Grand Slam Offers</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- VEREDICTO -->
+<section>
+  <div class="container-md">
+    <div class="scroll-hidden stagger-1">
+      <span class="section-label">Veredicto</span>
+      <h2>Seu sócio identificou o problema certo</h2>
+      <p class="section-desc">Mas a solução não é simplesmente separar em dois produtos.</p>
+    </div>
+
+    <div class="verdict-card scroll-hidden stagger-2">
+      <div class="verdict-tag">Diagnóstico Principal</div>
+      <h3>São dois sonhos distintos. Dois sonhos competindo na mesma oferta se anulam.</h3>
+      <p>
+        O problema não é que são dois produtos. O problema é que <strong>dois sonhos distintos competindo na mesma oferta</strong> anulam um ao outro. O cliente não consegue visualizar o resultado com clareza. Quem não visualiza o sonho não compra. Ou compra com dúvida e cancela na primeira semana.
+      </p>
+      <p style="margin-top:12px;">
+        Hormozi é claro: <strong>"Nitidez sobre o sonho do cliente é tudo."</strong> A solução correta não é separar cegamente. É criar uma <strong>arquitetura de Escada de Valor</strong> onde cada produto tem um sonho claro e o primeiro vende o segundo de forma natural.
+      </p>
+    </div>
+
+    <!-- Partner Quote -->
+    <div class="quote-block scroll-hidden stagger-3">
+      <p>"Para mim, são dois produtos diferentes: um para desenvolver soluções para a própria empresa e outro para desenvolver soluções comercializáveis. Só está dando 3 meses porque tem os dois produtos juntos. Acredito que tenham que ser separados."</p>
+      <strong>— Feedback do sócio · Março 2026</strong>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- VALUE EQUATION -->
+<section>
+  <div class="container-lg">
+    <div class="text-center scroll-hidden stagger-1">
+      <span class="section-label">Value Equation</span>
+      <h2>Por que o produto atual é fraco como está</h2>
+      <p class="section-desc">Comparação das três estruturas usando a equação de Hormozi.</p>
+    </div>
+
+    <div class="equation-box scroll-hidden stagger-2 mb-8">
+      <div style="font-size:11px;font-family:var(--mono);letter-spacing:0.08em;text-transform:uppercase;color:var(--muted-fg);margin-bottom:16px;">A Equação de Valor de Hormozi</div>
+      <div class="equation-formula">
+        <span class="eq-top">Dream Outcome × Perceived Likelihood</span>
+        <span class="eq-div"></span>
+        <span class="eq-bottom">Time Delay × Effort & Sacrifice</span>
+      </div>
+      <p style="font-size:0.82rem;color:var(--muted-fg);margin-top:12px;">Quanto maior o resultado do numerador e menor o denominador, maior o valor percebido.</p>
+    </div>
+
+    <div class="eq-grid">
+      <!-- Atual -->
+      <div class="eq-card scroll-hidden stagger-2">
+        <div class="eq-card-label current">■ Produto Atual</div>
+        <h4>R$40k · 3 meses<br><small style="font-weight:400;color:var(--muted-fg);">Dois objetivos misturados</small></h4>
+        <div class="eq-row"><span>Dream Outcome</span><span class="score score-mid">6/10</span></div>
+        <div class="eq-row"><span>Perceived Likelihood</span><span class="score score-mid">5/10</span></div>
+        <div class="eq-row"><span>Time Delay</span><span class="score score-low">4/10</span></div>
+        <div class="eq-row"><span>Effort & Sacrifice</span><span class="score score-low">3/10</span></div>
+        <div class="eq-total">
+          <span>Valor percebido</span>
+          <span class="value score-low">2.5</span>
+        </div>
+        <p style="font-size:0.75rem;color:var(--destructive);margin-top:12px;">✗ Dois sonhos = nenhum vívido. Resultado incerto.</p>
+      </div>
+
+      <!-- Separados -->
+      <div class="eq-card scroll-hidden stagger-3">
+        <div class="eq-card-label separate">■ Produtos Separados</div>
+        <h4>R$20k + R$30k<br><small style="font-weight:400;color:var(--muted-fg);">Dois produtos independentes</small></h4>
+        <div class="eq-row"><span>Dream Outcome</span><span class="score score-high">8/10</span></div>
+        <div class="eq-row"><span>Perceived Likelihood</span><span class="score score-mid">6/10</span></div>
+        <div class="eq-row"><span>Time Delay</span><span class="score score-mid">6/10</span></div>
+        <div class="eq-row"><span>Effort & Sacrifice</span><span class="score score-mid">5/10</span></div>
+        <div class="eq-total">
+          <span>Valor percebido</span>
+          <span class="value score-mid">1.6 avg</span>
+        </div>
+        <p style="font-size:0.75rem;color:var(--amber);margin-top:12px;">⚠ Ticket menor, dois CACs separados, sem upsell natural.</p>
+      </div>
+
+      <!-- Escada -->
+      <div class="eq-card highlight scroll-hidden stagger-4">
+        <div class="rec-badge">Recomendado</div>
+        <div class="eq-card-label recommended">■ Escada de Valor</div>
+        <h4>R$15k → R$30k<br><small style="font-weight:400;color:var(--muted-fg);">Ascensão lógica em 2 degraus</small></h4>
+        <div class="eq-row"><span>Dream Outcome</span><span class="score score-high">9/10</span></div>
+        <div class="eq-row"><span>Perceived Likelihood</span><span class="score score-high">8/10</span></div>
+        <div class="eq-row"><span>Time Delay</span><span class="score score-high">8/10</span></div>
+        <div class="eq-row"><span>Effort & Sacrifice</span><span class="score score-high">7/10</span></div>
+        <div class="eq-total">
+          <span>Valor percebido</span>
+          <span class="value score-high">LTV 2.8×</span>
+        </div>
+        <p style="font-size:0.75rem;color:var(--primary);margin-top:12px;">✓ Sonho nítido em cada etapa. Upsell natural. LTV máximo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ICP -->
+<section>
+  <div class="container-lg">
+    <div class="text-center scroll-hidden stagger-1">
+      <span class="section-label">Dois ICPs</span>
+      <h2>Gatilhos de compra completamente diferentes</h2>
+      <p class="section-desc">Vender os dois juntos significa que o pitch nunca é perfeito para nenhum dos dois.</p>
+    </div>
+
+    <div class="icp-grid">
+      <!-- ICP A -->
+      <div class="icp-card scroll-hidden stagger-2">
+        <div class="icp-header a">
+          <div class="icp-dot a"></div>
+          Produto A — Automação Interna
+        </div>
+        <div class="icp-rows">
+          <div class="icp-row">
+            <span class="icp-row-label">Quem é</span>
+            <span class="icp-row-val">Empresário com operação existente, sobrecarregado, faz tudo no braço</span>
+          </div>
+          <div class="icp-row">
+            <span class="icp-row-label">Dor principal</span>
+            <span class="icp-row-val">Faço tudo eu mesmo, não consigo escalar sem contratar</span>
+          </div>
+          <div class="icp-row">
+            <span class="icp-row-label">Dream Outcome</span>
+            <span class="icp-row-val">Empresa rodando sem ele com mais lucro e menos horas</span>
+          </div>
+          <div class="icp-row">
+            <span class="icp-row-label">Objeção #1</span>
+            <span class="icp-row-val">Minha equipe vai usar? Vai funcionar na prática?</span>
+          </div>
+          <div class="icp-row">
+            <span class="icp-row-label">Urgência</span>
+            <span class="icp-row-val">Média: é uma dor crônica, não uma crise imediata</span>
+          </div>
+          <div class="icp-row">
+            <span class="icp-row-label">Ticket ok</span>
+            <span class="icp-row-val" style="color:var(--primary);">R$10k – R$20k</span>
+          </div>
+          <div class="icp-row">
+            <span class="icp-row-label">Decisão</span>
+            <span class="icp-row-val">Mais lenta, porque precisa calcular o retorno interno</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ICP B -->
+      <div class="icp-card scroll-hidden stagger-3">
+        <div class="icp-header b">
+          <div class="icp-dot b"></div>
+          Produto B — Fábrica de Produtos
+        </div>
+        <div class="icp-rows">
+          <div class="icp-row">
+            <span class="icp-row-label">Quem é</span>
+            <span class="icp-row-val">Consultor, agência ou empresário que quer nova fonte de receita</span>
+          </div>
+          <div class="icp-row">
+            <span class="icp-row-label">Dor principal</span>
+            <span class="icp-row-val">Quero criar produtos digitais de IA mas não sei desenvolver</span>
+          </div>
+          <div class="icp-row">
+            <span class="icp-row-label">Dream Outcome</span>
+            <span class="icp-row-val">Lançar produto de IA e gerar R$30k–R$100k em receita nova</span>
+          </div>
+          <div class="icp-row">
+            <span class="icp-row-label">Objeção #1</span>
+            <span class="icp-row-val">Consigo vender isso mesmo? Quem vai comprar?</span>
+          </div>
+          <div class="icp-row">
+            <span class="icp-row-label">Urgência</span>
+            <span class="icp-row-val">Alta: a oportunidade de mercado de IA aciona a decisão</span>
+          </div>
+          <div class="icp-row">
+            <span class="icp-row-label">Ticket ok</span>
+            <span class="icp-row-val" style="color:var(--violet);">R$25k – R$50k</span>
+          </div>
+          <div class="icp-row">
+            <span class="icp-row-label">Decisão</span>
+            <span class="icp-row-val">Mais rápida, porque a ganância aciona decisão emocional</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ESCADA DE VALOR -->
+<section>
+  <div class="container-md">
+    <div class="text-center scroll-hidden stagger-1">
+      <span class="section-label">Arquitetura Correta</span>
+      <h2>A Escada de Valor</h2>
+      <p class="section-desc">Hormozi não separa produtos. Ele os empilha em uma sequência lógica onde cada degrau vende o próximo.</p>
+    </div>
+
+    <div class="ladder">
+      <!-- Degrau 1 -->
+      <div class="ladder-item active scroll-hidden stagger-2">
+        <div class="ladder-num a">Degrau 01 — Entrada</div>
+        <h4>IA Operating System</h4>
+        <p>Coloque sua empresa pra trabalhar por você em 42 dias. Sem contratar, sem programar, sem depender de ninguém.</p>
+        <div class="ladder-meta">
+          <span class="ladder-tag price">R$ 15.000</span>
+          <span class="ladder-tag time">42 dias</span>
+          <span class="ladder-tag icp">Empresário operacional</span>
+        </div>
+      </div>
+
+      <div class="ladder-connector">↓</div>
+
+      <!-- Degrau 2 -->
+      <div class="ladder-item active scroll-hidden stagger-3">
+        <div class="ladder-num b">Degrau 02 — Ascensão</div>
+        <h4>IA Product Studio</h4>
+        <p>Crie, lance e venda seu primeiro produto de IA em 56 dias e gere entre R$30k e R$100k em receita nova ainda este ano.</p>
+        <div class="ladder-meta">
+          <span class="ladder-tag price-v">R$ 30.000</span>
+          <span class="ladder-tag time">56 dias</span>
+          <span class="ladder-tag icp">Consultor / Agência</span>
+        </div>
+      </div>
+
+      <div class="ladder-connector">↓</div>
+
+      <!-- Degrau 3 -->
+      <div class="ladder-item future scroll-hidden stagger-4">
+        <div class="ladder-num c">Degrau 03 — Máximo (Futuro)</div>
+        <h4>IA Agency Builder</h4>
+        <p>Monte sua agência de IA, crie uma operação que gera receita recorrente e pare de trocar hora por dinheiro.</p>
+        <div class="ladder-meta">
+          <span class="ladder-tag price-o">R$ 80.000+</span>
+          <span class="ladder-tag time">6 meses</span>
+          <span class="ladder-tag icp">Parceria</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- LTV Comparison -->
+    <div class="ltv-block scroll-hidden stagger-4">
+      <h4>📊 Comparação de LTV por estrutura</h4>
+      <div class="ltv-row">
+        <div class="ltv-label">
+          <span>Produto Único Atual (R$40k)</span>
+          <span style="color:var(--destructive);">LTV: R$40.000</span>
+        </div>
+        <div class="ltv-bar-bg"><div class="ltv-bar current"></div></div>
+      </div>
+      <div class="ltv-row">
+        <div class="ltv-label">
+          <span>Produtos Separados (R$20k + R$30k)</span>
+          <span style="color:var(--amber);">LTV médio: R$35.000*</span>
+        </div>
+        <div class="ltv-bar-bg"><div class="ltv-bar separate"></div></div>
+      </div>
+      <div class="ltv-row">
+        <div class="ltv-label">
+          <span>Escada de Valor (R$15k + R$30k + upsells)</span>
+          <span style="color:var(--primary);">LTV potencial: R$45k–R$80k+</span>
+        </div>
+        <div class="ltv-bar-bg"><div class="ltv-bar recommended"></div></div>
+      </div>
+      <p style="font-size:0.75rem;color:var(--muted-fg);margin-top:16px;">*Quando separados sem estrutura, você gera dois custos de aquisição distintos e o cliente que compra A raramente descobre o B por conta própria.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- GRAND SLAM OFFERS -->
+<section>
+  <div class="container-lg">
+    <div class="text-center scroll-hidden stagger-1">
+      <span class="section-label">Grand Slam Offers</span>
+      <h2>Os dois produtos reconfigurados</h2>
+      <p class="section-desc">Cada oferta com sonho nítido, value stack irresistível e garantia que elimina o risco.</p>
+    </div>
+
+    <div class="offers-grid">
+      <!-- Offer 1 -->
+      <div class="offer-card emerald scroll-hidden stagger-2">
+        <div class="offer-step a">Degrau 01 — IA Operating System</div>
+        <h3>Como Colocar Sua Empresa pra Trabalhar por Você em 42 Dias</h3>
+        <p class="offer-subtitle">Sem contratar, sem programar, sem depender de ninguém. É como ter 10 funcionários especializados trabalhando 24 horas por dia.</p>
+
+        <table class="offer-table">
+          <thead>
+            <tr><th>O que está incluído</th><th>Valor</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Setup completo da stack (Claude Code + AIOX + Vercel + GitHub + Supabase)</td><td>R$5.000</td></tr>
+            <tr><td>CLAUDE.md customizado para o negócio do cliente</td><td>R$3.000</td></tr>
+            <tr><td>3 soluções internas construídas ao vivo (copy, ops, vendas)</td><td>R$9.000</td></tr>
+            <tr><td>Treinamento de até 3 pessoas da equipe</td><td>R$4.000</td></tr>
+            <tr><td>Guia de uso interno + SOPs de IA</td><td>R$2.000</td></tr>
+            <tr><td>90 dias de suporte pós-consultoria (async)</td><td>R$5.000</td></tr>
+            <tr><td>🎁 <strong>Bônus:</strong> Biblioteca de 20 Skills prontas para o nicho</td><td>R$3.000</td></tr>
+            <tr><td>🎁 <strong>Bônus:</strong> Sessão "Quais processos automatizar primeiro"</td><td>R$2.000</td></tr>
+            <tr><td><strong>Total de valor declarado</strong></td><td><strong>R$33.000</strong></td></tr>
+          </tbody>
+        </table>
+
+        <div class="offer-price-block">
+          <span class="offer-price emerald">R$15.000</span>
+          <span class="offer-price-label">55% abaixo do valor declarado</span>
+        </div>
+
+        <div class="offer-guarantee emerald">
+          <strong>Garantia condicional:</strong> Se em 42 dias você não tiver pelo menos 3 processos da sua empresa rodando com IA e economizando pelo menos 10h/semana da sua equipe, devolvemos 100% do investimento.
+        </div>
+      </div>
+
+      <!-- Offer 2 -->
+      <div class="offer-card violet scroll-hidden stagger-3">
+        <div class="offer-step b">Degrau 02 — IA Product Studio</div>
+        <h3>Como Criar, Lançar e Vender Seu Primeiro Produto de IA em 56 Dias</h3>
+        <p class="offer-subtitle">E gerar entre R$30k e R$100k em receita nova ainda este ano, mesmo sem saber programar.</p>
+
+        <table class="offer-table">
+          <thead>
+            <tr><th>O que está incluído</th><th>Valor</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Definição estratégica do produto (nicho, avatar, oferta)</td><td>R$8.000</td></tr>
+            <tr><td>Construção técnica do produto (stack completa)</td><td>R$12.000</td></tr>
+            <tr><td>Página de vendas + copy usando as próprias ferramentas</td><td>R$5.000</td></tr>
+            <tr><td>Estratégia de precificação e posicionamento</td><td>R$4.000</td></tr>
+            <tr><td>Validação beta com 3–5 clientes reais</td><td>R$6.000</td></tr>
+            <tr><td>Script de apresentação comercial do produto</td><td>R$3.000</td></tr>
+            <tr><td>🎁 <strong>Bônus:</strong> Segunda solução/produto construída durante o programa</td><td>R$8.000</td></tr>
+            <tr><td>🎁 <strong>Bônus:</strong> Sessão de estratégia de lançamento</td><td>R$5.000</td></tr>
+            <tr><td><strong>Total de valor declarado</strong></td><td><strong>R$51.000</strong></td></tr>
+          </tbody>
+        </table>
+
+        <div class="offer-price-block">
+          <span class="offer-price violet">R$30.000</span>
+          <span class="offer-price-label">41% abaixo do valor declarado</span>
+        </div>
+
+        <div class="offer-guarantee violet">
+          <strong>Garantia de resultado:</strong> Se ao final dos 56 dias você não tiver seu produto de IA no ar com pelo menos 1 venda para um cliente real, continuamos trabalhando com você gratuitamente por mais 30 dias até que isso aconteça.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- RECOMENDAÇÃO FINAL -->
+<section>
+  <div class="container-md">
+    <div class="text-center scroll-hidden stagger-1">
+      <span class="section-label">Recomendação Final</span>
+      <h2>O que fazer agora</h2>
+    </div>
+
+    <div class="rec-block scroll-hidden stagger-2">
+      <p style="color:var(--muted-fg);margin-bottom:4px;">Plano de execução em 3 fases:</p>
+      <div class="rec-phases">
+        <div class="rec-phase">
+          <div class="rec-phase-num p1">1</div>
+          <div class="rec-phase-content">
+            <h5>Agora: lance o Degrau 1 (IA Operating System) por R$15k</h5>
+            <p>Foco total nesse perfil de cliente. O ticket de entrada menor facilita a venda e o prazo de 42 dias torna mais fácil provar o resultado. Os cases gerados aqui vendem o Degrau 2 por si sós.</p>
+          </div>
+        </div>
+        <div class="rec-phase">
+          <div class="rec-phase-num p2">2</div>
+          <div class="rec-phase-content">
+            <h5>Após 3 cases: lance o Degrau 2 (IA Product Studio) por R$30k</h5>
+            <p>Para quem já fez o Degrau 1, o upsell é natural. E para consultores e agências que chegam direto, os cases do Degrau 1 já eliminam a principal objeção de risco.</p>
+          </div>
+        </div>
+        <div class="rec-phase">
+          <div class="rec-phase-num p3">3</div>
+          <div class="rec-phase-content">
+            <h5>No futuro — Ofereça pacote completo com desconto</h5>
+            <p>Para novos clientes que quiserem os dois juntos, crie um bundle com leve desconto (R$40k). Mas NUNCA como produto único misturado — a distinção de sonhos deve ser sempre clara no pitch.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- O que dizer para o sócio -->
+    <div class="scroll-hidden stagger-3">
+      <span class="section-label">O que dizer para o sócio</span>
+      <div class="quote-block" style="margin-top:16px;">
+        <p>"Você identificou o problema certo — são dois sonhos, dois ICPs, duas vendas. Mas separar sem estrutura pode diluir o LTV. A solução é criar uma escada de valor onde Produto A é a entrada natural para Produto B. Assim mantemos os dois, mas vendemos cada um com nitidez — e o cliente que compra um, quer naturalmente o outro."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="logo">
+    <div class="logo-icon">EI</div>
+    <span class="logo-text">Empresa Independente</span>
+  </a>
+  <p>Análise estratégica · Hormozi Framework · Março 2026</p>
+</footer>
+
+<script>
+  // Scroll Reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(el => {
+      if (el.isIntersecting) {
+        el.target.classList.add('scroll-visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.scroll-hidden').forEach(el => observer.observe(el));
+
+  // Animate LTV bars on scroll
+  const ltvObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.ltv-bar').forEach(bar => {
+          bar.style.width = bar.classList.contains('current') ? '55%'
+            : bar.classList.contains('separate') ? '65%' : '100%';
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+
+  document.querySelectorAll('.ltv-block').forEach(el => {
+    el.querySelectorAll('.ltv-bar').forEach(bar => bar.style.width = '0%');
+    ltvObserver.observe(el);
+  });
+</script>
+</body>
+</html>

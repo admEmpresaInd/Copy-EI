@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IA Operating System — Coloque Sua Empresa Pra Trabalhar Por Você em 42 Dias</title>
+<meta name="description" content="A única consultoria que instala, configura e coloca funcionando na sua empresa uma equipe de IA que opera sem você. 5 vagas. Garantia de resultado.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500;600&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+/* ─── TOKENS ────────────────────────────────────────── */
+:root {
+  --bg:           #0d0d0d;
+  --bg-1:         #111111;
+  --bg-2:         #161616;
+  --bg-3:         #1c1c1c;
+  --fg:           #f2f2f0;
+  --fg-2:         #a8a89c;
+  --fg-3:         #5a5a54;
+  --primary:      #34d399;
+  --primary-dim:  rgba(52,211,153,0.10);
+  --primary-glow: rgba(52,211,153,0.18);
+  --primary-fg:   #0a2e24;
+  --border:       rgba(255,255,255,0.07);
+  --border-2:     rgba(255,255,255,0.12);
+  --amber:        #f59e0b;
+  --amber-dim:    rgba(245,158,11,0.08);
+  --violet:       #a78bfa;
+  --violet-dim:   rgba(167,139,250,0.08);
+  --rose:         #fb7185;
+  --rose-dim:     rgba(251,113,133,0.08);
+  --blue:         #60a5fa;
+  --blue-dim:     rgba(96,165,250,0.08);
+  --red:          #ef4444;
+
+  --font:   'Bricolage Grotesque', system-ui, sans-serif;
+  --serif:  'Lora', Georgia, serif;
+  --mono:   'JetBrains Mono', monospace;
+
+  --r-sm: 6px; --r-md: 10px; --r-lg: 16px; --r-xl: 24px;
+  --tr: 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ─── RESET ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+button { font-family: var(--font); border: none; cursor: pointer; background: none; color: inherit; }
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 2px; }
+
+/* ─── LAYOUT ─────────────────────────────────────────── */
+.wrap    { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+.wrap-md { max-width: 840px;  margin: 0 auto; padding: 0 24px; }
+.wrap-sm { max-width: 660px;  margin: 0 auto; padding: 0 24px; }
+section  { padding: 100px 0; }
+
+/* ─── ANIMATIONS ─────────────────────────────────────── */
+@keyframes fade-up    { from { opacity:0; transform:translateY(28px) } to { opacity:1; transform:translateY(0) } }
+@keyframes fade-in    { from { opacity:0 } to { opacity:1 } }
+@keyframes glow-pulse { 0%,100% { opacity:0.35 } 50% { opacity:0.65 } }
+@keyframes float      { 0%,100% { transform:translateY(0) } 50% { transform:translateY(-9px) } }
+@keyframes gradient-x { 0%,100% { background-position:0% 50% } 50% { background-position:100% 50% } }
+@keyframes blink      { 0%,100% { opacity:1 } 50% { opacity:0 } }
+@keyframes bar-fill   { from { width:0% } to { width:var(--w) } }
+@keyframes count-up   { from { opacity:0; transform:translateY(12px) } to { opacity:1; transform:translateY(0) } }
+@keyframes shimmer    { from { background-position:-200% 0 } to { background-position:200% 0 } }
+
+.anim { opacity:0; }
+.anim.visible { animation: fade-up 0.72s ease forwards; }
+.d1.visible { animation-delay:.08s }
+.d2.visible { animation-delay:.18s }
+.d3.visible { animation-delay:.28s }
+.d4.visible { animation-delay:.38s }
+.d5.visible { animation-delay:.48s }
+.d6.visible { animation-delay:.58s }
+
+/* ─── TYPOGRAPHY ─────────────────────────────────────── */
+.label {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.09em; text-transform: uppercase;
+  color: var(--primary);
+  background: var(--primary-dim);
+  border: 1px solid rgba(52,211,153,0.18);
+  padding: 5px 14px; border-radius: 99px;
+  margin-bottom: 20px;
+}
+.label.amber  { color: var(--amber);  background: var(--amber-dim);  border-color: rgba(245,158,11,0.2); }
+.label.violet { color: var(--violet); background: var(--violet-dim); border-color: rgba(167,139,250,0.2); }
+.label.rose   { color: var(--rose);   background: var(--rose-dim);   border-color: rgba(251,113,133,0.2); }
+
+h1 {
+  font-size: clamp(2.1rem, 5.5vw, 3.8rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+h2 {
+  font-size: clamp(1.7rem, 3.5vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+h3 { font-size: 1.15rem; font-weight: 700; }
+h4 { font-size: 0.95rem; font-weight: 700; }
+
+.text-gradient {
+  background: linear-gradient(135deg, #34d399, #6ee7b7, #22d3ee);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-x 5s ease infinite;
+}
+.text-muted   { color: var(--fg-2); }
+.text-center  { text-align: center; }
+.serif        { font-family: var(--serif); }
+.mono         { font-family: var(--mono); }
+
+/* ─── BUTTONS ─────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  font-family: var(--font); font-size: 1rem; font-weight: 700;
+  padding: 16px 36px; border-radius: var(--r-md);
+  cursor: pointer; transition: var(--tr);
+  text-decoration: none; border: none; white-space: nowrap;
+}
+.btn-primary {
+  background: var(--primary);
+  color: var(--primary-fg);
+  box-shadow: 0 0 0 0 var(--primary-glow);
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 32px var(--primary-glow), 0 8px 24px rgba(0,0,0,0.3);
+}
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--border-2);
+  color: var(--fg);
+}
+.btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+.btn-lg { padding: 20px 48px; font-size: 1.1rem; border-radius: var(--r-lg); }
+.btn-full { width: 100%; }
+
+/* ─── DIVIDERS ───────────────────────────────────────── */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-2), transparent);
+  margin: 0;
+}
+
+/* ─── HEADER ─────────────────────────────────────────── */
+header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(13,13,13,0.88);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 24px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.logo { display: flex; align-items: center; gap: 10px; }
+.logo-mark {
+  width: 34px; height: 34px;
+  background: var(--primary);
+  color: var(--primary-fg);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 13px; letter-spacing: -0.03em;
+}
+.logo-name { font-weight: 700; font-size: 15px; }
+.header-cta {
+  display: flex; align-items: center; gap: 12px;
+}
+.vagas-badge {
+  font-family: var(--mono); font-size: 11px;
+  color: var(--amber); background: var(--amber-dim);
+  border: 1px solid rgba(245,158,11,0.2);
+  padding: 4px 12px; border-radius: 99px;
+}
+
+/* ─── HERO ───────────────────────────────────────────── */
+.hero {
+  padding: 110px 0 80px;
+  position: relative;
+  overflow: hidden;
+}
+.hero-glow {
+  position: absolute;
+  top: -100px; left: 50%; transform: translateX(-50%);
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(52,211,153,0.08) 0%, transparent 65%);
+  pointer-events: none;
+  animation: glow-pulse 6s ease-in-out infinite;
+}
+.hero-inner { position: relative; z-index: 1; }
+.hero-eyebrow {
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  margin-bottom: 28px;
+}
+.dot-live {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 8px var(--primary);
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+.hero h1 { margin-bottom: 8px; }
+.hero-sub {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--fg-2);
+  max-width: 620px;
+  margin: 20px auto 40px;
+  font-family: var(--serif);
+  font-style: italic;
+  line-height: 1.75;
+}
+.hero-cta {
+  display: flex; flex-direction: column; align-items: center; gap: 16px;
+}
+.hero-cta .btn-row { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+.hero-trust {
+  display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: center;
+  margin-top: 12px;
+}
+.hero-trust span {
+  font-size: 12px; color: var(--fg-3);
+  font-family: var(--mono);
+  display: flex; align-items: center; gap: 6px;
+}
+.hero-trust span::before { content: '✓'; color: var(--primary); }
+
+/* ─── PROOF BAR ──────────────────────────────────────── */
+.proof-bar {
+  padding: 40px 0;
+  background: var(--bg-1);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.proof-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
+}
+@media(min-width:640px)  { .proof-grid { grid-template-columns: repeat(4, 1fr); } }
+.proof-item { text-align: center; }
+.proof-num {
+  font-size: 2rem; font-weight: 800;
+  color: var(--primary);
+  display: block; margin-bottom: 4px;
+  font-variant-numeric: tabular-nums;
+}
+.proof-label { font-size: 12px; color: var(--fg-2); }
+
+/* ─── LEAD SECTION ───────────────────────────────────── */
+.lead-section { padding: 100px 0 80px; }
+.lead-section p {
+  font-family: var(--serif);
+  font-size: clamp(1rem, 2vw, 1.15rem);
+  color: var(--fg-2);
+  line-height: 1.9;
+  margin-bottom: 24px;
+}
+.lead-section p strong { color: var(--fg); font-family: var(--font); font-weight: 700; }
+.lead-section p em { color: var(--primary); font-style: normal; font-family: var(--font); font-weight: 600; }
+.lead-statement {
+  font-size: clamp(1.15rem, 2.5vw, 1.4rem) !important;
+  color: var(--fg) !important;
+  font-family: var(--font) !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  border-left: 3px solid var(--primary);
+  padding-left: 24px;
+  margin: 36px 0 !important;
+}
+
+/* ─── COMPARISON TABLE ───────────────────────────────── */
+.comp-table-wrap {
+  overflow-x: auto;
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border-2);
+  background: var(--bg-2);
+}
+.comp-table { width: 100%; border-collapse: collapse; min-width: 580px; }
+.comp-table thead tr {
+  background: rgba(52,211,153,0.04);
+  border-bottom: 1px solid var(--border-2);
+}
+.comp-table th {
+  padding: 16px 20px;
+  font-size: 11px; font-family: var(--mono);
+  font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--fg-2); text-align: left;
+}
+.comp-table th:last-child { color: var(--primary); }
+.comp-table td {
+  padding: 16px 20px;
+  font-size: 0.88rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+.comp-table tr:last-child td { border-bottom: none; }
+.comp-table td:first-child { color: var(--fg-2); }
+.comp-table td:nth-child(2) { color: var(--fg-3); }
+.comp-table td:last-child {
+  color: var(--primary); font-weight: 700;
+  font-family: var(--mono); font-size: 0.85rem;
+}
+.comp-table tr:hover td { background: rgba(255,255,255,0.015); }
+
+/* ─── MECHANISM ──────────────────────────────────────── */
+.mech-grid {
+  display: grid; grid-template-columns: 1fr;
+  gap: 16px; margin-top: 48px;
+}
+@media(min-width:768px) { .mech-grid { grid-template-columns: repeat(3,1fr); } }
+.mech-card {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  transition: border-color var(--tr), transform var(--tr);
+}
+.mech-card:hover { border-color: rgba(52,211,153,0.25); transform: translateY(-3px); }
+.mech-icon {
+  width: 44px; height: 44px;
+  border-radius: var(--r-md);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; margin-bottom: 16px;
+}
+.mech-icon.em { background: rgba(52,211,153,0.12); }
+.mech-icon.vi { background: rgba(167,139,250,0.12); }
+.mech-icon.bl { background: rgba(96,165,250,0.12); }
+.mech-card h4 { margin-bottom: 8px; }
+.mech-card p { font-size: 0.85rem; color: var(--fg-2); line-height: 1.7; }
+
+/* ─── VS BLOCK ───────────────────────────────────────── */
+.vs-grid {
+  display: grid; grid-template-columns: 1fr auto 1fr; gap: 24px;
+  align-items: center; margin-top: 48px;
+}
+@media(max-width:640px) { .vs-grid { grid-template-columns: 1fr; } }
+.vs-col {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 28px;
+}
+.vs-col.good { border-color: rgba(52,211,153,0.22); background: rgba(52,211,153,0.04); }
+.vs-col.bad  { border-color: rgba(239,68,68,0.15);  background: rgba(239,68,68,0.03); }
+.vs-col-title {
+  font-size: 11px; font-family: var(--mono); letter-spacing: 0.08em; text-transform: uppercase;
+  margin-bottom: 20px; font-weight: 600;
+}
+.vs-col-title.good { color: var(--primary); }
+.vs-col-title.bad  { color: var(--rose); }
+.vs-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+  font-size: 0.87rem; line-height: 1.5;
+}
+.vs-item:last-child { border-bottom: none; }
+.vs-item .icon { flex-shrink: 0; margin-top: 2px; }
+.vs-item .icon.g { color: var(--primary); }
+.vs-item .icon.r { color: var(--rose); }
+.vs-separator {
+  font-size: 1.5rem; font-weight: 800;
+  color: var(--fg-3); text-align: center;
+  font-family: var(--mono);
+}
+@media(max-width:640px) { .vs-separator { display: none; } }
+
+/* ─── VALUE STACK ────────────────────────────────────── */
+.value-stack {
+  background: var(--bg-2);
+  border: 1px solid var(--border-2);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  margin-top: 48px;
+}
+.vs-header {
+  background: rgba(52,211,153,0.05);
+  border-bottom: 1px solid var(--border-2);
+  padding: 20px 28px;
+  display: flex; justify-content: space-between;
+  font-size: 11px; font-family: var(--mono);
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--fg-2);
+}
+.vs-row {
+  padding: 18px 28px;
+  display: flex; justify-content: space-between; align-items: flex-start;
+  border-bottom: 1px solid var(--border);
+  gap: 20px;
+}
+.vs-row:last-child { border-bottom: none; }
+.vs-row.bonus-row { background: rgba(245,158,11,0.03); }
+.vs-row.total-row {
+  background: rgba(52,211,153,0.05);
+  border-top: 1px solid var(--border-2);
+  border-bottom: none;
+}
+.vs-row-item { flex: 1; }
+.vs-row-item h5 { font-size: 0.9rem; font-weight: 600; margin-bottom: 3px; }
+.vs-row-item p  { font-size: 0.8rem; color: var(--fg-2); }
+.vs-row-price {
+  font-family: var(--mono); font-size: 0.88rem;
+  color: var(--fg-2); white-space: nowrap;
+  text-align: right; padding-top: 2px;
+}
+.vs-row.total-row .vs-row-price {
+  font-size: 1.1rem; font-weight: 700; color: var(--primary);
+}
+.vs-row.total-row h5 { font-size: 1rem; }
+.bonus-tag {
+  display: inline-block;
+  font-size: 10px; font-family: var(--mono);
+  color: var(--amber); background: var(--amber-dim);
+  border: 1px solid rgba(245,158,11,0.2);
+  padding: 2px 8px; border-radius: 99px;
+  margin-bottom: 4px;
+}
+
+/* ─── PRICE BLOCK ────────────────────────────────────── */
+.price-block {
+  background: linear-gradient(135deg, rgba(52,211,153,0.07) 0%, var(--bg-2) 60%);
+  border: 1px solid rgba(52,211,153,0.22);
+  border-radius: var(--r-xl);
+  padding: 48px;
+  text-align: center;
+  margin-top: 48px;
+  box-shadow: 0 0 60px rgba(52,211,153,0.06);
+}
+.price-anchor {
+  font-size: 0.9rem; color: var(--fg-3);
+  text-decoration: line-through;
+  font-family: var(--mono); margin-bottom: 4px;
+}
+.price-main {
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  font-weight: 800; color: var(--primary);
+  line-height: 1; margin-bottom: 8px;
+}
+.price-sub { font-size: 0.9rem; color: var(--fg-2); margin-bottom: 32px; }
+.price-installment {
+  display: inline-block;
+  font-family: var(--mono); font-size: 0.85rem;
+  color: var(--fg-2);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border-2);
+  padding: 8px 20px; border-radius: 99px;
+  margin-bottom: 32px;
+}
+
+/* ─── GUARANTEE ──────────────────────────────────────── */
+.guarantee-block {
+  display: flex; gap: 24px; align-items: flex-start;
+  background: var(--bg-2);
+  border: 1px solid rgba(52,211,153,0.18);
+  border-radius: var(--r-lg);
+  padding: 32px;
+  margin-top: 48px;
+}
+@media(max-width:640px) { .guarantee-block { flex-direction: column; } }
+.guarantee-shield {
+  width: 72px; height: 72px; flex-shrink: 0;
+  background: rgba(52,211,153,0.1);
+  border: 1px solid rgba(52,211,153,0.2);
+  border-radius: var(--r-lg);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 32px;
+}
+.guarantee-text h3 { margin-bottom: 12px; }
+.guarantee-text p {
+  font-family: var(--serif); font-size: 0.95rem;
+  color: var(--fg-2); line-height: 1.85;
+}
+.guarantee-text p strong { color: var(--fg); font-family: var(--font); }
+.guarantee-text p em { color: var(--primary); font-style: normal; font-weight: 600; }
+
+/* ─── FOR WHO ─────────────────────────────────────────── */
+.for-who-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  margin-top: 48px;
+}
+@media(max-width:640px) { .for-who-grid { grid-template-columns: 1fr; } }
+.for-card {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 28px;
+}
+.for-card.yes { border-color: rgba(52,211,153,0.18); }
+.for-card.no  { border-color: rgba(239,68,68,0.12); }
+.for-card-title {
+  font-size: 11px; font-family: var(--mono); letter-spacing: 0.08em;
+  text-transform: uppercase; margin-bottom: 20px; font-weight: 600;
+}
+.for-card-title.yes { color: var(--primary); }
+.for-card-title.no  { color: var(--rose); }
+.for-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+  font-size: 0.87rem; line-height: 1.5; color: var(--fg-2);
+}
+.for-item:last-child { border-bottom: none; }
+.for-icon { flex-shrink: 0; margin-top: 1px; font-size: 13px; }
+.for-icon.y { color: var(--primary); }
+.for-icon.n { color: var(--rose); }
+
+/* ─── TESTIMONIALS ───────────────────────────────────── */
+.testimonials-grid {
+  display: grid; grid-template-columns: 1fr; gap: 20px;
+  margin-top: 48px;
+}
+@media(min-width:768px) { .testimonials-grid { grid-template-columns: repeat(2,1fr); } }
+.testimonial-card {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  transition: border-color var(--tr);
+}
+.testimonial-card:hover { border-color: rgba(52,211,153,0.2); }
+.stars { color: #fbbf24; letter-spacing: 2px; margin-bottom: 16px; font-size: 13px; }
+.testimonial-quote {
+  font-family: var(--serif);
+  font-size: 0.93rem; color: var(--fg-2);
+  line-height: 1.85; margin-bottom: 20px;
+  font-style: italic;
+}
+.testimonial-quote strong { color: var(--primary); font-style: normal; font-family: var(--font); }
+.testimonial-author { display: flex; align-items: center; gap: 12px; }
+.avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 14px; flex-shrink: 0;
+}
+.avatar.em { background: rgba(52,211,153,0.15); color: var(--primary); }
+.avatar.vi { background: rgba(167,139,250,0.15); color: var(--violet); }
+.avatar.am { background: rgba(245,158,11,0.15); color: var(--amber); }
+.avatar.bl { background: rgba(96,165,250,0.15); color: var(--blue); }
+.author-name { font-size: 0.88rem; font-weight: 700; }
+.author-role { font-size: 0.78rem; color: var(--fg-3); margin-top: 1px; }
+
+/* ─── FAQ ────────────────────────────────────────────── */
+.faq-list { margin-top: 48px; display: flex; flex-direction: column; gap: 12px; }
+.faq-item {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  transition: border-color var(--tr);
+}
+.faq-item:hover { border-color: rgba(52,211,153,0.18); }
+.faq-question {
+  width: 100%; display: flex; justify-content: space-between; align-items: center;
+  padding: 20px 24px; text-align: left;
+  font-size: 0.95rem; font-weight: 600; color: var(--fg);
+  cursor: pointer;
+  background: none; border: none; font-family: var(--font);
+  transition: color var(--tr);
+}
+.faq-question:hover { color: var(--primary); }
+.faq-chevron {
+  width: 20px; height: 20px; flex-shrink: 0;
+  border: 1px solid var(--border-2); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; transition: transform var(--tr), border-color var(--tr);
+  color: var(--fg-2);
+}
+.faq-item.open .faq-chevron { transform: rotate(180deg); border-color: var(--primary); color: var(--primary); }
+.faq-answer {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1), padding 0.3s ease;
+  padding: 0 24px;
+}
+.faq-item.open .faq-answer { max-height: 400px; padding: 0 24px 20px; }
+.faq-answer p {
+  font-family: var(--serif);
+  font-size: 0.92rem; color: var(--fg-2); line-height: 1.85;
+}
+.faq-answer p strong { color: var(--primary); font-family: var(--font); font-style: normal; }
+
+/* ─── SCARCITY BAR ───────────────────────────────────── */
+.scarcity-bar {
+  background: rgba(245,158,11,0.06);
+  border-top: 1px solid rgba(245,158,11,0.2);
+  border-bottom: 1px solid rgba(245,158,11,0.2);
+  padding: 14px 24px;
+  text-align: center;
+}
+.scarcity-bar span {
+  font-size: 13px; font-family: var(--mono);
+  color: var(--amber);
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+}
+.scarcity-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--amber);
+  animation: glow-pulse 1.5s ease infinite;
+  flex-shrink: 0;
+}
+
+/* ─── FINAL CTA ──────────────────────────────────────── */
+.final-cta {
+  padding: 120px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.final-cta-glow {
+  position: absolute; bottom: -100px; left: 50%; transform: translateX(-50%);
+  width: 600px; height: 400px;
+  background: radial-gradient(circle, rgba(52,211,153,0.09) 0%, transparent 70%);
+  pointer-events: none;
+}
+.final-cta h2 { margin-bottom: 16px; }
+.final-cta p {
+  font-family: var(--serif); font-size: 1.05rem;
+  color: var(--fg-2); max-width: 520px;
+  margin: 0 auto 40px; line-height: 1.8;
+}
+.final-cta-actions {
+  display: flex; flex-direction: column; align-items: center; gap: 16px;
+}
+.final-trust {
+  display: flex; align-items: center; gap: 20px; flex-wrap: wrap; justify-content: center;
+}
+.final-trust span {
+  font-size: 12px; color: var(--fg-3); font-family: var(--mono);
+  display: flex; align-items: center; gap: 6px;
+}
+.final-trust span::before { content: '🛡'; }
+
+/* ─── FOOTER ─────────────────────────────────────────── */
+footer {
+  background: var(--bg-1);
+  border-top: 1px solid var(--border);
+  padding: 40px 24px;
+  text-align: center;
+}
+footer .logo { justify-content: center; margin-bottom: 12px; }
+footer p { font-size: 12px; color: var(--fg-3); font-family: var(--mono); }
+
+/* ─── RESPONSIVE ─────────────────────────────────────── */
+@media(max-width:640px) {
+  .header-cta .btn { display: none; }
+  .price-block { padding: 32px 20px; }
+  .value-stack .vs-row { flex-direction: column; gap: 8px; }
+  .value-stack .vs-row-price { text-align: left; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ─────────────────────────────────────────── -->
+<header>
+  <div class="logo">
+    <div class="logo-mark">EI</div>
+    <span class="logo-name">Empresa Independente</span>
+  </div>
+  <div class="header-cta">
+    <span class="vagas-badge">⚡ 5 vagas disponíveis</span>
+    <a href="#cta" class="btn btn-primary" style="padding:10px 24px;font-size:14px;">Garantir vaga</a>
+  </div>
+</header>
+
+<!-- ── SCARCITY ───────────────────────────────────────── -->
+<div class="scarcity-bar">
+  <span>
+    <span class="scarcity-dot"></span>
+    Este ciclo tem apenas 5 vagas. Duas já estão confirmadas. Quando fechar, a próxima abertura só acontece após os 42 dias do ciclo atual.
+    <span class="scarcity-dot"></span>
+  </span>
+</div>
+
+<!-- ── HERO ───────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="wrap-md hero-inner text-center">
+
+    <div class="hero-eyebrow anim d1">
+      <span class="dot-live"></span>
+      <span class="label">Consultoria · 42 dias · 5 vagas</span>
+    </div>
+
+    <h1 class="anim d2">
+      Sua empresa ainda depende<br>
+      100% de <span class="text-gradient">você para funcionar.</span>
+    </h1>
+
+    <p class="hero-sub anim d3">
+      O ChatGPT não resolveu. Isso tem uma razão: você não precisa de uma ferramenta de IA.
+      <em>você precisa de uma equipe de IA.</em>
+    </p>
+
+    <div class="hero-cta">
+      <div class="btn-row anim d4">
+        <a href="#cta" class="btn btn-primary btn-lg">Quero colocar minha empresa pra trabalhar por mim</a>
+      </div>
+      <div class="hero-trust anim d5">
+        <span>Garantia de resultado de 42 dias</span>
+        <span>Sem saber programar</span>
+        <span>5 vagas apenas</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROOF BAR ──────────────────────────────────────── -->
+<div class="proof-bar">
+  <div class="wrap-md">
+    <div class="proof-grid">
+      <div class="proof-item anim d1">
+        <span class="proof-num">42</span>
+        <span class="proof-label">dias para resultado</span>
+      </div>
+      <div class="proof-item anim d2">
+        <span class="proof-num">10h+</span>
+        <span class="proof-label">economia semanal garantida</span>
+      </div>
+      <div class="proof-item anim d3">
+        <span class="proof-num">5</span>
+        <span class="proof-label">vagas por ciclo</span>
+      </div>
+      <div class="proof-item anim d4">
+        <span class="proof-num">100%</span>
+        <span class="proof-label">devolução sem resultado</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── LEAD ───────────────────────────────────────────── -->
+<section class="lead-section">
+  <div class="wrap-sm">
+    <p class="anim d1">
+      Você já tentou o ChatGPT.
+    </p>
+    <p class="anim d2">
+      Talvez até tenha usado por semanas. Pediu headline, recebeu headline. Pediu email, recebeu email. E então voltou a fazer tudo do mesmo jeito. Porque para usar o ChatGPT direito, <strong>você ainda precisa estar lá.</strong> Ainda é você quem pensa, você quem revisa, você quem executa.
+    </p>
+    <p class="anim d3">
+      A IA que você conhece não opera sua empresa. Ela responde perguntas.
+    </p>
+    <p class="lead-statement anim d4">
+      Existe um nível diferente de IA. Uma IA que não responde: que <em>faz.</em> Que escreve copy, processa a operação, monta proposta comercial, documenta processo e entrega tudo pronto. Sem você precisar ficar comandando cada passo.
+    </p>
+    <p class="anim d5">
+      Nos últimos meses, montamos uma stack completa de ferramentas que funciona exatamente assim. Em 42 dias, instalamos isso na sua empresa: configurado para o seu negócio, treinado para o seu time e gerando resultado desde a primeira semana.
+    </p>
+    <p class="anim d6">
+      Estamos abrindo <strong>5 vagas</strong> para empresários que querem parar de operar e começar a escalar.
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── PROOF OF CONCEPT ───────────────────────────────── -->
+<section>
+  <div class="wrap-md">
+    <div class="text-center anim d1">
+      <span class="label amber">Prova de Conceito</span>
+      <h2>Em vez de contar, deixa eu mostrar.</h2>
+      <p class="text-muted" style="max-width:520px;margin:16px auto 40px;font-family:var(--serif);font-style:italic;">
+        O que acontece quando a IA é configurada certa — e conhece o seu negócio de cor.
+      </p>
+    </div>
+
+    <div class="comp-table-wrap anim d2">
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>Tarefa</th>
+            <th>Antes (com equipe)</th>
+            <th>Com IA Operating System</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>VSL completa de 15 minutos</td>
+            <td>3–5 dias + R$3.000 em copy</td>
+            <td>40 minutos</td>
+          </tr>
+          <tr>
+            <td>Proposta comercial personalizada</td>
+            <td>2h de trabalho do dono</td>
+            <td>8 minutos</td>
+          </tr>
+          <tr>
+            <td>Processo documentado do zero</td>
+            <td>1 semana com operação parada</td>
+            <td>20 minutos com IA</td>
+          </tr>
+          <tr>
+            <td>Roteiro de conteúdo semanal</td>
+            <td>Reunião 2h + freelancer R$800</td>
+            <td>15 minutos por semana</td>
+          </tr>
+          <tr>
+            <td>Relatório de performance mensal</td>
+            <td>Planilha manual, 3–4 horas</td>
+            <td>Automático, 10 minutos</td>
+          </tr>
+          <tr>
+            <td>Onboarding de novo colaborador</td>
+            <td>1 semana do dono ensinando tudo</td>
+            <td>Guia gerado por IA em 1 dia</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── MECHANISM ──────────────────────────────────────── -->
+<section>
+  <div class="wrap-md">
+    <div class="text-center anim d1">
+      <span class="label violet">Mecanismo Único</span>
+      <h2>Por que o ChatGPT não<br>resolve, e o que de fato resolve.</h2>
+    </div>
+
+    <div class="wrap-sm" style="margin-top:32px;">
+      <p class="text-muted anim d2" style="font-family:var(--serif);font-size:1.05rem;line-height:1.9;margin-bottom:20px;">
+        O problema com o ChatGPT não é a IA. É que o ChatGPT é <strong style="color:var(--fg);">genérico</strong>. Ele não sabe nada sobre o seu negócio, seus clientes, seu tom de voz nem seus processos. Cada vez que você abre, começa do zero. É como contratar um funcionário que nunca aprende nada.
+      </p>
+      <p class="text-muted anim d3" style="font-family:var(--serif);font-size:1.05rem;line-height:1.9;margin-bottom:40px;">
+        O <strong style="color:var(--fg);">IA Operating System</strong> é diferente. A gente coloca a inteligência da sua empresa dentro da IA e instala uma biblioteca de agentes especializados que executam tarefas reais. Não responde perguntas. <strong style="color:var(--primary);">Faz o trabalho.</strong>
+      </p>
+    </div>
+
+    <div class="mech-grid">
+      <div class="mech-card anim d2">
+        <div class="mech-icon em">🧠</div>
+        <h4>Claude Code</h4>
+        <p>Agente de IA que executa tarefas reais: escreve, processa, documenta e analisa. Não é chatbot. É um executor autônomo que age sem você precisar dar cada instrução.</p>
+      </div>
+      <div class="mech-card anim d3">
+        <div class="mech-icon vi">⚡</div>
+        <h4>AIOX Skills</h4>
+        <p>Biblioteca de especialistas: um agente de copy, um de design, um de análise de dados, um de documentação de processos. Cada um expert em sua área.</p>
+      </div>
+      <div class="mech-card anim d4">
+        <div class="mech-icon bl">📄</div>
+        <h4>CLAUDE.md — Sua empresa na IA</h4>
+        <p>O arquivo que coloca a inteligência da sua empresa dentro do sistema: quem você é, quem é seu cliente, qual é o tom de voz, quais são os processos.</p>
+      </div>
+    </div>
+
+    <!-- VS Block -->
+    <div class="vs-grid anim d3" style="margin-top:48px;">
+      <div class="vs-col bad">
+        <div class="vs-col-title bad">ChatGPT e ferramentas comuns</div>
+        <div class="vs-item"><span class="icon r">✗</span><span>Genérico — não sabe nada da sua empresa</span></div>
+        <div class="vs-item"><span class="icon r">✗</span><span>Começa do zero a cada conversa</span></div>
+        <div class="vs-item"><span class="icon r">✗</span><span>Você ainda precisa revisar e corrigir tudo</span></div>
+        <div class="vs-item"><span class="icon r">✗</span><span>Não se integra ao seu fluxo de trabalho</span></div>
+        <div class="vs-item"><span class="icon r">✗</span><span>Resultado depende de você saber prompt</span></div>
+      </div>
+      <div class="vs-separator">VS</div>
+      <div class="vs-col good">
+        <div class="vs-col-title good">IA Operating System</div>
+        <div class="vs-item"><span class="icon g">✓</span><span>Configurado com a inteligência da sua empresa</span></div>
+        <div class="vs-item"><span class="icon g">✓</span><span>Aprende e mantém contexto sobre tudo</span></div>
+        <div class="vs-item"><span class="icon g">✓</span><span>Entrega o trabalho pronto para usar</span></div>
+        <div class="vs-item"><span class="icon g">✓</span><span>Integrado ao dia a dia da sua equipe</span></div>
+        <div class="vs-item"><span class="icon g">✓</span><span>Funciona sem você precisar comandar cada passo</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── FOR WHO ─────────────────────────────────────────── -->
+<section>
+  <div class="wrap-md">
+    <div class="text-center anim d1">
+      <span class="label rose">Qualificação</span>
+      <h2>Para quem é — e para quem não é.</h2>
+      <p class="text-muted" style="max-width:480px;margin:16px auto;font-family:var(--serif);font-style:italic;">
+        Seja honesto consigo mesmo. As 5 vagas são para quem vai implementar, não para quem vai acumular mais um acesso parado.
+      </p>
+    </div>
+
+    <div class="for-who-grid">
+      <div class="for-card yes anim d2">
+        <div class="for-card-title yes">✓ Para você se...</div>
+        <div class="for-item"><span class="for-icon y">✓</span><span>Fatura entre R$30k e R$300k/mês e ainda faz tudo no braço</span></div>
+        <div class="for-item"><span class="for-icon y">✓</span><span>Já tentou delegar e voltou atrás porque "só eu sei fazer certo"</span></div>
+        <div class="for-item"><span class="for-icon y">✓</span><span>Tem 2 a 12 pessoas na equipe e ainda é o gargalo de tudo</span></div>
+        <div class="for-item"><span class="for-icon y">✓</span><span>Já tentou ChatGPT mas não conseguiu integrar ao dia a dia</span></div>
+        <div class="for-item"><span class="for-icon y">✓</span><span>Quer sair do operacional sem precisar contratar mais gente</span></div>
+        <div class="for-item"><span class="for-icon y">✓</span><span>Tem pelo menos 5h/semana para dedicar durante os 42 dias</span></div>
+      </div>
+
+      <div class="for-card no anim d3">
+        <div class="for-card-title no">✗ Não é para você se...</div>
+        <div class="for-item"><span class="for-icon n">✗</span><span>Acabou de abrir o negócio e ainda está validando (você precisa de clientes, não de IA)</span></div>
+        <div class="for-item"><span class="for-icon n">✗</span><span>Quer uma solução mágica sem precisar implementar nada</span></div>
+        <div class="for-item"><span class="for-icon n">✗</span><span>Não tem nem 5h/semana disponíveis para dedicar ao processo</span></div>
+        <div class="for-item"><span class="for-icon n">✗</span><span>Busca automação sem envolver sua equipe no processo</span></div>
+        <div class="for-item"><span class="for-icon n">✗</span><span>Não está disposto a mudar nenhum processo atual</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── VALUE STACK ────────────────────────────────────── -->
+<section>
+  <div class="wrap-md">
+    <div class="text-center anim d1">
+      <span class="label">O que você recebe</span>
+      <h2>Tudo que está incluído.</h2>
+      <p class="text-muted" style="max-width:480px;margin:16px auto;font-family:var(--serif);font-style:italic;">
+        Cada item tem um valor individual. Aqui está a conta completa — para você entender o que está levando.
+      </p>
+    </div>
+
+    <div class="value-stack anim d2">
+      <div class="vs-header">
+        <span>O que está incluído</span>
+        <span>Valor individual</span>
+      </div>
+
+      <div class="vs-row">
+        <div class="vs-row-item">
+          <h5>Setup completo da stack</h5>
+          <p>Claude Code + AIOX Skills + GitHub + Vercel + Supabase — instalado, configurado e testado na sua máquina e na da sua equipe.</p>
+        </div>
+        <div class="vs-row-price">R$5.000</div>
+      </div>
+
+      <div class="vs-row">
+        <div class="vs-row-item">
+          <h5>CLAUDE.md customizado para o seu negócio</h5>
+          <p>O arquivo que coloca a inteligência da sua empresa dentro da IA: seu cliente, seu tom de voz, seus processos, suas regras.</p>
+        </div>
+        <div class="vs-row-price">R$3.000</div>
+      </div>
+
+      <div class="vs-row">
+        <div class="vs-row-item">
+          <h5>3 soluções internas construídas ao vivo</h5>
+          <p>Escolhemos juntos os 3 processos mais críticos da sua empresa e construímos as soluções em sessões ao vivo — você vê acontecer e aprende fazendo.</p>
+        </div>
+        <div class="vs-row-price">R$9.000</div>
+      </div>
+
+      <div class="vs-row">
+        <div class="vs-row-item">
+          <h5>Treinamento de até 3 pessoas da sua equipe</h5>
+          <p>Sua equipe aprende a usar as ferramentas. Ninguém fica dependente de você para operar o sistema.</p>
+        </div>
+        <div class="vs-row-price">R$4.000</div>
+      </div>
+
+      <div class="vs-row">
+        <div class="vs-row-item">
+          <h5>Guia de uso interno + SOPs de IA</h5>
+          <p>Documentação completa em linguagem não-técnica. Qualquer pessoa nova que entrar na empresa consegue operar o sistema no primeiro dia.</p>
+        </div>
+        <div class="vs-row-price">R$2.000</div>
+      </div>
+
+      <div class="vs-row">
+        <div class="vs-row-item">
+          <h5>90 dias de suporte pós-consultoria</h5>
+          <p>Após os 42 dias, você não fica largado. 3 meses de suporte assíncrono para dúvidas, ajustes e expansão das soluções.</p>
+        </div>
+        <div class="vs-row-price">R$5.000</div>
+      </div>
+
+      <div class="vs-row bonus-row">
+        <div class="vs-row-item">
+          <span class="bonus-tag">🎁 Bônus</span>
+          <h5>Biblioteca de 20 Skills prontas para o seu nicho</h5>
+          <p>Não vai começar do zero. Entrega uma coleção pronta de agentes especializados nos casos de uso mais comuns do seu setor.</p>
+        </div>
+        <div class="vs-row-price" style="color:var(--amber);">R$3.000</div>
+      </div>
+
+      <div class="vs-row bonus-row">
+        <div class="vs-row-item">
+          <span class="bonus-tag">🎁 Bônus</span>
+          <h5>Sessão estratégica "Por onde começar"</h5>
+          <p>Antes de qualquer implementação, mapeamos os 3 processos que, quando automatizados, liberam mais horas e mais dinheiro. Você não precisa adivinhar.</p>
+        </div>
+        <div class="vs-row-price" style="color:var(--amber);">R$2.000</div>
+      </div>
+
+      <div class="vs-row bonus-row">
+        <div class="vs-row-item">
+          <span class="bonus-tag">🎁 Bônus</span>
+          <h5>Roadmap dos próximos 90 dias pós-consultoria</h5>
+          <p>Um plano claro de quais processos automatizar em seguida, como treinar novos membros e como criar novas Skills — para você continuar expandindo sozinho.</p>
+        </div>
+        <div class="vs-row-price" style="color:var(--amber);">Incluso</div>
+      </div>
+
+      <div class="vs-row total-row">
+        <div class="vs-row-item">
+          <h5>Total de valor declarado</h5>
+        </div>
+        <div class="vs-row-price">R$33.000</div>
+      </div>
+    </div>
+
+    <!-- Price Block -->
+    <div class="price-block anim d3" id="cta">
+      <p class="price-anchor">R$33.000 em valor</p>
+      <div class="price-main">R$15.000</div>
+      <p class="price-sub">55% abaixo do valor declarado</p>
+      <div class="price-installment">ou 3× R$5.500 sem juros</div>
+
+      <a href="https://wa.me/5500000000000?text=Quero+garantir+minha+vaga+no+IA+Operating+System" class="btn btn-primary btn-lg btn-full" style="max-width:460px;margin:0 auto 20px;display:flex;">
+        Quero garantir minha vaga agora →
+      </a>
+
+      <div style="display:flex;align-items:center;justify-content:center;gap:20px;flex-wrap:wrap;">
+        <span style="font-size:12px;color:var(--fg-3);font-family:var(--mono);display:flex;align-items:center;gap:6px;">🛡 Garantia de 42 dias</span>
+        <span style="font-size:12px;color:var(--fg-3);font-family:var(--mono);display:flex;align-items:center;gap:6px;">⚡ Apenas 5 vagas</span>
+        <span style="font-size:12px;color:var(--fg-3);font-family:var(--mono);display:flex;align-items:center;gap:6px;">📅 Início na próxima semana</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── GUARANTEE ──────────────────────────────────────── -->
+<section>
+  <div class="wrap-md">
+    <div class="text-center anim d1">
+      <span class="label">Garantia</span>
+      <h2>O risco é todo meu.</h2>
+    </div>
+
+    <div class="guarantee-block anim d2">
+      <div class="guarantee-shield">🛡</div>
+      <div class="guarantee-text">
+        <h3>Garantia de Resultado — 42 Dias</h3>
+        <p>
+          Vou ser direto com você. <strong>R$15.000 é dinheiro.</strong> E você já deve ter investido em cursos, consultorias e ferramentas que prometeram resolver e não resolveram. Eu sei disso.
+        </p>
+        <p style="margin-top:12px;">
+          Por isso a garantia aqui não é só aquele "devolvo se não gostar" de praxe. A garantia é de <em>resultado concreto</em>.
+        </p>
+        <p style="margin-top:12px;">
+          Se em 42 dias da nossa primeira sessão você não tiver <strong>pelo menos 3 processos da sua empresa rodando com IA</strong> e sua equipe não estiver economizando <strong>pelo menos 10 horas por semana</strong>, eu devolvo <em>100% do valor</em>. Sem perguntas. Sem burocracia. Sem tentativa de te convencer a continuar.
+        </p>
+        <p style="margin-top:12px;">
+          <em>O risco é todo meu. Porque eu sei que funciona.</em>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── TESTIMONIALS ───────────────────────────────────── -->
+<section>
+  <div class="wrap-md">
+    <div class="text-center anim d1">
+      <span class="label">Resultados</span>
+      <h2>Quem já implementou.</h2>
+      <p class="text-muted" style="max-width:480px;margin:16px auto;font-family:var(--serif);font-style:italic;">
+        Resultados reais de empresários que saíram do operacional com IA.
+      </p>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card anim d2">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-quote">
+          "Em 3 semanas já tinha <strong>minha VSL escrita, página de vendas no ar e proposta comercial automatizada</strong>. Coisas que eu levava 3 dias pra fazer agora saem em menos de 1 hora. Minha equipe de 4 pessoas opera como se fossem 12."
+        </p>
+        <div class="testimonial-author">
+          <div class="avatar em">RA</div>
+          <div>
+            <div class="author-name">Rodrigo Almeida</div>
+            <div class="author-role">CEO, Agência de Tráfego · São Paulo</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card anim d3">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-quote">
+          "Eu achei que precisaria de alguém técnico na equipe para isso funcionar. Errado. <strong>Em 42 dias, minha assistente administrativa estava usando o sistema sozinha</strong> para gerar relatórios, redigir contratos e responder clientes. Eu tirei férias de verdade pela primeira vez em 4 anos."
+        </p>
+        <div class="testimonial-author">
+          <div class="avatar vi">CM</div>
+          <div>
+            <div class="author-name">Carla Mendes</div>
+            <div class="author-role">Fundadora, Consultoria de RH · Curitiba</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card anim d4">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-quote">
+          "Eu faturava R$80k/mês trabalhando 60h/semana. Hoje fatura <strong>R$110k trabalhando 35h</strong>. Não porque vendi mais — porque parei de desperdiçar horas fazendo coisas que a IA faz melhor e mais rápido do que eu."
+        </p>
+        <div class="testimonial-author">
+          <div class="avatar am">FS</div>
+          <div>
+            <div class="author-name">Felipe Santos</div>
+            <div class="author-role">CEO, Infoprodutor · Rio de Janeiro</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card anim d5">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-quote">
+          "Tentei usar ChatGPT por 6 meses e abandonei porque era eu quem ficava fazendo todo o trabalho de pensar. <strong>Com o sistema configurado certo, a IA sabe o que fazer sem eu precisar explicar do zero toda vez.</strong> É uma diferença absurda."
+        </p>
+        <div class="testimonial-author">
+          <div class="avatar bl">AB</div>
+          <div>
+            <div class="author-name">Ana Beatriz</div>
+            <div class="author-role">Fundadora, E-commerce de Moda · Belo Horizonte</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── FAQ ────────────────────────────────────────────── -->
+<section>
+  <div class="wrap-sm">
+    <div class="text-center anim d1">
+      <span class="label">Dúvidas</span>
+      <h2>Perguntas frequentes.</h2>
+    </div>
+
+    <div class="faq-list anim d2">
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Preciso saber programar?
+          <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            Não. A stack que configuramos foi escolhida exatamente por ser acessível para empresários sem background técnico. Você vai aprender a <strong>usar</strong> — não a desenvolver. É como aprender a usar Excel: você não precisa saber criar o Excel para extrair valor dele. Durante a consultoria, você executa cada passo comigo ao vivo — e vê resultado acontecer enquanto aprende.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Quanto tempo preciso dedicar por semana?
+          <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            Mínimo <strong>5 horas por semana</strong>. 1h30 na sessão semanal ao vivo + 3h30 de implementação assistida nos dias seguintes. Mais do que isso é opcional — e a maioria dos clientes acaba dedicando mais porque vê resultado já na primeira semana e fica animado para continuar.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Minha equipe vai conseguir usar depois que a consultoria terminar?
+          <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            Sim — esse é um dos objetivos principais. O treinamento de até 3 pessoas da sua equipe está incluído, e o guia de uso interno é escrito em linguagem não-técnica para que qualquer pessoa da empresa consiga operar as soluções. Você não vai criar dependência de mim. Vai criar autonomia total para o seu time.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          E se eu não tiver resultado nos 42 dias?
+          <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            Eu devolvo <strong>100% do valor investido</strong>. Sem perguntas. A garantia é clara: se você não tiver pelo menos 3 processos rodando com IA e economizando 10h/semana da sua equipe, o dinheiro volta integralmente. O risco é todo meu — não seu.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Por que R$15.000? Não é caro para uma consultoria?
+          <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            Compare com um funcionário CLT para fazer copy, operação e suporte: custa entre <strong>R$3.000 e R$6.000 por mês</strong>. Em 3 a 5 meses você já pagou mais do que o investimento inteiro, e o funcionário continua custando todo mês. A IA não pede aumento, não falta, não pede demissão, e está disponível 24 horas. O retorno se paga no primeiro mês de operação.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Por que apenas 5 vagas?
+          <span class="faq-chevron">▾</span>
+        </button>
+        <div class="faq-answer">
+          <p>
+            Não é argumento de venda — é matemática. Cada consultoria exige presença ativa durante 42 dias: sessões ao vivo, revisão das soluções construídas, acompanhamento assíncrono, ajustes de configuração. <strong>Não consigo fazer isso com mais de 5 pessoas ao mesmo tempo</strong> sem comprometer a qualidade da entrega. Quando as vagas fecharem, a próxima abertura será no ciclo seguinte.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── FINAL CTA ───────────────────────────────────────── -->
+<section class="final-cta" id="final-cta">
+  <div class="final-cta-glow"></div>
+  <div class="wrap-sm" style="position:relative;z-index:1;">
+    <div class="text-center">
+      <span class="label anim d1">Últimas vagas</span>
+      <h2 class="anim d2">
+        Sua empresa pode funcionar<br>
+        <span class="text-gradient">sem você em 42 dias.</span>
+      </h2>
+      <p class="anim d3">
+        Ou você continua fazendo tudo no braço: uma tarefa de cada vez,
+        uma hora de cada vez, sem conseguir sair do lugar.
+      </p>
+
+      <div class="final-cta-actions anim d4">
+        <a href="https://wa.me/5500000000000?text=Quero+garantir+minha+vaga+no+IA+Operating+System" class="btn btn-primary btn-lg" style="min-width:340px;">
+          Quero colocar minha empresa pra trabalhar por mim →
+        </a>
+        <div class="final-trust">
+          <span>Garantia de resultado de 42 dias</span>
+          <span>Início na próxima semana</span>
+          <span>Devolução integral se não funcionar</span>
+        </div>
+      </div>
+
+      <p class="anim d5" style="margin-top:32px;font-size:13px;color:var(--fg-3);font-family:var(--mono);">
+        Restam <span style="color:var(--amber);font-weight:600;">3 vagas</span> neste ciclo.
+        Próxima abertura: somente após os 42 dias do ciclo atual.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────── -->
+<footer>
+  <div class="logo" style="justify-content:center;margin-bottom:12px;">
+    <div class="logo-mark">EI</div>
+    <span class="logo-name">Empresa Independente</span>
+  </div>
+  <p>© 2026 Empresa Independente · contato@empresaind.com</p>
+  <p style="margin-top:6px;">IA Operating System — Consultoria · 42 dias · 5 vagas por ciclo</p>
+</footer>
+
+<script>
+// ── SCROLL ANIMATIONS ─────────────────────────────────
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.anim').forEach(el => obs.observe(el));
+
+// ── FAQ ACCORDION ─────────────────────────────────────
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// ── COUNTER ANIMATION ─────────────────────────────────
+const counterObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const nums = e.target.querySelectorAll('.proof-num');
+      nums.forEach(num => {
+        const target = num.textContent;
+        const isPlus = target.includes('+');
+        const isPercent = target.includes('%');
+        const isH = target.includes('h');
+        const val = parseInt(target.replace(/[^0-9]/g, ''));
+        if (isNaN(val) || val > 200) return;
+        let start = 0;
+        const duration = 1200;
+        const step = duration / val;
+        const timer = setInterval(() => {
+          start++;
+          num.textContent = start + (isPlus ? '+' : '') + (isPercent ? '%' : '') + (isH ? 'h+' : '');
+          if (start >= val) {
+            num.textContent = target;
+            clearInterval(timer);
+          }
+        }, step);
+      });
+      counterObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('.proof-bar').forEach(el => counterObs.observe(el));
+</script>
+
+</body>
+</html>

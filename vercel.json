@@ -1,0 +1,6 @@
+{
+  "outputDirectory": ".",
+  "routes": [
+    { "src": "/", "dest": "/EI/ia-operating-system-pagina-de-vendas.html" }
+  ]
+}

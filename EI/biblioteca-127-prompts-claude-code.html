@@ -1,0 +1,4984 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biblioteca de 127 Prompts Claude Code para Empresários</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #111111;
+    --bg-card: #1a1a1a;
+    --bg-card2: #1f1f1f;
+    --border: rgba(255,255,255,0.08);
+    --border-hover: rgba(52,211,153,0.3);
+    --primary: #34d399;
+    --primary-dim: rgba(52,211,153,0.15);
+    --primary-glow: rgba(52,211,153,0.08);
+    --text: #f0f0f0;
+    --text-muted: #888;
+    --text-dim: #555;
+    --font: 'Inter', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    /* category colors */
+    --c1: #34d399; /* emerald - RH */
+    --c2: #818cf8; /* violet - Vendas */
+    --c3: #fb923c; /* amber - Operações */
+    --c4: #38bdf8; /* blue - Financeiro */
+    --c5: #f472b6; /* pink - Marketing */
+    --c6: #22d3ee; /* cyan - Atendimento */
+    --c7: #fbbf24; /* yellow - Liderança */
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(52,211,153,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(52,211,153,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    text-align: center;
+    padding: 80px 24px 60px;
+    overflow: hidden;
+  }
+  .hero-glow {
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 300px;
+    background: radial-gradient(ellipse, rgba(52,211,153,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(52,211,153,0.1);
+    border: 1px solid rgba(52,211,153,0.25);
+    color: var(--primary);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+  }
+  .badge::before { content: '⚡'; font-size: 13px; }
+
+  h1 {
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+  h1 .accent {
+    background: linear-gradient(90deg, var(--primary), #6ee7b7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    font-size: 16px;
+    color: var(--text-muted);
+    max-width: 560px;
+    margin: 0 auto 36px;
+    line-height: 1.7;
+  }
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+  .hero-stat {
+    text-align: center;
+  }
+  .hero-stat .num {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--primary);
+    font-variant-numeric: tabular-nums;
+  }
+  .hero-stat .lbl {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 2px;
+  }
+
+  /* INSTRUCTIONS BAR */
+  .instructions {
+    max-width: 800px;
+    margin: 0 auto 48px;
+    background: linear-gradient(135deg, rgba(52,211,153,0.06), rgba(52,211,153,0.02));
+    border: 1px solid rgba(52,211,153,0.18);
+    border-radius: 12px;
+    padding: 20px 24px;
+    font-size: 13.5px;
+    color: #aaa;
+  }
+  .instructions strong { color: var(--primary); }
+  .instructions ol { margin: 8px 0 0 20px; }
+  .instructions li { margin-bottom: 4px; }
+
+  /* TOC */
+  .toc-section {
+    max-width: 1000px;
+    margin: 0 auto 60px;
+    padding: 0 24px;
+    position: relative;
+    z-index: 1;
+  }
+  .section-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .toc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+  }
+  .toc-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.2s;
+  }
+  .toc-card:hover {
+    border-color: var(--border-hover);
+    background: var(--bg-card2);
+    transform: translateY(-1px);
+  }
+  .toc-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .toc-info { flex: 1; min-width: 0; }
+  .toc-title { font-size: 13px; font-weight: 600; }
+  .toc-count { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+  .toc-arrow { color: var(--text-dim); font-size: 14px; }
+
+  /* CATEGORY SECTION */
+  .cat-section {
+    max-width: 1000px;
+    margin: 0 auto 72px;
+    padding: 0 24px;
+    position: relative;
+    z-index: 1;
+  }
+  .cat-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .cat-icon-big {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+  .cat-meta { flex: 1; }
+  .cat-num { font-size: 11px; color: var(--text-dim); font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; }
+  .cat-name { font-size: 22px; font-weight: 700; margin-top: 2px; }
+  .cat-desc { font-size: 13px; color: var(--text-muted); margin-top: 4px; }
+  .cat-badge {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    border: 1px solid;
+  }
+
+  /* PROMPT GRID */
+  .prompt-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(440px, 1fr));
+    gap: 16px;
+  }
+  @media (max-width: 520px) {
+    .prompt-grid { grid-template-columns: 1fr; }
+  }
+
+  /* PROMPT CARD */
+  .prompt-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+  }
+  .prompt-card:hover {
+    border-color: rgba(255,255,255,0.14);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+  }
+  .prompt-header {
+    padding: 14px 16px 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .prompt-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-dim);
+    background: rgba(255,255,255,0.05);
+    padding: 2px 7px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .prompt-title {
+    font-size: 13.5px;
+    font-weight: 600;
+    line-height: 1.4;
+    flex: 1;
+  }
+  .prompt-body {
+    padding: 14px 16px;
+    flex: 1;
+    position: relative;
+  }
+  .prompt-text {
+    font-family: var(--mono);
+    font-size: 11.5px;
+    line-height: 1.65;
+    color: #ccc;
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-height: 180px;
+    overflow: hidden;
+    position: relative;
+  }
+  .prompt-text.expanded { max-height: none; }
+  .prompt-fade {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: linear-gradient(transparent, var(--bg-card));
+    pointer-events: none;
+  }
+  .prompt-fade.hidden { display: none; }
+  .prompt-footer {
+    padding: 10px 16px 12px;
+    display: flex;
+    gap: 8px;
+    border-top: 1px solid var(--border);
+  }
+  .btn-expand {
+    flex: 1;
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 11px;
+    font-family: var(--font);
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-expand:hover {
+    border-color: rgba(255,255,255,0.2);
+    color: var(--text);
+  }
+  .btn-copy {
+    flex: 1;
+    background: var(--primary-dim);
+    border: 1px solid rgba(52,211,153,0.2);
+    color: var(--primary);
+    font-size: 11px;
+    font-weight: 600;
+    font-family: var(--font);
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-copy:hover {
+    background: rgba(52,211,153,0.22);
+    border-color: rgba(52,211,153,0.4);
+  }
+  .btn-copy.copied {
+    background: rgba(52,211,153,0.2);
+    color: #6ee7b7;
+  }
+  .btn-copy.copied::before { content: '✓ '; }
+
+  /* placeholder vars in prompts */
+  .var-tag {
+    color: #fbbf24;
+    font-weight: 500;
+  }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 40px 24px 60px;
+    color: var(--text-dim);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+    position: relative;
+    z-index: 1;
+  }
+  .footer strong { color: var(--primary); }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+
+  /* BACK TO TOP */
+  .back-top {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 40px;
+    height: 40px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--text-muted);
+    transition: all 0.2s;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 100;
+  }
+  .back-top.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .back-top:hover {
+    border-color: var(--border-hover);
+    color: var(--primary);
+  }
+
+  /* search bar */
+  .search-bar {
+    max-width: 560px;
+    margin: 0 auto 48px;
+    padding: 0 24px;
+    position: relative;
+    z-index: 1;
+  }
+  .search-input {
+    width: 100%;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 16px 12px 40px;
+    color: var(--text);
+    font-size: 14px;
+    font-family: var(--font);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-input:focus {
+    border-color: rgba(52,211,153,0.3);
+  }
+  .search-input::placeholder { color: var(--text-dim); }
+  .search-icon {
+    position: absolute;
+    left: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-dim);
+    font-size: 15px;
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="badge">Produto Digital Premium</div>
+  <h1>Biblioteca de <span class="accent">127 Prompts</span><br>Claude Code para Empresários</h1>
+  <p class="hero-sub">Prompts prontos, testados e organizados por departamento. Cole, personalize os campos em <span style="color:#fbbf24">[colchetes]</span> e execute com o Claude Code.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="num">127</div><div class="lbl">Prompts Prontos</div></div>
+    <div class="hero-stat"><div class="num">7</div><div class="lbl">Departamentos</div></div>
+    <div class="hero-stat"><div class="num">100%</div><div class="lbl">Prontos p/ usar</div></div>
+  </div>
+</div>
+
+<!-- INSTRUCTIONS -->
+<div style="padding: 0 24px; position: relative; z-index:1">
+  <div class="instructions" style="max-width:800px; margin: 0 auto 40px;">
+    <strong>Como usar esta biblioteca:</strong>
+    <ol>
+      <li>Encontre o prompt do departamento que precisa</li>
+      <li>Clique em <strong>"Copiar Prompt"</strong> para copiar o texto completo</li>
+      <li>Cole no Claude Code e <strong>preencha os campos em [colchetes]</strong> com as informações da sua empresa</li>
+      <li>Execute e receba o entregável pronto em segundos</li>
+    </ol>
+  </div>
+</div>
+
+<!-- SEARCH -->
+<div class="search-bar">
+  <span class="search-icon">🔍</span>
+  <input class="search-input" id="searchInput" type="text" placeholder="Buscar prompt por título ou palavra-chave...">
+</div>
+
+<!-- TOC -->
+<div class="toc-section">
+  <div class="section-label">Navegação por Departamento</div>
+  <div class="toc-grid">
+    <a href="#cat-1" class="toc-card">
+      <div class="toc-icon" style="background:rgba(52,211,153,0.1)">👥</div>
+      <div class="toc-info">
+        <div class="toc-title">RH &amp; Contratação</div>
+        <div class="toc-count">25 prompts — #1 a #25</div>
+      </div>
+      <div class="toc-arrow">→</div>
+    </a>
+    <a href="#cat-2" class="toc-card">
+      <div class="toc-icon" style="background:rgba(129,140,248,0.1)">💰</div>
+      <div class="toc-info">
+        <div class="toc-title">Vendas &amp; Conversão</div>
+        <div class="toc-count">22 prompts — #26 a #47</div>
+      </div>
+      <div class="toc-arrow">→</div>
+    </a>
+    <a href="#cat-3" class="toc-card">
+      <div class="toc-icon" style="background:rgba(251,146,60,0.1)">⚙️</div>
+      <div class="toc-info">
+        <div class="toc-title">Operações &amp; Processos</div>
+        <div class="toc-count">22 prompts — #48 a #69</div>
+      </div>
+      <div class="toc-arrow">→</div>
+    </a>
+    <a href="#cat-4" class="toc-card">
+      <div class="toc-icon" style="background:rgba(56,189,248,0.1)">📊</div>
+      <div class="toc-info">
+        <div class="toc-title">Financeiro &amp; Gestão</div>
+        <div class="toc-count">20 prompts — #70 a #89</div>
+      </div>
+      <div class="toc-arrow">→</div>
+    </a>
+    <a href="#cat-5" class="toc-card">
+      <div class="toc-icon" style="background:rgba(244,114,182,0.1)">📣</div>
+      <div class="toc-info">
+        <div class="toc-title">Marketing &amp; Conteúdo</div>
+        <div class="toc-count">20 prompts — #90 a #109</div>
+      </div>
+      <div class="toc-arrow">→</div>
+    </a>
+    <a href="#cat-6" class="toc-card">
+      <div class="toc-icon" style="background:rgba(34,211,238,0.1)">🎯</div>
+      <div class="toc-info">
+        <div class="toc-title">Atendimento ao Cliente</div>
+        <div class="toc-count">10 prompts — #110 a #119</div>
+      </div>
+      <div class="toc-arrow">→</div>
+    </a>
+    <a href="#cat-7" class="toc-card">
+      <div class="toc-icon" style="background:rgba(251,191,36,0.1)">🏆</div>
+      <div class="toc-info">
+        <div class="toc-title">Liderança &amp; Estratégia</div>
+        <div class="toc-count">8 prompts — #120 a #127</div>
+      </div>
+      <div class="toc-arrow">→</div>
+    </a>
+  </div>
+</div>
+
+<!-- ===== CATEGORIES WILL BE INSERTED HERE ===== -->
+<div id="prompts-container">
+  <!-- CATEGORIA 1: RH & CONTRATAÇÃO -->
+  <div class="cat-section" id="cat-1">
+    <div class="cat-header">
+      <div class="cat-icon-big" style="background:rgba(52,211,153,0.1)">👥</div>
+      <div class="cat-meta">
+        <div class="cat-num">Categoria 01 · 25 Prompts</div>
+        <div class="cat-name" style="color:var(--c1)">RH &amp; Contratação</div>
+        <div class="cat-desc">Contrate melhor, integre mais rápido e gerencie seu time com eficiência</div>
+      </div>
+      <div class="cat-badge" style="color:var(--c1);border-color:rgba(52,211,153,0.25);background:rgba(52,211,153,0.08)">#1–25</div>
+    </div>
+    <div class="prompt-grid" id="grid-cat-1">
+      <!-- prompts serão inseridos aqui -->
+    </div>
+  </div>
+
+  <!-- CATEGORIA 2: VENDAS & CONVERSÃO -->
+  <div class="cat-section" id="cat-2">
+    <div class="cat-header">
+      <div class="cat-icon-big" style="background:rgba(129,140,248,0.1)">💰</div>
+      <div class="cat-meta">
+        <div class="cat-num">Categoria 02 · 22 Prompts</div>
+        <div class="cat-name" style="color:var(--c2)">Vendas &amp; Conversão</div>
+        <div class="cat-desc">Scripts, propostas e sequências para fechar mais negócios</div>
+      </div>
+      <div class="cat-badge" style="color:var(--c2);border-color:rgba(129,140,248,0.25);background:rgba(129,140,248,0.08)">#26–47</div>
+    </div>
+    <div class="prompt-grid" id="grid-cat-2"></div>
+  </div>
+
+  <!-- CATEGORIA 3: OPERAÇÕES & PROCESSOS -->
+  <div class="cat-section" id="cat-3">
+    <div class="cat-header">
+      <div class="cat-icon-big" style="background:rgba(251,146,60,0.1)">⚙️</div>
+      <div class="cat-meta">
+        <div class="cat-num">Categoria 03 · 22 Prompts</div>
+        <div class="cat-name" style="color:var(--c3)">Operações &amp; Processos</div>
+        <div class="cat-desc">SOPs, checklists e fluxogramas para uma operação sem gargalos</div>
+      </div>
+      <div class="cat-badge" style="color:var(--c3);border-color:rgba(251,146,60,0.25);background:rgba(251,146,60,0.08)">#48–69</div>
+    </div>
+    <div class="prompt-grid" id="grid-cat-3"></div>
+  </div>
+
+  <!-- CATEGORIA 4: FINANCEIRO & GESTÃO -->
+  <div class="cat-section" id="cat-4">
+    <div class="cat-header">
+      <div class="cat-icon-big" style="background:rgba(56,189,248,0.1)">📊</div>
+      <div class="cat-meta">
+        <div class="cat-num">Categoria 04 · 20 Prompts</div>
+        <div class="cat-name" style="color:var(--c4)">Financeiro &amp; Gestão</div>
+        <div class="cat-desc">Projeções, análises e relatórios para decisões financeiras inteligentes</div>
+      </div>
+      <div class="cat-badge" style="color:var(--c4);border-color:rgba(56,189,248,0.25);background:rgba(56,189,248,0.08)">#70–89</div>
+    </div>
+    <div class="prompt-grid" id="grid-cat-4"></div>
+  </div>
+
+  <!-- CATEGORIA 5: MARKETING & CONTEÚDO -->
+  <div class="cat-section" id="cat-5">
+    <div class="cat-header">
+      <div class="cat-icon-big" style="background:rgba(244,114,182,0.1)">📣</div>
+      <div class="cat-meta">
+        <div class="cat-num">Categoria 05 · 20 Prompts</div>
+        <div class="cat-name" style="color:var(--c5)">Marketing &amp; Conteúdo</div>
+        <div class="cat-desc">Posts, campanhas, emails e estratégias para crescer sua audiência</div>
+      </div>
+      <div class="cat-badge" style="color:var(--c5);border-color:rgba(244,114,182,0.25);background:rgba(244,114,182,0.08)">#90–109</div>
+    </div>
+    <div class="prompt-grid" id="grid-cat-5"></div>
+  </div>
+
+  <!-- CATEGORIA 6: ATENDIMENTO AO CLIENTE -->
+  <div class="cat-section" id="cat-6">
+    <div class="cat-header">
+      <div class="cat-icon-big" style="background:rgba(34,211,238,0.1)">🎯</div>
+      <div class="cat-meta">
+        <div class="cat-num">Categoria 06 · 10 Prompts</div>
+        <div class="cat-name" style="color:var(--c6)">Atendimento ao Cliente</div>
+        <div class="cat-desc">Scripts e protocolos para encantar e reter seus clientes</div>
+      </div>
+      <div class="cat-badge" style="color:var(--c6);border-color:rgba(34,211,238,0.25);background:rgba(34,211,238,0.08)">#110–119</div>
+    </div>
+    <div class="prompt-grid" id="grid-cat-6"></div>
+  </div>
+
+  <!-- CATEGORIA 7: LIDERANÇA & ESTRATÉGIA -->
+  <div class="cat-section" id="cat-7">
+    <div class="cat-header">
+      <div class="cat-icon-big" style="background:rgba(251,191,36,0.1)">🏆</div>
+      <div class="cat-meta">
+        <div class="cat-num">Categoria 07 · 8 Prompts</div>
+        <div class="cat-name" style="color:var(--c7)">Liderança &amp; Estratégia</div>
+        <div class="cat-desc">OKRs, planejamento estratégico e comunicação para liderar com clareza</div>
+      </div>
+      <div class="cat-badge" style="color:var(--c7);border-color:rgba(251,191,36,0.25);background:rgba(251,191,36,0.08)">#120–127</div>
+    </div>
+    <div class="prompt-grid" id="grid-cat-7"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>Biblioteca de 127 Prompts Claude Code para Empresários</p>
+  <p style="margin-top:6px">Desenvolvido com <strong>Claude Code</strong> · Sistema Empresa Independente</p>
+</div>
+
+<!-- BACK TO TOP -->
+<div class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</div>
+
+<script>
+// =============================================
+// PROMPT DATA — será populado nas etapas seguintes
+// =============================================
+const PROMPTS = {};
+
+// =============================================
+// RENDER ENGINE
+// =============================================
+function escapeHtml(str) {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/\[([^\]]+)\]/g, '<span class="var-tag">[$1]</span>');
+}
+
+function renderPrompt(p) {
+  const card = document.createElement('div');
+  card.className = 'prompt-card';
+  card.dataset.title = p.title.toLowerCase();
+  card.dataset.text = p.text.toLowerCase();
+  card.dataset.cat = p.cat;
+
+  card.innerHTML = `
+    <div class="prompt-header">
+      <span class="prompt-num">#${String(p.id).padStart(3,'0')}</span>
+      <span class="prompt-title">${p.title}</span>
+    </div>
+    <div class="prompt-body">
+      <div class="prompt-text" id="pt-${p.id}">${escapeHtml(p.text)}</div>
+      <div class="prompt-fade" id="pf-${p.id}"></div>
+    </div>
+    <div class="prompt-footer">
+      <button class="btn-expand" id="pe-${p.id}" onclick="toggleExpand(${p.id})">Ver completo</button>
+      <button class="btn-copy" id="pc-${p.id}" onclick="copyPrompt(${p.id})">Copiar Prompt</button>
+    </div>
+  `;
+  return card;
+}
+
+function loadCategory(cat, prompts) {
+  PROMPTS[cat] = prompts;
+  const grid = document.getElementById('grid-cat-' + cat);
+  if (!grid) return;
+  prompts.forEach(p => {
+    p.cat = cat;
+    grid.appendChild(renderPrompt(p));
+  });
+}
+
+function toggleExpand(id) {
+  const pt = document.getElementById('pt-' + id);
+  const pf = document.getElementById('pf-' + id);
+  const pe = document.getElementById('pe-' + id);
+  const expanded = pt.classList.toggle('expanded');
+  pf.classList.toggle('hidden', expanded);
+  pe.textContent = expanded ? 'Recolher' : 'Ver completo';
+}
+
+function copyPrompt(id) {
+  // find prompt text
+  let text = '';
+  for (const cat in PROMPTS) {
+    const p = PROMPTS[cat].find(x => x.id === id);
+    if (p) { text = p.text; break; }
+  }
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('pc-' + id);
+    btn.classList.add('copied');
+    btn.textContent = 'Copiado!';
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.textContent = 'Copiar Prompt';
+    }, 2000);
+  });
+}
+
+// SEARCH
+document.getElementById('searchInput').addEventListener('input', function() {
+  const q = this.value.toLowerCase().trim();
+  const cards = document.querySelectorAll('.prompt-card');
+  cards.forEach(card => {
+    const match = !q || card.dataset.title.includes(q) || card.dataset.text.includes(q);
+    card.style.display = match ? '' : 'none';
+  });
+  // hide empty sections
+  document.querySelectorAll('.cat-section').forEach(sec => {
+    const visible = [...sec.querySelectorAll('.prompt-card')].some(c => c.style.display !== 'none');
+    sec.style.display = visible ? '' : 'none';
+  });
+});
+
+// BACK TO TOP
+window.addEventListener('scroll', () => {
+  document.getElementById('backTop').classList.toggle('visible', window.scrollY > 400);
+});
+
+// =============================================
+// CATEGORIA 6 — ATENDIMENTO AO CLIENTE
+// =============================================
+loadCategory(6, [
+  { id:110, title:"Script de Atendimento Padrão", text:`Crie um script de atendimento padrão para a equipe de suporte/atendimento da empresa [nome da empresa].
+
+CONTEXTO:
+- Produto/serviço: [descreva]
+- Canal de atendimento: [WhatsApp / chat / email / telefone]
+- Tipos de atendimento mais comuns: [liste os 5 mais frequentes]
+- Perfil do cliente: [pessoa física / empresas / misto]
+- Tom desejado: [formal / próximo / técnico]
+- Ferramenta de atendimento: [Zendesk / Freshdesk / WhatsApp Business / outro]
+- Horário de atendimento: [horário]
+- SLA de resposta: [tempo máximo]
+
+Crie scripts para:
+1. SAUDAÇÃO INICIAL
+   - Versão para horário comercial
+   - Versão fora do horário (automático)
+   - Versão de fila de espera
+
+2. COLETA DE INFORMAÇÕES
+   - Como identificar o cliente e o problema com eficiência
+
+3. TIPOS DE ATENDIMENTO MAIS COMUNS
+   Para cada tipo: script completo de início ao fim
+
+4. TRANSFERÊNCIA E ESCALONAMENTO
+   - Quando e como transferir para outro time
+   - Script de escalonamento sem frustrar o cliente
+
+5. ENCERRAMENTO
+   - Como fechar o atendimento de forma satisfatória
+   - Pesquisa de satisfação (quando e como aplicar)
+
+6. MENSAGENS AUTOMÁTICAS
+   - Template para resposta rápida de cada assunto frequente` },
+
+  { id:111, title:"Política de Devolução e Reembolso", text:`Crie uma política de devolução e reembolso clara e justa para a empresa [nome da empresa].
+
+CONTEXTO:
+- Produto/serviço: [descreva]
+- Ticket médio: R$ [valor]
+- Taxa de reembolso atual: [% ou "não medimos"]
+- Principal motivo de pedido de reembolso: [descreva]
+- Modelo de venda: [recorrente / avulso / SaaS / produto físico / digital]
+- Requisitos legais do segmento: [CDC — 7 dias para arrependimento se aplicável]
+
+A política deve cobrir:
+1. PRAZO PARA SOLICITAÇÃO
+   - Quanto tempo o cliente tem para solicitar
+   - Diferença entre: dentro do prazo legal vs. pedido especial
+
+2. CONDIÇÕES PARA REEMBOLSO
+   - Motivos aceitos automaticamente
+   - Motivos que passam por análise
+   - Casos em que não há reembolso (e por que)
+
+3. PROCESSO DE SOLICITAÇÃO
+   - Como o cliente solicita (canal, formulário)
+   - Informações necessárias
+   - Prazo de resposta e de processamento
+
+4. REEMBOLSO PARCIAL
+   - Quando aplica e como calcular
+
+5. PROCESSO INTERNO
+   - Quem aprova, como registrar, como processar
+
+6. LINGUAGEM DA POLÍTICA
+   - Versão clara para o cliente (FAQ)
+   - Script para o time de suporte lidar com pedidos de reembolso` },
+
+  { id:112, title:"FAQ Completo (Perguntas Frequentes)", text:`Crie um FAQ completo para o produto/serviço [nome] da empresa [nome da empresa].
+
+CONTEXTO:
+- O que é o produto/serviço: [descreva detalhadamente]
+- Como funciona: [descreva o processo/mecânica]
+- Preço e formas de pagamento: [descreva]
+- Suporte disponível: [como o cliente pode pedir ajuda]
+- Público: [quem são os clientes]
+- Dúvidas mais comuns que recebemos: [liste as que já conhece]
+
+Organize o FAQ em categorias:
+
+SOBRE O PRODUTO/SERVIÇO
+- O que é? Como funciona? Para quem é?
+
+COMPRA E PAGAMENTO
+- Como comprar? Quais formas de pagamento? Parcelamento?
+
+ACESSO E ENTREGA
+- Como acesso após comprar? Em quanto tempo? Por quanto tempo tenho acesso?
+
+SUPORTE E DÚVIDAS
+- Como entro em contato? Qual o horário? SLA de resposta?
+
+REEMBOLSO E GARANTIA
+- Como funciona a garantia? Como solicitar reembolso?
+
+TÉCNICO (se aplicável)
+- Quais são os requisitos? Funciona em celular/computador?
+
+Para cada pergunta:
+- A pergunta exata como o cliente faria
+- Resposta clara, em no máximo 3-5 linhas
+- Link para mais detalhes (se aplicável)
+
+Ao final: instrução de como manter o FAQ atualizado.` },
+
+  { id:113, title:"Protocolo de Tratamento de Reclamações", text:`Crie um protocolo completo de tratamento de reclamações para a empresa [nome da empresa].
+
+CONTEXTO:
+- Tipo mais comum de reclamação: [descreva as 3-5 mais frequentes]
+- Canal onde as reclamações chegam: [WhatsApp / email / Reclame Aqui / Instagram / telefone]
+- Tempo de resposta atual: [dias/horas]
+- Meta de SLA: [objetivo]
+- Nível de empoderamento do time de atendimento: [podem oferecer desconto? reembolso? compensação?]
+
+Crie:
+1. FLUXO DE TRATAMENTO
+   - Recepção → Classificação → Atendimento → Resolução → Follow-up → Encerramento
+
+2. CLASSIFICAÇÃO DE RECLAMAÇÕES
+   - Por urgência (crítico / alto / médio / baixo)
+   - Por tipo (produto / serviço / atendimento / entrega / cobrança)
+
+3. SCRIPTS POR TIPO DE RECLAMAÇÃO
+   Para as 5 reclamações mais comuns:
+   - Mensagem de acolhimento
+   - Perguntas para entender o problema
+   - Solução padrão
+   - O que oferecer como compensação
+
+4. COMO LIDAR COM CLIENTES IRADOS
+   - Script para desescalar a situação
+   - O que NUNCA dizer
+   - Quando escalar para o gestor
+
+5. RECLAMAÇÕES PÚBLICAS (Reclame Aqui / Redes Sociais)
+   - Como responder publicamente
+   - Template de resposta pública
+
+6. ANÁLISE E PREVENÇÃO
+   - Como registrar reclamações para identificar padrões
+   - Como usar as reclamações para melhorar o produto/serviço` },
+
+  { id:114, title:"Script de Suporte Técnico", text:`Crie scripts e uma base de conhecimento de suporte técnico para o produto [nome] da empresa [nome da empresa].
+
+CONTEXTO:
+- O que é o produto: [descreva]
+- Problemas técnicos mais comuns: [liste os 5-10 mais frequentes]
+- Canal de suporte técnico: [chat / email / WhatsApp / central de ajuda]
+- Nível técnico da equipe de suporte: [leigos / básico / intermediário / técnico]
+- Ferramenta de ticketing: [Zendesk / Freshdesk / outro / planilha]
+
+Crie:
+1. FLUXO DE DIAGNÓSTICO
+   - Perguntas de triagem para identificar o problema rapidamente
+   - Árvore de decisão: sintoma → causa → solução
+
+2. BASE DE CONHECIMENTO
+   Para cada problema comum:
+   - Descrição do problema
+   - Causas possíveis
+   - Solução passo a passo (linguagem para o usuário final)
+   - Se não resolver: próximo nível de suporte
+
+3. SCRIPTS DE COMUNICAÇÃO
+   - Abertura do ticket de suporte técnico
+   - Solicitação de informações adicionais
+   - Comunicação de solução encontrada
+   - Comunicação de problema em análise pela equipe técnica
+   - Comunicação de bug confirmado (com prazo de correção)
+   - Encerramento do atendimento
+
+4. NÍVEL 1 × NÍVEL 2
+   - Quando escalar para o time técnico
+   - O que documentar antes de escalar` },
+
+  { id:115, title:"Pesquisa NPS e Plano de Ação", text:`Crie uma pesquisa de NPS (Net Promoter Score) e um plano de ação para a empresa [nome da empresa].
+
+CONTEXTO:
+- Produto/serviço: [descreva]
+- Momento de envio: [após compra / após onboarding / trimestral / anual]
+- Canal: [email / WhatsApp / SMS / dentro da plataforma]
+- Ferramenta: [Typeform / Google Forms / plataforma própria / outro]
+- NPS atual (se souber): [nota ou "nunca medimos"]
+
+Crie:
+1. PESQUISA NPS COMPLETA
+   - Pergunta principal: "Em uma escala de 0 a 10, qual a probabilidade de você recomendar [empresa] para um amigo ou colega?"
+   - Pergunta qualitativa por faixa de nota:
+     - Detratores (0-6): "O que poderíamos fazer para melhorar sua experiência?"
+     - Neutros (7-8): "O que poderíamos fazer para você se tornar um grande fã?"
+     - Promotores (9-10): "O que você mais valoriza na nossa empresa?"
+
+2. COMO CALCULAR O NPS
+   - Fórmula e interpretação das faixas (Excelente / Bom / Ruim / Péssimo)
+
+3. PROTOCOLO DE RESPOSTA POR FAIXA
+   Para detratores, neutros e promotores:
+   - Prazo de resposta
+   - Script de follow-up personalizado
+   - Ação de recuperação (detratores) e conversão em embaixadores (promotores)
+
+4. ANÁLISE E RELATÓRIO
+   - Como transformar o NPS em insights acionáveis
+
+5. PLANO DE AÇÃO BASEADO NO NPS
+   - Como usar o feedback para melhorar o produto/serviço` },
+
+  { id:116, title:"Email de Boas-vindas e Onboarding do Cliente", text:`Crie uma sequência completa de boas-vindas e onboarding para novos clientes do produto/serviço [nome].
+
+CONTEXTO:
+- O que o cliente comprou: [descreva]
+- Expectativa do cliente ao comprar: [o que espera conseguir]
+- Principal razão de não obter resultado: [comportamento que prejudica o sucesso]
+- Primeiro passo que o cliente precisa dar: [o que fazer logo após comprar]
+- Plataforma de entrega: [Hotmart / Kajabi / sistema próprio / WhatsApp / email]
+- Equipe de CS: [tem? quem atende?]
+
+Crie:
+
+EMAIL 1 — BOAS-VINDAS (imediato após a compra)
+- Assunto impactante e acolhedor
+- Confirmação da compra e entrega de acesso
+- O que o cliente deve fazer AGORA (um passo só)
+- Como entrar em contato se precisar
+
+EMAIL 2 — PRIMEIROS PASSOS (dia 2-3)
+- Guia de início rápido
+- O que fazer para ter resultado mais rápido
+- Link para material de apoio
+
+EMAIL 3 — CHECK-IN (dia 7)
+- Como está a experiência
+- Resolve a dúvida mais comum da primeira semana
+- Incentivo para continuar
+
+EMAIL 4 — RESULTADOS INICIAIS (dia 14-15)
+- Inspiração: depoimento de quem alcançou resultado rápido
+- Próximo passo no uso do produto
+
+MENSAGEM DE WHATSAPP
+- Versão compacta de cada email para grupos ou listas de transmissão` },
+
+  { id:117, title:"Processo de Escalonamento de Atendimento", text:`Crie um processo de escalonamento de atendimento para a empresa [nome da empresa].
+
+CONTEXTO:
+- Tamanho do time de atendimento: [número de pessoas]
+- Níveis de suporte disponíveis: [N1 / N2 / N3 ou outros]
+- Tipos de problema que chegam: [liste]
+- Principais pontos de escalada atual: [quando o time sobe o problema hoje]
+- SLA atual: [tempo de resposta e resolução]
+
+Crie:
+1. MATRIZ DE ESCALONAMENTO
+   - Tabela: tipo de problema → nível de atendimento responsável
+   - Critérios para cada nível (o que N1 pode resolver, o que vai para N2, etc.)
+
+2. PROCESSO DE ESCALADA
+   - Como transferir um ticket para o próximo nível
+   - O que documentar antes de escalar (contexto mínimo)
+   - Como comunicar ao cliente que está sendo escalado
+
+3. SLA POR NÍVEL
+   - Tempo de resposta e resolução por nível de atendimento
+   - O que fazer quando o SLA está em risco
+
+4. ESCALADA EMERGENCIAL
+   - Critérios para tratar como urgência máxima
+   - Quem acionar em situações críticas (sequência)
+
+5. FEEDBACK LOOP
+   - Como N2/N3 retorna aprendizado para N1 (base de conhecimento)
+   - Como reduzir volume de escalada ao longo do tempo` },
+
+  { id:118, title:"Script de Retenção de Clientes (Churn)", text:`Crie um script e estratégia de retenção para clientes que estão prestes a cancelar ou que já solicitaram cancelamento.
+
+CONTEXTO:
+- Produto/serviço: [descreva]
+- Preço: [valor]
+- Motivos de cancelamento mais comuns: [liste os 5 principais]
+- Perfil do cliente que cancela: [quem costuma cancelar]
+- Margem disponível para oferecer desconto ou pausa: [pode oferecer? quanto?]
+- Quem faz a retenção: [time de CS / vendedor / gerente]
+
+Crie:
+1. IDENTIFICAÇÃO DE RISCO DE CHURN
+   - Sinais de alerta de que um cliente vai cancelar (red flags)
+   - Gatilhos para acionar a ação proativa de retenção
+
+2. ABORDAGEM PROATIVA
+   - Script para acionar o cliente ANTES do cancelamento
+   - Canal e timing ideal
+
+3. SCRIPT DE RETENÇÃO POR MOTIVO
+   Para cada motivo de cancelamento:
+   - Resposta empática
+   - Reframing da situação
+   - Oferta de solução alternativa
+   - Argumento final
+
+4. PROCESSO DE CANCELAMENTO HUMANIZADO
+   - Como receber o pedido de cancelamento sem pressão
+   - O que oferecer como último recurso (pausa, downgrade, desconto)
+   - Como fazer um cancelamento que deixa a porta aberta para retorno
+
+5. PÓS-CANCELAMENTO
+   - Email de despedida elegante
+   - Estratégia para reativar clientes que cancelaram` },
+
+  { id:119, title:"Relatório de Satisfação e CX (Customer Experience)", text:`Crie um relatório de Customer Experience e satisfação para a empresa [nome da empresa].
+
+DADOS DO PERÍODO [mês/ano]:
+- NPS: [nota] (Detratores: [%] / Neutros: [%] / Promotores: [%])
+- CSAT (se medido): [nota média]
+- CES (Customer Effort Score, se medido): [nota]
+- Volume de atendimentos: [quantidade]
+- Tempo médio de resposta: [horas]
+- Tempo médio de resolução: [horas]
+- Taxa de resolução no primeiro contato (FCR): [%]
+- Tickets por categoria: [liste]
+- Churn do período: [%]
+- Clientes satisfeitos que indicaram: [quantidade]
+
+Estruture o relatório com:
+1. RESUMO EXECUTIVO
+   - Saúde geral da experiência do cliente em 5 bullets
+
+2. ANÁLISE DE NPS/CSAT
+   - Tendência vs. período anterior
+   - Principais comentários de detratores e promotores
+
+3. ANÁLISE DE OPERAÇÕES DE SUPORTE
+   - Desempenho da equipe vs. SLAs
+   - Volume por canal e por categoria
+
+4. TOP PROBLEMAS IDENTIFICADOS
+   - Os 5 issues mais frequentes com análise de causa raiz
+
+5. RELAÇÃO COM CHURN
+   - Correlação entre satisfação e cancelamento
+
+6. PLANO DE AÇÃO
+   - Iniciativas para o próximo período com responsável e prazo
+
+7. BENCHMARKS
+   - Suas métricas vs. padrões do mercado` }
+]);
+
+// =============================================
+// CATEGORIA 7 — LIDERANÇA & ESTRATÉGIA
+// =============================================
+loadCategory(7, [
+  { id:120, title:"Planejamento Estratégico Anual", text:`Conduza um processo de planejamento estratégico anual para a empresa [nome da empresa] para o ano de [ano].
+
+CONTEXTO ATUAL:
+- Segmento: [segmento]
+- Receita atual: R$ [valor/ano]
+- Número de colaboradores: [quantidade]
+- Maior conquista do ano anterior: [descreva]
+- Maior fracasso ou aprendizado do ano anterior: [descreva]
+- Principal vantagem competitiva: [descreva]
+- Maior ameaça do mercado: [descreva]
+
+METAS BRUTAS PARA O ANO:
+- Meta de receita: R$ [valor]
+- Meta de clientes: [quantidade]
+- Outras metas: [liste]
+
+Crie o planejamento com:
+1. ANÁLISE DO ANO ANTERIOR
+   - O que funcionou, o que não funcionou, lições
+
+2. ANÁLISE SWOT
+   - Forças, fraquezas, oportunidades e ameaças com itens concretos
+
+3. POSICIONAMENTO ESTRATÉGICO
+   - Onde a empresa quer estar ao final do ano
+   - Proposta de valor atualizada
+
+4. GRANDES APOSTAS (3-5 iniciativas)
+   - As principais iniciativas estratégicas do ano
+   - Critérios de priorização
+
+5. OBJETIVOS E MÉTRICAS
+   - KPIs por área para o ano
+   - Metas trimestrais (Q1/Q2/Q3/Q4)
+
+6. PLANO DE COMUNICAÇÃO INTERNA
+   - Como apresentar o planejamento para o time` },
+
+  { id:121, title:"OKRs Trimestrais (Objectives & Key Results)", text:`Crie os OKRs (Objectives & Key Results) para o trimestre [Q1/Q2/Q3/Q4] de [ano] da empresa [nome da empresa].
+
+CONTEXTO:
+- Estratégia do ano: [resuma em 2-3 linhas o foco estratégico do ano]
+- Áreas da empresa: [liste os departamentos]
+- Resultados do trimestre anterior: [o que foi alcançado]
+- Principal aprendizado do trimestre passado: [o que mudaria]
+- Recursos disponíveis no trimestre: [headcount, budget]
+
+Para cada nível, crie OKRs seguindo a estrutura:
+Objective: "Verb + o que fazer + para quem/qual impacto"
+Key Results: métricas específicas e mensuráveis (3-5 por objetivo)
+
+NÍVEL EMPRESA (2-3 Objectives)
+- Os objetivos mais importantes da empresa no trimestre
+
+NÍVEL DEPARTAMENTO (1-2 por área)
+- Como cada área contribui para os objetivos da empresa
+
+NÍVEL INDIVIDUAL (para líderes)
+- OKRs individuais dos gestores
+
+Para cada OKR, inclua:
+- Peso/prioridade
+- Responsável (DRI — Directly Responsible Individual)
+- Cadência de revisão (weekly/biweekly)
+
+Ao final:
+- Como apresentar e alinhar os OKRs com o time
+- Cerimônia de kickoff de OKRs recomendada` },
+
+  { id:122, title:"Definição de Missão, Visão e Valores", text:`Ajude-me a definir (ou redefinir) a Missão, Visão e Valores da empresa [nome da empresa].
+
+CONTEXTO DA EMPRESA:
+- O que a empresa faz: [descreva o produto/serviço]
+- Para quem: [perfil dos clientes]
+- Por que foi criada: [história e motivação dos fundadores]
+- O que a torna diferente: [diferencial genuíno]
+- Cultura atual (como as pessoas se sentem ao trabalhar aqui): [descreva]
+- O que NÃO queremos ser: [valores que rejeita]
+- Onde quer estar em 10 anos: [visão de longo prazo]
+
+Crie:
+1. MISSÃO (3 propostas)
+   - Responde: por que existimos? Para quem? Qual transformação geramos?
+   - Formato: 1-2 frases impactantes, não genéricas
+
+2. VISÃO (3 propostas)
+   - Responde: onde queremos chegar? Em que tempo?
+   - Formato: ambiciosa, clara e inspiradora
+
+3. VALORES (5-7 valores com descrição)
+   - Não apenas palavras soltas — cada valor com:
+     - Descrição do que significa na prática
+     - Comportamento esperado (como aparece no dia a dia)
+     - Comportamento contrário (o que não é esse valor)
+
+4. COMO TORNAR MVV REAL
+   - Rituais para viver os valores no dia a dia
+   - Como integrar MVV no processo seletivo e avaliação de desempenho
+
+5. COMO COMUNICAR PARA O TIME
+   - Roteiro de workshop para co-criar ou apresentar o MVV` },
+
+  { id:123, title:"Análise SWOT Estratégica Completa", text:`Faça uma análise SWOT completa e estratégica para a empresa [nome da empresa].
+
+CONTEXTO:
+- Segmento: [segmento]
+- Produto/serviço: [descreva]
+- Momento da empresa: [crescimento / estabilidade / crise / pivô / expansão]
+- Concorrentes principais: [liste]
+- Maior vitória recente: [descreva]
+- Maior desafio atual: [descreva]
+
+Por favor, faça uma SWOT com profundidade real (não genérica):
+
+FORÇAS (Strengths) — fatores internos positivos
+- 5-8 forças concretas com evidências
+
+FRAQUEZAS (Weaknesses) — fatores internos negativos
+- 5-8 fraquezas honestas com impacto
+
+OPORTUNIDADES (Opportunities) — fatores externos positivos
+- 5-8 oportunidades do mercado que podemos capturar
+
+AMEAÇAS (Threats) — fatores externos negativos
+- 5-8 ameaças reais do ambiente competitivo
+
+MATRIZ DE CRUZAMENTO (TOWS)
+- SO (Força + Oportunidade): estratégias ofensivas
+- ST (Força + Ameaça): estratégias defensivas
+- WO (Fraqueza + Oportunidade): estratégias de desenvolvimento
+- WT (Fraqueza + Ameaça): estratégias de sobrevivência
+
+PRIORIZAÇÃO
+- Top 3 insights mais urgentes da SWOT
+- Ações imediatas recomendadas` },
+
+  { id:124, title:"Comunicado Estratégico para a Equipe", text:`Escreva um comunicado estratégico para apresentar [mudança / nova direção / crise / conquista / reestruturação / nova meta] para a equipe da empresa [nome da empresa].
+
+CONTEXTO DO COMUNICADO:
+- O que está sendo comunicado: [descreva detalhadamente]
+- Motivo/contexto: [por que isso está acontecendo]
+- Impacto na equipe: [o que muda para as pessoas]
+- O que NÃO vai mudar: [o que permanece estável]
+- Quem está comunicando: [CEO / gestor / RH]
+- Formato: [email / reunião all-hands / vídeo / carta]
+- Tom desejado: [transparente / motivador / neutro / urgente]
+- Perguntas que o time vai ter: [liste as principais dúvidas esperadas]
+
+Crie:
+
+1. COMUNICADO PRINCIPAL
+   - Abertura que capture atenção e gere confiança
+   - Contexto: por que isso está acontecendo
+   - O quê: o que muda
+   - Por quê: a justificativa estratégica
+   - Como: como vai funcionar
+   - Quando: cronograma
+   - O que não muda: âncoras de estabilidade
+   - Próximos passos: o que cada pessoa deve fazer
+
+2. ROTEIRO PARA REUNIÃO ALL-HANDS
+   - Pauta e tempo por ponto
+   - Como abrir espaço para perguntas
+
+3. FAQ ANTECIPADO
+   - Respostas para as 10 perguntas que o time vai fazer` },
+
+  { id:125, title:"Plano de Mudança Organizacional", text:`Crie um Plano de Gestão de Mudança (Change Management) para implementar [mudança] na empresa [nome da empresa].
+
+A MUDANÇA:
+- O que vai mudar: [descreva em detalhes]
+- Por que é necessária: [justificativa estratégica]
+- Quem será impactado: [áreas e pessoas]
+- Escala do impacto: [pequena / média / grande transformação]
+- Prazo para implementação: [cronograma]
+- Apoio da liderança: [total / parcial / precisamos construir]
+- Resistência esperada: [descreva onde espera resistência]
+
+Baseado no modelo ADKAR (Awareness → Desire → Knowledge → Ability → Reinforcement), crie:
+
+1. ANÁLISE DE IMPACTO
+   - Quem é afetado e como (mapa de stakeholders)
+   - Nível de resistência esperada por grupo
+
+2. ESTRATÉGIA DE COMUNICAÇÃO
+   - O que comunicar, quando, por qual canal e para quem
+
+3. PLANO DE ENGAJAMENTO
+   - Como criar desejo e reduzir resistência
+   - Quem são os champions da mudança
+
+4. TREINAMENTO E CAPACITAÇÃO
+   - O que as pessoas precisam aprender
+   - Como e quando treinar
+
+5. INDICADORES DE SUCESSO DA MUDANÇA
+   - Como medir se a mudança foi absorvida
+
+6. CRONOGRAMA DE IMPLEMENTAÇÃO
+   - Fases da mudança com marcos` },
+
+  { id:126, title:"Análise de Mercado e Oportunidades", text:`Faça uma análise de mercado e mapeamento de oportunidades para a empresa [nome da empresa] no segmento de [segmento].
+
+CONTEXTO:
+- O que a empresa já faz: [descreva produtos/serviços atuais]
+- Clientes atuais: [perfil e tamanho da base]
+- Região de atuação: [geográfico]
+- Momento estratégico: [crescimento / expansão / entrada em novo mercado]
+- Pergunta principal que quer responder: [ex: devo expandir para X nicho?]
+
+Analise e entregue:
+1. DIMENSIONAMENTO DO MERCADO
+   - TAM (Total Addressable Market)
+   - SAM (Serviceable Addressable Market)
+   - SOM (Serviceable Obtainable Market)
+   - Metodologia e premissas usadas
+
+2. SEGMENTAÇÃO DO MERCADO
+   - Principais segmentos e sub-segmentos
+   - Atratividade de cada segmento (tamanho × crescimento × competição)
+
+3. TENDÊNCIAS DO MERCADO
+   - 5-7 tendências que vão moldar o setor nos próximos 3-5 anos
+   - Impacto de cada tendência para a empresa
+
+4. ANÁLISE COMPETITIVA
+   - Mapa de posicionamento dos principais players
+   - Espaços de oportunidade (onde ninguém está bem posicionado)
+
+5. OPORTUNIDADES IDENTIFICADAS
+   - Top 3-5 oportunidades mais atraentes com justificativa
+
+6. RECOMENDAÇÕES ESTRATÉGICAS
+   - Qual oportunidade priorizar e por quê
+   - Próximos passos para capturar a oportunidade` },
+
+  { id:127, title:"Roadmap Estratégico de Produto/Empresa", text:`Crie um roadmap estratégico para [o produto / a empresa] [nome] para os próximos [6 / 12 / 24] meses.
+
+CONTEXTO:
+- O que já existe hoje: [state atual do produto/empresa]
+- Onde quer chegar: [estado desejado em X meses]
+- Principais iniciativas já mapeadas: [liste o que já sabe que precisa fazer]
+- Restrições: [recursos, budget, time, técnica]
+- Stakeholders que precisam aprovar: [quem está envolvido]
+- Formato de uso: [roadmap para time interno / apresentação para board / produto]
+
+Crie o roadmap com:
+
+1. VISÃO DO PRODUTO/EMPRESA
+   - Onde queremos estar e por quê (norte estrela)
+
+2. PILARES ESTRATÉGICOS
+   - 3-5 temas que guiam as iniciativas
+
+3. HORIZONTE AGORA (0-3 meses)
+   - Iniciativas com mais detalhamento
+   - Dependências e requisitos
+
+4. HORIZONTE PRÓXIMO (3-6 meses)
+   - Iniciativas planejadas
+   - O que precisa acontecer para começar
+
+5. HORIZONTE FUTURO (6-12+ meses)
+   - Iniciativas em exploração
+   - Hipóteses a validar
+
+6. O QUE NÃO FAREMOS (Not-to-do list)
+   - Iniciativas descartadas e por quê
+
+7. MÉTRICAS DE SUCESSO
+   - Como medir se o roadmap está sendo bem executado
+
+8. COMO REVISAR O ROADMAP
+   - Frequência e processo de atualização` }
+]);
+
+// =============================================
+// CATEGORIA 5 — MARKETING & CONTEÚDO
+// =============================================
+loadCategory(5, [
+  { id:90, title:"Calendário Editorial de Conteúdo", text:`Crie um calendário editorial de conteúdo para [30 / 60 / 90] dias para a empresa [nome da empresa].
+
+CONTEXTO DE MARKETING:
+- Produto/serviço: [descreva]
+- Público-alvo: [descreva o avatar detalhadamente]
+- Canais ativos: [Instagram / LinkedIn / YouTube / Blog / Email / TikTok]
+- Frequência desejada de postagem: [X posts por semana por canal]
+- Tema central da marca: [qual é o território de conteúdo]
+- Objetivo principal do conteúdo: [autoridade / geração de leads / engajamento / vendas]
+- Eventos/datas relevantes do período: [liste — lançamentos, datas comemorativas, eventos do setor]
+- Tom de voz da marca: [formal / descontraído / técnico / inspirador]
+
+Crie o calendário com:
+1. PILARES DE CONTEÚDO
+   - 4-5 pilares que sustentam toda a estratégia
+
+2. TABELA DO CALENDÁRIO
+   Para cada semana:
+   - Dia / Canal / Formato / Pilar / Tema específico / Objetivo / CTA
+
+3. EXEMPLOS DE PAUTA
+   - 3-5 exemplos completos de pauta para os primeiros posts
+
+4. SEQUÊNCIA DE LANÇAMENTO
+   - Se tiver produto/serviço a lançar: sequência de aquecimento, lançamento e pós
+
+5. MÉTRICAS POR CANAL
+   - O que medir em cada plataforma` },
+
+  { id:91, title:"Post para Instagram (Feed + Stories + Reels)", text:`Crie conteúdo completo para Instagram sobre o tema [tema] para a empresa [nome] que vende [produto/serviço].
+
+CONTEXTO:
+- Público: [descreva o seguidor ideal]
+- Tom da conta: [informal / técnico / inspirador / educativo]
+- Objetivo do post: [engajamento / alcance / leads / vendas]
+- Formato desejado: [carrossel / imagem única / Reel / Stories]
+- CTA desejado: [salvar / comentar / clicar no link / DM]
+
+Crie:
+
+FEED — CARROSSEL (10 slides)
+- Slide 1 (capa): headline irresistível que faz parar o scroll
+- Slides 2-9: conteúdo do carrossel com texto de cada slide
+- Slide 10: CTA claro
+
+LEGENDA DO POST
+- Gancho inicial (primeiras 3 linhas que aparecem antes do "ver mais")
+- Corpo do texto
+- CTA
+- Hashtags estratégicas (20-30)
+
+STORIES COMPLEMENTARES (5 stories)
+- Sequência de stories para divulgar o post
+
+REEL (roteiro de 30-60 segundos)
+- Hook visual inicial (primeiros 3 segundos)
+- Script completo
+- Sugestão de música/áudio
+- Legenda para o Reel` },
+
+  { id:92, title:"Thread para LinkedIn (Viral)", text:`Crie uma thread/post de alto engajamento para o LinkedIn sobre [tema] para o perfil de [nome / empresa].
+
+CONTEXTO:
+- Quem publica: [fundador / executivo / profissional / empresa]
+- Setor: [segmento]
+- Público do LinkedIn: [quem são os seguidores/conexões]
+- Objetivo: [autoridade / networking / geração de leads / recrutamento / vendas]
+- Tom: [analítico e técnico / storytelling pessoal / polêmico e provocador / educativo]
+
+Crie:
+
+POST PRINCIPAL (thread de 8-12 partes)
+- Primeiro parágrafo: gancho impossível de ignorar (frase impactante ou dado surpreendente)
+- Desenvolvimento: cada parte aprofunda o tema com insights reais
+- Conclusão: lição ou chamada à ação
+- CTA final: comentar / compartilhar / conectar
+
+VARIAÇÕES DO GANCHO
+- 3 versões diferentes para o primeiro parágrafo (para testar A/B)
+
+COMENTÁRIO FIXO
+- Texto para colocar como primeiro comentário (aumenta engajamento)
+
+IMAGEM OU DOCUMENTO
+- Sugestão de visual ou carrossel de apoio
+
+ESTRATÉGIA DE ENGAJAMENTO
+- O que fazer nas primeiras 2 horas após publicar para maximizar alcance` },
+
+  { id:93, title:"Campanha de Email Marketing", text:`Crie uma campanha completa de email marketing para [lançamento / reativação / nutrição / promoção] do produto/serviço [nome].
+
+CONTEXTO:
+- Objetivo da campanha: [descreva]
+- Produto/serviço: [descreva]
+- Preço: [valor]
+- Base de emails: [tamanho e perfil dos destinatários]
+- Duração da campanha: [dias]
+- Plataforma de envio: [Mailchimp / RD Station / ActiveCampaign / outro]
+
+Crie uma sequência de [X] emails:
+
+EMAIL 1 — [Objetivo/nome]
+- Assunto: [3 variações]
+- Pré-header: [texto]
+- Corpo do email: [completo]
+- CTA: [botão e link]
+
+[Repita para cada email da sequência]
+
+Inclua também:
+1. ESTRATÉGIA DA SEQUÊNCIA
+   - Lógica de progressão do relacionamento
+   - Por que cada email existe
+
+2. SEGMENTAÇÃO
+   - Como segmentar a base para versões diferentes do email
+
+3. CRITÉRIOS DE SUCESSO
+   - Taxa de abertura esperada
+   - CTR esperado
+   - Conversão alvo
+
+4. TESTES A/B
+   - O que testar em cada email (assunto, CTA, horário)` },
+
+  { id:94, title:"Estratégia de Conteúdo (Content Strategy)", text:`Crie uma estratégia de conteúdo completa para [os próximos 90 dias / o ano] para a empresa [nome da empresa].
+
+CONTEXTO:
+- Produto/serviço: [descreva]
+- Público-alvo: [avatar completo — cargo, dores, desejos, onde consome conteúdo]
+- Posicionamento desejado: [como quer ser percebido no mercado]
+- Canais disponíveis: [liste todos]
+- Recursos de produção: [quem vai criar o conteúdo, budget]
+- Concorrentes que admira o conteúdo: [liste]
+- Problema atual com conteúdo: [descreva]
+
+A estratégia deve incluir:
+1. ANÁLISE DE AUDIÊNCIA
+   - Mapa de dores, desejos e perguntas do avatar por estágio da jornada
+
+2. POSICIONAMENTO DE CONTEÚDO
+   - Território único da marca (o que apenas você pode falar)
+   - Tom de voz documentado
+
+3. PILARES EDITORIAIS
+   - 4-5 pilares com objetivo e exemplos de pauta
+
+4. ESTRATÉGIA POR CANAL
+   - Para cada canal: objetivo, formato ideal, frequência, métricas
+
+5. FUNIL DE CONTEÚDO
+   - ToFu: conteúdo de atração
+   - MoFu: conteúdo de consideração
+   - BoFu: conteúdo de conversão
+
+6. PROCESSO DE PRODUÇÃO
+   - Fluxo de criação, revisão e publicação
+
+7. MÉTRICAS E METAS
+   - KPIs por canal e frequência de revisão` },
+
+  { id:95, title:"Roteiro de Vídeo (YouTube/Reel/VSL)", text:`Escreva um roteiro completo de vídeo sobre [tema] para o canal/perfil [nome].
+
+INFORMAÇÕES:
+- Tipo de vídeo: [YouTube longo / Reel 30s / Reel 60s / VSL de vendas / webinar]
+- Duração: [X minutos]
+- Objetivo: [engajamento / educação / conversão / autoridade]
+- Público: [descreva]
+- CTA do vídeo: [inscreva-se / compre / agende / baixe]
+- Tom: [formal / próximo / energético / técnico]
+- Apresentador: [nome e contexto — quem vai aparecer no vídeo]
+
+Escreva o roteiro com:
+
+GANCHO (primeiros 30 segundos)
+- Cena 1: [o que acontece na tela]
+- Narração/Fala: [texto exato]
+- Por que este gancho funciona
+
+DESENVOLVIMENTO (estrutura do conteúdo)
+- Cena X: visual + fala (completo para cada cena)
+- Marcações: [B-ROLL], [TELA], [TEXTO NA TELA], [CORTE], [ZOOM]
+
+CONCLUSÃO E CTA
+- Como fechar e chamar para a ação
+
+THUMBNAIL (se YouTube)
+- Sugestão de texto e visual para a thumbnail
+
+TÍTULO E DESCRIÇÃO SEO
+- 5 opções de título para testar
+- Descrição otimizada para YouTube SEO` },
+
+  { id:96, title:"Copy para Anúncios (Meta/Google/LinkedIn)", text:`Escreva copies de alta conversão para anúncios do produto/serviço [nome].
+
+INFORMAÇÕES:
+- Produto/serviço: [descreva]
+- Público-alvo: [descreva detalhadamente]
+- Objetivo do anúncio: [gerar lead / venda direta / tráfego / reconhecimento]
+- Temperatura do público: [frio / morno / quente]
+- Preço: [valor]
+- Principal benefício: [o resultado número 1]
+- Maior dor que resolve: [a dor principal]
+- Plataforma: [Meta Ads / Google / LinkedIn Ads / TikTok]
+
+Crie copies para cada formato:
+
+META ADS:
+- Headline principal (5 variações — máx. 40 caracteres)
+- Texto do anúncio (3 variações — curto, médio, longo)
+- Descrição (3 variações)
+- CTA recomendado
+
+GOOGLE ADS (se aplicável):
+- Títulos (15 variações de até 30 caracteres)
+- Descrições (4 variações de até 90 caracteres)
+- Extensões recomendadas
+
+Para cada copy, identifique:
+- Qual gatilho mental está usando
+- Para qual temperatura de público é mais eficaz
+- Sugestão de visual/criativo para acompanhar` },
+
+  { id:97, title:"Landing Page de Alta Conversão", text:`Escreva o copy completo de uma landing page de alta conversão para [produto/serviço/lead magnet/evento] [nome].
+
+INFORMAÇÕES:
+- O que é: [descreva]
+- Para quem: [avatar completo]
+- Principal promessa: [resultado que entrega]
+- Preço (se produto pago): [valor]
+- CTA principal: [comprar / se cadastrar / baixar / assistir]
+- Prova social disponível: [depoimentos, dados, logos de clientes]
+- Garantia: [se tiver]
+
+Escreva a landing page completa com:
+
+1. HEADLINE PRINCIPAL + SUBHEADLINE
+   - 3 variações da headline para teste A/B
+
+2. HERO SECTION
+   - Imagem/vídeo sugerido
+   - Bullet points de benefícios imediatos
+
+3. SEÇÃO DE PROBLEMA (agitação da dor)
+
+4. SEÇÃO DE SOLUÇÃO (apresentação do produto)
+
+5. COMO FUNCIONA (mecanismo)
+
+6. PARA QUEM É (identificação)
+
+7. PROVA SOCIAL (depoimentos formatados)
+
+8. OFERTA E PREÇO
+   - Apresentação do preço com ancoragem
+
+9. GARANTIA
+
+10. FAQ (7-10 perguntas e respostas)
+
+11. CTA FINAL
+
+Para cada seção: headline, copy e sugestão de visual.` },
+
+  { id:98, title:"Campanha de Lançamento de Produto", text:`Crie uma estratégia e cronograma completo de lançamento para [produto/serviço/evento] [nome].
+
+INFORMAÇÕES DO PRODUTO:
+- O que é: [descrição completa]
+- Para quem: [avatar]
+- Preço: [valor]
+- Data de abertura do carrinho/lançamento: [data]
+- Duração da janela de vendas: [dias]
+- Base de leads/seguidores disponível: [tamanho]
+- Canais: [email / Instagram / WhatsApp / YouTube / lives]
+- Conteúdo de aquecimento já produzido: [o que já tem]
+
+Crie:
+1. CRONOGRAMA DO LANÇAMENTO
+   - Pré-lançamento (7-14 dias antes): aquecimento e geração de lista
+   - Abertura (Dias 1-3): urgência e empolgação inicial
+   - Meio do lançamento (Dias 4-X): conteúdo de valor e quebra de objeções
+   - Fechamento (Últimos 2 dias): escassez e urgência real
+   - Pós-lançamento: onboarding e depoimentos
+
+2. CONTEÚDO POR CANAL POR DIA
+   - Tabela completa de o que publicar quando e onde
+
+3. SEQUÊNCIA DE EMAILS
+   - Um email por dia do lançamento com objetivo e pauta
+
+4. SEQUÊNCIA DE WHATSAPP
+   - Mensagens para lista de transmissão
+
+5. ESTRATÉGIA DE LIVE
+   - Pauta da live de lançamento (se aplicável)
+
+6. MÉTRICAS A ACOMPANHAR
+   - O que monitorar em tempo real durante o lançamento` },
+
+  { id:99, title:"Newsletter Semanal/Mensal", text:`Crie uma newsletter completa [semanal / mensal] para os assinantes da empresa/marca [nome].
+
+CONTEXTO:
+- Segmento/nicho: [descreva]
+- Perfil dos assinantes: [quem são]
+- Formato preferido: [curta e densa / longa e detalhada / curadoria / misto]
+- Tom: [técnico / próximo / inspirador]
+- Objetivo da newsletter: [engajar / converter / informar / reter]
+- Frequência de envio: [semanal / quinzenal / mensal]
+
+Crie a newsletter com:
+1. ASSUNTO
+   - 5 variações de assunto para testar (curiosidade / número / benefício / pergunta / urgência)
+
+2. LINHA DE PRÉ-HEADER
+   - Complemento ao assunto
+
+3. ESTRUTURA DA NEWSLETTER
+   - Saudação personalizada
+   - Editorial (reflexão ou contexto da semana/mês — 2-3 parágrafos)
+   - Conteúdo principal (artigo, análise ou curadoria — 400-600 palavras)
+   - Seção recorrente [o que você pode criar como "carimbo" da newsletter]
+   - Recomendações da semana (ferramenta / livro / post)
+   - CTA principal
+   - Encerramento
+
+4. COPY COMPLETA
+   - Texto completo da newsletter pronta para enviar
+
+5. ESTRATÉGIA DE CRESCIMENTO
+   - Como aumentar a lista de assinantes organicamente` },
+
+  { id:100, title:"Análise de Métricas de Marketing", text:`Analise as métricas de marketing da empresa [nome] e me dê recomendações para melhorar os resultados.
+
+DADOS DO PERÍODO [mês/ano]:
+- Investimento em tráfego pago: R$ [valor]
+- Plataformas: [Meta Ads / Google / LinkedIn / outro]
+- Leads gerados: [quantidade]
+- CPL (Custo por Lead): R$ [valor]
+- Taxa de conversão lead→cliente: [%]
+- Clientes adquiridos via marketing: [quantidade]
+- CAC (Custo de Aquisição de Cliente): R$ [valor]
+- Receita gerada por clientes de marketing: R$ [valor]
+- ROAS (Retorno sobre o Investimento em Anúncios): [valor]
+- Alcance orgânico: [impressões]
+- Engajamento: [taxa média %]
+- Conversões orgânicas: [quantidade]
+
+Entregue:
+1. DIAGNÓSTICO GERAL
+   - O que está funcionando bem
+   - Onde estão os maiores problemas
+
+2. ANÁLISE POR CANAL
+   - Performance de cada canal vs. meta
+
+3. FUNIL DE AQUISIÇÃO
+   - Onde o funil está vazando mais
+
+4. COMPARATIVO COM BENCHMARKS
+   - Suas métricas vs. médias do mercado
+
+5. RECOMENDAÇÕES PRIORIZADAS
+   - Top 5 ações para melhorar os resultados este mês
+
+6. REDISTRIBUIÇÃO DE BUDGET
+   - Como realoca o investimento para maximizar o retorno` },
+
+  { id:101, title:"Estratégia de SEO e Conteúdo Orgânico", text:`Crie uma estratégia de SEO e conteúdo orgânico para o site/blog da empresa [nome da empresa].
+
+CONTEXTO:
+- Site: [URL ou "a criar"]
+- Produto/serviço: [descreva]
+- Público-alvo: [descreva]
+- Concorrentes que aparecem no Google: [liste os principais]
+- Palavras-chave que já ranqueia (se souber): [liste]
+- Objetivo: [gerar leads / autoridade / tráfego / vendas]
+- Recursos disponíveis: [quem produzirá o conteúdo, frequência]
+
+Crie:
+1. PESQUISA DE PALAVRAS-CHAVE
+   - Mapeamento de intenção de busca: informacional, navegacional, transacional
+   - 30 palavras-chave prioritárias com volume estimado e dificuldade
+
+2. ARQUITETURA DE CONTEÚDO
+   - Estrutura de silos de conteúdo (pillar pages e cluster pages)
+
+3. CALENDÁRIO DE CONTEÚDO SEO
+   - 12 artigos prioritários para os próximos 3 meses
+   - Título, URL, palavra-chave principal, intent, objetivo de cada
+
+4. TEMPLATE DE ARTIGO OTIMIZADO
+   - Estrutura de H1/H2/H3
+   - Elementos obrigatórios (meta description, alt text, links internos)
+
+5. OTIMIZAÇÃO TÉCNICA BÁSICA
+   - Checklist de SEO on-page
+   - Erros comuns a corrigir
+
+6. ESTRATÉGIA DE LINK BUILDING
+   - Formas de conseguir backlinks relevantes para o setor` },
+
+  { id:102, title:"Script para Podcast ou Entrevista", text:`Crie um script/roteiro para um episódio de podcast ou entrevista sobre [tema].
+
+DADOS DO EPISÓDIO:
+- Programa/podcast: [nome]
+- Formato: [entrevista / solo / mesa redonda]
+- Duração: [X minutos]
+- Convidado (se houver): [nome, cargo e empresa]
+- Tema central: [descreva]
+- Público do programa: [quem escuta]
+- Objetivo do episódio: [educar / entreter / vender / gerar leads]
+
+Crie:
+1. ROTEIRO DE ABERTURA (2-3 minutos)
+   - Apresentação do episódio e gancho inicial
+   - Apresentação do convidado (script para o host)
+
+2. PERGUNTAS PRINCIPAIS (10-15 perguntas)
+   - Perguntas de warm-up (quebra-gelo)
+   - Perguntas de aprofundamento do tema
+   - Perguntas sobre a experiência pessoal do convidado
+   - Perguntas polêmicas ou de opinião
+   - Perguntas que geram insights práticos para o ouvinte
+
+3. PERGUNTAS DE FOLLOW-UP
+   - Para quando a resposta pede aprofundamento
+
+4. ENCERRAMENTO
+   - Como fechar o episódio
+   - Onde ouvinte pode encontrar o convidado
+
+5. SHOW NOTES
+   - Descrição do episódio para Spotify/YouTube
+   - Timestamps para os melhores momentos` },
+
+  { id:103, title:"Estratégia de Campanhas de Remarketing", text:`Crie uma estratégia completa de remarketing para reengajar visitantes e leads que não converteram na empresa [nome da empresa].
+
+CONTEXTO:
+- Produto/serviço: [descreva]
+- Preço: [valor]
+- Ticket: [alto / médio / baixo]
+- Ciclo de compra: [dias]
+- Estágios de engajamento disponíveis para remarketing:
+  - Visitantes do site (não cadastraram): [sim/não]
+  - Leads (cadastraram mas não compraram): [sim/não]
+  - Carrinho abandonado: [sim/não]
+  - Clientes inativos: [sim/não]
+
+Crie:
+1. SEGMENTAÇÃO DE AUDIÊNCIAS
+   - Públicos de remarketing a criar em cada plataforma
+   - Janelas de tempo ideais para cada público
+
+2. JORNADA DE REMARKETING
+   - Sequência de anúncios por estágio de engajamento
+
+3. COPIES E CRIATIVOS
+   Para cada público/estágio:
+   - Mensagem personalizada
+   - Tipo de oferta ou conteúdo para mostrar
+   - CTA específico
+
+4. FREQUENCY CAPPING
+   - Máximo de impressões por usuário para não cansar
+
+5. ORÇAMENTO E ATRIBUIÇÃO
+   - Como alocar budget no remarketing
+   - Modelo de atribuição recomendado
+
+6. MÉTRICAS E OTIMIZAÇÃO
+   - O que monitorar e quando otimizar` },
+
+  { id:104, title:"Programa de Parcerias e Co-marketing", text:`Crie um programa de parcerias e co-marketing para a empresa [nome da empresa].
+
+CONTEXTO:
+- Produto/serviço: [descreva]
+- Público-alvo: [descreva]
+- Objetivo das parcerias: [alcance / leads / credibilidade / distribuição]
+- Tipo de parceria desejada: [complementar / co-marketing / afiliados / revendedores]
+- Recursos disponíveis para parcerias: [o que pode oferecer como contrapartida]
+
+Crie:
+1. PERFIL DO PARCEIRO IDEAL
+   - Critérios de seleção (tipo de negócio, audiência, valores)
+   - O que o parceiro ideal já tem que nos interessa
+
+2. MAPEAMENTO DE POTENCIAIS PARCEIROS
+   - 10 categorias de parceiros potenciais para o nosso nicho
+   - Estratégia de abordagem para cada categoria
+
+3. PROPOSTA DE PARCERIA
+   - O que oferecemos vs. o que esperamos
+   - Template de proposta para enviar
+
+4. FORMATOS DE CO-MARKETING
+   - Webinar conjunto: como estruturar
+   - Conteúdo co-criado: como dividir
+   - Oferta conjunta: como criar
+
+5. PROGRAMA DE AFILIADOS (se aplicável)
+   - Comissão sugerida
+   - Materiais de apoio para o afiliado
+   - Como rastrear e pagar as indicações
+
+6. CONTRATO DE PARCERIA
+   - Cláusulas essenciais` },
+
+  { id:105, title:"Plano de Mídia (Media Plan)", text:`Crie um plano de mídia para a campanha de [objetivo] da empresa [nome da empresa] com budget de R$ [valor].
+
+CONTEXTO DA CAMPANHA:
+- Objetivo: [geração de leads / vendas diretas / reconhecimento / lançamento]
+- Produto/serviço: [descreva]
+- Público-alvo: [descreva com detalhes — idade, interesses, comportamentos]
+- Período da campanha: [de X a Y]
+- Resultado esperado: [X leads / R$ em vendas / X impressões]
+- Concorrentes que anunciam: [liste]
+
+Crie o plano de mídia com:
+1. DISTRIBUIÇÃO DE BUDGET
+   - % por canal com justificativa
+   - Reserva para teste (10-20% do budget)
+
+2. POR CANAL, DETALHE:
+   - Meta Ads (se aplicável): objetivos, formatos, segmentações
+   - Google Ads (se aplicável): campanha search vs. display vs. YouTube
+   - LinkedIn (se aplicável): formato e segmentação
+   - Influenciadores (se aplicável): perfil ideal e estimativa
+
+3. CRONOGRAMA DE ATIVAÇÃO
+   - Quando cada canal sobe, com budget semanal
+
+4. CREATIVE BRIEF
+   - Direcionamento para criação dos criativos por canal
+
+5. METAS E KPIs
+   - Métricas de sucesso por canal com meta numérica
+
+6. PLANO DE OTIMIZAÇÃO
+   - Quando e o que otimizar durante a campanha` },
+
+  { id:106, title:"Análise de Concorrentes (Benchmarking)", text:`Faça uma análise de benchmarking de marketing dos principais concorrentes da empresa [nome da empresa].
+
+CONCORRENTES A ANALISAR:
+- Concorrente 1: [nome + URL]
+- Concorrente 2: [nome + URL]
+- Concorrente 3: [nome + URL]
+
+NOSSO PRODUTO/SERVIÇO: [descreva]
+NOSSO POSICIONAMENTO: [descreva]
+
+Para cada concorrente, analise e documente:
+
+1. POSICIONAMENTO E PROPOSTA DE VALOR
+   - Como se comunicam na home e nos anúncios
+   - Qual dor principal abordam
+   - Tom de voz
+
+2. CANAIS DE MARKETING
+   - Onde estão presentes e com que intensidade
+   - Estimativa de budget em tráfego pago (se possível)
+
+3. CONTEÚDO
+   - Estratégia de conteúdo e temas recorrentes
+   - Formato preferido e engajamento
+
+4. OFERTA E PRICING
+   - Como apresentam o produto e o preço
+   - Estratégia de oferta, garantias e bônus
+
+5. PONTOS FRACOS
+   - O que eles fazem mal ou não fazem
+
+6. APRENDIZADOS PARA NÓS
+   - O que podemos adaptar
+   - Oportunidades que eles deixam abertas
+
+Ao final: tabela comparativa geral e recomendações estratégicas.` },
+
+  { id:107, title:"Press Release e Assessoria de Imprensa", text:`Escreva um press release para divulgar [notícia / lançamento / conquista / evento] da empresa [nome da empresa].
+
+INFORMAÇÕES DA NOTÍCIA:
+- O que aconteceu/vai acontecer: [descreva detalhadamente]
+- Por que isso é relevante para o mercado: [impacto]
+- Data do evento/lançamento: [data]
+- Porta-voz da empresa: [nome e cargo]
+- Cota para imprensa (embargo até): [data, se aplicável]
+
+DADOS DA EMPRESA:
+- Nome: [nome]
+- Segmento: [segmento]
+- Tamanho: [colaboradores / faturamento / presença]
+- Site: [URL]
+- Contato para imprensa: [nome, email, telefone]
+
+Crie:
+1. PRESS RELEASE COMPLETO
+   - Título (headline jornalístico — máx. 90 caracteres)
+   - Subtítulo
+   - Cidade e data
+   - Primeiro parágrafo (responde: quem, o quê, quando, onde, por quê)
+   - Desenvolvimento (contexto, dados, impacto)
+   - Quote do porta-voz
+   - Sobre a empresa (boilerplate padrão)
+   - Informações de contato
+
+2. EMAIL DE PITCH PARA JORNALISTAS
+   - Assunto personalizado
+   - Corpo do email curto com gancho
+   - O que anexar
+
+3. LISTA DE VEÍCULOS RELEVANTES
+   - Tipos de publicações para enviar por nicho` },
+
+  { id:108, title:"Roteiro de Webinar/Masterclass", text:`Crie o roteiro completo de um webinar/masterclass de [X horas] sobre [tema] para a empresa/marca [nome].
+
+CONTEXTO:
+- Tema do webinar: [descreva]
+- Objetivo: [gerar leads / educar / vender ao final / lançamento]
+- Apresentador(a): [nome e expertise]
+- Público: [quem vai assistir]
+- Produto/serviço a vender ao final (se houver): [nome e preço]
+- Duração: [X horas]
+- Formato: [ao vivo / gravado / híbrido]
+- Plataforma: [Zoom / YouTube Live / Hotmart / outro]
+
+Crie o roteiro com:
+1. PRÉ-WEBINAR
+   - Sequência de aquecimento (emails e posts)
+   - Mensagem de lembrete no dia
+
+2. ABERTURA (15 min)
+   - Acolhida e rapport com a audiência
+   - Apresentação do apresentador (script)
+   - Ancoragem do resultado prometido
+   - Quebra de padrão / exercício inicial
+
+3. CONTEÚDO PRINCIPAL (X horas)
+   - Módulo por módulo com pontos-chave
+   - Momentos de engajamento (perguntas, exercícios)
+   - Como manter a audiência acordada e participativa
+
+4. OFERTA (30 min)
+   - Transição suave para a venda
+   - Apresentação do produto
+   - Bônus e garantia
+
+5. ENCERRAMENTO E Q&A` },
+
+  { id:109, title:"Estratégia de Redes Sociais (Social Media)", text:`Crie uma estratégia completa de redes sociais para [a empresa / marca pessoal] [nome].
+
+CONTEXTO:
+- O que vende/oferece: [descreva]
+- Público-alvo: [avatar completo]
+- Situação atual: [começa do zero / tem perfis mas sem estratégia / quer crescer]
+- Canais em que quer estar presente: [liste]
+- Recursos disponíveis: [tempo por semana, budget, equipe de criação]
+- Referência de conta que admira: [exemplos do nicho]
+- Objetivo principal: [seguidores / leads / vendas / autoridade]
+
+A estratégia deve incluir:
+1. DIAGNÓSTICO ATUAL
+   - Análise dos perfis existentes (se houver)
+   - Gap entre situação atual e desejada
+
+2. POSICIONAMENTO NAS REDES
+   - Como a marca vai se posicionar em cada plataforma
+   - O que é único e diferente no seu conteúdo
+
+3. ESTRATÉGIA POR PLATAFORMA
+   Para cada rede:
+   - Objetivo específico
+   - Frequência de postagem
+   - Formatos prioritários
+   - Tipo de conteúdo por pilar
+
+4. BIO E PERFIL OTIMIZADO
+   - Bio do Instagram, LinkedIn, TikTok (texto pronto)
+
+5. PRIMEIROS 30 DIAS
+   - Plano de conteúdo semana a semana
+
+6. COMO CRESCER ORGANICAMENTE
+   - Estratégias de alcance sem budget de anúncios
+
+7. MÉTRICAS
+   - O que medir e em que frequência revisar` }
+]);
+
+// =============================================
+// CATEGORIA 4 — FINANCEIRO & GESTÃO
+// =============================================
+loadCategory(4, [
+  { id:70, title:"Projeção de Fluxo de Caixa", text:`Crie uma projeção de fluxo de caixa para os próximos [3 / 6 / 12] meses da empresa [nome da empresa].
+
+DADOS FINANCEIROS ATUAIS:
+- Saldo atual em caixa: R$ [valor]
+- Receita recorrente mensal (MRR): R$ [valor]
+- Receita variável média/mês: R$ [valor]
+- Principais despesas fixas mensais:
+  - Folha: R$ [valor]
+  - Aluguel/coworking: R$ [valor]
+  - Ferramentas/SaaS: R$ [valor]
+  - Outras fixas: R$ [valor]
+- Despesas variáveis médias/mês: R$ [valor]
+- Impostos mensais: R$ [valor]
+- Dívidas ou parcelas em andamento: R$ [valor/mês] por [X meses]
+- Investimentos previstos: R$ [valor] em [mês]
+- Sazonalidade esperada: [meses bons e ruins]
+
+Entregue:
+1. TABELA DE FLUXO DE CAIXA MÊS A MÊS
+   - Entradas: receita recorrente, variável, outras
+   - Saídas: fixas, variáveis, impostos, investimentos
+   - Saldo do período e saldo acumulado
+
+2. ANÁLISE DOS RESULTADOS
+   - Meses de risco (saldo negativo ou abaixo do mínimo seguro)
+   - Meses de folga (oportunidade de investimento)
+
+3. PONTO DE EQUILÍBRIO
+   - Receita mínima para cobrir todos os custos
+
+4. RECOMENDAÇÕES
+   - O que fazer nos meses críticos
+   - Estratégias para melhorar o fluxo` },
+
+  { id:71, title:"Projeção Financeira para 12 Meses", text:`Crie uma projeção financeira completa para os próximos 12 meses da empresa [nome da empresa].
+
+DADOS DA EMPRESA:
+- Modelo de negócio: [SaaS / produto / serviço / marketplace / outro]
+- Receita atual (mês base): R$ [valor]
+- Taxa de crescimento esperada: [%/mês ou %/ano]
+- Ticket médio: R$ [valor]
+- Número de clientes ativos: [quantidade]
+- Churn mensal: [%]
+- CAC atual: R$ [valor]
+- LTV atual: R$ [valor]
+
+ESTRUTURA DE CUSTOS:
+- Custo do produto/serviço (COGS): [% da receita]
+- Despesas com pessoal: R$ [valor atual] com crescimento de [% ao ano]
+- Despesas operacionais: R$ [valor] com [% de variação]
+- Investimento em marketing: R$ [valor ou % da receita]
+
+Crie:
+1. P&L PROJETADO (DRE) — MÊS A MÊS
+   - Receita bruta, deduções, receita líquida
+   - COGS e margem bruta
+   - Despesas operacionais
+   - EBITDA e lucro líquido
+
+2. PREMISSAS DOCUMENTADAS
+   - Cada número da projeção explicado
+
+3. ANÁLISE DE SENSIBILIDADE
+   - Cenário pessimista (crescimento -20%)
+   - Cenário base
+   - Cenário otimista (crescimento +20%)
+
+4. MÉTRICAS UNITÁRIAS
+   - Evolução de CAC, LTV, LTV/CAC, margem por mês` },
+
+  { id:72, title:"Análise do DRE (Demonstração de Resultado)", text:`Analise o DRE (Demonstração de Resultado do Exercício) da empresa [nome da empresa] e me dê insights acionáveis.
+
+DADOS DO PERÍODO [mês/ano ou ano]:
+- Receita Bruta: R$ [valor]
+- Deduções (impostos sobre vendas): R$ [valor]
+- Receita Líquida: R$ [valor]
+- Custo dos Produtos/Serviços Vendidos (CPV/CMV): R$ [valor]
+- Lucro Bruto: R$ [valor]
+- Despesas com vendas: R$ [valor]
+- Despesas administrativas: R$ [valor]
+- Despesas com marketing: R$ [valor]
+- Despesas financeiras: R$ [valor]
+- EBITDA: R$ [valor]
+- Lucro/Prejuízo Líquido: R$ [valor]
+
+CONTEXTO:
+- Período anterior para comparação: [valores do período anterior se tiver]
+- Meta do período: R$ [meta de receita e lucro]
+- Principal mudança neste período: [nova contratação, campanha, etc.]
+
+Entregue:
+1. ANÁLISE VERTICAL
+   - % de cada linha sobre a receita líquida
+   - O que está acima e abaixo do esperado
+
+2. ANÁLISE HORIZONTAL
+   - Variação vs. período anterior (R$ e %)
+
+3. DIAGNÓSTICO
+   - Os 3 maiores problemas que o DRE revela
+   - Os 3 pontos positivos
+
+4. RECOMENDAÇÕES PRÁTICAS
+   - O que cortar, o que investir mais, o que renegociar
+
+5. MÉTRICAS DE SAÚDE FINANCEIRA
+   - Margem bruta, margem EBITDA, margem líquida e benchmarks do segmento` },
+
+  { id:73, title:"Proposta de Orçamento Anual", text:`Ajude-me a construir a proposta de orçamento anual (budget) para [o departamento de X / toda a empresa] [nome da empresa] para o ano de [ano].
+
+CONTEXTO:
+- Receita projetada para o ano: R$ [valor]
+- Receita do ano anterior: R$ [valor]
+- Meta de crescimento: [%]
+- Número de colaboradores atual: [quantidade]
+- Contratações previstas: [quantidade e cargos]
+- Projetos estratégicos previstos: [liste os principais]
+- Restrição orçamentária principal: [descreva]
+
+Para cada área/categoria de despesa, crie:
+
+1. METODOLOGIA DE ORÇAMENTO
+   - Base zero vs. incremental — qual usar e por quê
+   - Como envolver os gestores no processo
+
+2. ESTRUTURA DO ORÇAMENTO
+   - Receitas por linha de produto/serviço
+   - Despesas por categoria:
+     - Pessoal (folha, benefícios, treinamento)
+     - Marketing e vendas
+     - Tecnologia
+     - Operações
+     - Administrativo
+     - Capex (investimentos)
+   - Resumo: EBITDA e lucro líquido projetado
+
+3. TEMPLATE DE PLANILHA
+   - Estrutura mês a mês com totais anuais
+
+4. PROCESSO DE APROVAÇÃO
+   - Como revisar com a diretoria
+   - Como comunicar limites para os gestores
+
+5. COMO MONITORAR O ORÇAMENTO
+   - Reunião mensal de budget review
+   - Como tratar desvios significativos` },
+
+  { id:74, title:"Análise de Viabilidade de Novo Negócio/Projeto", text:`Faça uma análise de viabilidade completa para [lançar novo produto / abrir nova unidade / entrar em novo mercado]: [descreva o projeto].
+
+INFORMAÇÕES DO PROJETO:
+- O que é: [descrição detalhada]
+- Investimento inicial necessário: R$ [estimativa]
+- Receita potencial estimada: R$ [valor por mês/ano]
+- Custo operacional mensal: R$ [estimativa]
+- Prazo para o primeiro resultado/receita: [meses]
+- Concorrentes neste mercado: [liste]
+- Diferenciais competitivos que temos: [descreva]
+
+Entregue:
+1. ANÁLISE DE MERCADO RESUMIDA
+   - Tamanho do mercado (TAM/SAM/SOM)
+   - Nível de concorrência
+
+2. PROJEÇÃO FINANCEIRA (3 cenários)
+   - Conservador, realista e otimista
+   - DRE resumido para 12-24 meses por cenário
+
+3. ANÁLISE DE PONTO DE EQUILÍBRIO
+   - Quando o projeto se paga (break-even)
+   - Número mínimo de clientes/vendas necessário
+
+4. PAYBACK E ROI
+   - Em quanto tempo recupera o investimento
+   - Retorno sobre investimento em 1, 2 e 3 anos
+
+5. ANÁLISE DE RISCO
+   - Principais ameaças à viabilidade
+   - Premissas críticas que precisam se confirmar
+
+6. RECOMENDAÇÃO
+   - Viável / Inviável / Viável com ajustes — justificativa clara` },
+
+  { id:75, title:"Relatório e Estratégia de Inadimplência", text:`Crie um relatório de inadimplência e uma estratégia de cobrança para a empresa [nome da empresa].
+
+DADOS ATUAIS:
+- Receita total a receber: R$ [valor]
+- Total em inadimplência: R$ [valor]
+- Taxa de inadimplência atual: [%]
+- Perfil dos inadimplentes: [pessoa física / empresa / misto]
+- Faixas de atraso:
+  - 1-30 dias: R$ [valor] / [X clientes]
+  - 31-60 dias: R$ [valor] / [X clientes]
+  - 61-90 dias: R$ [valor] / [X clientes]
+  - +90 dias: R$ [valor] / [X clientes]
+
+PROCESSO ATUAL DE COBRANÇA:
+- Como cobram hoje: [descreva]
+- Maior dificuldade: [descreva]
+
+Crie:
+1. ANÁLISE DA INADIMPLÊNCIA
+   - Concentração por cliente, segmento ou produto
+   - Custo da inadimplência (receita que deixa de entrar)
+
+2. RÉGUA DE COBRANÇA POR FAIXA
+   Para cada faixa de atraso:
+   - Canal de comunicação (WhatsApp/email/ligação)
+   - Tom e mensagem (lembrete → cobrança amigável → formal)
+   - Templates prontos de mensagem para cada momento
+
+3. POLÍTICA DE RENEGOCIAÇÃO
+   - Quando oferecer renegociação
+   - Condições mínimas aceitáveis
+   - Script de renegociação
+
+4. PREVENÇÃO
+   - Ações para reduzir inadimplência futura
+   - Critérios de concessão de crédito` },
+
+  { id:76, title:"Análise de Custos e Redução de Despesas", text:`Faça uma análise completa de custos e identifique oportunidades de redução de despesas para a empresa [nome da empresa].
+
+ESTRUTURA DE CUSTOS ATUAL:
+Lista todas as despesas mensais:
+- Folha de pagamento: R$ [valor]
+- Impostos e encargos: R$ [valor]
+- Aluguel/infraestrutura: R$ [valor]
+- Tecnologia e softwares: R$ [valor] — [liste as ferramentas e valores]
+- Marketing: R$ [valor]
+- Serviços terceirizados: R$ [valor]
+- Logística/entrega: R$ [valor]
+- Outros: R$ [valor]
+- TOTAL: R$ [valor]
+
+CONTEXTO:
+- Receita atual: R$ [valor]
+- Meta de redução: [%] ou R$ [valor]
+- Restrições (o que não pode cortar): [descreva]
+- Momento financeiro: [crescimento / estabilidade / crise]
+
+Entregue:
+1. ANÁLISE DE CADA CATEGORIA
+   - Porcentagem da receita
+   - Benchmark de mercado
+   - Classificação: essencial / importante / dispensável
+
+2. OPORTUNIDADES IDENTIFICADAS
+   - Quick wins (redução imediata, menos de 30 dias)
+   - Médio prazo (1-3 meses)
+   - Estruturais (3+ meses)
+
+3. NEGOCIAÇÕES RECOMENDADAS
+   - Quais fornecedores renegociar e estratégia
+
+4. TECNOLOGIA E FERRAMENTAS
+   - Ferramentas sobrepostas que podem ser eliminadas
+   - Alternativas mais baratas para avaliar
+
+5. IMPACTO DE CADA AÇÃO
+   - Economia estimada por ação
+   - Ranking por facilidade vs. impacto` },
+
+  { id:77, title:"Estratégia de Precificação Baseada em Valor", text:`Ajude-me a criar uma estratégia de precificação baseada em valor (value-based pricing) para o produto/serviço [nome].
+
+CONTEXTO:
+- O que é o produto/serviço: [descreva]
+- Resultado que entrega ao cliente: [descreva o outcome]
+- Como o cliente mensura o valor que recebe: [como eles veem o retorno]
+- Público-alvo: [descreva com renda/faturamento aproximado]
+- Preço atual (se existir): R$ [valor]
+- Preço dos concorrentes diretos: R$ [valor]
+- Maior objeção de preço recebida: [descreva]
+
+Entregue:
+1. QUANTIFICAÇÃO DO VALOR ENTREGUE
+   - Quanto custa o problema que resolvemos para o cliente
+   - Quanto vale o resultado que entregamos (ROI do cliente)
+
+2. PESQUISA DE DISPOSIÇÃO A PAGAR
+   - Como fazer uma pesquisa de willingness to pay com 5-10 perguntas
+   - Como interpretar os resultados
+
+3. MODELO DE PRECIFICAÇÃO RECOMENDADO
+   - Justificativa baseada no valor entregado
+   - Faixas de preço por perfil de cliente
+
+4. COMO COMUNICAR O PREÇO
+   - Script para apresentar o preço ancorando no valor
+   - Como fazer o cliente perceber que é barato diante do resultado
+
+5. ESTRATÉGIA DE ESCALONAMENTO
+   - Como aumentar o preço ao longo do tempo mantendo a base de clientes` },
+
+  { id:78, title:"Planejamento Tributário Básico", text:`Faça uma análise e recomendações de planejamento tributário para a empresa [nome da empresa].
+
+DADOS DA EMPRESA:
+- CNPJ: [CNPJ ou "a constituir"]
+- Regime tributário atual: [Simples Nacional / Lucro Presumido / Lucro Real / MEI]
+- Faturamento anual: R$ [valor]
+- Faturamento mensal médio: R$ [valor]
+- Atividade principal: [CNAE e descrição]
+- Folha de pagamento mensal: R$ [valor]
+- Estado: [UF]
+- Sócios: [quantidade e participação]
+
+OBSERVAÇÃO: Esta análise é orientativa. Sempre valide com um contador ou advogado tributarista antes de tomar decisões.
+
+Por favor, analise:
+1. REGIME TRIBUTÁRIO IDEAL
+   - Comparativo entre os regimes possíveis para meu perfil
+   - Estimativa de carga tributária em cada regime
+   - Recomendação com justificativa
+
+2. IMPOSTOS A PAGAR
+   - Quais impostos, alíquotas e datas de vencimento no regime atual
+
+3. OPORTUNIDADES LEGAIS DE REDUÇÃO
+   - Deduções possíveis
+   - Benefícios fiscais disponíveis para o setor
+   - Incentivos regionais (se aplicável)
+
+4. PONTOS DE ATENÇÃO
+   - Riscos tributários comuns para o meu modelo de negócio
+   - O que monitorar para não cair na malha fina
+
+5. PRÓXIMOS PASSOS
+   - O que fazer primeiro e quais profissionais contratar` },
+
+  { id:79, title:"Análise de Break-even e Ponto de Equilíbrio", text:`Calcule e analise o ponto de equilíbrio (break-even) da empresa [nome da empresa] / produto [nome do produto].
+
+DADOS FINANCEIROS:
+- Preço de venda por unidade/cliente: R$ [valor]
+- Custo variável por unidade (materiais, comissão, entrega): R$ [valor]
+- Custos fixos mensais totais: R$ [valor]
+  - Detalhamento dos fixos: [liste as principais linhas]
+- Receita atual por mês: R$ [valor]
+- Unidades/clientes vendidos por mês: [quantidade]
+
+Entregue:
+1. CÁLCULO DO BREAK-EVEN
+   - Margem de contribuição unitária
+   - Ponto de equilíbrio em unidades/clientes
+   - Ponto de equilíbrio em receita (R$)
+   - Ponto de equilíbrio em dias de vendas no mês
+
+2. ANÁLISE DE SEGURANÇA
+   - Margem de segurança atual (quanto está acima ou abaixo do break-even)
+   - Índice de segurança (%)
+
+3. ANÁLISE DE SENSIBILIDADE
+   - O que acontece com o break-even se o preço cair 10%
+   - O que acontece se os custos fixos aumentarem 20%
+   - O que acontece se o custo variável subir 15%
+
+4. ESTRATÉGIAS PARA MELHORAR O BREAK-EVEN
+   - Aumentar preço: impacto e risco
+   - Reduzir custo variável: oportunidades
+   - Reduzir custo fixo: o que avaliar
+   - Aumentar volume: meta necessária
+
+5. BREAK-EVEN POR PRODUTO/SERVIÇO (se múltiplos)
+   - Qual produto/linha contribui mais para cobrir os fixos` },
+
+  { id:80, title:"Relatório Financeiro para Investidores", text:`Crie um relatório financeiro mensal para apresentar a investidores/sócios da empresa [nome da empresa].
+
+DADOS DO MÊS [mês/ano]:
+- MRR/Receita: R$ [valor] (vs. R$ [valor] mês anterior)
+- Novos clientes: [quantidade]
+- Churn: [% e clientes perdidos]
+- Receita por cliente (ARPU): R$ [valor]
+- Burn rate: R$ [valor/mês]
+- Runway: [meses de caixa disponível]
+- CAC: R$ [valor]
+- LTV: R$ [valor]
+- Headcount: [número de colaboradores]
+
+CONTEXTO:
+- Perfil dos investidores: [angel / fundo / sócios / todos]
+- Nível de detalhe esperado: [alto / médio / executivo]
+- Tom: [conservador e técnico / transparente e próximo]
+
+Estruture o relatório com:
+1. EXECUTIVE SUMMARY — o mês em 5 bullets
+2. MÉTRICAS DE CRESCIMENTO — gráfico textual e análise
+3. SAÚDE FINANCEIRA — runway, burn, margem
+4. COHORT E RETENÇÃO — como os clientes estão performando
+5. MÉTRICAS UNITÁRIAS — CAC, LTV, LTV/CAC, payback
+6. DESTAQUES DO MÊS — conquistas e milestones
+7. DESAFIOS E RISCOS — transparência sobre problemas
+8. PLANO PARA O PRÓXIMO MÊS — onde está o foco
+9. ASK (pedidos) — se há algo que precisa dos investidores` },
+
+  { id:81, title:"Gestão do Capital de Giro", text:`Analise e otimize a gestão de capital de giro da empresa [nome da empresa].
+
+DADOS ATUAIS:
+- Prazo médio de recebimento (clientes pagam em): [dias]
+- Prazo médio de pagamento (você paga fornecedores em): [dias]
+- Giro de estoque (tempo médio de estoque): [dias — se aplicável]
+- Receita mensal: R$ [valor]
+- Contas a receber total: R$ [valor]
+- Contas a pagar total: R$ [valor]
+- Estoque atual: R$ [valor — se aplicável]
+- Saldo de caixa atual: R$ [valor]
+- Limite de crédito disponível: R$ [valor]
+
+Entregue:
+1. CICLO OPERACIONAL E FINANCEIRO
+   - Cálculo do ciclo operacional (dias)
+   - Cálculo do ciclo financeiro
+   - Necessidade de Capital de Giro (NCG)
+
+2. DIAGNÓSTICO
+   - Está bem capitalizado ou descapitalizado?
+   - Qual gargalo impacta mais o fluxo de caixa?
+
+3. ESTRATÉGIAS DE OTIMIZAÇÃO
+   - Como reduzir o prazo de recebimento
+   - Como ampliar o prazo de pagamento sem prejudicar relações
+   - Como otimizar o giro de estoque
+
+4. FONTES DE CAPITAL DE GIRO
+   - Opções de crédito disponíveis para capital de giro
+   - Comparativo de custo de cada opção
+
+5. PROJEÇÃO APÓS OTIMIZAÇÕES
+   - Impacto estimado das melhorias no fluxo de caixa` },
+
+  { id:82, title:"Análise de ROI de Investimentos", text:`Calcule e analise o ROI (Retorno sobre Investimento) do investimento em [descreva o investimento].
+
+DADOS DO INVESTIMENTO:
+- O que foi ou será investido: [descrição]
+- Valor do investimento: R$ [valor]
+- Data do investimento: [data]
+- Benefícios esperados/realizados:
+  - Aumento de receita: R$ [valor/mês]
+  - Redução de custo: R$ [valor/mês]
+  - Ganho de produtividade: [%] (equivale a R$ [valor])
+  - Outros benefícios quantificáveis: [descreva]
+- Custos adicionais gerados pelo investimento: R$ [valor/mês]
+- Prazo esperado do retorno: [meses]
+
+Calcule e apresente:
+1. ROI SIMPLES
+   - Fórmula e resultado em %
+
+2. PAYBACK
+   - Em quantos meses o investimento se paga
+
+3. VPL (VALOR PRESENTE LÍQUIDO)
+   - Considerando taxa de desconto de [%]
+   - Interpretação do resultado
+
+4. TIR (TAXA INTERNA DE RETORNO)
+   - Cálculo e comparação com taxa mínima aceitável (WACC ou custo de oportunidade)
+
+5. ANÁLISE DE SENSIBILIDADE
+   - Cenário pessimista (benefícios -20%)
+   - Cenário otimista (benefícios +20%)
+
+6. RECOMENDAÇÃO FINAL
+   - Investimento vale a pena? Justificativa` },
+
+  { id:83, title:"Sistema de Controle de Despesas", text:`Crie um sistema de controle de despesas para a empresa [nome da empresa].
+
+CONTEXTO:
+- Número de colaboradores com cartão corporativo ou que fazem despesas: [quantidade]
+- Volume mensal de despesas variáveis: R$ [valor]
+- Categorias de despesa mais comuns: [liste]
+- Ferramenta atual: [planilha / sistema / nenhum]
+- Principal problema: [sem controle / reembolsos atrasados / fraudes / sem política]
+
+Crie:
+1. POLÍTICA DE DESPESAS
+   - O que pode ser reembolsado e o que não pode
+   - Limites por categoria e nível hierárquico
+   - Documentação exigida (nota fiscal, comprovante)
+   - Prazo para solicitar reembolso
+
+2. PROCESSO DE APROVAÇÃO
+   - Fluxo de aprovação por valor
+   - Quem aprova o quê
+
+3. FORMULÁRIO DE PRESTAÇÃO DE CONTAS
+   - Template com todos os campos necessários
+
+4. TEMPLATE DE PLANILHA DE CONTROLE
+   - Colunas: data, colaborador, categoria, descrição, valor, comprovante, status
+
+5. COMO COMUNICAR A POLÍTICA
+   - Email de lançamento da política para o time
+
+6. INDICADORES
+   - Como monitorar despesas no mês
+   - Alertas quando alguma categoria está acima do planejado` },
+
+  { id:84, title:"Política Financeira da Empresa", text:`Crie uma Política Financeira completa para a empresa [nome da empresa].
+
+CONTEXTO:
+- Segmento: [segmento]
+- Tamanho: [porte e faturamento]
+- Estrutura financeira: [tem CFO / controller / apenas gestor geral]
+- Principal desafio financeiro atual: [descreva]
+- Situação de caixa: [confortável / apertada / crescendo]
+
+A política deve cobrir:
+1. PRINCÍPIOS FINANCEIROS
+   - Filosofia de gestão financeira da empresa
+   - Reserva mínima de caixa (buffer ideal)
+
+2. ALÇADAS E APROVAÇÕES
+   - Tabela: quem pode aprovar gastos de cada faixa de valor
+   - Compras acima de X precisam de cotação
+
+3. CONTAS BANCÁRIAS E TESOURARIA
+   - Política de gestão do caixa
+   - Aplicações financeiras permitidas
+   - Separação: pessoa jurídica × física (anti-pró-labore informal)
+
+4. ENDIVIDAMENTO E CRÉDITO
+   - Política de captação de crédito
+   - Limite de endividamento aceitável (dívida/EBITDA)
+   - Como avaliar se vale fazer uma dívida
+
+5. DISTRIBUIÇÃO DE LUCROS
+   - Quando e como distribuir dividendos/pró-labore
+   - Reservas obrigatórias antes da distribuição
+
+6. RELATÓRIOS E TRANSPARÊNCIA
+   - Relatórios obrigatórios e frequência
+   - Quem tem acesso a quais informações financeiras` },
+
+  { id:85, title:"Análise de Cenários Financeiros", text:`Crie uma análise de cenários financeiros para a empresa [nome da empresa] para os próximos [6 / 12] meses.
+
+SITUAÇÃO BASE:
+- Receita atual: R$ [valor/mês]
+- Custo fixo total: R$ [valor/mês]
+- Custo variável médio: R$ [% da receita]
+- Caixa disponível: R$ [valor]
+- Burn rate (se empresa pré-receita): R$ [valor/mês]
+
+PREMISSAS PARA CADA CENÁRIO:
+- PESSIMISTA: [ex: receita cai 30%, aumento de custos, churn alto]
+- BASE: [ex: crescimento de X%, custos sob controle]
+- OTIMISTA: [ex: receita cresce 50%, novo contrato grande, redução de CAC]
+
+Para cada cenário, projete:
+1. DEMONSTRAÇÃO DE RESULTADO RESUMIDA
+   - Receita, margem bruta, EBITDA, lucro mês a mês
+
+2. FLUXO DE CAIXA
+   - Saldo final por mês
+   - Meses críticos (risco de insolvência)
+
+3. MÉTRICAS DE SAÚDE
+   - Runway (meses de caixa)
+   - Break-even (quando atinge)
+
+4. IMPLICAÇÕES ESTRATÉGICAS
+   - O que fazer em cada cenário
+   - Decisões antecipadas para evitar o pessimista
+
+5. GATILHOS E PLANOS DE AÇÃO
+   - Se X acontecer → faça Y (tabela de decisão pré-programada)` },
+
+  { id:86, title:"Estruturação do Pró-labore e Retiradas dos Sócios", text:`Ajude-me a estruturar o pró-labore e as retiradas dos sócios da empresa [nome da empresa] de forma adequada e sustentável.
+
+DADOS DA EMPRESA E SÓCIOS:
+- Regime tributário: [Simples Nacional / Lucro Presumido / Lucro Real]
+- Faturamento mensal atual: R$ [valor]
+- Número de sócios: [quantidade]
+- Participação de cada sócio: [%]
+- Retirada atual dos sócios (informal): R$ [valor/mês por sócio]
+- Folha de pagamento atual (sem sócios): R$ [valor]
+- Lucro líquido médio mensal: R$ [valor]
+
+OBSERVAÇÃO: Consulte sempre um contador para formalizar as decisões.
+
+Entregue:
+1. DIFERENÇA ENTRE PRÓ-LABORE E DIVIDENDOS
+   - Como funcionam, quando usar cada um, tributação de cada um
+
+2. CÁLCULO RECOMENDADO DE PRÓ-LABORE
+   - Valor mínimo exigido para contribuição ao INSS
+   - Faixa ideal baseada no faturamento da empresa
+
+3. POLÍTICA DE DISTRIBUIÇÃO DE DIVIDENDOS
+   - Quando pode distribuir (reservas, lucros acumulados)
+   - Frequência recomendada (mensal / trimestral / anual)
+   - Critérios de distribuição por sócio
+
+4. IMPACTO TRIBUTÁRIO
+   - Comparativo: retirar mais como pró-labore vs. dividendos
+   - Simulação de tributação
+
+5. BOAS PRÁTICAS
+   - Como separar as finanças pessoais das empresariais
+   - Conta bancária dedicada para cada sócio
+   - Ata de assembleia para formalizar distribuições` },
+
+  { id:87, title:"Relatório de Margem por Produto/Serviço", text:`Calcule e analise a margem de contribuição de cada produto/serviço da empresa [nome da empresa].
+
+PRODUTOS/SERVIÇOS:
+Para cada um, informe:
+- Produto/Serviço 1: [nome] — Preço: R$ [valor] — Custo variável: R$ [valor] — Volume mensal: [quantidade]
+- Produto/Serviço 2: [nome] — Preço: R$ [valor] — Custo variável: R$ [valor] — Volume mensal: [quantidade]
+- Produto/Serviço 3: [nome] — Preço: R$ [valor] — Custo variável: R$ [valor] — Volume mensal: [quantidade]
+[adicione mais conforme necessário]
+
+CUSTOS FIXOS TOTAIS: R$ [valor/mês]
+
+Entregue:
+1. ANÁLISE DE MARGEM DE CONTRIBUIÇÃO
+   - Margem unitária (R$ e %) por produto
+   - Margem de contribuição total por produto
+   - Ranking de produtos por margem
+
+2. MIX IDEAL DE PRODUTOS
+   - Quais produtos/serviços devo priorizar para maximizar lucro
+   - Quais têm margem abaixo do aceitável
+
+3. ANÁLISE DE BREAK-EVEN POR PRODUTO
+   - Volume mínimo de cada produto para cobrir os fixos proporcionais
+
+4. PRODUTOS EM ZONA DE PERIGO
+   - Identificação de produtos que "destroem valor"
+   - Recomendação: reformular, reprec ificar ou descontinuar
+
+5. SIMULAÇÃO DE MUDANÇAS
+   - O que acontece com a margem geral se:
+     - Preço do produto X aumentar 10%
+     - Volume do produto Y crescer 20%
+     - Custo do produto Z cair 5%` },
+
+  { id:88, title:"Dashboard Financeiro Executivo", text:`Crie um modelo de dashboard financeiro executivo para monitorar a saúde financeira da empresa [nome da empresa].
+
+CONTEXTO:
+- Quem vai usar o dashboard: [CEO / CFO / sócios / investidores]
+- Frequência de atualização: [diário / semanal / mensal]
+- Ferramenta disponível: [Google Sheets / Excel / Power BI / Notion / outro]
+- Nível de sofisticação: [simples / intermediário / avançado]
+- Modelo de negócio: [SaaS / produto / serviço / varejo]
+
+O dashboard deve incluir:
+BLOCO 1 — RECEITA
+- Receita do mês atual vs. meta vs. mês anterior
+- Evolução mensal (últimos 12 meses)
+- Receita por linha de produto/serviço
+
+BLOCO 2 — RESULTADO
+- Margem bruta (%)
+- EBITDA (R$ e %)
+- Lucro líquido
+
+BLOCO 3 — CAIXA
+- Saldo atual
+- Burn rate
+- Runway (meses)
+- Contas a receber vs. a pagar
+
+BLOCO 4 — MÉTRICAS UNITÁRIAS (para SaaS/recorrente)
+- MRR, churn, LTV, CAC, LTV/CAC
+
+BLOCO 5 — ALERTAS
+- Indicadores em vermelho (abaixo da meta)
+- Tendências preocupantes
+
+Para cada indicador: fórmula de cálculo, fonte dos dados, meta e cor de referência (verde/amarelo/vermelho).` },
+
+  { id:89, title:"Valuation Simplificado da Empresa", text:`Faça um valuation simplificado da empresa [nome da empresa] para fins de [captação de investimento / entrada de sócio / venda parcial / curiosidade estratégica].
+
+DADOS DA EMPRESA:
+- Segmento: [segmento]
+- Modelo de receita: [recorrente / transacional / projeto a projeto]
+- Receita anual (ARR/faturamento): R$ [valor]
+- EBITDA anual: R$ [valor]
+- Crescimento YoY: [%]
+- Margem líquida: [%]
+- Número de clientes ativos: [quantidade]
+- Churn anual: [% se recorrente]
+- Dívidas: R$ [valor]
+- Caixa disponível: R$ [valor]
+- Ativos intangíveis relevantes: [patente / software / base de clientes / marca]
+
+OBSERVAÇÃO: Valuation é estimativa. Para transações reais, contratar especialista.
+
+Entregue:
+1. MÚLTIPLOS DE MERCADO
+   - Faixa de múltiplo para o setor (EV/EBITDA, EV/Receita)
+   - Valuation resultante por múltiplo
+
+2. DCF SIMPLIFICADO
+   - Projeção de fluxo de caixa livre para 5 anos
+   - Taxa de desconto aplicada
+   - Valor terminal
+   - Resultado do DCF
+
+3. MÉTODO COMPARÁVEIS
+   - Empresas similares e seus múltiplos (estimativas de mercado)
+
+4. RANGE DE VALUATION
+   - Mínimo, médio e máximo
+   - Em qual cenário cada valor se justifica
+
+5. COMO AUMENTAR O VALUATION
+   - Alavancas que mais impactam o valor da empresa` }
+]);
+
+// =============================================
+// CATEGORIA 3 — OPERAÇÕES & PROCESSOS
+// =============================================
+loadCategory(3, [
+  { id:48, title:"Mapeamento de Processo (BPMN Simplificado)", text:`Faça o mapeamento completo do processo de [nome do processo] da empresa [nome da empresa].
+
+CONTEXTO DO PROCESSO:
+- Objetivo do processo: [para que serve]
+- Quem participa: [áreas e cargos envolvidos]
+- Onde começa (gatilho): [o que dispara o processo]
+- Onde termina (resultado esperado): [entrega final]
+- Ferramentas usadas no processo: [sistemas, planilhas, ferramentas]
+- Frequência: [diário / semanal / por demanda]
+- Principal problema atual com este processo: [gargalo ou ineficiência]
+
+Entregue:
+1. DESCRIÇÃO TEXTUAL DO FLUXO
+   - Passo a passo detalhado de cada atividade
+   - Quem faz o quê em cada etapa
+   - Sistemas e ferramentas utilizados
+
+2. DIAGRAMA EM NOTAÇÃO SIMPLES
+   - Fluxograma em texto (use setas → e símbolos simples)
+   - Identificar decisões (losango), atividades (retângulo), início/fim (oval)
+
+3. PONTOS DE ATENÇÃO
+   - Onde pode falhar
+   - Onde há dependência crítica
+   - Onde há retrabalho hoje
+
+4. MÉTRICAS DO PROCESSO
+   - Como medir se o processo está funcionando bem
+   - Tempo esperado por etapa
+
+5. VERSÃO SIMPLIFICADA
+   - Checklist de execução para quem opera o processo no dia a dia` },
+
+  { id:49, title:"SOP — Procedimento Operacional Padrão", text:`Crie um SOP (Standard Operating Procedure / Procedimento Operacional Padrão) para o processo de [nome do processo].
+
+INFORMAÇÕES:
+- Empresa: [nome da empresa]
+- Área responsável: [departamento]
+- Responsável pelo processo: [cargo]
+- Frequência de execução: [diário / semanal / mensal / por demanda]
+- Sistemas envolvidos: [liste as ferramentas]
+- Tempo médio de execução: [duração]
+- Nível de quem executa: [júnior / pleno / sênior / qualquer nível]
+
+O SOP deve conter:
+1. CABEÇALHO: título, versão, data, responsável, revisado por
+2. OBJETIVO: para que serve este procedimento
+3. ESCOPO: o que está e o que NÃO está incluído
+4. RESPONSABILIDADES: quem faz o quê
+5. PRÉ-REQUISITOS: o que deve estar pronto antes de começar
+6. PASSO A PASSO DETALHADO:
+   - Numerado, com capturas de tela descritas (ex: "clique no botão X")
+   - Decisões e ramificações claramente indicadas
+7. EXCEÇÕES E ERROS COMUNS: o que fazer se der errado
+8. CRITÉRIO DE CONCLUSÃO: como saber que foi feito corretamente
+9. HISTÓRICO DE REVISÕES: tabela de versões
+10. GLOSSÁRIO: termos técnicos explicados
+
+Tom: claro o suficiente para que alguém novo execute sem precisar perguntar nada.` },
+
+  { id:50, title:"Checklist de Controle de Qualidade", text:`Crie um checklist de controle de qualidade para [produto / serviço / entrega] da empresa [nome da empresa].
+
+CONTEXTO:
+- O que será auditado: [descreva o produto/serviço/entrega]
+- Quando é aplicado: [antes de entregar ao cliente / no final do processo / periodicamente]
+- Quem aplica: [cargo responsável]
+- Padrão de qualidade atual: [existe algum critério documentado?]
+- Principais erros que acontecem hoje: [liste os mais comuns]
+- Consequência de uma entrega com erro: [impacto no cliente ou negócio]
+
+O checklist deve:
+1. Ser dividido por categoria/fase da entrega
+2. Ter itens binários (Conforme / Não Conforme) e itens de verificação
+3. Incluir critério de aprovação/reprovação (nota de corte)
+4. Ter campo para observações e evidências
+5. Ter espaço para assinatura de quem verificou e data
+
+Estruture como:
+- FASE 1: [nome da fase] — X itens
+- FASE 2: [nome da fase] — X itens
+- RESULTADO: Aprovado / Reprovado / Aprovado com ressalvas
+
+Inclua também:
+- O que fazer se encontrar uma não conformidade
+- Como registrar e rastrear os problemas encontrados
+- Frequência recomendada de revisão do checklist` },
+
+  { id:51, title:"Plano de Continuidade e Contingência", text:`Crie um Plano de Continuidade de Negócios (PCN) e Plano de Contingência para a empresa [nome da empresa].
+
+CONTEXTO:
+- Segmento: [segmento de atuação]
+- Processos críticos (sem os quais a empresa para): [liste os 3-5 mais críticos]
+- Principais riscos identificados: [ex: falha de sistema, saída de pessoa-chave, desastre natural, cyberataque]
+- Número de colaboradores: [quantidade]
+- Infraestrutura crítica: [sistemas, servidores, ferramentas essenciais]
+- Clientes de maior risco: [aqueles que não podem ter interrupção]
+
+Para cada risco/cenário, crie:
+
+1. ANÁLISE DE IMPACTO
+   - Probabilidade de ocorrência (Alta/Média/Baixa)
+   - Impacto se ocorrer (Crítico/Moderado/Baixo)
+   - RTO (Recovery Time Objective): quanto tempo pode ficar parado
+   - RPO (Recovery Point Objective): até onde pode perder dados
+
+2. PLANO DE RESPOSTA
+   - O que fazer nas primeiras 4 horas
+   - O que fazer em 24 horas
+   - O que fazer em 72 horas
+
+3. RESPONSABILIDADES
+   - Quem aciona o plano
+   - Quem comunica internamente e externamente
+
+4. COMUNICAÇÃO DE CRISE
+   - Template de mensagem para clientes
+   - Template de comunicação interna
+
+5. REVISÃO E TESTE
+   - Com que frequência revisar e testar o plano` },
+
+  { id:52, title:"Cronograma de Projeto (Plano de Ação)", text:`Crie um cronograma detalhado e plano de ação para o projeto [nome do projeto] da empresa [nome da empresa].
+
+INFORMAÇÕES DO PROJETO:
+- Objetivo: [o que o projeto deve entregar]
+- Data de início: [data]
+- Prazo final: [data ou "a definir"]
+- Budget: [R$ valor ou "sem budget definido"]
+- Equipe disponível: [liste as pessoas e dedicação (%)]
+- Dependências externas: [fornecedores, integrações, aprovações necessárias]
+- Principais riscos: [o que pode atrasar o projeto]
+- Patrocinador: [quem vai aprovar e financiar]
+
+Crie:
+1. ESCOPO DO PROJETO
+   - O que está incluído e o que NÃO está (in/out of scope)
+
+2. MARCOS (MILESTONES)
+   - Entregas principais com datas alvo
+
+3. CRONOGRAMA DETALHADO
+   - WBS (Work Breakdown Structure) — lista de todas as tarefas
+   - Para cada tarefa: responsável, início, fim, duração, dependências
+
+4. MATRIZ RACI
+   - Quem é Responsável, Aprovador, Consultado, Informado por tarefa
+
+5. PLANO DE COMUNICAÇÃO
+   - Frequência de status report
+   - Template de reunião semanal de projeto
+
+6. GESTÃO DE RISCOS
+   - Top 5 riscos com plano de mitigação` },
+
+  { id:53, title:"Ata de Reunião Profissional", text:`Crie um template e uma ata de reunião para a reunião de [tipo de reunião] realizada em [data].
+
+DADOS DA REUNIÃO:
+- Tipo: [planejamento / revisão / tomada de decisão / kick-off / outro]
+- Participantes: [liste nome e cargo]
+- Duração: [horas]
+- Facilitador: [nome]
+- Local/plataforma: [presencial / Zoom / Teams / outro]
+- Pauta da reunião: [liste os pontos discutidos]
+
+Para cada ponto da pauta, documente:
+- O que foi discutido (resumo objetivo)
+- Decisões tomadas (se houver)
+- Próximas ações: o quê, quem e quando
+
+Crie também:
+1. TEMPLATE DE ATA PADRÃO
+   - Cabeçalho com dados da reunião
+   - Seção de pontos discutidos
+   - Seção de decisões
+   - Tabela de ações (ação / responsável / prazo / status)
+   - Próxima reunião (se agendada)
+   - Espaço para aprovação dos participantes
+
+2. INSTRUÇÕES DE USO
+   - Como preencher durante a reunião
+   - Em quanto tempo enviar após a reunião
+   - Onde armazenar e por quanto tempo manter
+
+Tom: objetivo e profissional, sem texto desnecessário.` },
+
+  { id:54, title:"Matriz RACI de Responsabilidades", text:`Crie uma Matriz RACI completa para o processo/área de [nome do processo ou área] da empresa [nome da empresa].
+
+CONTEXTO:
+- Área/Processo: [descreva]
+- Atividades principais: [liste as 10-15 principais atividades]
+- Personas/Cargos envolvidos: [liste todos os cargos que participam]
+
+Para cada combinação de atividade × cargo, defina:
+- R = Responsável (quem executa)
+- A = Aprovador (quem aprova e é accountable)
+- C = Consultado (quem deve ser consultado antes)
+- I = Informado (quem deve ser informado depois)
+
+Crie:
+1. TABELA RACI COMPLETA
+   - Atividades nas linhas, cargos nas colunas
+   - Células preenchidas com R/A/C/I
+
+2. ANÁLISE DOS RESULTADOS
+   - Identifique: quem está sobrecarregado (muitos R)
+   - Identifique: quem não tem R em nada (subutilizado)
+   - Atividades sem Aprovador definido (risco)
+   - Atividades com múltiplos Aprovadores (conflito)
+
+3. RECOMENDAÇÕES
+   - Ajustes sugeridos na distribuição de responsabilidades
+
+4. COMO USAR A MATRIZ
+   - Como apresentar para a equipe
+   - Como revisar periodicamente
+
+Inclua também uma versão simplificada para comunicar com o time operacional.` },
+
+  { id:55, title:"Indicadores de Performance (KPIs) do Departamento", text:`Defina os KPIs (Key Performance Indicators) ideais para o departamento de [nome do departamento] da empresa [nome da empresa].
+
+CONTEXTO DO DEPARTAMENTO:
+- Objetivo principal do departamento: [o que deve entregar para a empresa]
+- Número de pessoas: [quantidade]
+- O que se mede hoje (se algo): [métricas atuais]
+- Principal problema de performance atual: [o que não está funcionando bem]
+- Metas da empresa para este ano: [descreva os objetivos maiores]
+- Ferramentas disponíveis para coletar dados: [sistemas, planilhas, etc.]
+
+Crie um painel de KPIs com:
+
+NÍVEL 1 — KPIs ESTRATÉGICOS (para a diretoria)
+- 3-5 indicadores de alto nível que mostram a saúde do departamento
+
+NÍVEL 2 — KPIs OPERACIONAIS (para o gestor)
+- 5-8 indicadores que permitem gerir o time no dia a dia
+
+NÍVEL 3 — KPIs INDIVIDUAIS (para cada colaborador)
+- 3-4 indicadores por função
+
+Para cada KPI:
+- Nome e descrição
+- Fórmula de cálculo
+- Fonte dos dados (de onde vem a informação)
+- Meta sugerida (ou como definir)
+- Frequência de atualização
+- Responsável por acompanhar
+
+Ao final: dashboard visual sugerido e reunião de revisão de KPIs recomendada.` },
+
+  { id:56, title:"Política de Segurança da Informação", text:`Crie uma Política de Segurança da Informação (PSI) para a empresa [nome da empresa].
+
+CONTEXTO:
+- Segmento: [segmento]
+- Número de colaboradores: [quantidade]
+- Dados sensíveis que tratamos: [ex: dados de clientes, dados financeiros, dados de saúde]
+- Ferramentas e sistemas usados: [liste os principais]
+- Regime de trabalho: [presencial / remoto / híbrido]
+- Compliance necessário: [LGPD / ISO 27001 / PCI DSS / outro]
+- Incidente de segurança já ocorrido: [sim/não — se sim, descreva brevemente]
+
+A política deve incluir:
+1. OBJETIVOS E ESCOPO — para que serve e a quem se aplica
+2. CLASSIFICAÇÃO DE INFORMAÇÕES — pública, interna, confidencial, restrita
+3. CONTROLES DE ACESSO — quem pode acessar o quê e como
+4. USO ACEITÁVEL — o que pode e não pode fazer com os sistemas
+5. GESTÃO DE SENHAS — regras de criação e rotação
+6. DISPOSITIVOS MÓVEIS E ACESSO REMOTO — regras para home office
+7. PROTEÇÃO DE DADOS (LGPD) — obrigações dos colaboradores
+8. RESPOSTA A INCIDENTES — o que fazer se suspeitar de violação
+9. TREINAMENTO — obrigatoriedade e frequência
+10. SANÇÕES — consequências de violação da política
+
+Linguagem: acessível, sem juridiquês, para que todo colaborador entenda.` },
+
+  { id:57, title:"Manual de Procedimentos do Departamento", text:`Crie um Manual de Procedimentos completo para o departamento de [nome do departamento] da empresa [nome da empresa].
+
+CONTEXTO:
+- Objetivo do departamento: [missão e entregas]
+- Tamanho: [número de pessoas]
+- Processos principais que o departamento executa: [liste os 5-10 processos]
+- Principal dor atual: [retrabalho / falta de padrão / dependência de pessoa]
+- Ferramentas e sistemas usados: [liste]
+- Quem usará o manual: [novos contratados / toda a equipe / outros departamentos]
+
+O manual deve conter:
+1. APRESENTAÇÃO DO DEPARTAMENTO
+   - Missão, entregáveis e organograma interno
+
+2. PROCESSOS PRINCIPAIS (1 seção por processo)
+   Para cada processo:
+   - Objetivo e quando é executado
+   - Responsável e papéis envolvidos
+   - Passo a passo de execução (SOP simplificado)
+   - Ferramentas utilizadas com links/acessos
+   - Critério de qualidade/conclusão
+
+3. COMUNICAÇÃO DO DEPARTAMENTO
+   - Reuniões fixas (pauta e frequência)
+   - Canais de comunicação e quando usar cada um
+
+4. ONBOARDING NO DEPARTAMENTO
+   - Caminho de aprendizado para novos integrantes
+
+5. GLOSSÁRIO E TERMOS TÉCNICOS
+
+6. PERGUNTAS FREQUENTES (FAQ)
+
+Formato: claro, com índice, numeração e possibilidade de atualização fácil.` },
+
+  { id:58, title:"Análise de Gargalos e Ineficiências", text:`Faça uma análise de gargalos e ineficiências no processo de [nome do processo] da empresa [nome da empresa].
+
+CONTEXTO ATUAL:
+- Processo analisado: [descreva o processo do início ao fim]
+- Volume diário/semanal processado: [quantidade]
+- Tempo atual do ciclo completo: [duração]
+- Número de pessoas envolvidas: [quantidade]
+- Principais reclamações sobre o processo: [o que o time reclama]
+- Erros mais comuns: [liste]
+- Custo estimado de uma falha neste processo: [R$ ou impacto]
+
+Por favor, entregue:
+
+1. MAPEAMENTO DO ESTADO ATUAL (AS-IS)
+   - Fluxo atual passo a passo com tempos estimados
+   - Identificação visual dos gargalos (onde o fluxo trava)
+
+2. ANÁLISE DOS GARGALOS
+   - Causa raiz de cada gargalo (5 Porquês)
+   - Impacto de cada gargalo (tempo perdido, custo, erro)
+
+3. OPORTUNIDADES DE MELHORIA
+   - Quick wins (implementar em menos de 1 semana)
+   - Melhorias de médio prazo (1-3 meses)
+   - Transformações estruturais (3+ meses)
+
+4. ESTADO FUTURO (TO-BE)
+   - Como o processo deveria funcionar após as melhorias
+   - Ganho estimado de eficiência
+
+5. PLANO DE IMPLEMENTAÇÃO
+   - Priorização das melhorias e ordem de implementação` },
+
+  { id:59, title:"Plano de Melhoria Contínua (Kaizen)", text:`Crie um Plano de Melhoria Contínua inspirado na metodologia Kaizen para o processo/área de [nome] da empresa [nome da empresa].
+
+CONTEXTO:
+- Área ou processo foco: [descreva]
+- Situação atual: [descreva os problemas e ineficiências]
+- Objetivo de melhoria: [o que quer alcançar — % de redução, tempo, custo]
+- Prazo para as melhorias: [período]
+- Recursos disponíveis: [time, orçamento, ferramentas]
+- Patrocinador da iniciativa: [quem vai apoiar]
+
+O plano deve incluir:
+1. BASELINE ATUAL
+   - Métricas do estado atual (antes)
+   - O custo da ineficiência atual
+
+2. EVENTOS KAIZEN PLANEJADOS
+   - Ciclos de melhoria (sprints de 1-2 semanas)
+   - Para cada ciclo: problema foco, time envolvido, meta
+
+3. FERRAMENTAS DE MELHORIA
+   - 5S (organização do espaço)
+   - Diagrama de Ishikawa (causa e efeito)
+   - PDCA (Plan-Do-Check-Act)
+   - Qual usar em qual situação
+
+4. GOVERNANÇA DO PROGRAMA
+   - Reunião de revisão (frequência, pauta)
+   - Como documentar melhorias implementadas
+   - Como calcular ganhos realizados
+
+5. CULTURA DE MELHORIA
+   - Como engajar o time para sugerir melhorias
+   - Sistema de reconhecimento por melhoria implementada` },
+
+  { id:60, title:"Protocolo de Gestão de Crises", text:`Crie um Protocolo de Gestão de Crises para a empresa [nome da empresa].
+
+TIPOS DE CRISE A COBRIR:
+- [Crise 1: ex: falha no produto/serviço]
+- [Crise 2: ex: problema com cliente importante]
+- [Crise 3: ex: crise de reputação nas redes sociais]
+- [Crise 4: ex: perda de dado ou vazamento]
+- [Crise 5: ex: problema jurídico ou regulatório]
+
+Para cada tipo de crise, crie:
+
+1. GATILHO E IDENTIFICAÇÃO
+   - Sinais de alerta (quando acionar o protocolo)
+   - Critérios de severidade (Nível 1/2/3)
+
+2. PRIMEIROS 60 MINUTOS
+   - Quem notificar imediatamente
+   - Quem NÃO deve se comunicar externamente
+   - Primeira ação de contenção
+
+3. SALA DE CRISE
+   - Quem compõe o comitê de crise
+   - Onde se reúnem (presencial ou virtual)
+   - Cadência de updates internos
+
+4. COMUNICAÇÃO EXTERNA
+   - Template de nota para clientes
+   - Template para redes sociais
+   - Quando e como falar com imprensa (se relevante)
+
+5. RESOLUÇÃO E PÓS-CRISE
+   - Critérios para declarar a crise resolvida
+   - Reunião de post-mortem (o que aprender)
+   - Como comunicar a resolução aos afetados` },
+
+  { id:61, title:"Gestão e Avaliação de Fornecedores", text:`Crie um processo completo de gestão e avaliação de fornecedores para a empresa [nome da empresa].
+
+CONTEXTO:
+- Tipos de fornecedores que temos: [liste as categorias]
+- Número total de fornecedores ativos: [quantidade]
+- Critério principal de seleção hoje: [preço / qualidade / prazo / relacionamento]
+- Principal problema com fornecedores atual: [descreva]
+- Compras mais críticas (que podem parar a operação): [liste]
+
+Crie:
+1. CRITÉRIOS DE SELEÇÃO DE NOVOS FORNECEDORES
+   - Checklist de due diligence
+   - Documentação obrigatória
+   - Processo de homologação
+
+2. SCORECARD DE AVALIAÇÃO
+   - Dimensões de avaliação: qualidade, prazo, preço, atendimento, compliance
+   - Peso de cada dimensão
+   - Escala de notas e critério de interpretação
+   - Frequência de avaliação
+
+3. SEGMENTAÇÃO DO PORTFÓLIO
+   - Matriz de criticidade × volume de compra (Matriz de Kraljic)
+   - Estratégia por quadrante
+
+4. GESTÃO DE RISCO
+   - Fornecedores críticos sem alternativa (concentração de risco)
+   - Plano de desenvolvimento de fornecedor alternativo
+
+5. CONTRATO E SLA
+   - Cláusulas essenciais no contrato com fornecedores
+   - Como definir e monitorar SLAs
+
+6. PROCESSO DE DESLIGAMENTO
+   - Quando e como encerrar uma relação com fornecedor` },
+
+  { id:62, title:"Sistema de Controle de Inventário", text:`Crie um sistema de controle de inventário para a empresa [nome da empresa].
+
+CONTEXTO:
+- O que controlamos no inventário: [produtos / materiais / equipamentos / outros]
+- Volume aproximado de itens: [quantidade de SKUs]
+- Giro médio: [alta rotatividade / média / baixa]
+- Onde fica o estoque: [um local / múltiplos locais]
+- Principal problema atual: [ruptura / excesso / descontrole / furto]
+- Ferramenta disponível: [Excel / sistema ERP / planilha Google / sem sistema]
+
+Crie:
+1. ESTRUTURA DO INVENTÁRIO
+   - Como categorizar e codificar os itens (SKU)
+   - Informações mínimas por item
+
+2. PROCESSOS DE MOVIMENTAÇÃO
+   - Entrada de mercadoria: passo a passo e documentos
+   - Saída de mercadoria: passo a passo e documentos
+   - Devoluções: como tratar
+
+3. CONTROLE DE ESTOQUE
+   - Estoque mínimo e ponto de pedido por categoria
+   - Como calcular a demanda futura
+   - Frequência de inventário físico
+
+4. PLANILHA MODELO
+   - Estrutura da planilha de controle com fórmulas básicas
+
+5. INDICADORES DE ESTOQUE
+   - Giro de estoque
+   - Cobertura de dias
+   - Ruptura (stockout)
+   - Obsolescência
+
+6. INVENTÁRIO PERIÓDICO
+   - Como organizar o inventário rotativo` },
+
+  { id:63, title:"Fluxograma de Tomada de Decisão", text:`Crie um fluxograma de tomada de decisão para a situação/problema: [descreva a decisão recorrente que precisa ser padronizada].
+
+CONTEXTO:
+- Empresa: [nome]
+- Área: [departamento]
+- Decisão que se repete: [descreva detalhadamente]
+- Quem toma a decisão hoje: [cargos envolvidos]
+- Critérios usados para decidir: [o que consideram]
+- Frequência desta decisão: [diário / semanal / por demanda]
+- Consequência de uma decisão errada: [impacto]
+
+Crie:
+1. FLUXOGRAMA EM FORMATO TEXTO
+   - Use símbolos: [INÍCIO/FIM], → , <DECISÃO?>, {Ação}
+   - Cada ramificação claramente identificada (SIM/NÃO)
+
+2. REGRAS DE DECISÃO
+   - Para cada decisão do fluxograma: critérios objetivos
+   - Thresholds claros (ex: "se valor > R$5.000 → escalar para gerente")
+
+3. TABELA DE AUTORIDADE
+   - Quem decide o quê por valor/impacto/tipo
+
+4. COMO DOCUMENTAR A DECISÃO
+   - O que registrar e onde
+
+5. EXCEÇÕES
+   - Situações que não se encaixam no fluxo padrão
+   - A quem escalar e como
+
+Objetivo: qualquer pessoa do time consegue seguir o fluxograma sem precisar perguntar.` },
+
+  { id:64, title:"Reunião de Retrospectiva do Time", text:`Crie uma estrutura completa para a reunião de retrospectiva do time de [nome do time/departamento] da empresa [nome da empresa].
+
+CONTEXTO:
+- Período a retratar: [semana / sprint / mês / trimestre]
+- Número de participantes: [quantidade]
+- Duração disponível: [60 / 90 / 120 minutos]
+- Facilitador: [quem vai conduzir]
+- Principal tensão atual no time: [se souber]
+- Retrospectivas anteriores: [nunca fizemos / fazemos mas não geramos ação / bom histórico]
+
+Crie:
+1. AGENDA DA RETROSPECTIVA
+   - Tempo para cada parte
+   - Dinâmicas e ferramentas recomendadas
+
+2. DINÂMICA PRINCIPAL (escolha 2 opções)
+   - Opção A: "Start / Stop / Continue" — simples e eficaz
+   - Opção B: "Mad / Sad / Glad" — para times com tensão emocional
+   - Opção C: "4Ls" (Liked, Learned, Lacked, Longed For)
+
+3. COMO FACILITAR CADA PARTE
+   - Script de abertura para o facilitador
+   - Como lidar com silêncio ou resistência
+   - Como priorizar quando muitos itens aparecem
+
+4. GERAÇÃO DE AÇÕES
+   - Como transformar observações em ações concretas
+   - Template: ação / responsável / prazo / como verificar
+
+5. COMO ACOMPANHAR AS AÇÕES
+   - Onde registrar
+   - Como revisar na próxima retrospectiva` },
+
+  { id:65, title:"Matriz de Análise de Riscos", text:`Crie uma Matriz de Análise de Riscos para o [projeto / departamento / empresa] [nome].
+
+CONTEXTO:
+- O que será protegido: [projetos, operação, produto, financeiro]
+- Horizonte de análise: [próximos 3 / 6 / 12 meses]
+- Principal preocupação atual: [descreva o maior risco que você imagina]
+- Contexto do negócio: [segmento, tamanho, momento da empresa]
+
+Crie:
+1. IDENTIFICAÇÃO DE RISCOS
+   - Mapeie riscos em categorias: Estratégico / Operacional / Financeiro / Reputacional / Legal / Tecnológico
+   - Mínimo 3 riscos por categoria (total 15-20 riscos)
+
+2. MATRIZ DE PROBABILIDADE × IMPACTO
+   - Escala: Probabilidade (1-5) e Impacto (1-5)
+   - Classificação: Crítico (20-25) / Alto (12-19) / Médio (6-11) / Baixo (1-5)
+   - Tabela visual com todos os riscos posicionados
+
+3. PLANO DE TRATAMENTO POR RISCO
+   - Para riscos Críticos e Altos:
+     - Ação preventiva (para reduzir probabilidade)
+     - Plano de contingência (se ocorrer)
+     - Responsável pelo monitoramento
+     - Prazo para implementar a prevenção
+
+4. CALENDÁRIO DE REVISÃO
+   - Com que frequência revisar a matriz
+
+5. SEMÁFORO DE RISCOS
+   - Dashboard simplificado para a liderança` },
+
+  { id:66, title:"Relatório Executivo Semanal (Weekly Update)", text:`Crie um template de relatório executivo semanal para compartilhar com [a liderança / investidores / board] da empresa [nome da empresa].
+
+CONTEXTO:
+- Quem lê o relatório: [perfil dos leitores e nível de detalhe que querem]
+- Áreas que serão cobertas: [liste os departamentos/frentes]
+- Formato de envio: [email / Notion / Slack / PDF]
+- Frequência: [toda segunda-feira / sexta-feira]
+- Nível atual de maturidade em reporting: [nunca fizemos / inconsistente / maduro]
+
+Crie o template com:
+
+CABEÇALHO
+- Período, data de envio, autor, distribuição
+
+EXECUTIVE SUMMARY (3-5 bullets)
+- O que mais importa desta semana em uma frase cada
+
+NÚMEROS DA SEMANA
+- Dashboard rápido: receita, leads, principais KPIs por área
+
+POR ÁREA (1 parágrafo por área)
+- O que foi feito
+- O que está bloqueado
+- O que vem pela frente
+
+DESTAQUES E CONQUISTAS
+- Celebrações da semana
+
+RISCOS E BLOQUEIOS
+- O que precisa de atenção ou decisão da liderança
+
+PRÓXIMA SEMANA
+- Top 3 prioridades de cada área
+
+Inclua também:
+- Instruções de preenchimento para cada responsável de área
+- Como fazer o relatório ser lido (boas práticas de formato)` },
+
+  { id:67, title:"Processo de Onboarding de Clientes", text:`Crie um processo completo de onboarding de novos clientes para o produto/serviço [nome] da empresa [nome da empresa].
+
+CONTEXTO DO PRODUTO:
+- O que o cliente comprou: [descreva]
+- Tempo para o cliente ter o primeiro resultado: [prazo]
+- Principal razão de churn precoce (se souber): [motivo mais comum]
+- Complexidade do onboarding atual: [simples / médio / complexo]
+- Canais de comunicação com o cliente: [email / WhatsApp / plataforma / suporte]
+- Quem conduz o onboarding: [CS / vendedor / automatizado]
+
+Crie o processo de onboarding em 3 fases:
+
+FASE 1 — ATIVAÇÃO (Dias 1-3)
+- Passo a passo do que acontece imediatamente após a compra
+- Mensagens automáticas ou manuais a enviar
+- Configuração inicial que o cliente precisa fazer
+
+FASE 2 — ADOÇÃO (Dias 4-14)
+- Como garantir que o cliente use o produto
+- Check-ins e touchpoints dessa fase
+- Conteúdo de apoio para enviar
+
+FASE 3 — SUCESSO (Dias 15-30)
+- Como confirmar que o cliente teve o primeiro resultado
+- O que fazer se o cliente não avançou
+
+Para cada fase:
+- Checklist do CS/equipe
+- Templates de mensagens
+- Critérios de saída da fase (o que confirma que avançou)` },
+
+  { id:68, title:"Cultura de Reuniões Eficientes", text:`Crie um guia de cultura e protocolo de reuniões eficientes para a empresa [nome da empresa].
+
+CONTEXTO ATUAL:
+- Número de reuniões médias por semana no time: [quantidade]
+- Maior reclamação sobre as reuniões hoje: [ex: muitas reuniões, sem pauta, sem conclusão]
+- Ferramentas de videoconferência: [Zoom / Teams / Meet / outra]
+- Regime: [presencial / híbrido / remoto]
+- Cultura atual: [reunião-dependente / tende para assíncrono]
+
+O guia deve incluir:
+1. PRINCÍPIOS DE REUNIÕES NA EMPRESA
+   - O que é e o que não é uma boa razão para ter reunião
+   - Nossa cultura de assíncrono vs. síncrono
+
+2. TIPOS DE REUNIÃO E QUANDO USAR
+   - Reunião de decisão: quando ter e como conduzir
+   - Daily/stand-up: formato rápido e eficaz
+   - Reunião de planejamento: estrutura
+   - Reunião 1:1: como funciona
+   - Reunião de retrospectiva: quando fazer
+   - "Reunião que poderia ser um email": como identificar
+
+3. PROTOCOLO PADRÃO
+   - Obrigatoriedade de pauta com antecedência
+   - Responsabilidades: convocante, facilitador, secretário
+   - Como conduzir os primeiros 2 minutos
+   - Como terminar com ações claras
+
+4. TEMPLATE DE PAUTA
+   - Formato padrão com campos obrigatórios
+
+5. COMO REDUZIR O NÚMERO DE REUNIÕES
+   - Assíncronos que substituem reuniões` },
+
+  { id:69, title:"Plano de Expansão Operacional", text:`Crie um plano operacional de expansão para a empresa [nome da empresa] que pretende [abrir nova unidade / escalar para nova cidade / lançar novo produto / contratar mais X pessoas].
+
+CONTEXTO DA EXPANSÃO:
+- O que será expandido: [descreva detalhadamente]
+- Motivo da expansão: [demanda / oportunidade / meta]
+- Data alvo para início da operação expandida: [data]
+- Recursos disponíveis para a expansão: [orçamento, pessoas]
+- Riscos identificados: [o que pode dar errado]
+- Operação atual: [descreva como funciona hoje]
+
+Crie um plano com:
+1. PRÉ-EXPANSÃO (preparação)
+   - O que precisa estar pronto antes de expandir
+   - Processos que precisam ser documentados/padronizados primeiro
+   - Contratações necessárias antes da abertura
+
+2. FASE DE IMPLEMENTAÇÃO
+   - Cronograma de ativação mês a mês
+   - Marcos críticos com responsáveis
+
+3. ESTRUTURA OPERACIONAL DA EXPANSÃO
+   - Organograma da operação expandida
+   - Processos que serão replicados vs. adaptados
+
+4. INDICADORES DE SUCESSO
+   - Como saber se a expansão está funcionando
+   - Metas dos primeiros 90 dias
+
+5. PLANO DE CONTINGÊNCIA
+   - O que fazer se a expansão não estiver gerando o resultado esperado
+   - Critério de "parar" ou "pivotar"` }
+]);
+
+// =============================================
+// CATEGORIA 2 — VENDAS & CONVERSÃO
+// =============================================
+loadCategory(2, [
+  { id:26, title:"Script de Prospecção Fria (Cold Call/DM)", text:`Crie um script de prospecção fria para abordar [perfil do prospect] via [WhatsApp / LinkedIn / email / ligação].
+
+CONTEXTO DA EMPRESA:
+- Empresa que está prospectando: [nome da empresa]
+- Produto/serviço oferecido: [descreva em 1-2 linhas]
+- Principal resultado entregue: [o que o cliente conquista]
+- Dor principal do público-alvo: [qual problema resolve]
+- Diferencial da empresa: [o que é único]
+
+PERFIL DO PROSPECT:
+- Cargo/função: [cargo]
+- Segmento: [segmento]
+- Tamanho da empresa: [porte]
+- Por que esta pessoa especificamente: [gatilho de abordagem]
+
+Crie:
+1. MENSAGEM DE PRIMEIRO CONTATO (50-80 palavras)
+   - Personalização (por que estou falando com esta pessoa)
+   - Proposta de valor sem pitch de vendas
+   - CTA baixo atrito (pergunta simples, não "podemos agendar?")
+
+2. FOLLOW-UP 1 (3 dias depois — se não respondeu)
+3. FOLLOW-UP 2 (7 dias depois)
+4. MENSAGEM DE BREAK-UP (último contato)
+
+Para cada mensagem: versão curta (WhatsApp/DM) e versão longa (email).
+Inclua variações A/B para testar.` },
+
+  { id:27, title:"Sequência de Emails de Follow-up", text:`Crie uma sequência completa de follow-up por email para leads que demonstraram interesse mas não fecharam a compra/reunião.
+
+CONTEXTO:
+- Produto/serviço: [nome e descrição]
+- Estágio do lead: [visitou o site / baixou material / solicitou proposta / teve reunião / recebeu proposta]
+- Principal objeção que os leads apresentam: [descreva]
+- Ticket médio: [valor]
+- Ciclo de venda típico: [dias/semanas]
+- Tom da marca: [formal / consultivo / próximo / técnico]
+
+Crie uma sequência de 7 emails ao longo de 21 dias:
+
+EMAIL 1 (Dia 1 — imediato): Valor imediato + CTA claro
+EMAIL 2 (Dia 3): Prova social + caso de sucesso
+EMAIL 3 (Dia 6): Conteúdo educativo relevante
+EMAIL 4 (Dia 10): Quebrando a principal objeção
+EMAIL 5 (Dia 14): Urgência legítima ou oferta especial
+EMAIL 6 (Dia 18): Abordagem diferente (pergunta / desafio)
+EMAIL 7 (Dia 21): Break-up elegante com abertura futura
+
+Para cada email:
+- Assunto (3 variações para teste A/B)
+- Corpo do email completo
+- CTA específico
+- Timing ideal de envio (dia da semana e horário)` },
+
+  { id:28, title:"Proposta Comercial Profissional", text:`Crie uma proposta comercial completa e persuasiva para apresentar ao cliente [nome do cliente/empresa].
+
+DADOS DO CLIENTE:
+- Empresa: [nome]
+- Contato: [nome do decisor]
+- Problema/dor identificada: [o que o cliente relatou]
+- Objetivo do cliente: [o que quer alcançar]
+- Prazo desejado: [quando quer o resultado]
+- Orçamento (se mencionado): [valor ou "não informado"]
+
+NOSSA SOLUÇÃO:
+- Produto/serviço: [descreva]
+- Metodologia/abordagem: [como fazemos]
+- Entregáveis concretos: [liste o que será entregue]
+- Prazo de entrega: [cronograma]
+- Investimento: [valor e condições]
+- Garantia (se houver): [descreva]
+
+Estruture a proposta com:
+1. CAPA: nome do cliente, data, validade da proposta
+2. SUMÁRIO EXECUTIVO: problema e solução em 3 parágrafos
+3. DIAGNÓSTICO: o que entendemos do cenário do cliente
+4. SOLUÇÃO PROPOSTA: detalhamento do que será feito
+5. METODOLOGIA: como funciona nosso processo
+6. CRONOGRAMA: fases e prazos
+7. INVESTIMENTO: tabela de valores e condições de pagamento
+8. ROI ESPERADO: retorno estimado para o cliente
+9. PRÓXIMOS PASSOS: o que acontece após o aceite
+10. SOBRE NÓS: credenciais relevantes` },
+
+  { id:29, title:"Apresentação de Vendas (Pitch Deck)", text:`Crie o roteiro e conteúdo de uma apresentação de vendas de [X] slides para o produto/serviço [nome].
+
+CONTEXTO:
+- Público da apresentação: [quem estará na sala/call]
+- Cargo dos decisores: [cargos]
+- Duração total: [tempo disponível]
+- Formato: [presencial / videochamada / autoapresentação]
+- Principal objetivo da apresentação: [fechar / avançar para proposta / educar]
+- Produto/serviço: [descreva]
+- Maior conquista de um cliente seu: [caso de sucesso]
+
+Crie slide a slide:
+
+SLIDE 1 — Capa e âncora de atenção
+SLIDE 2 — A dor do mercado (que eles reconhecem)
+SLIDE 3 — Por que o problema é urgente agora
+SLIDE 4 — A solução que ninguém apresentou ainda
+SLIDE 5 — Como funciona (metodologia visual)
+SLIDE 6-7 — Prova social e resultados
+SLIDE 8 — Quem somos e por que somos os melhores para isso
+SLIDE 9 — Oferta e próximos passos
+SLIDE 10 — Perguntas / CTA
+
+Para cada slide:
+- Título impactante
+- Bullet points do conteúdo
+- Sugestão de visual/gráfico
+- Nota do apresentador (o que dizer em voz alta)` },
+
+  { id:30, title:"Mapeamento e Quebra de Objeções", text:`Faça um mapeamento completo das objeções de vendas para o produto/serviço [nome do produto] e crie respostas persuasivas para cada uma.
+
+CONTEXTO:
+- Produto/serviço: [descreva]
+- Preço: [valor]
+- Público-alvo: [descreva]
+- As 3 objeções mais comuns que você já escutou: [liste]
+
+Mapeie e responda as seguintes categorias de objeções:
+
+1. PREÇO E VALOR
+   - "Está muito caro"
+   - "Não tenho orçamento agora"
+   - "Achei mais barato em outro lugar"
+   - "Preciso de desconto"
+
+2. URGÊNCIA E TIMING
+   - "Não é o momento certo"
+   - "Deixa eu pensar mais"
+   - "Vou falar com meu sócio/esposa"
+
+3. NECESSIDADE
+   - "Não preciso disso agora"
+   - "Já tentei algo parecido e não funcionou"
+   - "Não é prioridade"
+
+4. CONFIANÇA
+   - "Não te conheço / você é novo no mercado"
+   - "Me manda mais informação por email"
+   - "Preciso de mais referências"
+
+Para cada objeção:
+- Resposta empática (sem brigar com a objeção)
+- Pergunta de qualificação para entender a objeção real
+- Argumento de virada com prova
+- Como fechar depois da resposta` },
+
+  { id:31, title:"Roteiro de Demonstração de Produto", text:`Crie um roteiro detalhado para a demonstração do produto/serviço [nome do produto] para prospects que agendaram uma demo.
+
+PRODUTO/SERVIÇO:
+- O que é: [descreva]
+- Principal funcionalidade: [descreva]
+- Valor que entrega: [qual transformação promove]
+- Duração da demo: [30 / 45 / 60 minutos]
+
+PÚBLICO DA DEMO:
+- Cargo do prospect: [cargo]
+- Segmento: [segmento]
+- Dor provável: [o que os trouxe até aqui]
+
+Estruture o roteiro:
+
+ABERTURA (5 min)
+- Rapport e quebra de gelo
+- Descoberta rápida (3 perguntas essenciais antes de mostrar qualquer coisa)
+
+DEMO PERSONALIZADA (20-30 min)
+- Roteiro dos features na ordem que gera mais "aha moment"
+- O que dizer ENQUANTO mostra (não só o que clicar)
+- Momentos de pausa para envolvimento
+
+PROVAS E CASOS (5 min)
+- Como encaixar caso de sucesso na demo
+- Dados de resultado para mencionar
+
+FECHAMENTO DA DEMO (10 min)
+- Perguntas de qualificação final
+- Como criar urgência legítima
+- Script para proposta ou próxima etapa
+
+OBJEÇÕES NA DEMO
+- Como lidar com "preciso pensar"
+- Como lidar com silêncio pós-demo` },
+
+  { id:32, title:"Script de Vendas pelo WhatsApp", text:`Crie um script completo de vendas pelo WhatsApp para o produto/serviço [nome], para um lead que [veio de anúncio / pediu informação / indicação / outro].
+
+CONTEXTO:
+- Produto/serviço: [descreva brevemente]
+- Preço: [valor]
+- Forma de pagamento: [boleto / PIX / cartão / parcelamento]
+- Tempo de atendimento disponível: [horários]
+- Principal benefício em uma frase: [benefício]
+- Tom da conversa: [próximo e informal / profissional / consultivo]
+
+Crie o fluxo completo de conversa:
+
+FASE 1 — RECEPÇÃO (primeiros 2 minutos)
+- Mensagem de boas-vindas e qualificação inicial
+
+FASE 2 — DESCOBERTA
+- Perguntas para entender a dor e o desejo do lead
+- Como escutar e espelhar o que o lead fala
+
+FASE 3 — APRESENTAÇÃO
+- Como apresentar o produto sem parecer despejando um catálogo
+- Conectar o produto à dor específica do lead
+
+FASE 4 — OFERTA
+- Script de apresentação do preço
+- Como mostrar o valor antes de falar o preço
+
+FASE 5 — FECHAMENTO
+- Como pedir o fechamento sem soar desesperado
+- 3 técnicas de fechamento pelo WhatsApp
+
+FASE 6 — PÓS-VENDA IMEDIATO
+- Mensagem de confirmação e próximos passos
+
+Inclua emojis estratégicos e formatação para WhatsApp.` },
+
+  { id:33, title:"Sequência de Nutrição de Leads", text:`Crie uma sequência de nutrição de leads para quem entrou na nossa lista mas ainda não comprou o produto [nome do produto].
+
+CONTEXTO:
+- Produto: [descreva]
+- Preço: [valor]
+- Público: [descreva o avatar]
+- Como o lead entrou na lista: [isca digital / evento / anúncio / outro]
+- Canal principal: [email / WhatsApp / ambos]
+- Duração da sequência: [15 / 21 / 30 dias]
+- Próxima ação desejada: [compra / agendamento / trial]
+
+Crie uma sequência com 10 peças de conteúdo distribuídas estrategicamente:
+
+Peças 1-3: Boas-vindas e entrega de valor imediato (primeiros 3 dias)
+Peças 4-6: Educação e construção de autoridade (dias 5-10)
+Peças 7-8: Prova social e quebrando objeções (dias 12-15)
+Peças 9-10: Oferta e urgência (dias 18-21)
+
+Para cada peça:
+- Assunto/título
+- Conteúdo completo
+- CTA específico
+- Objetivo psicológico da peça (o que ela faz na mente do lead)
+
+Inclua também:
+- Segmentação: como separar engajados de frios
+- Gatilhos de saída da sequência (quando parar de nutrir e abordar diretamente)` },
+
+  { id:34, title:"Análise do Pipeline de Vendas", text:`Analise o pipeline de vendas atual e me dê recomendações concretas para melhorar os resultados.
+
+DADOS DO PIPELINE:
+- Número de oportunidades em aberto: [quantidade]
+- Valor total do pipeline: [R$ valor]
+- Tempo médio do ciclo de vendas: [dias]
+- Taxa de conversão atual: [%]
+- Etapas do pipeline: [liste as etapas e quantas oportunidades tem em cada]
+- Principal razão de perda de negócios: [descreva]
+- Meta de vendas do mês: [R$ valor]
+- Receita já realizada no mês: [R$ valor]
+
+Por favor, me entregue:
+
+1. DIAGNÓSTICO DO PIPELINE
+   - Onde estão os maiores gargalos
+   - Quais etapas têm mais "estagnação"
+   - Oportunidades que devem ser priorizadas agora
+
+2. FORECAST REALISTA
+   - Projeção de fechamento com base nas informações
+   - Cenário conservador, realista e otimista
+
+3. AÇÕES IMEDIATAS (próximos 7 dias)
+   - Lista priorizada de contatos e ações para cada oportunidade
+
+4. MELHORIAS NO PROCESSO
+   - O que mudar no processo para aumentar a conversão
+   - Que conteúdo ou ferramenta criar para ajudar nos gargalos
+
+5. MÉTRICAS PARA ACOMPANHAR
+   - KPIs de pipeline que devo monitorar semanalmente` },
+
+  { id:35, title:"Playbook de Vendas para o Time", text:`Crie um Playbook de Vendas completo para o time comercial da empresa [nome da empresa].
+
+CONTEXTO:
+- Produto/serviço: [descreva]
+- Tamanho do time de vendas: [número de vendedores]
+- Perfil dos vendedores: [experientes / em formação / misto]
+- Principal problema do time hoje: [descreva o maior gargalo]
+- Canal de vendas principal: [presencial / WhatsApp / telefone / videoconferência]
+- Ticket médio: [valor]
+- Ciclo de vendas: [duração]
+
+O playbook deve conter:
+1. NOSSA EMPRESA E PRODUTOS — o que vendemos e por que somos diferentes
+2. NOSSO CLIENTE IDEAL (ICP) — quem é, o que dói, o que deseja
+3. PROCESSO DE VENDAS PASSO A PASSO — da prospecção ao fechamento
+4. SCRIPTS PARA CADA ETAPA — prontos para usar e adaptar
+5. COMO QUALIFICAR LEADS — critérios e perguntas de qualificação
+6. GESTÃO DO PIPELINE — como atualizar e priorizar oportunidades
+7. OBJEÇÕES FREQUENTES E RESPOSTAS — banco de respostas
+8. COMO USAR O CRM — passo a passo do registro
+9. METAS E COMISSIONAMENTO — como funciona a remuneração variável
+10. RECURSOS DE VENDAS — materiais, cases, apresentações disponíveis` },
+
+  { id:36, title:"Script de Reativação de Clientes Inativos", text:`Crie um script para reativar [número] clientes inativos que não compram há mais de [X meses].
+
+CONTEXTO:
+- Empresa: [nome]
+- Produto/serviço: [o que vende]
+- Definição de "inativo": [não compra há X meses / cancelou / parou de responder]
+- Última interação com esses clientes: [quando e o quê]
+- O que mudou desde a última compra (melhorias, novas features, etc.): [descreva]
+- Oferta especial para reativação (se houver): [descreva ou "sem oferta especial"]
+
+Crie scripts para 3 canais:
+
+WhatsApp (mensagem curta e pessoal):
+- Abordar a inatividade com leveza
+- Gerar curiosidade sem pressão
+- CTA de baixo atrito
+
+Email (mais estruturado):
+- Assunto que gere abertura
+- Referência ao relacionamento passado
+- Novidade ou motivo de contato genuíno
+- CTA claro
+
+Ligação (script de 2-3 minutos):
+- Abertura que não soa como vendedor
+- Pergunta de descoberta (por que parou de usar/comprar)
+- Resposta às objeções mais prováveis
+- Próximo passo
+
+Inclua também:
+- Como segmentar os inativos (por valor, por motivo de saída)
+- Quando desistir de reativar um cliente` },
+
+  { id:37, title:"Estratégia de Upsell e Cross-sell", text:`Crie uma estratégia de upsell e cross-sell para aumentar o ticket médio dos clientes ativos da empresa [nome da empresa].
+
+PORTFÓLIO ATUAL:
+- Produto/serviço principal (entrada): [nome e preço]
+- Produtos complementares disponíveis: [liste com preços]
+- Serviços adicionais que poderiam ser vendidos: [liste]
+- Produto premium (se houver): [nome e preço]
+
+PERFIL DOS CLIENTES:
+- Tempo médio como cliente: [período]
+- Ticket médio atual: [valor]
+- NPS/satisfação atual: [nota ou "não medimos"]
+- Momento em que o cliente está mais receptivo: [quando costuma estar satisfeito]
+
+Crie:
+1. MAPA DE UPSELL
+   - Para cada produto/plano, qual é o upgrade natural
+   - Quando e como apresentar o upsell (gatilho)
+   - Script de upsell para cada situação
+
+2. MAPA DE CROSS-SELL
+   - Combinações de produtos que fazem sentido
+   - Momento ideal para apresentar cada combinação
+   - Script de cross-sell
+
+3. PROGRAMA DE SUCCESS-LED GROWTH
+   - Como usar o sucesso do cliente para identificar oportunidades
+   - Perguntas de descoberta de novas necessidades
+
+4. SEQUÊNCIA DE EMAIL PARA UPSELL
+   - 3 emails para clientes com potencial de upgrade
+
+5. MÉTRICAS
+   - Como medir o sucesso da estratégia (NRR, expansão MRR)` },
+
+  { id:38, title:"Dashboard de Metas de Vendas", text:`Crie um modelo de dashboard de metas e resultados de vendas para acompanhar o time da empresa [nome da empresa].
+
+CONTEXTO:
+- Tamanho do time: [número de vendedores + gestores]
+- Modelo de meta: [por vendedor / por time / misto]
+- Periodicidade de acompanhamento: [diário / semanal / mensal]
+- Canais de venda: [liste]
+- Meta mensal atual: [R$ valor]
+- KPIs que já acompanhamos: [liste]
+
+Crie um modelo completo de dashboard com:
+
+1. VISÃO GERAL DO TIME (nível gerencial)
+   - Meta do mês vs. realizado (R$ e %)
+   - Projeção de fechamento (forecast)
+   - Número de deals fechados / em andamento / perdidos
+   - Ticket médio do período
+
+2. VISÃO INDIVIDUAL (por vendedor)
+   - Ranking de performance
+   - Meta individual vs. realizado
+   - Atividades: ligações / reuniões / propostas enviadas
+
+3. FUNIL DE CONVERSÃO
+   - Leads gerados → Qualificados → Propostas → Fechados
+   - Taxa de conversão em cada etapa
+
+4. ANÁLISE DE PIPELINE
+   - Oportunidades por etapa
+   - Dias médios em cada etapa
+   - Negócios em risco de stall
+
+5. TEMPLATE DE REUNIÃO SEMANAL DE VENDAS
+   - Agenda padrão para o pipeline review semanal
+   - Perguntas que o gestor deve fazer para cada oportunidade` },
+
+  { id:39, title:"Processo de Qualificação SPIN Selling", text:`Crie um guia completo de qualificação de leads usando a metodologia SPIN Selling para o produto/serviço [nome do produto].
+
+CONTEXTO:
+- Produto/serviço: [descreva]
+- Público-alvo: [descreva o ICP]
+- Principais problemas que o produto resolve: [liste 3-5]
+- Ciclo de venda: [duração]
+- Ticket: [valor]
+
+Para cada tipo de pergunta SPIN, crie um banco com 8-10 opções adaptadas ao seu contexto:
+
+S — PERGUNTAS DE SITUAÇÃO
+(entender o cenário atual do prospect)
+[gere as perguntas]
+
+P — PERGUNTAS DE PROBLEMA
+(identificar e trazer à superfície as dores)
+[gere as perguntas]
+
+I — PERGUNTAS DE IMPLICAÇÃO
+(amplificar o custo/consequência do problema)
+[gere as perguntas]
+
+N — PERGUNTAS DE NECESSIDADE DE SOLUÇÃO
+(fazer o prospect articular o valor da solução)
+[gere as perguntas]
+
+Inclua também:
+1. FLUXO DE QUALIFICAÇÃO — em que ordem fazer as perguntas
+2. CRITÉRIOS DE QUALIFICAÇÃO — quando avançar vs. disqualificar
+3. COMO REGISTRAR NO CRM — quais campos preencher
+4. RED FLAGS — sinais de que o lead não é qualificado` },
+
+  { id:40, title:"Script de Fechamento de Vendas", text:`Crie scripts de fechamento para diferentes situações de venda do produto/serviço [nome do produto].
+
+CONTEXTO:
+- Produto/serviço: [descreva]
+- Preço: [valor]
+- Forma de pagamento: [opções disponíveis]
+- Garantia (se houver): [descreva]
+- Ciclo típico até o fechamento: [número de interações/dias]
+
+Crie scripts completos para cada situação de fechamento:
+
+1. FECHAMENTO DIRETO (quando tudo está alinhado)
+   - Como pedir o fechamento naturalmente
+
+2. FECHAMENTO POR URGÊNCIA LEGÍTIMA
+   - Quando há prazo real (vagas limitadas, preço, prazo)
+   - Como usar sem parecer pressão
+
+3. FECHAMENTO POR SUMARIZAÇÃO
+   - Como recapitular os benefícios e pedir a decisão
+
+4. FECHAMENTO POR ALTERNATIVA
+   - Como dar escolhas que ambas levam ao fechamento
+
+5. FECHAMENTO APÓS OBJEÇÃO DE PREÇO
+   - Script específico para superar resistência de valor
+
+6. COMO LIDAR COM "DEIXA EU PENSAR"
+   - O que dizer para entender a objeção real
+   - Como criar urgência sem pressionar
+
+7. O QUE FAZER SE DISSERAM NÃO
+   - Como manter o relacionamento aberto para o futuro
+
+Para cada script: versão para telefone/reunião e versão para WhatsApp.` },
+
+  { id:41, title:"Análise Competitiva para o Time de Vendas", text:`Faça uma análise competitiva completa dos principais concorrentes para usar como guia de battlecard no time de vendas da empresa [nome da empresa].
+
+NOSSO PRODUTO/SERVIÇO:
+- O que oferecemos: [descreva]
+- Preço: [valor e modelo]
+- Nossos maiores pontos fortes: [liste]
+- Nossas limitações honestas: [liste]
+
+CONCORRENTES PARA ANALISAR:
+- Concorrente 1: [nome]
+- Concorrente 2: [nome]
+- Concorrente 3: [nome]
+
+Para cada concorrente, crie um BATTLECARD com:
+1. VISÃO GERAL — quem são, posicionamento, tamanho
+2. PREÇO — modelo e faixa de valores
+3. PONTOS FORTES — onde eles ganham
+4. PONTOS FRACOS — vulnerabilidades reais
+5. COMO NOS DIFERENCIAMOS — nossa vantagem frente a eles
+6. QUANDO PERDEMOS PARA ELES — situações em que eles ganham
+7. QUANDO GANHAMOS DELES — situações em que somos superiores
+8. COMO RESPONDER SE O PROSPECT MENCIONAR ELES
+   - Script de resposta ao benchmark com o concorrente
+
+Ao final, crie uma tabela comparativa geral com todos os concorrentes vs. nossa empresa.` },
+
+  { id:42, title:"Estratégia de Precificação", text:`Ajude-me a definir e estruturar a estratégia de precificação para o produto/serviço [nome].
+
+CONTEXTO:
+- O que é o produto/serviço: [descreva]
+- Custo de entrega (CAC + custo operacional): [R$ ou %]
+- Preço atual (se já tem): [valor]
+- Preço dos principais concorrentes: [valores]
+- Percepção de valor do cliente: [o que eles acham que vale]
+- Público-alvo: [descreva]
+- Modelo de receita desejado: [único / recorrente / por uso]
+
+Por favor, me entregue:
+
+1. ANÁLISE DO POSICIONAMENTO DE PREÇO
+   - Premium, meio de campo ou agressivo — qual faz mais sentido e por quê
+
+2. MODELAGEM DE PREÇO
+   - Opção de preço único
+   - Opção de pacotes/planos (3 tiers clássicos)
+   - Opção de modelo híbrido
+
+3. ÂNCORA DE PREÇO
+   - Como apresentar o preço para maximizar percepção de valor
+
+4. TABELA DE PLANOS (se aplicável)
+   - Nome criativo para cada plano
+   - O que inclui cada plano
+   - Como direcionar o cliente para o plano certo
+
+5. POLÍTICA DE DESCONTO
+   - Quando e quanto descontar sem desvalorizar a marca
+
+6. COMO TESTAR A PRECIFICAÇÃO
+   - Teste A/B de preços e como medir` },
+
+  { id:43, title:"Construção do Funil de Vendas", text:`Monte um funil de vendas completo do zero para o produto/serviço [nome do produto] da empresa [nome da empresa].
+
+CONTEXTO:
+- Produto/serviço: [descreva]
+- Ticket médio: [valor]
+- Canal de aquisição principal: [tráfego pago / orgânico / indicação / outbound]
+- Público-alvo: [descreva]
+- Capacidade de atendimento mensal: [número de clientes que consegue atender]
+- Objetivo: [número de vendas por mês]
+
+Crie o funil com:
+
+1. TOPO DO FUNIL (ToFu) — Atração
+   - Estratégia de geração de leads
+   - Conteúdo e iscas digitais recomendados
+   - Canais prioritários
+   - Meta de leads por mês
+
+2. MEIO DO FUNIL (MoFu) — Consideração
+   - Sequência de nutrição
+   - Critérios de qualificação (MQL → SQL)
+   - Touchpoints necessários antes da abordagem
+
+3. FUNDO DO FUNIL (BoFu) — Conversão
+   - Processo de vendas (etapas)
+   - SLA de resposta e follow-up
+   - Meta de conversão
+
+4. PÓS-VENDA — Retenção e Expansão
+   - Processo de onboarding do cliente
+   - Estratégia de upsell/cross-sell
+   - Programa de indicação
+
+5. MÉTRICAS POR ETAPA
+   - O que medir em cada fase
+   - Taxas de conversão benchmark do mercado` },
+
+  { id:44, title:"Programa de Indicações (Referral)", text:`Crie um programa de indicações completo para a empresa [nome da empresa] visando aumentar a aquisição de novos clientes via boca a boca.
+
+CONTEXTO:
+- Produto/serviço: [descreva]
+- Ticket médio: [valor]
+- LTV médio do cliente: [valor ou período]
+- CAC atual: [valor]
+- Perfil do cliente ideal que queremos atrair: [descreva]
+- Quanto estamos dispostos a pagar por indicação: [R$ ou % ou "a definir"]
+
+Crie:
+1. MECÂNICA DO PROGRAMA
+   - Como funciona (quem indica / quem recebe / o quê)
+   - Tipo de recompensa: desconto / crédito / dinheiro / brinde
+   - Recompensa para o indicador e para o indicado
+
+2. PROCESSO OPERACIONAL
+   - Como o cliente faz a indicação (link / formulário / código)
+   - Como rastrear indicações
+   - Quando e como pagar/creditar a recompensa
+
+3. COMUNICAÇÃO DO PROGRAMA
+   - Email de lançamento para base de clientes
+   - Mensagem WhatsApp para clientes próximos
+   - Como mencionar o programa no pós-venda
+
+4. SEGMENTAÇÃO
+   - Quais clientes abordar primeiro (promotores do NPS)
+   - Como identificar os embaixadores da marca
+
+5. MÉTRICAS
+   - KPIs para medir o sucesso do programa
+   - Benchmarks de taxa de referral por segmento` },
+
+  { id:45, title:"Carta de Vendas (VSL/Long Copy)", text:`Escreva uma carta de vendas persuasiva para o produto/serviço [nome do produto].
+
+INFORMAÇÕES DO PRODUTO:
+- O que é: [descreva detalhadamente]
+- Para quem é: [avatar do cliente ideal]
+- Principal promessa/resultado: [o que o cliente conquista]
+- Mecanismo único: [o que torna o produto diferente]
+- Preço: [valor]
+- Garantia: [descreva ou "sem garantia"]
+- Bônus incluídos: [liste os bônus e valores]
+- Prova social: [depoimentos, resultados de clientes, números]
+
+Escreva a carta de vendas completa com:
+1. HEADLINE principal (+ 3 variações)
+2. SUBHEADLINE que complementa
+3. LEAD — abertura que prende a atenção (história, problema ou promessa)
+4. IDENTIFICAÇÃO COM O PROBLEMA — fazendo o lead se sentir compreendido
+5. AGITAÇÃO — ampliando a dor e a necessidade
+6. SOLUÇÃO — apresentando o produto como a saída
+7. PROVA DE CONCEITO — como e por que funciona
+8. DEPOIMENTOS — como apresentar as provas sociais
+9. OFERTA — apresentando o produto, bônus e preço
+10. GARANTIA — reduzindo o risco
+11. URGÊNCIA — por que agir agora
+12. CTA FINAL — chamada para ação clara
+13. P.S. — reforço final persuasivo` },
+
+  { id:46, title:"Negociação de Contratos e Condições", text:`Crie um guia completo de negociação de contratos e condições comerciais para o time de vendas da empresa [nome da empresa].
+
+CONTEXTO:
+- Produto/serviço: [descreva]
+- Ticket: [valor]
+- Condições padrão: [prazo de pagamento, parcelamento, etc.]
+- O que pode ser flexibilizado: [descreva o que é negociável]
+- O que NÃO pode ser negociado: [limites claros]
+- Perfil dos compradores: [pequenas empresas / médias / grandes / PF]
+
+Crie:
+1. MATRIZ DE NEGOCIAÇÃO
+   - Tabela: o que pode negociar X contrapartida necessária
+   - Limites de desconto por nível do vendedor
+
+2. PLAYBOOK DE NEGOCIAÇÃO
+   - Como responder à solicitação de desconto (passo a passo)
+   - Como usar concessões estrategicamente
+   - A técnica de "se você, eu" para condições especiais
+   - Como negociar sem reduzir o preço
+
+3. PRINCIPAIS PEDIDOS E COMO RESPONDER
+   - "Precisa de desconto" → resposta
+   - "Quer prazo maior" → resposta
+   - "Quer parcelamento" → resposta
+   - "Quer período de teste gratuito" → resposta
+   - "Quer cláusulas especiais no contrato" → resposta
+
+4. AUTORIZAÇÃO DE APROVAÇÃO
+   - Quem aprova cada tipo de concessão
+
+5. COMO FORMALIZAR
+   - Checklist antes de assinar um contrato` },
+
+  { id:47, title:"Relatório de Performance de Vendas", text:`Crie um modelo de relatório de performance de vendas para apresentar [semanalmente / mensalmente] para a liderança da empresa [nome da empresa].
+
+DADOS DO PERÍODO:
+- Período: [semana/mês de referência]
+- Meta do período: [R$ valor]
+- Resultado alcançado: [R$ valor]
+- Número de vendedores: [quantidade]
+- Número de negócios fechados: [quantidade]
+- Número de negócios perdidos: [quantidade]
+- Ticket médio: [valor]
+- Novas oportunidades geradas: [quantidade]
+- Valor total do pipeline atual: [R$ valor]
+
+Estruture o relatório com:
+
+1. EXECUTIVE SUMMARY (meia página)
+   - Resultado vs. meta, variação vs. período anterior, destaques
+
+2. PERFORMANCE DO TIME
+   - Ranking dos vendedores
+   - Análise de quem atingiu / não atingiu a meta
+
+3. ANÁLISE DO FUNIL
+   - Taxa de conversão em cada etapa
+   - Gargalos identificados
+
+4. ANÁLISE DE PERDA
+   - Por que perdemos negócios (motivos mais frequentes)
+   - Valor perdido e potencial de recuperação
+
+5. PIPELINE ATUAL
+   - Valor e saúde do pipeline para o próximo período
+   - Forecast do próximo período
+
+6. AÇÕES PARA PRÓXIMO PERÍODO
+   - O que faremos diferente
+   - Metas de melhoria específicas` }
+]);
+
+// =============================================
+// CATEGORIA 1 — RH & CONTRATAÇÃO
+// =============================================
+loadCategory(1, [
+  { id:1, title:"Criar Anúncio de Vaga Atraente", text:`Preciso criar um anúncio de vaga profissional e atraente para publicar no LinkedIn, Indeed e grupos de WhatsApp.
+
+DADOS DA VAGA:
+- Cargo: [nome do cargo]
+- Empresa: [nome da empresa]
+- Segmento: [segmento de atuação]
+- Regime: [CLT / PJ / Freelance]
+- Localidade: [cidade ou remoto]
+- Faixa salarial: [valor ou "a combinar"]
+- Principais responsabilidades: [liste as 3-5 principais]
+- Requisitos obrigatórios: [liste os requisitos]
+- Diferenciais desejados: [liste os diferenciais]
+- Benefícios oferecidos: [liste os benefícios]
+
+Por favor, crie:
+1. Um título de vaga chamativo (máx. 60 caracteres)
+2. Um parágrafo de abertura que venda a empresa e a oportunidade
+3. Seção de responsabilidades em bullet points
+4. Seção de requisitos obrigatórios e desejáveis
+5. Seção de benefícios
+6. CTA (call to action) claro para candidatura
+7. Hashtags relevantes para LinkedIn
+
+Tom: profissional mas humano, que transmita a cultura da empresa.` },
+
+  { id:2, title:"Roteiro Completo de Entrevista", text:`Crie um roteiro completo de entrevista para o cargo de [cargo] na área de [departamento].
+
+CONTEXTO:
+- Empresa: [nome e segmento]
+- Nível da vaga: [júnior / pleno / sênior / coordenador / gerente]
+- Competências-chave necessárias: [liste 4-5 competências]
+- Principal desafio do cargo: [descreva o maior desafio]
+- Cultura da empresa: [descreva em 2-3 palavras]
+
+Estruture o roteiro com:
+1. Boas-vindas e apresentação (5 min) — o que dizer
+2. Perguntas comportamentais (método STAR) — mínimo 8 perguntas
+3. Perguntas técnicas específicas do cargo — mínimo 5 perguntas
+4. Perguntas de fit cultural — 4 perguntas
+5. Perguntas situacionais / resolução de problemas — 3 cenários
+6. Espaço para perguntas do candidato — o que observar
+7. Encerramento — próximos passos a comunicar
+
+Para cada pergunta, inclua: o que está avaliando e o que é uma resposta positiva/negativa.` },
+
+  { id:3, title:"Checklist de Onboarding Completo", text:`Crie um checklist detalhado de onboarding para um novo colaborador no cargo de [cargo] que inicia na empresa [nome da empresa] no dia [data de início].
+
+INFORMAÇÕES:
+- Departamento: [departamento]
+- Gestor direto: [nome do gestor]
+- Buddy (mentor): [nome do buddy, se houver]
+- Ferramentas que usará: [liste as principais ferramentas]
+- Sistemas com acesso necessário: [liste os sistemas]
+- Projetos que já entra: [projetos iniciais]
+
+Crie um cronograma de onboarding de 30 dias com:
+
+SEMANA 1 — Imersão
+- Dia 1: checklist hora a hora (boas-vindas, documentos, acessos, reuniões)
+- Dias 2-5: atividades de aprendizado e integração
+
+SEMANA 2 — Aprendizado
+- Treinamentos e shadowing necessários
+
+SEMANAS 3-4 — Entrega
+- Primeiras responsabilidades e metas de 30 dias
+
+Inclua também:
+- Lista de documentos a coletar no RH
+- Lista de acessos e equipamentos a providenciar
+- Reuniões obrigatórias da primeira semana
+- Checklist de conclusão do onboarding` },
+
+  { id:4, title:"Política de Benefícios da Empresa", text:`Preciso criar uma política de benefícios clara e atraente para a empresa [nome da empresa].
+
+CONTEXTO DA EMPRESA:
+- Segmento: [segmento]
+- Tamanho: [número de colaboradores]
+- Regime predominante: [CLT / PJ]
+- Orçamento por colaborador: [valor ou faixa]
+- Localidade: [cidade/estado]
+
+BENEFÍCIOS QUE JÁ TEMOS:
+[liste os benefícios atuais]
+
+BENEFÍCIOS QUE ESTAMOS CONSIDERANDO ADICIONAR:
+[liste os que estão em análise]
+
+Por favor, crie:
+1. Documento de política de benefícios formatado
+2. Tabela comparativa por nível hierárquico (se aplicável)
+3. Regras de elegibilidade (tempo de empresa, regime, etc.)
+4. Processo para solicitar e utilizar cada benefício
+5. FAQ com as dúvidas mais comuns
+6. Texto de comunicação para apresentar a política aos colaboradores
+
+Foque em clareza, sem juridiquês. Tom: transparente e cuidadoso.` },
+
+  { id:5, title:"Formulário de Avaliação de Desempenho", text:`Crie um formulário completo de avaliação de desempenho para ser aplicado [semestralmente / anualmente] na empresa [nome da empresa].
+
+CONTEXTO:
+- Cargo avaliado: [cargo ou "todos os cargos"]
+- Formato da avaliação: [360° / gestor avalia liderado / autoavaliação / misto]
+- Competências da empresa que queremos avaliar: [liste 5-8 competências]
+- Metas/OKRs que serão avaliados: [descreva o formato de metas]
+
+Crie o formulário com:
+
+PARTE 1 — Autoavaliação
+- Escala de 1 a 5 com âncoras comportamentais para cada competência
+- Campo de evidências e exemplos concretos
+- Avaliação de atingimento de metas
+
+PARTE 2 — Avaliação do Gestor
+- Mesmas competências com campos para o gestor
+- Campo de pontos fortes e áreas de desenvolvimento
+- Nota geral de performance (Abaixo / Na Média / Acima / Excepcional)
+
+PARTE 3 — Plano de Desenvolvimento (PDI)
+- 3 metas de desenvolvimento para o próximo período
+- Ações concretas para cada meta
+- Prazo e como será medido o progresso
+
+PARTE 4 — Calibração
+- Espaço para nota final calibrada
+- Recomendação: manter / promover / revisão salarial / PIP` },
+
+  { id:6, title:"Plano de Desenvolvimento Individual (PDI)", text:`Crie um PDI (Plano de Desenvolvimento Individual) estruturado para [nome do colaborador], [cargo], na empresa [nome da empresa].
+
+CONTEXTO DO COLABORADOR:
+- Tempo de empresa: [tempo]
+- Pontos fortes identificados: [liste 3-4 pontos fortes]
+- Áreas de desenvolvimento prioritárias: [liste 2-3 áreas]
+- Objetivo de carreira declarado: [objetivo do colaborador]
+- Próximo passo de carreira desejado: [cargo desejado ou "não definido"]
+- Período do PDI: [6 meses / 1 ano]
+
+Para cada área de desenvolvimento, crie:
+
+1. DESCRIÇÃO DA LACUNA
+   - Situação atual vs. situação desejada
+   - Impacto dessa lacuna no trabalho atual e futuro
+
+2. AÇÕES DE DESENVOLVIMENTO
+   - Treinamentos/cursos (com sugestões específicas)
+   - Leituras recomendadas
+   - Projetos para desenvolver a habilidade na prática
+   - Mentoria ou coaching (se aplicável)
+
+3. METAS SMART
+   - Meta específica, mensurável, com prazo
+
+4. COMO SERÁ ACOMPANHADO
+   - Frequência das revisões com o gestor
+   - Indicadores de progresso
+
+Ao final, inclua um plano de reuniões de acompanhamento (1:1 mensal).` },
+
+  { id:7, title:"Comunicado de Desligamento para Equipe", text:`Preciso redigir um comunicado de desligamento para informar a equipe sobre a saída de [nome do colaborador], [cargo].
+
+CONTEXTO:
+- Motivo do desligamento: [demissão pela empresa / pedido do colaborador / término de contrato]
+- Data da saída: [data]
+- Relacionamento do colaborador com a equipe: [próximo / distante / liderança]
+- Quem assume as responsabilidades: [nome ou "a definir"]
+- Há substituição prevista: [sim/não — quando]
+- Tom desejado: [formal / próximo / neutro]
+
+Por favor, crie:
+1. Email/mensagem para a equipe imediata
+2. Comunicado mais amplo para toda a empresa (se necessário)
+3. Mensagem de agradecimento ao colaborador (para enviar diretamente)
+4. Script para o gestor comunicar verbalmente em reunião
+
+Diretrizes:
+- Ser respeitoso com o colaborador que sai
+- Não criar ansiedade ou incerteza na equipe
+- Passar a mensagem de continuidade e estabilidade
+- Agradecer a contribuição genuinamente` },
+
+  { id:8, title:"Pesquisa de Clima Organizacional", text:`Crie uma pesquisa de clima organizacional completa para a empresa [nome da empresa].
+
+CONTEXTO:
+- Número de colaboradores: [quantidade]
+- Regime predominante: [presencial / híbrido / remoto]
+- Principal preocupação atual da liderança: [descreva]
+- Última pesquisa realizada: [data ou "nunca realizamos"]
+- Ferramenta de aplicação: [Google Forms / SurveyMonkey / papel / outra]
+
+A pesquisa deve cobrir as dimensões:
+1. Satisfação geral e engajamento
+2. Liderança e gestão
+3. Comunicação interna
+4. Desenvolvimento e crescimento
+5. Remuneração e benefícios
+6. Ambiente e cultura
+7. Equilíbrio vida-trabalho
+8. Sentido e propósito
+
+Para cada dimensão, crie:
+- 3-4 afirmações para escala Likert (1-5: Discordo totalmente a Concordo totalmente)
+- 1 pergunta aberta opcional
+
+Ao final, inclua:
+- 3 perguntas abertas finais (o que mais te motiva / o que mudaria / você indicaria a empresa)
+- Instruções para anonimato e como usar os resultados
+- Template de análise dos resultados por dimensão` },
+
+  { id:9, title:"Manual do Colaborador", text:`Crie um Manual do Colaborador completo para a empresa [nome da empresa].
+
+DADOS DA EMPRESA:
+- Segmento: [segmento de atuação]
+- Tamanho: [número de colaboradores]
+- Localidade: [cidade / remoto / híbrido]
+- Missão: [missão da empresa]
+- Visão: [visão]
+- Valores: [liste os valores]
+- Horário de trabalho: [horários]
+- Ferramentas de comunicação interna: [Slack / Teams / WhatsApp / outras]
+
+O manual deve conter:
+1. Carta de boas-vindas do CEO/fundador
+2. Quem somos — história, missão, visão e valores
+3. Como funcionamos — estrutura e times
+4. Jornada de trabalho e políticas de ponto
+5. Ferramentas e como usamos cada uma
+6. Código de conduta e ética
+7. Política de uso de equipamentos e dados
+8. Política de home office (se aplicável)
+9. Benefícios e como acessar
+10. Como funciona a avaliação de desempenho
+11. Desenvolvimento e crescimento na empresa
+12. Canais de comunicação e escalonamento
+13. Perguntas frequentes (FAQ)
+
+Tom: acolhedor, claro, sem juridiquês excessivo.` },
+
+  { id:10, title:"Script de Feedback (Modelo SCI)", text:`Crie um script estruturado de feedback para ser dado por [nome do gestor] para [nome do colaborador] sobre a situação: [descreva a situação brevemente].
+
+CONTEXTO:
+- Tipo de feedback: [positivo / corretivo / desenvolvimento]
+- Situação específica: [descreva detalhadamente o que aconteceu]
+- Comportamento observado: [o que exatamente a pessoa fez ou deixou de fazer]
+- Impacto gerado: [qual foi o impacto no time, projeto ou cliente]
+- Resultado esperado: [o que você quer que mude ou continue]
+- Relacionamento: [próximo / formal / primeira vez dando feedback para esta pessoa]
+
+Estruture o script usando o modelo SCI (Situação-Comportamento-Impacto):
+
+1. ABERTURA — como iniciar a conversa sem defensividade
+2. SITUAÇÃO — descreva o contexto específico (sem generalizar)
+3. COMPORTAMENTO — o comportamento observado (fatos, não julgamentos)
+4. IMPACTO — o impacto concreto que aquele comportamento gerou
+5. EXPECTATIVA — o que você espera daqui para frente
+6. SUPORTE — como você vai apoiar a mudança
+7. ENCERRAMENTO — como fechar positivamente
+
+Inclua também:
+- Possíveis reações do colaborador e como responder
+- O que NÃO dizer (armadilhas comuns)
+- Como documentar o feedback dado` },
+
+  { id:11, title:"Estrutura de Processo Seletivo", text:`Monte um processo seletivo completo para contratar [cargo] na empresa [nome da empresa].
+
+CONTEXTO:
+- Urgência: [preciso contratar em quanto tempo]
+- Número de vagas: [quantidade]
+- Perfil buscado: [descreva o perfil ideal em 3-5 linhas]
+- Orçamento para divulgação: [valor ou "zero — apenas canais gratuitos"]
+- Quem participa do processo: [gestor / RH / outra área]
+- Critério principal de seleção: [habilidade técnica / fit cultural / experiência]
+
+Crie:
+1. CRONOGRAMA DO PROCESSO
+   - Etapas, responsáveis e duração de cada fase
+
+2. CANAIS DE DIVULGAÇÃO
+   - Onde publicar (gratuito e pago) com linguagem para cada canal
+
+3. TRIAGEM DE CURRÍCULOS
+   - Critérios eliminatórios e classificatórios
+   - Template de planilha de avaliação
+
+4. ETAPAS DE ENTREVISTA
+   - Quantas rodadas, formato e quem conduz cada uma
+
+5. TESTES/CASES (se aplicável)
+   - Sugestão de desafio prático para o cargo
+
+6. CRITÉRIOS DE DECISÃO FINAL
+   - Como pontuar e comparar candidatos finais
+
+7. COMUNICAÇÃO COM CANDIDATOS
+   - Emails de aprovação em cada etapa
+   - Email de feedback para reprovados` },
+
+  { id:12, title:"Checklist de Documentação Admissional", text:`Crie um checklist completo de documentação admissional para contratar [nome do colaborador] no regime [CLT / PJ] para o cargo de [cargo] na empresa [nome da empresa], no estado de [estado].
+
+Inclua:
+
+DOCUMENTOS A SOLICITAR AO COLABORADOR:
+- Lista completa de documentos pessoais com especificações (original/cópia/autenticada)
+- Documentos específicos para CLT ou PJ
+- Documentos adicionais por cargo (motorista, financeiro, etc. se aplicável)
+
+DOCUMENTOS A ASSINAR:
+- Contrato de trabalho
+- Termos e políticas internas
+- Documentos de confidencialidade (LGPD)
+- Outros documentos legais necessários
+
+PROVIDÊNCIAS DO RH/EMPRESA:
+- Registro em carteira (se CLT)
+- Abertura de conta salário
+- Cadastro em benefícios
+- Abertura de acessos e e-mail corporativo
+- Entrega de equipamentos
+
+EXAMES:
+- Exame admissional — especificações
+
+PRAZO PARA CADA ITEM:
+- Quais devem ser entregues antes, no primeiro dia, na primeira semana
+
+Formate como checklist com caixas de verificação [ ] e campo para data de conclusão.` },
+
+  { id:13, title:"Política de Remuneração e Salários", text:`Crie uma política de remuneração e salários clara para a empresa [nome da empresa].
+
+CONTEXTO:
+- Segmento: [segmento]
+- Número de colaboradores: [quantidade]
+- Tamanho da empresa: [porte]
+- Estrutura atual: [descreva como funciona hoje]
+- Problema a resolver: [o que motivou criar esta política]
+
+A política deve incluir:
+
+1. FILOSOFIA DE REMUNERAÇÃO
+   - Posicionamento de mercado (percentil 50 / 75 / etc.)
+   - Componentes da remuneração total
+
+2. ESTRUTURA DE CARGOS E SALÁRIOS
+   - Modelo de bandas salariais por nível
+   - Critérios de enquadramento em cada banda
+
+3. REMUNERAÇÃO VARIÁVEL
+   - Política de bônus/PLR
+   - Métricas de elegibilidade
+   - Fórmula de cálculo
+
+4. REAJUSTES E PROMOÇÕES
+   - Quando e como acontecem reajustes
+   - Critérios para promoção e respectivo impacto salarial
+   - Processo de solicitação de revisão
+
+5. COMUNICAÇÃO
+   - O que é comunicado ao colaborador sobre sua faixa
+   - O que é confidencial
+
+6. GOVERNANÇA
+   - Quem aprova mudanças salariais
+   - Periodicidade de revisão da política` },
+
+  { id:14, title:"Job Description (Descrição de Cargo)", text:`Crie uma job description completa e bem estruturada para o cargo de [nome do cargo] na empresa [nome da empresa].
+
+INFORMAÇÕES DO CARGO:
+- Área/departamento: [área]
+- Nível: [júnior / pleno / sênior / coordenador / gerente / diretor]
+- Reporta para: [cargo do gestor direto]
+- Lidera: [quantas pessoas, se liderança]
+- Missão do cargo: [em uma frase, para que serve este cargo]
+- Principais entregas esperadas: [liste as 4-6 principais]
+
+ATIVIDADES E RESPONSABILIDADES:
+[liste as atividades que já conhece — pode ser rascunho]
+
+REQUISITOS:
+- Formação: [obrigatória e desejável]
+- Experiência prévia: [mínimo necessário]
+- Conhecimentos técnicos: [liste]
+- Ferramentas/sistemas: [liste]
+- Idiomas: [se necessário]
+- Competências comportamentais: [liste 4-5]
+
+Crie a job description com:
+1. Título do cargo e posicionamento na estrutura
+2. Missão do cargo (1 parágrafo)
+3. Responsabilidades (bullet points — 8-12 itens)
+4. Indicadores de sucesso do cargo (KPIs)
+5. Requisitos obrigatórios e desejáveis
+6. O que a empresa oferece` },
+
+  { id:15, title:"Carta de Oferta Profissional", text:`Crie uma carta de oferta profissional para enviar ao candidato aprovado [nome do candidato] para a vaga de [cargo].
+
+DADOS DA PROPOSTA:
+- Empresa: [nome da empresa]
+- Cargo oferecido: [cargo]
+- Regime de contratação: [CLT / PJ]
+- Salário/honorários: [valor]
+- Data de início prevista: [data]
+- Carga horária: [horas semanais]
+- Localidade: [presencial / híbrido / remoto — cidade]
+- Benefícios incluídos: [liste todos os benefícios]
+- Período de experiência: [90 dias ou não aplicável]
+- Prazo para o candidato responder: [data limite]
+
+Crie:
+1. EMAIL formal de oferta com tom acolhedor e entusiasmado
+2. Carta/documento de oferta formal para assinar (Word/PDF)
+3. Mensagem de WhatsApp informal para avisar do email
+
+A carta deve conter:
+- Congratulações pela aprovação
+- Todos os termos da proposta de forma clara
+- Próximos passos após aceite
+- Contato para dúvidas
+- Linha de aceite/assinatura` },
+
+  { id:16, title:"Plano de Carreira por Nível", text:`Crie um plano de carreira estruturado para o cargo de [cargo] na empresa [nome da empresa].
+
+CONTEXTO:
+- Área: [área/departamento]
+- Quantidade de níveis existentes ou desejados: [quantidade]
+- Tempo médio em cada nível: [estimativa]
+- O que impulsiona a progressão hoje: [tempo / performance / outra coisa]
+
+Para cada nível de carreira (ex: Analista Jr → Pl → Sr → Coordenador → Gerente), defina:
+
+1. TÍTULO E MISSÃO DO NÍVEL
+2. COMPETÊNCIAS TÉCNICAS ESPERADAS
+   - O que a pessoa deve saber fazer com autonomia
+3. COMPETÊNCIAS COMPORTAMENTAIS
+   - O que se espera em termos de postura e soft skills
+4. INDICADORES DE PERFORMANCE (KPIs)
+   - Como o sucesso nesse nível é medido
+5. CRITÉRIOS DE PROMOÇÃO
+   - O que precisa acontecer para avançar ao próximo nível
+   - Tempo mínimo e avaliação de desempenho necessária
+6. SALÁRIO REFERÊNCIA (banda)
+   - Faixa salarial indicativa por nível
+
+Ao final:
+- Matriz visual de progressão (em formato de tabela)
+- Como comunicar o plano de carreira para os colaboradores
+- Como usar o plano de carreira nas conversas de 1:1` },
+
+  { id:17, title:"Avaliação de Período de Experiência", text:`Crie um formulário e roteiro para avaliação de período de experiência do colaborador [nome], cargo [cargo], que completará [45 ou 90] dias na empresa [nome da empresa] em [data].
+
+INFORMAÇÕES:
+- Gestor avaliador: [nome]
+- Atividades que o colaborador exerceu até agora: [liste as principais]
+- Metas definidas para o período de experiência: [liste as metas]
+- Percepção inicial do gestor: [positiva / neutra / preocupante]
+
+Crie:
+1. FORMULÁRIO DE AVALIAÇÃO
+   - Avaliação técnica: domínio das ferramentas e processos (1-5)
+   - Avaliação comportamental: proatividade, comunicação, colaboração (1-5)
+   - Atingimento das metas do período
+   - Adaptação à cultura da empresa
+   - Campo para comentários e exemplos
+
+2. ROTEIRO DA CONVERSA
+   - Como abrir a reunião de avaliação
+   - Perguntas para entender a perspectiva do colaborador
+   - Como apresentar os pontos de melhoria
+   - Como formalizar a decisão (aprovado / reprovado / extensão)
+
+3. DECISÕES POSSÍVEIS
+   - Texto para: aprovado com reconhecimento
+   - Texto para: aprovado com plano de melhoria
+   - Texto para: reprovado (com orientações legais básicas)` },
+
+  { id:18, title:"Protocolo de Advertência Formal", text:`Crie um protocolo de advertência formal para a situação: [descreva o que aconteceu].
+
+INFORMAÇÕES:
+- Colaborador: [nome e cargo]
+- Empresa: [nome da empresa]
+- Data do ocorrido: [data]
+- Tipo de infração: [atraso / falta / descumprimento de norma / conduta / outro]
+- Número desta advertência: [primeira / segunda / terceira]
+- Testemunhas (se houver): [nomes]
+- Já houve conversa informal antes? [sim/não]
+
+Por favor, crie:
+1. DOCUMENTO DE ADVERTÊNCIA FORMAL
+   - Cabeçalho com dados da empresa e colaborador
+   - Descrição objetiva do ocorrido (fatos, datas, horários)
+   - Dispositivo violado (norma, política ou dever)
+   - Consequências se houver reincidência
+   - Espaço para assinatura do colaborador e da testemunha
+
+2. ROTEIRO PARA A CONVERSA
+   - Como conduzir a reunião de entrega da advertência
+   - Como registrar a recusa em assinar (se ocorrer)
+
+3. CHECKLIST PÓS-ADVERTÊNCIA
+   - O que arquivar e como
+   - Prazo para nova avaliação do colaborador
+   - Como monitorar sem criar clima de perseguição
+
+Atenção: oriente para que um advogado trabalhista revise o documento antes de aplicar.` },
+
+  { id:19, title:"Política de Home Office e Trabalho Remoto", text:`Crie uma política de home office e trabalho remoto completa para a empresa [nome da empresa].
+
+CONTEXTO ATUAL:
+- Modelo atual: [totalmente presencial / híbrido / totalmente remoto]
+- Modelo desejado: [descreva o modelo que quer implementar]
+- Número de colaboradores afetados: [quantidade]
+- Segmento: [segmento]
+- Ferramentas de colaboração já usadas: [liste]
+- Principal preocupação da liderança: [produtividade / comunicação / cultura / outra]
+
+A política deve cobrir:
+1. ELEGIBILIDADE
+   - Quais cargos e funções podem fazer home office
+   - Critérios de elegibilidade (tempo de empresa, performance, etc.)
+
+2. JORNADA E DISPONIBILIDADE
+   - Horários de core hours (quando todos devem estar disponíveis)
+   - Como sinalizar disponibilidade e ausência
+
+3. AMBIENTE DE TRABALHO
+   - Requisitos mínimos do espaço físico
+   - Requisitos de conexão e segurança
+
+4. EQUIPAMENTOS
+   - O que a empresa fornece vs. responsabilidade do colaborador
+
+5. COMUNICAÇÃO E REUNIÕES
+   - Protocolos de comunicação assíncrona e síncrona
+   - Câmera: quando é obrigatório ligar
+
+6. REEMBOLSOS
+   - O que a empresa reembolsa (internet, energia, etc.)
+
+7. AVALIAÇÃO DE RESULTADOS
+   - Como a performance é medida no remoto` },
+
+  { id:20, title:"Cronograma de Treinamentos do Time", text:`Crie um cronograma anual de treinamentos para o time de [nome do departamento] da empresa [nome da empresa].
+
+INFORMAÇÕES DO TIME:
+- Número de pessoas: [quantidade]
+- Cargos presentes no time: [liste os cargos]
+- Principal gap de habilidade identificado: [descreva]
+- Orçamento de treinamento: [valor anual ou por pessoa]
+- Horário disponível para treinamentos: [quando podem treinar]
+- Preferência de formato: [presencial / online / workshop / microlearning]
+
+Crie:
+1. LEVANTAMENTO DE NECESSIDADES
+   - Perguntas para mapear os gaps do time (entrevista/formulário)
+
+2. CALENDÁRIO ANUAL DE TREINAMENTOS
+   - Distribua ao longo de 12 meses
+   - Mix de: técnico, comportamental, liderança e cultura
+   - Treinamentos internos vs. externos
+
+3. PARA CADA TREINAMENTO, INCLUA:
+   - Objetivo e competência desenvolvida
+   - Formato e duração
+   - Quem ministra (interno ou fornecedor)
+   - Custo estimado
+   - Como medir o aprendizado (avaliação/aplicação prática)
+
+4. INDICADORES DO PROGRAMA
+   - Como medir o ROI dos treinamentos
+   - NPS dos treinamentos (satisfação dos participantes)
+
+5. TEMPLATE DE AVALIAÇÃO DE REAÇÃO
+   - Formulário pós-treinamento para feedback imediato` },
+
+  { id:21, title:"Pesquisa de Satisfação dos Colaboradores (eNPS)", text:`Crie uma pesquisa de eNPS (Employee Net Promoter Score) e satisfação geral para a empresa [nome da empresa].
+
+CONTEXTO:
+- Frequência desejada: [mensal / trimestral / semestral]
+- Número de colaboradores: [quantidade]
+- Ferramenta: [Google Forms / Typeform / outra]
+- Última pesquisa: [data ou "nunca aplicamos"]
+- Evento recente que pode influenciar: [mudança de liderança / reajuste / outro]
+
+Crie:
+
+1. PERGUNTA EENPS PRINCIPAL
+   - "Em uma escala de 0 a 10, qual a probabilidade de você recomendar [empresa] como um bom lugar para trabalhar?"
+   - Follow-up: "Qual o principal motivo da sua nota?"
+
+2. TERMÔMETRO RÁPIDO (5-7 perguntas)
+   - Satisfação com o trabalho em si
+   - Relação com o gestor direto
+   - Colaboração com o time
+   - Clareza sobre crescimento e carreira
+   - Reconhecimento pelo trabalho
+   - Equilíbrio vida-trabalho
+
+3. PERGUNTA ABERTA OPCIONAL
+   - "O que você mais gosta de trabalhar aqui?"
+   - "Se você pudesse mudar uma coisa na empresa, o que seria?"
+
+4. COMO ANALISAR OS RESULTADOS
+   - Fórmula do eNPS
+   - Benchmarks de mercado
+   - Template de dashboard dos resultados
+
+5. PROTOCOLO DE AÇÃO
+   - O que fazer com o resultado (bom / neutro / ruim)
+   - Como comunicar os resultados de volta para o time` },
+
+  { id:22, title:"Plano de Sucessão para Cargos-Chave", text:`Crie um plano de sucessão para os cargos-chave da empresa [nome da empresa].
+
+CARGOS A MAPEAR:
+[liste os cargos críticos — ex: Gerente Comercial, Head de Produto, etc.]
+
+CONTEXTO:
+- Principal risco atual: [quem são os "bus factor" — pessoas cuja saída seria crítica]
+- Tempo estimado de mandato dos atuais ocupantes: [estimativa]
+- Cultura de promoção interna: [forte / fraca / não existe ainda]
+
+Para cada cargo crítico, crie:
+
+1. PERFIL DO CARGO
+   - Competências inegociáveis para o cargo
+   - O que o ocupante atual faz que ninguém mais sabe
+
+2. MAPEAMENTO DE SUCESSORES POTENCIAIS
+   - Sucessor imediato (pronto em até 6 meses)
+   - Sucessor de médio prazo (1-2 anos)
+   - Sucessor de longo prazo (3+ anos)
+
+3. GAP ANALYSIS
+   - O que cada sucessor ainda precisa desenvolver
+
+4. PLANO DE DESENVOLVIMENTO
+   - Ações concretas para preparar cada sucessor
+   - Job rotation ou shadowing necessários
+
+5. PLANO DE RISCO
+   - O que fazer se o ocupante sair antes do esperado
+   - Contratação externa vs. promoção interna
+
+Ao final: matriz visual de sucessão e cronograma de revisão semestral.` },
+
+  { id:23, title:"Política de Férias e Gestão de Ausências", text:`Crie uma política clara de férias e gestão de ausências para a empresa [nome da empresa].
+
+CONTEXTO:
+- Regime: [CLT predominante / PJ / misto]
+- Número de colaboradores: [quantidade]
+- Pico de demanda (período em que não pode ter muita gente de férias): [meses]
+- Problema atual com férias: [acúmulo / conflito de datas / falta de organização]
+
+A política deve incluir:
+
+1. PROGRAMAÇÃO DE FÉRIAS (CLT)
+   - Quando o colaborador deve solicitar (antecedência mínima)
+   - Como é feita a aprovação
+   - Regras para período de gozo
+   - Política de fracionamento de férias
+
+2. FOLGAS E LICENÇAS
+   - Tabela de todos os tipos de afastamento e como funciona cada um:
+     - Licença maternidade/paternidade
+     - Licença médica
+     - Licença casamento
+     - Licença luto
+     - Ausências por motivo pessoal
+   - Documentação necessária para cada tipo
+
+3. CONTROLE E TRANSPARÊNCIA
+   - Como colaboradores acompanham seu saldo de férias
+   - Ferramenta/planilha para gestão
+
+4. REGRAS DE APROVAÇÃO
+   - Quem aprova, em quanto tempo
+   - Como resolver conflito de datas entre pessoas do mesmo time
+
+5. ACÚMULO E VENDA DE FÉRIAS
+   - Política sobre férias não gozadas (para PJ e informal)` },
+
+  { id:24, title:"Roteiro de Reunião 1:1 (Gestor-Liderado)", text:`Crie um roteiro estruturado para reuniões de 1:1 (one-on-one) entre gestor e liderado para uso contínuo na empresa [nome da empresa].
+
+CONTEXTO:
+- Frequência das 1:1s: [semanal / quinzenal / mensal]
+- Duração: [30 min / 45 min / 1 hora]
+- Formato: [presencial / videochamada]
+- Objetivo principal da 1:1 na empresa: [desenvolvimento / alinhamento / suporte]
+- Estilo de gestão preferido: [diretivo / coaching / colaborativo]
+
+Crie:
+
+1. ESTRUTURA PADRÃO DA REUNIÃO
+   - Abertura (2 min): como começa
+   - Check-in rápido (3 min): humor/energia do liderado
+   - Updates do liderado (10 min): o que está trabalhando, bloqueios
+   - Agenda do gestor (5 min): feedbacks, alinhamentos
+   - Desenvolvimento (10 min): carreira, aprendizado
+   - Encerramento (5 min): próximos passos e ações
+
+2. BANCO DE PERGUNTAS
+   - 15 perguntas poderosas de check-in
+   - 10 perguntas de desenvolvimento de carreira
+   - 10 perguntas para situações difíceis (conflito, desmotivação)
+   - 5 perguntas para reuniões de fim de ano
+
+3. TEMPLATE DE ATA DA 1:1
+   - Formato para registrar ações e acompanhar
+
+4. DICAS DE FACILITAÇÃO
+   - Como fazer o liderado falar mais do que o gestor
+   - O que nunca transformar em 1:1 (reunião de status)` },
+
+  { id:25, title:"Kit de Integração para Novo Colaborador", text:`Crie um Kit de Integração completo (Welcome Kit) para novos colaboradores que entram na empresa [nome da empresa].
+
+CONTEXTO:
+- Cultura da empresa: [descreva em 3-5 palavras]
+- Tom de comunicação: [formal / descontraído / técnico]
+- Formato de entrega do kit: [digital (PDF/Notion) / físico / ambos]
+- Ferramentas de trabalho: [liste as principais]
+- Quem receberá: [todos os colaboradores / só PJs / só CLT]
+
+O kit deve conter:
+
+1. CARTA DE BOAS-VINDAS PERSONALIZADA
+   - Do fundador/CEO para o novo colaborador
+   - Tom acolhedor e que transmita a cultura
+
+2. GUIA DE SOBREVIVÊNCIA — PRIMEIRO MÊS
+   - O que fazer nos primeiros 3 dias
+   - Com quem falar para cada tipo de dúvida
+   - Mapa dos times e quem é quem
+
+3. GLOSSÁRIO DA EMPRESA
+   - Siglas, termos e expressões usadas internamente
+
+4. GUIA DAS FERRAMENTAS
+   - Para que serve cada ferramenta
+   - Como acessar e primeiros passos
+
+5. PERGUNTAS FREQUENTES DO PRIMEIRO MÊS
+   - FAQ prático com as dúvidas mais comuns
+
+6. EXPECTATIVAS DO PRIMEIRO MÊS
+   - O que a empresa espera nos primeiros 30/60/90 dias
+   - Como será avaliado no período de experiência
+
+7. RITUAIS E CULTURA
+   - Reuniões fixas, como funciona a comunicação
+   - O que é valorizado e o que não é bem-visto
+
+Formate de maneira visual e agradável de ler.` }
+]);
+</script>
+</body>
+</html>

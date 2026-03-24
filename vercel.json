@@ -1,9 +1,8 @@
 {
-  "version": 2,
-  "outputDirectory": ".",
+  "outputDirectory": "EI",
   "routes": [
-    { "src": "/", "dest": "/EI/ia-operating-system-pagina-de-vendas.html" },
-    { "src": "/analise", "dest": "/EI/hormozi-analise-consultoria-ia.html" },
-    { "src": "/prompts", "dest": "/EI/biblioteca-127-prompts-claude-code.html" }
+    { "src": "/", "dest": "/ia-operating-system-pagina-de-vendas.html" },
+    { "src": "/analise", "dest": "/hormozi-analise-consultoria-ia.html" },
+    { "src": "/prompts", "dest": "/biblioteca-127-prompts-claude-code.html" }
   ]
 }

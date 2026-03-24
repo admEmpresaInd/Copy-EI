@@ -1,7 +1,7 @@
 {
   "outputDirectory": "EI",
-  "installCommand": "",
-  "buildCommand": "",
+  "buildCommand": "echo ok",
+  "installCommand": "echo ok",
   "framework": null,
   "routes": [
     { "src": "/", "dest": "/ia-operating-system-pagina-de-vendas.html" },

@@ -1,5 +1,8 @@
 {
   "outputDirectory": "EI",
+  "installCommand": "",
+  "buildCommand": "",
+  "framework": null,
   "routes": [
     { "src": "/", "dest": "/ia-operating-system-pagina-de-vendas.html" },
     { "src": "/analise", "dest": "/hormozi-analise-consultoria-ia.html" },

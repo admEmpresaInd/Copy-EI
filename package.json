@@ -1,7 +1,4 @@
 {
-  "scripts": {
-    "build": "echo 'static site'"
-  },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.78.0",
     "axios": "^1.13.6",

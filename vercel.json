@@ -1,9 +1,5 @@
 {
   "version": 2,
-  "outputDirectory": ".",
-  "builds": [
-    { "src": "EI/*.html", "use": "@vercel/static" }
-  ],
   "routes": [
     { "src": "/", "dest": "/EI/ia-operating-system-pagina-de-vendas.html" },
     { "src": "/analise", "dest": "/EI/hormozi-analise-consultoria-ia.html" },

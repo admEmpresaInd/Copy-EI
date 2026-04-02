@@ -1,0 +1,9 @@
+{
+  "routes": [
+    { "src": "/", "dest": "/ia-operating-system-pagina-de-vendas.html" },
+    { "src": "/analise", "dest": "/hormozi-analise-consultoria-ia.html" },
+    { "src": "/prompts", "dest": "/biblioteca-127-prompts-claude-code.html" },
+    { "src": "/gswp", "dest": "/gswp-book-vendas.html" },
+    { "src": "/(.*)", "dest": "/$1" }
+  ]
+}

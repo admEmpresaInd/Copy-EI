@@ -115,8 +115,8 @@ app.get('/api/skills', (req, res) => {
   res.json(fs.readdirSync(dir, { withFileTypes: true }).filter(d => d.isDirectory()).map(d => d.name));
 });
 
-// ─── Run claude CLI ───
-function runClaude(fullPrompt, imageFiles = []) {
+// ─── Run claude CLI (streaming) ───
+function runClaudeStreaming(fullPrompt, imageFiles = [], send) {
   return new Promise((resolve, reject) => {
     const childEnv = { ...process.env };
     delete childEnv.CLAUDECODE;
@@ -132,11 +132,31 @@ function runClaude(fullPrompt, imageFiles = []) {
     });
 
     let out = '', err = '';
+    send('log', { text: `Claude CLI iniciado (PID ${proc.pid})` });
+    send('step', { index: 5, label: 'Executando Claude...', total: 6 });
+    send('progress', { percent: 60, label: 'Claude CLI iniciado' });
+
+    let chunkCount = 0;
     proc.stdin.write(fullPrompt, 'utf-8');
     proc.stdin.end();
-    proc.stdout.on('data', c => { out += c.toString('utf-8'); });
+
+    proc.stdout.on('data', c => {
+      const text = c.toString('utf-8');
+      out += text;
+      chunkCount++;
+      send('delta', { text });
+      // Increment progress from 60 to 95 during streaming
+      const streamProgress = Math.min(95, 60 + Math.floor(chunkCount * 0.5));
+      send('progress', { percent: streamProgress, label: 'Recebendo resposta...' });
+      if (chunkCount === 1) {
+        send('step', { index: 6, label: 'Recebendo resposta...', total: 6 });
+      }
+    });
+
     proc.stderr.on('data', c => { err += c.toString('utf-8'); });
+
     proc.on('close', code => {
+      send('progress', { percent: 100, label: 'Concluido' });
       if (code !== 0 && !out) reject(new Error(err.trim() || `Exit code ${code}`));
       else resolve(out);
     });
@@ -144,35 +164,75 @@ function runClaude(fullPrompt, imageFiles = []) {
   });
 }
 
+// ─── Health check ───
+app.get('/api/health', async (req, res) => {
+  try {
+    if (!fs.existsSync(CLAUDE_CLI_JS)) {
+      return res.json({ ok: false, message: 'Claude CLI nao encontrado em ' + CLAUDE_CLI_JS });
+    }
+    const { execSync } = require('child_process');
+    const childEnv = { ...process.env };
+    delete childEnv.CLAUDECODE;
+    delete childEnv.CLAUDE_CODE;
+    const versionOut = execSync(`"${process.execPath}" "${CLAUDE_CLI_JS}" --version`, {
+      timeout: 5000, env: childEnv, encoding: 'utf-8',
+    }).trim();
+    res.json({ ok: true, version: versionOut, message: 'Claude CLI disponivel' });
+  } catch (e) {
+    res.json({ ok: false, message: e.message || 'Claude CLI indisponivel' });
+  }
+});
+
 // ─── Generate ───
 app.post('/api/generate', async (req, res) => {
   const { prompt, skills = [], folders = [], attachments = [], messages = [] } = req.body;
   if (!prompt) return res.status(400).json({ error: 'prompt required' });
 
+  // SSE setup first so we can send events during pipeline
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+  res.setHeader('X-Accel-Buffering', 'no');
+
+  const send = (event, data) => res.write(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`);
+  send('heartbeat', { status: 'running' });
+
   const MAX_SKILL = 6000, MAX_FILE = 4000, MAX_TOTAL = 40000;
   const parts = [];
   const imageFiles = [];
 
-  // Skills
+  // Step 1: Skills
+  send('step', { index: 1, label: 'Carregando skills...', total: 6 });
   if (skills.length > 0) {
     parts.push('# SKILLS ATIVAS\n');
     for (const skill of skills) {
       const content = readSkill(skill);
-      if (content) parts.push(`## SKILL: ${skill}\n\n${truncate(content, MAX_SKILL)}`);
+      if (content) {
+        parts.push(`## SKILL: ${skill}\n\n${truncate(content, MAX_SKILL)}`);
+        const sizeKB = (Buffer.byteLength(content, 'utf-8') / 1024).toFixed(1);
+        send('log', { text: `Skill carregada: ${skill} (${sizeKB} KB)` });
+        send('skill-loaded', { name: skill, size: Buffer.byteLength(content, 'utf-8') });
+      }
     }
   }
+  send('progress', { percent: 10, label: 'Skills carregadas' });
 
-  // Folders
+  // Step 2: Folders
+  send('step', { index: 2, label: 'Lendo pastas de contexto...', total: 6 });
   if (folders.length > 0) {
     parts.push('# ARQUIVOS DO PROJETO\n');
     for (const folder of folders) {
-      for (const { file, content } of readFolder(folder)) {
+      const files = readFolder(folder);
+      send('log', { text: `Pasta lida: ${folder} (${files.length} arquivos)` });
+      for (const { file, content } of files) {
         parts.push(`## ${file}\n\`\`\`\n${truncate(content, MAX_FILE)}\n\`\`\``);
       }
     }
   }
+  send('progress', { percent: 30, label: 'Pastas lidas' });
 
-  // Attachments
+  // Step 3: Attachments
+  send('step', { index: 3, label: 'Processando anexos...', total: 6 });
   if (attachments.length > 0) {
     const textAttachments = attachments.filter(a => a.type === 'text');
     const imgAttachments  = attachments.filter(a => a.type === 'image');
@@ -190,7 +250,9 @@ app.post('/api/generate', async (req, res) => {
         if (att.path) imageFiles.push(att.path);
       }
     }
+    send('log', { text: `Anexos processados: ${attachments.length} arquivo(s)` });
   }
+  send('progress', { percent: 45, label: 'Anexos processados' });
 
   // Audio transcription (sent as text from browser)
   if (req.body.audioTranscript) {
@@ -205,30 +267,31 @@ app.post('/api/generate', async (req, res) => {
     parts.push(`# HISTÓRICO DA CONVERSA\n\n${history}`);
   }
 
+  // Step 4: Mount prompt
+  send('step', { index: 4, label: 'Montando prompt...', total: 6 });
   parts.push(`# ${messages.length > 0 ? 'NOVA MENSAGEM' : 'SOLICITAÇÃO'}\n\n${prompt}`);
   let fullPrompt = parts.join('\n\n---\n\n');
 
+  const originalSize = fullPrompt.length;
   if (fullPrompt.length > MAX_TOTAL) {
     const tail = `# SOLICITAÇÃO\n\n${prompt}`;
     fullPrompt = `[Contexto truncado — ${fullPrompt.length} chars → ${MAX_TOTAL}]\n\n` +
       parts.slice(0, 2).join('\n\n---\n\n') + '\n\n---\n\n' + tail;
+    send('warning', {
+      type: 'truncated',
+      originalSize: originalSize,
+      truncatedTo: MAX_TOTAL,
+      message: `Contexto truncado: ${originalSize.toLocaleString()} → ${MAX_TOTAL.toLocaleString()} chars`
+    });
+    send('log', { text: `AVISO: Contexto truncado de ${originalSize} para ${MAX_TOTAL} caracteres` });
   }
 
-  // SSE
-  res.setHeader('Content-Type', 'text/event-stream');
-  res.setHeader('Cache-Control', 'no-cache');
-  res.setHeader('Connection', 'keep-alive');
-  res.setHeader('X-Accel-Buffering', 'no');
+  send('log', { text: `Prompt montado: ${fullPrompt.length} caracteres` });
+  send('progress', { percent: 55, label: 'Prompt montado' });
 
-  const send = (event, data) => res.write(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`);
-  send('heartbeat', { status: 'running' });
-
+  // Step 5-6: Run Claude (streaming)
   try {
-    const output = await runClaude(fullPrompt, imageFiles);
-    const CHUNK = 60;
-    for (let i = 0; i < output.length; i += CHUNK) {
-      send('delta', { text: output.slice(i, i + CHUNK) });
-    }
+    await runClaudeStreaming(fullPrompt, imageFiles, send);
     send('done', {});
   } catch (e) {
     send('error', { message: e.message });

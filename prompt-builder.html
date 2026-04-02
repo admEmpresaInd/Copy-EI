@@ -4,10 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Prompt Studio — Copy EI</title>
+<meta name="description" content="Ferramenta de criação de prompts para copywriting da Empresa Independente.">
+<meta property="og:title" content="Prompt Studio — Copy EI">
+<meta property="og:description" content="Ferramenta de criação de prompts para copywriting da Empresa Independente.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Prompt Studio — Copy EI">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='%2334d399' d='M3 8h10M8 3l5 5-5 5' stroke='%2334d399' stroke-width='1.5' fill='none'/></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script src="/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js" defer></script>
+<script src="/marked.min.js" defer></script>
 <style>
   :root {
     --bg: #0c0c0c;
@@ -129,6 +137,18 @@
     display: grid;
     grid-template-columns: 320px 1fr 1fr;
     overflow: hidden;
+  }
+
+  @media (max-width: 1100px) {
+    .main { grid-template-columns: 280px 1fr; }
+    .panel-middle { display: none; }
+  }
+
+  @media (max-width: 720px) {
+    .main { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+    .panel-left { display: none; }
+    body { overflow: auto; }
+    .main { overflow: visible; }
   }
 
   /* ─── Left Panel ─── */
@@ -580,6 +600,128 @@
   }
   @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
+  /* ─── Progress Bar (Ideia 5) ─── */
+  .progress-bar-wrap {
+    position: relative; height: 4px; width: 100%; overflow: hidden;
+    background: rgba(255,255,255,0.04);
+    opacity: 0; transition: opacity 0.4s ease;
+  }
+  .progress-bar-wrap.active { opacity: 1; }
+  .progress-bar-wrap.fade-out { opacity: 0; }
+  .progress-bar-fill {
+    height: 100%; width: 0%;
+    background: var(--primary);
+    transition: width 0.3s ease;
+    border-radius: 0 2px 2px 0;
+  }
+
+  /* ─── Pipeline Stepper (Ideia 2) ─── */
+  .pipeline-stepper {
+    display: none; padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg-elevated);
+    gap: 4px; align-items: center; justify-content: center;
+    flex-shrink: 0; flex-wrap: nowrap; overflow-x: auto;
+  }
+  .pipeline-stepper.active { display: flex; }
+  .pipeline-stepper.fade-out { animation: fadeOutStepper 0.4s ease forwards; }
+  @keyframes fadeOutStepper { to { opacity: 0; height: 0; padding: 0; overflow: hidden; } }
+
+  .step-item {
+    display: flex; align-items: center; gap: 5px;
+    font-size: 0.62rem; font-weight: 500; color: var(--fg-dim);
+    white-space: nowrap; transition: color 0.2s ease;
+  }
+  .step-item.active { color: var(--primary); }
+  .step-item.done { color: var(--fg-muted); }
+  .step-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--fg-dim); flex-shrink: 0;
+    transition: all 0.2s ease;
+  }
+  .step-item.active .step-dot { background: var(--primary); box-shadow: 0 0 6px rgba(52,211,153,0.5); }
+  .step-item.done .step-dot { background: var(--fg-muted); }
+  .step-arrow { color: var(--fg-dim); font-size: 0.55rem; margin: 0 2px; }
+
+  /* ─── Skeleton Loading (Ideia 6) ─── */
+  .skeleton-wrap { padding: 4px 0; }
+  .skeleton-line {
+    height: 14px; border-radius: 4px; margin-bottom: 10px;
+    background: linear-gradient(90deg, var(--bg-card) 25%, var(--bg-card-hover) 50%, var(--bg-card) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+  @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+  .skeleton-line.w-95 { width: 95%; }
+  .skeleton-line.w-90 { width: 90%; }
+  .skeleton-line.w-85 { width: 85%; }
+  .skeleton-line.w-75 { width: 75%; }
+  .skeleton-line.w-60 { width: 60%; }
+  .skeleton-line.w-70 { width: 70%; }
+  .skeleton-line.w-80 { width: 80%; }
+
+  /* ─── Warning Banner (Ideia 4) ─── */
+  .warning-banner {
+    display: none; padding: 8px 16px;
+    background: rgba(251,191,36,0.1); border-bottom: 1px solid rgba(251,191,36,0.25);
+    color: var(--accent-amber); font-size: 0.75rem; font-weight: 500;
+    align-items: center; gap: 8px; flex-shrink: 0;
+  }
+  .warning-banner.visible { display: flex; }
+  .warning-banner .warn-icon { font-size: 14px; flex-shrink: 0; }
+  .warning-banner .warn-close {
+    margin-left: auto; cursor: pointer; opacity: 0.6;
+    font-size: 12px; padding: 2px 6px; border: none; background: none; color: inherit;
+  }
+  .warning-banner .warn-close:hover { opacity: 1; }
+
+  /* ─── Health Banner (Ideia 7) ─── */
+  .health-banner {
+    display: none; padding: 6px 16px;
+    background: rgba(251,113,133,0.1); border-bottom: 1px solid rgba(251,113,133,0.25);
+    color: var(--accent-rose); font-size: 0.72rem; font-weight: 500;
+    align-items: center; gap: 8px; flex-shrink: 0;
+  }
+  .health-banner.visible { display: flex; }
+
+  /* ─── Activity Log (Ideia 3) ─── */
+  .activity-log-toggle {
+    display: none; padding: 4px 12px;
+    border-top: 1px solid var(--border);
+    background: var(--bg-elevated); flex-shrink: 0;
+    justify-content: center; align-items: center;
+  }
+  .activity-log-toggle.visible { display: flex; }
+  .activity-log-toggle button {
+    background: none; border: 1px solid var(--border); border-radius: 4px;
+    color: var(--fg-dim); font-size: 0.65rem; font-family: var(--font-mono);
+    padding: 3px 10px; cursor: pointer; transition: all 0.15s;
+  }
+  .activity-log-toggle button:hover { color: var(--fg-muted); border-color: var(--border-hover); }
+
+  .activity-log {
+    display: none; max-height: 140px; overflow-y: auto;
+    background: #0a0a0a; border-top: 1px solid var(--border);
+    padding: 8px 14px; font-family: var(--font-mono); font-size: 0.68rem;
+    line-height: 1.6; flex-shrink: 0;
+  }
+  .activity-log.visible { display: block; }
+  .log-entry { color: var(--fg-dim); }
+  .log-entry .log-time { color: var(--primary); margin-right: 8px; }
+
+  /* ─── Skill Card Feedback (Ideia 11) ─── */
+  @keyframes skillPulseLoading {
+    0%, 100% { border-color: rgba(251,191,36,0.3); }
+    50% { border-color: rgba(251,191,36,0.7); }
+  }
+  .skill-card.skill-loading {
+    animation: skillPulseLoading 0.8s ease-in-out infinite;
+  }
+  .skill-card.skill-loaded {
+    border-color: var(--primary) !important;
+    transition: border-color 0.3s ease;
+  }
+
   /* ─── Footer Bar ─── */
   .footer-bar {
     height: 56px;
@@ -697,6 +839,12 @@
     </button>
   </div>
 </header>
+
+<!-- ─── Health Banner (Ideia 7) ─── -->
+<div class="health-banner" id="healthBanner">
+  <span>Claude CLI indisponivel</span>
+  <span id="healthMsg" style="font-weight:400;opacity:0.8;"></span>
+</div>
 
 <!-- ─── Main ─── -->
 <div class="main">
@@ -896,6 +1044,17 @@
           <div class="skill-desc">Relatórios e análises de mercado</div>
         </div>
 
+        <div class="skill-card" data-skill="linkedin-personal-branding"
+             style="--skill-color:#2563eb;--skill-color-dim:rgba(37,99,235,0.12);--skill-color-border:rgba(37,99,235,0.3)"
+             onclick="toggleSkill(this)">
+          <div class="skill-card-top">
+            <div class="skill-icon">🏆</div>
+            <div class="skill-check"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          </div>
+          <div class="skill-name">LinkedIn Branding</div>
+          <div class="skill-desc">Personal branding e autoridade no LinkedIn</div>
+        </div>
+
         <div class="skill-card" data-skill="product-frameworks"
              style="--skill-color:#06b6d4;--skill-color-dim:rgba(6,182,212,0.12);--skill-color-border:rgba(6,182,212,0.3)"
              onclick="toggleSkill(this)">
@@ -1081,6 +1240,33 @@ Ex: escreva 5 variações de headline para o Raio-X, usando os frameworks de cop
       </div>
     </div>
 
+    <!-- Pipeline Stepper (Ideia 2) -->
+    <div class="pipeline-stepper" id="pipelineStepper">
+      <div class="step-item" data-step="1"><span class="step-dot"></span>Skills</div>
+      <span class="step-arrow">&#9654;</span>
+      <div class="step-item" data-step="2"><span class="step-dot"></span>Pastas</div>
+      <span class="step-arrow">&#9654;</span>
+      <div class="step-item" data-step="3"><span class="step-dot"></span>Anexos</div>
+      <span class="step-arrow">&#9654;</span>
+      <div class="step-item" data-step="4"><span class="step-dot"></span>Prompt</div>
+      <span class="step-arrow">&#9654;</span>
+      <div class="step-item" data-step="5"><span class="step-dot"></span>Claude</div>
+      <span class="step-arrow">&#9654;</span>
+      <div class="step-item" data-step="6"><span class="step-dot"></span>Resposta</div>
+    </div>
+
+    <!-- Progress Bar (Ideia 5) -->
+    <div class="progress-bar-wrap" id="progressBar">
+      <div class="progress-bar-fill" id="progressBarFill"></div>
+    </div>
+
+    <!-- Warning Banner (Ideia 4) -->
+    <div class="warning-banner" id="warningBanner">
+      <span class="warn-icon">&#9888;</span>
+      <span id="warningText"></span>
+      <button class="warn-close" onclick="document.getElementById('warningBanner').classList.remove('visible')">&#10005;</button>
+    </div>
+
     <div class="output-body" id="outputBody">
       <div class="output-empty" id="outputEmpty">
         <div class="output-empty-icon">✦</div>
@@ -1089,6 +1275,12 @@ Ex: escreva 5 variações de headline para o Raio-X, usando os frameworks de cop
       </div>
       <div class="output-content" id="outputContent" style="display:none"></div>
     </div>
+
+    <!-- Activity Log Toggle + Panel (Ideia 3) -->
+    <div class="activity-log-toggle" id="logToggleWrap">
+      <button onclick="toggleActivityLog()">Ver logs</button>
+    </div>
+    <div class="activity-log" id="activityLog"></div>
 
     <!-- ─── Follow-up bar ─── -->
     <div class="followup-bar" id="followupBar" style="display:none">
@@ -1162,6 +1354,7 @@ Ex: escreva 5 variações de headline para o Raio-X, usando os frameworks de cop
     'writing-linkedin-posts':  { bg: 'rgba(14,165,233,0.12)',  color: '#0ea5e9', border: 'rgba(14,165,233,0.25)' },
     'pinterest-posts':         { bg: 'rgba(244,63,94,0.12)',   color: '#f43f5e', border: 'rgba(244,63,94,0.25)' },
     'gemini-image':            { bg: 'rgba(139,92,246,0.12)',  color: '#8b5cf6', border: 'rgba(139,92,246,0.25)' },
+    'linkedin-personal-branding': { bg: 'rgba(37,99,235,0.12)',  color: '#2563eb', border: 'rgba(37,99,235,0.25)' },
   };
 
   // ─── Selection toggles ───
@@ -1296,6 +1489,99 @@ Ex: escreva 5 variações de headline para o Raio-X, usando os frameworks de cop
   let abortController = null;
   let rawMarkdown = '';
   let isStreaming = false;
+  let firstDeltaReceived = false;
+
+  // ─── Activity Log (Ideia 3) ───
+  function addLogEntry(text) {
+    const log = document.getElementById('activityLog');
+    const time = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    const entry = document.createElement('div');
+    entry.className = 'log-entry';
+    entry.innerHTML = `<span class="log-time">${time}</span>${escapeHtml(text)}`;
+    log.appendChild(entry);
+    log.scrollTop = log.scrollHeight;
+  }
+
+  function toggleActivityLog() {
+    const log = document.getElementById('activityLog');
+    log.classList.toggle('visible');
+    const btn = document.querySelector('#logToggleWrap button');
+    btn.textContent = log.classList.contains('visible') ? 'Ocultar logs' : 'Ver logs';
+  }
+
+  // ─── Pipeline Stepper (Ideia 2) ───
+  function updateStepper(index) {
+    const stepper = document.getElementById('pipelineStepper');
+    stepper.classList.add('active');
+    stepper.classList.remove('fade-out');
+    stepper.querySelectorAll('.step-item').forEach(item => {
+      const s = parseInt(item.dataset.step);
+      item.classList.remove('active', 'done');
+      if (s < index) item.classList.add('done');
+      else if (s === index) item.classList.add('active');
+    });
+  }
+
+  function hideStepper() {
+    const stepper = document.getElementById('pipelineStepper');
+    stepper.classList.add('fade-out');
+    setTimeout(() => { stepper.classList.remove('active', 'fade-out'); }, 400);
+  }
+
+  // ─── Progress Bar (Ideia 5) ───
+  function setProgress(percent) {
+    const wrap = document.getElementById('progressBar');
+    const fill = document.getElementById('progressBarFill');
+    wrap.classList.add('active');
+    wrap.classList.remove('fade-out');
+    fill.style.width = percent + '%';
+    if (percent >= 100) {
+      setTimeout(() => { wrap.classList.add('fade-out'); }, 600);
+      setTimeout(() => { wrap.classList.remove('active', 'fade-out'); fill.style.width = '0%'; }, 1000);
+    }
+  }
+
+  // ─── Skeleton Loading (Ideia 6) ───
+  function showSkeleton() {
+    const el = document.getElementById('outputContent');
+    const skeletonHtml = `<div class="skeleton-wrap" id="skeletonLoader">
+      <div class="skeleton-line w-90"></div>
+      <div class="skeleton-line w-75"></div>
+      <div class="skeleton-line w-85"></div>
+      <div class="skeleton-line w-60"></div>
+      <div class="skeleton-line w-95"></div>
+      <div class="skeleton-line w-70"></div>
+      <div class="skeleton-line w-80"></div>
+    </div>`;
+    el.innerHTML = skeletonHtml;
+  }
+
+  function removeSkeleton() {
+    const s = document.getElementById('skeletonLoader');
+    if (s) s.remove();
+  }
+
+  // ─── Warning Banner (Ideia 4) ───
+  function showWarning(text) {
+    const banner = document.getElementById('warningBanner');
+    document.getElementById('warningText').textContent = text;
+    banner.classList.add('visible');
+  }
+
+  // ─── Skill Card Feedback (Ideia 11) ───
+  function markSkillLoading(skillName) {
+    const card = document.querySelector(`.skill-card[data-skill="${skillName}"]`);
+    if (card) card.classList.add('skill-loading');
+  }
+
+  function markSkillLoaded(skillName) {
+    const card = document.querySelector(`.skill-card[data-skill="${skillName}"]`);
+    if (card) {
+      card.classList.remove('skill-loading');
+      card.classList.add('skill-loaded');
+      setTimeout(() => card.classList.remove('skill-loaded'), 2000);
+    }
+  }
 
   async function generate() {
     const prompt = document.getElementById('promptTextarea').value.trim();
@@ -1333,14 +1619,26 @@ Ex: escreva 5 variações de headline para o Raio-X, usando os frameworks de cop
 
     rawMarkdown = '';
     isStreaming = true;
+    firstDeltaReceived = false;
 
     document.getElementById('outputEmpty').style.display = 'none';
+    document.getElementById('warningBanner').classList.remove('visible');
     const outputContent = document.getElementById('outputContent');
     outputContent.style.display = 'block';
 
+    // Show skeleton (Ideia 6)
+    showSkeleton();
+
+    // Clear and show activity log area
+    document.getElementById('activityLog').innerHTML = '';
+    document.getElementById('logToggleWrap').classList.add('visible');
+
+    // Mark skills as loading (Ideia 11)
+    state.skills.forEach(s => markSkillLoading(s));
+
     // Add user message to conversation display
     state.conversationHistory.push({ role: 'user', content: prompt });
-    renderConversation(true);
+    // Don't render conversation yet -- skeleton is showing
 
     document.getElementById('copyOutputBtn').style.display = 'none';
     document.getElementById('clearOutputBtn').style.display = 'none';
@@ -1386,6 +1684,7 @@ Ex: escreva 5 variações de headline para o Raio-X, usando os frameworks de cop
       const reader = res.body.getReader();
       const decoder = new TextDecoder();
       let buffer = '';
+      let currentEvent = '';
 
       while (true) {
         const { done, value } = await reader.read();
@@ -1396,19 +1695,45 @@ Ex: escreva 5 variações de headline para o Raio-X, usando os frameworks de cop
         buffer = lines.pop();
 
         for (const line of lines) {
-          if (line.startsWith('event: ')) continue;
+          if (line.startsWith('event: ')) {
+            currentEvent = line.slice(7).trim();
+            continue;
+          }
           if (line.startsWith('data: ')) {
             try {
               const data = JSON.parse(line.slice(6));
-              if (data.text !== undefined) {
+
+              // Handle different event types
+              if (currentEvent === 'delta' || (data.text !== undefined && currentEvent !== 'log' && currentEvent !== 'step' && currentEvent !== 'progress' && currentEvent !== 'warning' && currentEvent !== 'skill-loaded')) {
+                if (!firstDeltaReceived) {
+                  firstDeltaReceived = true;
+                  removeSkeleton();
+                  renderConversation(true);
+                }
                 rawMarkdown += data.text;
                 renderConversation(true, rawMarkdown);
+              } else if (currentEvent === 'step' && data.index !== undefined) {
+                updateStepper(data.index);
+                addLogEntry(`Step ${data.index}/${data.total}: ${data.label}`);
+              } else if (currentEvent === 'progress' && data.percent !== undefined) {
+                setProgress(data.percent);
+              } else if (currentEvent === 'log' && data.text) {
+                addLogEntry(data.text);
+              } else if (currentEvent === 'warning') {
+                showWarning(data.message || 'Aviso desconhecido');
+                addLogEntry('AVISO: ' + (data.message || ''));
+              } else if (currentEvent === 'skill-loaded' && data.name) {
+                markSkillLoaded(data.name);
+              } else if (currentEvent === 'error' && data.message) {
+                throw new Error(data.message);
               } else if (data.inputTokens !== undefined) {
                 document.getElementById('tokenMeta').textContent =
-                  `↑ ${data.inputTokens.toLocaleString()} · ↓ ${data.outputTokens.toLocaleString()} tokens`;
-              } else if (data.message) {
+                  `\u2191 ${data.inputTokens.toLocaleString()} \u00b7 \u2193 ${data.outputTokens.toLocaleString()} tokens`;
+              } else if (data.message && currentEvent !== 'warning' && currentEvent !== 'log') {
                 throw new Error(data.message);
               }
+
+              currentEvent = '';
             } catch (e) {
               if (e.message && !e.message.includes('JSON')) throw e;
             }
@@ -1417,6 +1742,8 @@ Ex: escreva 5 variações de headline para o Raio-X, usando os frameworks de cop
       }
 
       // Finalize
+      removeSkeleton();
+      hideStepper();
       state.conversationHistory.push({ role: 'assistant', content: rawMarkdown });
       renderConversation(false);
       document.getElementById('copyOutputBtn').style.display = 'inline-flex';
@@ -1425,6 +1752,8 @@ Ex: escreva 5 variações de headline para o Raio-X, usando os frameworks de cop
       document.getElementById('followupBar').style.display = 'flex';
       document.getElementById('followupBtn').disabled = true;
       setHeaderStatus('pronto', false);
+      addLogEntry('Geracao concluida.');
+      saveState();
 
     } catch (err) {
       if (err.name === 'AbortError') {
@@ -1435,7 +1764,7 @@ Ex: escreva 5 variações de headline para o Raio-X, usando os frameworks de cop
         // Remove the pending user message from history on error
         state.conversationHistory.pop();
         outputContent.innerHTML += `<div style="color:var(--accent-rose);padding:12px;border:1px solid rgba(251,113,133,0.2);border-radius:8px;font-size:0.85rem;margin-top:12px;">
-          ⚠️ <strong>Erro:</strong> ${err.message}
+          ⚠️ <strong>Erro:</strong> ${escapeHtml(err.message)}
         </div>`;
         setHeaderStatus('erro', false);
         showToast('Erro: ' + err.message);
@@ -1443,6 +1772,9 @@ Ex: escreva 5 variações de headline para o Raio-X, usando os frameworks de cop
     } finally {
       isStreaming = false;
       abortController = null;
+      firstDeltaReceived = false;
+      removeSkeleton();
+      hideStepper();
       btn.classList.remove('loading');
       btn.innerHTML = `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg> Gerar`;
       if (followupInput) followupInput.disabled = false;
@@ -1478,7 +1810,8 @@ Ex: escreva 5 variações de headline para o Raio-X, usando os frameworks de cop
       if (isUser) {
         html += `<div class="conv-bubble user">${escapeHtml(msg.content)}</div>`;
       } else {
-        const content = marked.parse(msg.content);
+        const rawHtml = marked.parse(msg.content);
+        const content = (typeof DOMPurify !== 'undefined') ? DOMPurify.sanitize(rawHtml) : rawHtml;
         html += `<div class="conv-bubble assistant">${content}${msg.streaming ? '<span class="stream-cursor"></span>' : ''}</div>`;
       }
 
@@ -1528,8 +1861,14 @@ Ex: escreva 5 variações de headline para o Raio-X, usando os frameworks de cop
 
   function copyOutput() {
     if (!rawMarkdown) return;
-    navigator.clipboard?.writeText(rawMarkdown) || fallbackCopy(rawMarkdown);
-    showToast('Output copiado!');
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(rawMarkdown)
+        .then(() => showToast('Output copiado!'))
+        .catch(() => { fallbackCopy(rawMarkdown); showToast('Output copiado!'); });
+    } else {
+      fallbackCopy(rawMarkdown);
+      showToast('Output copiado!');
+    }
   }
 
   function clearOutput() {
@@ -1551,9 +1890,12 @@ Ex: escreva 5 variações de headline para o Raio-X, usando os frameworks de cop
   function fallbackCopy(text) {
     const ta = document.createElement('textarea');
     ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
     document.body.appendChild(ta);
+    ta.focus();
     ta.select();
-    document.execCommand('copy');
+    try { document.execCommand('copy'); } catch (_) {}
     document.body.removeChild(ta);
   }
 
@@ -1850,6 +2192,95 @@ Ex: escreva 5 variações de headline para o Raio-X, usando os frameworks de cop
     box.classList.remove('visible');
     document.getElementById('clearTranscriptBtn').style.display = 'none';
   }
+
+  // ─── State Persistence (Ideia 10) ───
+  function saveState() {
+    try {
+      localStorage.setItem('prompt-studio-state', JSON.stringify({
+        skills: [...state.skills],
+        folders: [...state.folders],
+        lastPrompt: document.getElementById('promptTextarea').value
+      }));
+    } catch {}
+  }
+
+  function restoreState() {
+    try {
+      const saved = JSON.parse(localStorage.getItem('prompt-studio-state') || '{}');
+      let restored = false;
+
+      if (saved.skills && saved.skills.length > 0) {
+        saved.skills.forEach(skill => {
+          const card = document.querySelector(`.skill-card[data-skill="${skill}"]`);
+          if (card) {
+            state.skills.add(skill);
+            card.classList.add('active');
+            restored = true;
+          }
+        });
+      }
+
+      if (saved.folders && saved.folders.length > 0) {
+        saved.folders.forEach(folder => {
+          const item = document.querySelector(`.folder-item[data-folder="${folder}"]`);
+          if (item) {
+            state.folders.add(folder);
+            item.classList.add('active');
+            restored = true;
+          }
+        });
+      }
+
+      if (saved.lastPrompt) {
+        document.getElementById('promptTextarea').value = saved.lastPrompt;
+        updateCharCount(document.getElementById('promptTextarea'));
+        restored = true;
+      }
+
+      if (restored) {
+        updateUI();
+        showToast('Sessao anterior restaurada');
+      }
+    } catch {}
+  }
+
+  // Save state on changes
+  const _origToggleSkill = toggleSkill;
+  toggleSkill = function(el) {
+    _origToggleSkill(el);
+    saveState();
+  };
+
+  const _origToggleFolder = toggleFolder;
+  toggleFolder = function(el) {
+    _origToggleFolder(el);
+    saveState();
+  };
+
+  document.getElementById('promptTextarea').addEventListener('input', () => {
+    saveState();
+  });
+
+  // ─── Health Check (Ideia 7) ───
+  async function checkHealth() {
+    try {
+      const res = await fetch('/api/health');
+      const data = await res.json();
+      if (!data.ok) {
+        document.getElementById('healthBanner').classList.add('visible');
+        document.getElementById('healthMsg').textContent = data.message || '';
+        const btn = document.getElementById('generateBtn');
+        btn.disabled = true;
+        btn.title = 'Claude CLI indisponivel';
+      }
+    } catch {}
+  }
+
+  // ─── Init ───
+  document.addEventListener('DOMContentLoaded', () => {
+    restoreState();
+    checkHealth();
+  });
 </script>
 </body>
 </html>

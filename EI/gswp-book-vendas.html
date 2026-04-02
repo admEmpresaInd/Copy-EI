@@ -1,0 +1,1999 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rooftop Houses Reserva Joao Paulo | GSWP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================
+           RESET & BASE
+           ============================================ */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --charcoal: #2C2B28;
+            --charcoal-deep: #1A1917;
+            --charcoal-light: #3D3C38;
+            --sage: #2D4A3E;
+            --forest: #3A5A40;
+            --forest-light: #4A6E50;
+            --cream: #F0EDE6;
+            --cream-warm: #E8E3D9;
+            --cream-light: #F7F5F0;
+            --gold: #B8942E;
+            --gold-light: #D4AF37;
+            --gold-muted: #9A7B2D;
+            --bronze: #8B6914;
+            --amber: #C4883A;
+            --text-dark: #1A1917;
+            --text-light: #F0EDE6;
+            --text-muted: #8A8780;
+            --text-muted-light: #B5B2AA;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            background-color: var(--charcoal-deep);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        /* ============================================
+           TYPOGRAPHY
+           ============================================ */
+        h1, h2, h3, h4, h5 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+
+        .label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+        }
+
+        /* ============================================
+           NAVIGATION
+           ============================================ */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav.scrolled {
+            background: rgba(26, 25, 23, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 0.6rem 3rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--cream);
+        }
+
+        .nav-logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            color: var(--cream);
+        }
+
+        .nav-logo-sub {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.55rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold);
+            display: block;
+            margin-top: -2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--cream);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 400;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-links a:hover {
+            color: var(--gold-light);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold) !important;
+            padding: 0.5rem 1.5rem;
+            font-size: 0.75rem !important;
+            letter-spacing: 0.15em !important;
+            transition: all 0.3s !important;
+        }
+
+        .nav-cta:hover {
+            background: var(--gold) !important;
+            color: var(--charcoal-deep) !important;
+        }
+
+        .nav-mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .nav-mobile-toggle span {
+            display: block;
+            width: 24px;
+            height: 1.5px;
+            background: var(--cream);
+            margin: 6px 0;
+            transition: all 0.3s;
+        }
+
+        /* ============================================
+           HERO
+           ============================================ */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 700px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-start;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(180deg,
+                    transparent 0%,
+                    transparent 40%,
+                    rgba(26, 25, 23, 0.85) 100%),
+                url('/EI/fotos/fachada-hero.jpg') center / cover no-repeat;
+            background-size: cover, cover;
+            transform: scale(1.05);
+            transition: transform 8s ease-out;
+        }
+
+        .hero-bg.loaded {
+            transform: scale(1);
+        }
+
+        .hero-texture {
+            position: absolute;
+            inset: 0;
+            background:
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(184, 148, 46, 0.02) 2px,
+                    rgba(184, 148, 46, 0.02) 4px
+                );
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 0 6vw 8vh;
+            max-width: 900px;
+        }
+
+        .hero-label {
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s 0.5s forwards;
+        }
+
+        .hero-title {
+            font-size: clamp(2.8rem, 6vw, 5.5rem);
+            color: var(--cream);
+            margin-bottom: 0.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s 0.8s forwards;
+        }
+
+        .hero-title em {
+            font-style: italic;
+            color: var(--gold-light);
+        }
+
+        .hero-subtitle {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.1rem, 2vw, 1.5rem);
+            color: var(--cream-warm);
+            font-weight: 400;
+            font-style: italic;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s 1.1s forwards;
+        }
+
+        .hero-details {
+            display: flex;
+            gap: 3rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s 1.4s forwards;
+        }
+
+        .hero-detail {
+            text-align: left;
+        }
+
+        .hero-detail-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--cream);
+            font-weight: 600;
+        }
+
+        .hero-detail-label {
+            font-size: 0.7rem;
+            color: var(--text-muted-light);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-top: 0.2rem;
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 2rem;
+            right: 3rem;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            opacity: 0;
+            animation: fadeInUp 1s 2s forwards;
+        }
+
+        .hero-scroll-text {
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-muted-light);
+            writing-mode: vertical-rl;
+        }
+
+        .hero-scroll-line {
+            width: 1px;
+            height: 60px;
+            background: linear-gradient(to bottom, var(--gold), transparent);
+            animation: scrollPulse 2s infinite;
+        }
+
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* ============================================
+           SECTION STYLES
+           ============================================ */
+        .section {
+            padding: 8rem 6vw;
+            position: relative;
+        }
+
+        .section-dark {
+            background: var(--charcoal);
+            color: var(--text-light);
+        }
+
+        .section-deep {
+            background: var(--charcoal-deep);
+            color: var(--text-light);
+        }
+
+        .section-cream {
+            background: var(--cream);
+            color: var(--text-dark);
+        }
+
+        .section-cream-light {
+            background: var(--cream-light);
+            color: var(--text-dark);
+        }
+
+        .section-sage {
+            background: var(--sage);
+            color: var(--text-light);
+        }
+
+        .section-header {
+            max-width: 700px;
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            color: var(--gold);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .section-dark .section-label,
+        .section-deep .section-label,
+        .section-sage .section-label {
+            color: var(--gold-light);
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            margin-bottom: 1.5rem;
+            line-height: 1.15;
+        }
+
+        .section-title em {
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        .section-dark .section-title em,
+        .section-deep .section-title em {
+            color: var(--gold-light);
+        }
+
+        .section-desc {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+        }
+
+        .section-dark .section-desc,
+        .section-deep .section-desc {
+            color: var(--text-muted-light);
+        }
+
+        .gold-line {
+            width: 50px;
+            height: 1px;
+            background: var(--gold);
+            margin-bottom: 1.5rem;
+        }
+
+        /* ============================================
+           ABOUT / ESSENCE
+           ============================================ */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .about-image {
+            aspect-ratio: 3/4;
+            background: url('/EI/fotos/fachada-about.jpg') center / cover no-repeat;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 8px,
+                    rgba(184, 148, 46, 0.04) 8px,
+                    rgba(184, 148, 46, 0.04) 9px
+                );
+        }
+
+        .about-image-label {
+            position: absolute;
+            bottom: 2rem;
+            left: 2rem;
+            font-size: 0.65rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--gold);
+            background: rgba(26, 25, 23, 0.8);
+            padding: 0.5rem 1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--cream);
+        }
+
+        .about-text p {
+            color: var(--text-muted-light);
+            margin-bottom: 1.2rem;
+            font-size: 1rem;
+            line-height: 1.85;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+            padding-top: 2.5rem;
+            border-top: 1px solid var(--charcoal-light);
+        }
+
+        .about-stat-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--gold-light);
+            font-weight: 600;
+        }
+
+        .about-stat-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-muted-light);
+            margin-top: 0.3rem;
+        }
+
+        /* ============================================
+           FEATURES / DIFERENCIAIS
+           ============================================ */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(184, 148, 46, 0.1);
+            padding: 2.5rem 2rem;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(184, 148, 46, 0.3);
+            transform: translateY(-4px);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+        }
+
+        .feature-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--cream);
+        }
+
+        .feature-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted-light);
+            line-height: 1.7;
+        }
+
+        /* ============================================
+           TIPOLOGIAS / FLOOR PLANS
+           ============================================ */
+        .tipo-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .tipo-card {
+            background: var(--cream-light);
+            border: 1px solid var(--cream-warm);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: all 0.4s;
+            cursor: pointer;
+        }
+
+        .tipo-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            border-color: var(--gold);
+        }
+
+        .tipo-card-icon {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 1rem;
+            color: var(--sage);
+        }
+
+        .tipo-card h4 {
+            font-size: 1rem;
+            color: var(--charcoal);
+            margin-bottom: 0.5rem;
+        }
+
+        .tipo-card p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .tipo-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-top: 4rem;
+            padding-top: 4rem;
+            border-top: 1px solid var(--cream-warm);
+            align-items: start;
+        }
+
+        .tipo-specs {
+            display: grid;
+            gap: 1.2rem;
+        }
+
+        .tipo-spec {
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--cream-warm);
+        }
+
+        .tipo-spec-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .tipo-spec-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--charcoal);
+        }
+
+        .tipo-image-placeholder {
+            aspect-ratio: 4/3;
+            background: url('/EI/fotos/estar-02.jpg') center / cover no-repeat;
+            border: 1px solid var(--cream-warm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .tipo-image-placeholder span {
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        /* ============================================
+           LAZER / AMENITIES
+           ============================================ */
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+        }
+
+        .amenity-item {
+            aspect-ratio: 1;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .amenity-bg {
+            position: absolute;
+            inset: 0;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .amenity-item:hover .amenity-bg {
+            transform: scale(1.08);
+        }
+
+        .amenity-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(0deg,
+                rgba(26, 25, 23, 0.85) 0%,
+                rgba(26, 25, 23, 0.2) 60%,
+                transparent 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 2rem;
+            transition: background 0.4s;
+        }
+
+        .amenity-item:hover .amenity-overlay {
+            background: linear-gradient(0deg,
+                rgba(26, 25, 23, 0.9) 0%,
+                rgba(26, 25, 23, 0.4) 60%,
+                rgba(26, 25, 23, 0.2) 100%);
+        }
+
+        .amenity-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--cream);
+            margin-bottom: 0.3rem;
+        }
+
+        .amenity-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted-light);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s;
+        }
+
+        .amenity-item:hover .amenity-desc {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ============================================
+           LOCATION
+           ============================================ */
+        .location-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .location-map-placeholder {
+            aspect-ratio: 16/10;
+            background:
+                linear-gradient(135deg,
+                    var(--charcoal-light) 0%,
+                    var(--sage) 30%,
+                    var(--charcoal) 60%,
+                    var(--forest) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .location-map-placeholder::after {
+            content: 'JOAO PAULO, FLORIANOPOLIS';
+            position: absolute;
+            bottom: 2rem;
+            left: 2rem;
+            font-size: 0.65rem;
+            letter-spacing: 0.3em;
+            color: var(--gold);
+            background: rgba(26, 25, 23, 0.8);
+            padding: 0.5rem 1rem;
+        }
+
+        .location-points {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .location-point {
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--charcoal-light);
+        }
+
+        .location-point-time {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: var(--gold-light);
+            font-weight: 600;
+            min-width: 60px;
+        }
+
+        .location-point-time span {
+            font-size: 0.7rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            color: var(--text-muted-light);
+            display: block;
+        }
+
+        .location-point-name {
+            font-size: 0.95rem;
+            color: var(--cream);
+            margin-bottom: 0.3rem;
+        }
+
+        .location-point-detail {
+            font-size: 0.8rem;
+            color: var(--text-muted-light);
+        }
+
+        /* ============================================
+           INCORPORADORA / ABOUT GSWP
+           ============================================ */
+        .gswp-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .gswp-logo-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem;
+        }
+
+        .gswp-logo-symbol {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            font-weight: 700;
+            color: var(--charcoal);
+            letter-spacing: 0.1em;
+            margin-bottom: 0.5rem;
+        }
+
+        .gswp-logo-diamond {
+            width: 12px;
+            height: 12px;
+            background: var(--gold);
+            transform: rotate(45deg);
+            margin: 1rem auto;
+        }
+
+        .gswp-logo-name {
+            font-size: 0.7rem;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        .gswp-text h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            color: var(--charcoal);
+        }
+
+        .gswp-text p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.85;
+            margin-bottom: 1.2rem;
+        }
+
+        .gswp-values {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .gswp-value {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .gswp-value-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--gold);
+            transform: rotate(45deg);
+            flex-shrink: 0;
+        }
+
+        .gswp-value-text {
+            font-size: 0.85rem;
+            color: var(--charcoal);
+            font-weight: 500;
+        }
+
+        /* ============================================
+           CTA FINAL
+           ============================================ */
+        .cta-section {
+            padding: 10rem 6vw;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(135deg,
+                    var(--charcoal-deep) 0%,
+                    var(--sage) 50%,
+                    var(--charcoal-deep) 100%);
+        }
+
+        .cta-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 50% 50%,
+                    rgba(184, 148, 46, 0.08) 0%,
+                    transparent 70%);
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+            color: var(--cream);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-title em {
+            color: var(--gold-light);
+            font-style: italic;
+        }
+
+        .cta-desc {
+            font-size: 1.05rem;
+            color: var(--text-muted-light);
+            margin-bottom: 3rem;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: var(--charcoal-deep);
+            border: none;
+            padding: 1rem 3rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.4s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .btn-primary:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(184, 148, 46, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--cream);
+            border: 1px solid rgba(240, 237, 230, 0.3);
+            padding: 1rem 3rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.4s;
+            text-decoration: none;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .cta-urgency {
+            margin-top: 3rem;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .cta-urgency-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--gold);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.5); }
+        }
+
+        /* ============================================
+           CONTACT FORM
+           ============================================ */
+        .contact-form {
+            max-width: 500px;
+            margin: 3rem auto 0;
+            display: grid;
+            gap: 1rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-input {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(240, 237, 230, 0.15);
+            padding: 0.9rem 1.2rem;
+            color: var(--cream);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            transition: border-color 0.3s;
+            outline: none;
+        }
+
+        .form-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .form-input:focus {
+            border-color: var(--gold);
+        }
+
+        .form-input.full {
+            grid-column: 1 / -1;
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            background: var(--charcoal-deep);
+            padding: 3rem 6vw;
+            border-top: 1px solid var(--charcoal-light);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-text {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+        }
+
+        .footer-legal {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            max-width: 500px;
+            line-height: 1.6;
+            text-align: right;
+        }
+
+        /* ============================================
+           ANIMATIONS
+           ============================================ */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+        .reveal-delay-5 { transition-delay: 0.5s; }
+        .reveal-delay-6 { transition-delay: 0.6s; }
+
+        /* ============================================
+           DIVIDER ELEMENTS
+           ============================================ */
+        .section-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.5rem;
+            padding: 3rem 0;
+        }
+
+        .divider-line {
+            width: 80px;
+            height: 1px;
+            background: var(--gold);
+            opacity: 0.3;
+        }
+
+        .divider-diamond {
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            transform: rotate(45deg);
+        }
+
+        /* ============================================
+           QUOTE BLOCK
+           ============================================ */
+        .quote-section {
+            padding: 6rem 6vw;
+            text-align: center;
+            background: var(--sage);
+        }
+
+        .quote-text {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.4rem, 3vw, 2.2rem);
+            color: var(--cream);
+            font-style: italic;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        .quote-author {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            margin-top: 2rem;
+        }
+
+        /* ============================================
+           SUSTAINABILITY BANNER
+           ============================================ */
+        .sustain-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .sustain-item {
+            text-align: center;
+            padding: 2rem 1.5rem;
+        }
+
+        .sustain-icon {
+            width: 44px;
+            height: 44px;
+            margin: 0 auto 1.2rem;
+            color: var(--forest);
+        }
+
+        .sustain-item h4 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--charcoal);
+        }
+
+        .sustain-item p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ============================================
+           RESPONSIVE
+           ============================================ */
+        @media (max-width: 1024px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .tipo-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .amenities-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .sustain-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 5rem 5vw;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .nav-mobile-toggle {
+                display: block;
+            }
+
+            .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(26, 25, 23, 0.98);
+                padding: 2rem 3rem;
+                gap: 1.5rem;
+            }
+
+            .hero-content {
+                padding: 0 5vw 6vh;
+            }
+
+            .hero-details {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .about-grid,
+            .location-grid,
+            .gswp-content,
+            .tipo-detail {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+
+            .features-grid,
+            .tipo-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .amenities-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sustain-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-stats {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+            }
+
+            .footer-legal {
+                text-align: center;
+            }
+
+            .gswp-values {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-scroll {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================
+         NAVIGATION
+         ============================================ -->
+    <nav class="nav" id="navbar">
+        <a href="#" class="nav-logo">
+            <div>
+                <span class="nav-logo-text">GSWP</span>
+                <span class="nav-logo-sub">Greystone Wellness Propriety</span>
+            </div>
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#sobre">O Projeto</a></li>
+            <li><a href="#diferenciais">Diferenciais</a></li>
+            <li><a href="#tipologias">Plantas</a></li>
+            <li><a href="#lazer">Experiencia</a></li>
+            <li><a href="#localizacao">Localizacao</a></li>
+            <li><a href="#contato" class="nav-cta">Agendar Visita</a></li>
+        </ul>
+        <button class="nav-mobile-toggle" id="mobileToggle" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- ============================================
+         HERO
+         ============================================ -->
+    <section class="hero" id="hero">
+        <div class="hero-bg" id="heroBg"></div>
+        <div class="hero-texture"></div>
+        <div class="hero-content">
+            <span class="label hero-label">Florianopolis . Joao Paulo . Rooftop Houses</span>
+            <h1 class="hero-title">Reserva<br>Joao <em>Paulo</em></h1>
+            <p class="hero-subtitle">Onde a natureza encontra o extraordinario.</p>
+            <div class="hero-details">
+                <div class="hero-detail">
+                    <div class="hero-detail-value">4</div>
+                    <div class="hero-detail-label">Unidades exclusivas</div>
+                </div>
+                <div class="hero-detail">
+                    <div class="hero-detail-value">357m&sup2;</div>
+                    <div class="hero-detail-label">Area privativa</div>
+                </div>
+                <div class="hero-detail">
+                    <div class="hero-detail-value">Triplex</div>
+                    <div class="hero-detail-label">Rooftop privativo</div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-scroll">
+            <span class="hero-scroll-text">Explore</span>
+            <div class="hero-scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         QUOTE
+         ============================================ -->
+    <section class="quote-section">
+        <div class="reveal">
+            <p class="quote-text">"Raridade sempre esteve associada ao luxo. Aqui, ela se traduz em apenas quatro residencias unicas, cercadas pela natureza intocada de Florianopolis."</p>
+            <p class="quote-author">Filosofia Reserva Joao Paulo</p>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SOBRE O EMPREENDIMENTO
+         ============================================ -->
+    <section class="section section-dark" id="sobre">
+        <div class="section-header reveal">
+            <span class="label section-label">O Empreendimento</span>
+            <div class="gold-line"></div>
+            <h2 class="section-title">Um refugio <em>natural</em> e moderno no coracao de Florianopolis</h2>
+            <p class="section-desc">No coracao de uma area de preservacao ambiental, o Rooftop Houses Reserva Joao Paulo redefine o conceito de moradia. Um projeto onde sofisticacao, sustentabilidade e exclusividade se encontram para criar um verdadeiro refugio moderno.</p>
+        </div>
+
+        <div class="about-grid">
+            <div class="about-image reveal">
+                <div class="about-image-label">Fachada Reserva Joao Paulo</div>
+            </div>
+            <div class="about-text reveal reveal-delay-2">
+                <h3>Uma experiencia de vida que nao existe em nenhum outro lugar do Brasil.</h3>
+                <p>Cada unidade foi projetada para oferecer uma experiencia incomparavel de conforto e privacidade. Triplex privativos que integram conforto, natureza e privacidade de uma forma ainda inexplorada no pais.</p>
+                <p>Vista permanente para o por do sol mais deslumbrante de Florianopolis. Sem vizinhos de frente. Cercado por uma reserva ambiental onde tucanos e gralhas-azuis compoem a trilha sonora dos seus dias.</p>
+                <p>Aqui, voce nao compra um imovel. Voce conquista um estilo de vida que poucos conhecerao.</p>
+                <div class="about-stats">
+                    <div>
+                        <div class="about-stat-value">357m&sup2;</div>
+                        <div class="about-stat-label">Area privativa</div>
+                    </div>
+                    <div>
+                        <div class="about-stat-value">5</div>
+                        <div class="about-stat-label">Pavimentos por unidade</div>
+                    </div>
+                    <div>
+                        <div class="about-stat-value">3</div>
+                        <div class="about-stat-label">Suites por unidade</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         DIFERENCIAIS
+         ============================================ -->
+    <section class="section section-deep" id="diferenciais">
+        <div class="section-header reveal">
+            <span class="label section-label">Diferenciais Exclusivos</span>
+            <div class="gold-line"></div>
+            <h2 class="section-title">Cada detalhe projetado para quem <em>nao aceita</em> o comum</h2>
+        </div>
+
+        <div class="features-grid">
+            <!-- Card 1: Rooftop -->
+            <div class="feature-card reveal reveal-delay-1">
+                <svg class="feature-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <rect x="6" y="20" width="36" height="22" rx="1"/>
+                    <path d="M2 20L24 6L46 20"/>
+                    <path d="M14 28h20M14 34h14"/>
+                    <circle cx="38" cy="12" r="4" fill="currentColor" opacity="0.3"/>
+                </svg>
+                <h4>Rooftop Privativo</h4>
+                <p>Piscina aquecida, area gourmet coberta com churrasqueira parrilla e vista panoramica para o por do sol e o mar. Seu refugio pessoal acima de tudo.</p>
+            </div>
+
+            <!-- Card 2: Triplex -->
+            <div class="feature-card reveal reveal-delay-2">
+                <svg class="feature-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <rect x="8" y="4" width="32" height="40" rx="1"/>
+                    <line x1="8" y1="17" x2="40" y2="17"/>
+                    <line x1="8" y1="30" x2="40" y2="30"/>
+                    <rect x="14" y="8" width="8" height="5" rx="0.5"/>
+                    <rect x="26" y="8" width="8" height="5" rx="0.5"/>
+                    <rect x="14" y="21" width="8" height="5" rx="0.5"/>
+                    <rect x="14" y="34" width="8" height="5" rx="0.5"/>
+                </svg>
+                <h4>Triplex de 357m&sup2;</h4>
+                <p>Cinco pavimentos com divisao inteligente dos ambientes. Pe-direito duplo de 6 metros na sala de estar, proporcionando imponencia e sofisticacao absolutas.</p>
+            </div>
+
+            <!-- Card 3: Privacidade -->
+            <div class="feature-card reveal reveal-delay-3">
+                <svg class="feature-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M24 4C14 4 6 12 6 22c0 14 18 22 18 22s18-8 18-22C42 12 34 4 24 4z"/>
+                    <circle cx="24" cy="20" r="8"/>
+                    <path d="M20 20l3 3 5-6"/>
+                </svg>
+                <h4>Privacidade Total</h4>
+                <p>Apenas 4 unidades unicas. Sem vizinhos de frente. Elevador exclusivo em cada unidade. Garagem privativa para 3 carros. Voce e sua familia, e mais ninguem.</p>
+            </div>
+
+            <!-- Card 4: Natureza -->
+            <div class="feature-card reveal reveal-delay-4">
+                <svg class="feature-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M24 4c-4 8-16 14-16 24a16 16 0 0032 0C40 18 28 12 24 4z"/>
+                    <path d="M24 44V24"/>
+                    <path d="M24 30c-4-2-8 0-10 4"/>
+                    <path d="M24 22c3-1 7 1 8 5"/>
+                </svg>
+                <h4>Natureza Integrada</h4>
+                <p>Em meio a uma reserva ambiental. Acorde ao som de tucanos e gralhas-azuis. 300 metros do mar. Os quatro elementos da natureza ao seu alcance, todos os dias.</p>
+            </div>
+
+            <!-- Card 5: Sustentabilidade -->
+            <div class="feature-card reveal reveal-delay-5">
+                <svg class="feature-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <circle cx="24" cy="24" r="18"/>
+                    <path d="M24 6v6M24 36v6M6 24h6M36 24h6"/>
+                    <path d="M13 13l4 4M31 31l4 4M13 35l4-4M31 17l4-4"/>
+                    <circle cx="24" cy="24" r="6" fill="currentColor" opacity="0.2"/>
+                </svg>
+                <h4>Sustentabilidade Inteligente</h4>
+                <p>Infraestrutura para energia solar, reaproveitamento de agua da chuva, isolamento termoacustico superior e reducao de 80% na geracao de entulho.</p>
+            </div>
+
+            <!-- Card 6: Personalizacao -->
+            <div class="feature-card reveal reveal-delay-6">
+                <svg class="feature-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M36 4L12 28l-4 16 16-4L48 16"/>
+                    <path d="M30 10l8 8"/>
+                    <path d="M12 28l8 8"/>
+                    <circle cx="38" cy="6" r="3" fill="currentColor" opacity="0.3"/>
+                </svg>
+                <h4>Personalizacao Total</h4>
+                <p>Apos a fase estrutural, voce participa da escolha de acabamentos exclusivos. Porcelanatos 1,20x1,20m, loucas e metais premium, automacao residencial completa.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         TIPOLOGIAS / PLANTAS
+         ============================================ -->
+    <section class="section section-cream" id="tipologias">
+        <div class="section-header reveal">
+            <span class="label section-label" style="color: var(--sage);">Plantas e Espacos</span>
+            <div class="gold-line"></div>
+            <h2 class="section-title">Cinco pavimentos. Uma <em>experiencia</em> por andar.</h2>
+            <p class="section-desc">Cada nivel do seu triplex foi pensado para uma funcao especifica da vida, criando uma jornada vertical de conforto, privacidade e sofisticacao.</p>
+        </div>
+
+        <div class="tipo-grid reveal">
+            <!-- Subsolo -->
+            <div class="tipo-card">
+                <svg class="tipo-card-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <rect x="4" y="8" width="32" height="28" rx="1"/>
+                    <path d="M12 22h5v10h-5zM18 22h5v10h-5zM24 22h5v10h-5z"/>
+                    <line x1="4" y1="20" x2="36" y2="20"/>
+                </svg>
+                <h4>Subsolo</h4>
+                <p>Garagem privativa para 3 carros + moto. Lavanderia ventilada e area tecnica. 74,40m&sup2;</p>
+            </div>
+
+            <!-- Primeiro Andar -->
+            <div class="tipo-card">
+                <svg class="tipo-card-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <rect x="4" y="6" width="32" height="28" rx="1"/>
+                    <path d="M4 20h32"/>
+                    <rect x="8" y="10" width="10" height="6" rx="0.5"/>
+                    <path d="M22 10h12v6H22"/>
+                    <rect x="8" y="24" width="6" height="6" rx="0.5"/>
+                </svg>
+                <h4>1&ordm; Andar</h4>
+                <p>Sala integrada com pe-direito duplo de 6m, cozinha, varanda, lareira a gas e adega. 80,83m&sup2;</p>
+            </div>
+
+            <!-- Mezanino -->
+            <div class="tipo-card">
+                <svg class="tipo-card-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <rect x="4" y="6" width="32" height="28" rx="1"/>
+                    <path d="M4 20h18"/>
+                    <rect x="8" y="10" width="10" height="6" rx="0.5"/>
+                    <rect x="8" y="24" width="10" height="6" rx="0.5"/>
+                    <path d="M24 6v28" stroke-dasharray="3,3"/>
+                </svg>
+                <h4>Mezanino</h4>
+                <p>Escritorio com isolamento termoacustico e suite confortavel. Perfeito para home office. 44,54m&sup2;</p>
+            </div>
+
+            <!-- Segundo Andar -->
+            <div class="tipo-card">
+                <svg class="tipo-card-icon" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <rect x="4" y="6" width="32" height="28" rx="1"/>
+                    <path d="M20 6v28"/>
+                    <rect x="8" y="10" width="8" height="10" rx="0.5"/>
+                    <rect x="24" y="10" width="8" height="10" rx="0.5"/>
+                    <path d="M8 26h8M24 26h8"/>
+                </svg>
+                <h4>2&ordm; Andar</h4>
+                <p>Suite master com varanda, closet, banheiro com banheira e 2 cubas. Mais uma suite ampla. 77,19m&sup2;</p>
+            </div>
+
+            <!-- Rooftop -->
+            <div class="tipo-card" style="border-color: var(--gold); background: var(--cream);">
+                <svg class="tipo-card-icon" viewBox="0 0 40 40" fill="none" stroke="var(--gold)" stroke-width="1.5">
+                    <path d="M2 18L20 4L38 18"/>
+                    <rect x="6" y="18" width="28" height="18" rx="1"/>
+                    <ellipse cx="20" cy="28" rx="8" ry="4"/>
+                    <path d="M14 20h12v4H14z"/>
+                </svg>
+                <h4>Rooftop</h4>
+                <p>Piscina aquecida, churrasqueira parrilla, area gourmet coberta e vista panoramica. 62,64m&sup2;</p>
+            </div>
+        </div>
+
+        <div class="tipo-detail reveal">
+            <div class="tipo-specs">
+                <h3 style="font-size: 1.4rem; margin-bottom: 1.5rem; color: var(--charcoal);">Tabela de Areas</h3>
+                <div class="tipo-spec">
+                    <span class="tipo-spec-label">Subsolo (Garagem + Area Tecnica)</span>
+                    <span class="tipo-spec-value">74,40 m&sup2;</span>
+                </div>
+                <div class="tipo-spec">
+                    <span class="tipo-spec-label">Primeiro Andar (Social)</span>
+                    <span class="tipo-spec-value">80,83 m&sup2;</span>
+                </div>
+                <div class="tipo-spec">
+                    <span class="tipo-spec-label">Mezanino (Office + Suite)</span>
+                    <span class="tipo-spec-value">44,54 m&sup2;</span>
+                </div>
+                <div class="tipo-spec">
+                    <span class="tipo-spec-label">Segundo Andar (Suites)</span>
+                    <span class="tipo-spec-value">77,19 m&sup2;</span>
+                </div>
+                <div class="tipo-spec">
+                    <span class="tipo-spec-label">Rooftop (Lazer Privativo)</span>
+                    <span class="tipo-spec-value">62,64 m&sup2;</span>
+                </div>
+                <div class="tipo-spec" style="border-bottom: 2px solid var(--gold);">
+                    <span class="tipo-spec-label" style="font-weight: 600; color: var(--charcoal);">Area Privativa Total</span>
+                    <span class="tipo-spec-value" style="color: var(--gold-muted); font-size: 1.2rem;">357,19 m&sup2;</span>
+                </div>
+            </div>
+            <div>
+                <div class="tipo-image-placeholder">
+                    <span>Planta Humanizada</span>
+                </div>
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 1rem; text-align: center;">Solicite as plantas humanizadas detalhadas de cada pavimento com seu corretor.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         EXPERIENCIA / LAZER
+         ============================================ -->
+    <section class="section section-deep" id="lazer" style="padding-bottom: 0;">
+        <div class="section-header reveal">
+            <span class="label section-label">A Experiencia</span>
+            <div class="gold-line"></div>
+            <h2 class="section-title">Seu lazer nao fica no condominio. Fica <em>dentro</em> da sua casa.</h2>
+            <p class="section-desc">Diferente de tudo que voce ja viu, o lazer do Reserva Joao Paulo e inteiramente privativo. Cada unidade e um universo completo de bem-estar, sem compartilhar nada com ninguem.</p>
+        </div>
+    </section>
+
+    <div class="amenities-grid">
+        <!-- Rooftop Gourmet -->
+        <div class="amenity-item">
+            <div class="amenity-bg" style="background: url('/EI/fotos/area-gourmet-01.jpg') center/cover no-repeat;"></div>
+            <div class="amenity-overlay">
+                <div class="amenity-title">Area Gourmet</div>
+                <div class="amenity-desc">Churrasqueira parrilla, forno e espaco coberto para recepcoes inesqueciveis no seu rooftop privativo.</div>
+            </div>
+        </div>
+
+        <!-- Piscina -->
+        <div class="amenity-item">
+            <div class="amenity-bg" style="background: url('/EI/fotos/area-gourmet-02.jpg') center/cover no-repeat;"></div>
+            <div class="amenity-overlay">
+                <div class="amenity-title">Piscina Aquecida</div>
+                <div class="amenity-desc">No seu rooftop privativo, com vista panoramica para o por do sol mais deslumbrante de Florianopolis.</div>
+            </div>
+        </div>
+
+        <!-- Vista -->
+        <div class="amenity-item">
+            <div class="amenity-bg" style="background: url('/EI/fotos/fachada-02.jpg') center/cover no-repeat;"></div>
+            <div class="amenity-overlay">
+                <div class="amenity-title">Vista Permanente</div>
+                <div class="amenity-desc">Por do sol todos os dias. Mar, montanhas e ceu. Uma paisagem que nao se compra em nenhum showroom.</div>
+            </div>
+        </div>
+
+        <!-- Lareira -->
+        <div class="amenity-item">
+            <div class="amenity-bg" style="background: url('/EI/fotos/estar-01.jpg') center/cover no-repeat;"></div>
+            <div class="amenity-overlay">
+                <div class="amenity-title">Lareira a Gas</div>
+                <div class="amenity-desc">Na sala de estar com pe-direito duplo de 6 metros. O calor e a sofisticacao que transformam noites comuns em memorias.</div>
+            </div>
+        </div>
+
+        <!-- Suite Master -->
+        <div class="amenity-item">
+            <div class="amenity-bg" style="background: url('/EI/fotos/suite-master.jpg') center/cover no-repeat;"></div>
+            <div class="amenity-overlay">
+                <div class="amenity-title">Suite Master</div>
+                <div class="amenity-desc">Varanda privativa, closet generoso, banheiro com banheira e duas cubas. Seu santuario pessoal.</div>
+            </div>
+        </div>
+
+        <!-- Adega -->
+        <div class="amenity-item">
+            <div class="amenity-bg" style="background: url('/EI/fotos/estar-cozinha.jpg') center/cover no-repeat;"></div>
+            <div class="amenity-overlay">
+                <div class="amenity-title">Adega Personalizavel</div>
+                <div class="amenity-desc">Integrada a sala de estar, para colecionar seus rotulos favoritos ao alcance de um brinde.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         SUSTENTABILIDADE
+         ============================================ -->
+    <section class="section section-cream-light">
+        <div class="section-header reveal" style="text-align: center; margin-left: auto; margin-right: auto;">
+            <span class="label section-label" style="color: var(--forest);">Sustentabilidade & Tecnologia</span>
+            <div class="gold-line" style="margin: 1rem auto 1.5rem;"></div>
+            <h2 class="section-title" style="max-width: 600px; margin-left: auto; margin-right: auto;">Onde o <em>silencio</em> e a tecnologia se encontram</h2>
+            <p class="section-desc" style="max-width: 600px; margin-left: auto; margin-right: auto;">Isolamento termico e acustico de novo patamar, sustentado por materiais de alto desempenho e solucoes de prestigio internacional.</p>
+        </div>
+
+        <div class="sustain-grid reveal">
+            <div class="sustain-item">
+                <svg class="sustain-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <circle cx="22" cy="22" r="16"/>
+                    <path d="M22 6v6M22 32v6"/>
+                    <path d="M10 10l4 4M30 30l4 4"/>
+                    <path d="M6 22h6M32 22h6"/>
+                    <circle cx="22" cy="22" r="4" fill="currentColor" opacity="0.2"/>
+                </svg>
+                <h4>Energia Solar</h4>
+                <p>Infraestrutura pronta para paineis solares e cocriacao de energia com a rede eletrica.</p>
+            </div>
+            <div class="sustain-item">
+                <svg class="sustain-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M22 4c-6 10-14 16-14 24a14 14 0 0028 0C36 20 28 14 22 4z"/>
+                    <path d="M16 30c2-4 8-4 12 0"/>
+                    <circle cx="22" cy="24" r="3" fill="currentColor" opacity="0.15"/>
+                </svg>
+                <h4>Agua da Chuva</h4>
+                <p>Sistema completo de reaproveitamento, reduzindo consumo e custos operacionais.</p>
+            </div>
+            <div class="sustain-item">
+                <svg class="sustain-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <rect x="6" y="6" width="32" height="32" rx="2"/>
+                    <rect x="12" y="12" width="20" height="20" rx="1"/>
+                    <rect x="18" y="18" width="8" height="8" rx="0.5"/>
+                    <path d="M22 12v6M22 26v6M12 22h6M26 22h6"/>
+                </svg>
+                <h4>Isolamento Superior</h4>
+                <p>Concreto de 30cm entre unidades e esquadrias PVC Newtech para conforto termo e acustico absoluto.</p>
+            </div>
+            <div class="sustain-item">
+                <svg class="sustain-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <rect x="8" y="4" width="28" height="36" rx="2"/>
+                    <circle cx="22" cy="18" r="6"/>
+                    <path d="M18 18l3 3 5-5"/>
+                    <path d="M14 30h16M16 34h12"/>
+                </svg>
+                <h4>Automacao Inteligente</h4>
+                <p>Infraestrutura completa para smart home. Agua quente em todas as torneiras via boiler eficiente.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         LOCALIZACAO
+         ============================================ -->
+    <section class="section section-dark" id="localizacao">
+        <div class="section-header reveal">
+            <span class="label section-label">Localizacao Privilegiada</span>
+            <div class="gold-line"></div>
+            <h2 class="section-title">No coracao do bairro mais <em>desejado</em> de Florianopolis</h2>
+            <p class="section-desc">O Joao Paulo e um dos bairros mais valorizados da ilha, cercado por area de preservacao ambiental. A 300 metros do mar, com acesso rapido a tudo que importa.</p>
+        </div>
+
+        <div class="location-grid reveal">
+            <img src="/EI/fotos/fachada-about.jpg" alt="Joao Paulo, Florianopolis" style="width: 100%; aspect-ratio: 16/10; object-fit: cover; display: block;">
+
+            <div class="location-points">
+                <div class="location-point">
+                    <div class="location-point-time">6<span>min</span></div>
+                    <div>
+                        <div class="location-point-name">Centro de Florianopolis</div>
+                        <div class="location-point-detail">Comercio, gastronomia e servicos</div>
+                    </div>
+                </div>
+                <div class="location-point">
+                    <div class="location-point-time">10<span>min</span></div>
+                    <div>
+                        <div class="location-point-name">Jurere Internacional</div>
+                        <div class="location-point-detail">A praia mais exclusiva do sul do Brasil</div>
+                    </div>
+                </div>
+                <div class="location-point">
+                    <div class="location-point-time">10<span>min</span></div>
+                    <div>
+                        <div class="location-point-name">Santo Antonio de Lisboa</div>
+                        <div class="location-point-detail">Gastronomia, cultura e charme historico</div>
+                    </div>
+                </div>
+                <div class="location-point">
+                    <div class="location-point-time">300<span>m</span></div>
+                    <div>
+                        <div class="location-point-name">Mar & Por do Sol</div>
+                        <div class="location-point-detail">Vista privilegiada permanente</div>
+                    </div>
+                </div>
+                <div class="location-point">
+                    <div class="location-point-time" style="font-size: 1rem;">SC-401</div>
+                    <div>
+                        <div class="location-point-name">Acesso rapido a via expressa</div>
+                        <div class="location-point-detail">Floripa Shopping, Vila Romana, hospitais e escolas bilingues</div>
+                    </div>
+                </div>
+                <div class="location-point" style="border-bottom: none;">
+                    <div class="location-point-time" style="font-size: 1.2rem;">
+                        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="var(--gold-light)" stroke-width="1.5">
+                            <path d="M14 2C8.5 2 4 6.5 4 12c0 8 10 14 10 14s10-6 10-14c0-5.5-4.5-10-10-10z"/>
+                            <circle cx="14" cy="12" r="3"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="location-point-name">Reserva Ambiental</div>
+                        <div class="location-point-detail">Sem vizinhos de frente. Tucanos e gralhas-azuis como vizinhos permanentes.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SOBRE A GSWP
+         ============================================ -->
+    <section class="section section-cream-light" id="gswp">
+        <div class="gswp-content reveal">
+            <div class="gswp-logo-area">
+                <div class="gswp-logo-symbol">GSWP</div>
+                <div class="gswp-logo-diamond"></div>
+                <div class="gswp-logo-name">Greystone Wellness Propriety</div>
+            </div>
+
+            <div class="gswp-text">
+                <span class="label" style="color: var(--gold-muted); display: block; margin-bottom: 1rem;">A Incorporadora</span>
+                <div class="gold-line"></div>
+                <h3>Construindo legados, nao apenas imoveis.</h3>
+                <p>A Greystone Wellness Propriety nasceu da conviccao de que moradia de alto padrao vai alem de metragem e acabamentos. Trata-se de criar espacos que promovam bem-estar genuino, conexao com a natureza e um estilo de vida que valoriza o que realmente importa.</p>
+                <p>Cada empreendimento GSWP e concebido como uma obra unica, com atencao obsessiva aos detalhes, selecao criteriosa de materiais e compromisso inabalavel com a sustentabilidade e a excelencia construtiva.</p>
+
+                <div class="gswp-values">
+                    <div class="gswp-value">
+                        <div class="gswp-value-dot"></div>
+                        <span class="gswp-value-text">Wellness Living</span>
+                    </div>
+                    <div class="gswp-value">
+                        <div class="gswp-value-dot"></div>
+                        <span class="gswp-value-text">Arquitetura Autoral</span>
+                    </div>
+                    <div class="gswp-value">
+                        <div class="gswp-value-dot"></div>
+                        <span class="gswp-value-text">Sustentabilidade Real</span>
+                    </div>
+                    <div class="gswp-value">
+                        <div class="gswp-value-dot"></div>
+                        <span class="gswp-value-text">Exclusividade Genuina</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         CTA FINAL
+         ============================================ -->
+    <section class="cta-section" id="contato">
+        <div class="cta-bg"></div>
+        <div class="cta-content reveal">
+            <span class="label" style="color: var(--gold-light); display: block; margin-bottom: 1.5rem;">Apenas 4 Unidades</span>
+
+            <div class="section-divider" style="padding: 0 0 2rem 0;">
+                <div class="divider-line"></div>
+                <div class="divider-diamond"></div>
+                <div class="divider-line"></div>
+            </div>
+
+            <h2 class="cta-title">Existem decisoes que <em>definem</em> a proxima decada da sua vida.</h2>
+            <p class="cta-desc">O Reserva Joao Paulo nao e um lancamento. E uma oportunidade que se fecha quando a quarta unidade encontrar seu dono. Sem fase 2. Sem replicacao. Quatro familias terao esse privilegio. A sua pode ser uma delas.</p>
+
+            <form class="contact-form" onsubmit="handleSubmit(event)">
+                <div class="form-row">
+                    <input type="text" class="form-input" placeholder="Seu nome" required>
+                    <input type="tel" class="form-input" placeholder="Telefone / WhatsApp" required>
+                </div>
+                <input type="email" class="form-input full" placeholder="Seu melhor e-mail" required>
+                <select class="form-input full" style="appearance: none; -webkit-appearance: none;">
+                    <option value="" disabled selected>Qual seu interesse?</option>
+                    <option>Quero agendar uma visita presencial</option>
+                    <option>Quero receber o material completo</option>
+                    <option>Quero falar com um consultor</option>
+                    <option>Sou corretor e quero representar</option>
+                </select>
+                <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;">
+                    Garantir Minha Unidade
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 10h12M12 6l4 4-4 4"/>
+                    </svg>
+                </button>
+            </form>
+
+            <div class="cta-urgency">
+                <div class="cta-urgency-dot"></div>
+                Unidades em fase de comercializacao exclusiva
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div>
+                <div class="nav-logo" style="margin-bottom: 0.5rem;">
+                    <div>
+                        <span class="nav-logo-text" style="font-size: 1.1rem;">GSWP</span>
+                        <span class="nav-logo-sub">Greystone Wellness Propriety</span>
+                    </div>
+                </div>
+                <p class="footer-text" style="margin-top: 0.5rem;">Rooftop Houses Reserva Joao Paulo | Florianopolis, SC</p>
+            </div>
+            <div class="footer-legal">
+                As imagens e perspectivas sao meramente ilustrativas, podendo sofrer alteracoes. As informacoes contidas neste material sao preliminares e estao sujeitas a alteracoes. Consulte o memorial descritivo e o contrato para informacoes definitivas. Registro de incorporacao conforme legislacao vigente.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ============================================
+         JAVASCRIPT
+         ============================================ -->
+    <script>
+        // Navbar scroll effect
+        (function() {
+            var nav = document.getElementById('navbar');
+            var heroBg = document.getElementById('heroBg');
+
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 80) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            });
+
+            // Hero parallax-like zoom
+            setTimeout(function() {
+                heroBg.classList.add('loaded');
+            }, 100);
+        })();
+
+        // Mobile menu toggle
+        (function() {
+            var toggle = document.getElementById('mobileToggle');
+            var links = document.getElementById('navLinks');
+
+            toggle.addEventListener('click', function() {
+                links.classList.toggle('open');
+            });
+
+            // Close mobile menu on link click
+            var navAnchors = links.querySelectorAll('a');
+            navAnchors.forEach(function(a) {
+                a.addEventListener('click', function() {
+                    links.classList.remove('open');
+                });
+            });
+        })();
+
+        // Intersection Observer for reveal animations
+        (function() {
+            var reveals = document.querySelectorAll('.reveal');
+
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.15,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            reveals.forEach(function(el) {
+                observer.observe(el);
+            });
+        })();
+
+        // Smooth scroll for anchor links
+        (function() {
+            document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    var target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        var offset = 80;
+                        var top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                        window.scrollTo({ top: top, behavior: 'smooth' });
+                    }
+                });
+            });
+        })();
+
+        // Form submission handler
+        function handleSubmit(e) {
+            e.preventDefault();
+            var btn = e.target.querySelector('button[type="submit"]');
+            var originalText = btn.innerHTML;
+            btn.innerHTML = 'Enviado com sucesso!';
+            btn.style.background = 'var(--forest)';
+            btn.style.color = 'var(--cream)';
+            btn.disabled = true;
+
+            setTimeout(function() {
+                btn.innerHTML = originalText;
+                btn.style.background = '';
+                btn.style.color = '';
+                btn.disabled = false;
+                e.target.reset();
+            }, 3000);
+        }
+    </script>
+
+</body>
+</html>

@@ -5,6 +5,8 @@
     { "src": "/analise", "dest": "/EI/hormozi-analise-consultoria-ia.html" },
     { "src": "/prompts", "dest": "/EI/biblioteca-127-prompts-claude-code.html" },
     { "src": "/social-selling", "dest": "/high-ticket-social-selling-research.html" },
-    { "src": "/apex-sales", "dest": "/EI/apex-sales-ai-concept.html" }
+    { "src": "/apex-sales", "dest": "/EI/apex-sales-ai-concept.html" },
+    { "src": "/gswp", "dest": "/EI/gswp-book-vendas.html" },
+    { "src": "/(.*)", "dest": "/$1" }
   ]
 }

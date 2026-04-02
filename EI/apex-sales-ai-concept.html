@@ -1,0 +1,1385 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apex Sales AI — O Closer de IA Que Nunca Dorme, Nunca Erra o Script e Fecha Vendas 24h</title>
+<meta name="description" content="Instale um closer de IA no seu WhatsApp que qualifica leads, quebra objecoes e agenda reunioes de fechamento. Sem contratar SDR. Sem treinar equipe. Resultados em 72h.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ─── TOKENS ────────────────────────────────────────── */
+:root {
+  --bg: #000000;
+  --bg-card: #0d0d0d;
+  --bg-elevated: #111111;
+  --accent: #F59E0B;
+  --accent-dim: rgba(245,158,11,0.12);
+  --accent-glow: rgba(245,158,11,0.25);
+  --green: #22C55E;
+  --green-dark: #16a34a;
+  --red: #EF4444;
+  --fg: #ffffff;
+  --fg-muted: rgba(255,255,255,0.55);
+  --fg-sub: rgba(255,255,255,0.35);
+  --border: rgba(255,255,255,0.08);
+  --border-accent: rgba(245,158,11,0.3);
+  --font: 'Montserrat', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --r-sm: 6px; --r-md: 12px; --r-lg: 20px; --r-xl: 32px;
+  --tr: 0.25s ease;
+}
+
+/* ─── RESET ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font);
+  font-weight: 500;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+/* ─── GRID BACKGROUND ────────────────────────────────── */
+.grid-bg {
+  position: relative;
+}
+.grid-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(245,158,11,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245,158,11,0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+}
+.grid-bg > * { position: relative; z-index: 1; }
+
+/* ─── LAYOUT ─────────────────────────────────────────── */
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.container-narrow {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+section { position: relative; }
+
+/* ─── TYPOGRAPHY ─────────────────────────────────────── */
+.label {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+h1 {
+  font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+h3 {
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  font-weight: 700;
+  line-height: 1.3;
+}
+p { line-height: 1.7; }
+.accent { color: var(--accent); }
+.green { color: var(--green); }
+.red { color: var(--red); }
+.muted { color: var(--fg-muted); }
+
+/* ─── BUTTONS ─────────────────────────────────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--accent);
+  color: #000;
+  font-family: var(--font);
+  font-size: 1rem;
+  font-weight: 800;
+  padding: 16px 36px;
+  border-radius: var(--r-md);
+  border: none;
+  cursor: pointer;
+  transition: background var(--tr), transform var(--tr);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.btn-primary:hover {
+  background: #D97706;
+  transform: translateY(-2px);
+}
+.btn-green {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--green);
+  color: #000;
+  font-family: var(--font);
+  font-size: 1.1rem;
+  font-weight: 800;
+  padding: 18px 42px;
+  border-radius: var(--r-md);
+  border: none;
+  cursor: pointer;
+  transition: background var(--tr), transform var(--tr), box-shadow var(--tr);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  box-shadow: 0 0 30px rgba(34,197,94,0.3);
+}
+.btn-green:hover {
+  background: var(--green-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 0 50px rgba(34,197,94,0.4);
+}
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--accent);
+  font-family: var(--font);
+  font-size: 0.9rem;
+  font-weight: 700;
+  padding: 12px 28px;
+  border-radius: var(--r-md);
+  border: 1.5px solid var(--accent);
+  cursor: pointer;
+  transition: all var(--tr);
+}
+.btn-outline:hover {
+  background: var(--accent-dim);
+}
+
+/* ─── STICKY BOTTOM BAR ──────────────────────────────── */
+.sticky-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.95);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--border-accent);
+  padding: 14px 24px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.sticky-bar__text {
+  font-size: 0.9rem;
+  color: var(--fg-muted);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.sticky-bar__text strong { color: var(--fg); font-weight: 700; }
+.sticky-bar__dot {
+  width: 8px; height: 8px;
+  background: var(--green);
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.85); }
+}
+.sticky-bar .btn-primary {
+  padding: 12px 28px;
+  font-size: 0.875rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ─── HEADER ─────────────────────────────────────────── */
+header {
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.logo {
+  font-family: var(--mono);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--accent);
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.logo-icon {
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--accent);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+.header-badge {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--fg-muted);
+  border: 1px solid var(--border);
+  padding: 5px 14px;
+  border-radius: 999px;
+}
+
+/* ─── HERO ───────────────────────────────────────────── */
+.hero {
+  padding: 60px 0 80px;
+  text-align: center;
+  overflow: hidden;
+}
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--accent-dim);
+  border: 1px solid var(--border-accent);
+  padding: 6px 18px;
+  border-radius: 999px;
+  margin-bottom: 28px;
+}
+.hero__eyebrow span {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.hero h1 {
+  margin-bottom: 24px;
+  max-width: 860px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hero h1 .highlight {
+  color: var(--accent);
+  position: relative;
+}
+.hero__sub {
+  font-size: 1.15rem;
+  color: var(--fg-muted);
+  max-width: 640px;
+  margin: 0 auto 40px;
+  font-weight: 500;
+}
+.hero__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.hero__guarantee {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--fg-sub);
+  margin-top: 12px;
+}
+
+/* ─── CHAT SIMULATION ────────────────────────────────── */
+.chat-wrap {
+  max-width: 520px;
+  margin: 48px auto 0;
+}
+.chat-window {
+  background: var(--bg-card);
+  border-radius: var(--r-lg);
+  border: 1px solid rgba(255,255,255,0.1);
+  overflow: hidden;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.05);
+}
+.chat-header {
+  background: #1a1a1a;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.chat-avatar {
+  width: 36px;
+  height: 36px;
+  background: var(--accent-dim);
+  border: 1.5px solid var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+.chat-header-info {
+  flex: 1;
+}
+.chat-header-name {
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+.chat-header-status {
+  font-size: 0.7rem;
+  color: var(--green);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.chat-header-status::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  background: var(--green);
+  border-radius: 50%;
+}
+.chat-body {
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 280px;
+}
+.msg {
+  max-width: 82%;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  animation: msgIn 0.4s ease both;
+}
+.msg-lead {
+  align-self: flex-end;
+  background: #1B5E3A;
+  border-bottom-right-radius: 4px;
+}
+.msg-ai {
+  align-self: flex-start;
+  background: #1a1a1a;
+  border: 1px solid var(--border);
+  border-bottom-left-radius: 4px;
+}
+.msg-time {
+  font-size: 0.65rem;
+  color: var(--fg-sub);
+  margin-top: 4px;
+  text-align: right;
+}
+@keyframes msgIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.msg-ai .typing-dots {
+  display: inline-flex;
+  gap: 4px;
+}
+.msg-ai .typing-dots span {
+  width: 6px;
+  height: 6px;
+  background: var(--fg-muted);
+  border-radius: 50%;
+  animation: dotBounce 1.4s ease-in-out infinite;
+}
+.msg-ai .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+.msg-ai .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes dotBounce {
+  0%, 60%, 100% { transform: translateY(0); }
+  30% { transform: translateY(-6px); }
+}
+
+/* ─── STATS BAR ──────────────────────────────────────── */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  margin: 80px 0;
+}
+.stat-card {
+  background: var(--bg-card);
+  padding: 32px 24px;
+  text-align: center;
+}
+.stat-number {
+  font-size: 2.4rem;
+  font-weight: 900;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--fg-muted);
+  font-weight: 600;
+}
+
+/* ─── SECTION SPACING ────────────────────────────────── */
+.section {
+  padding: 80px 0;
+}
+.section-alt {
+  padding: 80px 0;
+  background: var(--bg-elevated);
+}
+.section__header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+.section__header .label {
+  margin-bottom: 12px;
+  display: block;
+}
+.section__header h2 {
+  margin-bottom: 16px;
+}
+.section__header p {
+  color: var(--fg-muted);
+  max-width: 560px;
+  margin: 0 auto;
+  font-size: 1.05rem;
+}
+
+/* ─── PROBLEM / AGITATION ─────────────────────────────── */
+.problem-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+.problem-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(239,68,68,0.15);
+  border-radius: var(--r-lg);
+  padding: 28px 24px;
+  transition: border-color var(--tr);
+}
+.problem-card:hover {
+  border-color: rgba(239,68,68,0.35);
+}
+.problem-icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(239,68,68,0.1);
+  border-radius: var(--r-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  margin-bottom: 16px;
+}
+.problem-card h3 {
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+.problem-card p {
+  color: var(--fg-muted);
+  font-size: 0.9rem;
+}
+
+/* ─── SOLUTION FEATURES ──────────────────────────────── */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  gap: 20px;
+}
+.feature-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 32px 24px;
+  transition: border-color var(--tr), transform var(--tr);
+}
+.feature-card:hover {
+  border-color: var(--border-accent);
+  transform: translateY(-3px);
+}
+.feature-icon {
+  width: 44px;
+  height: 44px;
+  background: var(--accent-dim);
+  border: 1px solid var(--border-accent);
+  border-radius: var(--r-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  margin-bottom: 18px;
+}
+.feature-card h3 {
+  margin-bottom: 10px;
+}
+.feature-card p {
+  color: var(--fg-muted);
+  font-size: 0.9rem;
+}
+.feature-badge {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-dim);
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin-top: 14px;
+}
+
+/* ─── COMPARISON TABLE ──────────────────────────────── */
+.comparison {
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+.comparison-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  border-bottom: 1px solid var(--border);
+}
+.comparison-row:last-child { border-bottom: none; }
+.comparison-row.header {
+  background: #1a1a1a;
+}
+.comparison-cell {
+  padding: 16px 20px;
+  font-size: 0.88rem;
+  display: flex;
+  align-items: center;
+}
+.comparison-row.header .comparison-cell {
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--fg-muted);
+}
+.comparison-cell:nth-child(2),
+.comparison-cell:nth-child(3) {
+  justify-content: center;
+  text-align: center;
+  border-left: 1px solid var(--border);
+}
+.check { color: var(--green); font-size: 1.1rem; font-weight: 700; }
+.cross { color: var(--red); font-size: 1.1rem; font-weight: 700; }
+
+/* ─── HOW IT WORKS ──────────────────────────────────── */
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.steps::before {
+  content: '';
+  position: absolute;
+  left: 23px;
+  top: 24px;
+  bottom: 24px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--accent), var(--green));
+}
+.step {
+  display: flex;
+  gap: 24px;
+  padding: 24px 0;
+  position: relative;
+}
+.step-number {
+  width: 48px;
+  height: 48px;
+  background: var(--bg);
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--accent);
+  flex-shrink: 0;
+  z-index: 1;
+}
+.step-content h3 {
+  margin-bottom: 6px;
+}
+.step-content p {
+  color: var(--fg-muted);
+  font-size: 0.9rem;
+}
+.step-time {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--accent);
+  margin-top: 8px;
+  letter-spacing: 0.08em;
+}
+
+/* ─── RESULTS / SOCIAL PROOF ─────────────────────────── */
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+.result-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 28px 24px;
+}
+.result-card__metric {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--green);
+  margin-bottom: 4px;
+}
+.result-card__context {
+  font-size: 0.85rem;
+  color: var(--fg-muted);
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.result-card__quote {
+  font-size: 0.9rem;
+  color: var(--fg);
+  font-style: italic;
+  margin-bottom: 14px;
+  line-height: 1.6;
+}
+.result-card__author {
+  font-size: 0.8rem;
+  color: var(--fg-muted);
+  font-weight: 600;
+}
+.result-card__role {
+  font-size: 0.72rem;
+  color: var(--fg-sub);
+}
+
+/* ─── OBJECTION HANDLING ────────────────────────────── */
+.objections {
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.objection {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  overflow: hidden;
+}
+.objection-q {
+  padding: 18px 24px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  transition: background var(--tr);
+}
+.objection-q:hover {
+  background: rgba(255,255,255,0.03);
+}
+.objection-q::after {
+  content: '+';
+  font-family: var(--mono);
+  font-size: 1.2rem;
+  color: var(--accent);
+  flex-shrink: 0;
+  transition: transform var(--tr);
+}
+.objection.open .objection-q::after {
+  transform: rotate(45deg);
+}
+.objection-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+}
+.objection.open .objection-a {
+  max-height: 300px;
+  padding: 0 24px 20px;
+}
+.objection-a p {
+  color: var(--fg-muted);
+  font-size: 0.88rem;
+}
+
+/* ─── PRICING ────────────────────────────────────────── */
+.pricing-card {
+  max-width: 520px;
+  margin: 0 auto;
+  background: var(--bg-card);
+  border: 2px solid var(--accent);
+  border-radius: var(--r-xl);
+  padding: 48px 40px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 0 80px rgba(245,158,11,0.08);
+}
+.pricing-card__badge {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: #000;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 6px 20px;
+  border-radius: 999px;
+}
+.pricing-card__old-price {
+  font-size: 1rem;
+  color: var(--fg-sub);
+  text-decoration: line-through;
+  margin-bottom: 4px;
+}
+.pricing-card__price {
+  font-size: 3.2rem;
+  font-weight: 900;
+  color: var(--fg);
+  margin-bottom: 4px;
+}
+.pricing-card__price span {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--fg-muted);
+}
+.pricing-card__period {
+  font-size: 0.85rem;
+  color: var(--fg-muted);
+  margin-bottom: 28px;
+}
+.pricing-features {
+  text-align: left;
+  margin-bottom: 32px;
+}
+.pricing-features li {
+  list-style: none;
+  padding: 8px 0;
+  font-size: 0.9rem;
+  color: var(--fg-muted);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.pricing-features li:last-child { border-bottom: none; }
+.pricing-features li::before {
+  content: '\2713';
+  color: var(--green);
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.pricing-card .btn-green {
+  width: 100%;
+  justify-content: center;
+  font-size: 1rem;
+}
+.pricing-guarantee {
+  margin-top: 20px;
+  font-size: 0.78rem;
+  color: var(--fg-sub);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* ─── GUARANTEE SECTION ──────────────────────────────── */
+.guarantee-box {
+  max-width: 620px;
+  margin: 0 auto;
+  background: var(--bg-card);
+  border: 1px solid rgba(34,197,94,0.2);
+  border-radius: var(--r-lg);
+  padding: 40px 36px;
+  text-align: center;
+}
+.guarantee-box__icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+.guarantee-box h3 {
+  font-size: 1.3rem;
+  margin-bottom: 14px;
+}
+.guarantee-box p {
+  color: var(--fg-muted);
+  font-size: 0.95rem;
+}
+
+/* ─── FINAL CTA ──────────────────────────────────────── */
+.final-cta {
+  padding: 100px 0 140px;
+  text-align: center;
+  position: relative;
+}
+.final-cta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(245,158,11,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.final-cta h2 {
+  margin-bottom: 20px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.final-cta p {
+  color: var(--fg-muted);
+  font-size: 1.05rem;
+  max-width: 540px;
+  margin: 0 auto 36px;
+}
+
+/* ─── FOOTER ─────────────────────────────────────────── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 40px 24px;
+  text-align: center;
+}
+footer p {
+  font-size: 0.78rem;
+  color: var(--fg-sub);
+}
+
+/* ─── RESPONSIVE ─────────────────────────────────────── */
+@media (max-width: 768px) {
+  .hero { padding: 40px 0 60px; }
+  .stats-bar { grid-template-columns: 1fr 1fr; }
+  .comparison-row { grid-template-columns: 1.5fr 1fr 1fr; }
+  .comparison-cell { padding: 12px 10px; font-size: 0.78rem; }
+  .pricing-card { padding: 36px 24px; }
+  .pricing-card__price { font-size: 2.6rem; }
+  .sticky-bar { flex-direction: column; gap: 10px; text-align: center; }
+  .sticky-bar .btn-primary { width: 100%; justify-content: center; }
+}
+@media (max-width: 480px) {
+  .stats-bar { grid-template-columns: 1fr; }
+  .hero__actions { flex-direction: column; }
+  .hero__actions .btn-primary,
+  .hero__actions .btn-outline { width: 100%; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── STICKY BAR ──────────────────────────────────── -->
+<div class="sticky-bar">
+  <div class="sticky-bar__text">
+    <span class="sticky-bar__dot"></span>
+    <span><strong>3 vagas</strong> restantes para onboarding esta semana</span>
+  </div>
+  <a href="#pricing" class="btn-primary">QUERO MEU CLOSER DE IA</a>
+</div>
+
+<!-- ─── HEADER ──────────────────────────────────────── -->
+<header>
+  <div class="logo">
+    <div class="logo-icon">A</div>
+    APEX SALES AI
+  </div>
+  <div class="header-badge">v2.4 // closer-engine</div>
+</header>
+
+<!-- ─── HERO ────────────────────────────────────────── -->
+<section class="hero grid-bg">
+  <div class="container">
+    <div class="hero__eyebrow">
+      <span>// CLOSER DE IA PARA WHATSAPP</span>
+    </div>
+
+    <h1>
+      Seu time comercial <span class="highlight">perde 73% dos leads</span> antes da primeira resposta
+    </h1>
+
+    <p class="hero__sub">
+      A Apex instala um closer de IA no seu WhatsApp que responde em 8 segundos, qualifica com perguntas cirurgicas, quebra objecoes em tempo real e agenda a reuniao de fechamento. 24 horas. 7 dias. Zero folga.
+    </p>
+
+    <div class="hero__actions">
+      <a href="#pricing" class="btn-primary">ATIVAR MEU CLOSER DE IA &rarr;</a>
+      <a href="#how" class="btn-outline">Como funciona</a>
+    </div>
+    <p class="hero__guarantee">Garantia de 14 dias ou seu dinheiro de volta. Sem burocracia.</p>
+
+    <!-- CHAT SIMULATION -->
+    <div class="chat-wrap">
+      <div class="chat-window">
+        <div class="chat-header">
+          <div class="chat-avatar">A</div>
+          <div class="chat-header-info">
+            <div class="chat-header-name">Apex Closer</div>
+            <div class="chat-header-status">Online agora</div>
+          </div>
+        </div>
+        <div class="chat-body" id="chatBody">
+          <div class="msg msg-lead" style="animation-delay: 0.3s">
+            Oi, vi o anuncio de voces. Quanto custa?
+            <div class="msg-time">14:32</div>
+          </div>
+          <div class="msg msg-ai" style="animation-delay: 0.8s">
+            Opa! Que bom que chegou ate aqui. Antes do valor, me conta: qual o seu maior desafio com vendas hoje? Equipe pequena, leads escapando, ou demora pra responder?
+            <div class="msg-time">14:32</div>
+          </div>
+          <div class="msg msg-lead" style="animation-delay: 1.5s">
+            Meu time demora muito pra responder e quando responde o lead ja esfriou
+            <div class="msg-time">14:33</div>
+          </div>
+          <div class="msg msg-ai" style="animation-delay: 2.2s">
+            Entendo perfeitamente. Cada minuto de atraso reduz a chance de conversao em 10%. Com a Apex, seu lead recebe resposta em 8 segundos -- e ja entra qualificado no pipe. Posso te mostrar como funciona na pratica? Tenho um horario amanha as 10h ou 15h.
+            <div class="msg-time">14:33</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── STATS BAR ───────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="stats-bar">
+      <div class="stat-card">
+        <div class="stat-number">8s</div>
+        <div class="stat-label">Tempo medio de resposta</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">347%</div>
+        <div class="stat-label">Aumento em agendamentos</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">24/7</div>
+        <div class="stat-label">Disponibilidade total</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">89%</div>
+        <div class="stat-label">Taxa de qualificacao</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROBLEMA ────────────────────────────────────── -->
+<section class="section-alt" id="problema">
+  <div class="container">
+    <div class="section__header">
+      <span class="label">// O PROBLEMA</span>
+      <h2>Seu comercial esta <span class="accent">sangrando dinheiro</span> e voce nem percebe</h2>
+      <p>Cada lead que entra no seu WhatsApp e responde "oi" carrega um custo de aquisicao. Veja o que acontece com a maioria:</p>
+    </div>
+
+    <div class="problem-grid">
+      <div class="problem-card">
+        <div class="problem-icon">&#9200;</div>
+        <h3>Lead esfria em 5 minutos</h3>
+        <p>Estudos mostram que responder apos 5 minutos reduz a chance de conversao em 80%. Seu SDR esta no almoco, no transito, ou respondendo outro cliente.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">&#128176;</div>
+        <h3>R$ 47 por lead desperdicado</h3>
+        <p>Se voce gasta R$ 5.000/mes em trafego e gera 106 leads, cada um custa R$ 47. Quantos evaporam sem resposta? Faca as contas.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">&#128564;</div>
+        <h3>Madrugada = cemiterio de vendas</h3>
+        <p>38% dos leads chegam fora do horario comercial. Sem atendimento noturno, voce entrega quase metade do seu pipeline para o concorrente que responde primeiro.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">&#128172;</div>
+        <h3>Script? Qual script?</h3>
+        <p>Cada vendedor tem seu "jeitinho". Uns qualificam bem, outros queimam lead com pressa. Sem padrao, sem previsibilidade, sem escala.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">&#128200;</div>
+        <h3>Pipeline invisivel</h3>
+        <p>Conversas soltas no WhatsApp pessoal. Sem historico, sem metricas, sem saber onde o lead parou. Gerenciar isso e gerenciar o caos.</p>
+      </div>
+      <div class="problem-card">
+        <div class="problem-icon">&#128101;</div>
+        <h3>Contratar SDR custa caro demais</h3>
+        <p>Salario + encargos + treinamento + ramp-up de 3 meses. E depois de tudo isso, o SDR pede demissao e voce recomecar do zero.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SOLUCAO ──────────────────────────────────────── -->
+<section class="section" id="solucao">
+  <div class="container">
+    <div class="section__header">
+      <span class="label">// A SOLUCAO</span>
+      <h2>Um closer de IA que vende <span class="accent">enquanto voce dorme</span></h2>
+      <p>A Apex nao e um chatbot generico. E um closer treinado com sua metodologia de vendas, seus cases, seus diferenciais.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">&#9889;</div>
+        <h3>Resposta em 8 segundos</h3>
+        <p>O lead manda "oi" e recebe uma resposta contextualizada antes de abrir o Instagram. Enquanto o concorrente ainda nem viu a notificacao.</p>
+        <span class="feature-badge">SPEED TO LEAD</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#127919;</div>
+        <h3>Qualificacao BANT automatica</h3>
+        <p>Budget, Authority, Need, Timeline -- a IA extrai tudo numa conversa natural, sem formulario, sem friccao. So chega lead quente pro closer humano.</p>
+        <span class="feature-badge">SMART QUALIFY</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#128737;</div>
+        <h3>Quebra de objecoes em tempo real</h3>
+        <p>Treinada com suas 47 objecoes mais comuns e as melhores respostas do seu top closer. "Ta caro", "Vou pensar", "Manda por email" -- ela resolve ali, na hora.</p>
+        <span class="feature-badge">OBJECTION KILLER</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#128197;</div>
+        <h3>Agendamento direto na agenda</h3>
+        <p>Integra com Google Calendar, Calendly ou CRM. A IA oferece horarios reais, confirma a reuniao e envia lembrete. Zero atrito.</p>
+        <span class="feature-badge">AUTO BOOKING</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#129504;</div>
+        <h3>Aprende com cada conversa</h3>
+        <p>Analisa padroes de conversao, identifica o que funciona e refina o script automaticamente. Quanto mais conversa, melhor vende.</p>
+        <span class="feature-badge">SELF-LEARNING</span>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#128202;</div>
+        <h3>Dashboard em tempo real</h3>
+        <p>Veja quantos leads entraram, taxa de qualificacao, agendamentos, objecoes mais frequentes e performance hora a hora. Dados, nao achismo.</p>
+        <span class="feature-badge">ANALYTICS</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── COMPARACAO ──────────────────────────────────── -->
+<section class="section-alt">
+  <div class="container">
+    <div class="section__header">
+      <span class="label">// COMPARATIVO</span>
+      <h2>SDR humano vs. <span class="accent">Apex Closer AI</span></h2>
+    </div>
+
+    <div class="comparison">
+      <div class="comparison-row header">
+        <div class="comparison-cell">Criterio</div>
+        <div class="comparison-cell">SDR Humano</div>
+        <div class="comparison-cell" style="color: var(--accent)">Apex AI</div>
+      </div>
+      <div class="comparison-row">
+        <div class="comparison-cell">Tempo de resposta</div>
+        <div class="comparison-cell">5-30 min</div>
+        <div class="comparison-cell"><span class="check">8 segundos</span></div>
+      </div>
+      <div class="comparison-row">
+        <div class="comparison-cell">Disponibilidade</div>
+        <div class="comparison-cell">8h/dia, seg-sex</div>
+        <div class="comparison-cell"><span class="check">24/7/365</span></div>
+      </div>
+      <div class="comparison-row">
+        <div class="comparison-cell">Custo mensal</div>
+        <div class="comparison-cell">R$ 4.500+</div>
+        <div class="comparison-cell"><span class="check">R$ 997</span></div>
+      </div>
+      <div class="comparison-row">
+        <div class="comparison-cell">Ramp-up / Treinamento</div>
+        <div class="comparison-cell">2-3 meses</div>
+        <div class="comparison-cell"><span class="check">72 horas</span></div>
+      </div>
+      <div class="comparison-row">
+        <div class="comparison-cell">Script padronizado</div>
+        <div class="comparison-cell"><span class="cross">Varia por humor</span></div>
+        <div class="comparison-cell"><span class="check">100% consistente</span></div>
+      </div>
+      <div class="comparison-row">
+        <div class="comparison-cell">Escala simultanea</div>
+        <div class="comparison-cell">1-3 conversas</div>
+        <div class="comparison-cell"><span class="check">Ilimitadas</span></div>
+      </div>
+      <div class="comparison-row">
+        <div class="comparison-cell">Falta, ferias, demissao</div>
+        <div class="comparison-cell"><span class="cross">Sim</span></div>
+        <div class="comparison-cell"><span class="check">Nunca</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── COMO FUNCIONA ────────────────────────────────── -->
+<section class="section" id="how">
+  <div class="container">
+    <div class="section__header">
+      <span class="label">// COMO FUNCIONA</span>
+      <h2>Do zero ao closer ativo em <span class="accent">72 horas</span></h2>
+      <p>Processo simples, sem programacao, sem complicacao tecnica.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">01</div>
+        <div class="step-content">
+          <h3>Onboarding estrategico</h3>
+          <p>Mapeamos seu processo de vendas, objecoes mais comuns, tom de voz e diferenciais competitivos. Seu closer de IA sera um clone do seu melhor vendedor.</p>
+          <div class="step-time">DIA 1 // 60 minutos</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">02</div>
+        <div class="step-content">
+          <h3>Configuracao e treinamento da IA</h3>
+          <p>Alimentamos a IA com seu script, cases de sucesso, FAQ, pricing matrix e arvore de objecoes. Calibramos o tom para soar humano, nao robotico.</p>
+          <div class="step-time">DIA 1-2 // NOS FAZEMOS TUDO</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">03</div>
+        <div class="step-content">
+          <h3>Integracao com WhatsApp</h3>
+          <p>Conectamos ao seu WhatsApp Business via API oficial. Integra com seu CRM, Google Calendar e ferramentas que voce ja usa. Sem trocar de numero.</p>
+          <div class="step-time">DIA 2 // SETUP TECNICO</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">04</div>
+        <div class="step-content">
+          <h3>Teste supervisionado + go-live</h3>
+          <p>Rodamos conversas de teste, ajustamos os ultimos detalhes e liberamos com supervisao. Em 72h seu closer de IA esta atendendo leads reais.</p>
+          <div class="step-time">DIA 3 // GO LIVE</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── RESULTADOS ──────────────────────────────────── -->
+<section class="section-alt" id="resultados">
+  <div class="container">
+    <div class="section__header">
+      <span class="label">// RESULTADOS REAIS</span>
+      <h2>O que acontece quando o lead <span class="accent">nunca espera</span></h2>
+    </div>
+
+    <div class="results-grid">
+      <div class="result-card">
+        <div class="result-card__metric">+312%</div>
+        <div class="result-card__context">Agendamentos em 30 dias</div>
+        <div class="result-card__quote">"Em um mes, a Apex agendou mais reunioes do que meu time de 3 SDRs nos ultimos 90 dias. E sem eu precisar supervisionar."</div>
+        <div class="result-card__author">Ricardo M.</div>
+        <div class="result-card__role">CEO // Consultoria de Software</div>
+      </div>
+      <div class="result-card">
+        <div class="result-card__metric">R$ 127K</div>
+        <div class="result-card__context">Receita influenciada no 1o trimestre</div>
+        <div class="result-card__quote">"A IA nao so agenda -- ela qualifica tao bem que a taxa de show-up subiu de 42% pra 78%. Reuniao marcada pela Apex fecha."</div>
+        <div class="result-card__author">Camila S.</div>
+        <div class="result-card__role">Diretora Comercial // EdTech</div>
+      </div>
+      <div class="result-card">
+        <div class="result-card__metric">2h &rarr; 8s</div>
+        <div class="result-card__context">Reducao no tempo de resposta</div>
+        <div class="result-card__quote">"Nosso tempo medio de primeira resposta era 2 horas. Com a Apex caiu pra 8 segundos. A taxa de conversao triplicou no primeiro mes."</div>
+        <div class="result-card__author">Fernando L.</div>
+        <div class="result-card__role">Founder // Agencia de Marketing</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── OBJECOES ─────────────────────────────────────── -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section__header">
+      <span class="label">// PERGUNTAS FREQUENTES</span>
+      <h2>Tudo que voce precisa saber <span class="accent">antes de decidir</span></h2>
+    </div>
+
+    <div class="objections">
+      <div class="objection">
+        <div class="objection-q">Meu cliente vai perceber que e uma IA?</div>
+        <div class="objection-a">
+          <p>A Apex e treinada para conversar com o tom de voz da sua marca, usando girias, emojis e cadencia naturais. 94% dos leads nao identificam que e uma IA. E quando o lead pede pra falar com "uma pessoa", a IA faz o handoff instantaneo pro seu time.</p>
+        </div>
+      </div>
+      <div class="objection">
+        <div class="objection-q">E se a IA responder algo errado sobre meu produto?</div>
+        <div class="objection-a">
+          <p>A Apex so responde com base no material que voce fornece. Ela nao inventa. Se nao sabe, diz "vou confirmar com o time e te retorno". Alem disso, voce tem dashboard com todas as conversas em tempo real e pode intervir a qualquer momento.</p>
+        </div>
+      </div>
+      <div class="objection">
+        <div class="objection-q">Funciona no meu WhatsApp pessoal/Business?</div>
+        <div class="objection-a">
+          <p>Funciona via WhatsApp Business API (o mesmo que empresas como iFood e Nubank usam). Voce mantem seu numero, sua foto de perfil e sua identidade. So adiciona um closer que nunca dorme.</p>
+        </div>
+      </div>
+      <div class="objection">
+        <div class="objection-q">Preciso de conhecimento tecnico?</div>
+        <div class="objection-a">
+          <p>Zero. Nos fazemos toda a configuracao, integracao e treinamento da IA. Voce so precisa participar do onboarding de 60 minutos e aprovar o tom de voz. O resto e por nossa conta.</p>
+        </div>
+      </div>
+      <div class="objection">
+        <div class="objection-q">Ja tenho CRM / Calendly / outra ferramenta. Integra?</div>
+        <div class="objection-a">
+          <p>Sim. A Apex integra com os principais CRMs (Pipedrive, HubSpot, RD Station), agendadores (Calendly, Google Calendar) e ferramentas de automacao (Zapier, Make). Se voce usa, a gente conecta.</p>
+        </div>
+      </div>
+      <div class="objection">
+        <div class="objection-q">Qual a diferenca pra outros chatbots de WhatsApp?</div>
+        <div class="objection-a">
+          <p>Chatbots tradicionais seguem arvores de decisao rigidas: "Digite 1 para X, 2 para Y". A Apex usa IA generativa com contexto de vendas -- ela entende a intencao, adapta o argumento e conduz a conversa como um closer treinado. Nao e menu. E venda.</p>
+        </div>
+      </div>
+      <div class="objection">
+        <div class="objection-q">E se eu quiser cancelar?</div>
+        <div class="objection-a">
+          <p>Sem fidelidade, sem multa. Os primeiros 14 dias tem garantia total: se nao gostar do resultado, devolvemos 100% do valor. Depois disso, cancela quando quiser com 1 clique no painel.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PRICING ──────────────────────────────────────── -->
+<section class="section-alt" id="pricing">
+  <div class="container">
+    <div class="section__header">
+      <span class="label">// INVESTIMENTO</span>
+      <h2>Quanto custa <span class="accent">nunca mais perder</span> um lead?</h2>
+    </div>
+
+    <div class="pricing-card">
+      <div class="pricing-card__badge">OFERTA DE LANCAMENTO</div>
+      <div class="pricing-card__old-price">De R$ 2.497/mes</div>
+      <div class="pricing-card__price">R$ 997 <span>/mes</span></div>
+      <div class="pricing-card__period">Setup incluso. Sem taxa de adesao. Cancele quando quiser.</div>
+
+      <ul class="pricing-features">
+        <li>Closer de IA 24/7 no seu WhatsApp Business</li>
+        <li>Treinamento com seu script, objecoes e tom de voz</li>
+        <li>Qualificacao BANT automatica</li>
+        <li>Quebra de objecoes em tempo real</li>
+        <li>Agendamento direto no Google Calendar / Calendly</li>
+        <li>Integracao com CRM (Pipedrive, HubSpot, RD Station)</li>
+        <li>Dashboard de metricas em tempo real</li>
+        <li>Handoff inteligente para closer humano</li>
+        <li>Suporte prioritario via WhatsApp</li>
+        <li>Onboarding estrategico de 60 minutos</li>
+      </ul>
+
+      <a href="#" class="btn-green">QUERO MEU CLOSER DE IA &rarr;</a>
+
+      <div class="pricing-guarantee">
+        <span>&#128274;</span> Garantia de 14 dias. Sem risco. Sem burocracia.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── GARANTIA ─────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="guarantee-box">
+      <div class="guarantee-box__icon">&#128170;</div>
+      <h3>Garantia Incondicional de 14 Dias</h3>
+      <p>
+        Se em 14 dias voce nao sentir que a Apex esta gerando valor real pro seu comercial, devolvemos 100% do seu investimento. Sem perguntas, sem burocracia, sem enrolacao. O risco e todo nosso. Voce so precisa testar.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FINAL CTA ──────────────────────────────────── -->
+<section class="final-cta grid-bg">
+  <div class="container">
+    <span class="label">// DECISAO</span>
+    <h2 style="margin-top: 16px;">
+      Cada minuto sem responder e um lead que <span class="accent">o concorrente fecha</span>
+    </h2>
+    <p>
+      Voce investiu em trafego, em criativo, em oferta. O lead chegou. Agora a unica coisa entre voce e a venda e o tempo de resposta. A Apex elimina esse gap para sempre.
+    </p>
+    <a href="#pricing" class="btn-green">ATIVAR MEU CLOSER DE IA AGORA &rarr;</a>
+    <p class="hero__guarantee" style="margin-top: 16px;">Vagas limitadas. Setup incluso. Garantia de 14 dias.</p>
+  </div>
+</section>
+
+<!-- ─── FOOTER ──────────────────────────────────────── -->
+<footer>
+  <p>Apex Sales AI &mdash; Closer de IA para WhatsApp Business</p>
+  <p style="margin-top: 8px;">Este site nao e afiliado ao WhatsApp Inc. ou Meta Platforms Inc.</p>
+</footer>
+
+<!-- ─── SCRIPTS ──────────────────────────────────────── -->
+<script>
+// Accordion FAQ
+document.querySelectorAll('.objection-q').forEach(q => {
+  q.addEventListener('click', () => {
+    const obj = q.parentElement;
+    const wasOpen = obj.classList.contains('open');
+    document.querySelectorAll('.objection').forEach(o => o.classList.remove('open'));
+    if (!wasOpen) obj.classList.add('open');
+  });
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+
+</body>
+</html>

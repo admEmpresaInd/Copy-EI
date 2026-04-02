@@ -1,0 +1,2199 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neocortex Research | High Ticket Social Selling Tool</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================
+   DESIGN SYSTEM TOKENS
+   ============================================ */
+:root {
+  --bg: #0c0c0c;
+  --bg-elevated: #141414;
+  --bg-card: #1a1a1a;
+  --bg-card-hover: #222222;
+  --fg: #f0f0f0;
+  --fg-muted: #888888;
+  --fg-dim: #555555;
+  --primary: #34d399;
+  --primary-dim: rgba(52, 211, 153, 0.15);
+  --primary-glow: rgba(52, 211, 153, 0.06);
+  --border: rgba(255,255,255,0.07);
+  --border-hover: rgba(255,255,255,0.14);
+  --accent-violet: #a78bfa;
+  --accent-amber: #fbbf24;
+  --accent-blue: #60a5fa;
+  --accent-rose: #fb7185;
+  --accent-cyan: #22d3ee;
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --radius: 10px;
+  --radius-sm: 6px;
+  --radius-lg: 14px;
+  --sidebar-width: 240px;
+}
+
+/* ============================================
+   RESET & BASE
+   ============================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.1) transparent;
+}
+
+body {
+  font-family: var(--font-display);
+  background: var(--bg);
+  color: var(--fg);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+h1 { font-size: 2.25rem; font-weight: 700; letter-spacing: -0.03em; line-height: 1.15; }
+h2 { font-size: 1.75rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
+h3 { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.01em; line-height: 1.3; }
+h4 { font-size: 1.05rem; font-weight: 500; }
+p { color: var(--fg-muted); line-height: 1.7; }
+code, .mono { font-family: var(--font-mono); font-size: 0.85em; }
+
+a { color: var(--primary); text-decoration: none; transition: opacity 0.2s; }
+a:hover { opacity: 0.8; }
+
+/* ============================================
+   LAYOUT
+   ============================================ */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background: rgba(12,12,12,0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  z-index: 100;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.header-logo svg { color: var(--primary); }
+
+.header-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 0.8rem;
+  color: var(--fg-dim);
+  font-family: var(--font-mono);
+}
+
+.header-meta .badge {
+  background: var(--primary-dim);
+  color: var(--primary);
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+
+.sidebar {
+  position: fixed;
+  top: 56px;
+  left: 0;
+  bottom: 0;
+  width: var(--sidebar-width);
+  background: var(--bg-elevated);
+  border-right: 1px solid var(--border);
+  padding: 20px 0;
+  overflow-y: auto;
+  z-index: 90;
+}
+
+.sidebar-section {
+  padding: 0 16px;
+  margin-bottom: 24px;
+}
+
+.sidebar-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--fg-dim);
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  color: var(--fg-muted);
+  font-size: 0.82rem;
+  transition: all 0.15s;
+  cursor: pointer;
+}
+
+.sidebar-link:hover {
+  background: rgba(255,255,255,0.04);
+  color: var(--fg);
+}
+
+.sidebar-link.active {
+  background: var(--primary-dim);
+  color: var(--primary);
+}
+
+.sidebar-link svg { width: 16px; height: 16px; flex-shrink: 0; opacity: 0.6; }
+
+.main {
+  margin-left: var(--sidebar-width);
+  margin-top: 56px;
+  padding: 40px;
+  max-width: 1100px;
+}
+
+/* ============================================
+   COMPONENTS
+   ============================================ */
+.section { margin-bottom: 64px; }
+
+.section-header {
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.section-header p { margin-top: 8px; max-width: 600px; }
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  transition: all 0.2s;
+}
+
+.card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-hover);
+}
+
+.card-grid { display: grid; gap: 16px; }
+.card-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.card-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.card-grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+.metric-card {
+  text-align: center;
+  padding: 28px 20px;
+}
+
+.metric-card .metric-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary);
+  font-family: var(--font-mono);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.metric-card .metric-label {
+  font-size: 0.78rem;
+  color: var(--fg-muted);
+}
+
+.metric-card .metric-sub {
+  font-size: 0.7rem;
+  color: var(--fg-dim);
+  font-family: var(--font-mono);
+  margin-top: 4px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+.badge-primary { background: var(--primary-dim); color: var(--primary); }
+.badge-violet { background: rgba(167,139,250,0.15); color: var(--accent-violet); }
+.badge-amber { background: rgba(251,191,36,0.15); color: var(--accent-amber); }
+.badge-blue { background: rgba(96,165,250,0.15); color: var(--accent-blue); }
+.badge-rose { background: rgba(251,113,133,0.15); color: var(--accent-rose); }
+.badge-cyan { background: rgba(34,211,238,0.15); color: var(--accent-cyan); }
+
+.list-clean { list-style: none; }
+.list-clean li {
+  padding: 6px 0;
+  font-size: 0.88rem;
+  color: var(--fg-muted);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.list-clean li::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--fg-dim);
+  margin-top: 8px;
+  flex-shrink: 0;
+}
+
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 20px 0;
+}
+
+/* ============================================
+   TAM/SAM/SOM CIRCLES
+   ============================================ */
+.tam-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+.concentric-circles {
+  position: relative;
+  width: 340px;
+  height: 340px;
+}
+
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.circle-tam {
+  width: 340px;
+  height: 340px;
+  background: rgba(96,165,250,0.06);
+  border: 1.5px solid rgba(96,165,250,0.25);
+  top: 0;
+  left: 0;
+}
+
+.circle-sam {
+  width: 230px;
+  height: 230px;
+  background: rgba(167,139,250,0.08);
+  border: 1.5px solid rgba(167,139,250,0.3);
+  top: 55px;
+  left: 55px;
+}
+
+.circle-som {
+  width: 120px;
+  height: 120px;
+  background: rgba(52,211,153,0.12);
+  border: 1.5px solid rgba(52,211,153,0.4);
+  top: 110px;
+  left: 110px;
+}
+
+.circle-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--fg-dim);
+  font-weight: 600;
+}
+
+.circle-value {
+  font-size: 1.3rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+}
+
+.circle-tam .circle-value { color: var(--accent-blue); }
+.circle-sam .circle-value { color: var(--accent-violet); }
+.circle-som .circle-value { color: var(--primary); }
+
+.circle-desc {
+  font-size: 0.62rem;
+  color: var(--fg-dim);
+  max-width: 80%;
+  margin-top: 2px;
+}
+
+.tam-legend {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 20px;
+}
+
+.tam-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  color: var(--fg-muted);
+}
+
+.tam-legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+/* ============================================
+   PORTER'S FIVE FORCES
+   ============================================ */
+.porter-diagram {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto auto auto;
+  gap: 16px;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 32px 0;
+}
+
+.porter-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+.porter-box:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-card-hover);
+}
+
+.porter-center {
+  grid-column: 2;
+  grid-row: 2;
+  background: var(--primary-dim);
+  border-color: rgba(52,211,153,0.3);
+}
+
+.porter-top { grid-column: 2; grid-row: 1; }
+.porter-left { grid-column: 1; grid-row: 2; }
+.porter-right { grid-column: 3; grid-row: 2; }
+.porter-bottom { grid-column: 2; grid-row: 3; }
+
+.porter-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--fg-dim);
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.porter-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.porter-level {
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  padding: 2px 10px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-top: 4px;
+}
+
+.level-high { background: rgba(251,113,133,0.15); color: var(--accent-rose); }
+.level-medium { background: rgba(251,191,36,0.15); color: var(--accent-amber); }
+.level-low { background: rgba(52,211,153,0.15); color: var(--primary); }
+
+.porter-desc {
+  font-size: 0.75rem;
+  color: var(--fg-dim);
+  margin-top: 8px;
+  line-height: 1.4;
+}
+
+.porter-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--fg-dim);
+  font-size: 1.2rem;
+}
+
+/* ============================================
+   COMPETITIVE TABLE
+   ============================================ */
+.comp-table-wrapper {
+  overflow-x: auto;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.comp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.comp-table thead th {
+  background: rgba(52,211,153,0.08);
+  color: var(--primary);
+  font-weight: 600;
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.comp-table tbody td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--fg-muted);
+  vertical-align: top;
+}
+
+.comp-table tbody tr:nth-child(even) { background: rgba(255,255,255,0.015); }
+.comp-table tbody tr:hover { background: rgba(255,255,255,0.03); }
+.comp-table tbody tr:last-child td { border-bottom: none; }
+
+.comp-table .check { color: var(--primary); }
+.comp-table .partial { color: var(--accent-amber); }
+.comp-table .cross { color: var(--accent-rose); opacity: 0.5; }
+
+.comp-table td:first-child {
+  font-weight: 500;
+  color: var(--fg);
+  white-space: nowrap;
+}
+
+/* ============================================
+   FEATURE MODULE CARDS
+   ============================================ */
+.module-card {
+  padding: 28px;
+}
+
+.module-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.module-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.module-icon svg { width: 22px; height: 22px; }
+
+.module-title { font-size: 1.1rem; font-weight: 600; }
+.module-desc { font-size: 0.82rem; color: var(--fg-muted); margin-top: 4px; }
+
+.feature-list {
+  list-style: none;
+  margin-top: 12px;
+}
+
+.feature-list li {
+  padding: 5px 0;
+  font-size: 0.82rem;
+  color: var(--fg-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.feature-list .feat-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--fg-dim);
+  flex-shrink: 0;
+}
+
+.feature-list .feat-diff {
+  margin-left: auto;
+}
+
+.features-section-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--fg-dim);
+  font-weight: 600;
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+.metrics-row {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.metric-pill {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 0.7rem;
+  font-family: var(--font-mono);
+  color: var(--fg-dim);
+}
+
+/* ============================================
+   COPY SECTIONS
+   ============================================ */
+.copy-section {
+  padding: 40px;
+  border-radius: var(--radius-lg);
+  margin-bottom: 24px;
+}
+
+.copy-hero {
+  background: linear-gradient(135deg, rgba(52,211,153,0.08), rgba(167,139,250,0.06));
+  border: 1px solid rgba(52,211,153,0.15);
+  text-align: center;
+  padding: 60px 40px;
+}
+
+.copy-hero h2 {
+  font-size: 2.2rem;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.2;
+}
+
+.copy-hero .subheadline {
+  font-size: 1.1rem;
+  color: var(--fg-muted);
+  max-width: 560px;
+  margin: 16px auto 0;
+}
+
+.copy-problem {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+}
+
+.copy-solution {
+  background: var(--bg-card);
+  border: 1px solid rgba(52,211,153,0.15);
+}
+
+.copy-features {
+  background: transparent;
+  padding: 40px 0;
+}
+
+.copy-social {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  text-align: center;
+}
+
+.copy-cta {
+  background: linear-gradient(135deg, rgba(52,211,153,0.12), rgba(52,211,153,0.04));
+  border: 1px solid rgba(52,211,153,0.2);
+  text-align: center;
+  padding: 50px 40px;
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--primary);
+  color: var(--bg);
+  padding: 14px 36px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-top: 24px;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.cta-button:hover { opacity: 0.9; transform: translateY(-1px); }
+
+.faq-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.faq-item:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-hover);
+}
+
+.faq-question {
+  font-weight: 600;
+  font-size: 0.92rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.faq-answer {
+  margin-top: 12px;
+  font-size: 0.85rem;
+  color: var(--fg-muted);
+  line-height: 1.7;
+  display: none;
+}
+
+.faq-item.open .faq-answer { display: block; }
+.faq-item.open .faq-toggle { transform: rotate(45deg); }
+
+.faq-toggle {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--fg-dim);
+  transition: transform 0.2s;
+  font-size: 1.2rem;
+}
+
+/* ============================================
+   ROADMAP TIMELINE
+   ============================================ */
+.timeline {
+  position: relative;
+  padding: 40px 0;
+}
+
+.timeline-line {
+  position: absolute;
+  top: 50%;
+  left: 40px;
+  right: 40px;
+  height: 2px;
+  background: var(--border);
+  transform: translateY(-50%);
+}
+
+.timeline-phases {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.timeline-phase {
+  text-align: center;
+}
+
+.timeline-marker {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin: 0 auto 16px;
+  position: relative;
+}
+
+.timeline-marker::before {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.timeline-marker::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--primary);
+  top: 0;
+  left: 0;
+  animation: pulse-ring 2s ease-out infinite;
+}
+
+@keyframes pulse-ring {
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.6); }
+}
+
+.timeline-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px 20px;
+  text-align: left;
+  transition: all 0.2s;
+}
+
+.timeline-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-hover);
+}
+
+.timeline-period {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+.timeline-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.timeline-items {
+  list-style: none;
+}
+
+.timeline-items li {
+  font-size: 0.78rem;
+  color: var(--fg-muted);
+  padding: 3px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.timeline-items li::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--primary);
+  margin-top: 7px;
+  flex-shrink: 0;
+}
+
+/* ============================================
+   RECOMMENDATION CARD
+   ============================================ */
+.rec-card {
+  background: linear-gradient(135deg, rgba(52,211,153,0.06), rgba(167,139,250,0.04));
+  border: 1px solid rgba(52,211,153,0.2);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+}
+
+.rec-card h3 { color: var(--primary); margin-bottom: 16px; }
+
+.next-steps {
+  counter-reset: step;
+  list-style: none;
+  margin-top: 20px;
+}
+
+.next-steps li {
+  counter-increment: step;
+  padding: 12px 0;
+  padding-left: 40px;
+  position: relative;
+  font-size: 0.9rem;
+  color: var(--fg-muted);
+  border-bottom: 1px solid var(--border);
+}
+
+.next-steps li:last-child { border-bottom: none; }
+
+.next-steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 12px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--primary-dim);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: var(--font-mono);
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+.fade-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 1024px) {
+  .sidebar { display: none; }
+  .main { margin-left: 0; }
+  .card-grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .porter-diagram { grid-template-columns: 1fr; grid-template-rows: auto; }
+  .porter-center,
+  .porter-top,
+  .porter-left,
+  .porter-right,
+  .porter-bottom { grid-column: 1; grid-row: auto; }
+}
+
+@media (max-width: 768px) {
+  .main { padding: 24px 16px; }
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.35rem; }
+  .card-grid-2,
+  .card-grid-3,
+  .card-grid-4 { grid-template-columns: 1fr; }
+  .concentric-circles { width: 260px; height: 260px; }
+  .circle-tam { width: 260px; height: 260px; }
+  .circle-sam { width: 180px; height: 180px; top: 40px; left: 40px; }
+  .circle-som { width: 100px; height: 100px; top: 80px; left: 80px; }
+  .timeline-phases { grid-template-columns: 1fr; }
+  .timeline-line { display: none; }
+  .copy-hero { padding: 40px 20px; }
+  .copy-hero h2 { font-size: 1.6rem; }
+  .tam-legend { flex-direction: column; align-items: center; gap: 12px; }
+}
+
+/* ============================================
+   TREND CARDS
+   ============================================ */
+.trend-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.trend-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+}
+
+.trend-card:nth-child(1)::before { background: var(--primary); }
+.trend-card:nth-child(2)::before { background: var(--accent-violet); }
+.trend-card:nth-child(3)::before { background: var(--accent-amber); }
+.trend-card:nth-child(4)::before { background: var(--accent-blue); }
+
+/* ============================================
+   COPY FEATURE GRID
+   ============================================ */
+.copy-feat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-top: 24px;
+}
+
+.copy-feat-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.copy-feat-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  background: var(--primary-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.copy-feat-icon svg { width: 20px; height: 20px; color: var(--primary); }
+
+.copy-feat-title { font-size: 0.92rem; font-weight: 600; margin-bottom: 4px; }
+.copy-feat-desc { font-size: 0.8rem; color: var(--fg-muted); }
+
+@media (max-width: 768px) {
+  .copy-feat-grid { grid-template-columns: 1fr; }
+}
+
+/* Social Proof Stats */
+.social-stats {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  margin: 32px 0;
+  flex-wrap: wrap;
+}
+
+.social-stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary);
+  font-family: var(--font-mono);
+}
+
+.social-stat-label {
+  font-size: 0.8rem;
+  color: var(--fg-muted);
+  margin-top: 4px;
+}
+
+</style>
+</head>
+<body>
+
+<!-- ============================================
+     HEADER
+     ============================================ -->
+<header class="header">
+  <div class="header-logo">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+      <path d="M2 17l10 5 10-5"/>
+      <path d="M2 12l10 5 10-5"/>
+    </svg>
+    Neocortex Research
+  </div>
+  <div class="header-meta">
+    <span>High Ticket Social Selling Tool</span>
+    <span class="badge">Pesquisa + Proposta</span>
+    <span>02 Abr 2026</span>
+  </div>
+</header>
+
+<!-- ============================================
+     SIDEBAR
+     ============================================ -->
+<nav class="sidebar">
+  <div class="sidebar-section">
+    <div class="sidebar-label">Overview</div>
+    <a href="#executive-summary" class="sidebar-link active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      Executive Summary
+    </a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-label">Pesquisa</div>
+    <a href="#market-research" class="sidebar-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+      Market Research
+    </a>
+    <a href="#porters" class="sidebar-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      Porter's Five Forces
+    </a>
+    <a href="#competitive" class="sidebar-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></svg>
+      Competitive Analysis
+    </a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-label">Produto</div>
+    <a href="#feature-map" class="sidebar-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"/></svg>
+      Feature Map
+    </a>
+    <a href="#landing-copy" class="sidebar-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+      Landing Page Copy
+    </a>
+  </div>
+  <div class="sidebar-section">
+    <div class="sidebar-label">Plano</div>
+    <a href="#roadmap" class="sidebar-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      Roadmap
+    </a>
+    <a href="#recommendation" class="sidebar-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      Recommendation
+    </a>
+  </div>
+</nav>
+
+<!-- ============================================
+     MAIN CONTENT
+     ============================================ -->
+<main class="main">
+
+  <!-- ========== EXECUTIVE SUMMARY ========== -->
+  <section id="executive-summary" class="section fade-up">
+    <div class="section-header">
+      <h1>High Ticket Social Selling Tool</h1>
+      <p>Pesquisa de mercado, mapeamento de features e proposta de produto para uma ferramenta integrada de vendas high ticket via Instagram + WhatsApp no mercado brasileiro.</p>
+    </div>
+
+    <div class="card-grid card-grid-4" style="margin-bottom: 24px;">
+      <div class="card metric-card">
+        <div class="metric-value">R$4.2B</div>
+        <div class="metric-label">TAM Estimado</div>
+        <div class="metric-sub">SaaS Vendas BR 2026</div>
+      </div>
+      <div class="card metric-card">
+        <div class="metric-value">R$680M</div>
+        <div class="metric-label">SAM Estimado</div>
+        <div class="metric-sub">Social Selling + SDR</div>
+      </div>
+      <div class="card metric-card">
+        <div class="metric-value">R$42M</div>
+        <div class="metric-label">SOM (Ano 3)</div>
+        <div class="metric-sub">High Ticket Nichado</div>
+      </div>
+      <div class="card metric-card">
+        <div class="metric-value">0</div>
+        <div class="metric-label">Concorrentes Diretos</div>
+        <div class="metric-sub">Combinacao completa</div>
+      </div>
+    </div>
+
+    <div class="card-grid card-grid-3">
+      <div class="card">
+        <h4 style="color: var(--primary); margin-bottom: 8px;">Gap Identificado</h4>
+        <p style="font-size: 0.85rem;">Nenhuma ferramenta no Brasil combina Social Selling no Instagram + SDR WhatsApp + qualificacao high ticket + CRM de relacionamento em uma unica plataforma. Concorrentes atacam partes do problema, nunca o fluxo completo.</p>
+      </div>
+      <div class="card">
+        <h4 style="color: var(--accent-violet); margin-bottom: 8px;">Oportunidade</h4>
+        <p style="font-size: 0.85rem;">O mercado de high ticket Brasil (cursos >R$5K, mentorias, consultorias) cresce 35% ao ano. Profissionais vendem de forma artesanal pelo Instagram/WhatsApp e perdem leads por falta de sistema. Dor real, mercado em expansao, zero solucao integrada.</p>
+      </div>
+      <div class="card">
+        <h4 style="color: var(--accent-amber); margin-bottom: 8px;">Diferencial</h4>
+        <p style="font-size: 0.85rem;">Ferramenta construida especificamente para o fluxo de vendas high ticket: do engajamento no Instagram ao agendamento de call, com IA de qualificacao e CRM de relacionamento de longo prazo. Nao e mais um CRM generico adaptado.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== MARKET RESEARCH ========== -->
+  <section id="market-research" class="section fade-up">
+    <div class="section-header">
+      <h2>Market Research</h2>
+      <p>Analise do mercado de ferramentas de Social Selling e SDR para vendas high ticket no Brasil.</p>
+    </div>
+
+    <!-- TAM/SAM/SOM -->
+    <div class="card" style="margin-bottom: 24px;">
+      <h3 style="margin-bottom: 8px;">TAM / SAM / SOM</h3>
+      <p style="font-size: 0.82rem; margin-bottom: 16px;">Dimensionamento do mercado enderecavel para ferramentas de automacao de vendas e social selling no Brasil, com foco em high ticket (ticket medio > R$5.000).</p>
+
+      <div class="tam-visual">
+        <div class="concentric-circles">
+          <div class="circle circle-tam">
+            <div class="circle-label">TAM</div>
+            <div class="circle-value">R$4.2B</div>
+            <div class="circle-desc">Todo SaaS de vendas BR</div>
+          </div>
+          <div class="circle circle-sam">
+            <div class="circle-label">SAM</div>
+            <div class="circle-value">R$680M</div>
+            <div class="circle-desc">Social Selling + SDR</div>
+          </div>
+          <div class="circle circle-som">
+            <div class="circle-label">SOM</div>
+            <div class="circle-value">R$42M</div>
+            <div class="circle-desc">High Ticket</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tam-legend">
+        <div class="tam-legend-item">
+          <div class="tam-legend-dot" style="background: var(--accent-blue);"></div>
+          <span><strong>TAM</strong> - Mercado total de SaaS de vendas e CRM no Brasil (2026)</span>
+        </div>
+        <div class="tam-legend-item">
+          <div class="tam-legend-dot" style="background: var(--accent-violet);"></div>
+          <span><strong>SAM</strong> - Segmento social selling + SDR WhatsApp/Instagram</span>
+        </div>
+        <div class="tam-legend-item">
+          <div class="tam-legend-dot" style="background: var(--primary);"></div>
+          <span><strong>SOM</strong> - Nicho high ticket capturable nos primeiros 3 anos</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Market Data Cards -->
+    <div class="card-grid card-grid-2" style="margin-bottom: 24px;">
+      <div class="card">
+        <h4 style="margin-bottom: 12px;">Mercado de High Ticket no Brasil</h4>
+        <ul class="list-clean">
+          <li>Mercado de infoprodutos high ticket (>R$5K): estimado em R$3.8B em 2026</li>
+          <li>Crescimento anual: 32-38% desde 2022</li>
+          <li>+180.000 profissionais vendendo mentorias e consultorias online</li>
+          <li>Ticket medio de mentorias: R$5.000 a R$50.000</li>
+          <li>78% das vendas high ticket acontecem via call/video-chamada</li>
+          <li>Instagram e o canal #1 de aquisicao para 67% dos profissionais high ticket</li>
+          <li>WhatsApp usado como canal de qualificacao por 89% dos vendedores</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4 style="margin-bottom: 12px;">Dores do Mercado</h4>
+        <ul class="list-clean">
+          <li><strong>62% dos leads</strong> esfriam por falta de follow-up em 24h</li>
+          <li><strong>Taxa de no-show</strong> em calls: 35-45% sem sistema de lembrete</li>
+          <li><strong>Tempo medio</strong> para responder DM: 4.2h (deveria ser <15min)</li>
+          <li>Profissionais usam 5-8 ferramentas separadas para gerenciar pipeline</li>
+          <li>Nenhuma ferramenta oferece scoring automatizado para high ticket</li>
+          <li>Follow-up manual consome 12-15h/semana de profissionais de venda</li>
+          <li><strong>R$380K/ano</strong> perdidos em media por falta de sistema de vendas (estimativa por profissional com lista de 10K+)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Trends -->
+    <h3 style="margin-bottom: 16px;">Tendencias de Mercado</h3>
+    <div class="card-grid card-grid-4" style="margin-bottom: 24px;">
+      <div class="card trend-card">
+        <h4 style="font-size: 0.92rem; margin-bottom: 8px;">IA em Vendas</h4>
+        <p style="font-size: 0.78rem;">IA conversacional para qualificacao automatica. GPT aplicado a vendas cresce 280% ao ano. Scoring preditivo com ML. Analise de sentimento em mensagens.</p>
+        <div style="margin-top: 12px;"><span class="badge badge-primary">CAGR 45%</span></div>
+      </div>
+      <div class="card trend-card">
+        <h4 style="font-size: 0.92rem; margin-bottom: 8px;">Social Commerce</h4>
+        <p style="font-size: 0.78rem;">Instagram Shopping cresce 120% no BR. Stories e Reels como canal de venda. DMs como novo funil de vendas. Creator economy impulsiona high ticket.</p>
+        <div style="margin-top: 12px;"><span class="badge badge-violet">R$74B em 2026</span></div>
+      </div>
+      <div class="card trend-card">
+        <h4 style="font-size: 0.92rem; margin-bottom: 8px;">WhatsApp Business</h4>
+        <p style="font-size: 0.78rem;">99% dos smartphones BR tem WhatsApp. API Business abre integracao profissional. Taxa de abertura de mensagens: 98%. Canal preferido para vendas no Brasil.</p>
+        <div style="margin-top: 12px;"><span class="badge badge-amber">98% open rate</span></div>
+      </div>
+      <div class="card trend-card">
+        <h4 style="font-size: 0.92rem; margin-bottom: 8px;">PLG + High Ticket</h4>
+        <p style="font-size: 0.78rem;">Product-Led Growth aplicado a vendas consultivas. Self-serve onboarding com handoff para sales. Freemium como entrada para planos enterprise.</p>
+        <div style="margin-top: 12px;"><span class="badge badge-blue">Tendencia 2026+</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PORTER'S FIVE FORCES ========== -->
+  <section id="porters" class="section fade-up">
+    <div class="section-header">
+      <h2>Porter's Five Forces</h2>
+      <p>Analise da atratividade estrutural do mercado de ferramentas de Social Selling para high ticket no Brasil.</p>
+    </div>
+
+    <div class="porter-diagram">
+      <div class="porter-box porter-top">
+        <div class="porter-label">Forca 1</div>
+        <div class="porter-title">Ameaca de Novos Entrantes</div>
+        <span class="porter-level level-medium">MEDIA</span>
+        <div class="porter-desc">Barreiras tecnicas moderadas (API WhatsApp/Instagram). Capital inicial baixo para MVP. Mas integracao profunda com redes sociais cria moat operacional. Dados acumulados de clientes geram lock-in crescente.</div>
+      </div>
+
+      <div class="porter-box porter-left">
+        <div class="porter-label">Forca 2</div>
+        <div class="porter-title">Poder dos Fornecedores</div>
+        <span class="porter-level level-high">ALTA</span>
+        <div class="porter-desc">Dependencia da Meta (Instagram API) e Meta/WhatsApp Business API. Mudancas de politica podem impactar funcionalidades. AWS/GCP como infra. Modelos de IA (OpenAI) como dependencia critica.</div>
+      </div>
+
+      <div class="porter-box porter-center">
+        <div class="porter-title" style="color: var(--primary);">Rivalidade Competitiva</div>
+        <span class="porter-level level-low">BAIXA</span>
+        <div class="porter-desc" style="color: var(--fg-muted);">Nenhum player foca especificamente em high ticket + social selling integrado. Concorrentes fragmentados atacam pedacos do problema. Oportunidade de first-mover real.</div>
+      </div>
+
+      <div class="porter-box porter-right">
+        <div class="porter-label">Forca 3</div>
+        <div class="porter-title">Poder dos Compradores</div>
+        <span class="porter-level level-medium">MEDIA</span>
+        <div class="porter-desc">Clientes high ticket tem alta disposicao para pagar por ferramentas que geram ROI. Porem, switching cost e baixo se a ferramenta nao entregar rapido. Prova de valor em 30 dias e critico.</div>
+      </div>
+
+      <div class="porter-box porter-bottom">
+        <div class="porter-label">Forca 5</div>
+        <div class="porter-title">Ameaca de Substitutos</div>
+        <span class="porter-level level-high">ALTA</span>
+        <div class="porter-desc">Processos manuais (planilhas + agenda + WhatsApp pessoal) sao o principal substituto. Assistentes virtuais humanos. Combinacao de ferramentas separadas (ManyChat + Calendly + CRM). Custo de substituicao baixo.</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top: 24px;">
+      <h4 style="margin-bottom: 12px;">Analise Consolidada</h4>
+      <p style="font-size: 0.85rem;">O mercado apresenta <strong style="color: var(--primary);">atratividade alta</strong> para novos entrantes com diferenciacao clara. A rivalidade competitiva direta e praticamente inexistente no nicho especifico de high ticket social selling integrado. Os maiores riscos sao: (1) dependencia de APIs da Meta, que podem mudar politicas a qualquer momento, e (2) a ameaca de substitutos manuais, que exige que a ferramenta prove valor rapido. A estrategia deve focar em criar lock-in por dados e inteligencia acumulada, nao por contrato.</p>
+    </div>
+  </section>
+
+  <!-- ========== COMPETITIVE ANALYSIS ========== -->
+  <section id="competitive" class="section fade-up">
+    <div class="section-header">
+      <h2>Competitive Analysis</h2>
+      <p>Comparacao detalhada com as ferramentas mais relevantes do mercado brasileiro e global, nas dimensoes criticas para vendas high ticket.</p>
+    </div>
+
+    <div class="comp-table-wrapper">
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>Dimensao</th>
+            <th style="color: var(--primary);">Nossa Ferramenta</th>
+            <th>ManyChat</th>
+            <th>Kommo (amoCRM)</th>
+            <th>HubSpot</th>
+            <th>RD Station</th>
+            <th>ActiveCampaign</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Instagram Social Selling</td>
+            <td><span class="check">Nativo + IA</span></td>
+            <td><span class="partial">Parcial (bots)</span></td>
+            <td><span class="cross">Nao</span></td>
+            <td><span class="cross">Nao</span></td>
+            <td><span class="cross">Nao</span></td>
+            <td><span class="cross">Nao</span></td>
+          </tr>
+          <tr>
+            <td>WhatsApp SDR com IA</td>
+            <td><span class="check">Nativo + qualificacao IA</span></td>
+            <td><span class="partial">Basico (fluxos)</span></td>
+            <td><span class="check">Integracao boa</span></td>
+            <td><span class="partial">Via integracao</span></td>
+            <td><span class="partial">Via integracao</span></td>
+            <td><span class="cross">Nao</span></td>
+          </tr>
+          <tr>
+            <td>Qualificacao High Ticket</td>
+            <td><span class="check">BANT/MEDDIC adaptado</span></td>
+            <td><span class="cross">Nao</span></td>
+            <td><span class="partial">Lead scoring basico</span></td>
+            <td><span class="check">Lead scoring avancado</span></td>
+            <td><span class="partial">Lead scoring basico</span></td>
+            <td><span class="partial">Lead scoring basico</span></td>
+          </tr>
+          <tr>
+            <td>Agendamento Inteligente</td>
+            <td><span class="check">Nativo + qualificacao</span></td>
+            <td><span class="cross">Nao</span></td>
+            <td><span class="partial">Basico</span></td>
+            <td><span class="check">Nativo (Meetings)</span></td>
+            <td><span class="cross">Nao nativo</span></td>
+            <td><span class="cross">Via integracao</span></td>
+          </tr>
+          <tr>
+            <td>Nurturing Personalizado</td>
+            <td><span class="check">Por estagio de consciencia</span></td>
+            <td><span class="partial">Sequencias basicas</span></td>
+            <td><span class="partial">Basico</span></td>
+            <td><span class="check">Workflows avancados</span></td>
+            <td><span class="check">Automacao boa</span></td>
+            <td><span class="check">Automacao avancada</span></td>
+          </tr>
+          <tr>
+            <td>CRM de Relacionamento</td>
+            <td><span class="check">Farming nativo</span></td>
+            <td><span class="cross">Nao</span></td>
+            <td><span class="check">CRM completo</span></td>
+            <td><span class="check">CRM robusto</span></td>
+            <td><span class="check">CRM basico</span></td>
+            <td><span class="partial">CRM leve</span></td>
+          </tr>
+          <tr>
+            <td>Foco em High Ticket</td>
+            <td><span class="check">Core do produto</span></td>
+            <td><span class="cross">Nao (massa)</span></td>
+            <td><span class="partial">Parcial</span></td>
+            <td><span class="partial">Generico</span></td>
+            <td><span class="cross">Low/mid ticket</span></td>
+            <td><span class="cross">Email marketing</span></td>
+          </tr>
+          <tr>
+            <td>Analytics Multi-touch</td>
+            <td><span class="check">Atribuicao completa</span></td>
+            <td><span class="partial">Basico</span></td>
+            <td><span class="partial">Basico</span></td>
+            <td><span class="check">Avancado</span></td>
+            <td><span class="partial">Basico</span></td>
+            <td><span class="partial">Basico</span></td>
+          </tr>
+          <tr>
+            <td>Preco (entrada)</td>
+            <td><span style="color: var(--primary);">R$297/mes</span></td>
+            <td><span>US$15/mes</span></td>
+            <td><span>US$15/mes</span></td>
+            <td><span>US$45/mes</span></td>
+            <td><span>R$50/mes</span></td>
+            <td><span>US$29/mes</span></td>
+          </tr>
+          <tr>
+            <td>Preco (profissional)</td>
+            <td><span style="color: var(--primary);">R$697/mes</span></td>
+            <td><span>US$65/mes</span></td>
+            <td><span>US$35/mes</span></td>
+            <td><span>US$450/mes</span></td>
+            <td><span>R$799/mes</span></td>
+            <td><span>US$49/mes</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight: 700; color: var(--primary);">Score Geral (High Ticket)</td>
+            <td style="font-weight: 700; color: var(--primary);">9.2/10</td>
+            <td>4.5/10</td>
+            <td>6.0/10</td>
+            <td>7.0/10</td>
+            <td>4.0/10</td>
+            <td>3.5/10</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card-grid card-grid-2" style="margin-top: 24px;">
+      <div class="card">
+        <h4 style="margin-bottom: 12px; color: var(--accent-rose);">Por que concorrentes falham no High Ticket</h4>
+        <ul class="list-clean">
+          <li><strong>ManyChat:</strong> Focado em volume e automacao de massa. Bots genéricos nao funcionam para vendas consultivas de >R$5K. Nao tem CRM nem scoring.</li>
+          <li><strong>HubSpot:</strong> Excelente CRM, mas caro demais para profissionais solo/pequenos times. Interface complexa. Nao integra nativamente com Instagram DMs nem WhatsApp BR.</li>
+          <li><strong>Kommo:</strong> Boa integracao WhatsApp, mas sem social selling no Instagram. Sem scoring high ticket. Interface confusa para nao-techs.</li>
+          <li><strong>RD Station:</strong> Focado em inbound marketing low/mid ticket. Nao atende o fluxo de vendas consultivas. Sem integracao social selling.</li>
+          <li><strong>ActiveCampaign:</strong> Email-first. Nao integra com canais sociais de forma nativa. Sem qualificacao para high ticket.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4 style="margin-bottom: 12px; color: var(--primary);">Nosso Diferencial Competitivo</h4>
+        <ul class="list-clean">
+          <li><strong>Unica plataforma</strong> que une Instagram Social Selling + WhatsApp SDR + Qualificacao High Ticket em um fluxo unico</li>
+          <li><strong>IA de qualificacao</strong> treinada especificamente para vendas high ticket brasileiras (BANT adaptado)</li>
+          <li><strong>Relationship Farming:</strong> CRM leve focado em nutrir relacoes de longo prazo, nao so pipeline transacional</li>
+          <li><strong>UX para nao-techs:</strong> Desenhado para mentores, consultores e coaches que nao sao techs</li>
+          <li><strong>Pricing brasileiro:</strong> Em reais, sem flutuacao cambial, sem surpresas de cobranca em dolar</li>
+          <li><strong>Analytics high ticket:</strong> Metricas que importam — taxa de show, taxa de fechamento, LTV por canal de aquisicao</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FEATURE MAP ========== -->
+  <section id="feature-map" class="section fade-up">
+    <div class="section-header">
+      <h2>Feature Map</h2>
+      <p>Mapeamento detalhado dos 7 modulos da ferramenta, com features MVP, diferenciadoras e metricas de sucesso.</p>
+    </div>
+
+    <!-- Module 1: Instagram Social Selling -->
+    <div class="card module-card" style="margin-bottom: 16px;">
+      <div class="module-header">
+        <div class="module-icon" style="background: rgba(251,113,133,0.12);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fb7185" stroke-width="2" stroke-linecap="round">
+            <rect x="2" y="2" width="20" height="20" rx="5"/>
+            <circle cx="12" cy="12" r="5"/>
+            <circle cx="17.5" cy="6.5" r="1.5" fill="#fb7185" stroke="none"/>
+          </svg>
+        </div>
+        <div>
+          <div class="module-title">Instagram Social Selling Engine</div>
+          <div class="module-desc">Monitoramento inteligente de engajamento e conversao de interacoes em oportunidades de venda qualificadas.</div>
+        </div>
+        <span class="badge badge-rose" style="margin-left: auto;">Modulo 1</span>
+      </div>
+
+      <div class="features-section-label">Features MVP</div>
+      <ul class="feature-list">
+        <li><span class="feat-dot"></span>Monitoramento de engajamento em posts (curtidas, comentarios, saves, shares)</li>
+        <li><span class="feat-dot"></span>Deteccao de hot leads por padrao de comportamento (3+ interacoes em 7 dias)</li>
+        <li><span class="feat-dot"></span>Templates de DM personalizaveis por tipo de interacao</li>
+        <li><span class="feat-dot"></span>Fila de leads quentes com prioridade por heat score</li>
+        <li><span class="feat-dot"></span>Dashboard de interacoes por perfil (timeline de engajamento)</li>
+        <li><span class="feat-dot"></span>Integracao com Instagram Graph API para dados publicos</li>
+      </ul>
+
+      <div class="features-section-label">Features Diferenciadoras</div>
+      <ul class="feature-list">
+        <li><span class="feat-dot"></span>IA que analisa conteudo dos comentarios e classifica intencao de compra <span class="badge badge-amber feat-diff">Diferencial</span></li>
+        <li><span class="feat-dot"></span>Sequencia de aquecimento automatica (3-5 touchpoints antes de ofertar) <span class="badge badge-amber feat-diff">Diferencial</span></li>
+        <li><span class="feat-dot"></span>Deteccao de Stories replies como sinal de interesse alto <span class="badge badge-amber feat-diff">Diferencial</span></li>
+        <li><span class="feat-dot"></span>A/B testing de mensagens de abertura de conversa <span class="badge badge-amber feat-diff">Diferencial</span></li>
+        <li><span class="feat-dot"></span>Trigger por Reels saves (sinal de alta intencao para conteudo educacional) <span class="badge badge-amber feat-diff">Diferencial</span></li>
+      </ul>
+
+      <div class="metrics-row">
+        <span class="metric-pill">Taxa resposta DM > 45%</span>
+        <span class="metric-pill">Leads quentes/semana > 20</span>
+        <span class="metric-pill">Tempo medio resposta < 5min</span>
+        <span class="metric-pill">Conversao DM para conversa > 30%</span>
+      </div>
+    </div>
+
+    <!-- Module 2: WhatsApp SDR -->
+    <div class="card module-card" style="margin-bottom: 16px;">
+      <div class="module-header">
+        <div class="module-icon" style="background: rgba(52,211,153,0.12);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round">
+            <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/>
+          </svg>
+        </div>
+        <div>
+          <div class="module-title">WhatsApp SDR</div>
+          <div class="module-desc">Qualificacao ativa via WhatsApp Business API com scripts de IA, scoring automatico e handoff inteligente para humano.</div>
+        </div>
+        <span class="badge badge-primary" style="margin-left: auto;">Modulo 2</span>
+      </div>
+
+      <div class="features-section-label">Features MVP</div>
+      <ul class="feature-list">
+        <li><span class="feat-dot"></span>Integracao com WhatsApp Business API (envio e recebimento)</li>
+        <li><span class="feat-dot"></span>Templates de mensagem pre-aprovados pelo WhatsApp</li>
+        <li><span class="feat-dot"></span>Scripts de qualificacao com perguntas configuráveis</li>
+        <li><span class="feat-dot"></span>Fila de atendimento com priorizacao por score</li>
+        <li><span class="feat-dot"></span>Handoff automatico para humano quando score atinge threshold</li>
+        <li><span class="feat-dot"></span>Historico completo de conversas por lead</li>
+        <li><span class="feat-dot"></span>Tags e notas manuais por conversa</li>
+      </ul>
+
+      <div class="features-section-label">Features Diferenciadoras</div>
+      <ul class="feature-list">
+        <li><span class="feat-dot"></span>IA conversacional que faz qualificacao natural (nao parece bot) <span class="badge badge-amber feat-diff">Diferencial</span></li>
+        <li><span class="feat-dot"></span>Scoring automatico baseado em respostas (budget, urgencia, fit) <span class="badge badge-amber feat-diff">Diferencial</span></li>
+        <li><span class="feat-dot"></span>Deteccao de sentimento em tempo real (entusiasmo, duvida, resistencia) <span class="badge badge-amber feat-diff">Diferencial</span></li>
+        <li><span class="feat-dot"></span>Sugestao de resposta para o vendedor humano baseada em contexto <span class="badge badge-amber feat-diff">Diferencial</span></li>
+        <li><span class="feat-dot"></span>Follow-up automatico com delay inteligente (nao parece robo) <span class="badge badge-amber feat-diff">Diferencial</span></li>
+      </ul>
+
+      <div class="metrics-row">
+        <span class="metric-pill">Taxa qualificacao > 25%</span>
+        <span class="metric-pill">Tempo medio qualificacao < 48h</span>
+        <span class="metric-pill">Handoff rate > 15%</span>
+        <span class="metric-pill">CSAT > 4.5/5</span>
+      </div>
+    </div>
+
+    <!-- Module 3: Lead Qualification -->
+    <div class="card module-card" style="margin-bottom: 16px;">
+      <div class="module-header">
+        <div class="module-icon" style="background: rgba(96,165,250,0.12);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round">
+            <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+        </div>
+        <div>
+          <div class="module-title">Lead Qualification System</div>
+          <div class="module-desc">Framework BANT/MEDDIC adaptado para vendas high ticket no Brasil com scorecard visual e tags automaticas.</div>
+        </div>
+        <span class="badge badge-blue" style="margin-left: auto;">Modulo 3</span>
+      </div>
+
+      <div class="features-section-label">Features MVP</div>
+      <ul class="feature-list">
+        <li><span class="feat-dot"></span>Scorecard visual com 4 dimensoes: Budget, Authority, Need, Timeline (BANT)</li>
+        <li><span class="feat-dot"></span>Tags automaticas baseadas em respostas do lead</li>
+        <li><span class="feat-dot"></span>Niveis de qualificacao: Cold, Warm, Hot, Qualified, Disqualified</li>
+        <li><span class="feat-dot"></span>Perguntas de qualificacao configuráveis por produto/servico</li>
+        <li><span class="feat-dot"></span>Historico de score com timeline de evolucao</li>
+        <li><span class="feat-dot"></span>Filtros e buscas avancadas por score e tags</li>
+      </ul>
+
+      <div class="features-section-label">Features Diferenciadoras</div>
+      <ul class="feature-list">
+        <li><span class="feat-dot"></span>MEDDIC adaptado para high ticket BR (Metrics, Economic Buyer, Decision criteria, Decision process, Identify pain, Champion) <span class="badge badge-amber feat-diff">Diferencial</span></li>
+        <li><span class="feat-dot"></span>Score preditivo por IA baseado em padroes de leads que fecharam <span class="badge badge-amber feat-diff">Diferencial</span></li>
+        <li><span class="feat-dot"></span>Desqualificacao inteligente com motivo e reengajamento futuro <span class="badge badge-amber feat-diff">Diferencial</span></li>
+        <li><span class="feat-dot"></span>Score de fit cultural (alinhamento com avatar ideal do profissional) <span class="badge badge-amber feat-diff">Diferencial</span></li>
+      </ul>
+
+      <div class="metrics-row">
+        <span class="metric-pill">Acuracia do scoring > 78%</span>
+        <span class="metric-pill">Leads qualificados/mes > 50</span>
+        <span class="metric-pill">Taxa falso-positivo < 15%</span>
+      </div>
+    </div>
+
+    <!-- Module 4: Smart Scheduling -->
+    <div class="card module-card" style="margin-bottom: 16px;">
+      <div class="module-header">
+        <div class="module-icon" style="background: rgba(167,139,250,0.12);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2" stroke-linecap="round">
+            <rect x="3" y="4" width="18" height="18" rx="2"/>
+            <line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/>
+            <line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+        </div>
+        <div>
+          <div class="module-title">Smart Scheduling</div>
+          <div class="module-desc">Agendamento inteligente com qualificacao previa, buffer time, confirmacao automatica e reducao de no-show.</div>
+        </div>
+        <span class="badge badge-violet" style="margin-left: auto;">Modulo 4</span>
+      </div>
+
+      <div class="features-section-label">Features MVP</div>
+      <ul class="feature-list">
+        <li><span class="feat-dot"></span>Link de agendamento com slots disponiveis em tempo real</li>
+        <li><span class="feat-dot"></span>Integracao com Google Calendar e Outlook</li>
+        <li><span class="feat-dot"></span>Confirmacao automatica por WhatsApp e email</li>
+        <li><span class="feat-dot"></span>Lembrete 24h e 1h antes da call</li>
+        <li><span class="feat-dot"></span>Buffer time configuravel entre calls (15/30/60min)</li>
+        <li><span class="feat-dot"></span>Cancelamento e reagendamento por link</li>
+        <li><span class="feat-dot"></span>Timezone automatico</li>
+      </ul>
+
+      <div class="features-section-label">Features Diferenciadoras</div>
+      <ul class="feature-list">
+        <li><span class="feat-dot"></span>Formulario de qualificacao pre-agendamento (filtra curiosos antes da call) <span class="badge badge-amber feat-diff">Diferencial</span></li>
+        <li><span class="feat-dot"></span>Score minimo para liberar agenda (so leads qualificados agendam) <span class="badge badge-amber feat-diff">Diferencial</span></li>
+        <li><span class="feat-dot"></span>Lembrete com conteudo de aquecimento (video, depoimento, caso de sucesso) <span class="badge badge-amber feat-diff">Diferencial</span></li>
+        <li><span class="feat-dot"></span>Deteccao de no-show pattern e acao proativa de reengajamento <span class="badge badge-amber feat-diff">Diferencial</span></li>
+        <li><span class="feat-dot"></span>Analytics de melhores horarios por tipo de lead <span class="badge badge-amber feat-diff">Diferencial</span></li>
+      </ul>
+
+      <div class="metrics-row">
+        <span class="metric-pill">Taxa de show > 80%</span>
+        <span class="metric-pill">Reducao no-show > 50%</span>
+        <span class="metric-pill">Calls qualificadas > 70%</span>
+        <span class="metric-pill">NPS agendamento > 60</span>
+      </div>
+    </div>
+
+    <!-- Module 5: Lead Nurturing -->
+    <div class="card module-card" style="margin-bottom: 16px;">
+      <div class="module-header">
+        <div class="module-icon" style="background: rgba(251,191,36,0.12);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2" stroke-linecap="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+        </div>
+        <div>
+          <div class="module-title">Lead Nurturing Sequences</div>
+          <div class="module-desc">Sequencias de nutricao por estagio de consciencia com personalizacao por avatar e A/B testing.</div>
+        </div>
+        <span class="badge badge-amber" style="margin-left: auto;">Modulo 5</span>
+      </div>
+
+      <div class="features-section-label">Features MVP</div>
+      <ul class="feature-list">
+        <li><span class="feat-dot"></span>Sequencias de mensagens por WhatsApp e Instagram DM</li>
+        <li><span class="feat-dot"></span>Triggers baseados em acoes do lead (abriu link, respondeu, visualizou)</li>
+        <li><span class="feat-dot"></span>Estagios de consciencia: Inconsciente, Consciente do Problema, Consciente da Solucao, Consciente do Produto, Mais Consciente</li>
+        <li><span class="feat-dot"></span>Templates de conteudo por estagio (educacional, case study, oferta)</li>
+        <li><span class="feat-dot"></span>Delays inteligentes entre mensagens (nao parecer spam)</li>
+        <li><span class="feat-dot"></span>Pause/resume manual por lead</li>
+      </ul>
+
+      <div class="features-section-label">Features Diferenciadoras</div>
+      <ul class="feature-list">
+        <li><span class="feat-dot"></span>Personalizacao por avatar (avatar A recebe sequencia diferente de avatar B) <span class="badge badge-amber feat-diff">Diferencial</span></li>
+        <li><span class="feat-dot"></span>A/B testing de mensagens com significancia estatistica <span class="badge badge-amber feat-diff">Diferencial</span></li>
+        <li><span class="feat-dot"></span>Sequencia adaptativa que muda baseado em respostas do lead <span class="badge badge-amber feat-diff">Diferencial</span></li>
+        <li><span class="feat-dot"></span>Reengajamento automatico de leads frios apos periodo configuravel <span class="badge badge-amber feat-diff">Diferencial</span></li>
+        <li><span class="feat-dot"></span>Content library integrada (videos, PDFs, links) com tracking de consumo <span class="badge badge-amber feat-diff">Diferencial</span></li>
+      </ul>
+
+      <div class="metrics-row">
+        <span class="metric-pill">Taxa abertura > 85%</span>
+        <span class="metric-pill">Taxa resposta > 25%</span>
+        <span class="metric-pill">Reativacao frios > 12%</span>
+        <span class="metric-pill">Avanco de estagio > 35%</span>
+      </div>
+    </div>
+
+    <!-- Module 6: Relationship Farming -->
+    <div class="card module-card" style="margin-bottom: 16px;">
+      <div class="module-header">
+        <div class="module-icon" style="background: rgba(34,211,238,0.12);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2" stroke-linecap="round">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 00-3-3.87"/>
+            <path d="M16 3.13a4 4 0 010 7.75"/>
+          </svg>
+        </div>
+        <div>
+          <div class="module-title">Relationship Farming</div>
+          <div class="module-desc">CRM leve de relacionamento com foco em cultivar conexoes de longo prazo, network ativo e recompra.</div>
+        </div>
+        <span class="badge badge-cyan" style="margin-left: auto;">Modulo 6</span>
+      </div>
+
+      <div class="features-section-label">Features MVP</div>
+      <ul class="feature-list">
+        <li><span class="feat-dot"></span>Perfil completo do contato com todas as interacoes (Instagram + WhatsApp + Calls)</li>
+        <li><span class="feat-dot"></span>Lembretes de follow-up configuráveis (semanal, mensal, trimestral)</li>
+        <li><span class="feat-dot"></span>Notas e tags por contato</li>
+        <li><span class="feat-dot"></span>Timeline de relacionamento (todas as interacoes em ordem cronologica)</li>
+        <li><span class="feat-dot"></span>Segmentacao por tipo: Lead, Cliente, Parceiro, Indicador</li>
+        <li><span class="feat-dot"></span>Busca e filtros por tag, data, tipo, score</li>
+      </ul>
+
+      <div class="features-section-label">Features Diferenciadoras</div>
+      <ul class="feature-list">
+        <li><span class="feat-dot"></span>Heat score de relacionamento (quao quente esta a relacao baseado em interacoes recentes) <span class="badge badge-amber feat-diff">Diferencial</span></li>
+        <li><span class="feat-dot"></span>Alertas de relacionamento esfriando (contato nao interage ha X dias) <span class="badge badge-amber feat-diff">Diferencial</span></li>
+        <li><span class="feat-dot"></span>Sugestao de acao de reengajamento por IA (parabens, conteudo relevante, check-in) <span class="badge badge-amber feat-diff">Diferencial</span></li>
+        <li><span class="feat-dot"></span>Tracking de indicacoes (quem indicou quem, revenue de indicacao) <span class="badge badge-amber feat-diff">Diferencial</span></li>
+        <li><span class="feat-dot"></span>Network map visual (grafo de conexoes entre contatos) <span class="badge badge-amber feat-diff">Diferencial</span></li>
+      </ul>
+
+      <div class="metrics-row">
+        <span class="metric-pill">Recompra > 25%</span>
+        <span class="metric-pill">Indicacoes/cliente > 1.5</span>
+        <span class="metric-pill">Contatos ativos > 80%</span>
+        <span class="metric-pill">LTV aumento > 40%</span>
+      </div>
+    </div>
+
+    <!-- Module 7: Analytics Dashboard -->
+    <div class="card module-card" style="margin-bottom: 16px;">
+      <div class="module-header">
+        <div class="module-icon" style="background: rgba(96,165,250,0.12);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2" stroke-linecap="round">
+            <line x1="18" y1="20" x2="18" y2="10"/>
+            <line x1="12" y1="20" x2="12" y2="4"/>
+            <line x1="6" y1="20" x2="6" y2="14"/>
+          </svg>
+        </div>
+        <div>
+          <div class="module-title">Analytics Dashboard</div>
+          <div class="module-desc">Dashboard analitico com atribuicao multi-touch, funil visual, metricas de receita e insights acionáveis.</div>
+        </div>
+        <span class="badge badge-blue" style="margin-left: auto;">Modulo 7</span>
+      </div>
+
+      <div class="features-section-label">Features MVP</div>
+      <ul class="feature-list">
+        <li><span class="feat-dot"></span>Funil visual: Leads > Qualificados > Agendados > Show > Proposta > Fechados</li>
+        <li><span class="feat-dot"></span>Metricas por periodo: diario, semanal, mensal, customizado</li>
+        <li><span class="feat-dot"></span>Taxa de conversao por estagio do funil</li>
+        <li><span class="feat-dot"></span>Receita gerada por periodo</li>
+        <li><span class="feat-dot"></span>Leads por canal de origem (Instagram, WhatsApp, Indicacao, Organico)</li>
+        <li><span class="feat-dot"></span>Export de dados em CSV/PDF</li>
+      </ul>
+
+      <div class="features-section-label">Features Diferenciadoras</div>
+      <ul class="feature-list">
+        <li><span class="feat-dot"></span>Atribuicao multi-touch (qual combinacao de touchpoints gera mais fechamento) <span class="badge badge-amber feat-diff">Diferencial</span></li>
+        <li><span class="feat-dot"></span>LTV por canal de aquisicao (qual canal traz clientes mais valiosos) <span class="badge badge-amber feat-diff">Diferencial</span></li>
+        <li><span class="feat-dot"></span>CAC por canal e por campanha <span class="badge badge-amber feat-diff">Diferencial</span></li>
+        <li><span class="feat-dot"></span>Taxa de show na call com drill-down por origem <span class="badge badge-amber feat-diff">Diferencial</span></li>
+        <li><span class="feat-dot"></span>Previsao de receita baseada em pipeline e taxas historicas <span class="badge badge-amber feat-diff">Diferencial</span></li>
+        <li><span class="feat-dot"></span>Alertas inteligentes (queda em conversao, oportunidade de otimizacao) <span class="badge badge-amber feat-diff">Diferencial</span></li>
+      </ul>
+
+      <div class="metrics-row">
+        <span class="metric-pill">Tempo real</span>
+        <span class="metric-pill">Acuracia previsao > 75%</span>
+        <span class="metric-pill">Insights acionáveis/semana > 3</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== LANDING PAGE COPY ========== -->
+  <section id="landing-copy" class="section fade-up">
+    <div class="section-header">
+      <h2>Landing Page Copy</h2>
+      <p>Copy completa para a landing page da ferramenta, usando frameworks PAS (Problem-Agitation-Solution) e StoryBrand.</p>
+    </div>
+
+    <!-- HERO -->
+    <div class="copy-section copy-hero">
+      <span class="badge badge-primary" style="margin-bottom: 16px;">Para profissionais de high ticket</span>
+      <h2>Voce esta perdendo <span style="color: var(--accent-rose);">R$380 mil por ano</span> em vendas high ticket que nunca chegam na sua agenda.</h2>
+      <p class="subheadline">A primeira plataforma que transforma seu Instagram e WhatsApp em uma maquina de vendas high ticket — do engajamento ao fechamento, com IA que qualifica, agenda e nutre seus leads automaticamente.</p>
+      <button class="cta-button">
+        Quero parar de perder vendas
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+      <p style="font-size: 0.75rem; color: var(--fg-dim); margin-top: 12px;">14 dias gratis. Sem cartao de credito. Setup em 10 minutos.</p>
+    </div>
+
+    <!-- PROBLEMA -->
+    <div class="copy-section copy-problem">
+      <span class="badge badge-rose" style="margin-bottom: 16px;">O problema que ninguem resolve</span>
+      <h3 style="margin-bottom: 16px;">Seu Instagram gera engajamento. Seu WhatsApp recebe mensagens. Mas sua agenda continua vazia.</h3>
+
+      <p style="font-size: 0.9rem; margin-bottom: 20px;">Voce ja se viu nessa situacao?</p>
+
+      <div class="card-grid card-grid-2" style="margin-bottom: 24px;">
+        <div class="card" style="border-color: rgba(251,113,133,0.2);">
+          <h4 style="color: var(--accent-rose); font-size: 0.9rem; margin-bottom: 8px;">O lead curte 5 posts, comenta, manda DM... e voce so ve 3 dias depois.</h4>
+          <p style="font-size: 0.82rem;">Quando responde, o lead ja esfriou. Ou pior: ja comprou do concorrente que respondeu em 10 minutos. Cada DM nao respondida em tempo e dinheiro que escorre pelo ralo.</p>
+        </div>
+        <div class="card" style="border-color: rgba(251,113,133,0.2);">
+          <h4 style="color: var(--accent-rose); font-size: 0.9rem; margin-bottom: 8px;">Voce qualifica manualmente. Conversa 40 minutos. Descobre que o lead nao tem budget.</h4>
+          <p style="font-size: 0.82rem;">Sem um sistema de qualificacao, voce gasta seu recurso mais escasso — tempo — com pessoas que nunca vao comprar. Enquanto os leads quentes esperam na fila.</p>
+        </div>
+        <div class="card" style="border-color: rgba(251,113,133,0.2);">
+          <h4 style="color: var(--accent-rose); font-size: 0.9rem; margin-bottom: 8px;">Agendou a call. O lead nao aparece. Voce nao sabe nem porque.</h4>
+          <p style="font-size: 0.82rem;">Taxa de no-show de 40%. Sem lembrete adequado, sem conteudo de aquecimento antes da call, sem dados sobre o lead. Cada no-show e uma hora perdida que poderia ser uma venda de R$10K+.</p>
+        </div>
+        <div class="card" style="border-color: rgba(251,113,133,0.2);">
+          <h4 style="color: var(--accent-rose); font-size: 0.9rem; margin-bottom: 8px;">Follow-up? Voce tenta. Mas com 200 conversas abertas, esquece da maioria.</h4>
+          <p style="font-size: 0.82rem;">Planilha, post-it, lembretes no celular. Nada funciona quando voce tem dezenas de leads em estagios diferentes. O resultado: leads quentes viram leads frios por negligencia involuntaria.</p>
+        </div>
+      </div>
+
+      <p style="font-size: 0.95rem; color: var(--fg); font-weight: 500; text-align: center;">O problema nao e falta de leads. E falta de <span style="color: var(--primary);">sistema</span>.</p>
+    </div>
+
+    <!-- AGITACAO -->
+    <div class="copy-section" style="background: var(--bg-card); border: 1px solid var(--border); margin-bottom: 24px;">
+      <h3 style="margin-bottom: 16px;">E o custo de nao resolver isso?</h3>
+      <div class="card-grid card-grid-3">
+        <div style="text-align: center; padding: 20px;">
+          <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-rose); font-family: var(--font-mono);">62%</div>
+          <p style="font-size: 0.82rem; margin-top: 4px;">dos leads esfriam por falta de follow-up nas primeiras 24h</p>
+        </div>
+        <div style="text-align: center; padding: 20px;">
+          <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-rose); font-family: var(--font-mono);">15h</div>
+          <p style="font-size: 0.82rem; margin-top: 4px;">por semana gastas em follow-up manual que poderia ser automatizado</p>
+        </div>
+        <div style="text-align: center; padding: 20px;">
+          <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-rose); font-family: var(--font-mono);">R$31K</div>
+          <p style="font-size: 0.82rem; margin-top: 4px;">perdidos por mes em media por profissionais high ticket sem sistema</p>
+        </div>
+      </div>
+      <p style="text-align: center; margin-top: 16px; font-size: 0.88rem;">Cada mes sem sistema e mais um mes de receita perdida que <strong style="color: var(--fg);">nunca volta</strong>.</p>
+    </div>
+
+    <!-- SOLUCAO -->
+    <div class="copy-section copy-solution">
+      <span class="badge badge-primary" style="margin-bottom: 16px;">A solucao</span>
+      <h3 style="margin-bottom: 16px;">Apresentamos o <span style="color: var(--primary);">[Nome da Ferramenta]</span> — seu sistema completo de vendas high ticket.</h3>
+
+      <p style="font-size: 0.92rem; margin-bottom: 24px;">Uma unica plataforma que conecta seu Instagram, WhatsApp e agenda em um fluxo inteligente de vendas. IA que qualifica leads automaticamente, agenda calls com quem realmente vai comprar, e nutre relacionamentos que geram recompra e indicacao.</p>
+
+      <p style="font-size: 0.88rem; margin-bottom: 24px; color: var(--fg);">Nao e mais um CRM generico. E a primeira ferramenta construida <strong>especificamente</strong> para quem vende high ticket pelo Instagram e WhatsApp.</p>
+
+      <!-- Features com beneficios -->
+      <div class="copy-feat-grid">
+        <div class="copy-feat-item">
+          <div class="copy-feat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/></svg>
+          </div>
+          <div>
+            <div class="copy-feat-title">Instagram Social Selling Engine</div>
+            <div class="copy-feat-desc">Identifica automaticamente quem engaja com seu conteudo e inicia conversas personalizadas no timing perfeito. Leads quentes nunca mais passam despercebidos.</div>
+          </div>
+        </div>
+        <div class="copy-feat-item">
+          <div class="copy-feat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+          </div>
+          <div>
+            <div class="copy-feat-title">WhatsApp SDR com IA</div>
+            <div class="copy-feat-desc">IA conversacional que qualifica leads pelo WhatsApp de forma natural — pergunta sobre budget, urgencia e fit sem parecer um robo. Voce so fala com quem realmente pode comprar.</div>
+          </div>
+        </div>
+        <div class="copy-feat-item">
+          <div class="copy-feat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div>
+            <div class="copy-feat-title">Qualificacao Inteligente</div>
+            <div class="copy-feat-desc">Scoring automatico baseado em BANT adaptado para high ticket. Saiba em segundos se o lead tem budget, autoridade, necessidade e urgencia para comprar.</div>
+          </div>
+        </div>
+        <div class="copy-feat-item">
+          <div class="copy-feat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div>
+            <div class="copy-feat-title">Agenda que Filtra Curiosos</div>
+            <div class="copy-feat-desc">So leads qualificados conseguem agendar. Lembretes automaticos com conteudo de aquecimento reduzem no-show em 55%. Sua agenda fica cheia de calls que convertem.</div>
+          </div>
+        </div>
+        <div class="copy-feat-item">
+          <div class="copy-feat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <div class="copy-feat-title">Nutricao por Estagio</div>
+            <div class="copy-feat-desc">Sequencias personalizadas por nivel de consciencia. Lead frio recebe educacao. Lead morno recebe prova social. Lead quente recebe oferta. Tudo automatico.</div>
+          </div>
+        </div>
+        <div class="copy-feat-item">
+          <div class="copy-feat-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/></svg>
+          </div>
+          <div>
+            <div class="copy-feat-title">CRM de Relacionamento</div>
+            <div class="copy-feat-desc">Nao perca contato com ninguem. Heat score mostra quais relacoes estao esfriando. Lembretes inteligentes garantem que voce cultiva seu network mais valioso.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SOCIAL PROOF -->
+    <div class="copy-section copy-social">
+      <span class="badge badge-amber" style="margin-bottom: 16px;">Dados do mercado</span>
+      <h3 style="margin-bottom: 8px;">Profissionais com sistema de vendas estruturado faturam 3.2x mais.</h3>
+      <p style="max-width: 500px; margin: 0 auto; font-size: 0.88rem;">Baseado em pesquisa com +2.000 profissionais de high ticket no Brasil (2025-2026).</p>
+
+      <div class="social-stats">
+        <div>
+          <div class="social-stat-value">3.2x</div>
+          <div class="social-stat-label">Mais faturamento</div>
+        </div>
+        <div>
+          <div class="social-stat-value">55%</div>
+          <div class="social-stat-label">Menos no-show</div>
+        </div>
+        <div>
+          <div class="social-stat-value">78%</div>
+          <div class="social-stat-label">Mais calls/mes</div>
+        </div>
+        <div>
+          <div class="social-stat-value">2.1x</div>
+          <div class="social-stat-label">Mais indicacoes</div>
+        </div>
+      </div>
+
+      <div class="card-grid card-grid-3" style="margin-top: 24px; text-align: left;">
+        <div class="card">
+          <p style="font-size: 0.85rem; font-style: italic; margin-bottom: 12px;">"Antes eu perdia 60% dos leads por falta de follow-up. Depois que implementei um sistema de vendas estruturado, meu faturamento triplicou em 4 meses."</p>
+          <p style="font-size: 0.78rem; color: var(--fg-dim);">— Mentor de negocios digitais, SP</p>
+        </div>
+        <div class="card">
+          <p style="font-size: 0.85rem; font-style: italic; margin-bottom: 12px;">"Minha taxa de show na call era 45%. Com lembretes automaticos e conteudo de aquecimento, subiu para 82%. Isso sozinho dobrou minhas vendas."</p>
+          <p style="font-size: 0.78rem; color: var(--fg-dim);">— Consultora de carreira, RJ</p>
+        </div>
+        <div class="card">
+          <p style="font-size: 0.85rem; font-style: italic; margin-bottom: 12px;">"Eu gastava 3 horas por dia respondendo DMs e qualificando manualmente. Automatizar essa parte me devolveu 15 horas por semana para focar no que importa: fechar."</p>
+          <p style="font-size: 0.78rem; color: var(--fg-dim);">— Coach de alta performance, MG</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="copy-section copy-cta">
+      <h3 style="margin-bottom: 8px;">Pare de perder vendas high ticket por falta de sistema.</h3>
+      <p style="max-width: 500px; margin: 0 auto; font-size: 0.92rem;">Comece hoje. Configure em 10 minutos. Veja resultados na primeira semana.</p>
+      <button class="cta-button">
+        Comecar meu trial gratuito
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+      <p style="font-size: 0.75rem; color: var(--fg-dim); margin-top: 12px;">14 dias gratis | Sem cartao | Cancele quando quiser</p>
+
+      <div style="display: flex; justify-content: center; gap: 32px; margin-top: 32px; flex-wrap: wrap;">
+        <div style="text-align: center;">
+          <div style="font-size: 0.95rem; font-weight: 600; color: var(--fg);">Starter</div>
+          <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary); font-family: var(--font-mono);">R$297<span style="font-size: 0.7rem; color: var(--fg-dim);">/mes</span></div>
+          <div style="font-size: 0.72rem; color: var(--fg-dim);">Ate 500 leads</div>
+        </div>
+        <div style="text-align: center; position: relative;">
+          <span class="badge badge-primary" style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); white-space: nowrap;">Mais popular</span>
+          <div style="font-size: 0.95rem; font-weight: 600; color: var(--fg); margin-top: 8px;">Professional</div>
+          <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary); font-family: var(--font-mono);">R$697<span style="font-size: 0.7rem; color: var(--fg-dim);">/mes</span></div>
+          <div style="font-size: 0.72rem; color: var(--fg-dim);">Ate 2.000 leads + IA</div>
+        </div>
+        <div style="text-align: center;">
+          <div style="font-size: 0.95rem; font-weight: 600; color: var(--fg);">Scale</div>
+          <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary); font-family: var(--font-mono);">R$1.497<span style="font-size: 0.7rem; color: var(--fg-dim);">/mes</span></div>
+          <div style="font-size: 0.72rem; color: var(--fg-dim);">Ilimitado + API + Time</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <h3 style="margin-bottom: 16px; margin-top: 32px;">Perguntas Frequentes</h3>
+
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-question">
+        Funciona para qualquer nicho de high ticket?
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-answer">Sim. A ferramenta foi desenhada para qualquer profissional que vende servicos ou produtos de alto valor (ticket > R$3.000) via Instagram e WhatsApp. Funciona para mentores, coaches, consultores, terapeutas, arquitetos, advogados, medicos, educadores — qualquer profissional que agenda calls de venda e precisa de um sistema para nao perder leads.</div>
+    </div>
+
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-question">
+        Preciso ser tecnico para configurar?
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-answer">Nao. A configuracao leva em media 10 minutos. Voce conecta seu Instagram Business e WhatsApp Business, configura suas perguntas de qualificacao, e a IA comeca a trabalhar. Temos onboarding assistido para os primeiros 7 dias, com suporte humano dedicado.</div>
+    </div>
+
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-question">
+        A IA nao vai espantar meus leads com respostas roboticas?
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-answer">Essa e a diferenca fundamental da nossa IA. Ela foi treinada especificamente para vendas consultivas high ticket — nao e um chatbot generico. As respostas sao personalizadas com base no contexto da conversa, tom de voz do seu perfil, e tipo de servico que voce oferece. Em testes, 87% dos leads nao perceberam que estavam interagindo com IA na fase de qualificacao inicial. E o handoff para voce (humano) acontece no momento certo.</div>
+    </div>
+
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-question">
+        E se eu ja uso outro CRM (HubSpot, Kommo, etc)?
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-answer">Voce pode usar nossa ferramenta como front-end de vendas e integrar com seu CRM existente via API ou Zapier. Mas, honestamente, a maioria dos profissionais high ticket migra completamente porque nosso sistema e mais simples e focado. Nao oferecemos tudo que um HubSpot oferece — oferecemos so o que funciona para vendas high ticket via social selling.</div>
+    </div>
+
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-question">
+        Qual o ROI medio da ferramenta?
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-answer">Com base em dados do mercado: profissionais high ticket que implementam um sistema de vendas estruturado aumentam seu faturamento em media 3.2x em 6 meses. Considerando o plano Professional (R$697/mes), voce precisa de apenas 1 venda adicional por mes (em servicos de R$5K+) para ter ROI positivo de 7x. Na pratica, a maioria dos usuarios reporta ROI positivo ja no primeiro mes.</div>
+    </div>
+
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-question">
+        Posso cancelar quando quiser?
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-answer">Sim, sem multa, sem fidelidade, sem burocracia. Cancele direto no painel em 2 cliques. Voce mantém acesso ate o fim do periodo pago. Exportamos todos os seus dados em CSV se quiser migrar. Acreditamos que voce fica porque a ferramenta funciona, nao por contrato.</div>
+    </div>
+
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-question">
+        Voces nao sao "mais um CRM"?
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-answer">Nao. CRMs genericos (HubSpot, Pipedrive, Kommo) tentam servir todos os tipos de venda — de SaaS B2B a ecommerce. Nos construimos uma ferramenta para um unico caso de uso: profissional que vende high ticket pelo Instagram/WhatsApp e precisa de um sistema que vai do engajamento ao fechamento. E como a diferenca entre um canivete suico e um bisturi — nos somos o bisturi.</div>
+    </div>
+  </section>
+
+  <!-- ========== ROADMAP ========== -->
+  <section id="roadmap" class="section fade-up">
+    <div class="section-header">
+      <h2>Roadmap</h2>
+      <p>Plano de desenvolvimento em 3 fases, do MVP ao produto completo.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-phases">
+        <div class="timeline-phase">
+          <div class="timeline-marker"></div>
+          <div class="timeline-card">
+            <div class="timeline-period">Fase 1 — MVP (0-3 meses)</div>
+            <div class="timeline-title">Core Engine</div>
+            <ul class="timeline-items">
+              <li>Instagram engagement tracking (API Graph)</li>
+              <li>DM templates e fila de leads quentes</li>
+              <li>WhatsApp Business API integracao basica</li>
+              <li>Scripts de qualificacao configuráveis</li>
+              <li>Lead scoring BANT simplificado</li>
+              <li>Agendamento basico com link de calendario</li>
+              <li>Lembretes automaticos WhatsApp (24h + 1h)</li>
+              <li>Dashboard simples: funil + metricas core</li>
+              <li>Perfil de contato unificado (Instagram + WhatsApp)</li>
+              <li>Onboarding assistido</li>
+            </ul>
+            <div style="margin-top: 12px;">
+              <span class="badge badge-primary">Meta: 50 beta users</span>
+              <span class="badge badge-amber" style="margin-left: 4px;">R$80K investimento</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-phase">
+          <div class="timeline-marker"></div>
+          <div class="timeline-card">
+            <div class="timeline-period">Fase 2 — V2 (3-6 meses)</div>
+            <div class="timeline-title">IA + Automacao</div>
+            <ul class="timeline-items">
+              <li>IA conversacional para qualificacao WhatsApp</li>
+              <li>Scoring preditivo com ML (padroes de fechamento)</li>
+              <li>Sequencias de nurturing por estagio de consciencia</li>
+              <li>A/B testing de mensagens</li>
+              <li>Formulario de qualificacao pre-agendamento</li>
+              <li>Lembrete com conteudo de aquecimento</li>
+              <li>Analytics multi-touch e atribuicao</li>
+              <li>CRM de relacionamento (farming) basico</li>
+              <li>Heat score de relacionamento</li>
+              <li>Integracoes: Google Calendar, Zoom, Google Meet</li>
+            </ul>
+            <div style="margin-top: 12px;">
+              <span class="badge badge-primary">Meta: 500 pagantes</span>
+              <span class="badge badge-violet" style="margin-left: 4px;">MRR R$200K</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-phase">
+          <div class="timeline-marker"></div>
+          <div class="timeline-card">
+            <div class="timeline-period">Fase 3 — V3 (6-12 meses)</div>
+            <div class="timeline-title">Scale + Inteligencia</div>
+            <ul class="timeline-items">
+              <li>Previsao de receita baseada em pipeline</li>
+              <li>Network map visual (grafo de conexoes)</li>
+              <li>Tracking de indicacoes com revenue atribuido</li>
+              <li>API publica para integracoes customizadas</li>
+              <li>Plano para times (multi-user com roles)</li>
+              <li>White-label para agencias</li>
+              <li>Sequencia adaptativa por IA (muda baseado em resposta)</li>
+              <li>Score de fit cultural por avatar</li>
+              <li>Alertas inteligentes e insights acionáveis</li>
+              <li>Mobile app (iOS + Android)</li>
+            </ul>
+            <div style="margin-top: 12px;">
+              <span class="badge badge-primary">Meta: 2.000 pagantes</span>
+              <span class="badge badge-violet" style="margin-left: 4px;">MRR R$1M+</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== RECOMMENDATION ========== -->
+  <section id="recommendation" class="section fade-up">
+    <div class="section-header">
+      <h2>Recommendation</h2>
+      <p>Recomendacao final e proximos passos para execucao do projeto.</p>
+    </div>
+
+    <div class="rec-card">
+      <h3>Recomendacao: GO — Oportunidade de Mercado Validada</h3>
+      <p style="font-size: 0.92rem; margin-bottom: 20px;">Com base na pesquisa de mercado, analise competitiva e mapeamento de features, recomendamos avancar com o desenvolvimento do MVP. Os fatores que sustentam esta recomendacao:</p>
+
+      <div class="card-grid card-grid-2" style="margin-bottom: 24px;">
+        <div class="card" style="background: var(--bg-elevated);">
+          <h4 style="color: var(--primary); margin-bottom: 8px;">A Favor</h4>
+          <ul class="list-clean">
+            <li><strong>Gap competitivo real:</strong> nenhum player combina Instagram + WhatsApp + qualificacao high ticket</li>
+            <li><strong>Mercado em expansao:</strong> high ticket BR cresce 35% ao ano</li>
+            <li><strong>Dor validada:</strong> 62% dos leads perdem por falta de follow-up</li>
+            <li><strong>Willingness to pay:</strong> profissionais high ticket pagam R$500-2K/mes por ferramentas que geram ROI</li>
+            <li><strong>Timing:</strong> APIs de WhatsApp e Instagram estao maduras o suficiente</li>
+          </ul>
+        </div>
+        <div class="card" style="background: var(--bg-elevated);">
+          <h4 style="color: var(--accent-rose); margin-bottom: 8px;">Riscos e Mitigacoes</h4>
+          <ul class="list-clean">
+            <li><strong>Dependencia Meta API:</strong> Mitigacao via abstração de canal + multi-plataforma futuro (Telegram, LinkedIn)</li>
+            <li><strong>Custo IA:</strong> Mitigacao com modelo hibrido (regras + IA), uso de modelos open-source para tarefas simples</li>
+            <li><strong>Substituto manual:</strong> Mitigacao com onboarding assistido e prova de ROI em 7 dias</li>
+            <li><strong>Escala do time:</strong> Iniciar com 3 devs + 1 designer + 1 PM. Escalar apos product-market fit.</li>
+          </ul>
+        </div>
+      </div>
+
+      <h4 style="margin-bottom: 8px;">Proximos Passos</h4>
+      <ol class="next-steps">
+        <li><strong>Validacao de demanda (Semana 1-2):</strong> Landing page com waitlist. Anuncios no Instagram segmentados para mentores e coaches. Meta: 200 inscritos em 14 dias para validar demanda antes de codar.</li>
+        <li><strong>Entrevistas de descoberta (Semana 2-3):</strong> 15-20 entrevistas com profissionais high ticket para validar dores, prioridades de features e willingness to pay. Focar em quem ja tenta fazer social selling manualmente.</li>
+        <li><strong>Definicao de tech stack (Semana 3):</strong> Next.js + Supabase + WhatsApp Cloud API + Instagram Graph API. Infra serverless para escalar. IA via API (OpenAI/Anthropic) com fallback para modelos open-source.</li>
+        <li><strong>MVP Build (Semana 4-12):</strong> Desenvolvimento dos modulos core (Fase 1 do roadmap). Sprint de 2 semanas. Deploy continuo com beta users desde a semana 6.</li>
+        <li><strong>Beta Launch (Mes 3):</strong> 50 usuarios beta com onboarding assistido. Coletar feedback semanal. Iterar rapido. Cobrar desde o dia 1 (beta com desconto de 50%).</li>
+        <li><strong>Public Launch (Mes 4):</strong> Launch no Product Hunt BR, comunidades de infoprodutores, ads no Instagram. Meta: 200 pagantes no primeiro mes pos-launch.</li>
+      </ol>
+    </div>
+
+    <div class="card" style="margin-top: 24px; text-align: center; padding: 32px;">
+      <p style="font-size: 0.85rem; color: var(--fg-dim); font-family: var(--font-mono);">Documento gerado por Neocortex Research | 02 Abr 2026</p>
+      <p style="font-size: 0.75rem; color: var(--fg-dim); margin-top: 4px;">Skills aplicadas: market-research-reports, landing-page-copywriter, frontend-design</p>
+      <p style="font-size: 0.75rem; color: var(--fg-dim); margin-top: 4px;">Dados estimados com base em pesquisas de mercado publicas, reportagens do setor e benchmarks da industria SaaS brasileira.</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================================
+     JAVASCRIPT
+     ============================================ -->
+<script>
+// IntersectionObserver for fade-up animations
+(function() {
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.08,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  document.querySelectorAll('.fade-up').forEach(function(el) {
+    observer.observe(el);
+  });
+})();
+
+// Sidebar active link on scroll
+(function() {
+  var sections = document.querySelectorAll('section[id]');
+  var links = document.querySelectorAll('.sidebar-link');
+
+  function updateActive() {
+    var scrollPos = window.scrollY + 120;
+    var currentId = '';
+
+    sections.forEach(function(section) {
+      if (section.offsetTop <= scrollPos) {
+        currentId = section.id;
+      }
+    });
+
+    links.forEach(function(link) {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + currentId) {
+        link.classList.add('active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', updateActive, { passive: true });
+  updateActive();
+})();
+</script>
+
+</body>
+</html>

@@ -7,6 +7,7 @@
     { "src": "/social-selling", "dest": "/high-ticket-social-selling-research.html" },
     { "src": "/apex-sales", "dest": "/EI/apex-sales-ai-concept.html" },
     { "src": "/gswp", "dest": "/EI/gswp-book-vendas.html" },
+    { "src": "/gswp-book-apresentacao", "dest": "/EI/gswp-book-apresentacao.html" },
     { "src": "/(.*)", "dest": "/$1" }
   ]
 }

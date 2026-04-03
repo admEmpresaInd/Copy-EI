@@ -1,0 +1,1850 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rooftop Houses | Reserva João Paulo - Book de Apresentação V2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================
+       RESET & VARIABLES
+       ============================================ */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --charcoal: #2C2B28;
+      --charcoal-deep: #1A1917;
+      --charcoal-light: #3D3C38;
+      --sage: #2D4A3E;
+      --forest: #3A5A40;
+      --cream: #F0EDE6;
+      --cream-warm: #E8E3D9;
+      --cream-light: #F7F5F0;
+      --gold: #B8942E;
+      --gold-light: #D4AF37;
+      --gold-muted: #9A7B2D;
+      --white: #FFFFFF;
+      --text-muted: #8A8780;
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Inter', sans-serif;
+      background: #000;
+      color: var(--cream);
+    }
+
+    h1, h2, h3, h4, h5 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      line-height: 1.15;
+    }
+
+    em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .label {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+
+    .gold-line {
+      width: 60px;
+      height: 2px;
+      background: var(--gold);
+      display: block;
+    }
+
+    /* ============================================
+       16:9 CONTAINER (1920x1080)
+       ============================================ */
+    .viewport-wrapper {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+    }
+
+    .presentation {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      transform-origin: center center;
+      background: var(--charcoal-deep);
+    }
+
+    /* ============================================
+       SLIDE ENGINE
+       ============================================ */
+    .slide {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      display: flex;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.8s;
+      overflow: hidden;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      z-index: 10;
+    }
+
+    .slide.active .animate-in {
+      animation: fadeSlideUp 0.8s ease forwards;
+    }
+
+    .slide.active .animate-in.d1 { animation-delay: 0.2s; }
+    .slide.active .animate-in.d2 { animation-delay: 0.4s; }
+    .slide.active .animate-in.d3 { animation-delay: 0.6s; }
+    .slide.active .animate-in.d4 { animation-delay: 0.8s; }
+    .slide.active .animate-in.d5 { animation-delay: 1.0s; }
+    .slide.active .animate-in.d6 { animation-delay: 1.2s; }
+
+    .animate-in {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    @keyframes fadeSlideUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ============================================
+       NAVIGATION CONTROLS
+       ============================================ */
+    .nav-controls {
+      position: fixed;
+      bottom: 24px;
+      right: 32px;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-btn {
+      width: 48px;
+      height: 48px;
+      border: 1px solid rgba(184, 148, 46, 0.4);
+      background: rgba(26, 25, 23, 0.7);
+      backdrop-filter: blur(10px);
+      color: var(--gold);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+      border-radius: 2px;
+    }
+
+    .nav-btn:hover {
+      background: var(--gold);
+      color: var(--charcoal-deep);
+      border-color: var(--gold);
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
+
+    .nav-btn:disabled:hover {
+      background: rgba(26, 25, 23, 0.7);
+      color: var(--gold);
+    }
+
+    .nav-btn svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+    }
+
+    .slide-counter {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.15em;
+      color: rgba(240, 237, 230, 0.5);
+      min-width: 70px;
+      text-align: center;
+    }
+
+    /* Progress bar */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      z-index: 1000;
+      transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Logo overlay */
+    .logo-overlay {
+      position: fixed;
+      top: 20px;
+      left: 28px;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-overlay-text-group {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .logo-overlay-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--cream);
+    }
+
+    .logo-overlay-sub {
+      font-family: 'Inter', sans-serif;
+      font-size: 8px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* ============================================
+       HERO PHOTO SLIDE (fullscreen single image)
+       ============================================ */
+    .slide-hero-photo {
+      background: #000;
+      align-items: flex-end;
+      justify-content: flex-start;
+    }
+
+    .slide-hero-photo .bg-photo {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .slide-hero-photo .photo-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg,
+        rgba(0,0,0,0.05) 0%,
+        rgba(0,0,0,0) 30%,
+        rgba(0,0,0,0.3) 65%,
+        rgba(0,0,0,0.75) 100%
+      );
+    }
+
+    .slide-hero-photo .photo-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 80px 70px;
+    }
+
+    .slide-hero-photo .photo-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+
+    .slide-hero-photo h2 {
+      font-size: 52px;
+      color: var(--cream);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .slide-hero-photo .photo-desc {
+      font-size: 16px;
+      font-weight: 300;
+      color: rgba(240, 237, 230, 0.6);
+      max-width: 600px;
+      line-height: 1.6;
+    }
+
+    /* ============================================
+       VIDEO SLIDE (fullscreen video background)
+       ============================================ */
+    .slide-video {
+      background: #000;
+      align-items: flex-end;
+      justify-content: flex-start;
+    }
+
+    .slide-video video {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      object-fit: cover;
+    }
+
+    .slide-video .video-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg,
+        rgba(0,0,0,0.1) 0%,
+        rgba(0,0,0,0) 30%,
+        rgba(0,0,0,0.35) 60%,
+        rgba(0,0,0,0.8) 100%
+      );
+    }
+
+    .slide-video .video-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 80px 70px;
+    }
+
+    .slide-video .video-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+
+    .slide-video h2 {
+      font-size: 52px;
+      color: var(--cream);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .slide-video h1 {
+      font-size: 80px;
+      color: var(--cream);
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .slide-video .video-desc {
+      font-size: 16px;
+      font-weight: 300;
+      color: rgba(240, 237, 230, 0.6);
+      max-width: 600px;
+      line-height: 1.6;
+    }
+
+    .slide-video .hero-stats {
+      display: flex;
+      gap: 48px;
+      margin-top: 24px;
+    }
+
+    .slide-video .hero-stat-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      color: var(--cream);
+      font-weight: 600;
+    }
+
+    .slide-video .hero-stat-label {
+      font-size: 11px;
+      color: rgba(240, 237, 230, 0.5);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    /* ============================================
+       QUOTE SLIDE
+       ============================================ */
+    .slide-quote {
+      background: var(--charcoal-deep);
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .slide-quote .content {
+      max-width: 900px;
+      padding: 40px;
+    }
+
+    .slide-quote .diamond {
+      width: 10px;
+      height: 10px;
+      background: var(--gold);
+      transform: rotate(45deg);
+      margin: 0 auto 40px;
+    }
+
+    .slide-quote blockquote {
+      font-family: 'Playfair Display', serif;
+      font-size: 38px;
+      font-weight: 400;
+      font-style: italic;
+      line-height: 1.5;
+      color: var(--cream);
+      margin-bottom: 32px;
+    }
+
+    .slide-quote .quote-author {
+      font-size: 12px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* ============================================
+       SPLIT SLIDE (image left, text right)
+       ============================================ */
+    .slide-split {
+      background: var(--charcoal);
+    }
+
+    .slide-split .image-half {
+      width: 50%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide-split .image-half img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .slide-split .image-half .img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent 50%, var(--charcoal) 100%);
+    }
+
+    .slide-split .text-half {
+      width: 50%;
+      padding: 60px 70px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .slide-split .section-label {
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .slide-split h2 {
+      font-size: 46px;
+      color: var(--cream);
+      margin-bottom: 24px;
+    }
+
+    .slide-split p {
+      font-size: 17px;
+      font-weight: 300;
+      line-height: 1.8;
+      color: rgba(240, 237, 230, 0.7);
+      margin-bottom: 16px;
+    }
+
+    .slide-split .stats-row {
+      display: flex;
+      gap: 48px;
+      margin-top: 32px;
+      padding-top: 32px;
+      border-top: 1px solid rgba(184, 148, 46, 0.2);
+    }
+
+    .slide-split .stat-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 40px;
+      font-weight: 700;
+      color: var(--cream);
+    }
+
+    .slide-split .stat-label {
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 4px;
+    }
+
+    /* ============================================
+       FEATURES SLIDE
+       ============================================ */
+    .slide-features {
+      background: var(--charcoal-deep);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 80px;
+    }
+
+    .slide-features .header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .slide-features .header .label {
+      color: var(--gold);
+      display: block;
+      margin-bottom: 14px;
+    }
+
+    .slide-features h2 {
+      font-size: 42px;
+      color: var(--cream);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      max-width: 1400px;
+      width: 100%;
+    }
+
+    .feature-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(184, 148, 46, 0.12);
+      padding: 32px 24px;
+      transition: all 0.4s;
+      border-radius: 2px;
+    }
+
+    .feature-card:hover {
+      border-color: var(--gold);
+      background: rgba(184, 148, 46, 0.05);
+      transform: translateY(-4px);
+    }
+
+    .feature-card svg {
+      width: 40px;
+      height: 40px;
+      color: var(--gold);
+      margin-bottom: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.5;
+    }
+
+    .feature-card h4 {
+      font-size: 18px;
+      color: var(--cream);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.6;
+      color: rgba(240, 237, 230, 0.55);
+    }
+
+    /* ============================================
+       TIPOLOGIAS SLIDE
+       ============================================ */
+    .slide-tipologias {
+      background: var(--cream);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 50px 80px;
+      color: var(--charcoal);
+    }
+
+    .slide-tipologias .header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .slide-tipologias .header .label {
+      color: var(--sage);
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    .slide-tipologias h2 {
+      font-size: 40px;
+      color: var(--charcoal);
+    }
+
+    .slide-tipologias h2 em {
+      color: var(--gold-muted);
+    }
+
+    .tipo-layout {
+      display: flex;
+      gap: 48px;
+      max-width: 1500px;
+      width: 100%;
+      align-items: flex-start;
+    }
+
+    .tipo-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      flex: 1;
+    }
+
+    .tipo-card {
+      background: var(--white);
+      border: 1px solid rgba(44, 43, 40, 0.08);
+      padding: 20px;
+      text-align: center;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    .tipo-card:hover {
+      border-color: var(--gold);
+      box-shadow: 0 4px 20px rgba(184, 148, 46, 0.1);
+    }
+
+    .tipo-card.highlight {
+      border-color: var(--gold);
+      background: linear-gradient(135deg, rgba(184, 148, 46, 0.05), var(--white));
+    }
+
+    .tipo-card h4 {
+      font-size: 16px;
+      color: var(--charcoal);
+      margin-bottom: 6px;
+    }
+
+    .tipo-card .area {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--gold-muted);
+      margin-bottom: 4px;
+    }
+
+    .tipo-card p {
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--text-muted);
+    }
+
+    .tipo-table {
+      min-width: 380px;
+      background: var(--white);
+      border: 1px solid rgba(44, 43, 40, 0.08);
+      padding: 24px;
+      border-radius: 2px;
+    }
+
+    .tipo-table h3 {
+      font-size: 20px;
+      color: var(--charcoal);
+      margin-bottom: 16px;
+    }
+
+    .tipo-table-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(44, 43, 40, 0.06);
+      font-size: 14px;
+    }
+
+    .tipo-table-row .row-label {
+      color: var(--charcoal-light);
+    }
+
+    .tipo-table-row .row-value {
+      font-weight: 600;
+      color: var(--charcoal);
+    }
+
+    .tipo-table-total {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0 0;
+      border-top: 2px solid var(--gold);
+      margin-top: 8px;
+    }
+
+    .tipo-table-total .row-label {
+      font-weight: 600;
+      color: var(--charcoal);
+      font-size: 15px;
+    }
+
+    .tipo-table-total .row-value {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 22px;
+      color: var(--gold-muted);
+    }
+
+    /* ============================================
+       SUSTENTABILIDADE SLIDE
+       ============================================ */
+    .slide-sustain {
+      background: var(--cream-light);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 80px;
+      color: var(--charcoal);
+    }
+
+    .slide-sustain .header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .slide-sustain .header .label {
+      color: var(--forest);
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    .slide-sustain h2 {
+      font-size: 40px;
+      color: var(--charcoal);
+    }
+
+    .slide-sustain h2 em {
+      color: var(--forest);
+    }
+
+    .sustain-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 28px;
+      max-width: 1400px;
+      width: 100%;
+    }
+
+    .sustain-item {
+      text-align: center;
+      padding: 32px 24px;
+      background: var(--white);
+      border: 1px solid rgba(44, 43, 40, 0.06);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    .sustain-item:hover {
+      border-color: var(--forest);
+      box-shadow: 0 8px 30px rgba(45, 74, 62, 0.1);
+      transform: translateY(-4px);
+    }
+
+    .sustain-item svg {
+      width: 48px;
+      height: 48px;
+      color: var(--forest);
+      margin-bottom: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.5;
+    }
+
+    .sustain-item h4 {
+      font-size: 17px;
+      color: var(--charcoal);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .sustain-item p {
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
+
+    /* ============================================
+       LOCATION SLIDE (text left, image right)
+       ============================================ */
+    .slide-location {
+      background: var(--charcoal);
+    }
+
+    .slide-location .text-half {
+      width: 50%;
+      padding: 60px 70px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .slide-location .section-label {
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .slide-location h2 {
+      font-size: 42px;
+      color: var(--cream);
+      margin-bottom: 24px;
+    }
+
+    .location-points {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .location-point {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(240, 237, 230, 0.06);
+    }
+
+    .location-point:last-child {
+      border-bottom: none;
+    }
+
+    .location-time {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--gold-light);
+      min-width: 70px;
+      text-align: right;
+    }
+
+    .location-time span {
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.05em;
+    }
+
+    .location-name {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--cream);
+    }
+
+    .location-detail {
+      font-size: 12px;
+      color: rgba(240, 237, 230, 0.4);
+      margin-top: 2px;
+    }
+
+    .slide-location .image-half {
+      width: 50%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide-location .image-half img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .slide-location .image-half .img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(270deg, transparent 50%, var(--charcoal) 0%);
+    }
+
+    /* ============================================
+       GSWP SLIDE
+       ============================================ */
+    .slide-gswp {
+      background: var(--cream-light);
+      align-items: center;
+      justify-content: center;
+      color: var(--charcoal);
+    }
+
+    .slide-gswp .content {
+      display: flex;
+      gap: 80px;
+      max-width: 1300px;
+      padding: 40px;
+      align-items: center;
+    }
+
+    .slide-gswp .gswp-brand {
+      min-width: 240px;
+      text-align: center;
+    }
+
+    .gswp-diamond {
+      width: 8px;
+      height: 8px;
+      background: var(--gold);
+      transform: rotate(45deg);
+      margin: 10px auto;
+    }
+
+    .gswp-name {
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .slide-gswp .gswp-text {
+      flex: 1;
+    }
+
+    .slide-gswp .gswp-text .label {
+      color: var(--gold-muted);
+      display: block;
+      margin-bottom: 12px;
+    }
+
+    .slide-gswp .gswp-text h3 {
+      font-size: 34px;
+      color: var(--charcoal);
+      margin-bottom: 16px;
+    }
+
+    .slide-gswp .gswp-text p {
+      font-size: 16px;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--charcoal-light);
+      margin-bottom: 12px;
+    }
+
+    .gswp-values {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .gswp-value {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .gswp-value-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+    }
+
+    .gswp-value-text {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--charcoal-light);
+    }
+
+    /* ============================================
+       CTA SLIDE
+       ============================================ */
+    .slide-cta {
+      background: #000;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .slide-cta video {
+      position: absolute;
+      inset: 0;
+      width: 1920px;
+      height: 1080px;
+      object-fit: cover;
+      opacity: 0.35;
+    }
+
+    .slide-cta .overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
+    }
+
+    .slide-cta .content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      padding: 40px;
+    }
+
+    .slide-cta .cta-label {
+      color: var(--gold-light);
+      display: block;
+      margin-bottom: 24px;
+    }
+
+    .slide-cta .divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .slide-cta .divider-line {
+      width: 60px;
+      height: 1px;
+      background: rgba(184, 148, 46, 0.4);
+    }
+
+    .slide-cta .divider-diamond {
+      width: 8px;
+      height: 8px;
+      background: var(--gold);
+      transform: rotate(45deg);
+    }
+
+    .slide-cta h2 {
+      font-size: 50px;
+      color: var(--cream);
+      margin-bottom: 24px;
+    }
+
+    .slide-cta .cta-desc {
+      font-size: 17px;
+      font-weight: 300;
+      line-height: 1.8;
+      color: rgba(240, 237, 230, 0.6);
+      margin-bottom: 40px;
+    }
+
+    .slide-cta .contact-row {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .slide-cta .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: rgba(240, 237, 230, 0.5);
+    }
+
+    .slide-cta .contact-item svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--gold);
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    /* ============================================
+       EXPERIENCE / TAGS SLIDE
+       ============================================ */
+    .exp-highlights {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 24px;
+    }
+
+    .exp-tag {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border: 1px solid rgba(184, 148, 46, 0.3);
+      color: var(--gold-light);
+      border-radius: 2px;
+    }
+
+    /* ============================================
+       PLANTA HERO SLIDE (fullscreen plant image)
+       ============================================ */
+    .slide-planta {
+      background: var(--cream);
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 40px 60px;
+      color: var(--charcoal);
+    }
+
+    .slide-planta .planta-header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .slide-planta .planta-header .label {
+      color: var(--sage);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .slide-planta .planta-header h2 {
+      font-size: 36px;
+      color: var(--charcoal);
+    }
+
+    .slide-planta .planta-header h2 em {
+      color: var(--gold-muted);
+    }
+
+    .slide-planta .planta-img {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .slide-planta .planta-img img {
+      max-height: 880px;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- Progress Bar -->
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- Logo Overlay (tipografia conforme Brand Book) -->
+  <div class="logo-overlay">
+    <div class="logo-overlay-text-group">
+      <span class="logo-overlay-text" style="font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; letter-spacing: 0.3em; color: var(--cream);">GSWP</span>
+      <span class="logo-overlay-sub" style="font-family: 'Inter', sans-serif; font-size: 8px; letter-spacing: 0.45em; text-transform: uppercase; color: var(--gold); font-weight: 400;">Greystone Wellness Propriety</span>
+    </div>
+  </div>
+
+  <!-- Navigation Controls -->
+  <div class="nav-controls">
+    <button class="nav-btn" id="btnPrev" aria-label="Slide anterior">
+      <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <span class="slide-counter" id="slideCounter">01 / 22</span>
+    <button class="nav-btn" id="btnNext" aria-label="Próximo slide">
+      <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+  </div>
+
+  <!-- ============================================
+       VIEWPORT WRAPPER (16:9 scaling)
+       ============================================ -->
+  <div class="viewport-wrapper" id="viewportWrapper">
+    <div class="presentation" id="presentation">
+
+      <!-- ==========================================
+           SLIDE 1 - CAPA (Video Fachada)
+           ========================================== -->
+      <div class="slide slide-video active" data-slide="1">
+        <video autoplay muted loop playsinline>
+          <source src="../Fotos Zanuto/videos/FACHADA 01.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+        <div class="video-content">
+          <span class="label video-label animate-in d1">Florianópolis . João Paulo . Rooftop Houses</span>
+          <h1 class="animate-in d2">Reserva<br>João <em>Paulo</em></h1>
+          <p class="video-desc animate-in d3" style="font-family: 'Playfair Display', serif; font-size: 22px; font-style: italic; color: var(--cream-warm);">Onde a natureza encontra o extraordinário.</p>
+          <div class="hero-stats animate-in d4">
+            <div>
+              <div class="hero-stat-value">4</div>
+              <div class="hero-stat-label">Unidades exclusivas</div>
+            </div>
+            <div>
+              <div class="hero-stat-value">357m&sup2;</div>
+              <div class="hero-stat-label">Área privativa</div>
+            </div>
+            <div>
+              <div class="hero-stat-value">Triplex</div>
+              <div class="hero-stat-label">Rooftop privativo</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           SLIDE 2 - QUOTE
+           ========================================== -->
+      <div class="slide slide-quote" data-slide="2">
+        <div class="content">
+          <div class="diamond animate-in d1"></div>
+          <blockquote class="animate-in d2">"Raridade sempre esteve associada ao luxo. Aqui, ela se traduz em apenas quatro residências únicas, cercadas pela natureza intocada de Florianópolis."</blockquote>
+          <span class="quote-author animate-in d3">Filosofia Reserva João Paulo</span>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           SLIDE 3 - FACHADA HERO (Foto)
+           ========================================== -->
+      <div class="slide slide-hero-photo" data-slide="3">
+        <div class="bg-photo" style="background-image: url('../Fotos Zanuto/07_FACHADA 02.jpg');"></div>
+        <div class="photo-overlay"></div>
+        <div class="photo-content">
+          <div class="photo-label animate-in d1">Fachada</div>
+          <h2 class="animate-in d2">Arquitetura que <em>dialoga</em> com a paisagem</h2>
+          <p class="photo-desc animate-in d3">Linhas contemporâneas integradas à vegetação nativa. Cada ângulo revela uma nova perspectiva do empreendimento.</p>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           SLIDE 4 - FACHADA 02 (Video)
+           ========================================== -->
+      <div class="slide slide-video" data-slide="4">
+        <video autoplay muted loop playsinline>
+          <source src="../Fotos Zanuto/videos/FACHADA 02-1.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+        <div class="video-content">
+          <div class="video-label animate-in d1">Vista Lateral</div>
+          <h2 class="animate-in d2">Design que se revela em <em>cada</em> ângulo</h2>
+          <p class="video-desc animate-in d3">Volumes puros, materiais nobres e uma integração perfeita entre o construído e a natureza circundante.</p>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           SLIDE 5 - O EMPREENDIMENTO (Split)
+           ========================================== -->
+      <div class="slide slide-split" data-slide="5">
+        <div class="image-half">
+          <img src="../Fotos Zanuto/09_FACHADA 03.jpg" alt="Fachada Reserva João Paulo">
+          <div class="img-overlay"></div>
+        </div>
+        <div class="text-half">
+          <span class="label section-label animate-in d1">O Empreendimento</span>
+          <div class="gold-line animate-in d1" style="margin-bottom: 16px;"></div>
+          <h2 class="animate-in d2">Um refúgio <em>natural</em> e moderno</h2>
+          <p class="animate-in d3">O Rooftop Houses Reserva João Paulo é um empreendimento de alto padrão que redefine o conceito de moradia em Florianópolis. São apenas 4 unidades exclusivas, cada uma com 357m² de área total distribuídos em 5 pavimentos.</p>
+          <p class="animate-in d3">Vista permanente para o pôr do sol mais deslumbrante de Florianópolis. Sem vizinhos de frente. Cercado por uma reserva ambiental.</p>
+          <div class="stats-row animate-in d4">
+            <div>
+              <div class="stat-value">357</div>
+              <div class="stat-label">Metros quadrados</div>
+            </div>
+            <div>
+              <div class="stat-value">5</div>
+              <div class="stat-label">Pavimentos</div>
+            </div>
+            <div>
+              <div class="stat-value">3</div>
+              <div class="stat-label">Suítes</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           SLIDE 6 - DIFERENCIAIS
+           ========================================== -->
+      <div class="slide slide-features" data-slide="6">
+        <div class="header">
+          <span class="label animate-in d1">Diferenciais Exclusivos</span>
+          <div class="gold-line animate-in d1" style="margin: 12px auto 16px;"></div>
+          <h2 class="animate-in d2">Cada detalhe projetado para quem <em>não aceita</em> o comum</h2>
+        </div>
+        <div class="features-grid">
+          <div class="feature-card animate-in d1">
+            <svg viewBox="0 0 48 48"><rect x="6" y="20" width="36" height="22" rx="1"/><path d="M2 20L24 6L46 20"/><path d="M14 28h20M14 34h14"/><circle cx="38" cy="12" r="4" fill="currentColor" opacity="0.3"/></svg>
+            <h4>Rooftop Privativo</h4>
+            <p>Piscina aquecida, área gourmet coberta com churrasqueira parrilla e vista panorâmica para o pôr do sol e o mar.</p>
+          </div>
+          <div class="feature-card animate-in d2">
+            <svg viewBox="0 0 48 48"><rect x="8" y="4" width="32" height="40" rx="1"/><line x1="8" y1="17" x2="40" y2="17"/><line x1="8" y1="30" x2="40" y2="30"/><rect x="14" y="8" width="8" height="5" rx="0.5"/><rect x="26" y="8" width="8" height="5" rx="0.5"/></svg>
+            <h4>Triplex de 357m²</h4>
+            <p>Cinco pavimentos com divisão inteligente. Pé-direito duplo de 6 metros na sala de estar, proporcionando imponência absoluta.</p>
+          </div>
+          <div class="feature-card animate-in d3">
+            <svg viewBox="0 0 48 48"><path d="M24 4C14 4 6 12 6 22c0 14 18 22 18 22s18-8 18-22C42 12 34 4 24 4z"/><circle cx="24" cy="20" r="8"/><path d="M20 20l3 3 5-6"/></svg>
+            <h4>Privacidade Total</h4>
+            <p>Apenas 4 unidades. Sem vizinhos de frente. Elevador exclusivo. Garagem privativa para 3 carros.</p>
+          </div>
+          <div class="feature-card animate-in d4">
+            <svg viewBox="0 0 48 48"><path d="M24 4c-4 8-16 14-16 24a16 16 0 0032 0C40 18 28 12 24 4z"/><path d="M24 44V24"/><path d="M24 30c-4-2-8 0-10 4"/><path d="M24 22c3-1 7 1 8 5"/></svg>
+            <h4>Natureza Integrada</h4>
+            <p>Em meio a uma reserva ambiental. Acorde ao som de tucanos e gralhas-azuis. A 300 metros do mar.</p>
+          </div>
+          <div class="feature-card animate-in d5">
+            <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><path d="M24 6v6M24 36v6M6 24h6M36 24h6"/><circle cx="24" cy="24" r="6" fill="currentColor" opacity="0.2"/></svg>
+            <h4>Sustentabilidade</h4>
+            <p>Energia solar, reaproveitamento de água da chuva, isolamento termoacústico e redução de 80% na geração de entulho.</p>
+          </div>
+          <div class="feature-card animate-in d6">
+            <svg viewBox="0 0 48 48"><path d="M36 4L12 28l-4 16 16-4L48 16"/><path d="M30 10l8 8"/><path d="M12 28l8 8"/><circle cx="38" cy="6" r="3" fill="currentColor" opacity="0.3"/></svg>
+            <h4>Personalização Total</h4>
+            <p>Escolha de acabamentos exclusivos. Porcelanatos 1,20x1,20m, louças e metais premium, automação completa.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           SLIDE 7 - SALA E COZINHA (Video)
+           ========================================== -->
+      <div class="slide slide-video" data-slide="7">
+        <video autoplay muted loop playsinline>
+          <source src="../Fotos Zanuto/videos/SALA E COZINHA 01.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+        <div class="video-content">
+          <div class="video-label animate-in d1">Living Integrado</div>
+          <h2 class="animate-in d2">Pé-direito duplo de <em>6 metros</em></h2>
+          <p class="video-desc animate-in d3">Sala de estar e cozinha gourmet em perfeita harmonia. Espaços amplos projetados para recepções memoráveis.</p>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           SLIDE 8 - ESTAR & COZINHA (Foto Hero)
+           ========================================== -->
+      <div class="slide slide-hero-photo" data-slide="8">
+        <div class="bg-photo" style="background-image: url('../Fotos Zanuto/16_ESTAR E COZINHA.jpg');"></div>
+        <div class="photo-overlay"></div>
+        <div class="photo-content">
+          <div class="photo-label animate-in d1">Estar & Cozinha</div>
+          <h2 class="animate-in d2">Cozinha gourmet <em>integrada</em></h2>
+          <p class="photo-desc animate-in d3">Ambientes que fluem naturalmente, conectando gastronomia, convívio e a vista que se descortina pelas janelas generosas.</p>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           SLIDE 9 - ESTAR 01 (Foto Hero)
+           ========================================== -->
+      <div class="slide slide-hero-photo" data-slide="9">
+        <div class="bg-photo" style="background-image: url('../Fotos Zanuto/17_ESTAR 01.jpg');"></div>
+        <div class="photo-overlay"></div>
+        <div class="photo-content">
+          <div class="photo-label animate-in d1">Sala de Estar</div>
+          <h2 class="animate-in d2">Imponência em cada <em>detalhe</em></h2>
+          <p class="photo-desc animate-in d3">Lareira a gás, pé-direito duplo e acabamentos que elevam o ato de estar em casa a uma experiência sensorial.</p>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           SLIDE 10 - COZINHA (Foto Hero)
+           ========================================== -->
+      <div class="slide slide-hero-photo" data-slide="10">
+        <div class="bg-photo" style="background-image: url('../Fotos Zanuto/19_COZINHA 02.jpg');"></div>
+        <div class="photo-overlay"></div>
+        <div class="photo-content">
+          <div class="photo-label animate-in d1">Cozinha</div>
+          <h2 class="animate-in d2">Gastronomia como <em>arte</em></h2>
+          <p class="photo-desc animate-in d3">Bancadas amplas, iluminação precisa e equipamentos de primeira linha para quem transforma cozinhar em celebração.</p>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           SLIDE 11 - AREA GOURMET (Foto Hero)
+           ========================================== -->
+      <div class="slide slide-hero-photo" data-slide="11">
+        <div class="bg-photo" style="background-image: url('../Fotos Zanuto/12_AREA GOURMET 01.jpg');"></div>
+        <div class="photo-overlay"></div>
+        <div class="photo-content">
+          <div class="photo-label animate-in d1">Rooftop</div>
+          <h2 class="animate-in d2">Área Gourmet <em>panorâmica</em></h2>
+          <p class="photo-desc animate-in d3">Churrasqueira parrilla, bancada gourmet e vista 360 graus. O cenário perfeito para entreter sob o céu de Florianópolis.</p>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           SLIDE 12 - PISCINA (Video)
+           ========================================== -->
+      <div class="slide slide-video" data-slide="12">
+        <video autoplay muted loop playsinline>
+          <source src="../Fotos Zanuto/videos/PISCINA 01.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+        <div class="video-content">
+          <div class="video-label animate-in d1">Rooftop</div>
+          <h2 class="animate-in d2">Piscina aquecida com <em>borda infinita</em></h2>
+          <p class="video-desc animate-in d3">Sua piscina privativa no rooftop, com vista para o pôr do sol. Sem compartilhar. Sem filas. Apenas você e o horizonte.</p>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           SLIDE 13 - AREA GOURMET 02 (Foto Hero)
+           ========================================== -->
+      <div class="slide slide-hero-photo" data-slide="13">
+        <div class="bg-photo" style="background-image: url('../Fotos Zanuto/13_AREA GOURMET 02.jpg');"></div>
+        <div class="photo-overlay"></div>
+        <div class="photo-content">
+          <div class="photo-label animate-in d1">Rooftop</div>
+          <h2 class="animate-in d2">Noites <em>inesquecíveis</em></h2>
+          <p class="photo-desc animate-in d3">Iluminação cênica, lounge externo e o som suave do mar ao fundo. Um convite permanente a celebrar.</p>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           SLIDE 14 - SUITE MASTER (Video)
+           ========================================== -->
+      <div class="slide slide-video" data-slide="14">
+        <video autoplay muted loop playsinline>
+          <source src="../Fotos Zanuto/videos/SUITE MASTER-1.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+        <div class="video-content">
+          <div class="video-label animate-in d1">Setor Íntimo</div>
+          <h2 class="animate-in d2">Suíte Master de <em>alto padrão</em></h2>
+          <p class="video-desc animate-in d3">Closet, banheira, varanda privativa e acabamentos que transformam o descanso em ritual de bem-estar.</p>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           SLIDE 15 - SUITE MASTER (Foto Hero)
+           ========================================== -->
+      <div class="slide slide-hero-photo" data-slide="15">
+        <div class="bg-photo" style="background-image: url('../Fotos Zanuto/21_SU%C3%8DTE MASTER.jpg');"></div>
+        <div class="photo-overlay"></div>
+        <div class="photo-content">
+          <div class="photo-label animate-in d1">Suíte Master</div>
+          <h2 class="animate-in d2">Seu santuário <em>privativo</em></h2>
+          <p class="photo-desc animate-in d3">Varanda com vista, closet planejado e banheira de imersão. O despertar que você merece, todos os dias.</p>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           SLIDE 16 - BANHEIRO MASTER (Foto Hero)
+           ========================================== -->
+      <div class="slide slide-hero-photo" data-slide="16">
+        <div class="bg-photo" style="background-image: url('../Fotos Zanuto/22_BANHEIRO MASTER.jpg');"></div>
+        <div class="photo-overlay"></div>
+        <div class="photo-content">
+          <div class="photo-label animate-in d1">Banheiro Master</div>
+          <h2 class="animate-in d2">Spa dentro de <em>casa</em></h2>
+          <p class="photo-desc animate-in d3">Banheira freestanding, ducha dupla, porcelanatos premium e iluminação que transforma cada banho em experiência.</p>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           SLIDE 17 - OFFICE (Foto Hero)
+           ========================================== -->
+      <div class="slide slide-hero-photo" data-slide="17">
+        <div class="bg-photo" style="background-image: url('../Fotos Zanuto/20_OFFICE.jpg');"></div>
+        <div class="photo-overlay"></div>
+        <div class="photo-content">
+          <div class="photo-label animate-in d1">Mezanino</div>
+          <h2 class="animate-in d2">Home Office de <em>alta performance</em></h2>
+          <p class="photo-desc animate-in d3">Escritório com isolamento acústico no mezanino. O equilíbrio perfeito entre produtividade e qualidade de vida.</p>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           SLIDE 18 - GARAGEM (Foto Hero)
+           ========================================== -->
+      <div class="slide slide-hero-photo" data-slide="18">
+        <div class="bg-photo" style="background-image: url('../Fotos Zanuto/11_GARAGEM.jpg');"></div>
+        <div class="photo-overlay"></div>
+        <div class="photo-content">
+          <div class="photo-label animate-in d1">Subsolo</div>
+          <h2 class="animate-in d2">Garagem <em>privativa</em></h2>
+          <p class="photo-desc animate-in d3">Espaço para 3 veículos + moto, com acesso direto ao elevador exclusivo da sua unidade. Área técnica e lavanderia integradas.</p>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           SLIDE 19 - TIPOLOGIAS / PLANTAS
+           ========================================== -->
+      <div class="slide slide-tipologias" data-slide="19">
+        <div class="header">
+          <span class="label animate-in d1">Plantas e Espaços</span>
+          <div class="gold-line animate-in d1" style="margin: 8px auto 12px; background: var(--gold-muted);"></div>
+          <h2 class="animate-in d2">Cinco pavimentos. Uma <em>experiência</em> por andar.</h2>
+        </div>
+        <div class="tipo-layout animate-in d3">
+          <div class="tipo-cards">
+            <div class="tipo-card">
+              <h4>Subsolo</h4>
+              <div class="area">74,40m²</div>
+              <p>Garagem 3 carros + moto, lavanderia e área técnica</p>
+            </div>
+            <div class="tipo-card">
+              <h4>1º Andar</h4>
+              <div class="area">80,83m²</div>
+              <p>Sala com pé-direito 6m, cozinha, varanda, lareira e adega</p>
+            </div>
+            <div class="tipo-card">
+              <h4>Mezanino</h4>
+              <div class="area">44,54m²</div>
+              <p>Escritório com isolamento e suíte. Perfeito para home office</p>
+            </div>
+            <div class="tipo-card">
+              <h4>2º Andar</h4>
+              <div class="area">77,19m²</div>
+              <p>Suíte master com varanda, closet, banheira e 2 cubas</p>
+            </div>
+            <div class="tipo-card highlight">
+              <h4>Rooftop</h4>
+              <div class="area">62,64m²</div>
+              <p>Piscina aquecida, churrasqueira parrilla e vista panorâmica</p>
+            </div>
+          </div>
+          <div class="tipo-table">
+            <h3>Tabela de Áreas</h3>
+            <div class="tipo-table-row">
+              <span class="row-label">Subsolo (Garagem + Técnica)</span>
+              <span class="row-value">74,40 m²</span>
+            </div>
+            <div class="tipo-table-row">
+              <span class="row-label">1º Andar (Social)</span>
+              <span class="row-value">80,83 m²</span>
+            </div>
+            <div class="tipo-table-row">
+              <span class="row-label">Mezanino (Office + Suíte)</span>
+              <span class="row-value">44,54 m²</span>
+            </div>
+            <div class="tipo-table-row">
+              <span class="row-label">2º Andar (Suítes)</span>
+              <span class="row-value">77,19 m²</span>
+            </div>
+            <div class="tipo-table-row">
+              <span class="row-label">Rooftop (Lazer Privativo)</span>
+              <span class="row-value">62,64 m²</span>
+            </div>
+            <div class="tipo-table-total">
+              <span class="row-label">Área Privativa Total</span>
+              <span class="row-value">357,19 m²</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           SLIDE 20 - SUSTENTABILIDADE
+           ========================================== -->
+      <div class="slide slide-sustain" data-slide="20">
+        <div class="header">
+          <span class="label animate-in d1">Sustentabilidade & Tecnologia</span>
+          <div class="gold-line animate-in d1" style="margin: 8px auto 12px; background: var(--forest);"></div>
+          <h2 class="animate-in d2">Onde o <em>silêncio</em> e a tecnologia se encontram</h2>
+        </div>
+        <div class="sustain-grid">
+          <div class="sustain-item animate-in d2">
+            <svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="16"/><path d="M22 6v6M22 32v6"/><path d="M10 10l4 4M30 30l4 4"/><path d="M6 22h6M32 22h6"/><circle cx="22" cy="22" r="4" fill="currentColor" opacity="0.2"/></svg>
+            <h4>Energia Solar</h4>
+            <p>Infraestrutura pronta para painéis solares e cocriação de energia com a rede elétrica.</p>
+          </div>
+          <div class="sustain-item animate-in d3">
+            <svg viewBox="0 0 44 44"><path d="M22 4c-6 10-14 16-14 24a14 14 0 0028 0C36 20 28 14 22 4z"/><path d="M16 30c2-4 8-4 12 0"/><circle cx="22" cy="24" r="3" fill="currentColor" opacity="0.15"/></svg>
+            <h4>Água da Chuva</h4>
+            <p>Sistema completo de reaproveitamento, reduzindo consumo e custos operacionais.</p>
+          </div>
+          <div class="sustain-item animate-in d4">
+            <svg viewBox="0 0 44 44"><rect x="6" y="6" width="32" height="32" rx="2"/><rect x="12" y="12" width="20" height="20" rx="1"/><rect x="18" y="18" width="8" height="8" rx="0.5"/><path d="M22 12v6M22 26v6M12 22h6M26 22h6"/></svg>
+            <h4>Isolamento Superior</h4>
+            <p>Concreto de 30cm entre unidades e esquadrias PVC Newtech para conforto absoluto.</p>
+          </div>
+          <div class="sustain-item animate-in d5">
+            <svg viewBox="0 0 44 44"><rect x="8" y="4" width="28" height="36" rx="2"/><circle cx="22" cy="18" r="6"/><path d="M18 18l3 3 5-5"/><path d="M14 30h16M16 34h12"/></svg>
+            <h4>Automação Inteligente</h4>
+            <p>Smart home completo. Água quente em todas as torneiras via boiler eficiente.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           SLIDE 21 - LOCALIZACAO
+           ========================================== -->
+      <div class="slide slide-location" data-slide="21">
+        <div class="text-half">
+          <span class="label section-label animate-in d1">Localização Privilegiada</span>
+          <div class="gold-line animate-in d1" style="margin-bottom: 16px;"></div>
+          <h2 class="animate-in d2">No coração do bairro mais <em>desejado</em> de Florianópolis</h2>
+          <div class="location-points animate-in d3">
+            <div class="location-point">
+              <div class="location-time">6<span>min</span></div>
+              <div>
+                <div class="location-name">Centro de Florianópolis</div>
+                <div class="location-detail">Comércio, gastronomia e serviços</div>
+              </div>
+            </div>
+            <div class="location-point">
+              <div class="location-time">10<span>min</span></div>
+              <div>
+                <div class="location-name">Jurerê Internacional</div>
+                <div class="location-detail">A praia mais exclusiva do sul do Brasil</div>
+              </div>
+            </div>
+            <div class="location-point">
+              <div class="location-time">10<span>min</span></div>
+              <div>
+                <div class="location-name">Santo Antônio de Lisboa</div>
+                <div class="location-detail">Gastronomia, cultura e charme histórico</div>
+              </div>
+            </div>
+            <div class="location-point">
+              <div class="location-time">300<span>m</span></div>
+              <div>
+                <div class="location-name">Mar & Pôr do Sol</div>
+                <div class="location-detail">Vista privilegiada permanente</div>
+              </div>
+            </div>
+            <div class="location-point">
+              <div class="location-time" style="font-size: 18px;">SC-401</div>
+              <div>
+                <div class="location-name">Via expressa</div>
+                <div class="location-detail">Floripa Shopping, hospitais e escolas bilíngues</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="image-half">
+          <img src="../Fotos Zanuto/10_FACHADA 05.jpg" alt="Fachada">
+          <div class="img-overlay"></div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           SLIDE 22 - SOBRE GSWP
+           ========================================== -->
+      <div class="slide slide-gswp" data-slide="22">
+        <div class="content">
+          <div class="gswp-brand animate-in d1">
+            <div style="font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 700; letter-spacing: 0.3em; color: var(--charcoal-deep); margin-bottom: 4px;">GSWP</div>
+            <div class="gswp-diamond"></div>
+            <div class="gswp-name" style="font-family: 'Inter', sans-serif; font-size: 9px; letter-spacing: 0.45em; text-transform: uppercase; color: var(--text-muted); font-weight: 400;">Greystone Wellness Propriety</div>
+          </div>
+          <div class="gswp-text">
+            <span class="label animate-in d2">A Incorporadora</span>
+            <div class="gold-line animate-in d2" style="margin: 8px 0 16px; background: var(--gold-muted);"></div>
+            <h3 class="animate-in d3">Construindo legados, não apenas imóveis.</h3>
+            <p class="animate-in d3">A Greystone Wellness Propriety nasceu da convicção de que moradia de alto padrão vai além de metragem e acabamentos. Trata-se de criar espaços que promovam bem-estar genuíno, conexão com a natureza e um estilo de vida que valoriza o que realmente importa.</p>
+            <p class="animate-in d4">Cada empreendimento GSWP é concebido como uma obra única, com atenção obsessiva aos detalhes, seleção criteriosa de materiais e compromisso inabalável com a sustentabilidade e a excelência construtiva.</p>
+            <div class="gswp-values animate-in d5">
+              <div class="gswp-value">
+                <div class="gswp-value-dot"></div>
+                <span class="gswp-value-text">Wellness Living</span>
+              </div>
+              <div class="gswp-value">
+                <div class="gswp-value-dot"></div>
+                <span class="gswp-value-text">Arquitetura Autoral</span>
+              </div>
+              <div class="gswp-value">
+                <div class="gswp-value-dot"></div>
+                <span class="gswp-value-text">Sustentabilidade Real</span>
+              </div>
+              <div class="gswp-value">
+                <div class="gswp-value-dot"></div>
+                <span class="gswp-value-text">Exclusividade Genuína</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==========================================
+           SLIDE 23 - CTA FINAL (Video Background)
+           ========================================== -->
+      <div class="slide slide-cta" data-slide="23">
+        <video autoplay muted loop playsinline>
+          <source src="../Fotos Zanuto/videos/PISCINA 02.mp4" type="video/mp4">
+        </video>
+        <div class="overlay"></div>
+        <div class="content">
+          <span class="label cta-label animate-in d1">Apenas 4 Unidades</span>
+          <div class="divider animate-in d1">
+            <div class="divider-line"></div>
+            <div class="divider-diamond"></div>
+            <div class="divider-line"></div>
+          </div>
+          <h2 class="animate-in d2">Existem decisões que <em>definem</em> a próxima década da sua vida.</h2>
+          <p class="cta-desc animate-in d3">O Reserva João Paulo não é um lançamento. É uma oportunidade que se fecha quando a quarta unidade encontrar seu dono. Sem fase 2. Sem replicação. Quatro famílias terão esse privilégio.</p>
+          <div class="contact-row animate-in d4">
+            <div class="contact-item">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+              <span>(48) 99999-9999</span>
+            </div>
+            <div class="contact-item">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+              <span>contato@gswp.com.br</span>
+            </div>
+            <div class="contact-item">
+              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>gswp.com.br</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================
+       JAVASCRIPT
+       ============================================ -->
+  <script>
+    (function() {
+      /* ---- 16:9 Scaling Engine ---- */
+      var presentationEl = document.getElementById('presentation');
+
+      function scalePresentation() {
+        var scaleX = window.innerWidth / 1920;
+        var scaleY = window.innerHeight / 1080;
+        var scale = Math.min(scaleX, scaleY);
+        presentationEl.style.transform = 'scale(' + scale + ')';
+        presentationEl.style.transformOrigin = 'center center';
+      }
+
+      window.addEventListener('resize', scalePresentation);
+      scalePresentation();
+
+      /* ---- Slide Navigation ---- */
+      var currentSlide = 1;
+      var totalSlides = 23;
+      var isTransitioning = false;
+      var transitionDuration = 800;
+
+      var btnPrev = document.getElementById('btnPrev');
+      var btnNext = document.getElementById('btnNext');
+      var counter = document.getElementById('slideCounter');
+      var progressBar = document.getElementById('progressBar');
+
+      function padNumber(n) {
+        return n < 10 ? '0' + n : '' + n;
+      }
+
+      function updateUI() {
+        counter.textContent = padNumber(currentSlide) + ' / ' + padNumber(totalSlides);
+        progressBar.style.width = ((currentSlide / totalSlides) * 100) + '%';
+        btnPrev.disabled = currentSlide === 1;
+        btnNext.disabled = currentSlide === totalSlides;
+      }
+
+      function goToSlide(n) {
+        if (isTransitioning || n < 1 || n > totalSlides || n === currentSlide) return;
+        isTransitioning = true;
+
+        var slides = document.querySelectorAll('.slide');
+        slides.forEach(function(s) {
+          s.classList.remove('active');
+          var animItems = s.querySelectorAll('.animate-in');
+          animItems.forEach(function(item) {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(30px)';
+            item.style.animation = 'none';
+          });
+          // Pause videos on inactive slides
+          var videos = s.querySelectorAll('video');
+          videos.forEach(function(v) { v.pause(); });
+        });
+
+        currentSlide = n;
+        var target = document.querySelector('[data-slide="' + n + '"]');
+        target.classList.add('active');
+
+        // Play videos on active slide
+        var activeVideos = target.querySelectorAll('video');
+        activeVideos.forEach(function(v) {
+          v.currentTime = 0;
+          v.play().catch(function() {});
+        });
+
+        // Trigger animations
+        var animItems = target.querySelectorAll('.animate-in');
+        animItems.forEach(function(item) {
+          item.style.animation = '';
+        });
+
+        updateUI();
+
+        setTimeout(function() {
+          isTransitioning = false;
+        }, transitionDuration);
+      }
+
+      function nextSlide() { goToSlide(currentSlide + 1); }
+      function prevSlide() { goToSlide(currentSlide - 1); }
+
+      btnNext.addEventListener('click', nextSlide);
+      btnPrev.addEventListener('click', prevSlide);
+
+      // Keyboard navigation
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
+          e.preventDefault();
+          nextSlide();
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          prevSlide();
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          goToSlide(1);
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          goToSlide(totalSlides);
+        }
+      });
+
+      // Touch/swipe support
+      var touchStartX = 0;
+      var touchStartY = 0;
+      var viewportWrapper = document.getElementById('viewportWrapper');
+
+      viewportWrapper.addEventListener('touchstart', function(e) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+      }, { passive: true });
+
+      viewportWrapper.addEventListener('touchend', function(e) {
+        var touchEndX = e.changedTouches[0].clientX;
+        var touchEndY = e.changedTouches[0].clientY;
+        var diffX = touchStartX - touchEndX;
+        var diffY = touchStartY - touchEndY;
+
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+          if (diffX > 0) { nextSlide(); }
+          else { prevSlide(); }
+        }
+      }, { passive: true });
+
+      // Mouse wheel navigation
+      var wheelTimeout = null;
+      document.addEventListener('wheel', function(e) {
+        e.preventDefault();
+        if (wheelTimeout) return;
+        wheelTimeout = setTimeout(function() {
+          wheelTimeout = null;
+        }, 800);
+
+        if (e.deltaY > 0) { nextSlide(); }
+        else if (e.deltaY < 0) { prevSlide(); }
+      }, { passive: false });
+
+      // Initialize
+      updateUI();
+
+      // Trigger initial slide animations
+      var firstSlide = document.querySelector('.slide.active');
+      if (firstSlide) {
+        var firstAnimItems = firstSlide.querySelectorAll('.animate-in');
+        firstAnimItems.forEach(function(item) {
+          item.style.animation = '';
+        });
+      }
+    })();
+  </script>
+
+</body>
+</html>

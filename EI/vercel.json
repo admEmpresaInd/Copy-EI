@@ -4,6 +4,7 @@
     { "src": "/analise", "dest": "/hormozi-analise-consultoria-ia.html" },
     { "src": "/prompts", "dest": "/biblioteca-127-prompts-claude-code.html" },
     { "src": "/gswp", "dest": "/gswp-book-vendas.html" },
+    { "src": "/gswp-book-apresentacao", "dest": "/gswp-book-apresentacao.html" },
     { "src": "/(.*)", "dest": "/$1" }
   ]
 }

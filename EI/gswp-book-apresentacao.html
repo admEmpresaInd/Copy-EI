@@ -81,12 +81,14 @@
     }
 
     .presentation {
-      position: relative;
+      position: absolute;
       width: 1920px;
       height: 1080px;
       overflow: hidden;
-      transform-origin: center center;
+      transform-origin: 0 0;
       background: var(--charcoal-deep);
+      left: 50%;
+      top: 50%;
     }
 
     /* ============================================
@@ -1150,9 +1152,13 @@
       }
 
       .presentation {
+        position: relative;
         width: 100%;
         height: auto;
+        left: auto;
+        top: auto;
         transform: none !important;
+        transform-origin: 0 0;
         overflow: visible;
       }
 
@@ -2405,8 +2411,12 @@
         var scaleX = window.innerWidth / 1920;
         var scaleY = window.innerHeight / 1080;
         var scale = Math.min(scaleX, scaleY);
-        presentationEl.style.transform = 'scale(' + scale + ')';
-        presentationEl.style.transformOrigin = 'center center';
+        // Element is at left:50%, top:50% with transform-origin:0 0
+        // Translate back by half of the scaled dimensions to center it
+        var tx = -(1920 * scale) / 2;
+        var ty = -(1080 * scale) / 2;
+        presentationEl.style.transform = 'translate(' + tx + 'px, ' + ty + 'px) scale(' + scale + ')';
+        presentationEl.style.transformOrigin = '0 0';
       }
 
       window.addEventListener('resize', scalePresentation);

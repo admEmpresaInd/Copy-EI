@@ -1723,6 +1723,14 @@
       .gold-line {
         width: 40px;
       }
+
+      /* ============================================
+         IMAGES: ensure all images are responsive
+         ============================================ */
+      img {
+        max-width: 100%;
+        height: auto;
+      }
     }
 
     /* ============================================
@@ -2376,20 +2384,24 @@
       function scalePresentation() {
         if (isMobile()) {
           presentationEl.style.transform = 'none';
-          // On mobile, show all slides (scroll mode)
+          // On mobile, clear any inline styles that desktop mode may have set
+          // and let the CSS media queries handle layout (scroll mode)
           var slides = document.querySelectorAll('.slide');
           slides.forEach(function(s) {
-            s.style.opacity = '1';
-            s.style.visibility = 'visible';
-            s.style.position = 'relative';
-            // Ensure videos play when visible
-            var videos = s.querySelectorAll('video');
-            videos.forEach(function(v) {
-              v.play().catch(function() {});
-            });
+            s.style.removeProperty('opacity');
+            s.style.removeProperty('visibility');
+            s.style.removeProperty('position');
           });
+          // Do NOT force-play all videos here — let IntersectionObserver handle it
           return;
         }
+        // Desktop mode: reset any mobile inline overrides and apply scale
+        var slides = document.querySelectorAll('.slide');
+        slides.forEach(function(s) {
+          s.style.removeProperty('opacity');
+          s.style.removeProperty('visibility');
+          s.style.removeProperty('position');
+        });
         var scaleX = window.innerWidth / 1920;
         var scaleY = window.innerHeight / 1080;
         var scale = Math.min(scaleX, scaleY);
@@ -2467,9 +2479,6 @@
       function nextSlide() { goToSlide(currentSlide + 1); }
       function prevSlide() { goToSlide(currentSlide - 1); }
 
-      btnNext.addEventListener('click', nextSlide);
-      btnPrev.addEventListener('click', prevSlide);
-
       // --- Mobile: scroll to slide helper ---
       function scrollToSlide(n) {
         var target = document.querySelector('[data-slide="' + n + '"]');
@@ -2477,6 +2486,24 @@
           target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       }
+
+      // Single click handler per button — branches by mode to prevent double-fire
+      btnNext.addEventListener('click', function(e) {
+        if (isMobile()) {
+          var next = Math.min(currentSlide + 1, totalSlides);
+          scrollToSlide(next);
+        } else {
+          nextSlide();
+        }
+      });
+      btnPrev.addEventListener('click', function(e) {
+        if (isMobile()) {
+          var prev = Math.max(currentSlide - 1, 1);
+          scrollToSlide(prev);
+        } else {
+          prevSlide();
+        }
+      });
 
       // --- Mobile: update counter based on scroll position ---
       function updateMobileCounter() {
@@ -2559,22 +2586,6 @@
         else if (e.deltaY < 0) { prevSlide(); }
       }, { passive: false });
 
-      // Mobile nav buttons: scroll to sections
-      btnNext.addEventListener('click', function(e) {
-        if (isMobile()) {
-          e.stopImmediatePropagation();
-          var next = Math.min(currentSlide + 1, totalSlides);
-          scrollToSlide(next);
-        }
-      });
-      btnPrev.addEventListener('click', function(e) {
-        if (isMobile()) {
-          e.stopImmediatePropagation();
-          var prev = Math.max(currentSlide - 1, 1);
-          scrollToSlide(prev);
-        }
-      });
-
       // Initialize
       updateUI();
 
@@ -2588,18 +2599,20 @@
       }
 
       // --- Mobile: IntersectionObserver for video play/pause ---
-      if ('IntersectionObserver' in window) {
+      if ('IntersectionObserver' in window && isMobile()) {
         var videoObserver = new IntersectionObserver(function(entries) {
-          if (!isMobile()) return;
           entries.forEach(function(entry) {
             var videos = entry.target.querySelectorAll('video');
             if (entry.isIntersecting) {
-              videos.forEach(function(v) { v.play().catch(function() {}); });
+              videos.forEach(function(v) {
+                v.setAttribute('preload', 'auto');
+                v.play().catch(function() {});
+              });
             } else {
               videos.forEach(function(v) { v.pause(); });
             }
           });
-        }, { threshold: 0.3 });
+        }, { threshold: 0.1 }); // Lower threshold so videos start loading/playing sooner
 
         document.querySelectorAll('.slide').forEach(function(slide) {
           videoObserver.observe(slide);

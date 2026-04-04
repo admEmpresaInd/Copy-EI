@@ -1129,6 +1129,672 @@
       object-fit: contain;
     }
 
+    /* ============================================
+       MOBILE RESPONSIVE - VERTICAL SCROLL MODE
+       Breakpoint: 768px and below
+       ============================================ */
+    @media (max-width: 768px) {
+
+      /* -- Switch from fixed presentation to scroll layout -- */
+      html, body {
+        height: auto;
+        overflow: auto;
+        overflow-x: hidden;
+      }
+
+      .viewport-wrapper {
+        position: relative;
+        inset: auto;
+        display: block;
+        min-height: auto;
+      }
+
+      .presentation {
+        width: 100%;
+        height: auto;
+        transform: none !important;
+        overflow: visible;
+      }
+
+      /* -- All slides become stacked blocks -- */
+      .slide {
+        position: relative;
+        inset: auto;
+        width: 100%;
+        height: auto;
+        min-height: 100vh;
+        min-height: 100svh;
+        opacity: 1;
+        visibility: visible;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .slide.active {
+        z-index: auto;
+      }
+
+      /* -- Animations: show everything immediately on scroll -- */
+      .animate-in {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+        animation: none !important;
+      }
+
+      /* -- Progress bar: hide on mobile (scroll replaces it) -- */
+      .progress-bar {
+        display: none;
+      }
+
+      /* -- Logo overlay: smaller on mobile -- */
+      .logo-overlay {
+        top: 12px;
+        left: 16px;
+        z-index: 100;
+      }
+
+      .logo-overlay-text,
+      .logo-overlay span[style*="font-size: 22px"] {
+        font-size: 16px !important;
+        letter-spacing: 0.2em !important;
+      }
+
+      .logo-overlay-sub,
+      .logo-overlay span[style*="font-size: 8px"] {
+        font-size: 7px !important;
+        letter-spacing: 0.3em !important;
+      }
+
+      /* -- Navigation: bottom center, larger touch targets -- */
+      .nav-controls {
+        position: fixed;
+        bottom: 16px;
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
+        gap: 16px;
+        background: rgba(26, 25, 23, 0.85);
+        backdrop-filter: blur(12px);
+        padding: 10px 20px;
+        border-radius: 40px;
+        border: 1px solid rgba(184, 148, 46, 0.25);
+      }
+
+      .nav-btn {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        min-height: 44px;
+        border-radius: 50%;
+      }
+
+      .slide-counter {
+        font-size: 12px;
+        min-width: 60px;
+      }
+
+      /* -- Label (global) -- */
+      .label {
+        font-size: 11px;
+        letter-spacing: 0.2em;
+      }
+
+      /* ============================================
+         VIDEO SLIDES (hero/capa)
+         ============================================ */
+      .slide-video {
+        min-height: 100vh;
+        min-height: 100svh;
+        position: relative;
+      }
+
+      .slide-video video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .slide-video .video-content {
+        padding: 0 24px 100px;
+        position: relative;
+        z-index: 2;
+        margin-top: auto;
+      }
+
+      .slide-video .video-label {
+        font-size: 10px;
+        margin-bottom: 8px;
+      }
+
+      .slide-video h1 {
+        font-size: 40px !important;
+        line-height: 1.1;
+        margin-bottom: 8px;
+      }
+
+      .slide-video h2 {
+        font-size: 28px;
+        margin-bottom: 8px;
+      }
+
+      .slide-video .video-desc,
+      .slide-video .video-desc[style] {
+        font-size: 14px !important;
+        max-width: 100%;
+        line-height: 1.5;
+      }
+
+      .slide-video .hero-stats {
+        gap: 24px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+      }
+
+      .slide-video .hero-stat-value {
+        font-size: 24px;
+      }
+
+      .slide-video .hero-stat-label {
+        font-size: 10px;
+      }
+
+      /* ============================================
+         HERO PHOTO SLIDES
+         ============================================ */
+      .slide-hero-photo {
+        min-height: 70vh;
+        min-height: 70svh;
+        position: relative;
+      }
+
+      .slide-hero-photo .bg-photo {
+        position: absolute;
+        inset: 0;
+      }
+
+      .slide-hero-photo .photo-overlay {
+        position: absolute;
+        inset: 0;
+      }
+
+      .slide-hero-photo .photo-content {
+        padding: 0 24px 60px;
+        margin-top: auto;
+        position: relative;
+        z-index: 2;
+      }
+
+      .slide-hero-photo .photo-label {
+        font-size: 10px;
+      }
+
+      .slide-hero-photo h2 {
+        font-size: 28px;
+        margin-bottom: 6px;
+      }
+
+      .slide-hero-photo .photo-desc {
+        font-size: 14px;
+        max-width: 100%;
+        line-height: 1.5;
+      }
+
+      /* ============================================
+         QUOTE SLIDE
+         ============================================ */
+      .slide-quote {
+        min-height: 80vh;
+        padding: 60px 24px;
+      }
+
+      .slide-quote .content {
+        max-width: 100%;
+        padding: 20px 0;
+      }
+
+      .slide-quote blockquote {
+        font-size: 22px;
+        line-height: 1.5;
+        margin-bottom: 24px;
+      }
+
+      .slide-quote .quote-author {
+        font-size: 11px;
+      }
+
+      /* ============================================
+         SPLIT SLIDES (image + text)
+         ============================================ */
+      .slide-split {
+        flex-direction: column;
+        min-height: auto;
+      }
+
+      .slide-split .image-half {
+        width: 100%;
+        height: 50vw;
+        min-height: 240px;
+      }
+
+      .slide-split .image-half .img-overlay {
+        background: linear-gradient(180deg, transparent 40%, var(--charcoal) 100%);
+      }
+
+      .slide-split .text-half {
+        width: 100%;
+        padding: 32px 24px 48px;
+      }
+
+      .slide-split h2 {
+        font-size: 28px;
+        margin-bottom: 16px;
+      }
+
+      .slide-split p {
+        font-size: 15px;
+        line-height: 1.7;
+        margin-bottom: 12px;
+      }
+
+      .slide-split .stats-row {
+        gap: 24px;
+        margin-top: 24px;
+        padding-top: 24px;
+        flex-wrap: wrap;
+      }
+
+      .slide-split .stat-value {
+        font-size: 32px;
+      }
+
+      .slide-split .stat-label {
+        font-size: 10px;
+      }
+
+      /* ============================================
+         FEATURES SLIDE (diferenciais)
+         ============================================ */
+      .slide-features {
+        min-height: auto;
+        padding: 48px 20px 60px;
+      }
+
+      .slide-features .header {
+        margin-bottom: 32px;
+      }
+
+      .slide-features h2 {
+        font-size: 26px;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        max-width: 100%;
+      }
+
+      .feature-card {
+        padding: 24px 20px;
+      }
+
+      .feature-card svg {
+        width: 32px;
+        height: 32px;
+        margin-bottom: 12px;
+      }
+
+      .feature-card h4 {
+        font-size: 17px;
+      }
+
+      .feature-card p {
+        font-size: 13px;
+      }
+
+      /* ============================================
+         TIPOLOGIAS SLIDE
+         ============================================ */
+      .slide-tipologias {
+        min-height: auto;
+        padding: 48px 20px 60px;
+      }
+
+      .slide-tipologias .header {
+        margin-bottom: 28px;
+      }
+
+      .slide-tipologias h2 {
+        font-size: 26px;
+      }
+
+      .tipo-layout {
+        flex-direction: column;
+        gap: 28px;
+      }
+
+      .tipo-cards {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .tipo-card {
+        padding: 16px 12px;
+      }
+
+      .tipo-card h4 {
+        font-size: 14px;
+      }
+
+      .tipo-card .area {
+        font-size: 18px;
+      }
+
+      .tipo-card p {
+        font-size: 11px;
+      }
+
+      .tipo-table {
+        min-width: 0;
+        width: 100%;
+        padding: 20px 16px;
+      }
+
+      .tipo-table h3 {
+        font-size: 18px;
+      }
+
+      .tipo-table-row {
+        font-size: 13px;
+        padding: 8px 0;
+      }
+
+      .tipo-table-total .row-label {
+        font-size: 14px;
+      }
+
+      .tipo-table-total .row-value {
+        font-size: 18px;
+      }
+
+      /* ============================================
+         SUSTENTABILIDADE SLIDE
+         ============================================ */
+      .slide-sustain {
+        min-height: auto;
+        padding: 48px 20px 60px;
+      }
+
+      .slide-sustain .header {
+        margin-bottom: 32px;
+      }
+
+      .slide-sustain h2 {
+        font-size: 26px;
+      }
+
+      .sustain-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+
+      .sustain-item {
+        padding: 24px 16px;
+      }
+
+      .sustain-item svg {
+        width: 36px;
+        height: 36px;
+        margin-bottom: 12px;
+      }
+
+      .sustain-item h4 {
+        font-size: 15px;
+      }
+
+      .sustain-item p {
+        font-size: 12px;
+      }
+
+      /* ============================================
+         LOCATION SLIDE
+         ============================================ */
+      .slide-location {
+        flex-direction: column-reverse;
+        min-height: auto;
+      }
+
+      .slide-location .text-half {
+        width: 100%;
+        padding: 32px 24px 48px;
+      }
+
+      .slide-location h2 {
+        font-size: 26px;
+        margin-bottom: 20px;
+      }
+
+      .slide-location .image-half {
+        width: 100%;
+        height: 50vw;
+        min-height: 220px;
+      }
+
+      .slide-location .image-half .img-overlay {
+        background: linear-gradient(180deg, transparent 40%, var(--charcoal) 100%);
+      }
+
+      .location-time {
+        font-size: 20px;
+        min-width: 55px;
+      }
+
+      .location-name {
+        font-size: 14px;
+      }
+
+      .location-detail {
+        font-size: 11px;
+      }
+
+      .location-point {
+        gap: 16px;
+        padding: 12px 0;
+      }
+
+      /* ============================================
+         GSWP SLIDE (about)
+         ============================================ */
+      .slide-gswp {
+        min-height: auto;
+        padding: 20px;
+      }
+
+      .slide-gswp .content {
+        flex-direction: column;
+        gap: 32px;
+        padding: 32px 0;
+        max-width: 100%;
+      }
+
+      .slide-gswp .gswp-brand {
+        min-width: 0;
+      }
+
+      .slide-gswp .gswp-brand div[style*="font-size: 48px"] {
+        font-size: 36px !important;
+      }
+
+      .slide-gswp .gswp-text h3 {
+        font-size: 24px;
+      }
+
+      .slide-gswp .gswp-text p {
+        font-size: 14px;
+        line-height: 1.7;
+      }
+
+      .gswp-values {
+        gap: 12px;
+      }
+
+      .gswp-value-text {
+        font-size: 12px;
+      }
+
+      /* ============================================
+         CTA SLIDE (final)
+         ============================================ */
+      .slide-cta {
+        min-height: 100vh;
+        min-height: 100svh;
+        position: relative;
+      }
+
+      .slide-cta video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .slide-cta .content {
+        padding: 40px 24px 100px;
+        max-width: 100%;
+      }
+
+      .slide-cta h2 {
+        font-size: 28px;
+        margin-bottom: 20px;
+      }
+
+      .slide-cta .cta-desc {
+        font-size: 14px;
+        line-height: 1.7;
+        margin-bottom: 32px;
+      }
+
+      .slide-cta .contact-row {
+        flex-direction: column;
+        gap: 16px;
+        align-items: center;
+      }
+
+      .slide-cta .contact-item {
+        font-size: 13px;
+      }
+
+      /* ============================================
+         PLANTA SLIDE
+         ============================================ */
+      .slide-planta {
+        min-height: auto;
+        padding: 40px 20px;
+      }
+
+      .slide-planta .planta-header h2 {
+        font-size: 26px;
+      }
+
+      .slide-planta .planta-img img {
+        max-height: none;
+        width: 100%;
+        height: auto;
+      }
+
+      /* ============================================
+         EXPERIENCE / TAGS
+         ============================================ */
+      .exp-highlights {
+        gap: 6px;
+      }
+
+      .exp-tag {
+        font-size: 10px;
+        padding: 5px 10px;
+      }
+
+      /* ============================================
+         GOLD LINE
+         ============================================ */
+      .gold-line {
+        width: 40px;
+      }
+    }
+
+    /* ============================================
+       SMALL MOBILE (320px - 480px)
+       ============================================ */
+    @media (max-width: 480px) {
+
+      .slide-video h1 {
+        font-size: 32px !important;
+      }
+
+      .slide-video h2 {
+        font-size: 24px;
+      }
+
+      .slide-hero-photo h2 {
+        font-size: 24px;
+      }
+
+      .slide-quote blockquote {
+        font-size: 18px;
+      }
+
+      .slide-split h2 {
+        font-size: 24px;
+      }
+
+      .slide-features h2 {
+        font-size: 22px;
+      }
+
+      .slide-tipologias h2 {
+        font-size: 22px;
+      }
+
+      .tipo-cards {
+        grid-template-columns: 1fr;
+      }
+
+      .sustain-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .slide-sustain h2 {
+        font-size: 22px;
+      }
+
+      .slide-location h2 {
+        font-size: 22px;
+      }
+
+      .slide-cta h2 {
+        font-size: 24px;
+      }
+
+      .slide-gswp .gswp-text h3 {
+        font-size: 22px;
+      }
+
+      .nav-controls {
+        padding: 8px 16px;
+        gap: 12px;
+      }
+
+      .nav-btn {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        min-height: 40px;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -1697,10 +2363,33 @@
        ============================================ -->
   <script>
     (function() {
-      /* ---- 16:9 Scaling Engine ---- */
+      /* ---- Mobile Detection ---- */
+      var MOBILE_BREAKPOINT = 768;
+
+      function isMobile() {
+        return window.innerWidth <= MOBILE_BREAKPOINT;
+      }
+
+      /* ---- 16:9 Scaling Engine (desktop only) ---- */
       var presentationEl = document.getElementById('presentation');
 
       function scalePresentation() {
+        if (isMobile()) {
+          presentationEl.style.transform = 'none';
+          // On mobile, show all slides (scroll mode)
+          var slides = document.querySelectorAll('.slide');
+          slides.forEach(function(s) {
+            s.style.opacity = '1';
+            s.style.visibility = 'visible';
+            s.style.position = 'relative';
+            // Ensure videos play when visible
+            var videos = s.querySelectorAll('video');
+            videos.forEach(function(v) {
+              v.play().catch(function() {});
+            });
+          });
+          return;
+        }
         var scaleX = window.innerWidth / 1920;
         var scaleY = window.innerHeight / 1080;
         var scale = Math.min(scaleX, scaleY);
@@ -1781,8 +2470,42 @@
       btnNext.addEventListener('click', nextSlide);
       btnPrev.addEventListener('click', prevSlide);
 
+      // --- Mobile: scroll to slide helper ---
+      function scrollToSlide(n) {
+        var target = document.querySelector('[data-slide="' + n + '"]');
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+
+      // --- Mobile: update counter based on scroll position ---
+      function updateMobileCounter() {
+        if (!isMobile()) return;
+        var slides = document.querySelectorAll('.slide');
+        var scrollTop = window.scrollY || window.pageYOffset;
+        var viewportMid = scrollTop + window.innerHeight * 0.4;
+        var closestSlide = 1;
+        slides.forEach(function(s) {
+          var slideNum = parseInt(s.getAttribute('data-slide'));
+          if (s.offsetTop <= viewportMid) {
+            closestSlide = slideNum;
+          }
+        });
+        if (closestSlide !== currentSlide) {
+          currentSlide = closestSlide;
+          updateUI();
+        }
+      }
+
+      if (isMobile()) {
+        window.addEventListener('scroll', function() {
+          requestAnimationFrame(updateMobileCounter);
+        }, { passive: true });
+      }
+
       // Keyboard navigation
       document.addEventListener('keydown', function(e) {
+        if (isMobile()) return; // Let native scroll handle it
         if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') {
           e.preventDefault();
           nextSlide();
@@ -1798,17 +2521,19 @@
         }
       });
 
-      // Touch/swipe support
+      // Touch/swipe support (desktop presentation mode only)
       var touchStartX = 0;
       var touchStartY = 0;
       var viewportWrapper = document.getElementById('viewportWrapper');
 
       viewportWrapper.addEventListener('touchstart', function(e) {
+        if (isMobile()) return; // Native scroll on mobile
         touchStartX = e.touches[0].clientX;
         touchStartY = e.touches[0].clientY;
       }, { passive: true });
 
       viewportWrapper.addEventListener('touchend', function(e) {
+        if (isMobile()) return; // Native scroll on mobile
         var touchEndX = e.changedTouches[0].clientX;
         var touchEndY = e.changedTouches[0].clientY;
         var diffX = touchStartX - touchEndX;
@@ -1820,9 +2545,10 @@
         }
       }, { passive: true });
 
-      // Mouse wheel navigation
+      // Mouse wheel navigation (desktop only)
       var wheelTimeout = null;
       document.addEventListener('wheel', function(e) {
+        if (isMobile()) return; // Native scroll on mobile
         e.preventDefault();
         if (wheelTimeout) return;
         wheelTimeout = setTimeout(function() {
@@ -1832,6 +2558,22 @@
         if (e.deltaY > 0) { nextSlide(); }
         else if (e.deltaY < 0) { prevSlide(); }
       }, { passive: false });
+
+      // Mobile nav buttons: scroll to sections
+      btnNext.addEventListener('click', function(e) {
+        if (isMobile()) {
+          e.stopImmediatePropagation();
+          var next = Math.min(currentSlide + 1, totalSlides);
+          scrollToSlide(next);
+        }
+      });
+      btnPrev.addEventListener('click', function(e) {
+        if (isMobile()) {
+          e.stopImmediatePropagation();
+          var prev = Math.max(currentSlide - 1, 1);
+          scrollToSlide(prev);
+        }
+      });
 
       // Initialize
       updateUI();
@@ -1844,6 +2586,36 @@
           item.style.animation = '';
         });
       }
+
+      // --- Mobile: IntersectionObserver for video play/pause ---
+      if ('IntersectionObserver' in window) {
+        var videoObserver = new IntersectionObserver(function(entries) {
+          if (!isMobile()) return;
+          entries.forEach(function(entry) {
+            var videos = entry.target.querySelectorAll('video');
+            if (entry.isIntersecting) {
+              videos.forEach(function(v) { v.play().catch(function() {}); });
+            } else {
+              videos.forEach(function(v) { v.pause(); });
+            }
+          });
+        }, { threshold: 0.3 });
+
+        document.querySelectorAll('.slide').forEach(function(slide) {
+          videoObserver.observe(slide);
+        });
+      }
+
+      // --- Handle orientation change / resize ---
+      var prevMobile = isMobile();
+      window.addEventListener('resize', function() {
+        var nowMobile = isMobile();
+        if (prevMobile !== nowMobile) {
+          // Mode changed - reload to reset layout cleanly
+          location.reload();
+        }
+        prevMobile = nowMobile;
+      });
     })();
   </script>
 

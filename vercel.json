@@ -1,12 +1,12 @@
 {
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/", "destination": "/EI/ia-operating-system-pagina-de-vendas.html" },
-    { "source": "/analise", "destination": "/EI/hormozi-analise-consultoria-ia.html" },
-    { "source": "/prompts", "destination": "/EI/biblioteca-127-prompts-claude-code.html" },
-    { "source": "/social-selling", "destination": "/high-ticket-social-selling-research.html" },
-    { "source": "/apex-sales", "destination": "/EI/apex-sales-ai-concept.html" },
-    { "source": "/gswp", "destination": "/EI/gswp-book-vendas.html" },
-    { "source": "/gswp-book-apresentacao", "destination": "/EI/gswp-book-apresentacao.html" }
+    { "source": "/", "destination": "/EI/ia-operating-system-pagina-de-vendas" },
+    { "source": "/analise", "destination": "/EI/hormozi-analise-consultoria-ia" },
+    { "source": "/prompts", "destination": "/EI/biblioteca-127-prompts-claude-code" },
+    { "source": "/social-selling", "destination": "/high-ticket-social-selling-research" },
+    { "source": "/apex-sales", "destination": "/EI/apex-sales-ai-concept" },
+    { "source": "/gswp", "destination": "/EI/gswp-book-vendas" },
+    { "source": "/gswp-book-apresentacao", "destination": "/EI/gswp-book-apresentacao" }
   ]
 }

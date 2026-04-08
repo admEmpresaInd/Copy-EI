@@ -1,0 +1,2201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rooftop Houses — Reserva João Paulo · Florianópolis</title>
+  <meta name="description" content="Apenas 4 unidades triplex de 357m² com rooftop privativo, piscina aquecida e vista para o pôr do sol. João Paulo, Florianópolis.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Syne:wght@400;500;600;700;800&family=Space+Mono&display=swap" rel="stylesheet">
+
+<style>
+/* ====================================================
+   ROOFTOP HOUSES — RESERVA JOÃO PAULO
+   Design: Neo-Organic Futurism — Pedra encontra Céu
+   ==================================================== */
+
+:root {
+  --void:        #060708;
+  --deep:        #0B0C0E;
+  --charcoal:    #131518;
+  --stone:       #1C1E22;
+  --stone-light: #282B30;
+  --sage:        #1E3B32;
+  --forest:      #2A4C3A;
+  --gold:        #B8942E;
+  --gold-light:  #C9A84C;
+  --gold-pale:   #DDB96A;
+  --neon:        #00E8B5;
+  --neon-dim:    rgba(0, 232, 181, 0.08);
+  --cream:       #F0EDE6;
+  --cream-warm:  #E4DFD4;
+  --off-white:   #FAF8F4;
+
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans:  'Syne', sans-serif;
+  --mono:  'Space Mono', monospace;
+
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-quart: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+}
+
+*, *::before, *::after {
+  margin: 0; padding: 0; box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: clamp(13px, 1.3vw, 16px);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background: var(--void);
+  color: var(--cream);
+  font-family: var(--sans);
+  font-weight: 400;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ==================== GRAIN ==================== */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 9990;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+  opacity: 0.028;
+  mix-blend-mode: overlay;
+}
+
+/* ==================== SCANLINE ==================== */
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: 9991;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.03) 2px,
+    rgba(0,0,0,0.03) 4px
+  );
+}
+
+/* ==================== CUSTOM CURSOR ==================== */
+.cursor-dot {
+  position: fixed; top: 0; left: 0;
+  width: 8px; height: 8px;
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s var(--ease-expo), height 0.3s var(--ease-expo), background 0.3s, opacity 0.3s;
+  mix-blend-mode: screen;
+}
+.cursor-ring {
+  position: fixed; top: 0; left: 0;
+  width: 40px; height: 40px;
+  border: 1px solid rgba(184,148,46,0.35);
+  border-radius: 50%;
+  pointer-events: none; z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.5s var(--ease-expo), height 0.5s var(--ease-expo), border-color 0.4s;
+}
+.cursor-neon {
+  position: fixed; top: 0; left: 0;
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  pointer-events: none; z-index: 9997;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(0,232,181,0.06) 0%, transparent 70%);
+  transition: width 0.6s var(--ease-expo), height 0.6s var(--ease-expo), opacity 0.4s;
+  opacity: 0;
+}
+body:has(a:hover) .cursor-dot,
+body:has(button:hover) .cursor-dot { width: 4px; height: 4px; }
+body:has(a:hover) .cursor-ring,
+body:has(button:hover) .cursor-ring { width: 56px; height: 56px; border-color: rgba(184,148,46,0.7); }
+body:has(a:hover) .cursor-neon,
+body:has(button:hover) .cursor-neon { opacity: 1; width: 100px; height: 100px; }
+
+/* ==================== LOADER ==================== */
+#loader {
+  position: fixed; inset: 0; z-index: 9500;
+  background: var(--void);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  transition: opacity 1s ease 0.3s, visibility 1s ease 0.3s;
+}
+#loader.hidden { opacity: 0; visibility: hidden; }
+.loader-tag {
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.35em;
+  color: var(--neon);
+  opacity: 0;
+  margin-bottom: 2rem;
+  animation: fade-in 0.4s ease 0.3s forwards;
+}
+.loader-logo {
+  font-family: var(--serif);
+  font-size: clamp(2.5rem, 7vw, 5.5rem);
+  font-weight: 300;
+  letter-spacing: 0.4em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(184,148,46,0.25);
+  animation: loader-reveal 2s var(--ease-expo) 0.5s forwards;
+  text-transform: uppercase;
+}
+.loader-sub {
+  font-family: var(--sans);
+  font-size: 0.55rem;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: rgba(184,148,46,0.45);
+  margin-top: 1.2rem;
+  opacity: 0;
+  animation: fade-in 0.6s ease 1.5s forwards;
+}
+.loader-bar {
+  width: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--neon), var(--gold), transparent);
+  margin-top: 2.5rem;
+  animation: loader-bar 2s var(--ease-expo) 0.8s forwards;
+}
+@keyframes loader-reveal {
+  0%   { -webkit-text-stroke-color: rgba(184,148,46,0); letter-spacing: 0.8em; }
+  60%  { -webkit-text-stroke-color: rgba(184,148,46,0.5); }
+  100% { -webkit-text-stroke-color: rgba(184,148,46,0.2); letter-spacing: 0.4em; color: rgba(240,237,230,0.06); }
+}
+@keyframes loader-bar { to { width: 240px; } }
+@keyframes fade-in { to { opacity: 1; } }
+
+/* ==================== NAVIGATION ==================== */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  padding: 2rem 5vw;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: padding 0.5s var(--ease-expo), background 0.5s, border-color 0.5s;
+  border-bottom: 1px solid transparent;
+}
+nav.scrolled {
+  padding: 1.1rem 5vw;
+  background: rgba(6, 7, 8, 0.88);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom-color: rgba(184,148,46,0.07);
+}
+.nav-logo {
+  display: flex; flex-direction: column; gap: 2px;
+}
+.nav-logo-main {
+  font-family: var(--serif);
+  font-size: 1.1rem; font-weight: 500;
+  letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--cream); text-decoration: none;
+  line-height: 1;
+}
+.nav-logo-sub {
+  font-family: var(--mono);
+  font-size: 0.48rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--neon);
+  opacity: 0.7;
+}
+.nav-links {
+  display: flex; gap: 2.5rem; list-style: none;
+}
+.nav-links a {
+  font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(240,237,230,0.45); text-decoration: none;
+  transition: color 0.3s; font-weight: 500;
+}
+.nav-links a:hover { color: var(--gold-light); }
+.nav-cta {
+  font-family: var(--sans);
+  font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold); text-decoration: none;
+  border: 1px solid rgba(184,148,46,0.3);
+  padding: 0.7rem 1.8rem;
+  transition: all 0.4s var(--ease-expo); font-weight: 500;
+  position: relative; overflow: hidden;
+}
+.nav-cta::before {
+  content: ''; position: absolute; inset: 0;
+  background: var(--gold); transform: scaleX(0);
+  transform-origin: left; transition: transform 0.4s var(--ease-expo);
+  z-index: -1;
+}
+.nav-cta:hover { color: var(--void); }
+.nav-cta:hover::before { transform: scaleX(1); }
+
+.nav-mobile { display: none; background: none; border: none; cursor: none; padding: 0.5rem; }
+.nav-mobile span {
+  display: block; width: 24px; height: 1px;
+  background: var(--cream); margin: 6px 0; transition: all 0.3s;
+}
+
+/* ==================== HERO ==================== */
+#hero {
+  position: relative; width: 100%; height: 100svh; min-height: 700px;
+  display: flex; align-items: flex-end; justify-content: flex-start;
+  overflow: hidden;
+}
+.hero-video {
+  position: absolute; inset: 0; z-index: 0;
+}
+.hero-video video {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.hero-overlay {
+  position: absolute; inset: 0; z-index: 1;
+  background:
+    linear-gradient(180deg,
+      rgba(6,7,8,0.5) 0%,
+      rgba(6,7,8,0.1) 20%,
+      rgba(6,7,8,0.05) 45%,
+      rgba(6,7,8,0.55) 75%,
+      rgba(6,7,8,0.95) 100%),
+    linear-gradient(90deg,
+      rgba(6,7,8,0.7) 0%,
+      transparent 60%);
+}
+#hero-canvas {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+}
+.hero-grid {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(0,232,181,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,232,181,0.025) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: radial-gradient(ellipse 70% 80% at 0% 100%, rgba(0,0,0,0.4) 0%, transparent 60%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 80% at 0% 100%, rgba(0,0,0,0.4) 0%, transparent 60%);
+}
+.hero-content {
+  position: relative; z-index: 3;
+  padding: 0 6vw 8vh;
+  max-width: 900px;
+}
+.hero-tag {
+  display: flex; align-items: center; gap: 1rem;
+  margin-bottom: 2rem;
+  opacity: 0; animation: slide-up 1s var(--ease-expo) 2s forwards;
+}
+.hero-tag-line { width: 30px; height: 1px; background: var(--neon); }
+.hero-tag-text {
+  font-family: var(--mono); font-size: 0.55rem;
+  letter-spacing: 0.35em; text-transform: uppercase; color: var(--neon);
+}
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(3rem, 8vw, 7.5rem);
+  font-weight: 300; line-height: 0.95;
+  color: var(--cream); letter-spacing: -0.01em;
+  opacity: 0; animation: slide-up 1.2s var(--ease-expo) 2.2s forwards;
+}
+.hero-title em {
+  font-style: italic; color: var(--gold-pale); display: block;
+}
+.hero-divider {
+  display: flex; align-items: center; gap: 1rem;
+  margin: 2.5rem 0;
+  opacity: 0; animation: slide-up 1s var(--ease-expo) 2.5s forwards;
+}
+.hero-divider-line { flex: 1; max-width: 60px; height: 1px; background: linear-gradient(90deg, var(--gold), transparent); }
+.hero-divider-diamond { width: 5px; height: 5px; background: var(--gold); transform: rotate(45deg); }
+.hero-subtitle {
+  font-family: var(--serif);
+  font-size: clamp(1rem, 1.8vw, 1.3rem);
+  font-weight: 300; font-style: italic;
+  color: rgba(240,237,230,0.5); letter-spacing: 0.03em;
+  opacity: 0; animation: slide-up 1s var(--ease-expo) 2.7s forwards;
+  margin-bottom: 3rem;
+}
+.hero-stats {
+  display: flex; gap: 3rem; flex-wrap: wrap;
+  opacity: 0; animation: slide-up 1s var(--ease-expo) 3s forwards;
+}
+.hero-stat-num {
+  font-family: var(--serif); font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 300; color: var(--cream); line-height: 1;
+}
+.hero-stat-label {
+  font-family: var(--mono); font-size: 0.48rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(240,237,230,0.35); margin-top: 0.4rem;
+}
+.hero-cta-group {
+  margin-top: 2.5rem; display: flex; gap: 1.5rem; align-items: center;
+  flex-wrap: wrap;
+  opacity: 0; animation: slide-up 1s var(--ease-expo) 3.3s forwards;
+}
+.btn-primary {
+  font-family: var(--sans); font-size: 0.62rem;
+  letter-spacing: 0.22em; text-transform: uppercase; font-weight: 600;
+  color: var(--void); background: var(--gold);
+  padding: 1.1rem 2.8rem; text-decoration: none;
+  transition: all 0.5s var(--ease-expo); position: relative; overflow: hidden;
+  max-width: 100%; white-space: nowrap;
+}
+.btn-primary::before {
+  content: ''; position: absolute; inset: 0;
+  background: var(--gold-pale); transform: translateX(-101%);
+  transition: transform 0.5s var(--ease-expo);
+}
+.btn-primary:hover::before { transform: translateX(0); }
+.btn-primary span { position: relative; z-index: 1; }
+.btn-ghost {
+  font-family: var(--sans); font-size: 0.6rem;
+  letter-spacing: 0.2em; text-transform: uppercase; font-weight: 500;
+  color: rgba(240,237,230,0.45); text-decoration: none;
+  display: flex; align-items: center; gap: 0.7rem; transition: color 0.3s;
+}
+.btn-ghost:hover { color: var(--cream); }
+.btn-ghost svg { width: 14px; height: 14px; transition: transform 0.3s; }
+.btn-ghost:hover svg { transform: translateX(4px); }
+
+.hero-scroll {
+  position: absolute; bottom: 2.5rem; right: 5vw;
+  z-index: 3; display: flex; flex-direction: column;
+  align-items: center; gap: 1rem;
+  opacity: 0; animation: fade-in 1s ease 4s forwards;
+}
+.scroll-line {
+  width: 1px; height: 70px;
+  background: linear-gradient(180deg, transparent, var(--gold));
+  animation: scroll-pulse 2.5s ease infinite;
+}
+.scroll-label {
+  font-family: var(--mono); font-size: 0.45rem;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: rgba(184,148,46,0.4); writing-mode: vertical-lr;
+  transform: rotate(180deg);
+}
+@keyframes scroll-pulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(1); transform-origin: bottom; }
+  50% { opacity: 1; transform: scaleY(1.15); transform-origin: bottom; }
+}
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ==================== REVEAL UTILITY ==================== */
+.reveal {
+  opacity: 0; transform: translateY(50px);
+  transition: opacity 0.9s var(--ease-expo), transform 0.9s var(--ease-expo);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.35s; }
+.reveal-delay-4 { transition-delay: 0.5s; }
+.reveal-delay-5 { transition-delay: 0.65s; }
+.reveal-delay-6 { transition-delay: 0.8s; }
+
+/* ==================== SECTION LABEL ==================== */
+.section-tag {
+  display: inline-flex; align-items: center; gap: 1rem;
+  font-family: var(--mono); font-size: 0.5rem;
+  letter-spacing: 0.4em; text-transform: uppercase; color: var(--neon);
+  margin-bottom: 1.5rem; opacity: 0.8;
+}
+.section-tag::before {
+  content: ''; display: block; width: 24px; height: 1px; background: var(--neon);
+}
+.section-label-gold {
+  display: inline-flex; align-items: center; gap: 1rem;
+  font-family: var(--mono); font-size: 0.5rem;
+  letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold);
+  margin-bottom: 2rem;
+}
+.section-label-gold::before, .section-label-gold::after {
+  content: ''; display: block; width: 24px; height: 1px; background: rgba(184,148,46,0.4);
+}
+
+/* ==================== QUOTE / MANIFESTO ==================== */
+#manifesto {
+  position: relative; padding: clamp(8rem, 14vw, 13rem) 0; overflow: hidden;
+}
+.manifesto-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 50%, rgba(30, 59, 50, 0.18) 0%, transparent 65%),
+    var(--void);
+}
+.manifesto-orb {
+  position: absolute;
+  top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 600px; height: 600px;
+  border-radius: 40% 60% 55% 45% / 50% 40% 60% 50%;
+  background: radial-gradient(ellipse, rgba(0,232,181,0.04) 0%, transparent 70%);
+  animation: orb-morph 15s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes orb-morph {
+  0%, 100% { border-radius: 40% 60% 55% 45% / 50% 40% 60% 50%; transform: translate(-50%,-50%) rotate(0deg) scale(1); }
+  33%       { border-radius: 55% 45% 40% 60% / 60% 50% 40% 50%; transform: translate(-50%,-50%) rotate(60deg) scale(1.05); }
+  66%       { border-radius: 45% 55% 65% 35% / 45% 60% 40% 55%; transform: translate(-50%,-50%) rotate(120deg) scale(0.95); }
+}
+.manifesto-inner {
+  position: relative; z-index: 1;
+  max-width: 860px; margin: 0 auto; padding: 0 5vw; text-align: center;
+}
+.manifesto-diamond {
+  width: 8px; height: 8px; background: var(--gold);
+  transform: rotate(45deg); margin: 0 auto 3.5rem; opacity: 0.8;
+}
+.manifesto-quote {
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 3.2vw, 2.8rem);
+  font-weight: 300; line-height: 1.55; color: var(--cream);
+  letter-spacing: 0.01em; position: relative;
+}
+.manifesto-quote .q-mark {
+  font-size: clamp(4rem, 10vw, 9rem); line-height: 0.5;
+  vertical-align: -0.4em; color: rgba(184,148,46,0.1);
+  font-family: var(--serif); font-weight: 300; display: inline;
+}
+.manifesto-quote .highlight { color: var(--gold-pale); font-style: italic; }
+.manifesto-author {
+  margin-top: 3rem; display: flex; align-items: center; justify-content: center; gap: 1.5rem;
+}
+.manifesto-author-line { width: 40px; height: 1px; background: rgba(184,148,46,0.3); }
+.manifesto-author-text {
+  font-family: var(--mono); font-size: 0.52rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: rgba(184,148,46,0.5);
+}
+
+/* ==================== O EMPREENDIMENTO ==================== */
+#empreendimento {
+  position: relative; padding: clamp(7rem, 12vw, 11rem) 0; overflow: hidden;
+}
+.emp-bg {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, var(--void) 0%, var(--deep) 50%, var(--void) 100%);
+}
+.emp-bg::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(184,148,46,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(184,148,46,0.025) 1px, transparent 1px);
+  background-size: 100px 100px;
+}
+.emp-inner {
+  position: relative; z-index: 1;
+  max-width: 1280px; margin: 0 auto; padding: 0 5vw;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(4rem, 8vw, 8rem); align-items: center;
+}
+.emp-image-wrap {
+  position: relative; aspect-ratio: 4/5; overflow: hidden;
+}
+.emp-image-wrap img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 1.2s var(--ease-expo);
+}
+.emp-image-wrap:hover img { transform: scale(1.04); }
+.emp-image-frame {
+  position: absolute; inset: -1px;
+  border: 1px solid rgba(184,148,46,0.12); pointer-events: none;
+}
+.emp-image-corner {
+  position: absolute; width: 24px; height: 24px;
+}
+.emp-image-corner::before, .emp-image-corner::after {
+  content: ''; position: absolute; background: var(--gold); opacity: 0.5;
+}
+.emp-image-corner::before { width: 100%; height: 1px; }
+.emp-image-corner::after  { width: 1px; height: 100%; }
+.emp-image-corner.tl { top: 16px; left: 16px; }
+.emp-image-corner.tr { top: 16px; right: 16px; transform: rotate(90deg); }
+.emp-image-corner.bl { bottom: 16px; left: 16px; transform: rotate(-90deg); }
+.emp-image-corner.br { bottom: 16px; right: 16px; transform: rotate(180deg); }
+.emp-image-tag {
+  position: absolute; bottom: 20px; left: 20px;
+  font-family: var(--mono); font-size: 0.45rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--neon);
+  background: rgba(6,7,8,0.7); padding: 0.5rem 0.8rem;
+  border-left: 1px solid var(--neon);
+}
+.emp-content {}
+.emp-heading {
+  font-family: var(--serif);
+  font-size: clamp(2.3rem, 4.5vw, 3.8rem);
+  font-weight: 300; line-height: 1.1; color: var(--cream);
+  margin-bottom: 2rem; letter-spacing: -0.01em;
+}
+.emp-heading em { font-style: italic; color: var(--gold-pale); display: block; }
+.emp-text {
+  font-family: var(--serif);
+  font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+  font-weight: 300; font-style: italic;
+  color: rgba(240,237,230,0.5); line-height: 1.9;
+  margin-bottom: 1.2rem; letter-spacing: 0.01em;
+}
+.emp-text strong { color: rgba(240,237,230,0.85); font-style: normal; font-weight: 400; }
+.emp-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 0; margin-top: 3.5rem;
+  border-top: 1px solid rgba(184,148,46,0.15);
+  border-left: 1px solid rgba(184,148,46,0.15);
+}
+.emp-stat {
+  padding: 1.8rem 1.5rem;
+  border-right: 1px solid rgba(184,148,46,0.15);
+  border-bottom: 1px solid rgba(184,148,46,0.15);
+  position: relative; overflow: hidden;
+  transition: background 0.5s;
+}
+.emp-stat:hover { background: rgba(184,148,46,0.04); }
+.emp-stat::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--neon), var(--gold));
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.6s var(--ease-expo);
+}
+.emp-stat:hover::before { transform: scaleX(1); }
+.emp-stat-num {
+  font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 300; color: var(--gold); letter-spacing: -0.02em; line-height: 1;
+}
+.emp-stat-label {
+  font-family: var(--mono); font-size: 0.45rem; letter-spacing: 0.2em;
+  text-transform: uppercase; color: rgba(240,237,230,0.3); margin-top: 0.5rem;
+}
+
+/* ==================== DIFERENCIAIS ==================== */
+#diferenciais {
+  position: relative; padding: clamp(7rem, 12vw, 11rem) 0; overflow: hidden;
+}
+.dif-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(30,59,50,0.12) 0%, transparent 60%), var(--void);
+}
+.dif-inner {
+  position: relative; z-index: 1;
+  max-width: 1280px; margin: 0 auto; padding: 0 5vw;
+}
+.dif-header {
+  text-align: center; margin-bottom: 5rem;
+}
+.dif-title {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 300; color: var(--cream);
+  margin-bottom: 1rem; line-height: 1.15;
+}
+.dif-title em { font-style: italic; color: var(--gold-pale); }
+.dif-subtitle {
+  font-family: var(--serif);
+  font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+  font-style: italic; color: rgba(240,237,230,0.35);
+  font-weight: 300;
+}
+.dif-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+.dif-card {
+  position: relative; padding: 3.5rem 2.5rem;
+  background: rgba(255,255,255,0.015);
+  border: 1px solid rgba(184,148,46,0.06);
+  transition: background 0.6s var(--ease-expo), border-color 0.6s;
+  overflow: hidden; cursor: default;
+}
+.dif-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--neon), var(--gold), var(--neon));
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.7s var(--ease-expo);
+}
+.dif-card:hover { background: rgba(0,232,181,0.03); border-color: rgba(184,148,46,0.14); }
+.dif-card:hover::before { transform: scaleX(1); }
+.dif-card-num {
+  font-family: var(--mono); font-size: 0.5rem; letter-spacing: 0.3em;
+  color: rgba(184,148,46,0.3); margin-bottom: 2rem;
+  display: flex; align-items: center; gap: 1rem;
+}
+.dif-card-num::after { content: ''; flex: 1; max-width: 24px; height: 1px; background: rgba(184,148,46,0.2); }
+.dif-card-icon {
+  width: 44px; height: 44px; margin-bottom: 1.8rem;
+  color: var(--gold); opacity: 0.6; transition: opacity 0.4s;
+}
+.dif-card:hover .dif-card-icon { opacity: 1; }
+.dif-card-icon svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.2; }
+.dif-card-title {
+  font-family: var(--serif);
+  font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+  font-weight: 400; color: var(--cream);
+  letter-spacing: 0.02em; margin-bottom: 0.8rem;
+}
+.dif-card-text {
+  font-size: 0.82rem; line-height: 1.9;
+  color: rgba(240,237,230,0.4); font-weight: 400;
+}
+.dif-card-text strong { color: rgba(240,237,230,0.75); font-weight: 600; }
+
+/* ==================== GALLERY ==================== */
+#gallery {
+  position: relative; padding-top: clamp(5rem, 9vw, 9rem); overflow: hidden;
+}
+.gallery-header {
+  max-width: 1280px; margin: 0 auto;
+  padding: 0 5vw; margin-bottom: 3rem;
+  display: flex; align-items: flex-end; justify-content: space-between;
+}
+.gallery-title {
+  font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 300; color: var(--cream); letter-spacing: -0.01em;
+}
+.gallery-title em { font-style: italic; color: var(--gold-pale); }
+.gallery-scroll-hint {
+  font-family: var(--mono); font-size: 0.48rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: rgba(240,237,230,0.3);
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.gallery-scroll-hint svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+.gallery-track {
+  display: flex; gap: 16px;
+  padding: 0 5vw 5rem;
+  overflow-x: auto; overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  cursor: grab;
+}
+.gallery-track:active { cursor: grabbing; }
+.gallery-track::-webkit-scrollbar { display: none; }
+.gallery-item {
+  flex: 0 0 auto;
+  width: clamp(280px, 35vw, 480px);
+  aspect-ratio: 3/4;
+  position: relative; overflow: hidden;
+  scroll-snap-align: start;
+  border: 1px solid rgba(184,148,46,0.06);
+}
+.gallery-item.wide {
+  width: clamp(380px, 50vw, 680px);
+  aspect-ratio: 16/9;
+}
+.gallery-item img, .gallery-item video {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.9s var(--ease-expo);
+}
+.gallery-item:hover img, .gallery-item:hover video { transform: scale(1.06); }
+.gallery-item-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(6,7,8,0.85) 100%);
+  opacity: 0; transition: opacity 0.5s;
+}
+.gallery-item:hover .gallery-item-overlay { opacity: 1; }
+.gallery-item-info {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 1.5rem; opacity: 0; transform: translateY(8px);
+  transition: opacity 0.5s, transform 0.5s var(--ease-expo);
+}
+.gallery-item:hover .gallery-item-info { opacity: 1; transform: translateY(0); }
+.gallery-item-tag {
+  font-family: var(--mono); font-size: 0.48rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--neon); margin-bottom: 0.4rem;
+}
+.gallery-item-name {
+  font-family: var(--serif); font-size: 1.1rem; color: var(--cream); font-weight: 300;
+}
+
+/* ==================== ROOFTOP SECTION ==================== */
+#rooftop {
+  position: relative; height: 100svh; min-height: 700px;
+  display: flex; align-items: center; justify-content: flex-end;
+  overflow: hidden;
+}
+.rooftop-video {
+  position: absolute; inset: 0; z-index: 0;
+}
+.rooftop-video video {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.rooftop-overlay {
+  position: absolute; inset: 0; z-index: 1;
+  background:
+    linear-gradient(90deg, rgba(6,7,8,0.9) 0%, rgba(6,7,8,0.3) 50%, rgba(6,7,8,0.6) 100%),
+    linear-gradient(180deg, rgba(6,7,8,0.5) 0%, transparent 30%, rgba(6,7,8,0.8) 100%);
+}
+.rooftop-content {
+  position: relative; z-index: 2;
+  padding: 0 6vw; max-width: 600px; margin-right: auto;
+}
+.rooftop-eyebrow {
+  font-family: var(--mono); font-size: 0.52rem; letter-spacing: 0.4em;
+  text-transform: uppercase; color: var(--neon);
+  display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem;
+}
+.rooftop-eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--neon); }
+.rooftop-title {
+  font-family: var(--serif);
+  font-size: clamp(2.3rem, 5vw, 4.5rem);
+  font-weight: 300; color: var(--cream); line-height: 1.1;
+  letter-spacing: -0.01em; margin-bottom: 2rem;
+}
+.rooftop-title em { font-style: italic; color: var(--gold-pale); display: block; }
+.rooftop-text {
+  font-family: var(--serif);
+  font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+  font-weight: 300; font-style: italic;
+  color: rgba(240,237,230,0.5); line-height: 1.9; margin-bottom: 2.5rem;
+}
+.rooftop-features {
+  display: flex; flex-direction: column; gap: 1rem; margin-bottom: 3rem;
+}
+.rooftop-feature {
+  display: flex; align-items: center; gap: 1rem;
+  font-size: 0.78rem; color: rgba(240,237,230,0.6); font-weight: 400;
+}
+.rooftop-feature::before {
+  content: ''; width: 20px; height: 1px;
+  background: var(--gold); flex-shrink: 0;
+}
+
+/* ==================== VIDEO SPLIT SECTIONS ==================== */
+.video-split {
+  position: relative; display: grid; grid-template-columns: 1fr 1fr;
+  min-height: 75vh; overflow: hidden;
+}
+.video-split-media {
+  position: relative; overflow: hidden;
+}
+.video-split-media video, .video-split-media img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 1.2s var(--ease-expo);
+}
+.video-split:hover .video-split-media video,
+.video-split:hover .video-split-media img { transform: scale(1.04); }
+.video-split-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent 60%, var(--void) 100%);
+}
+.video-split-overlay.right {
+  background: linear-gradient(270deg, transparent 60%, var(--void) 100%);
+}
+.video-split-content {
+  padding: clamp(4rem, 8vw, 7rem) clamp(3rem, 6vw, 6rem);
+  display: flex; flex-direction: column; justify-content: center;
+  background: var(--void); position: relative;
+}
+.video-split-content::before {
+  content: ''; position: absolute;
+  top: 0; bottom: 0; width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(184,148,46,0.15), transparent);
+}
+.video-split-content.right::before { right: 0; }
+.video-split-content.left::before  { left: 0; }
+.vs-eyebrow {
+  font-family: var(--mono); font-size: 0.5rem; letter-spacing: 0.35em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem;
+  display: flex; align-items: center; gap: 0.8rem;
+}
+.vs-eyebrow::before { content: ''; width: 16px; height: 1px; background: var(--gold); }
+.vs-title {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 3.5vw, 3.2rem);
+  font-weight: 300; color: var(--cream); line-height: 1.15;
+  letter-spacing: -0.01em; margin-bottom: 1.5rem;
+}
+.vs-title em { font-style: italic; color: var(--gold-pale); }
+.vs-text {
+  font-family: var(--serif); font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+  font-weight: 300; font-style: italic;
+  color: rgba(240,237,230,0.45); line-height: 1.9;
+}
+.vs-stat {
+  margin-top: 2.5rem; padding-top: 2rem;
+  border-top: 1px solid rgba(184,148,46,0.12);
+}
+.vs-stat-num {
+  font-family: var(--serif); font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-weight: 300; color: var(--gold); line-height: 1;
+}
+.vs-stat-label {
+  font-family: var(--mono); font-size: 0.47rem; letter-spacing: 0.2em;
+  text-transform: uppercase; color: rgba(240,237,230,0.3); margin-top: 0.4rem;
+}
+
+/* ==================== PLANTAS (FLOOR PLANS) ==================== */
+#plantas {
+  position: relative; padding: clamp(7rem, 12vw, 11rem) 0; overflow: hidden;
+  background: var(--deep);
+}
+.plantas-inner {
+  max-width: 1280px; margin: 0 auto; padding: 0 5vw;
+}
+.plantas-header { text-align: center; margin-bottom: 5rem; }
+.plantas-title {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 300; color: var(--cream); letter-spacing: -0.01em;
+}
+.plantas-title em { font-style: italic; color: var(--gold-pale); }
+.plantas-tabs {
+  display: flex; justify-content: center; gap: 0;
+  margin-bottom: 4rem; border: 1px solid rgba(184,148,46,0.12);
+  overflow: hidden;
+}
+.planta-tab {
+  flex: 1; max-width: 180px;
+  padding: 0.8rem 1rem;
+  font-family: var(--mono); font-size: 0.48rem; letter-spacing: 0.25em;
+  text-transform: uppercase; color: rgba(240,237,230,0.35);
+  background: transparent; border: none; border-right: 1px solid rgba(184,148,46,0.12);
+  cursor: none; transition: all 0.4s; text-align: center;
+}
+.planta-tab:last-child { border-right: none; }
+.planta-tab.active { background: rgba(184,148,46,0.08); color: var(--gold); }
+.planta-tab:hover:not(.active) { background: rgba(255,255,255,0.02); color: rgba(240,237,230,0.6); }
+.plantas-viewer {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;
+}
+.planta-image-wrap {
+  position: relative; background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(184,148,46,0.1); padding: 2rem;
+}
+.planta-image-wrap img {
+  width: 100%; height: auto; display: block;
+  filter: brightness(0.9) contrast(1.05);
+  mix-blend-mode: luminosity; opacity: 0.8;
+  transition: opacity 0.4s;
+}
+.planta-image-wrap:hover img { opacity: 1; mix-blend-mode: normal; }
+.planta-image-overlay {
+  position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(circle at center, transparent 60%, rgba(6,7,8,0.4) 100%);
+}
+.planta-info {}
+.planta-floor-name {
+  font-family: var(--serif); font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+  font-weight: 300; color: var(--cream); margin-bottom: 0.5rem;
+}
+.planta-floor-area {
+  font-family: var(--mono); font-size: 2.5rem; font-weight: 400;
+  color: var(--neon); line-height: 1; margin-bottom: 2.5rem;
+}
+.planta-floor-area span { font-size: 1rem; opacity: 0.7; }
+.planta-desc {
+  font-family: var(--serif); font-size: clamp(0.9rem, 1.4vw, 1.05rem);
+  font-weight: 300; font-style: italic;
+  color: rgba(240,237,230,0.45); line-height: 1.85; margin-bottom: 3rem;
+}
+.planta-table { width: 100%; }
+.planta-table-row {
+  display: flex; justify-content: space-between;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid rgba(184,148,46,0.06);
+  font-size: 0.78rem;
+}
+.planta-table-row.total {
+  border-bottom: none; border-top: 1px solid rgba(184,148,46,0.2);
+  padding-top: 1.2rem; margin-top: 0.4rem;
+}
+.row-label { color: rgba(240,237,230,0.45); }
+.row-value { font-family: var(--mono); color: var(--cream); }
+.row-value.gold { color: var(--gold); font-size: 0.9rem; }
+.planta-nav {
+  display: flex; gap: 0.8rem; justify-content: center; margin-top: 3rem;
+}
+.planta-nav-btn {
+  width: 40px; height: 40px; border: 1px solid rgba(184,148,46,0.2);
+  background: rgba(184,148,46,0.03); color: var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  cursor: none; transition: all 0.3s;
+}
+.planta-nav-btn:hover { background: var(--gold); color: var(--void); border-color: var(--gold); }
+.planta-nav-btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; }
+
+/* ==================== SUSTENTABILIDADE ==================== */
+#sustentabilidade {
+  position: relative; padding: clamp(7rem, 12vw, 11rem) 0; overflow: hidden;
+}
+.sust-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 70% at 80% 50%, rgba(30,59,50,0.2) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 50% at 10% 60%, rgba(0,232,181,0.04) 0%, transparent 50%),
+    var(--void);
+}
+.sust-inner {
+  position: relative; z-index: 1;
+  max-width: 1280px; margin: 0 auto; padding: 0 5vw;
+}
+.sust-header { margin-bottom: 5rem; max-width: 600px; }
+.sust-title {
+  font-family: var(--serif); font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 300; color: var(--cream); letter-spacing: -0.01em; line-height: 1.15;
+}
+.sust-title em { font-style: italic; color: var(--gold-pale); }
+.sust-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px;
+}
+.sust-item {
+  padding: 3rem 2.5rem;
+  background: rgba(255,255,255,0.015);
+  border: 1px solid rgba(184,148,46,0.06);
+  transition: background 0.5s; position: relative; overflow: hidden;
+}
+.sust-item::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, var(--neon), transparent);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.6s var(--ease-expo);
+}
+.sust-item:hover { background: rgba(0,232,181,0.025); }
+.sust-item:hover::after { transform: scaleX(1); }
+.sust-icon {
+  width: 48px; height: 48px; margin-bottom: 1.8rem;
+  color: var(--neon); opacity: 0.5; transition: opacity 0.4s;
+}
+.sust-item:hover .sust-icon { opacity: 0.9; }
+.sust-icon svg { width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.2; }
+.sust-item-title {
+  font-family: var(--serif); font-size: clamp(1.2rem, 2vw, 1.6rem);
+  font-weight: 400; color: var(--cream); margin-bottom: 0.8rem;
+}
+.sust-item-text {
+  font-size: 0.82rem; line-height: 1.85;
+  color: rgba(240,237,230,0.4);
+}
+
+/* ==================== LOCALIZACAO ==================== */
+#localizacao {
+  position: relative; overflow: hidden;
+  display: grid; grid-template-columns: 1fr 1fr; min-height: 80vh;
+}
+.loc-image {
+  position: relative; overflow: hidden;
+}
+.loc-image img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.loc-image-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent 50%, var(--void) 100%);
+}
+.loc-content {
+  padding: clamp(5rem, 9vw, 9rem) clamp(3rem, 6vw, 6rem);
+  display: flex; flex-direction: column; justify-content: center;
+  background: var(--void); position: relative;
+}
+.loc-title {
+  font-family: var(--serif); font-size: clamp(1.8rem, 3.2vw, 2.8rem);
+  font-weight: 300; color: var(--cream); letter-spacing: -0.01em;
+  line-height: 1.15; margin-bottom: 3rem;
+}
+.loc-title em { font-style: italic; color: var(--gold-pale); display: block; }
+.loc-points { display: flex; flex-direction: column; gap: 0; }
+.loc-point {
+  display: grid; grid-template-columns: 80px 1fr;
+  align-items: center; gap: 1.5rem;
+  padding: 1.4rem 0;
+  border-bottom: 1px solid rgba(184,148,46,0.06);
+  transition: background 0.3s; position: relative;
+}
+.loc-point:first-child { border-top: 1px solid rgba(184,148,46,0.06); }
+.loc-point:hover { background: rgba(184,148,46,0.02); }
+.loc-time {
+  font-family: var(--serif); font-size: 1.8rem; font-weight: 300;
+  color: var(--gold); text-align: right; line-height: 1;
+}
+.loc-time span { font-family: var(--mono); font-size: 0.6rem; color: rgba(240,237,230,0.4); }
+.loc-name {
+  font-family: var(--sans); font-size: 0.85rem; font-weight: 500;
+  color: var(--cream); margin-bottom: 0.2rem;
+}
+.loc-detail {
+  font-family: var(--sans); font-size: 0.7rem;
+  color: rgba(240,237,230,0.3);
+}
+
+/* ==================== GSWP ABOUT ==================== */
+#gswp {
+  position: relative; padding: clamp(7rem, 12vw, 11rem) 0; overflow: hidden;
+  background: linear-gradient(135deg, var(--stone) 0%, var(--charcoal) 100%);
+}
+.gswp-bg-pattern {
+  position: absolute; inset: 0; opacity: 0.04;
+  background-image: repeating-linear-gradient(45deg, transparent 0, transparent 30px, rgba(184,148,46,0.5) 30px, rgba(184,148,46,0.5) 31px);
+}
+.gswp-inner {
+  position: relative; z-index: 1;
+  max-width: 1280px; margin: 0 auto; padding: 0 5vw;
+  display: grid; grid-template-columns: 1fr 1.6fr; gap: 6rem; align-items: center;
+}
+.gswp-brand { text-align: center; }
+.gswp-logo-word {
+  font-family: var(--serif); font-size: clamp(4rem, 8vw, 8rem);
+  font-weight: 300; letter-spacing: 0.3em; color: transparent;
+  -webkit-text-stroke: 1px rgba(184,148,46,0.35);
+  line-height: 1; margin-bottom: 1rem;
+}
+.gswp-logo-sub {
+  font-family: var(--mono); font-size: 0.48rem; letter-spacing: 0.4em;
+  text-transform: uppercase; color: rgba(184,148,46,0.4);
+}
+.gswp-logo-line {
+  width: 40px; height: 1px; background: rgba(184,148,46,0.3);
+  margin: 1.5rem auto;
+}
+.gswp-text-heading {
+  font-family: var(--serif); font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+  font-weight: 300; color: var(--cream); margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+.gswp-text-heading em { font-style: italic; color: var(--gold-pale); }
+.gswp-p {
+  font-family: var(--serif); font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+  font-weight: 300; font-style: italic;
+  color: rgba(240,237,230,0.45); line-height: 1.9; margin-bottom: 1rem;
+}
+.gswp-values {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+  margin-top: 2.5rem;
+  border-top: 1px solid rgba(184,148,46,0.1);
+  border-left: 1px solid rgba(184,148,46,0.1);
+}
+.gswp-value {
+  padding: 1.2rem 1rem;
+  border-right: 1px solid rgba(184,148,46,0.1);
+  border-bottom: 1px solid rgba(184,148,46,0.1);
+  font-size: 0.72rem; color: rgba(240,237,230,0.45);
+  display: flex; align-items: center; gap: 0.8rem;
+}
+.gswp-value::before {
+  content: ''; width: 4px; height: 4px;
+  background: var(--gold); opacity: 0.5; flex-shrink: 0;
+}
+
+/* ==================== CTA FINAL ==================== */
+#cta {
+  position: relative; height: 100svh; min-height: 700px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden; text-align: center;
+}
+.cta-video {
+  position: absolute; inset: 0; z-index: 0;
+}
+.cta-video video {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.cta-overlay {
+  position: absolute; inset: 0; z-index: 1;
+  background:
+    radial-gradient(ellipse 80% 80% at 50% 50%, rgba(6,7,8,0.65) 0%, rgba(6,7,8,0.92) 100%);
+}
+.cta-grid {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(0,232,181,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,232,181,0.025) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+.cta-content {
+  position: relative; z-index: 2; max-width: 820px; padding: 0 5vw;
+}
+.cta-eyebrow {
+  font-family: var(--mono); font-size: 0.52rem; letter-spacing: 0.4em;
+  text-transform: uppercase; color: var(--neon);
+  display: flex; align-items: center; justify-content: center; gap: 1.5rem; margin-bottom: 2rem;
+}
+.cta-eyebrow::before, .cta-eyebrow::after { content: ''; width: 30px; height: 1px; background: var(--neon); opacity: 0.5; }
+.cta-divider {
+  display: flex; align-items: center; justify-content: center; gap: 1.5rem; margin: 2.5rem auto;
+}
+.cta-divider-line { width: 60px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+.cta-divider-diamond { width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); }
+.cta-title {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4.5vw, 4rem);
+  font-weight: 300; color: var(--cream); line-height: 1.25;
+  letter-spacing: -0.01em; margin-bottom: 1.5rem;
+}
+.cta-title em { font-style: italic; color: var(--gold-pale); }
+.cta-text {
+  font-family: var(--serif); font-size: clamp(0.95rem, 1.6vw, 1.15rem);
+  font-weight: 300; font-style: italic;
+  color: rgba(240,237,230,0.45); line-height: 1.9; margin-bottom: 3.5rem;
+  max-width: 650px; margin-left: auto; margin-right: auto;
+}
+.cta-buttons { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 4rem; }
+.btn-cta-primary {
+  font-family: var(--sans); font-size: 0.65rem; letter-spacing: 0.22em;
+  text-transform: uppercase; font-weight: 600;
+  color: var(--void); background: var(--gold);
+  padding: 1.2rem 3.5rem; text-decoration: none;
+  transition: all 0.5s var(--ease-expo); position: relative; overflow: hidden;
+}
+.btn-cta-primary::before {
+  content: ''; position: absolute; inset: 0; background: var(--neon);
+  transform: translateX(-101%); transition: transform 0.5s var(--ease-expo);
+}
+.btn-cta-primary:hover::before { transform: translateX(0); }
+.btn-cta-primary span { position: relative; z-index: 1; }
+.btn-cta-secondary {
+  font-family: var(--sans); font-size: 0.6rem; letter-spacing: 0.2em;
+  text-transform: uppercase; font-weight: 500;
+  color: rgba(240,237,230,0.5); text-decoration: none;
+  border: 1px solid rgba(240,237,230,0.12);
+  padding: 1.2rem 2.5rem; transition: all 0.4s;
+}
+.btn-cta-secondary:hover { color: var(--cream); border-color: rgba(240,237,230,0.3); }
+.cta-contacts {
+  display: flex; gap: 3rem; justify-content: center; flex-wrap: wrap;
+}
+.cta-contact {
+  display: flex; align-items: center; gap: 0.8rem;
+  font-family: var(--mono); font-size: 0.58rem; letter-spacing: 0.1em;
+  color: rgba(240,237,230,0.4); text-decoration: none;
+  transition: color 0.3s;
+}
+.cta-contact:hover { color: var(--gold-light); }
+.cta-contact svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5; opacity: 0.6; }
+
+/* ==================== FOOTER ==================== */
+footer {
+  background: var(--void);
+  border-top: 1px solid rgba(184,148,46,0.06);
+  padding: 2rem 5vw;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1rem;
+}
+.footer-logo {
+  font-family: var(--serif); font-size: 1rem; font-weight: 300;
+  letter-spacing: 0.3em; text-transform: uppercase; color: rgba(240,237,230,0.25);
+}
+.footer-note {
+  font-family: var(--mono); font-size: 0.45rem;
+  letter-spacing: 0.2em; color: rgba(240,237,230,0.2);
+  text-align: right;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 900px) {
+  .nav-links, .nav-cta { display: none; }
+  .nav-mobile { display: block; }
+  .cursor-dot, .cursor-ring, .cursor-neon { display: none; }
+  body { cursor: auto; }
+
+  .emp-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .emp-image-wrap { aspect-ratio: 16/9; }
+
+  .dif-grid { grid-template-columns: 1fr; }
+
+  .video-split { grid-template-columns: 1fr; }
+  .video-split-media { height: 55vw; }
+  .video-split-overlay { background: linear-gradient(180deg, transparent 40%, var(--void) 100%) !important; }
+
+  .plantas-viewer { grid-template-columns: 1fr; gap: 2.5rem; }
+
+  .sust-grid { grid-template-columns: 1fr; }
+
+  #localizacao { grid-template-columns: 1fr; }
+  .loc-image { height: 50vw; }
+  .loc-image-overlay { background: linear-gradient(180deg, transparent 50%, var(--void) 100%); }
+
+  .gswp-inner { grid-template-columns: 1fr; gap: 3rem; }
+
+  footer { flex-direction: column; text-align: center; }
+  .footer-note { text-align: center; }
+
+  #rooftop { align-items: flex-end; }
+  .rooftop-content { padding: 0 5vw 5vh; max-width: 100%; }
+
+  .gallery-item { width: clamp(240px, 75vw, 380px); }
+  .gallery-item.wide { width: clamp(280px, 85vw, 480px); }
+}
+
+@media (max-width: 600px) {
+  .hero-stats { gap: 1.8rem; }
+  .emp-stats { grid-template-columns: 1fr 1fr 1fr; }
+  .gswp-values { grid-template-columns: 1fr; }
+  .plantas-tabs { flex-wrap: wrap; }
+  .planta-tab { flex: 0 0 50%; border-right: none; border-bottom: 1px solid rgba(184,148,46,0.12); }
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="cursor-neon" id="cursorNeon"></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-tag">// RESERVA JOÃO PAULO — FLORIANÓPOLIS</div>
+  <div class="loader-logo">Rooftop</div>
+  <div class="loader-sub">Houses · 4 Unidades · 357m²</div>
+  <div class="loader-bar" id="loaderBar"></div>
+</div>
+
+<!-- NAVIGATION -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo">
+    <div class="nav-logo-main">Rooftop Houses</div>
+    <div class="nav-logo-sub">// Reserva João Paulo · Florianópolis</div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#empreendimento">O Empreendimento</a></li>
+    <li><a href="#rooftop">Rooftop</a></li>
+    <li><a href="#plantas">Plantas</a></li>
+    <li><a href="#localizacao">Localização</a></li>
+  </ul>
+  <a href="#cta" class="nav-cta">Agendar Visita</a>
+  <button class="nav-mobile" id="navMobile" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ==================== HERO ==================== -->
+<section id="hero">
+  <div class="hero-video">
+    <video autoplay muted loop playsinline preload="auto">
+      <source src="Fotos Zanuto/videos/FACHADA 01.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-overlay"></div>
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-tag">
+      <div class="hero-tag-line"></div>
+      <div class="hero-tag-text">Florianópolis · João Paulo · Apenas 4 Unidades</div>
+    </div>
+    <h1 class="hero-title">
+      Reserva<br>
+      <em>João Paulo</em>
+    </h1>
+    <div class="hero-divider">
+      <div class="hero-divider-line"></div>
+      <div class="hero-divider-diamond"></div>
+    </div>
+    <p class="hero-subtitle">Onde a natureza encontra o extraordinário.</p>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num">4</div>
+        <div class="hero-stat-label">Unidades exclusivas</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">357m²</div>
+        <div class="hero-stat-label">Área privativa</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">5</div>
+        <div class="hero-stat-label">Pavimentos triplex</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">300m</div>
+        <div class="hero-stat-label">Do mar</div>
+      </div>
+    </div>
+    <div class="hero-cta-group">
+      <a href="#cta" class="btn-primary"><span>Agendar Visita Exclusiva</span></a>
+      <a href="#empreendimento" class="btn-ghost">
+        Explorar o empreendimento
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <div class="scroll-label">Scroll</div>
+  </div>
+</section>
+
+<!-- ==================== MANIFESTO ==================== -->
+<section id="manifesto">
+  <div class="manifesto-bg"></div>
+  <div class="manifesto-orb"></div>
+  <div class="manifesto-inner">
+    <div class="manifesto-diamond reveal"></div>
+    <blockquote class="manifesto-quote reveal reveal-delay-1">
+      <span class="q-mark">"</span>Raridade sempre esteve associada ao luxo.
+      Aqui, ela se traduz em apenas <span class="highlight">quatro residências únicas</span>,
+      cercadas pela natureza intocada de Florianópolis.
+    </blockquote>
+    <div class="manifesto-author reveal reveal-delay-2">
+      <div class="manifesto-author-line"></div>
+      <div class="manifesto-author-text">Filosofia Reserva João Paulo</div>
+      <div class="manifesto-author-line"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== O EMPREENDIMENTO ==================== -->
+<section id="empreendimento">
+  <div class="emp-bg"></div>
+  <div class="emp-inner">
+    <div class="emp-image-wrap reveal">
+      <img src="Fotos Zanuto/09_FACHADA 03.jpg" alt="Fachada Reserva João Paulo" loading="lazy">
+      <div class="emp-image-frame"></div>
+      <div class="emp-image-corner tl"></div>
+      <div class="emp-image-corner tr"></div>
+      <div class="emp-image-corner bl"></div>
+      <div class="emp-image-corner br"></div>
+      <div class="emp-image-tag">// Fachada Principal</div>
+    </div>
+    <div class="emp-content">
+      <div class="section-tag reveal">01 — O Empreendimento</div>
+      <h2 class="emp-heading reveal reveal-delay-1">
+        Um refúgio<br>
+        <em>natural e moderno</em>
+      </h2>
+      <p class="emp-text reveal reveal-delay-2">
+        O <strong>Rooftop Houses Reserva João Paulo</strong> é um empreendimento de alto padrão que redefine o conceito de moradia em Florianópolis. São apenas 4 unidades exclusivas, cada uma com 357m² de área total distribuídos em 5 pavimentos.
+      </p>
+      <p class="emp-text reveal reveal-delay-3">
+        Vista permanente para o <strong>pôr do sol mais deslumbrante de Florianópolis</strong>. Sem vizinhos de frente. Cercado por uma reserva ambiental. A 300 metros do mar.
+      </p>
+      <div class="emp-stats reveal reveal-delay-4">
+        <div class="emp-stat">
+          <div class="emp-stat-num counter" data-target="357">0</div>
+          <div class="emp-stat-label">metros quadrados</div>
+        </div>
+        <div class="emp-stat">
+          <div class="emp-stat-num counter" data-target="5">0</div>
+          <div class="emp-stat-label">pavimentos</div>
+        </div>
+        <div class="emp-stat">
+          <div class="emp-stat-num counter" data-target="3">0</div>
+          <div class="emp-stat-label">suítes</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== DIFERENCIAIS ==================== -->
+<section id="diferenciais">
+  <div class="dif-bg"></div>
+  <div class="dif-inner">
+    <div class="dif-header">
+      <div class="section-tag reveal" style="justify-content:center;">02 — Diferenciais</div>
+      <h2 class="dif-title reveal reveal-delay-1">
+        Cada detalhe projetado para quem<br><em>não aceita o comum</em>
+      </h2>
+      <p class="dif-subtitle reveal reveal-delay-2">
+        Six pillars of extraordinary living
+      </p>
+    </div>
+    <div class="dif-grid">
+      <div class="dif-card reveal">
+        <div class="dif-card-num">01</div>
+        <div class="dif-card-icon">
+          <svg viewBox="0 0 48 48"><path d="M24 4L8 20v24h32V20z"/><path d="M8 20h32"/><path d="M16 44V30h16v14"/><circle cx="38" cy="10" r="5"/><path d="M35 8h6M38 5v6"/></svg>
+        </div>
+        <h3 class="dif-card-title">Rooftop Privativo</h3>
+        <p class="dif-card-text">Piscina aquecida com borda infinita, área gourmet coberta com churrasqueira parrilla e <strong>vista panorâmica para o pôr do sol e o mar</strong>. Exclusivo de cada unidade.</p>
+      </div>
+      <div class="dif-card reveal reveal-delay-1">
+        <div class="dif-card-num">02</div>
+        <div class="dif-card-icon">
+          <svg viewBox="0 0 48 48"><rect x="10" y="4" width="28" height="40" rx="1"/><line x1="10" y1="16" x2="38" y2="16"/><line x1="10" y1="28" x2="38" y2="28"/><path d="M16 10h8"/><path d="M16 22h8"/></svg>
+        </div>
+        <h3 class="dif-card-title">Triplex de 357m²</h3>
+        <p class="dif-card-text"><strong>Cinco pavimentos</strong> com divisão inteligente. Pé-direito duplo de 6 metros na sala de estar, proporcionando imponência e amplitude absolutas.</p>
+      </div>
+      <div class="dif-card reveal reveal-delay-2">
+        <div class="dif-card-num">03</div>
+        <div class="dif-card-icon">
+          <svg viewBox="0 0 48 48"><path d="M24 4C14 4 6 12 6 22c0 14 18 22 18 22s18-8 18-22C42 12 34 4 24 4z"/><circle cx="24" cy="20" r="6"/><path d="M20 20l3 3 5-6"/></svg>
+        </div>
+        <h3 class="dif-card-title">Privacidade Total</h3>
+        <p class="dif-card-text">Apenas 4 unidades. <strong>Sem vizinhos de frente</strong>. Elevador exclusivo por unidade. Garagem privativa para 3 carros + moto com acesso direto.</p>
+      </div>
+      <div class="dif-card reveal reveal-delay-3">
+        <div class="dif-card-num">04</div>
+        <div class="dif-card-icon">
+          <svg viewBox="0 0 48 48"><path d="M24 4c-4 8-16 14-16 24a16 16 0 0032 0C40 18 28 12 24 4z"/><path d="M24 44V24M24 30c-4-2-8 0-10 4M24 22c3-1 7 1 8 5"/></svg>
+        </div>
+        <h3 class="dif-card-title">Natureza Integrada</h3>
+        <p class="dif-card-text">Em meio a uma reserva ambiental. <strong>Acorde ao som de tucanos e gralhas-azuis</strong>. A 300 metros do mar, em um dos bairros mais valorizados da ilha.</p>
+      </div>
+      <div class="dif-card reveal reveal-delay-4">
+        <div class="dif-card-num">05</div>
+        <div class="dif-card-icon">
+          <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="14"/><path d="M24 10v14M24 24l8 8"/><circle cx="24" cy="24" r="3"/><path d="M10 24H4M38 24h6M24 4v6M24 38v6"/></svg>
+        </div>
+        <h3 class="dif-card-title">Sustentabilidade</h3>
+        <p class="dif-card-text">Energia solar, reaproveitamento de água da chuva, isolamento termoacústico e <strong>redução de 80% na geração de entulho</strong>. Luxo com responsabilidade.</p>
+      </div>
+      <div class="dif-card reveal reveal-delay-5">
+        <div class="dif-card-num">06</div>
+        <div class="dif-card-icon">
+          <svg viewBox="0 0 48 48"><path d="M36 4L12 28l-4 16 16-4L48 16"/><path d="M30 10l8 8M12 28l8 8"/><circle cx="38" cy="6" r="4"/></svg>
+        </div>
+        <h3 class="dif-card-title">Personalização Total</h3>
+        <p class="dif-card-text">Escolha de acabamentos exclusivos. Porcelanatos 1,20×1,20m, louças e metais premium, <strong>automação completa integrada</strong>. A sua casa do seu jeito.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== GALLERY ==================== -->
+<section id="gallery">
+  <div class="gallery-header">
+    <div>
+      <div class="section-tag reveal">03 — Ambientes</div>
+      <h2 class="gallery-title reveal reveal-delay-1">
+        Cada espaço, <em>uma experiência</em>
+      </h2>
+    </div>
+    <div class="gallery-scroll-hint reveal reveal-delay-2">
+      Arraste para explorar
+      <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </div>
+  </div>
+  <div class="gallery-track" id="galleryTrack">
+    <div class="gallery-item wide">
+      <video autoplay muted loop playsinline preload="none">
+        <source src="Fotos Zanuto/videos/FACHADA 02-1.mp4" type="video/mp4">
+      </video>
+      <div class="gallery-item-overlay"></div>
+      <div class="gallery-item-info">
+        <div class="gallery-item-tag">// Fachada</div>
+        <div class="gallery-item-name">Vista lateral do empreendimento</div>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <img src="Fotos Zanuto/16_ESTAR E COZINHA.jpg" alt="Estar e Cozinha" loading="lazy">
+      <div class="gallery-item-overlay"></div>
+      <div class="gallery-item-info">
+        <div class="gallery-item-tag">// Social</div>
+        <div class="gallery-item-name">Estar & Cozinha Integrados</div>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <img src="Fotos Zanuto/17_ESTAR 01.jpg" alt="Sala de Estar" loading="lazy">
+      <div class="gallery-item-overlay"></div>
+      <div class="gallery-item-info">
+        <div class="gallery-item-tag">// Sala de Estar</div>
+        <div class="gallery-item-name">Pé-direito duplo 6m</div>
+      </div>
+    </div>
+    <div class="gallery-item wide">
+      <video autoplay muted loop playsinline preload="none">
+        <source src="Fotos Zanuto/videos/SALA E COZINHA 02.mp4" type="video/mp4">
+      </video>
+      <div class="gallery-item-overlay"></div>
+      <div class="gallery-item-info">
+        <div class="gallery-item-tag">// Living</div>
+        <div class="gallery-item-name">Sala e Cozinha Gourmet</div>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <img src="Fotos Zanuto/19_COZINHA 02.jpg" alt="Cozinha" loading="lazy">
+      <div class="gallery-item-overlay"></div>
+      <div class="gallery-item-info">
+        <div class="gallery-item-tag">// Gastronomia</div>
+        <div class="gallery-item-name">Cozinha Gourmet</div>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <img src="Fotos Zanuto/12_AREA GOURMET 01.jpg" alt="Área Gourmet" loading="lazy">
+      <div class="gallery-item-overlay"></div>
+      <div class="gallery-item-info">
+        <div class="gallery-item-tag">// Rooftop</div>
+        <div class="gallery-item-name">Área Gourmet Panorâmica</div>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <img src="Fotos Zanuto/13_AREA GOURMET 02.jpg" alt="Área Gourmet 2" loading="lazy">
+      <div class="gallery-item-overlay"></div>
+      <div class="gallery-item-info">
+        <div class="gallery-item-tag">// Rooftop</div>
+        <div class="gallery-item-name">Noites inesquecíveis</div>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <img src="Fotos Zanuto/21_SUÍTE MASTER.jpg" alt="Suíte Master" loading="lazy">
+      <div class="gallery-item-overlay"></div>
+      <div class="gallery-item-info">
+        <div class="gallery-item-tag">// Master</div>
+        <div class="gallery-item-name">Suíte Master</div>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <img src="Fotos Zanuto/22_BANHEIRO MASTER.jpg" alt="Banheiro Master" loading="lazy">
+      <div class="gallery-item-overlay"></div>
+      <div class="gallery-item-info">
+        <div class="gallery-item-tag">// Spa</div>
+        <div class="gallery-item-name">Banheiro Master</div>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <img src="Fotos Zanuto/24_CLOSET 02.jpg" alt="Closet" loading="lazy">
+      <div class="gallery-item-overlay"></div>
+      <div class="gallery-item-info">
+        <div class="gallery-item-tag">// Closet</div>
+        <div class="gallery-item-name">Closet Planejado</div>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <img src="Fotos Zanuto/20_OFFICE.jpg" alt="Office" loading="lazy">
+      <div class="gallery-item-overlay"></div>
+      <div class="gallery-item-info">
+        <div class="gallery-item-tag">// Mezanino</div>
+        <div class="gallery-item-name">Home Office Premium</div>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <img src="Fotos Zanuto/11_GARAGEM.jpg" alt="Garagem" loading="lazy">
+      <div class="gallery-item-overlay"></div>
+      <div class="gallery-item-info">
+        <div class="gallery-item-tag">// Subsolo</div>
+        <div class="gallery-item-name">Garagem Privativa 3 carros</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ROOFTOP ==================== -->
+<section id="rooftop">
+  <div class="rooftop-video">
+    <video autoplay muted loop playsinline preload="none">
+      <source src="Fotos Zanuto/videos/PISCINA 01.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="rooftop-overlay"></div>
+  <div class="rooftop-content">
+    <div class="rooftop-eyebrow reveal">04 — Seu Paraíso no Topo</div>
+    <h2 class="rooftop-title reveal reveal-delay-1">
+      Piscina aquecida<br>
+      <em>com borda infinita</em>
+    </h2>
+    <p class="rooftop-text reveal reveal-delay-2">
+      Sua piscina privativa no rooftop, com vista para o pôr do sol mais deslumbrante de Florianópolis. Sem compartilhar. Sem filas. Apenas você e o horizonte.
+    </p>
+    <div class="rooftop-features reveal reveal-delay-3">
+      <div class="rooftop-feature">Piscina aquecida com borda infinita</div>
+      <div class="rooftop-feature">Churrasqueira parrilla coberta</div>
+      <div class="rooftop-feature">Vista 360° para o pôr do sol</div>
+      <div class="rooftop-feature">Lounge externo com iluminação cênica</div>
+      <div class="rooftop-feature">62,64m² de puro privilégio</div>
+    </div>
+    <a href="#cta" class="btn-primary reveal reveal-delay-4">
+      <span>Quero Conhecer o Rooftop</span>
+    </a>
+  </div>
+</section>
+
+<!-- ==================== LIVING & COZINHA ==================== -->
+<div class="video-split">
+  <div class="video-split-media">
+    <video autoplay muted loop playsinline preload="none">
+      <source src="Fotos Zanuto/videos/SALA E COZINHA 01.mp4" type="video/mp4">
+    </video>
+    <div class="video-split-overlay"></div>
+  </div>
+  <div class="video-split-content right">
+    <div class="vs-eyebrow reveal">Living Integrado</div>
+    <h2 class="vs-title reveal reveal-delay-1">
+      Pé-direito duplo<br>de <em>6 metros</em>
+    </h2>
+    <p class="vs-text reveal reveal-delay-2">
+      Sala de estar com lareira a gás e cozinha gourmet em perfeita harmonia. Espaços amplos projetados para recepções memoráveis e o convívio que merece.
+    </p>
+    <div class="vs-stat reveal reveal-delay-3">
+      <div class="vs-stat-num">80,83<span style="font-size:1.5rem">m²</span></div>
+      <div class="vs-stat-label">Área social — 1º andar</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SUITE MASTER ==================== -->
+<div class="video-split">
+  <div class="video-split-content left" style="order:-1">
+    <div class="vs-eyebrow reveal">Setor Íntimo</div>
+    <h2 class="vs-title reveal reveal-delay-1">
+      Seu santuário<br><em>privativo</em>
+    </h2>
+    <p class="vs-text reveal reveal-delay-2">
+      Suíte master com varanda, closet planejado, banheira de imersão freestanding e ducha dupla. O despertar que você merece, todos os dias do ano.
+    </p>
+    <div class="vs-stat reveal reveal-delay-3">
+      <div class="vs-stat-num">77,19<span style="font-size:1.5rem">m²</span></div>
+      <div class="vs-stat-label">Setor íntimo — 2º andar</div>
+    </div>
+  </div>
+  <div class="video-split-media">
+    <video autoplay muted loop playsinline preload="none">
+      <source src="Fotos Zanuto/videos/SUITE MASTER-1.mp4" type="video/mp4">
+    </video>
+    <div class="video-split-overlay right"></div>
+  </div>
+</div>
+
+<!-- ==================== GARAGEM ==================== -->
+<div class="video-split">
+  <div class="video-split-media">
+    <video autoplay muted loop playsinline preload="none">
+      <source src="Fotos Zanuto/videos/GARAGEM-1.mp4" type="video/mp4">
+    </video>
+    <div class="video-split-overlay"></div>
+  </div>
+  <div class="video-split-content right">
+    <div class="vs-eyebrow reveal">Subsolo</div>
+    <h2 class="vs-title reveal reveal-delay-1">
+      Garagem<br><em>privativa</em>
+    </h2>
+    <p class="vs-text reveal reveal-delay-2">
+      Espaço para 3 veículos + moto, com acesso direto ao elevador exclusivo da sua unidade. Área técnica e lavanderia integradas no mesmo nível.
+    </p>
+    <div class="vs-stat reveal reveal-delay-3">
+      <div class="vs-stat-num">74,40<span style="font-size:1.5rem">m²</span></div>
+      <div class="vs-stat-label">Garagem + lavanderia — subsolo</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PLANTAS ==================== -->
+<section id="plantas">
+  <div class="plantas-inner">
+    <div class="plantas-header">
+      <div class="section-tag reveal" style="justify-content:center;">05 — Plantas & Áreas</div>
+      <h2 class="plantas-title reveal reveal-delay-1">
+        Cinco pavimentos.<br><em>Uma experiência por andar.</em>
+      </h2>
+    </div>
+    <div class="plantas-tabs reveal">
+      <button class="planta-tab active" data-floor="0">Subsolo</button>
+      <button class="planta-tab" data-floor="1">Térreo / 1º</button>
+      <button class="planta-tab" data-floor="2">Mezanino</button>
+      <button class="planta-tab" data-floor="3">2º Andar</button>
+      <button class="planta-tab" data-floor="4">Rooftop</button>
+    </div>
+    <div class="plantas-viewer">
+      <div class="planta-image-wrap reveal reveal-delay-1" id="plantaImageWrap">
+        <img id="plantaImg" src="Fotos Zanuto/01_PH_SUBSOLO.jpg" alt="Planta Subsolo" loading="lazy">
+        <div class="planta-image-overlay"></div>
+      </div>
+      <div class="planta-info reveal reveal-delay-2" id="plantaInfo">
+        <div class="section-label-gold">Planta baixa</div>
+        <div class="planta-floor-name" id="plantaName">Subsolo</div>
+        <div class="planta-floor-area" id="plantaArea">74,40 <span>m²</span></div>
+        <p class="planta-desc" id="plantaDesc">
+          Garagem para 3 veículos e moto com acesso direto ao elevador exclusivo da unidade. Área de lavanderia, área técnica e depósito integrados. O início de tudo.
+        </p>
+        <div class="planta-table">
+          <div class="planta-table-row">
+            <span class="row-label">Garagem</span>
+            <span class="row-value">3 vagas + moto</span>
+          </div>
+          <div class="planta-table-row">
+            <span class="row-label">Lavanderia</span>
+            <span class="row-value">Inclusa</span>
+          </div>
+          <div class="planta-table-row">
+            <span class="row-label">Elevador exclusivo</span>
+            <span class="row-value">Por unidade</span>
+          </div>
+          <div class="planta-table-row total">
+            <span class="row-label">Área total do pavimento</span>
+            <span class="row-value gold">74,40 m²</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Area Summary Table -->
+    <div class="reveal" style="margin-top:4rem; border:1px solid rgba(184,148,46,0.1); overflow:hidden;">
+      <div style="background:rgba(184,148,46,0.04); padding:1.2rem 2rem; border-bottom:1px solid rgba(184,148,46,0.08);">
+        <div style="font-family:var(--mono); font-size:0.48rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--gold);">// Tabela de Áreas — Resumo Completo</div>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(5,1fr); border-bottom:1px solid rgba(184,148,46,0.06);" id="areaTable">
+        <div style="padding:1.5rem 1.2rem; border-right:1px solid rgba(184,148,46,0.06); text-align:center;">
+          <div style="font-family:var(--mono); font-size:1rem; color:var(--neon); margin-bottom:0.3rem;">74,40</div>
+          <div style="font-family:var(--mono); font-size:0.42rem; color:rgba(240,237,230,0.3); letter-spacing:0.2em; text-transform:uppercase;">Subsolo</div>
+        </div>
+        <div style="padding:1.5rem 1.2rem; border-right:1px solid rgba(184,148,46,0.06); text-align:center;">
+          <div style="font-family:var(--mono); font-size:1rem; color:var(--neon); margin-bottom:0.3rem;">80,83</div>
+          <div style="font-family:var(--mono); font-size:0.42rem; color:rgba(240,237,230,0.3); letter-spacing:0.2em; text-transform:uppercase;">1º Andar</div>
+        </div>
+        <div style="padding:1.5rem 1.2rem; border-right:1px solid rgba(184,148,46,0.06); text-align:center;">
+          <div style="font-family:var(--mono); font-size:1rem; color:var(--neon); margin-bottom:0.3rem;">44,54</div>
+          <div style="font-family:var(--mono); font-size:0.42rem; color:rgba(240,237,230,0.3); letter-spacing:0.2em; text-transform:uppercase;">Mezanino</div>
+        </div>
+        <div style="padding:1.5rem 1.2rem; border-right:1px solid rgba(184,148,46,0.06); text-align:center;">
+          <div style="font-family:var(--mono); font-size:1rem; color:var(--neon); margin-bottom:0.3rem;">77,19</div>
+          <div style="font-family:var(--mono); font-size:0.42rem; color:rgba(240,237,230,0.3); letter-spacing:0.2em; text-transform:uppercase;">2º Andar</div>
+        </div>
+        <div style="padding:1.5rem 1.2rem; text-align:center; background:rgba(184,148,46,0.04);">
+          <div style="font-family:var(--mono); font-size:1rem; color:var(--gold-light); margin-bottom:0.3rem;">62,64</div>
+          <div style="font-family:var(--mono); font-size:0.42rem; color:rgba(240,237,230,0.3); letter-spacing:0.2em; text-transform:uppercase;">Rooftop ★</div>
+        </div>
+      </div>
+      <div style="padding:1.5rem 2rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+        <div style="font-family:var(--sans); font-size:0.72rem; color:rgba(240,237,230,0.35);">Área Privativa Total</div>
+        <div style="font-family:var(--mono); font-size:1.4rem; color:var(--gold);">357,19 m²</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SUSTENTABILIDADE ==================== -->
+<section id="sustentabilidade">
+  <div class="sust-bg"></div>
+  <div class="sust-inner">
+    <div class="sust-header">
+      <div class="section-tag reveal">06 — Responsabilidade</div>
+      <h2 class="sust-title reveal reveal-delay-1">
+        Onde o <em>silêncio</em><br>e a tecnologia<br>se encontram
+      </h2>
+    </div>
+    <div class="sust-grid">
+      <div class="sust-item reveal">
+        <div class="sust-icon">
+          <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="12"/><path d="M24 4v8M24 36v8M4 24h8M36 24h8"/><path d="M10.1 10.1l5.7 5.7M32.2 32.2l5.7 5.7M10.1 37.9l5.7-5.7M32.2 15.8l5.7-5.7"/></svg>
+        </div>
+        <h3 class="sust-item-title">Energia Solar</h3>
+        <p class="sust-item-text">Infraestrutura pronta para painéis solares e cocriação de energia com a rede elétrica. Economia real e autonomia energética.</p>
+      </div>
+      <div class="sust-item reveal reveal-delay-1">
+        <div class="sust-icon">
+          <svg viewBox="0 0 48 48"><path d="M24 4c-6 10-14 16-14 24a14 14 0 0028 0C38 20 30 14 24 4z"/><path d="M16 30c2-4 8-4 12 0"/><path d="M24 44V30"/></svg>
+        </div>
+        <h3 class="sust-item-title">Água da Chuva</h3>
+        <p class="sust-item-text">Sistema completo de captação e reaproveitamento, reduzindo consumo e custos operacionais em até 40%.</p>
+      </div>
+      <div class="sust-item reveal reveal-delay-2">
+        <div class="sust-icon">
+          <svg viewBox="0 0 48 48"><rect x="8" y="8" width="32" height="32" rx="2"/><rect x="14" y="14" width="20" height="20" rx="1"/><rect x="20" y="20" width="8" height="8" rx="0.5"/></svg>
+        </div>
+        <h3 class="sust-item-title">Isolamento Superior</h3>
+        <p class="sust-item-text">Concreto de 30cm entre unidades e esquadrias PVC Newtech. Silêncio absoluto. Conforto térmico sem ar-condicionado.</p>
+      </div>
+      <div class="sust-item reveal reveal-delay-3">
+        <div class="sust-icon">
+          <svg viewBox="0 0 48 48"><rect x="10" y="6" width="28" height="36" rx="3"/><circle cx="24" cy="20" r="5"/><path d="M19 20l4 4 6-6"/><path d="M16 32h16M18 36h12"/></svg>
+        </div>
+        <h3 class="sust-item-title">Automação Inteligente</h3>
+        <p class="sust-item-text">Smart home integrado. Água quente em todas as torneiras via boiler eficiente. Controle total na palma da mão.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== LOCALIZACAO ==================== -->
+<section id="localizacao">
+  <div class="loc-image">
+    <img src="Fotos Zanuto/10_FACHADA 05.jpg" alt="Fachada" loading="lazy">
+    <div class="loc-image-overlay"></div>
+  </div>
+  <div class="loc-content">
+    <div class="section-tag reveal">07 — Localização</div>
+    <h2 class="loc-title reveal reveal-delay-1">
+      No coração do bairro<br>mais <em>desejado</em><br>de Florianópolis
+    </h2>
+    <div class="loc-points reveal reveal-delay-2">
+      <div class="loc-point">
+        <div class="loc-time">6 <span>min</span></div>
+        <div>
+          <div class="loc-name">Centro de Florianópolis</div>
+          <div class="loc-detail">Comércio, gastronomia e serviços</div>
+        </div>
+      </div>
+      <div class="loc-point">
+        <div class="loc-time">10 <span>min</span></div>
+        <div>
+          <div class="loc-name">Jurerê Internacional</div>
+          <div class="loc-detail">A praia mais exclusiva do sul do Brasil</div>
+        </div>
+      </div>
+      <div class="loc-point">
+        <div class="loc-time">10 <span>min</span></div>
+        <div>
+          <div class="loc-name">Santo Antônio de Lisboa</div>
+          <div class="loc-detail">Gastronomia, cultura e charme histórico</div>
+        </div>
+      </div>
+      <div class="loc-point">
+        <div class="loc-time">300 <span>m</span></div>
+        <div>
+          <div class="loc-name">Mar & Pôr do Sol</div>
+          <div class="loc-detail">Vista privilegiada permanente</div>
+        </div>
+      </div>
+      <div class="loc-point">
+        <div class="loc-time" style="font-size:1rem; line-height:1.4;">SC<br>401</div>
+        <div>
+          <div class="loc-name">Via expressa SC-401</div>
+          <div class="loc-detail">Floripa Shopping, hospitais e escolas bilíngues</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== GSWP ==================== -->
+<section id="gswp">
+  <div class="gswp-bg-pattern"></div>
+  <div class="gswp-inner">
+    <div class="gswp-brand reveal">
+      <div class="gswp-logo-word">GSWP</div>
+      <div class="gswp-logo-line"></div>
+      <div class="gswp-logo-sub">Greystone Wellness Propriety</div>
+    </div>
+    <div>
+      <div class="section-tag reveal">08 — A Incorporadora</div>
+      <h2 class="gswp-text-heading reveal reveal-delay-1">
+        Construindo legados,<br><em>não apenas imóveis.</em>
+      </h2>
+      <p class="gswp-p reveal reveal-delay-2">
+        A Greystone Wellness Propriety nasceu da convicção de que moradia de alto padrão vai além de metragem e acabamentos. Trata-se de criar espaços que promovam bem-estar genuíno, conexão com a natureza e um estilo de vida que valoriza o que realmente importa.
+      </p>
+      <p class="gswp-p reveal reveal-delay-3">
+        Cada empreendimento GSWP é concebido como uma obra única, com atenção obsessiva aos detalhes, seleção criteriosa de materiais e compromisso inabalável com a sustentabilidade e a excelência construtiva.
+      </p>
+      <div class="gswp-values reveal reveal-delay-4">
+        <div class="gswp-value">Wellness Living</div>
+        <div class="gswp-value">Arquitetura Autoral</div>
+        <div class="gswp-value">Sustentabilidade Real</div>
+        <div class="gswp-value">Exclusividade Genuína</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== CTA FINAL ==================== -->
+<section id="cta">
+  <div class="cta-video">
+    <video autoplay muted loop playsinline preload="none">
+      <source src="Fotos Zanuto/videos/PISCINA 02.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="cta-overlay"></div>
+  <div class="cta-grid"></div>
+  <div class="cta-content">
+    <div class="cta-eyebrow reveal">Apenas 4 Unidades Disponíveis</div>
+    <div class="cta-divider reveal reveal-delay-1">
+      <div class="cta-divider-line"></div>
+      <div class="cta-divider-diamond"></div>
+      <div class="cta-divider-line"></div>
+    </div>
+    <h2 class="cta-title reveal reveal-delay-2">
+      Existem decisões que<br><em>definem a próxima<br>década da sua vida.</em>
+    </h2>
+    <p class="cta-text reveal reveal-delay-3">
+      O Reserva João Paulo não é um lançamento. É uma oportunidade que se fecha quando a quarta unidade encontrar seu dono. Sem fase 2. Sem replicação. Quatro famílias terão esse privilégio.
+    </p>
+    <div class="cta-buttons reveal reveal-delay-4">
+      <a href="tel:+5548999999999" class="btn-cta-primary">
+        <span>Quero Ser Um dos Quatro</span>
+      </a>
+      <a href="mailto:contato@gswp.com.br" class="btn-cta-secondary">Enviar Mensagem</a>
+    </div>
+    <div class="cta-contacts reveal reveal-delay-5">
+      <a href="tel:+5548999999999" class="cta-contact">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 015.1 12.7a19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+        (48) 99999-9999
+      </a>
+      <a href="mailto:contato@gswp.com.br" class="cta-contact">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+        contato@gswp.com.br
+      </a>
+      <a href="https://gswp.com.br" class="cta-contact">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+        gswp.com.br
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Rooftop Houses · Reserva João Paulo</div>
+  <div class="footer-note">
+    GSWP — Greystone Wellness Propriety<br>
+    Florianópolis · Santa Catarina · Brasil
+  </div>
+</footer>
+
+<!-- ==================== JAVASCRIPT ==================== -->
+<script>
+(function() {
+
+  /* ---- CURSOR ---- */
+  var dot   = document.getElementById('cursorDot');
+  var ring  = document.getElementById('cursorRing');
+  var neon  = document.getElementById('cursorNeon');
+  var dotX = 0, dotY = 0, ringX = 0, ringY = 0;
+
+  if (dot && ring) {
+    document.addEventListener('mousemove', function(e) {
+      dotX = e.clientX; dotY = e.clientY;
+      dot.style.left = dotX + 'px';
+      dot.style.top  = dotY + 'px';
+      neon.style.left = dotX + 'px';
+      neon.style.top  = dotY + 'px';
+    });
+    (function animateRing() {
+      ringX += (dotX - ringX) * 0.1;
+      ringY += (dotY - ringY) * 0.1;
+      ring.style.left = ringX + 'px';
+      ring.style.top  = ringY + 'px';
+      requestAnimationFrame(animateRing);
+    })();
+  }
+
+  /* ---- LOADER ---- */
+  var loader = document.getElementById('loader');
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      loader.classList.add('hidden');
+    }, 2600);
+  });
+
+  /* ---- NAV SCROLL ---- */
+  var nav = document.getElementById('nav');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 80) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  }, { passive: true });
+
+  /* ---- HERO PARTICLE CANVAS ---- */
+  var canvas = document.getElementById('hero-canvas');
+  if (canvas) {
+    var ctx = canvas.getContext('2d');
+    var particles = [];
+    var W, H;
+
+    function resizeCanvas() {
+      W = canvas.width  = canvas.offsetWidth;
+      H = canvas.height = canvas.offsetHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    function Particle() {
+      this.reset();
+    }
+    Particle.prototype.reset = function() {
+      this.x = Math.random() * W;
+      this.y = Math.random() * H;
+      this.r = Math.random() * 1.2 + 0.3;
+      this.vx = (Math.random() - 0.5) * 0.25;
+      this.vy = (Math.random() - 0.5) * 0.25 - 0.1;
+      this.life = 0;
+      this.maxLife = Math.random() * 200 + 100;
+      this.isNeon = Math.random() < 0.25;
+    };
+
+    for (var i = 0; i < 80; i++) {
+      var p = new Particle();
+      p.life = Math.floor(Math.random() * p.maxLife);
+      particles.push(p);
+    }
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, W, H);
+      particles.forEach(function(p) {
+        var alpha = Math.sin(Math.PI * p.life / p.maxLife) * 0.4;
+        if (p.isNeon) {
+          ctx.fillStyle = 'rgba(0,232,181,' + (alpha * 0.6) + ')';
+        } else {
+          ctx.fillStyle = 'rgba(184,148,46,' + alpha + ')';
+        }
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+
+        p.x += p.vx; p.y += p.vy; p.life++;
+        if (p.life >= p.maxLife) p.reset();
+      });
+      requestAnimationFrame(drawParticles);
+    }
+    drawParticles();
+  }
+
+  /* ---- SCROLL REVEAL ---- */
+  var reveals = document.querySelectorAll('.reveal');
+  var revealObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(function(el) { revealObs.observe(el); });
+
+  /* ---- COUNTER ANIMATION ---- */
+  var counters = document.querySelectorAll('.counter');
+  var counterObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        var el = entry.target;
+        var target = parseInt(el.dataset.target);
+        var duration = 1500;
+        var start = null;
+        var suffix = el.dataset.suffix || '';
+        function step(ts) {
+          if (!start) start = ts;
+          var progress = Math.min((ts - start) / duration, 1);
+          var ease = 1 - Math.pow(1 - progress, 3);
+          var val = Math.round(ease * target);
+          el.textContent = val + suffix;
+          if (progress < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+        counterObs.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(function(el) { counterObs.observe(el); });
+
+  /* ---- GALLERY DRAG ---- */
+  var track = document.getElementById('galleryTrack');
+  if (track) {
+    var isDragging = false, startX, scrollLeft;
+    track.addEventListener('mousedown', function(e) {
+      isDragging = true;
+      track.style.cursor = 'grabbing';
+      startX = e.pageX - track.offsetLeft;
+      scrollLeft = track.scrollLeft;
+    });
+    document.addEventListener('mouseup', function() {
+      isDragging = false;
+      if (track) track.style.cursor = 'grab';
+    });
+    track.addEventListener('mousemove', function(e) {
+      if (!isDragging) return;
+      e.preventDefault();
+      var x = e.pageX - track.offsetLeft;
+      var walk = (x - startX) * 1.5;
+      track.scrollLeft = scrollLeft - walk;
+    });
+  }
+
+  /* ---- FLOOR PLANS ---- */
+  var floors = [
+    {
+      name: 'Subsolo',
+      area: '74,40',
+      img: 'Fotos Zanuto/01_PH_SUBSOLO.jpg',
+      desc: 'Garagem para 3 veículos e moto com acesso direto ao elevador exclusivo. Área de lavanderia, área técnica e depósito integrados.',
+      rows: [
+        { label: 'Garagem', value: '3 vagas + moto' },
+        { label: 'Lavanderia', value: 'Inclusa' },
+        { label: 'Elevador exclusivo', value: 'Por unidade' },
+        { label: 'Área total', value: '74,40 m²', gold: true }
+      ]
+    },
+    {
+      name: '1º Andar (Social)',
+      area: '80,83',
+      img: 'Fotos Zanuto/05_PH_TERREO.jpg',
+      desc: 'Sala de estar com pé-direito duplo de 6m, cozinha gourmet integrada, varanda generosa, lareira a gás e adega.',
+      rows: [
+        { label: 'Sala de estar', value: 'Pé-direito 6m' },
+        { label: 'Cozinha gourmet', value: 'Integrada' },
+        { label: 'Varanda', value: 'Inclusa' },
+        { label: 'Área total', value: '80,83 m²', gold: true }
+      ]
+    },
+    {
+      name: 'Mezanino',
+      area: '44,54',
+      img: 'Fotos Zanuto/02_PH_P1_MEZANINO.jpg',
+      desc: 'Escritório com isolamento acústico para home office de alta performance. Suíte completa e acesso ao living abaixo.',
+      rows: [
+        { label: 'Home office', value: 'Isolamento acústico' },
+        { label: 'Suíte', value: 'Inclusa' },
+        { label: 'Vista para sala', value: 'Pé-direito duplo' },
+        { label: 'Área total', value: '44,54 m²', gold: true }
+      ]
+    },
+    {
+      name: '2º Andar (Íntimo)',
+      area: '77,19',
+      img: 'Fotos Zanuto/03_PH_P2_SETOR INTIMO.jpg',
+      desc: 'Suíte master com varanda privativa, closet planejado e banheiro spa. Mais duas suítes completas para família e hóspedes.',
+      rows: [
+        { label: 'Suíte master', value: 'Varanda + closet + spa' },
+        { label: 'Suítes adicionais', value: '2 unidades' },
+        { label: 'Banheiros', value: 'Premium' },
+        { label: 'Área total', value: '77,19 m²', gold: true }
+      ]
+    },
+    {
+      name: 'Rooftop ★',
+      area: '62,64',
+      img: 'Fotos Zanuto/04_PH_COBERTURA.jpg',
+      desc: 'O topo do seu mundo. Piscina aquecida com borda infinita, área gourmet coberta com churrasqueira parrilla e vista 360° para o pôr do sol.',
+      rows: [
+        { label: 'Piscina aquecida', value: 'Borda infinita' },
+        { label: 'Área gourmet', value: 'Coberta + parrilla' },
+        { label: 'Vista panorâmica', value: '360° · Pôr do sol' },
+        { label: 'Área total', value: '62,64 m²', gold: true }
+      ]
+    }
+  ];
+
+  var plantaImg   = document.getElementById('plantaImg');
+  var plantaName  = document.getElementById('plantaName');
+  var plantaArea  = document.getElementById('plantaArea');
+  var plantaDesc  = document.getElementById('plantaDesc');
+  var plantaInfo  = document.getElementById('plantaInfo');
+  var plantaTabs  = document.querySelectorAll('.planta-tab');
+
+  function renderFloor(idx) {
+    var f = floors[idx];
+    if (!f || !plantaImg) return;
+    plantaImg.src = f.img;
+    plantaImg.alt = 'Planta ' + f.name;
+    plantaName.textContent = f.name;
+    plantaArea.innerHTML = f.area + ' <span>m²</span>';
+    plantaDesc.textContent = f.desc;
+
+    var table = plantaInfo.querySelector('.planta-table');
+    if (table) {
+      table.innerHTML = f.rows.map(function(r) {
+        return '<div class="planta-table-row' + (r.gold ? ' total' : '') + '">' +
+          '<span class="row-label">' + r.label + '</span>' +
+          '<span class="row-value' + (r.gold ? ' gold' : '') + '">' + r.value + '</span>' +
+        '</div>';
+      }).join('');
+    }
+
+    plantaTabs.forEach(function(t, i) {
+      t.classList.toggle('active', i === idx);
+    });
+  }
+
+  plantaTabs.forEach(function(tab, idx) {
+    tab.addEventListener('click', function() { renderFloor(idx); });
+  });
+
+  /* ---- SMOOTH ANCHOR ---- */
+  document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      var target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+})();
+</script>
+</body>
+</html>

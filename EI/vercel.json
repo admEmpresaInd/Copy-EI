@@ -5,6 +5,7 @@
     { "src": "/prompts", "dest": "/biblioteca-127-prompts-claude-code.html" },
     { "src": "/gswp", "dest": "/gswp-book-vendas.html" },
     { "src": "/gswp-book-apresentacao", "dest": "/gswp-book-apresentacao.html" },
+    { "src": "/gswp-site", "dest": "/gswp.html" },
     { "src": "/(.*)", "dest": "/$1" }
   ]
 }

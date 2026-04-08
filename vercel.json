@@ -7,6 +7,7 @@
     { "source": "/social-selling", "destination": "/high-ticket-social-selling-research" },
     { "source": "/apex-sales", "destination": "/EI/apex-sales-ai-concept" },
     { "source": "/gswp", "destination": "/EI/gswp-book-vendas" },
-    { "source": "/gswp-book-apresentacao", "destination": "/EI/gswp-book-apresentacao" }
+    { "source": "/gswp-book-apresentacao", "destination": "/EI/gswp-book-apresentacao" },
+    { "source": "/gswp-site", "destination": "/EI/gswp" }
   ]
 }

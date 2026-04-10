@@ -1,0 +1,3545 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GSWP — Brand Identity Guidelines</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Cormorant+Infant:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ====================================================
+   GSWP BRAND BOOK — Identical DNA from gswp.html
+   ==================================================== */
+
+:root {
+  --void:        #090907;
+  --charcoal:    #1A1917;
+  --stone:       #2C2B28;
+  --stone-light: #3D3C38;
+  --sage:        #2D4A3E;
+  --forest:      #3A5A40;
+  --moss:        #4A6B50;
+  --gold:        #B8942E;
+  --gold-light:  #C4A84A;
+  --gold-pale:   #D4B96A;
+  --cream:       #F0EDE6;
+  --cream-warm:  #E8E3D8;
+  --off-white:   #FAF8F4;
+  --serif:  'Cormorant Garamond', 'Cormorant Infant', Georgia, serif;
+  --sans:   'DM Sans', sans-serif;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: clamp(14px, 1.5vw, 17px);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--void);
+  color: var(--cream);
+  font-family: var(--sans);
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ==================== GRAIN OVERLAY ==================== */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  opacity: 0.025;
+  mix-blend-mode: overlay;
+}
+
+/* ==================== CUSTOM CURSOR ==================== */
+.cursor {
+  position: fixed;
+  top: 0; left: 0;
+  width: 12px; height: 12px;
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s var(--ease-out-expo), height 0.3s var(--ease-out-expo), background 0.3s;
+  mix-blend-mode: screen;
+}
+
+.cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  width: 44px; height: 44px;
+  border: 1px solid rgba(184, 148, 46, 0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.5s var(--ease-out-expo), height 0.5s var(--ease-out-expo), border-color 0.3s, transform 0.1s ease;
+}
+
+body:has(a:hover) .cursor,
+body:has(button:hover) .cursor {
+  width: 6px; height: 6px;
+}
+
+body:has(a:hover) .cursor-ring,
+body:has(button:hover) .cursor-ring {
+  width: 60px; height: 60px;
+  border-color: rgba(184, 148, 46, 0.8);
+}
+
+/* ==================== LOADING SCREEN ==================== */
+#loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  background: var(--void);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.8s ease 0.3s, visibility 0.8s ease 0.3s;
+}
+
+#loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader-inner {
+  text-align: center;
+}
+
+.loader-logo {
+  font-family: var(--serif);
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(184, 148, 46, 0.3);
+  animation: loader-reveal 2s var(--ease-out-expo) forwards;
+}
+
+.loader-line {
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 1.5rem auto 0;
+  animation: loader-line 1.8s var(--ease-out-expo) 0.4s forwards;
+}
+
+.loader-sub {
+  font-size: 0.6rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: rgba(184, 148, 46, 0.5);
+  margin-top: 1rem;
+  opacity: 0;
+  animation: fade-in 0.6s ease 1.2s forwards;
+}
+
+@keyframes loader-reveal {
+  0%   { -webkit-text-stroke-color: rgba(184,148,46,0); letter-spacing: 0.6em; }
+  50%  { -webkit-text-stroke-color: rgba(184,148,46,0.6); }
+  100% { -webkit-text-stroke-color: rgba(184,148,46,0.25); letter-spacing: 0.3em; color: rgba(240,237,230,0.07); }
+}
+
+@keyframes loader-line {
+  to { width: 200px; }
+}
+
+@keyframes fade-in {
+  to { opacity: 1; }
+}
+
+/* ==================== NAVIGATION ==================== */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 2rem 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: padding 0.5s var(--ease-out-expo), background 0.5s;
+}
+
+nav.scrolled {
+  padding: 1.2rem 4rem;
+  background: rgba(9, 9, 7, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(184, 148, 46, 0.08);
+}
+
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  color: var(--cream);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.nav-logo span {
+  color: var(--gold);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.nav-links a {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(240, 237, 230, 0.5);
+  text-decoration: none;
+  transition: color 0.3s;
+  font-weight: 400;
+}
+
+.nav-links a:hover {
+  color: var(--gold-light);
+}
+
+/* ==================== SECTION FOUNDATIONS ==================== */
+.bb-section {
+  position: relative;
+  min-height: 100vh;
+  padding: clamp(8rem, 14vw, 13rem) 0;
+  overflow: hidden;
+}
+
+.bb-section-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 4rem;
+}
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.55rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-family: var(--sans);
+  font-weight: 400;
+  margin-bottom: 3rem;
+}
+
+.section-label::before,
+.section-label::after {
+  content: '';
+  display: block;
+  width: 30px;
+  height: 1px;
+  background: rgba(184,148,46,0.4);
+}
+
+.section-accent {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 10%, rgba(184,148,46,0.15) 50%, transparent 90%);
+}
+
+/* ==================== HERO SECTION ==================== */
+#hero {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  min-height: 700px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+#particle-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-bg-gradient {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(45, 74, 62, 0.35) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 20% 0%, rgba(58, 90, 64, 0.2) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 50% at 80% 20%, rgba(26, 25, 23, 0.8) 0%, transparent 70%),
+    linear-gradient(180deg, rgba(9,9,7,0.3) 0%, rgba(9,9,7,0) 40%, rgba(9,9,7,0.7) 100%);
+}
+
+.hero-stone {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      92deg,
+      transparent 0px,
+      rgba(45,74,62,0.015) 1px,
+      transparent 2px,
+      transparent 80px
+    ),
+    repeating-linear-gradient(
+      1deg,
+      transparent 0px,
+      rgba(184,148,46,0.008) 1px,
+      transparent 2px,
+      transparent 120px
+    );
+}
+
+.hero-orb {
+  position: absolute;
+  right: -200px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 600px;
+  height: 600px;
+  border-radius: 40% 60% 55% 45% / 50% 40% 60% 50%;
+  background: radial-gradient(ellipse, rgba(45, 74, 62, 0.25) 0%, transparent 70%);
+  animation: morph 12s ease-in-out infinite;
+  z-index: 0;
+}
+
+@keyframes morph {
+  0%, 100% { border-radius: 40% 60% 55% 45% / 50% 40% 60% 50%; transform: translateY(-50%) rotate(0deg); }
+  33%       { border-radius: 55% 45% 40% 60% / 60% 50% 40% 50%; transform: translateY(-52%) rotate(120deg); }
+  66%       { border-radius: 45% 55% 65% 35% / 45% 60% 40% 55%; transform: translateY(-48%) rotate(240deg); }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 2rem;
+  max-width: 1100px;
+}
+
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+  opacity: 0;
+  animation: fade-up 1s var(--ease-out-expo) 2s forwards;
+}
+
+.hero-eyebrow-line {
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.5;
+}
+
+.hero-eyebrow-text {
+  font-size: 0.58rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 400;
+  font-family: var(--sans);
+}
+
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(2.8rem, 7vw, 6.5rem);
+  font-weight: 300;
+  line-height: 1.08;
+  color: var(--cream);
+  letter-spacing: -0.01em;
+  opacity: 0;
+  animation: fade-up 1.2s var(--ease-out-expo) 2.2s forwards;
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--gold-pale);
+  font-weight: 300;
+}
+
+.hero-title .break-word {
+  display: block;
+}
+
+.hero-subtitle {
+  font-family: var(--serif);
+  font-size: clamp(1rem, 2vw, 1.35rem);
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(240, 237, 230, 0.45);
+  margin-top: 2rem;
+  letter-spacing: 0.04em;
+  opacity: 0;
+  animation: fade-up 1s var(--ease-out-expo) 2.6s forwards;
+}
+
+.hero-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 3rem auto;
+  opacity: 0;
+  animation: fade-up 1s var(--ease-out-expo) 2.8s forwards;
+}
+
+.hero-diamond {
+  width: 6px; height: 6px;
+  background: var(--gold);
+  transform: rotate(45deg);
+  opacity: 0.7;
+}
+
+.hero-divider-line {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(184,148,46,0.4), transparent);
+}
+
+.hero-version {
+  font-size: 0.5rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(184, 148, 46, 0.35);
+  opacity: 0;
+  animation: fade-up 1s var(--ease-out-expo) 3s forwards;
+  margin-top: 1rem;
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  opacity: 0;
+  animation: fade-in 1s ease 3.5s forwards;
+}
+
+.scroll-indicator {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(180deg, rgba(184,148,46,0.6), transparent);
+  animation: scroll-pulse 2s ease infinite;
+}
+
+.scroll-text {
+  font-size: 0.5rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(184, 148, 46, 0.5);
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+}
+
+@keyframes scroll-pulse {
+  0%, 100% { opacity: 0.4; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(1.1); }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ==================== SCROLL REVEAL ==================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s var(--ease-out-expo), transform 0.9s var(--ease-out-expo);
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.15s; }
+.reveal-delay-2 { transition-delay: 0.3s; }
+.reveal-delay-3 { transition-delay: 0.45s; }
+.reveal-delay-4 { transition-delay: 0.6s; }
+.reveal-delay-5 { transition-delay: 0.75s; }
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.9s var(--ease-out-expo), transform 0.9s var(--ease-out-expo);
+}
+
+.reveal-left.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.9s var(--ease-out-expo), transform 0.9s var(--ease-out-expo);
+}
+
+.reveal-right.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ==================== PILAR CARDS ==================== */
+.pilar {
+  position: relative;
+  padding: 4rem 3rem;
+  background: rgba(255,255,255,0.015);
+  border: 1px solid rgba(184,148,46,0.06);
+  transition: background 0.6s var(--ease-out-expo), border-color 0.6s;
+  overflow: hidden;
+}
+
+.pilar::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.8s var(--ease-out-expo);
+}
+
+.pilar:hover {
+  background: rgba(45, 74, 62, 0.08);
+  border-color: rgba(184,148,46,0.15);
+}
+
+.pilar:hover::before {
+  transform: scaleX(1);
+}
+
+.pilar-number {
+  font-family: var(--serif);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: rgba(184,148,46,0.4);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.pilar-number::after {
+  content: '';
+  display: block;
+  width: 30px;
+  height: 1px;
+  background: rgba(184,148,46,0.25);
+}
+
+.pilar-name {
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: 300;
+  color: var(--cream);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.pilar-desc {
+  font-size: 0.85rem;
+  line-height: 1.9;
+  color: rgba(240, 237, 230, 0.45);
+  font-weight: 300;
+  letter-spacing: 0.02em;
+}
+
+.pilar-desc strong {
+  color: rgba(240, 237, 230, 0.75);
+  font-weight: 400;
+}
+
+/* ==================== STAT ITEMS ==================== */
+.stat-item {
+  border-left: 1px solid rgba(184,148,46,0.2);
+  padding-left: 1.5rem;
+}
+
+.stat-number {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 300;
+  color: var(--gold);
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+
+.stat-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(240, 237, 230, 0.35);
+  font-weight: 400;
+}
+
+/* ==================== BUTTONS ==================== */
+.btn-primary {
+  font-family: var(--sans);
+  font-size: 0.62rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: var(--void);
+  background: var(--gold);
+  padding: 1.1rem 3rem;
+  text-decoration: none;
+  transition: all 0.5s var(--ease-out-expo);
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  border: none;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gold-pale);
+  transform: translateX(-100%);
+  transition: transform 0.5s var(--ease-out-expo);
+}
+
+.btn-primary:hover::before {
+  transform: translateX(0);
+}
+
+.btn-primary span {
+  position: relative;
+  z-index: 1;
+}
+
+/* ==================== ARCH DIAGRAM ==================== */
+.arch-diagram {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+.arch-frame {
+  position: absolute;
+  border: 1px solid rgba(184,148,46,0.12);
+}
+
+.arch-frame:nth-child(1) { inset: 0; border-color: rgba(184,148,46,0.06); }
+.arch-frame:nth-child(2) { inset: 8%; border-color: rgba(184,148,46,0.09); animation: arch-breathe 6s ease-in-out infinite; }
+.arch-frame:nth-child(3) { inset: 20%; border-color: rgba(184,148,46,0.15); animation: arch-breathe 6s ease-in-out 1s infinite; }
+.arch-frame:nth-child(4) { inset: 32%; border-color: rgba(45,74,62,0.4); background: rgba(45,74,62,0.05); animation: arch-breathe 6s ease-in-out 2s infinite; }
+
+@keyframes arch-breathe {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+.arch-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.arch-center-logo {
+  font-family: var(--serif);
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  color: rgba(184,148,46,0.3);
+  text-transform: uppercase;
+}
+
+.arch-corner {
+  position: absolute;
+  width: 20px; height: 20px;
+}
+
+.arch-corner::before,
+.arch-corner::after {
+  content: '';
+  position: absolute;
+  background: var(--gold);
+  opacity: 0.4;
+}
+
+.arch-corner::before { width: 100%; height: 1px; }
+.arch-corner::after  { width: 1px; height: 100%; }
+
+.arch-corner.tl { top: 0; left: 0; }
+.arch-corner.tr { top: 0; right: 0; transform: rotate(90deg); }
+.arch-corner.bl { bottom: 0; left: 0; transform: rotate(-90deg); }
+.arch-corner.br { bottom: 0; right: 0; transform: rotate(180deg); }
+
+.arch-lines {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.arch-line-h {
+  position: absolute;
+  left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(184,148,46,0.06), transparent);
+}
+
+.arch-line-h:nth-child(1) { top: 25%; }
+.arch-line-h:nth-child(2) { top: 50%; background: linear-gradient(90deg, transparent, rgba(184,148,46,0.12), transparent); }
+.arch-line-h:nth-child(3) { top: 75%; }
+
+/* ==================== LEGADO RINGS ==================== */
+.legado-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid rgba(184,148,46,0.05);
+  animation: ring-expand 8s ease-in-out infinite;
+}
+
+@keyframes ring-expand {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.95); }
+  20%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.05); }
+}
+
+/* ==================== DIVIDERS ==================== */
+.legado-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  opacity: 0.3;
+  margin: 4rem auto;
+}
+
+.legado-divider-line {
+  width: 80px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.legado-divider-diamond {
+  width: 6px; height: 6px;
+  background: var(--gold);
+  transform: rotate(45deg);
+}
+
+/* ==================== MANIFESTO SECTION ==================== */
+#manifesto {
+  background:
+    radial-gradient(ellipse 100% 80% at 50% 50%, rgba(45, 74, 62, 0.12) 0%, transparent 70%),
+    var(--void);
+}
+
+.manifesto-quote {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 3.5vw, 3rem);
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--cream);
+  letter-spacing: 0.01em;
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto 4rem;
+}
+
+.manifesto-quote .large-quote {
+  font-size: clamp(3rem, 8vw, 7rem);
+  line-height: 0.5;
+  vertical-align: -0.3em;
+  color: rgba(184,148,46,0.15);
+  font-family: var(--serif);
+  font-weight: 300;
+  display: inline;
+}
+
+.manifesto-quote .highlight {
+  color: var(--gold-pale);
+  font-style: italic;
+}
+
+.manifesto-body {
+  max-width: 900px;
+  margin: 0 auto 5rem;
+  text-align: center;
+}
+
+.manifesto-p {
+  font-family: var(--serif);
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  font-weight: 300;
+  color: rgba(240, 237, 230, 0.6);
+  line-height: 1.8;
+  font-style: italic;
+  letter-spacing: 0.02em;
+  margin-bottom: 1.5rem;
+}
+
+.manifesto-p strong {
+  color: rgba(240, 237, 230, 0.9);
+  font-weight: 400;
+  font-style: normal;
+}
+
+.mvv-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 5rem;
+}
+
+.flor-orb-bg {
+  position: absolute;
+  left: -200px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 500px;
+  height: 500px;
+  border-radius: 40% 60% 55% 45% / 50% 40% 60% 50%;
+  background: radial-gradient(ellipse, rgba(45, 74, 62, 0.2) 0%, transparent 70%);
+  animation: morph 12s ease-in-out infinite;
+  z-index: 0;
+}
+
+/* ==================== LOGOTIPO SECTION ==================== */
+#logotipo {
+  background: linear-gradient(180deg, var(--void) 0%, #0d1009 50%, var(--void) 100%);
+}
+
+.logo-variants-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-bottom: 5rem;
+}
+
+.logo-card {
+  position: relative;
+  aspect-ratio: 16/10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(184,148,46,0.06);
+  overflow: hidden;
+  transition: border-color 0.6s;
+}
+
+.logo-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.8s var(--ease-out-expo);
+}
+
+.logo-card:hover { border-color: rgba(184,148,46,0.15); }
+.logo-card:hover::before { transform: scaleX(1); }
+
+.logo-card-dark { background: var(--void); }
+.logo-card-light { background: var(--off-white); }
+.logo-card-sage { background: var(--sage); }
+.logo-card-gold { background: rgba(184,148,46,0.08); }
+
+.logo-text {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+
+.logo-text-dark { color: var(--cream); }
+.logo-text-dark .gold { color: var(--gold); }
+.logo-text-light { color: var(--void); }
+.logo-text-light .gold { color: var(--sage); }
+.logo-text-sage { color: var(--cream); }
+.logo-text-sage .gold { color: var(--gold-pale); }
+.logo-text-gold { color: var(--cream); }
+.logo-text-gold .gold { color: var(--gold); }
+
+.logo-card-label {
+  position: absolute;
+  bottom: 1rem;
+  right: 1.5rem;
+  font-size: 0.5rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0.4;
+}
+
+.logo-protection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+  margin-bottom: 5rem;
+}
+
+.protection-text h3 {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 300;
+  color: var(--cream);
+  margin-bottom: 1.5rem;
+}
+
+.protection-text p {
+  font-size: 0.85rem;
+  line-height: 1.9;
+  color: rgba(240, 237, 230, 0.45);
+  font-weight: 300;
+  letter-spacing: 0.02em;
+}
+
+.incorrect-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+
+.incorrect-card {
+  position: relative;
+  padding: 3rem 2rem;
+  background: rgba(255,255,255,0.015);
+  border: 1px solid rgba(184,148,46,0.06);
+  text-align: center;
+  transition: background 0.6s;
+}
+
+.incorrect-card:hover {
+  background: rgba(140, 40, 40, 0.06);
+}
+
+.incorrect-x {
+  font-size: 1.2rem;
+  color: rgba(200, 60, 60, 0.6);
+  margin-bottom: 1rem;
+}
+
+.incorrect-demo {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  letter-spacing: 0.15em;
+  color: rgba(240, 237, 230, 0.2);
+  margin-bottom: 1rem;
+  min-height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.incorrect-label {
+  font-size: 0.55rem;
+  letter-spacing: 0.15em;
+  color: rgba(200, 60, 60, 0.5);
+  text-transform: uppercase;
+}
+
+/* ==================== PALETA SECTION ==================== */
+#paleta {
+  background:
+    radial-gradient(ellipse 100% 80% at 50% 50%, rgba(45, 74, 62, 0.1) 0%, transparent 70%),
+    var(--void);
+}
+
+.colors-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.color-swatch {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(184,148,46,0.06);
+  transition: border-color 0.4s, transform 0.4s var(--ease-out-expo);
+}
+
+.color-swatch:hover {
+  border-color: rgba(184,148,46,0.2);
+  transform: translateY(-4px);
+}
+
+.color-fill {
+  height: 140px;
+  transition: height 0.4s;
+}
+
+.color-swatch:hover .color-fill {
+  height: 150px;
+}
+
+.color-info {
+  padding: 1.5rem;
+  background: rgba(255,255,255,0.015);
+}
+
+.color-name {
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--cream);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.8rem;
+  text-transform: capitalize;
+}
+
+.color-hex {
+  font-family: var(--sans);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: rgba(240, 237, 230, 0.5);
+  margin-bottom: 0.3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.color-hex .copy-btn {
+  font-size: 0.5rem;
+  color: var(--gold);
+  opacity: 0;
+  transition: opacity 0.3s;
+  background: none;
+  border: none;
+  font-family: var(--sans);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0;
+  cursor: none;
+}
+
+.color-swatch:hover .copy-btn {
+  opacity: 1;
+}
+
+.color-rgb {
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  color: rgba(240, 237, 230, 0.3);
+}
+
+.color-stat {
+  border-left: 1px solid rgba(184,148,46,0.2);
+  padding-left: 1.5rem;
+  margin-top: 1rem;
+}
+
+.color-stat-label {
+  font-size: 0.5rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(240, 237, 230, 0.25);
+}
+
+.palette-groups {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 5rem;
+}
+
+.palette-group {
+  position: relative;
+  padding: 3rem 2.5rem;
+  background: rgba(255,255,255,0.015);
+  border: 1px solid rgba(184,148,46,0.06);
+  overflow: hidden;
+}
+
+.palette-group::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.8s var(--ease-out-expo);
+}
+
+.palette-group:hover::before { transform: scaleX(1); }
+
+.palette-group-title {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: var(--cream);
+  letter-spacing: 0.08em;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.palette-group-desc {
+  font-size: 0.75rem;
+  line-height: 1.8;
+  color: rgba(240, 237, 230, 0.4);
+  font-weight: 300;
+}
+
+.palette-strip {
+  display: flex;
+  gap: 4px;
+  margin-top: 1.5rem;
+}
+
+.palette-chip {
+  flex: 1;
+  height: 8px;
+  border-radius: 1px;
+}
+
+/* ==================== TIPOGRAFIA SECTION ==================== */
+#tipografia {
+  background: linear-gradient(180deg, var(--void) 0%, #0d1009 50%, var(--void) 100%);
+}
+
+.type-specimen {
+  margin-bottom: 5rem;
+  padding-bottom: 5rem;
+  border-bottom: 1px solid rgba(184,148,46,0.06);
+}
+
+.type-specimen:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.type-label {
+  font-family: var(--sans);
+  font-size: 0.55rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.type-label::after {
+  content: '';
+  display: block;
+  width: 30px;
+  height: 1px;
+  background: rgba(184,148,46,0.25);
+}
+
+.type-display {
+  font-family: var(--serif);
+  font-size: clamp(4rem, 10vw, 9rem);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 2rem;
+}
+
+.type-display em {
+  font-style: italic;
+  color: var(--gold-pale);
+}
+
+.type-meta {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  gap: 3rem;
+  margin-top: 2rem;
+}
+
+.type-meta-item {
+  border-left: 1px solid rgba(184,148,46,0.2);
+  padding-left: 1.5rem;
+}
+
+.type-meta-value {
+  font-family: var(--serif);
+  font-size: 1rem;
+  color: var(--cream);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.3rem;
+}
+
+.type-meta-label {
+  font-size: 0.5rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(240, 237, 230, 0.3);
+}
+
+.type-sans-display {
+  font-family: var(--sans);
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 200;
+  color: var(--cream);
+  line-height: 1.2;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+.type-hierarchy {
+  display: grid;
+  gap: 2rem;
+  margin-top: 4rem;
+}
+
+.type-row {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  align-items: baseline;
+  gap: 3rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(184,148,46,0.04);
+}
+
+.type-row-label {
+  font-size: 0.5rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.6;
+}
+
+.type-row-h1 {
+  font-family: var(--serif);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.1;
+}
+
+.type-row-h2 {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.15;
+}
+
+.type-row-h3 {
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.2;
+}
+
+.type-row-body {
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: rgba(240, 237, 230, 0.6);
+  line-height: 1.8;
+}
+
+.type-row-caption {
+  font-family: var(--sans);
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(240, 237, 230, 0.4);
+}
+
+/* ==================== VOZ SECTION ==================== */
+#voz {
+  background:
+    radial-gradient(ellipse 80% 60% at 30% 50%, rgba(45, 74, 62, 0.12) 0%, transparent 60%),
+    var(--void);
+}
+
+.voz-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 5rem;
+}
+
+.voz-do {
+  position: relative;
+  padding: 4rem 3rem;
+  background: rgba(45, 74, 62, 0.06);
+  border: 1px solid rgba(45, 74, 62, 0.15);
+  overflow: hidden;
+}
+
+.voz-do::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--moss), transparent);
+}
+
+.voz-dont {
+  position: relative;
+  padding: 4rem 3rem;
+  background: rgba(140, 40, 40, 0.04);
+  border: 1px solid rgba(140, 40, 40, 0.12);
+  overflow: hidden;
+}
+
+.voz-dont::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(200,60,60,0.5), transparent);
+}
+
+.voz-col-title {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  font-weight: 300;
+  color: var(--cream);
+  letter-spacing: 0.08em;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+}
+
+.voz-list {
+  list-style: none;
+  display: grid;
+  gap: 1rem;
+}
+
+.voz-list li {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: rgba(240, 237, 230, 0.55);
+  font-weight: 300;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.voz-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6rem;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+}
+
+.voz-do .voz-list li::before { background: var(--moss); }
+.voz-dont .voz-list li::before { background: rgba(200, 60, 60, 0.5); }
+
+.canais-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  margin-bottom: 5rem;
+}
+
+.canal-card {
+  position: relative;
+  padding: 3rem 2.5rem;
+  background: rgba(255,255,255,0.015);
+  border: 1px solid rgba(184,148,46,0.06);
+  overflow: hidden;
+  transition: background 0.6s, border-color 0.6s;
+}
+
+.canal-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.8s var(--ease-out-expo);
+}
+
+.canal-card:hover { background: rgba(45, 74, 62, 0.06); border-color: rgba(184,148,46,0.12); }
+.canal-card:hover::before { transform: scaleX(1); }
+
+.canal-icon {
+  width: 36px; height: 36px;
+  margin-bottom: 1.5rem;
+  opacity: 0.6;
+}
+
+.canal-name {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: var(--cream);
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+}
+
+.canal-tone {
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.6;
+  margin-bottom: 1rem;
+}
+
+.canal-desc {
+  font-size: 0.8rem;
+  line-height: 1.8;
+  color: rgba(240, 237, 230, 0.4);
+  font-weight: 300;
+}
+
+.copy-examples {
+  display: grid;
+  gap: 2rem;
+}
+
+.copy-example {
+  border-left: 1px solid rgba(184,148,46,0.2);
+  padding: 1.5rem 2rem;
+}
+
+.copy-example-label {
+  font-size: 0.5rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.5;
+  margin-bottom: 0.8rem;
+}
+
+.copy-example-text {
+  font-family: var(--serif);
+  font-size: clamp(1rem, 1.8vw, 1.3rem);
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(240, 237, 230, 0.6);
+  line-height: 1.7;
+}
+
+.copy-example-text em {
+  color: var(--gold-pale);
+}
+
+/* ==================== ELEMENTOS SECTION ==================== */
+#elementos {
+  background: linear-gradient(180deg, var(--void) 0%, #0d1009 50%, var(--void) 100%);
+}
+
+.elementos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 5rem;
+}
+
+.elemento-card {
+  position: relative;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(184,148,46,0.06);
+  overflow: hidden;
+  transition: border-color 0.6s;
+}
+
+.elemento-card:hover { border-color: rgba(184,148,46,0.15); }
+
+.elemento-card-label {
+  position: absolute;
+  bottom: 1rem;
+  left: 1.5rem;
+  font-size: 0.5rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(240, 237, 230, 0.3);
+}
+
+.el-grain {
+  position: relative;
+  background: var(--void);
+}
+
+.el-grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+}
+
+.el-grid {
+  background:
+    linear-gradient(rgba(184,148,46,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(184,148,46,0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+  background-color: var(--void);
+}
+
+.el-stone {
+  background:
+    repeating-linear-gradient(92deg, transparent 0px, rgba(45,74,62,0.03) 1px, transparent 2px, transparent 40px),
+    repeating-linear-gradient(1deg, transparent 0px, rgba(184,148,46,0.015) 1px, transparent 2px, transparent 60px),
+    var(--void);
+}
+
+.el-gradient {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(45, 74, 62, 0.35) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 20% 0%, rgba(58, 90, 64, 0.2) 0%, transparent 60%),
+    var(--void);
+}
+
+.el-orb { background: var(--void); }
+
+.el-orb-inner {
+  width: 60%; height: 60%;
+  border-radius: 40% 60% 55% 45% / 50% 40% 60% 50%;
+  background: radial-gradient(ellipse, rgba(45, 74, 62, 0.35) 0%, transparent 70%);
+  animation: morph 12s ease-in-out infinite;
+}
+
+.el-ring { background: var(--void); }
+
+.el-ring-inner {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  border: 1px solid rgba(184,148,46,0.15);
+  animation: ring-expand 8s ease-in-out infinite;
+}
+
+.el-ring-inner:nth-child(2) { width: 180px; height: 180px; animation-delay: 1.5s; }
+.el-ring-inner:nth-child(3) { width: 240px; height: 240px; animation-delay: 3s; }
+
+.separators-demo {
+  display: grid;
+  gap: 3rem;
+  padding: 4rem 0;
+}
+
+.sep-item {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.sep-label {
+  font-size: 0.5rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.5;
+  min-width: 140px;
+}
+
+.sep-demo { flex: 1; }
+
+.sep-diamond-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.sep-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(184,148,46,0.4), transparent);
+}
+
+.sep-diamond {
+  width: 6px; height: 6px;
+  background: var(--gold);
+  transform: rotate(45deg);
+  opacity: 0.7;
+  flex-shrink: 0;
+}
+
+.sep-gradient {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(184,148,46,0.15), transparent);
+}
+
+.sep-gold-solid {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.icons-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 2rem;
+  margin-top: 4rem;
+}
+
+.icon-item {
+  text-align: center;
+  padding: 2rem 1rem;
+  border: 1px solid rgba(184,148,46,0.04);
+  transition: border-color 0.4s;
+}
+
+.icon-item:hover { border-color: rgba(184,148,46,0.12); }
+
+.icon-item svg {
+  width: 36px; height: 36px;
+  margin-bottom: 1rem;
+  opacity: 0.6;
+}
+
+.icon-item span {
+  display: block;
+  font-size: 0.5rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(240, 237, 230, 0.3);
+}
+
+/* ==================== APLICACOES SECTION ==================== */
+#aplicacoes {
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 50%, rgba(45, 74, 62, 0.1) 0%, transparent 60%),
+    var(--void);
+}
+
+.app-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 5rem;
+}
+
+.app-card {
+  position: relative;
+  border: 1px solid rgba(184,148,46,0.06);
+  overflow: hidden;
+  transition: border-color 0.6s, transform 0.5s var(--ease-out-expo);
+}
+
+.app-card:hover {
+  border-color: rgba(184,148,46,0.15);
+  transform: translateY(-4px);
+}
+
+.app-card-label {
+  position: absolute;
+  top: 1rem;
+  left: 1.5rem;
+  font-size: 0.5rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.6;
+  z-index: 2;
+}
+
+.app-insta-feed {
+  aspect-ratio: 1;
+  background: var(--charcoal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.app-insta-feed .insta-mock {
+  width: 80%;
+  aspect-ratio: 1;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(45, 74, 62, 0.4) 0%, transparent 70%),
+    var(--void);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+.insta-mock .insta-eyebrow {
+  font-size: 0.4rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+
+.insta-mock .insta-title {
+  font-family: var(--serif);
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.2;
+}
+
+.insta-mock .insta-title em {
+  color: var(--gold-pale);
+  font-style: italic;
+}
+
+.app-insta-story {
+  aspect-ratio: 9/16;
+  max-height: 500px;
+  background:
+    radial-gradient(ellipse 100% 60% at 50% 100%, rgba(45, 74, 62, 0.5) 0%, transparent 60%),
+    var(--charcoal);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 3rem 2rem;
+  text-align: center;
+  position: relative;
+}
+
+.app-insta-story .story-logo {
+  position: absolute;
+  top: 2rem;
+  font-family: var(--serif);
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  color: rgba(240, 237, 230, 0.3);
+  text-transform: uppercase;
+}
+
+.app-insta-story .story-text {
+  font-family: var(--serif);
+  font-size: clamp(1.2rem, 2vw, 1.6rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--cream);
+  line-height: 1.5;
+  margin-bottom: 2rem;
+}
+
+.app-insta-story .story-text em { color: var(--gold-pale); }
+
+.app-insta-story .story-cta {
+  font-size: 0.5rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(184,148,46,0.3);
+  padding: 0.6rem 1.5rem;
+}
+
+.app-bizcard {
+  aspect-ratio: 1.6;
+  background: var(--charcoal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  perspective: 800px;
+}
+
+.bizcard {
+  width: 320px;
+  aspect-ratio: 1.75;
+  background: var(--void);
+  border: 1px solid rgba(184,148,46,0.12);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem 2.5rem;
+  transform: rotateY(-8deg) rotateX(4deg);
+  transition: transform 0.8s var(--ease-out-expo);
+  position: relative;
+}
+
+.app-bizcard:hover .bizcard {
+  transform: rotateY(0) rotateX(0);
+}
+
+.bizcard-logo {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  color: var(--cream);
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+
+.bizcard-logo .gold { color: var(--gold); }
+
+.bizcard-sub {
+  font-size: 0.4rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(240, 237, 230, 0.3);
+  margin-bottom: 1.5rem;
+}
+
+.bizcard-line {
+  width: 30px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.3;
+  margin-bottom: 1.5rem;
+}
+
+.bizcard-name {
+  font-family: var(--serif);
+  font-size: 0.75rem;
+  color: var(--cream);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.2rem;
+}
+
+.bizcard-role {
+  font-size: 0.4rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(240, 237, 230, 0.35);
+  margin-bottom: 1rem;
+}
+
+.bizcard-contact {
+  font-size: 0.4rem;
+  letter-spacing: 0.1em;
+  color: rgba(240, 237, 230, 0.25);
+  line-height: 1.8;
+}
+
+.app-email-sig {
+  aspect-ratio: 16/10;
+  background: var(--off-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.email-sig {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  padding: 1.5rem;
+  border-left: 2px solid var(--gold);
+}
+
+.email-sig-logo {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  color: var(--void);
+}
+
+.email-sig-logo .gold { color: var(--sage); }
+
+.email-sig-name {
+  font-family: var(--serif);
+  font-size: 0.85rem;
+  color: var(--void);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.15rem;
+}
+
+.email-sig-role {
+  font-size: 0.5rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--stone-light);
+  margin-bottom: 0.8rem;
+}
+
+.email-sig-contact {
+  font-size: 0.5rem;
+  color: var(--stone);
+  line-height: 1.8;
+  letter-spacing: 0.02em;
+}
+
+.email-sig-contact a {
+  color: var(--sage);
+  text-decoration: none;
+}
+
+.app-paper {
+  aspect-ratio: 1/1.4;
+  background: var(--charcoal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.letterhead {
+  width: 85%;
+  height: 90%;
+  background: var(--off-white);
+  padding: 2.5rem 2rem;
+  position: relative;
+}
+
+.letterhead-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(44, 43, 40, 0.1);
+}
+
+.letterhead-logo {
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  color: var(--void);
+}
+
+.letterhead-logo .gold { color: var(--sage); }
+
+.letterhead-info {
+  text-align: right;
+  font-size: 0.35rem;
+  color: var(--stone);
+  line-height: 1.8;
+  letter-spacing: 0.05em;
+}
+
+.letterhead-body { padding-top: 1rem; }
+
+.letterhead-line {
+  height: 3px;
+  background: rgba(44, 43, 40, 0.06);
+  margin-bottom: 0.6rem;
+  border-radius: 2px;
+}
+
+.letterhead-line:nth-child(odd) { width: 100%; }
+.letterhead-line:nth-child(even) { width: 75%; }
+.letterhead-line:nth-child(5) { width: 50%; }
+
+.letterhead-footer {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 2rem; right: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(44, 43, 40, 0.08);
+}
+
+.letterhead-footer span {
+  font-size: 0.3rem;
+  color: var(--stone-light);
+  letter-spacing: 0.1em;
+}
+
+.app-banner {
+  aspect-ratio: 16/5;
+  grid-column: span 3;
+  background:
+    radial-gradient(ellipse 60% 80% at 80% 50%, rgba(45, 74, 62, 0.3) 0%, transparent 60%),
+    var(--void);
+  border: 1px solid rgba(184,148,46,0.06);
+  display: flex;
+  align-items: center;
+  padding: 0 6rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.app-banner::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.banner-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 3rem;
+}
+
+.banner-logo {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  color: var(--cream);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.banner-logo .gold { color: var(--gold); }
+
+.banner-tagline {
+  font-family: var(--serif);
+  font-size: 0.9rem;
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(240, 237, 230, 0.4);
+}
+
+.banner-right { text-align: right; }
+
+.banner-headline {
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.15;
+}
+
+.banner-headline em {
+  color: var(--gold-pale);
+  font-style: italic;
+}
+
+/* ==================== FOTOGRAFIA SECTION ==================== */
+#fotografia {
+  background: linear-gradient(180deg, var(--void) 0%, #0d1009 50%, var(--void) 100%);
+}
+
+.foto-principios-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-bottom: 5rem;
+}
+
+.foto-principio {
+  position: relative;
+  padding: 4rem 3rem;
+  background: rgba(255,255,255,0.015);
+  border: 1px solid rgba(184,148,46,0.06);
+  overflow: hidden;
+  transition: background 0.6s, border-color 0.6s;
+}
+
+.foto-principio::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.8s var(--ease-out-expo);
+}
+
+.foto-principio:hover { background: rgba(45, 74, 62, 0.06); border-color: rgba(184,148,46,0.12); }
+.foto-principio:hover::before { transform: scaleX(1); }
+
+.foto-number {
+  font-family: var(--serif);
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: rgba(184,148,46,0.4);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.foto-number::after {
+  content: '';
+  display: block;
+  width: 30px;
+  height: 1px;
+  background: rgba(184,148,46,0.25);
+}
+
+.foto-title {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: var(--cream);
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+.foto-desc {
+  font-size: 0.8rem;
+  line-height: 1.9;
+  color: rgba(240, 237, 230, 0.4);
+  font-weight: 300;
+}
+
+.moodboard {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 80px);
+  gap: 4px;
+  margin-bottom: 4rem;
+}
+
+.mood-cell { transition: opacity 0.4s; }
+.mood-cell:hover { opacity: 0.8; }
+
+.mood-cell.c1 { grid-column: span 2; grid-row: span 2; background: linear-gradient(135deg, var(--sage) 0%, rgba(45,74,62,0.5) 100%); }
+.mood-cell.c2 { background: var(--stone); }
+.mood-cell.c3 { background: var(--gold); opacity: 0.3; }
+.mood-cell.c4 { grid-row: span 2; background: linear-gradient(180deg, var(--forest) 0%, var(--void) 100%); }
+.mood-cell.c5 { background: var(--cream-warm); }
+.mood-cell.c6 { grid-column: span 2; background: linear-gradient(90deg, var(--charcoal), var(--stone-light)); }
+.mood-cell.c7 { background: var(--moss); opacity: 0.5; }
+.mood-cell.c8 { background: radial-gradient(circle, rgba(184,148,46,0.2), var(--void)); }
+
+.foto-proibicoes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.foto-proib {
+  border-left: 1px solid rgba(200, 60, 60, 0.2);
+  padding-left: 1.5rem;
+}
+
+.foto-proib-title {
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(200, 60, 60, 0.5);
+  margin-bottom: 0.5rem;
+}
+
+.foto-proib-text {
+  font-size: 0.8rem;
+  line-height: 1.7;
+  color: rgba(240, 237, 230, 0.4);
+  font-weight: 300;
+}
+
+/* ==================== DO & DON'T SECTION ==================== */
+#dodont {
+  background:
+    radial-gradient(ellipse 90% 70% at 50% 50%, rgba(45, 74, 62, 0.1) 0%, transparent 70%),
+    var(--void);
+}
+
+.dodont-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 6rem;
+}
+
+.dodont-col {
+  padding: 4rem 3rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.dodont-col.do-col {
+  background: rgba(45, 74, 62, 0.06);
+  border: 1px solid rgba(45, 74, 62, 0.15);
+}
+
+.dodont-col.do-col::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--moss), transparent);
+}
+
+.dodont-col.dont-col {
+  background: rgba(140, 40, 40, 0.04);
+  border: 1px solid rgba(140, 40, 40, 0.12);
+}
+
+.dodont-col.dont-col::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(200,60,60,0.5), transparent);
+}
+
+.dodont-title {
+  font-family: var(--serif);
+  font-size: 2rem;
+  font-weight: 300;
+  color: var(--cream);
+  letter-spacing: 0.1em;
+  margin-bottom: 2.5rem;
+  text-transform: uppercase;
+}
+
+.dodont-list {
+  list-style: none;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.dodont-list li {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: rgba(240, 237, 230, 0.55);
+  font-weight: 300;
+  padding-left: 2rem;
+  position: relative;
+}
+
+.do-col .dodont-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55rem;
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--moss);
+  border-radius: 50%;
+  background: rgba(74, 107, 80, 0.15);
+}
+
+.dont-col .dodont-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55rem;
+  width: 8px;
+  height: 8px;
+  background: rgba(200, 60, 60, 0.2);
+  border: 1px solid rgba(200, 60, 60, 0.4);
+}
+
+.final-closure {
+  text-align: center;
+  padding: 6rem 0;
+}
+
+.final-logo {
+  font-family: var(--serif);
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  color: var(--cream);
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+.final-logo .gold { color: var(--gold); }
+
+.final-manifesto {
+  font-family: var(--serif);
+  font-size: clamp(1rem, 1.8vw, 1.2rem);
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(240, 237, 230, 0.3);
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+/* ==================== FOOTER ==================== */
+footer {
+  position: relative;
+  padding: 4rem;
+  border-top: 1px solid rgba(184,148,46,0.08);
+  text-align: center;
+}
+
+.footer-copy {
+  font-size: 0.55rem;
+  color: rgba(240, 237, 230, 0.2);
+  letter-spacing: 0.15em;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 1024px) {
+  .colors-grid { grid-template-columns: repeat(3, 1fr); }
+  .app-grid { grid-template-columns: 1fr 1fr; }
+  .app-banner { grid-column: span 2; }
+  .canais-grid { grid-template-columns: repeat(2, 1fr); }
+  .icons-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+@media (max-width: 768px) {
+  nav { padding: 1.5rem 2rem; }
+  nav.scrolled { padding: 1rem 2rem; }
+  .nav-links { display: none; }
+  .bb-section-inner { padding: 0 2rem; }
+  .mvv-grid, .incorrect-grid, .foto-principios-grid, .elementos-grid, .palette-groups { grid-template-columns: 1fr; }
+  .colors-grid { grid-template-columns: repeat(2, 1fr); }
+  .logo-variants-grid { grid-template-columns: 1fr; }
+  .logo-protection { grid-template-columns: 1fr; }
+  .voz-columns, .dodont-grid { grid-template-columns: 1fr; }
+  .canais-grid { grid-template-columns: 1fr; }
+  .app-grid { grid-template-columns: 1fr; }
+  .app-banner { grid-column: span 1; padding: 3rem 2rem; }
+  .banner-content { flex-direction: column; text-align: center; }
+  .banner-right { text-align: center; }
+  .type-meta { grid-template-columns: repeat(2, 1fr); }
+  .type-row { grid-template-columns: 1fr; gap: 0.5rem; }
+  .foto-proibicoes { grid-template-columns: 1fr; }
+  .icons-grid { grid-template-columns: repeat(3, 1fr); }
+  .moodboard { grid-template-columns: repeat(2, 1fr); }
+  .cursor, .cursor-ring { display: none; }
+  body { cursor: auto; }
+}
+
+/* ==================== TOAST ==================== */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--gold);
+  color: var(--void);
+  font-family: var(--sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.8rem 2rem;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s var(--ease-out-expo);
+  pointer-events: none;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+#logotipo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(184,148,46,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(184,148,46,0.03) 1px, transparent 1px);
+  background-size: 80px 80px;
+  pointer-events: none;
+}
+</style>
+</head>
+
+<body>
+<!-- Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- Toast -->
+<div class="toast" id="toast">Copiado</div>
+
+<!-- ============================
+     LOADER
+     ============================ -->
+<div id="loader">
+  <div class="loader-inner">
+    <div class="loader-logo">GSWP</div>
+    <div class="loader-line"></div>
+    <div class="loader-sub">Brand Identity Guidelines</div>
+  </div>
+</div>
+
+<!-- ============================
+     NAVIGATION
+     ============================ -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo">G<span>S</span>WP</a>
+  <ul class="nav-links">
+    <li><a href="#manifesto">Manifesto</a></li>
+    <li><a href="#logotipo">Logo</a></li>
+    <li><a href="#paleta">Cores</a></li>
+    <li><a href="#tipografia">Tipo</a></li>
+    <li><a href="#voz">Voz</a></li>
+    <li><a href="#elementos">Elementos</a></li>
+    <li><a href="#aplicacoes">Uso</a></li>
+    <li><a href="#fotografia">Foto</a></li>
+    <li><a href="#dodont">Do&amp;Don't</a></li>
+  </ul>
+</nav>
+
+<!-- ============================
+     01. HERO / CAPA
+     ============================ -->
+<section id="hero">
+  <canvas id="particle-canvas"></canvas>
+  <div class="hero-stone"></div>
+  <div class="hero-bg-gradient"></div>
+  <div class="hero-orb"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <span class="hero-eyebrow-text">Greystone Wellness Propriety &mdash; Guidelines 2025</span>
+      <div class="hero-eyebrow-line"></div>
+    </div>
+
+    <h1 class="hero-title">
+      Brand
+      <span class="break-word"><em>Identity</em></span>
+    </h1>
+
+    <p class="hero-subtitle">
+      O manual definitivo da identidade visual que constroi legados.
+    </p>
+
+    <div class="hero-divider">
+      <div class="hero-divider-line"></div>
+      <div class="hero-diamond"></div>
+      <div class="hero-divider-line"></div>
+    </div>
+
+    <div class="hero-version">v2.0 &mdash; Documento Confidencial</div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-indicator"></div>
+    <span class="scroll-text">Scroll</span>
+  </div>
+</section>
+
+<!-- ============================
+     02. SOBRE A MARCA / MANIFESTO
+     ============================ -->
+<section id="manifesto" class="bb-section">
+  <div class="section-accent"></div>
+  <div class="flor-orb-bg"></div>
+
+  <div class="bb-section-inner">
+    <div style="text-align:center;">
+      <div class="section-label reveal">Manifesto</div>
+    </div>
+
+    <div class="manifesto-quote reveal reveal-delay-1">
+      <span class="large-quote">&ldquo;</span>Nao construimos imoveis.<br>
+      Construimos <span class="highlight">legados</span>.
+    </div>
+
+    <div class="manifesto-body reveal reveal-delay-2">
+      <p class="manifesto-p">
+        Existe um momento raro em que <strong>a pedra encontra a folha</strong>, em que a solidez da arquitetura abraca a suavidade da natureza. E nesse encontro que nasce a <strong>Greystone Wellness Propriety</strong>.
+      </p>
+      <p class="manifesto-p">
+        Nao somos uma incorporadora. Somos <span style="color:var(--gold-pale);font-style:italic;">arquitetos de uma nova forma de viver</span>. Acreditamos que um lar de verdade nao se mede em metros quadrados, mas em <strong>momentos de plenitude</strong>.
+      </p>
+      <p class="manifesto-p">
+        Cada empreendimento GSWP e desenhado para ser uma extensao da natureza que o cerca &mdash; onde o verde nao e paisagismo, e <strong>identidade</strong>; onde o silencio nao e ausencia, e <strong>presenca</strong>; onde o luxo nao grita, <span style="color:var(--gold-pale);font-style:italic;">sussurra</span>.
+      </p>
+      <p class="manifesto-p">
+        Florianopolis nos escolheu tanto quanto nos a escolhemos. Para os poucos que entendem que verdadeira riqueza e acordar com o canto dos passaros &mdash; para esses, construimos. Para esses, existimos. <strong>Para esses, somos Greystone.</strong>
+      </p>
+    </div>
+
+    <!-- Missao / Visao / Valores -->
+    <div class="mvv-grid">
+      <div class="pilar reveal reveal-delay-1">
+        <div class="pilar-number">01</div>
+        <div class="pilar-name">Missao</div>
+        <p class="pilar-desc">
+          Criar <strong>residencias de excelencia</strong> que integrem arquitetura, natureza e bem-estar, redefinindo o conceito de moradia de alto padrao em Florianopolis.
+        </p>
+      </div>
+      <div class="pilar reveal reveal-delay-2">
+        <div class="pilar-number">02</div>
+        <div class="pilar-name">Visao</div>
+        <p class="pilar-desc">
+          Ser reconhecida como a referencia em <strong>wellness real estate</strong>, onde cada projeto e um legado que transcende geracoes.
+        </p>
+      </div>
+      <div class="pilar reveal reveal-delay-3">
+        <div class="pilar-number">03</div>
+        <div class="pilar-name">Valores</div>
+        <p class="pilar-desc">
+          <strong>Autenticidade</strong> sobre tendencia. <strong>Natureza</strong> sobre artificialidade. <strong>Silencio</strong> sobre ruido. <strong>Legado</strong> sobre lucro imediato. <strong>Exclusividade</strong> sobre escala.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================
+     03. LOGOTIPO
+     ============================ -->
+<section id="logotipo" class="bb-section">
+  <div class="section-accent"></div>
+
+  <div class="bb-section-inner">
+    <div style="text-align:center;">
+      <div class="section-label reveal">Sistema de Logo</div>
+    </div>
+
+    <div style="text-align:center;margin-bottom:5rem;">
+      <h2 style="font-family:var(--serif);font-size:clamp(2.2rem,5vw,4rem);font-weight:300;color:var(--cream);letter-spacing:-0.01em;line-height:1.1;" class="reveal reveal-delay-1">
+        A marca que <em style="font-style:italic;color:var(--gold-pale);">sussurra</em>
+      </h2>
+    </div>
+
+    <!-- 4 variantes -->
+    <div class="logo-variants-grid">
+      <div class="logo-card logo-card-dark reveal">
+        <div class="logo-text logo-text-dark">G<span class="gold">S</span>WP</div>
+        <span class="logo-card-label" style="color:var(--cream);">Primaria &mdash; Dark</span>
+      </div>
+      <div class="logo-card logo-card-light reveal reveal-delay-1">
+        <div class="logo-text logo-text-light">G<span class="gold">S</span>WP</div>
+        <span class="logo-card-label" style="color:var(--void);">Invertida &mdash; Light</span>
+      </div>
+      <div class="logo-card logo-card-sage reveal reveal-delay-2">
+        <div class="logo-text logo-text-sage">G<span class="gold">S</span>WP</div>
+        <span class="logo-card-label" style="color:var(--cream);">Ambiente &mdash; Sage</span>
+      </div>
+      <div class="logo-card logo-card-gold reveal reveal-delay-3">
+        <div class="logo-text logo-text-gold">G<span class="gold">S</span>WP</div>
+        <span class="logo-card-label" style="color:var(--cream);">Monocromatica &mdash; Gold</span>
+      </div>
+    </div>
+
+    <!-- Arch diagram + protection zone -->
+    <div class="logo-protection">
+      <div class="reveal-left">
+        <div style="max-width:400px;margin:0 auto;">
+          <div class="arch-diagram">
+            <div class="arch-frame"></div>
+            <div class="arch-frame"></div>
+            <div class="arch-frame"></div>
+            <div class="arch-frame"></div>
+            <div class="arch-corner tl"></div>
+            <div class="arch-corner tr"></div>
+            <div class="arch-corner bl"></div>
+            <div class="arch-corner br"></div>
+            <div class="arch-lines">
+              <div class="arch-line-h"></div>
+              <div class="arch-line-h"></div>
+              <div class="arch-line-h"></div>
+            </div>
+            <div class="arch-center">
+              <div class="arch-center-logo">GSWP</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal-right">
+        <div class="protection-text">
+          <h3>Zona de Protecao</h3>
+          <p>
+            A area minima de respiro ao redor do logotipo e definida pela altura da letra <strong>"S"</strong>. Nenhum elemento grafico, texto ou borda pode invadir essa zona. O espaco e sagrado &mdash; assim como o silencio que define a marca.
+          </p>
+          <div style="margin-top:2rem;">
+            <div class="stat-item">
+              <div class="stat-number">S</div>
+              <div class="stat-label">Unidade de medida base</div>
+            </div>
+          </div>
+          <div style="margin-top:1.5rem;">
+            <div class="stat-item">
+              <div class="stat-number">1.5x</div>
+              <div class="stat-label">Margem minima em todos os lados</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Usos incorretos -->
+    <div style="text-align:center;margin-bottom:3rem;">
+      <div class="section-label reveal">Usos Incorretos</div>
+    </div>
+
+    <div class="incorrect-grid">
+      <div class="incorrect-card reveal">
+        <div class="incorrect-x">&times;</div>
+        <div class="incorrect-demo" style="transform:scaleX(1.4);">GSWP</div>
+        <div class="incorrect-label">Nao distorcer</div>
+      </div>
+      <div class="incorrect-card reveal reveal-delay-1">
+        <div class="incorrect-x">&times;</div>
+        <div class="incorrect-demo" style="transform:rotate(15deg);">GSWP</div>
+        <div class="incorrect-label">Nao rotacionar</div>
+      </div>
+      <div class="incorrect-card reveal reveal-delay-2">
+        <div class="incorrect-x">&times;</div>
+        <div class="incorrect-demo" style="text-shadow:0 0 20px rgba(184,148,46,0.8);">GSWP</div>
+        <div class="incorrect-label">Nao adicionar sombras</div>
+      </div>
+      <div class="incorrect-card reveal reveal-delay-3">
+        <div class="incorrect-x">&times;</div>
+        <div class="incorrect-demo" style="background:linear-gradient(90deg,#ff6b6b,#4ecdc4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">GSWP</div>
+        <div class="incorrect-label">Nao usar gradientes no logo</div>
+      </div>
+      <div class="incorrect-card reveal reveal-delay-4">
+        <div class="incorrect-x">&times;</div>
+        <div class="incorrect-demo" style="letter-spacing:-0.1em;font-weight:700;">GSWP</div>
+        <div class="incorrect-label">Nao alterar peso/espacamento</div>
+      </div>
+      <div class="incorrect-card reveal reveal-delay-5">
+        <div class="incorrect-x">&times;</div>
+        <div class="incorrect-demo" style="opacity:0.15;">GSWP</div>
+        <div class="incorrect-label">Nao usar sobre fundo confuso</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================
+     04. PALETA DE CORES
+     ============================ -->
+<section id="paleta" class="bb-section">
+  <div class="section-accent"></div>
+
+  <div class="bb-section-inner">
+    <div style="text-align:center;">
+      <div class="section-label reveal">Cromatica</div>
+    </div>
+
+    <div style="text-align:center;margin-bottom:5rem;">
+      <h2 style="font-family:var(--serif);font-size:clamp(2.2rem,5vw,4rem);font-weight:300;color:var(--cream);letter-spacing:-0.01em;line-height:1.1;" class="reveal reveal-delay-1">
+        Pedra, <em style="font-style:italic;color:var(--gold-pale);">Folha</em> &amp; Ouro
+      </h2>
+    </div>
+
+    <div class="colors-grid">
+      <div class="color-swatch reveal" data-hex="#090907">
+        <div class="color-fill" style="background:#090907;"></div>
+        <div class="color-info">
+          <div class="color-name">Void</div>
+          <div class="color-hex">#090907 <button class="copy-btn" onclick="copyHex(this)">Copiar</button></div>
+          <div class="color-rgb">RGB 9, 9, 7</div>
+          <div class="color-stat"><div class="color-stat-label">Fundo principal</div></div>
+        </div>
+      </div>
+      <div class="color-swatch reveal reveal-delay-1" data-hex="#1A1917">
+        <div class="color-fill" style="background:#1A1917;"></div>
+        <div class="color-info">
+          <div class="color-name">Charcoal</div>
+          <div class="color-hex">#1A1917 <button class="copy-btn" onclick="copyHex(this)">Copiar</button></div>
+          <div class="color-rgb">RGB 26, 25, 23</div>
+          <div class="color-stat"><div class="color-stat-label">Cards, secoes</div></div>
+        </div>
+      </div>
+      <div class="color-swatch reveal reveal-delay-2" data-hex="#2C2B28">
+        <div class="color-fill" style="background:#2C2B28;"></div>
+        <div class="color-info">
+          <div class="color-name">Stone</div>
+          <div class="color-hex">#2C2B28 <button class="copy-btn" onclick="copyHex(this)">Copiar</button></div>
+          <div class="color-rgb">RGB 44, 43, 40</div>
+          <div class="color-stat"><div class="color-stat-label">Bordas, superficies</div></div>
+        </div>
+      </div>
+      <div class="color-swatch reveal reveal-delay-3" data-hex="#3D3C38">
+        <div class="color-fill" style="background:#3D3C38;"></div>
+        <div class="color-info">
+          <div class="color-name">Stone Light</div>
+          <div class="color-hex">#3D3C38 <button class="copy-btn" onclick="copyHex(this)">Copiar</button></div>
+          <div class="color-rgb">RGB 61, 60, 56</div>
+          <div class="color-stat"><div class="color-stat-label">Detalhes sutis</div></div>
+        </div>
+      </div>
+      <div class="color-swatch reveal" data-hex="#2D4A3E">
+        <div class="color-fill" style="background:#2D4A3E;"></div>
+        <div class="color-info">
+          <div class="color-name">Sage</div>
+          <div class="color-hex">#2D4A3E <button class="copy-btn" onclick="copyHex(this)">Copiar</button></div>
+          <div class="color-rgb">RGB 45, 74, 62</div>
+          <div class="color-stat"><div class="color-stat-label">Cor organica primaria</div></div>
+        </div>
+      </div>
+      <div class="color-swatch reveal reveal-delay-1" data-hex="#3A5A40">
+        <div class="color-fill" style="background:#3A5A40;"></div>
+        <div class="color-info">
+          <div class="color-name">Forest</div>
+          <div class="color-hex">#3A5A40 <button class="copy-btn" onclick="copyHex(this)">Copiar</button></div>
+          <div class="color-rgb">RGB 58, 90, 64</div>
+          <div class="color-stat"><div class="color-stat-label">Gradientes naturais</div></div>
+        </div>
+      </div>
+      <div class="color-swatch reveal reveal-delay-2" data-hex="#4A6B50">
+        <div class="color-fill" style="background:#4A6B50;"></div>
+        <div class="color-info">
+          <div class="color-name">Moss</div>
+          <div class="color-hex">#4A6B50 <button class="copy-btn" onclick="copyHex(this)">Copiar</button></div>
+          <div class="color-rgb">RGB 74, 107, 80</div>
+          <div class="color-stat"><div class="color-stat-label">Acentos natureza</div></div>
+        </div>
+      </div>
+      <div class="color-swatch reveal reveal-delay-3" data-hex="#B8942E">
+        <div class="color-fill" style="background:#B8942E;"></div>
+        <div class="color-info">
+          <div class="color-name">Gold</div>
+          <div class="color-hex">#B8942E <button class="copy-btn" onclick="copyHex(this)">Copiar</button></div>
+          <div class="color-rgb">RGB 184, 148, 46</div>
+          <div class="color-stat"><div class="color-stat-label">Cor de destaque primaria</div></div>
+        </div>
+      </div>
+      <div class="color-swatch reveal" data-hex="#C4A84A">
+        <div class="color-fill" style="background:#C4A84A;"></div>
+        <div class="color-info">
+          <div class="color-name">Gold Light</div>
+          <div class="color-hex">#C4A84A <button class="copy-btn" onclick="copyHex(this)">Copiar</button></div>
+          <div class="color-rgb">RGB 196, 168, 74</div>
+          <div class="color-stat"><div class="color-stat-label">Hover states</div></div>
+        </div>
+      </div>
+      <div class="color-swatch reveal reveal-delay-1" data-hex="#D4B96A">
+        <div class="color-fill" style="background:#D4B96A;"></div>
+        <div class="color-info">
+          <div class="color-name">Gold Pale</div>
+          <div class="color-hex">#D4B96A <button class="copy-btn" onclick="copyHex(this)">Copiar</button></div>
+          <div class="color-rgb">RGB 212, 185, 106</div>
+          <div class="color-stat"><div class="color-stat-label">Italicos e destaques</div></div>
+        </div>
+      </div>
+      <div class="color-swatch reveal reveal-delay-2" data-hex="#F0EDE6">
+        <div class="color-fill" style="background:#F0EDE6;"></div>
+        <div class="color-info" style="background:rgba(240,237,230,0.05);">
+          <div class="color-name">Cream</div>
+          <div class="color-hex">#F0EDE6 <button class="copy-btn" onclick="copyHex(this)">Copiar</button></div>
+          <div class="color-rgb">RGB 240, 237, 230</div>
+          <div class="color-stat"><div class="color-stat-label">Texto principal</div></div>
+        </div>
+      </div>
+      <div class="color-swatch reveal reveal-delay-3" data-hex="#FAF8F4">
+        <div class="color-fill" style="background:#FAF8F4;"></div>
+        <div class="color-info" style="background:rgba(240,237,230,0.05);">
+          <div class="color-name">Off White</div>
+          <div class="color-hex">#FAF8F4 <button class="copy-btn" onclick="copyHex(this)">Copiar</button></div>
+          <div class="color-rgb">RGB 250, 248, 244</div>
+          <div class="color-stat"><div class="color-stat-label">Fundos claros</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="palette-groups">
+      <div class="palette-group reveal">
+        <div class="palette-group-title">Pedra</div>
+        <div class="palette-group-desc">Os tons escuros formam a base. A solidez, a permanencia, o silencio visual. Usados em fundos, cards e superficies.</div>
+        <div class="palette-strip">
+          <div class="palette-chip" style="background:#090907;"></div>
+          <div class="palette-chip" style="background:#1A1917;"></div>
+          <div class="palette-chip" style="background:#2C2B28;"></div>
+          <div class="palette-chip" style="background:#3D3C38;"></div>
+        </div>
+      </div>
+      <div class="palette-group reveal reveal-delay-1">
+        <div class="palette-group-title">Folha</div>
+        <div class="palette-group-desc">Os verdes trazem vida organica. Representam a natureza que abraca cada projeto. Usados em gradientes, orbs e acentos.</div>
+        <div class="palette-strip">
+          <div class="palette-chip" style="background:#2D4A3E;"></div>
+          <div class="palette-chip" style="background:#3A5A40;"></div>
+          <div class="palette-chip" style="background:#4A6B50;"></div>
+        </div>
+      </div>
+      <div class="palette-group reveal reveal-delay-2">
+        <div class="palette-group-title">Ouro</div>
+        <div class="palette-group-desc">O dourado e a faisca. O detalhe que eleva. Nunca excessivo, sempre preciso. Usado em labels, bordas e highlights.</div>
+        <div class="palette-strip">
+          <div class="palette-chip" style="background:#B8942E;"></div>
+          <div class="palette-chip" style="background:#C4A84A;"></div>
+          <div class="palette-chip" style="background:#D4B96A;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================
+     05. TIPOGRAFIA
+     ============================ -->
+<section id="tipografia" class="bb-section">
+  <div class="section-accent"></div>
+
+  <div class="bb-section-inner">
+    <div style="text-align:center;">
+      <div class="section-label reveal">Hierarquia Tipografica</div>
+    </div>
+
+    <div class="type-specimen reveal">
+      <div class="type-label">Display &mdash; Serif</div>
+      <div class="type-display">Legados</div>
+      <div class="type-display" style="font-style:italic;color:var(--gold-pale);font-size:clamp(3rem,8vw,7rem);">que sussurram</div>
+      <div class="type-meta">
+        <div class="type-meta-item">
+          <div class="type-meta-value">Cormorant Garamond</div>
+          <div class="type-meta-label">Familia</div>
+        </div>
+        <div class="type-meta-item">
+          <div class="type-meta-value">300 / 400</div>
+          <div class="type-meta-label">Pesos</div>
+        </div>
+        <div class="type-meta-item">
+          <div class="type-meta-value">Titulos, quotes</div>
+          <div class="type-meta-label">Uso</div>
+        </div>
+        <div class="type-meta-item">
+          <div class="type-meta-value">-0.01em</div>
+          <div class="type-meta-label">Tracking display</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="type-specimen reveal">
+      <div class="type-label">Funcional &mdash; Sans</div>
+      <div class="type-sans-display">Greystone Wellness</div>
+      <div style="font-family:var(--sans);font-size:0.85rem;font-weight:300;color:rgba(240,237,230,0.5);line-height:1.9;max-width:600px;letter-spacing:0.02em;">
+        DM Sans e a voz do corpo. Limpa, moderna, sem friccao. Usada em paragrafos, labels, navegacao e UI. Sempre em pesos leves (200-400) para manter a elegancia sutil da marca.
+      </div>
+      <div class="type-meta" style="margin-top:2rem;">
+        <div class="type-meta-item">
+          <div class="type-meta-value">DM Sans</div>
+          <div class="type-meta-label">Familia</div>
+        </div>
+        <div class="type-meta-item">
+          <div class="type-meta-value">200 / 300 / 400</div>
+          <div class="type-meta-label">Pesos</div>
+        </div>
+        <div class="type-meta-item">
+          <div class="type-meta-value">Body, labels, nav</div>
+          <div class="type-meta-label">Uso</div>
+        </div>
+        <div class="type-meta-item">
+          <div class="type-meta-value">0.2-0.4em</div>
+          <div class="type-meta-label">Tracking labels</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="type-hierarchy reveal">
+      <div class="type-row">
+        <div class="type-row-label">Display</div>
+        <div class="type-row-h1">Verdadeira riqueza</div>
+      </div>
+      <div class="type-row">
+        <div class="type-row-label">Heading 1</div>
+        <div class="type-row-h2">Construimos legados</div>
+      </div>
+      <div class="type-row">
+        <div class="type-row-label">Heading 2</div>
+        <div class="type-row-h3">O luxo que sussurra</div>
+      </div>
+      <div class="type-row">
+        <div class="type-row-label">Body</div>
+        <div class="type-row-body">Cada empreendimento GSWP e desenhado para ser uma extensao da natureza que o cerca &mdash; onde o verde nao e paisagismo, e identidade.</div>
+      </div>
+      <div class="type-row">
+        <div class="type-row-label">Caption / Label</div>
+        <div class="type-row-caption">Greystone Wellness Propriety &mdash; Florianopolis, SC</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================
+     06. VOZ E TOM
+     ============================ -->
+<section id="voz" class="bb-section">
+  <div class="section-accent"></div>
+
+  <div class="bb-section-inner">
+    <div style="text-align:center;">
+      <div class="section-label reveal">Voz da Marca</div>
+    </div>
+
+    <div style="text-align:center;margin-bottom:5rem;">
+      <h2 style="font-family:var(--serif);font-size:clamp(2.2rem,5vw,4rem);font-weight:300;color:var(--cream);letter-spacing:-0.01em;line-height:1.1;" class="reveal reveal-delay-1">
+        Sussurrar, <em style="font-style:italic;color:var(--gold-pale);">nunca</em> gritar
+      </h2>
+    </div>
+
+    <div class="voz-columns">
+      <div class="voz-do reveal">
+        <div class="voz-col-title">A Voz GSWP</div>
+        <ul class="voz-list">
+          <li>Poetica sem ser rebuscada</li>
+          <li>Confiante sem ser arrogante</li>
+          <li>Exclusiva sem ser elitista</li>
+          <li>Sensorial: descreve o que se sente, nao o que se ve</li>
+          <li>Ritmo lento, frases curtas, pausas intencionais</li>
+          <li>Metaforas naturais: pedra, folha, mar, silencio</li>
+          <li>Sempre na terceira pessoa ou impessoal</li>
+          <li>Tom: quem ja chegou, nao quem quer vender</li>
+        </ul>
+      </div>
+      <div class="voz-dont reveal reveal-delay-1">
+        <div class="voz-col-title">Nunca</div>
+        <ul class="voz-list">
+          <li>Urgencia: "Ultimas unidades!", "Corra!"</li>
+          <li>Superlativos vazios: "O melhor", "Unico"</li>
+          <li>Jargao imobiliario: "Oportunidade", "Investimento"</li>
+          <li>Linguagem agressiva de vendas</li>
+          <li>Emojis, exclamacoes excessivas</li>
+          <li>Comparacoes diretas com concorrentes</li>
+          <li>Promessas de retorno financeiro</li>
+          <li>Tom informal ou coloquial demais</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-bottom:3rem;">
+      <div class="section-label reveal">Canais</div>
+    </div>
+
+    <div class="canais-grid">
+      <div class="canal-card reveal">
+        <svg class="canal-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" style="color:var(--gold);" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="4" width="28" height="28" rx="6" stroke-width="1"/>
+          <circle cx="18" cy="18" r="7" stroke-width="1"/>
+          <circle cx="26.5" cy="9.5" r="1.5" fill="currentColor"/>
+        </svg>
+        <div class="canal-name">Instagram</div>
+        <div class="canal-tone">Contemplativo</div>
+        <div class="canal-desc">Imagens de alta qualidade, legendas curtas e poeticas. Nunca mais que 3 hashtags. Stories sao extensoes do manifesto.</div>
+      </div>
+      <div class="canal-card reveal reveal-delay-1">
+        <svg class="canal-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" style="color:var(--gold);" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="6" width="28" height="24" rx="1" stroke-width="1"/>
+          <path d="M4 12h28" stroke-width="0.5"/>
+          <rect x="8" y="16" width="12" height="3" rx="0.5" stroke-width="0.5"/>
+          <rect x="8" y="22" width="20" height="1" rx="0.5" stroke-width="0.5" opacity="0.4"/>
+          <rect x="8" y="25" width="16" height="1" rx="0.5" stroke-width="0.5" opacity="0.3"/>
+        </svg>
+        <div class="canal-name">Blog</div>
+        <div class="canal-tone">Narrativo</div>
+        <div class="canal-desc">Textos longos sobre arquitetura, natureza e lifestyle. Tom editorial, quase ensaistico. Sem CTAs agressivos.</div>
+      </div>
+      <div class="canal-card reveal reveal-delay-2">
+        <svg class="canal-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" style="color:var(--gold);" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="8" width="28" height="20" rx="1" stroke-width="1"/>
+          <path d="M4 8l14 11L32 8" stroke-width="1"/>
+        </svg>
+        <div class="canal-name">Email</div>
+        <div class="canal-tone">Pessoal e Discreto</div>
+        <div class="canal-desc">Comunicacao direta e elegante. Sem newsletters genericas. Cada email parece um convite pessoal, nao broadcast.</div>
+      </div>
+      <div class="canal-card reveal reveal-delay-3">
+        <svg class="canal-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" style="color:var(--gold);" xmlns="http://www.w3.org/2000/svg">
+          <rect x="4" y="4" width="28" height="28" rx="1" stroke-width="1"/>
+          <path d="M10 18h16M18 10v16" stroke-width="0.5" opacity="0.3"/>
+          <circle cx="18" cy="18" r="6" stroke-width="1"/>
+          <path d="M15 18l2 2 4-4" stroke-width="1"/>
+        </svg>
+        <div class="canal-name">Ads</div>
+        <div class="canal-tone">Aspiracional</div>
+        <div class="canal-desc">Imagens atmosfericas, copy minimalista. Foco na sensacao, nao nas specs. O produto e o estilo de vida, nao o imovel.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:4rem;">
+      <div class="copy-examples">
+        <div class="copy-example reveal">
+          <div class="copy-example-label">Headline &mdash; Instagram</div>
+          <div class="copy-example-text">O som do silencio tem <em>endereco</em>.</div>
+        </div>
+        <div class="copy-example reveal reveal-delay-1">
+          <div class="copy-example-label">Abertura &mdash; Email</div>
+          <div class="copy-example-text">Voce nao esta procurando um imovel. Esta procurando um lugar onde o tempo <em>desacelera</em>.</div>
+        </div>
+        <div class="copy-example reveal reveal-delay-2">
+          <div class="copy-example-label">Tagline &mdash; Ads</div>
+          <div class="copy-example-text">Para os poucos que entendem que <em>verdadeira riqueza</em> e acordar livre.</div>
+        </div>
+        <div class="copy-example reveal reveal-delay-3">
+          <div class="copy-example-label">CTA &mdash; Landing Page</div>
+          <div class="copy-example-text">Nao vendemos metros quadrados. Construimos <em>momentos de plenitude</em>.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================
+     07. ELEMENTOS GRAFICOS
+     ============================ -->
+<section id="elementos" class="bb-section">
+  <div class="section-accent"></div>
+
+  <div class="bb-section-inner">
+    <div style="text-align:center;">
+      <div class="section-label reveal">Elementos</div>
+    </div>
+
+    <div style="text-align:center;margin-bottom:5rem;">
+      <h2 style="font-family:var(--serif);font-size:clamp(2.2rem,5vw,4rem);font-weight:300;color:var(--cream);letter-spacing:-0.01em;line-height:1.1;" class="reveal reveal-delay-1">
+        Texturas &amp; <em style="font-style:italic;color:var(--gold-pale);">Padroes</em>
+      </h2>
+    </div>
+
+    <div class="elementos-grid">
+      <div class="elemento-card el-grain reveal">
+        <span class="elemento-card-label">Grain Overlay</span>
+      </div>
+      <div class="elemento-card el-grid reveal reveal-delay-1">
+        <span class="elemento-card-label">Grid Sutil</span>
+      </div>
+      <div class="elemento-card el-stone reveal reveal-delay-2">
+        <span class="elemento-card-label">Stone Texture</span>
+      </div>
+      <div class="elemento-card el-gradient reveal">
+        <span class="elemento-card-label">Radial Gradients</span>
+      </div>
+      <div class="elemento-card el-orb reveal reveal-delay-1">
+        <div class="el-orb-inner"></div>
+        <span class="elemento-card-label">Organic Orb</span>
+      </div>
+      <div class="elemento-card el-ring reveal reveal-delay-2" style="background:var(--void);">
+        <div class="el-ring-inner"></div>
+        <div class="el-ring-inner"></div>
+        <div class="el-ring-inner"></div>
+        <span class="elemento-card-label">Legacy Rings</span>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin:5rem 0 3rem;">
+      <div class="section-label reveal">Separadores</div>
+    </div>
+
+    <div class="separators-demo">
+      <div class="sep-item reveal">
+        <div class="sep-label">Diamante</div>
+        <div class="sep-demo">
+          <div class="sep-diamond-line">
+            <div class="sep-line"></div>
+            <div class="sep-diamond"></div>
+            <div class="sep-line"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sep-item reveal reveal-delay-1">
+        <div class="sep-label">Gradiente Sutil</div>
+        <div class="sep-demo">
+          <div class="sep-gradient"></div>
+        </div>
+      </div>
+      <div class="sep-item reveal reveal-delay-2">
+        <div class="sep-label">Gold Accent</div>
+        <div class="sep-demo">
+          <div class="sep-gold-solid"></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin:5rem 0 3rem;">
+      <div class="section-label reveal">Iconografia</div>
+    </div>
+
+    <div class="icons-grid">
+      <div class="icon-item reveal">
+        <svg viewBox="0 0 36 36" fill="none" stroke="currentColor" style="color:var(--gold);" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 4c-4 8-14 12-14 22a14 14 0 0028 0C32 16 22 12 18 4z" stroke-width="0.8"/>
+          <path d="M18 34V18" stroke-width="0.5"/>
+          <path d="M18 24c-3-2-7 0-8 4" stroke-width="0.5"/>
+          <path d="M18 20c2-1 6 1 7 4" stroke-width="0.5"/>
+        </svg>
+        <span>Natureza</span>
+      </div>
+      <div class="icon-item reveal reveal-delay-1">
+        <svg viewBox="0 0 36 36" fill="none" stroke="currentColor" style="color:var(--gold);" xmlns="http://www.w3.org/2000/svg">
+          <rect x="5" y="14" width="26" height="18" rx="1" stroke-width="0.8"/>
+          <path d="M2 14L18 4L34 14" stroke-width="0.8"/>
+          <path d="M14 32V22h8v10" stroke-width="0.5"/>
+        </svg>
+        <span>Arquitetura</span>
+      </div>
+      <div class="icon-item reveal reveal-delay-2">
+        <svg viewBox="0 0 36 36" fill="none" stroke="currentColor" style="color:var(--gold);" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="18" cy="18" r="14" stroke-width="0.8"/>
+          <circle cx="18" cy="18" r="6" stroke-width="0.5"/>
+          <circle cx="18" cy="18" r="1.5" fill="currentColor" opacity="0.4"/>
+          <path d="M18 4v4M18 28v4M4 18h4M28 18h4" stroke-width="0.5" opacity="0.3"/>
+        </svg>
+        <span>Silencio</span>
+      </div>
+      <div class="icon-item reveal reveal-delay-3">
+        <svg viewBox="0 0 36 36" fill="none" stroke="currentColor" style="color:var(--gold);" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="18,4 32,12 32,28 18,36 4,28 4,12" stroke-width="0.8"/>
+          <polygon points="18,10 26,15 26,25 18,30 10,25 10,15" stroke-width="0.5" opacity="0.5"/>
+        </svg>
+        <span>Legado</span>
+      </div>
+      <div class="icon-item reveal reveal-delay-4">
+        <svg viewBox="0 0 36 36" fill="none" stroke="currentColor" style="color:var(--gold);" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 4C10 4 4 10 4 18s6 14 14 14" stroke-width="0.8"/>
+          <path d="M18 4c8 0 14 6 14 14s-6 14-14 14" stroke-width="0.8" stroke-dasharray="3 3"/>
+          <path d="M4 18h28" stroke-width="0.5" opacity="0.3"/>
+          <path d="M18 4v28" stroke-width="0.5" opacity="0.3"/>
+        </svg>
+        <span>Wellness</span>
+      </div>
+      <div class="icon-item reveal reveal-delay-5">
+        <svg viewBox="0 0 36 36" fill="none" stroke="currentColor" style="color:var(--gold);" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 6l3.5 7 7.5 1-5.5 5 1.5 7.5L18 23l-6.5 3.5L13 19l-5.5-5 7.5-1z" stroke-width="0.8"/>
+        </svg>
+        <span>Exclusividade</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================
+     08. APLICACOES
+     ============================ -->
+<section id="aplicacoes" class="bb-section">
+  <div class="section-accent"></div>
+
+  <div class="bb-section-inner">
+    <div style="text-align:center;">
+      <div class="section-label reveal">Aplicacoes de Marca</div>
+    </div>
+
+    <div style="text-align:center;margin-bottom:5rem;">
+      <h2 style="font-family:var(--serif);font-size:clamp(2.2rem,5vw,4rem);font-weight:300;color:var(--cream);letter-spacing:-0.01em;line-height:1.1;" class="reveal reveal-delay-1">
+        A marca <em style="font-style:italic;color:var(--gold-pale);">em uso</em>
+      </h2>
+    </div>
+
+    <div class="app-grid">
+      <div class="app-card reveal">
+        <span class="app-card-label">Instagram Feed 1:1</span>
+        <div class="app-insta-feed">
+          <div class="insta-mock">
+            <div class="insta-eyebrow">Greystone Wellness Propriety</div>
+            <div class="insta-title">O silencio tem <em>endereco</em>.</div>
+            <div style="margin-top:1.5rem;">
+              <div class="legado-divider" style="opacity:0.2;margin:0 auto;">
+                <div class="legado-divider-line" style="width:30px;"></div>
+                <div class="legado-divider-diamond" style="width:4px;height:4px;"></div>
+                <div class="legado-divider-line" style="width:30px;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="app-card reveal reveal-delay-1">
+        <span class="app-card-label">Instagram Stories 9:16</span>
+        <div class="app-insta-story">
+          <div class="story-logo">G<span style="color:var(--gold);">S</span>WP</div>
+          <div class="story-text">
+            Para os poucos que entendem que verdadeira riqueza e acordar <em>livre</em>.
+          </div>
+          <div class="story-cta">Conhecer</div>
+        </div>
+      </div>
+
+      <div class="app-card reveal reveal-delay-2">
+        <span class="app-card-label">Cartao de Visita</span>
+        <div class="app-bizcard">
+          <div class="bizcard">
+            <div class="bizcard-logo">G<span class="gold">S</span>WP</div>
+            <div class="bizcard-sub">Greystone Wellness Propriety</div>
+            <div class="bizcard-line"></div>
+            <div class="bizcard-name">Bruno Zanuto</div>
+            <div class="bizcard-role">Founder &amp; CEO</div>
+            <div class="bizcard-contact">
+              contato@gswp.com.br<br>
+              +55 48 9977-4155<br>
+              Florianopolis, SC
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="app-card reveal">
+        <span class="app-card-label">Email Signature</span>
+        <div class="app-email-sig">
+          <div class="email-sig">
+            <div class="email-sig-logo">G<span class="gold">S</span>WP</div>
+            <div class="email-sig-info">
+              <div class="email-sig-name">Bruno Zanuto</div>
+              <div class="email-sig-role">Founder &amp; CEO</div>
+              <div class="email-sig-contact">
+                <a href="mailto:contato@gswp.com.br">contato@gswp.com.br</a><br>
+                +55 48 9977-4155<br>
+                gswp.com.br
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="app-card reveal reveal-delay-1">
+        <span class="app-card-label">Papel Timbrado</span>
+        <div class="app-paper">
+          <div class="letterhead">
+            <div class="letterhead-header">
+              <div class="letterhead-logo">G<span class="gold">S</span>WP</div>
+              <div class="letterhead-info">
+                Greystone Wellness Propriety<br>
+                Florianopolis, SC &mdash; Brasil<br>
+                contato@gswp.com.br
+              </div>
+            </div>
+            <div class="letterhead-body">
+              <div class="letterhead-line"></div>
+              <div class="letterhead-line"></div>
+              <div class="letterhead-line"></div>
+              <div class="letterhead-line"></div>
+              <div class="letterhead-line"></div>
+            </div>
+            <div class="letterhead-footer">
+              <span>GSWP &mdash; Greystone Wellness Propriety</span>
+              <span>CRECI/SC</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="app-card reveal reveal-delay-2" style="border-color:transparent;"></div>
+
+      <div class="app-card app-banner reveal">
+        <span class="app-card-label">Banner Digital</span>
+        <div class="banner-content">
+          <div class="banner-left">
+            <div class="banner-logo">G<span class="gold">S</span>WP</div>
+            <div class="banner-tagline">Nao construimos imoveis. Construimos legados.</div>
+          </div>
+          <div class="banner-right">
+            <div class="banner-headline">Verdadeira riqueza<br>e acordar <em>livre</em>.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================
+     09. FOTOGRAFIA
+     ============================ -->
+<section id="fotografia" class="bb-section">
+  <div class="section-accent"></div>
+
+  <div class="bb-section-inner">
+    <div style="text-align:center;">
+      <div class="section-label reveal">Diretrizes Visuais</div>
+    </div>
+
+    <div style="text-align:center;margin-bottom:5rem;">
+      <h2 style="font-family:var(--serif);font-size:clamp(2.2rem,5vw,4rem);font-weight:300;color:var(--cream);letter-spacing:-0.01em;line-height:1.1;" class="reveal reveal-delay-1">
+        O olhar <em style="font-style:italic;color:var(--gold-pale);">Greystone</em>
+      </h2>
+    </div>
+
+    <div class="foto-principios-grid">
+      <div class="foto-principio reveal">
+        <div class="foto-number">01</div>
+        <div class="foto-title">Luz Natural</div>
+        <div class="foto-desc">Priorizar golden hour (amanhecer e entardecer). Evitar flash direto. A luz deve contar a historia do espaco.</div>
+      </div>
+      <div class="foto-principio reveal reveal-delay-1">
+        <div class="foto-number">02</div>
+        <div class="foto-title">Paleta Organica</div>
+        <div class="foto-desc">Editar nas cores da marca: tons quentes de pedra, verdes profundos, dourados sutis. Nunca saturar em excesso.</div>
+      </div>
+      <div class="foto-principio reveal reveal-delay-2">
+        <div class="foto-number">03</div>
+        <div class="foto-title">Espaco Negativo</div>
+        <div class="foto-desc">Composicoes com ar. O vazio e tao importante quanto o preenchido. Respeitar a regra dos tercos com generosidade.</div>
+      </div>
+      <div class="foto-principio reveal reveal-delay-3">
+        <div class="foto-number">04</div>
+        <div class="foto-title">Texturas Reais</div>
+        <div class="foto-desc">Destacar materialidade: pedra, madeira, concreto, vegetacao. Close-ups que revelam a qualidade dos acabamentos.</div>
+      </div>
+      <div class="foto-principio reveal reveal-delay-4">
+        <div class="foto-number">05</div>
+        <div class="foto-title">Pessoas Discretas</div>
+        <div class="foto-desc">Quando houver pessoas, nunca posadas. Silhuetas, movimentos naturais, de costas. A arquitetura e a protagonista.</div>
+      </div>
+      <div class="foto-principio reveal reveal-delay-5">
+        <div class="foto-number">06</div>
+        <div class="foto-title">Atmosphera</div>
+        <div class="foto-desc">Neblina, reflexos na agua, sombras longas, brisa nas folhas. Capturar a sensacao, nao apenas o espaco fisico.</div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-bottom:3rem;">
+      <div class="section-label reveal">Moodboard</div>
+    </div>
+
+    <div class="moodboard reveal">
+      <div class="mood-cell c1"></div>
+      <div class="mood-cell c2"></div>
+      <div class="mood-cell c3"></div>
+      <div class="mood-cell c4"></div>
+      <div class="mood-cell c5"></div>
+      <div class="mood-cell c6"></div>
+      <div class="mood-cell c7"></div>
+      <div class="mood-cell c8"></div>
+    </div>
+
+    <div style="text-align:center;margin:5rem 0 3rem;">
+      <div class="section-label reveal">Evitar</div>
+    </div>
+
+    <div class="foto-proibicoes">
+      <div class="foto-proib reveal">
+        <div class="foto-proib-title">HDR Excessivo</div>
+        <div class="foto-proib-text">Imagens hiper-realistas destroem a atmosfera poetica. Manter edicao sutil e natural.</div>
+      </div>
+      <div class="foto-proib reveal reveal-delay-1">
+        <div class="foto-proib-title">Fotos de Stock</div>
+        <div class="foto-proib-text">Toda imagem deve ser original ou de bancos premium curados. Nunca usar fotos genericas.</div>
+      </div>
+      <div class="foto-proib reveal reveal-delay-2">
+        <div class="foto-proib-title">Composicoes Cheias</div>
+        <div class="foto-proib-text">Evitar enquadramentos claustrofobicos. Cada foto precisa de espaco para respirar.</div>
+      </div>
+      <div class="foto-proib reveal reveal-delay-3">
+        <div class="foto-proib-title">Cores Vibrantes</div>
+        <div class="foto-proib-text">Nao usar filtros que adicionam tons neon, azuis eletricos ou rosas. A paleta e terrosa e discreta.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================
+     10. DO & DON'T
+     ============================ -->
+<section id="dodont" class="bb-section">
+  <div class="section-accent"></div>
+  <div class="legado-ring" style="width:400px;height:400px;animation-delay:0s;"></div>
+  <div class="legado-ring" style="width:600px;height:600px;animation-delay:1.5s;"></div>
+  <div class="legado-ring" style="width:800px;height:800px;animation-delay:3s;"></div>
+  <div class="legado-ring" style="width:1000px;height:1000px;animation-delay:4.5s;"></div>
+
+  <div class="bb-section-inner">
+    <div style="text-align:center;">
+      <div class="section-label reveal">Certo &amp; Errado</div>
+    </div>
+
+    <div style="text-align:center;margin-bottom:5rem;">
+      <h2 style="font-family:var(--serif);font-size:clamp(2.2rem,5vw,4rem);font-weight:300;color:var(--cream);letter-spacing:-0.01em;line-height:1.1;" class="reveal reveal-delay-1">
+        A regra e <em style="font-style:italic;color:var(--gold-pale);">simples</em>
+      </h2>
+    </div>
+
+    <div class="dodont-grid">
+      <div class="dodont-col do-col reveal">
+        <div class="dodont-title">Faca</div>
+        <ul class="dodont-list">
+          <li>Use sempre o logo com o <strong>S em dourado</strong></li>
+          <li>Mantenha a zona de protecao ao redor do logo</li>
+          <li>Respeite a paleta de cores definida neste manual</li>
+          <li>Use Cormorant Garamond para titulos e DM Sans para corpo</li>
+          <li>Priorize imagens com <strong>luz natural</strong> e tons terrosos</li>
+          <li>Escreva em tom poetico, sensorial e contemplativo</li>
+          <li>Use espaco negativo generosamente em layouts</li>
+          <li>Aplique grain overlay em composicoes digitais</li>
+          <li>Mantenha CTAs discretos e elegantes</li>
+          <li>Trate cada peca como extensao do manifesto</li>
+        </ul>
+      </div>
+      <div class="dodont-col dont-col reveal reveal-delay-1">
+        <div class="dodont-title">Evite</div>
+        <ul class="dodont-list">
+          <li>Nunca altere as cores, peso ou espacamento do logo</li>
+          <li>Nunca use fontes que nao sejam as especificadas</li>
+          <li>Nunca adicione sombras, bordas ou efeitos 3D no logo</li>
+          <li>Evite backgrounds com muito ruido visual</li>
+          <li>Nao use linguagem urgente ou de vendas agressiva</li>
+          <li>Nao misture a paleta GSWP com cores vibrantes</li>
+          <li>Nao use emojis em comunicacoes oficiais</li>
+          <li>Nao use fotos de stock genericas</li>
+          <li>Nao diminua o logo abaixo do tamanho minimo (24px)</li>
+          <li>Nao comprometa a elegancia por velocidade de entrega</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="final-closure reveal">
+      <div class="final-logo">G<span class="gold">S</span>WP</div>
+
+      <div class="legado-divider" style="margin:3rem auto;">
+        <div class="legado-divider-line"></div>
+        <div class="legado-divider-diamond"></div>
+        <div class="legado-divider-line"></div>
+      </div>
+
+      <p class="final-manifesto">
+        "Para esses, construimos.<br>
+        Para esses, existimos.<br>
+        Para esses, somos Greystone."
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================
+     FOOTER
+     ============================ -->
+<footer>
+  <div class="footer-copy">&copy; 2025 Greystone Wellness Propriety. Brand Identity Guidelines v2.0. Documento confidencial.</div>
+</footer>
+
+<!-- ============================
+     JAVASCRIPT
+     ============================ -->
+<script>
+// ---- CURSOR ----
+const cursor = document.getElementById('cursor');
+const ring   = document.getElementById('cursor-ring');
+let mx = -100, my = -100, rx = -100, ry = -100;
+
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+
+(function animateCursor() {
+  cursor.style.left = mx + 'px';
+  cursor.style.top  = my + 'px';
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px';
+  ring.style.top  = ry + 'px';
+  requestAnimationFrame(animateCursor);
+})();
+
+// ---- LOADER ----
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hidden');
+  }, 2400);
+});
+
+// ---- NAV SCROLL ----
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 80);
+}, { passive: true });
+
+// ---- PARTICLE CANVAS ----
+(function initParticles() {
+  const canvas = document.getElementById('particle-canvas');
+  const ctx    = canvas.getContext('2d');
+  let W, H, particles = [];
+
+  function resize() {
+    W = canvas.width  = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+
+  class Particle {
+    constructor() { this.reset(true); }
+    reset(init = false) {
+      this.x     = Math.random() * W;
+      this.y     = init ? Math.random() * H : H + 10;
+      this.vx    = (Math.random() - 0.5) * 0.3;
+      this.vy    = -(Math.random() * 0.4 + 0.1);
+      this.size  = Math.random() * 1.8 + 0.3;
+      this.alpha = Math.random() * 0.5 + 0.1;
+      this.life  = 0;
+      this.maxLife = Math.random() * 600 + 300;
+      this.hue   = Math.random() > 0.6 ? 43 : 140;
+    }
+    update() {
+      this.x += this.vx + Math.sin(this.life * 0.01) * 0.15;
+      this.y += this.vy;
+      this.life++;
+      if (this.y < -10 || this.life > this.maxLife) this.reset();
+    }
+    draw() {
+      const progress = this.life / this.maxLife;
+      const a = this.alpha * (progress < 0.1 ? progress * 10 : progress > 0.8 ? (1 - progress) * 5 : 1);
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fillStyle = this.hue === 43
+        ? `rgba(184, 148, 46, ${a})`
+        : `rgba(74, 107, 80, ${a * 0.8})`;
+      ctx.fill();
+    }
+  }
+
+  for (let i = 0; i < 120; i++) particles.push(new Particle());
+
+  function loop() {
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(p => { p.update(); p.draw(); });
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+
+// ---- SCROLL REVEAL ----
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('revealed');
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => {
+  observer.observe(el);
+});
+
+// ---- SMOOTH ANCHOR SCROLL ----
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (!target) return;
+    e.preventDefault();
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// ---- COPY HEX ----
+function copyHex(btn) {
+  const swatch = btn.closest('.color-swatch');
+  const hex = swatch.getAttribute('data-hex');
+  navigator.clipboard.writeText(hex).then(() => {
+    const toast = document.getElementById('toast');
+    toast.textContent = hex + ' copiado';
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 1500);
+  });
+}
+</script>
+</body>
+</html>

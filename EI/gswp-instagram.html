@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GSWP — Instagram Posts · Reserva João Paulo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Cormorant+Infant:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ====================================================
+   GSWP — INSTAGRAM POSTS DASHBOARD
+   Design: Organic Surrealism — Pedra encontra Folha
+   ==================================================== */
+
+:root {
+  --void:        #090907;
+  --charcoal:    #1A1917;
+  --stone:       #2C2B28;
+  --stone-light: #3D3C38;
+  --sage:        #2D4A3E;
+  --forest:      #3A5A40;
+  --moss:        #4A6B50;
+  --gold:        #B8942E;
+  --gold-light:  #C4A84A;
+  --gold-pale:   #D4B96A;
+  --cream:       #F0EDE6;
+  --cream-warm:  #E8E3D8;
+  --off-white:   #FAF8F4;
+  --serif:  'Cormorant Garamond', 'Cormorant Infant', Georgia, serif;
+  --sans:   'DM Sans', sans-serif;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; font-size: clamp(13px, 1.4vw, 16px); -webkit-font-smoothing: antialiased; }
+
+body {
+  background: var(--void);
+  color: var(--cream);
+  font-family: var(--sans);
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* GRAIN */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 9998; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 200px 200px; opacity: 0.025; mix-blend-mode: overlay;
+}
+
+/* CURSOR */
+.cursor {
+  position: fixed; top: 0; left: 0; width: 12px; height: 12px;
+  background: var(--gold); border-radius: 50%; pointer-events: none;
+  z-index: 9999; transform: translate(-50%, -50%);
+  transition: width .3s var(--ease-out-expo), height .3s var(--ease-out-expo), background .3s;
+  mix-blend-mode: screen;
+}
+.cursor-ring {
+  position: fixed; top: 0; left: 0; width: 44px; height: 44px;
+  border: 1px solid rgba(184,148,46,0.4); border-radius: 50%;
+  pointer-events: none; z-index: 9998; transform: translate(-50%, -50%);
+  transition: width .5s var(--ease-out-expo), height .5s var(--ease-out-expo), border-color .3s;
+}
+body:has(a:hover) .cursor, body:has(button:hover) .cursor { width: 20px; height: 20px; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.5rem 4rem;
+  background: linear-gradient(to bottom, rgba(9,9,7,0.95) 0%, transparent 100%);
+  backdrop-filter: blur(8px);
+}
+.nav-logo {
+  font-family: var(--serif); font-size: 1.5rem; font-weight: 600;
+  color: var(--cream); text-decoration: none; letter-spacing: 0.2em;
+}
+.nav-logo span { color: var(--gold); }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  color: rgba(240,237,230,0.6); text-decoration: none;
+  font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+  transition: color .3s;
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-back {
+  font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(240,237,230,0.5); text-decoration: none;
+  border: 1px solid rgba(184,148,46,0.3); padding: 0.5rem 1.2rem;
+  transition: all .3s;
+}
+.nav-back:hover { color: var(--gold); border-color: var(--gold); }
+
+/* HERO */
+.ig-hero {
+  min-height: 38vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; text-align: center;
+  padding: 8rem 2rem 4rem;
+  background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(45,74,62,0.15) 0%, transparent 70%);
+  position: relative;
+}
+.ig-hero::after {
+  content: '';
+  position: absolute; bottom: 0; left: 10%; right: 10%; height: 1px;
+  background: linear-gradient(to right, transparent, rgba(184,148,46,0.3), transparent);
+}
+.ig-hero-eyebrow {
+  font-family: var(--sans); font-size: 0.7rem; letter-spacing: 0.25em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem;
+  display: flex; align-items: center; gap: 1rem;
+}
+.ig-hero-eyebrow::before, .ig-hero-eyebrow::after {
+  content: ''; display: block; width: 40px; height: 1px; background: var(--gold); opacity: 0.4;
+}
+.ig-hero-title {
+  font-family: var(--serif); font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 300; line-height: 1.1; color: var(--cream); margin-bottom: 1rem;
+}
+.ig-hero-title em { font-style: italic; color: var(--gold-pale); }
+.ig-hero-sub {
+  font-size: 0.85rem; color: rgba(240,237,230,0.45); letter-spacing: 0.1em;
+  margin-top: 0.5rem;
+}
+.ig-hero-count {
+  margin-top: 2rem; display: flex; gap: 3rem;
+}
+.ig-hero-stat { text-align: center; }
+.ig-hero-stat-num {
+  font-family: var(--serif); font-size: 2rem; font-weight: 400; color: var(--gold);
+}
+.ig-hero-stat-label {
+  font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+  color: rgba(240,237,230,0.4); margin-top: 0.2rem;
+}
+
+/* FILTERS */
+.ig-filters-wrap {
+  position: sticky; top: 72px; z-index: 50;
+  background: rgba(9,9,7,0.92); backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(184,148,46,0.1);
+  padding: 0 4rem;
+}
+.ig-filters {
+  display: flex; gap: 0; overflow-x: auto;
+  scrollbar-width: none;
+}
+.ig-filters::-webkit-scrollbar { display: none; }
+.ig-filter-btn {
+  background: none; border: none; cursor: pointer;
+  font-family: var(--sans); font-size: 0.7rem; letter-spacing: 0.15em;
+  text-transform: uppercase; color: rgba(240,237,230,0.4);
+  padding: 1.2rem 1.5rem; white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: all .3s; position: relative;
+}
+.ig-filter-btn:hover { color: rgba(240,237,230,0.7); }
+.ig-filter-btn.active {
+  color: var(--gold);
+  border-bottom-color: var(--gold);
+}
+
+/* GRID */
+.ig-main { padding: 4rem; max-width: 1600px; margin: 0 auto; }
+
+.ig-section-header {
+  display: flex; align-items: baseline; gap: 1.5rem;
+  margin-bottom: 2.5rem; margin-top: 4rem;
+}
+.ig-section-header:first-child { margin-top: 0; }
+.ig-section-label {
+  font-family: var(--serif); font-size: 1.8rem; font-weight: 300; color: var(--cream-warm);
+  font-style: italic;
+}
+.ig-section-count {
+  font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold); opacity: 0.7;
+}
+.ig-section-line {
+  flex: 1; height: 1px;
+  background: linear-gradient(to right, rgba(184,148,46,0.2), transparent);
+}
+
+.ig-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 2px;
+}
+
+/* CARD */
+.ig-card {
+  background: var(--charcoal);
+  border: 1px solid rgba(184,148,46,0.06);
+  overflow: hidden;
+  transition: transform .4s var(--ease-out-expo), border-color .3s, box-shadow .4s;
+  cursor: none;
+  position: relative;
+}
+.ig-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(184,148,46,0.2);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(184,148,46,0.08);
+  z-index: 2;
+}
+
+/* IMAGE */
+.ig-img {
+  width: 100%; aspect-ratio: 1/1; overflow: hidden;
+  position: relative; background: var(--stone);
+}
+.ig-img img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .6s var(--ease-out-expo);
+  display: block;
+}
+.ig-card:hover .ig-img img { transform: scale(1.04); }
+.ig-img-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, transparent 60%, rgba(9,9,7,0.6) 100%);
+  pointer-events: none;
+}
+.ig-img-num {
+  position: absolute; top: 1rem; left: 1rem;
+  font-family: var(--serif); font-size: 0.7rem; font-weight: 600;
+  color: rgba(184,148,46,0.8); letter-spacing: 0.15em;
+  background: rgba(9,9,7,0.6); padding: 0.3rem 0.6rem;
+  backdrop-filter: blur(4px);
+}
+.ig-img-cat {
+  position: absolute; top: 1rem; right: 1rem;
+  font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(240,237,230,0.7);
+  background: rgba(9,9,7,0.65); padding: 0.3rem 0.7rem;
+  backdrop-filter: blur(4px); border: 1px solid rgba(184,148,46,0.2);
+}
+
+/* BODY */
+.ig-body { padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+
+.ig-title {
+  font-family: var(--serif); font-size: 1.05rem; font-weight: 500;
+  color: var(--cream); line-height: 1.3;
+}
+
+.ig-caption {
+  font-size: 0.78rem; line-height: 1.75; color: rgba(240,237,230,0.65);
+  white-space: pre-line;
+  max-height: 200px; overflow-y: auto;
+  scrollbar-width: thin; scrollbar-color: rgba(184,148,46,0.3) transparent;
+  padding-right: 0.5rem;
+}
+.ig-caption::-webkit-scrollbar { width: 3px; }
+.ig-caption::-webkit-scrollbar-track { background: transparent; }
+.ig-caption::-webkit-scrollbar-thumb { background: rgba(184,148,46,0.3); border-radius: 2px; }
+
+.ig-caption-toggle {
+  background: none; border: none; cursor: pointer;
+  font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(184,148,46,0.6); font-family: var(--sans);
+  padding: 0; transition: color .2s;
+}
+.ig-caption-toggle:hover { color: var(--gold); }
+
+.ig-hashtags {
+  font-size: 0.68rem; color: rgba(184,148,46,0.5); line-height: 1.6;
+  font-weight: 300; word-break: break-word;
+  border-top: 1px solid rgba(184,148,46,0.08); padding-top: 0.75rem;
+}
+
+.ig-footer {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 0.5rem;
+}
+
+.ig-copy-btn {
+  background: none; border: 1px solid rgba(184,148,46,0.25);
+  color: rgba(184,148,46,0.7); font-family: var(--sans);
+  font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase;
+  padding: 0.5rem 1rem; cursor: pointer;
+  transition: all .25s; position: relative; overflow: hidden;
+}
+.ig-copy-btn::before {
+  content: ''; position: absolute; inset: 0;
+  background: var(--gold); transform: translateX(-101%);
+  transition: transform .3s var(--ease-out-expo);
+}
+.ig-copy-btn:hover { color: var(--void); border-color: var(--gold); }
+.ig-copy-btn:hover::before { transform: translateX(0); }
+.ig-copy-btn span { position: relative; z-index: 1; }
+.ig-copy-btn.copied { border-color: var(--moss); color: var(--moss); }
+
+.ig-copy-img-btn {
+  background: none; border: none; cursor: pointer;
+  color: rgba(240,237,230,0.3); font-size: 0.65rem; letter-spacing: 0.1em;
+  font-family: var(--sans); text-transform: uppercase;
+  transition: color .25s;
+}
+.ig-copy-img-btn:hover { color: rgba(240,237,230,0.7); }
+
+/* FOOTER */
+.ig-page-footer {
+  margin-top: 6rem; padding: 3rem 4rem;
+  border-top: 1px solid rgba(184,148,46,0.1);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.ig-footer-logo {
+  font-family: var(--serif); font-size: 1.5rem; font-weight: 600;
+  color: rgba(240,237,230,0.3); letter-spacing: 0.2em;
+}
+.ig-footer-logo span { color: var(--gold); opacity: 0.5; }
+.ig-footer-copy {
+  font-size: 0.65rem; color: rgba(240,237,230,0.2); letter-spacing: 0.1em;
+}
+.ig-footer-emblem { opacity: 0.2; }
+
+/* TOAST */
+.ig-toast {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 9997;
+  background: var(--stone); border: 1px solid rgba(184,148,46,0.3);
+  color: var(--cream); font-family: var(--sans); font-size: 0.75rem;
+  padding: 0.8rem 1.4rem; letter-spacing: 0.05em;
+  transform: translateY(120%); opacity: 0;
+  transition: all .4s var(--ease-out-expo);
+  pointer-events: none;
+}
+.ig-toast.show { transform: translateY(0); opacity: 1; }
+
+/* HIDDEN */
+.ig-card.hidden { display: none; }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  nav { padding: 1.2rem 2rem; }
+  nav .nav-links { display: none; }
+  .ig-main { padding: 2rem; }
+  .ig-filters-wrap { padding: 0 2rem; }
+  .ig-grid { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+}
+@media (max-width: 600px) {
+  .ig-grid { grid-template-columns: 1fr; }
+  .ig-hero-count { gap: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="/gswp-site" class="nav-logo">GS<span>W</span>P</a>
+  <ul class="nav-links">
+    <li><a href="#manifesto">Manifesto</a></li>
+    <li><a href="#produto">Produto</a></li>
+    <li><a href="#lifestyle">Lifestyle</a></li>
+    <li><a href="#escassez">Escassez</a></li>
+    <li><a href="#floripa">Florianópolis</a></li>
+    <li><a href="#natureza">Natureza</a></li>
+  </ul>
+  <a href="/gswp-site" class="nav-back">← Site</a>
+</nav>
+
+<!-- HERO -->
+<section class="ig-hero">
+  <div class="ig-hero-eyebrow">Instagram Content · Reserva João Paulo</div>
+  <h1 class="ig-hero-title">
+    22 Posts<br>
+    <em>Para quem entende.</em>
+  </h1>
+  <p class="ig-hero-sub">Greystone Wellness Propriety · Florianópolis · SC</p>
+  <div class="ig-hero-count">
+    <div class="ig-hero-stat">
+      <div class="ig-hero-stat-num">22</div>
+      <div class="ig-hero-stat-label">Posts</div>
+    </div>
+    <div class="ig-hero-stat">
+      <div class="ig-hero-stat-num">6</div>
+      <div class="ig-hero-stat-label">Categorias</div>
+    </div>
+    <div class="ig-hero-stat">
+      <div class="ig-hero-stat-num">4</div>
+      <div class="ig-hero-stat-label">Unidades</div>
+    </div>
+  </div>
+</section>
+
+<!-- FILTERS -->
+<div class="ig-filters-wrap">
+  <div class="ig-filters">
+    <button class="ig-filter-btn active" data-filter="all">Todos (22)</button>
+    <button class="ig-filter-btn" data-filter="manifesto">Manifesto (5)</button>
+    <button class="ig-filter-btn" data-filter="produto">Produto (4)</button>
+    <button class="ig-filter-btn" data-filter="lifestyle">Estilo de Vida (5)</button>
+    <button class="ig-filter-btn" data-filter="escassez">Escassez (3)</button>
+    <button class="ig-filter-btn" data-filter="floripa">Florianópolis (3)</button>
+    <button class="ig-filter-btn" data-filter="natureza">Natureza (3)</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<main class="ig-main">
+
+  <!-- ===== CATEGORIA 1: MANIFESTO ===== -->
+  <div class="ig-section-header" id="manifesto">
+    <span class="ig-section-label">Manifesto & Filosofia</span>
+    <span class="ig-section-count">5 posts</span>
+    <div class="ig-section-line"></div>
+  </div>
+
+  <div class="ig-grid">
+
+    <!-- POST 01 -->
+    <div class="ig-card" data-category="manifesto">
+      <div class="ig-img">
+        <img src="https://api.apify.com/v2/key-value-stores/qL77mGxUanwNTJYgC/records/generated-image.png?signature=n7iy01zDYAGABwxDfPlZ" alt="Fachada GSWP ao entardecer" loading="lazy">
+        <div class="ig-img-overlay"></div>
+        <div class="ig-img-num">01</div>
+        <div class="ig-img-cat">Manifesto</div>
+      </div>
+      <div class="ig-body">
+        <div class="ig-title">O Manifesto</div>
+        <div class="ig-caption" id="cap01">Não construímos imóveis.
+
+Construímos legados.
+
+Existe um momento raro em que a pedra encontra a folha —
+em que a solidez da arquitetura abraça a suavidade da natureza.
+
+É nesse encontro que nasce a GSWP.
+
+Para os poucos que entendem que verdadeira riqueza
+é acordar com o canto dos pássaros,
+sentir a brisa do mar na varanda,
+caminhar descalço em um jardim que parece não ter fim —
+
+Para esses, construímos.
+Para esses, existimos.
+
+reservajp.gswp.com.br
+
+—
+🌿 Reserva João Paulo · Florianópolis · SC</div>
+        <div class="ig-hashtags">#gswp #greystonewellness #reservajp #imóveldeluxo #florianópolis #arquiteturadeluxo #vidadeluxo #morarfloripa #imóvelaltopAdrao #luxoquessussurra #legado #arquitetura #casadeluxo #imóveisSC #florianópolisluxo #naturezaintegrada #bemestar #imóveisexclusivos #vivermelhor #destinofloripa #altopAdrao #imóveisflorianópolis</div>
+        <div class="ig-footer">
+          <button class="ig-copy-btn" onclick="copyCaption('cap01', this)"><span>Copiar legenda</span></button>
+          <button class="ig-copy-img-btn" onclick="copyImgUrl('https://api.apify.com/v2/key-value-stores/qL77mGxUanwNTJYgC/records/generated-image.png?signature=n7iy01zDYAGABwxDfPlZ', this)">⬡ URL img</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- POST 02 -->
+    <div class="ig-card" data-category="manifesto">
+      <div class="ig-img">
+        <img src="https://api.apify.com/v2/key-value-stores/vjvWDcNTFxoVrfcgw/records/generated-image.png?signature=16zbVrnnahoUY5K3bWLcU" alt="Pedra e folha — detalhe macro" loading="lazy">
+        <div class="ig-img-overlay"></div>
+        <div class="ig-img-num">02</div>
+        <div class="ig-img-cat">Manifesto</div>
+      </div>
+      <div class="ig-body">
+        <div class="ig-title">O Luxo que Sussurra</div>
+        <div class="ig-caption" id="cap02">O luxo de verdade não grita.
+
+Ele sussurra no vento entre as árvores às 7 da manhã.
+Ele aparece na textura da pedra que você toca na sua própria varanda.
+Ele está no silêncio que você não encontra em mais nenhum lugar da cidade.
+
+Não construímos para impressionar vizinhos.
+Construímos para impressionar você — todos os dias, para sempre.
+
+Greystone Wellness Propriety.</div>
+        <div class="ig-hashtags">#gswp #greystonewellness #luxoquessussurra #imóveldeluxo #arquiteturadesign #casadeluxo #florianópolis #reservajp #silêncio #natureza #viversustentável #imóveisaltopAdrao #bemestar #design #arquitetura #morarfloripa #imóveisflorianópolis #altopAdrao #exclusividade #vidadeluxo #florianópolisluxo #légado</div>
+        <div class="ig-footer">
+          <button class="ig-copy-btn" onclick="copyCaption('cap02', this)"><span>Copiar legenda</span></button>
+          <button class="ig-copy-img-btn" onclick="copyImgUrl('https://api.apify.com/v2/key-value-stores/vjvWDcNTFxoVrfcgw/records/generated-image.png?signature=16zbVrnnahoUY5K3bWLcU', this)">⬡ URL img</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- POST 03 -->
+    <div class="ig-card" data-category="manifesto">
+      <div class="ig-img">
+        <img src="https://api.apify.com/v2/key-value-stores/fdmg6i9fyzA1Rd16p/records/generated-image.png?signature=1hhnYEOQmuiHeC9YRZ3VN" alt="Vista aérea Florianópolis" loading="lazy">
+        <div class="ig-img-overlay"></div>
+        <div class="ig-img-num">03</div>
+        <div class="ig-img-cat">Manifesto</div>
+      </div>
+      <div class="ig-body">
+        <div class="ig-title">A Medida Certa</div>
+        <div class="ig-caption" id="cap03">Um lar de verdade não se mede em metros quadrados.
+
+Mede-se em momentos de plenitude.
+
+Em quantas vezes você respirou fundo ao chegar em casa.
+Em quantas manhãs começaram com gratidão, não com alarme.
+Em quantas noites o horizonte do mar foi o seu teto.
+
+Esses são os metros que importam.
+
+reservajp.gswp.com.br</div>
+        <div class="ig-hashtags">#gswp #greystonewellness #reservajp #florianópolis #imóveldeluxo #plenitude #vivermelhor #qualidadedevida #casadeluxo #imóveisexclusivos #florianópolisluxo #naturezaintegrada #viversustentável #mataatlântica #bemestar #morarfloripa #imóveisflorianópolis #luxo #altopAdrao #vidadeluxo #legado #destinofloripa</div>
+        <div class="ig-footer">
+          <button class="ig-copy-btn" onclick="copyCaption('cap03', this)"><span>Copiar legenda</span></button>
+          <button class="ig-copy-img-btn" onclick="copyImgUrl('https://api.apify.com/v2/key-value-stores/fdmg6i9fyzA1Rd16p/records/generated-image.png?signature=1hhnYEOQmuiHeC9YRZ3VN', this)">⬡ URL img</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- POST 04 -->
+    <div class="ig-card" data-category="manifesto">
+      <div class="ig-img">
+        <img src="https://api.apify.com/v2/key-value-stores/b6DZJ3ZgaePheEzrl/records/generated-image.png?signature=2ZGxMzIIwDkaz1ewLuQR" alt="Silhueta na varanda ao pôr do sol" loading="lazy">
+        <div class="ig-img-overlay"></div>
+        <div class="ig-img-num">04</div>
+        <div class="ig-img-cat">Manifesto</div>
+      </div>
+      <div class="ig-body">
+        <div class="ig-title">Para os Poucos</div>
+        <div class="ig-caption" id="cap04">Este não é um lugar para todos.
+
+E isso não é arrogância — é honestidade.
+
+Existem pessoas que medem riqueza em número de cômodos.
+Existem pessoas que medem em marcas e acabamentos.
+
+E existem aquelas que medem em qualidade de presença.
+
+Na qualidade do silêncio da manhã.
+No cheiro da mata atlântica que entra pela janela aberta.
+Na sensação de pertencer a um lugar que parece ter sido feito para você.
+
+Para as últimas, construímos a Reserva João Paulo.</div>
+        <div class="ig-hashtags">#gswp #greystonewellness #reservajp #exclusividade #florianópolis #imóveldeluxo #altopAdrao #casadeluxo #imóveisexclusivos #florianópolisluxo #natureza #bemestar #silêncio #mataatlântica #qualidadedevida #vivermelhor #morarfloripa #imóveisflorianópolis #lifestyle #vidadeluxo #presença #légado</div>
+        <div class="ig-footer">
+          <button class="ig-copy-btn" onclick="copyCaption('cap04', this)"><span>Copiar legenda</span></button>
+          <button class="ig-copy-img-btn" onclick="copyImgUrl('https://api.apify.com/v2/key-value-stores/b6DZJ3ZgaePheEzrl/records/generated-image.png?signature=2ZGxMzIIwDkaz1ewLuQR', this)">⬡ URL img</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- POST 05 -->
+    <div class="ig-card" data-category="manifesto">
+      <div class="ig-img">
+        <img src="https://api.apify.com/v2/key-value-stores/3HXZGIsc2GJAGaJE2/records/generated-image.png?signature=JdwEWhEYRPiMZGUCmrov" alt="Pedra encontra folha — macro" loading="lazy">
+        <div class="ig-img-overlay"></div>
+        <div class="ig-img-num">05</div>
+        <div class="ig-img-cat">Manifesto</div>
+      </div>
+      <div class="ig-body">
+        <div class="ig-title">Pedra Encontra Folha</div>
+        <div class="ig-caption" id="cap05">Existe um momento raro.
+
+Quando a pedra encontra a folha.
+Quando a solidez da arquitetura abraça a suavidade da natureza.
+
+Não projetamos casas que coexistem com a natureza.
+Projetamos casas que nascem dela.
+
+A Mata Atlântica não é paisagismo na Reserva João Paulo.
+É identidade.</div>
+        <div class="ig-hashtags">#gswp #greystonewellness #reservajp #arquitetura #naturezaintegrada #mataatlântica #design #florianópolis #imóveldeluxo #casadeluxo #viversustentável #arquiteturabrasileira #bemestar #lifestyle #morarfloripa #florianópolisluxo #pedraefol #imóveisexclusivos #imóveisflorianópolis #altopAdrao #identidade #légado</div>
+        <div class="ig-footer">
+          <button class="ig-copy-btn" onclick="copyCaption('cap05', this)"><span>Copiar legenda</span></button>
+          <button class="ig-copy-img-btn" onclick="copyImgUrl('https://api.apify.com/v2/key-value-stores/3HXZGIsc2GJAGaJE2/records/generated-image.png?signature=JdwEWhEYRPiMZGUCmrov', this)">⬡ URL img</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /grid manifesto -->
+
+  <!-- ===== CATEGORIA 2: PRODUTO ===== -->
+  <div class="ig-section-header" id="produto">
+    <span class="ig-section-label">Produto & Especificações</span>
+    <span class="ig-section-count">4 posts</span>
+    <div class="ig-section-line"></div>
+  </div>
+
+  <div class="ig-grid">
+
+    <!-- POST 06 -->
+    <div class="ig-card" data-category="produto">
+      <div class="ig-img">
+        <img src="https://api.apify.com/v2/key-value-stores/UWZS8mO5fzx1JdlGK/records/generated-image.png?signature=oD0z0C9m8zuvDwdY0txq" alt="Planta arquitetônica elegante" loading="lazy">
+        <div class="ig-img-overlay"></div>
+        <div class="ig-img-num">06</div>
+        <div class="ig-img-cat">Produto</div>
+      </div>
+      <div class="ig-body">
+        <div class="ig-title">Os 357m²</div>
+        <div class="ig-caption" id="cap06">357m².
+
+Não é o tamanho de uma casa.
+É o tamanho de uma decisão.
+
+A decisão de parar de viver comprimido.
+De parar de negociar o que você precisa por conveniência.
+De ter, finalmente, o espaço que sua vida sempre merecia.
+
+5 pavimentos.
+Cada um com uma intenção diferente.
+Cada um com uma experiência diferente.
+
+Tudo em uma reserva ambiental.
+A 300 metros do mar.
+
+Isso se chama Reserva João Paulo.
+
+reservajp.gswp.com.br</div>
+        <div class="ig-hashtags">#gswp #greystonewellness #reservajp #florianópolis #casadeluxo #imóveldeluxo #arquitetura #altopAdrao #imóveisexclusivos #florianópolisluxo #design #interiordesign #vivermelhor #morarfloripa #qualidadedevida #bemestar #imóveisflorianópolis #lifestyle #vidadeluxo #exclusividade #investimentoimobiliário #légado</div>
+        <div class="ig-footer">
+          <button class="ig-copy-btn" onclick="copyCaption('cap06', this)"><span>Copiar legenda</span></button>
+          <button class="ig-copy-img-btn" onclick="copyImgUrl('https://api.apify.com/v2/key-value-stores/UWZS8mO5fzx1JdlGK/records/generated-image.png?signature=oD0z0C9m8zuvDwdY0txq', this)">⬡ URL img</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- POST 07 -->
+    <div class="ig-card" data-category="produto">
+      <div class="ig-img">
+        <img src="https://api.apify.com/v2/key-value-stores/QJehZOeB0wgujLEnG/records/generated-image.png?signature=I3wvfVNHYVPWXGqZMdIz" alt="Piscina no rooftop ao pôr do sol" loading="lazy">
+        <div class="ig-img-overlay"></div>
+        <div class="ig-img-num">07</div>
+        <div class="ig-img-cat">Produto</div>
+      </div>
+      <div class="ig-body">
+        <div class="ig-title">O Rooftop</div>
+        <div class="ig-caption" id="cap07">Imagine terminar o dia assim.
+
+Água aquecida no rooftop.
+O pôr do sol pintando o horizonte sobre o mar.
+Silêncio. Brisa. Presença.
+
+Na Reserva João Paulo, isso não é um hotel.
+É a sua casa.
+
+Rooftop privativo com piscina aquecida,
+área gourmet coberta e churrasqueira parrilla.
+
+Para os que entendem que a melhor vista da ilha
+não se compra em hotel.
+Se vive, em casa.
+
+reservajp.gswp.com.br</div>
+        <div class="ig-hashtags">#gswp #greystonewellness #reservajp #rooftop #piscina #florianópolis #casadeluxo #imóveldeluxo #altopAdrao #florianópolisluxo #vistamar #pôrdosol #lifestyle #vidadeluxo #morarfloripa #imóveisexclusivos #bemestar #qualidadedevida #imóveisflorianópolis #arquitetura #exclusividade #vivermelhor</div>
+        <div class="ig-footer">
+          <button class="ig-copy-btn" onclick="copyCaption('cap07', this)"><span>Copiar legenda</span></button>
+          <button class="ig-copy-img-btn" onclick="copyImgUrl('https://api.apify.com/v2/key-value-stores/QJehZOeB0wgujLEnG/records/generated-image.png?signature=I3wvfVNHYVPWXGqZMdIz', this)">⬡ URL img</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- POST 08 -->
+    <div class="ig-card" data-category="produto">
+      <div class="ig-img">
+        <img src="https://api.apify.com/v2/key-value-stores/QhffL56Sl9aCW7Pss/records/generated-image.png?signature=1qB7PXimY58u0xTwfKhoo" alt="Área gourmet ao entardecer" loading="lazy">
+        <div class="ig-img-overlay"></div>
+        <div class="ig-img-num">08</div>
+        <div class="ig-img-cat">Produto</div>
+      </div>
+      <div class="ig-body">
+        <div class="ig-title">A Área Gourmet</div>
+        <div class="ig-caption" id="cap08">Tem dias que o maior luxo é tempo com quem você ama.
+
+Uma mesa longa.
+Amigos que chegam sem pressa.
+Churrasqueira acesa.
+O som da mata ao fundo.
+
+A área gourmet coberta da Reserva João Paulo foi pensada
+para os momentos que você vai querer lembrar
+nos próximos 20 anos.
+
+Porque a casa certa transforma uma simples refeição
+em uma memória que fica.
+
+reservajp.gswp.com.br</div>
+        <div class="ig-hashtags">#gswp #greystonewellness #reservajp #áreagourmet #churrasqueira #florianópolis #casadeluxo #imóveldeluxo #altopAdrao #lifestyle #vivermelhor #momentos #qualidadedevida #morarfloripa #florianópolisluxo #imóveisexclusivos #bemestar #imóveisflorianópolis #design #exclusividade #família #légado</div>
+        <div class="ig-footer">
+          <button class="ig-copy-btn" onclick="copyCaption('cap08', this)"><span>Copiar legenda</span></button>
+          <button class="ig-copy-img-btn" onclick="copyImgUrl('https://api.apify.com/v2/key-value-stores/QhffL56Sl9aCW7Pss/records/generated-image.png?signature=1qB7PXimY58u0xTwfKhoo', this)">⬡ URL img</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- POST 09 -->
+    <div class="ig-card" data-category="produto">
+      <div class="ig-img">
+        <img src="https://api.apify.com/v2/key-value-stores/ACsGKolleYXC4Uajn/records/generated-image.png?signature=DOtu7Ru0T2dOTDEt7QW3" alt="300 metros do mar — trilha natural" loading="lazy">
+        <div class="ig-img-overlay"></div>
+        <div class="ig-img-num">09</div>
+        <div class="ig-img-cat">Produto</div>
+      </div>
+      <div class="ig-body">
+        <div class="ig-title">300m do Mar</div>
+        <div class="ig-caption" id="cap09">300 metros.
+
+É a distância entre a sua porta
+e o mar de Florianópolis.
+
+Não atravessando avenidas.
+Não desviando de construções.
+
+Caminhando por uma reserva ambiental
+onde o chão ainda é de terra e folha seca
+e o ar ainda tem gosto de ilha.
+
+Reserva João Paulo.
+O endereço mais preservado de Florianópolis.
+
+reservajp.gswp.com.br</div>
+        <div class="ig-hashtags">#gswp #greystonewellness #reservajp #florianópolis #vistamar #mar #florianópolisluxo #casadeluxo #imóveldeluxo #altopAdrao #mataatlântica #reservaambiental #ilha #morarfloripa #imóveisexclusivos #natureza #bemestar #qualidadedevida #imóveisflorianópolis #lifestyle #vivermelhor #exclusividade</div>
+        <div class="ig-footer">
+          <button class="ig-copy-btn" onclick="copyCaption('cap09', this)"><span>Copiar legenda</span></button>
+          <button class="ig-copy-img-btn" onclick="copyImgUrl('https://api.apify.com/v2/key-value-stores/ACsGKolleYXC4Uajn/records/generated-image.png?signature=DOtu7Ru0T2dOTDEt7QW3', this)">⬡ URL img</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /grid produto -->
+
+  <!-- ===== CATEGORIA 3: LIFESTYLE ===== -->
+  <div class="ig-section-header" id="lifestyle">
+    <span class="ig-section-label">Estilo de Vida & Desejo</span>
+    <span class="ig-section-count">5 posts</span>
+    <div class="ig-section-line"></div>
+  </div>
+
+  <div class="ig-grid">
+
+    <!-- POST 10 -->
+    <div class="ig-card" data-category="lifestyle">
+      <div class="ig-img">
+        <img src="https://api.apify.com/v2/key-value-stores/r8uihMgy13es1Kqbb/records/generated-image.png?signature=a3QnDrKNOrbox7l1y6VN" alt="Neblina matinal na Mata Atlântica" loading="lazy">
+        <div class="ig-img-overlay"></div>
+        <div class="ig-img-num">10</div>
+        <div class="ig-img-cat">Lifestyle</div>
+      </div>
+      <div class="ig-body">
+        <div class="ig-title">A Manhã</div>
+        <div class="ig-caption" id="cap10">Às 6h47 da manhã,
+um tucano pousou na árvore em frente à varanda.
+
+Não havia alarme.
+Não havia notificação.
+Não havia pressa.
+
+Só o som de uma ilha que ainda respira.
+
+Isso não é publicidade.
+É o que acontece todos os dias
+para quem mora na Reserva João Paulo.</div>
+        <div class="ig-hashtags">#gswp #greystonewellness #reservajp #florianópolis #manhã #tucano #vida #natureza #casadeluxo #imóveldeluxo #altopAdrao #florianópolisluxo #mataatlântica #bemestar #qualidadedevida #morarfloripa #lifestyle #silêncio #vivermelhor #imóveisexclusivos #presença #gralhaazul</div>
+        <div class="ig-footer">
+          <button class="ig-copy-btn" onclick="copyCaption('cap10', this)"><span>Copiar legenda</span></button>
+          <button class="ig-copy-img-btn" onclick="copyImgUrl('https://api.apify.com/v2/key-value-stores/r8uihMgy13es1Kqbb/records/generated-image.png?signature=a3QnDrKNOrbox7l1y6VN', this)">⬡ URL img</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- POST 11 -->
+    <div class="ig-card" data-category="lifestyle">
+      <div class="ig-img">
+        <img src="https://api.apify.com/v2/key-value-stores/8cbfGXyTIJ71sdUna/records/generated-image.png?signature=1uDava3ogf4qTGmu5O63J" alt="Cortina na brisa do mar" loading="lazy">
+        <div class="ig-img-overlay"></div>
+        <div class="ig-img-num">11</div>
+        <div class="ig-img-cat">Lifestyle</div>
+      </div>
+      <div class="ig-body">
+        <div class="ig-title">A Brisa</div>
+        <div class="ig-caption" id="cap11">Você já parou para prestar atenção
+em como o vento entra pela sua janela?
+
+Na Reserva João Paulo, a brisa do mar chega todas as tardes.
+Ela não pede licença.
+Ela faz parte da casa.
+
+Esse é o tipo de detalhe que não aparece em nenhuma planta baixa.
+Mas é o tipo de coisa que você vai sentir falta pelo resto da vida
+se não estiver lá.
+
+reservajp.gswp.com.br</div>
+        <div class="ig-hashtags">#gswp #greystonewellness #reservajp #florianópolis #brisa #mar #casadeluxo #imóveldeluxo #altopAdrao #florianópolisluxo #varanda #lifestyle #bemestar #qualidadedevida #morarfloripa #imóveisexclusivos #natureza #silêncio #vivermelhor #sensorial #presença #imóveisflorianópolis</div>
+        <div class="ig-footer">
+          <button class="ig-copy-btn" onclick="copyCaption('cap11', this)"><span>Copiar legenda</span></button>
+          <button class="ig-copy-img-btn" onclick="copyImgUrl('https://api.apify.com/v2/key-value-stores/8cbfGXyTIJ71sdUna/records/generated-image.png?signature=1uDava3ogf4qTGmu5O63J', this)">⬡ URL img</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- POST 12 -->
+    <div class="ig-card" data-category="lifestyle">
+      <div class="ig-img">
+        <img src="https://api.apify.com/v2/key-value-stores/YzOi3j8g019MStPIK/records/generated-image.png?signature=1AqtLS9qWL4zakb99FDMt" alt="Pôr do sol visto do rooftop" loading="lazy">
+        <div class="ig-img-overlay"></div>
+        <div class="ig-img-num">12</div>
+        <div class="ig-img-cat">Lifestyle</div>
+      </div>
+      <div class="ig-body">
+        <div class="ig-title">O Pôr do Sol</div>
+        <div class="ig-caption" id="cap12">Existem pôres do sol que você assiste.
+
+E existem pôres do sol que você sente.
+
+Na Reserva João Paulo,
+o horizonte do mar é o seu quintal.
+O céu que muda de cor é a sua janela.
+
+Todas as noites.
+Sem exceção.
+Só para você.</div>
+        <div class="ig-hashtags">#gswp #greystonewellness #reservajp #pôrdosol #florianópolis #rooftop #mar #casadeluxo #imóveldeluxo #altopAdrao #florianópolisluxo #vistamar #lifestyle #bemestar #qualidadedevida #morarfloripa #imóveisexclusivos #natureza #silêncio #vivermelhor #céu #horizonte</div>
+        <div class="ig-footer">
+          <button class="ig-copy-btn" onclick="copyCaption('cap12', this)"><span>Copiar legenda</span></button>
+          <button class="ig-copy-img-btn" onclick="copyImgUrl('https://api.apify.com/v2/key-value-stores/YzOi3j8g019MStPIK/records/generated-image.png?signature=1AqtLS9qWL4zakb99FDMt', this)">⬡ URL img</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- POST 13 -->
+    <div class="ig-card" data-category="lifestyle">
+      <div class="ig-img">
+        <img src="https://api.apify.com/v2/key-value-stores/KyvRMeVuffSBeHiju/records/generated-image.png?signature=1zWDliOP88THtK9UFbB7x" alt="Pés descalços no jardim ao amanhecer" loading="lazy">
+        <div class="ig-img-overlay"></div>
+        <div class="ig-img-num">13</div>
+        <div class="ig-img-cat">Lifestyle</div>
+      </div>
+      <div class="ig-body">
+        <div class="ig-title">Caminhar Descalço</div>
+        <div class="ig-caption" id="cap13">Quando foi a última vez que você caminhou descalço?
+
+Não em casa. No jardim.
+Em um jardim que parece não ter fim.
+
+Onde o chão ainda é chão de verdade.
+Onde a grama molhada pelo orvalho da manhã
+é o primeiro contato com o dia.
+
+Isso não é nostalgia.
+É a vida que a Reserva João Paulo oferece
+todos os dias para os seus moradores.
+
+reservajp.gswp.com.br</div>
+        <div class="ig-hashtags">#gswp #greystonewellness #reservajp #florianópolis #jardim #natureza #casadeluxo #imóveldeluxo #altopAdrao #florianópolisluxo #bemestar #qualidadedevida #morarfloripa #imóveisexclusivos #lifestyle #vivermelhor #presença #mataatlântica #reservaambiental #silêncio #imóveisflorianópolis #légado</div>
+        <div class="ig-footer">
+          <button class="ig-copy-btn" onclick="copyCaption('cap13', this)"><span>Copiar legenda</span></button>
+          <button class="ig-copy-img-btn" onclick="copyImgUrl('https://api.apify.com/v2/key-value-stores/KyvRMeVuffSBeHiju/records/generated-image.png?signature=1zWDliOP88THtK9UFbB7x', this)">⬡ URL img</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- POST 14 -->
+    <div class="ig-card" data-category="lifestyle">
+      <div class="ig-img">
+        <img src="https://api.apify.com/v2/key-value-stores/0DuSCRlyHeZtJMqb7/records/generated-image.png?signature=1DaOWuEOLrnYLQWs06ipc" alt="Silhueta contemplando o horizonte" loading="lazy">
+        <div class="ig-img-overlay"></div>
+        <div class="ig-img-num">14</div>
+        <div class="ig-img-cat">Lifestyle</div>
+      </div>
+      <div class="ig-body">
+        <div class="ig-title">A Decisão</div>
+        <div class="ig-caption" id="cap14">Há um momento na vida de algumas pessoas
+em que elas param de comprar imóveis
+e começam a escolher onde viver de verdade.
+
+Não é uma decisão financeira.
+É uma decisão de identidade.
+
+Quem você quer ser quando chegar em casa?
+O que você quer sentir quando abrir a porta?
+
+A Reserva João Paulo foi construída para quem
+já fez essa pergunta — e sabe a resposta.
+
+reservajp.gswp.com.br</div>
+        <div class="ig-hashtags">#gswp #greystonewellness #reservajp #florianópolis #decisão #identidade #casadeluxo #imóveldeluxo #altopAdrao #florianópolisluxo #lifestyle #bemestar #qualidadedevida #morarfloripa #imóveisexclusivos #vivermelhor #presença #légado #silêncio #exclusividade #imóveisflorianópolis #investimento</div>
+        <div class="ig-footer">
+          <button class="ig-copy-btn" onclick="copyCaption('cap14', this)"><span>Copiar legenda</span></button>
+          <button class="ig-copy-img-btn" onclick="copyImgUrl('https://api.apify.com/v2/key-value-stores/0DuSCRlyHeZtJMqb7/records/generated-image.png?signature=1DaOWuEOLrnYLQWs06ipc', this)">⬡ URL img</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /grid lifestyle -->
+
+  <!-- ===== CATEGORIA 4: ESCASSEZ ===== -->
+  <div class="ig-section-header" id="escassez">
+    <span class="ig-section-label">Escassez & Urgência</span>
+    <span class="ig-section-count">3 posts</span>
+    <div class="ig-section-line"></div>
+  </div>
+
+  <div class="ig-grid">
+
+    <!-- POST 15 -->
+    <div class="ig-card" data-category="escassez">
+      <div class="ig-img">
+        <img src="https://api.apify.com/v2/key-value-stores/t57EvaoEbEv6oHBjx/records/generated-image.png?signature=77HEO6nRUCB9fsLFVuc4" alt="Número 4 em tipografia dourada" loading="lazy">
+        <div class="ig-img-overlay"></div>
+        <div class="ig-img-num">15</div>
+        <div class="ig-img-cat">Escassez</div>
+      </div>
+      <div class="ig-body">
+        <div class="ig-title">Apenas 4</div>
+        <div class="ig-caption" id="cap15">4.
+
+Esse é o número de famílias
+que vão chamar a Reserva João Paulo de lar.
+
+Não 40. Não 400.
+
+4.
+
+Em um dos endereços mais preservados de Florianópolis.
+A 300 metros do mar.
+Em meio à Mata Atlântica.
+
+Quando quatro é o limite,
+cada unidade não é um imóvel.
+É uma raridade.
+
+reservajp.gswp.com.br</div>
+        <div class="ig-hashtags">#gswp #greystonewellness #reservajp #florianópolis #exclusividade #escassez #casadeluxo #imóveldeluxo #altopAdrao #florianópolisluxo #raridade #imóveisexclusivos #lifestyle #bemestar #morarfloripa #qualidadedevida #natureza #mataatlântica #imóveisflorianópolis #investimentoimobiliário #patrimônio #légado</div>
+        <div class="ig-footer">
+          <button class="ig-copy-btn" onclick="copyCaption('cap15', this)"><span>Copiar legenda</span></button>
+          <button class="ig-copy-img-btn" onclick="copyImgUrl('https://api.apify.com/v2/key-value-stores/t57EvaoEbEv6oHBjx/records/generated-image.png?signature=77HEO6nRUCB9fsLFVuc4', this)">⬡ URL img</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- POST 16 -->
+    <div class="ig-card" data-category="escassez">
+      <div class="ig-img">
+        <img src="https://api.apify.com/v2/key-value-stores/gYzADFszmeFk3kg18/records/generated-image.png?signature=13b2FXACeVmTjJsQvO3UM" alt="Vista aérea Mata Atlântica e mar" loading="lazy">
+        <div class="ig-img-overlay"></div>
+        <div class="ig-img-num">16</div>
+        <div class="ig-img-cat">Escassez</div>
+      </div>
+      <div class="ig-body">
+        <div class="ig-title">A Última Vez</div>
+        <div class="ig-caption" id="cap16">Esta pode ser a última vez que um empreendimento como este
+é possível neste endereço.
+
+A legislação ambiental avança.
+Os terrenos com essa preservação desaparecem.
+E o mar, a mata e o silêncio
+não estão disponíveis em outro quarteirão.
+
+São 4 residências.
+Um lugar que não se repete.
+Uma decisão que você vai ter que tomar
+enquanto ainda é possível tomar.
+
+reservajp.gswp.com.br</div>
+        <div class="ig-hashtags">#gswp #greystonewellness #reservajp #florianópolis #escassez #urgência #casadeluxo #imóveldeluxo #altopAdrao #florianópolisluxo #mataatlântica #reservaambiental #imóveisexclusivos #investimentoimobiliário #patrimônio #bemestar #morarfloripa #qualidadedevida #imóveisflorianópolis #natureza #exclusividade #légado</div>
+        <div class="ig-footer">
+          <button class="ig-copy-btn" onclick="copyCaption('cap16', this)"><span>Copiar legenda</span></button>
+          <button class="ig-copy-img-btn" onclick="copyImgUrl('https://api.apify.com/v2/key-value-stores/gYzADFszmeFk3kg18/records/generated-image.png?signature=13b2FXACeVmTjJsQvO3UM', this)">⬡ URL img</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- POST 17 -->
+    <div class="ig-card" data-category="escassez">
+      <div class="ig-img">
+        <img src="https://api.apify.com/v2/key-value-stores/XqoT4ui7Ghw1hIYd4/records/generated-image.png?signature=MkS21BHwSskt9ivSWJgo" alt="Interior com pedra e madeira natural" loading="lazy">
+        <div class="ig-img-overlay"></div>
+        <div class="ig-img-num">17</div>
+        <div class="ig-img-cat">Escassez</div>
+      </div>
+      <div class="ig-body">
+        <div class="ig-title">Para os Que Entendem</div>
+        <div class="ig-caption" id="cap17">Não vamos fazer promoção.
+Não vamos criar urgência artificial.
+Não vamos dizer que "só restam X unidades".
+
+Vamos apenas dizer a verdade:
+
+São 4 residências.
+Em um endereço que não existe mais em outro lugar de Florianópolis.
+Para pessoas que entendem o que isso significa.
+
+Se você entende, o link está na bio.
+
+reservajp.gswp.com.br</div>
+        <div class="ig-hashtags">#gswp #greystonewellness #reservajp #florianópolis #honestidade #exclusividade #casadeluxo #imóveldeluxo #altopAdrao #florianópolisluxo #imóveisexclusivos #lifestyle #bemestar #morarfloripa #qualidadedevida #natureza #silêncio #vivermelhor #imóveisflorianópolis #investimentoimobiliário #légado #raridade</div>
+        <div class="ig-footer">
+          <button class="ig-copy-btn" onclick="copyCaption('cap17', this)"><span>Copiar legenda</span></button>
+          <button class="ig-copy-img-btn" onclick="copyImgUrl('https://api.apify.com/v2/key-value-stores/XqoT4ui7Ghw1hIYd4/records/generated-image.png?signature=MkS21BHwSskt9ivSWJgo', this)">⬡ URL img</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /grid escassez -->
+
+  <!-- ===== CATEGORIA 5: FLORIANÓPOLIS ===== -->
+  <div class="ig-section-header" id="floripa">
+    <span class="ig-section-label">Florianópolis & Localização</span>
+    <span class="ig-section-count">3 posts</span>
+    <div class="ig-section-line"></div>
+  </div>
+
+  <div class="ig-grid">
+
+    <!-- POST 18 -->
+    <div class="ig-card" data-category="floripa">
+      <div class="ig-img">
+        <img src="https://api.apify.com/v2/key-value-stores/bLTkaItwv5TMcn5aD/records/generated-image.png?signature=mS0HOsmZzWitwhkpFj3" alt="Vista panorâmica de Florianópolis" loading="lazy">
+        <div class="ig-img-overlay"></div>
+        <div class="ig-img-num">18</div>
+        <div class="ig-img-cat">Florianópolis</div>
+      </div>
+      <div class="ig-body">
+        <div class="ig-title">Florianópolis nos Escolheu</div>
+        <div class="ig-caption" id="cap18">Não escolhemos Florianópolis por valor de metro quadrado.
+
+Escolhemos porque aqui,
+ainda é possível ouvir o vento entre as árvores às 7 da manhã.
+
+Porque a Mata Atlântica ainda respira entre morros e praias.
+Porque o mar ainda tem cheiro de ilha.
+Porque existe uma qualidade de ar, de luz e de vida
+que você não encontra em mais nenhum lugar do Brasil.
+
+Florianópolis nos escolheu tanto quanto nós a escolhemos.
+
+E a Reserva João Paulo é a nossa resposta a ela.</div>
+        <div class="ig-hashtags">#gswp #greystonewellness #reservajp #florianópolis #ilha #mataatlântica #mar #casadeluxo #imóveldeluxo #altopAdrao #florianópolisluxo #lifestyle #bemestar #morarfloripa #qualidadedevida #natureza #silêncio #imóveisflorianópolis #vistamar #destinofloripa #exclusividade #légado</div>
+        <div class="ig-footer">
+          <button class="ig-copy-btn" onclick="copyCaption('cap18', this)"><span>Copiar legenda</span></button>
+          <button class="ig-copy-img-btn" onclick="copyImgUrl('https://api.apify.com/v2/key-value-stores/bLTkaItwv5TMcn5aD/records/generated-image.png?signature=mS0HOsmZzWitwhkpFj3', this)">⬡ URL img</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- POST 19 -->
+    <div class="ig-card" data-category="floripa">
+      <div class="ig-img">
+        <img src="https://api.apify.com/v2/key-value-stores/fyo3Co22Rc3mvhVeE/records/generated-image.png?signature=1jIiSLWnjSDhlJIjoi8k7" alt="Mapa artístico do bairro João Paulo" loading="lazy">
+        <div class="ig-img-overlay"></div>
+        <div class="ig-img-num">19</div>
+        <div class="ig-img-cat">Florianópolis</div>
+      </div>
+      <div class="ig-body">
+        <div class="ig-title">João Paulo</div>
+        <div class="ig-caption" id="cap19">Bairro João Paulo.
+
+No norte da ilha.
+Entre a Lagoa e o mar.
+Onde os morros guardam a cidade do vento.
+
+É um dos últimos endereços de Florianópolis
+onde natureza e sofisticação ainda dividem o mesmo espaço
+sem que nenhuma das duas precise ceder.
+
+A Reserva João Paulo não está no João Paulo por acaso.
+Está porque não poderia estar em nenhum outro lugar.
+
+reservajp.gswp.com.br</div>
+        <div class="ig-hashtags">#gswp #greystonewellness #reservajp #joãopaulo #florianópolis #ilha #bairro #casadeluxo #imóveldeluxo #altopAdrao #florianópolisluxo #mataatlântica #mar #lifestyle #bemestar #morarfloripa #qualidadedevida #natureza #imóveisflorianópolis #exclusividade #destinofloripa #légado</div>
+        <div class="ig-footer">
+          <button class="ig-copy-btn" onclick="copyCaption('cap19', this)"><span>Copiar legenda</span></button>
+          <button class="ig-copy-img-btn" onclick="copyImgUrl('https://api.apify.com/v2/key-value-stores/fyo3Co22Rc3mvhVeE/records/generated-image.png?signature=1jIiSLWnjSDhlJIjoi8k7', this)">⬡ URL img</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- POST 20 -->
+    <div class="ig-card" data-category="floripa">
+      <div class="ig-img">
+        <img src="https://api.apify.com/v2/key-value-stores/7ayHEeDWwIgesRuRd/records/generated-image.png?signature=3YElPkYSW5gQan86xAxM" alt="Floresta atlântica respirando" loading="lazy">
+        <div class="ig-img-overlay"></div>
+        <div class="ig-img-num">20</div>
+        <div class="ig-img-cat">Florianópolis</div>
+      </div>
+      <div class="ig-body">
+        <div class="ig-title">A Ilha que Respira</div>
+        <div class="ig-caption" id="cap20">Florianópolis é uma ilha.
+
+Mas não é um destino de férias.
+É um modo de vida.
+
+Aqui, a natureza não é o pano de fundo da cidade.
+A cidade é que existe em segundo plano.
+
+Em alguns lugares — poucos, cada vez menos —
+ainda dá para sentir isso com clareza.
+
+A Reserva João Paulo é um desses lugares.</div>
+        <div class="ig-hashtags">#gswp #greystonewellness #reservajp #florianópolis #ilha #natureza #mataatlântica #mar #casadeluxo #imóveldeluxo #altopAdrao #florianópolisluxo #lifestyle #bemestar #morarfloripa #qualidadedevida #silêncio #imóveisflorianópolis #destinofloripa #exclusividade #respirar #légado</div>
+        <div class="ig-footer">
+          <button class="ig-copy-btn" onclick="copyCaption('cap20', this)"><span>Copiar legenda</span></button>
+          <button class="ig-copy-img-btn" onclick="copyImgUrl('https://api.apify.com/v2/key-value-stores/7ayHEeDWwIgesRuRd/records/generated-image.png?signature=3YElPkYSW5gQan86xAxM', this)">⬡ URL img</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /grid floripa -->
+
+  <!-- ===== CATEGORIA 6: NATUREZA ===== -->
+  <div class="ig-section-header" id="natureza">
+    <span class="ig-section-label">Natureza Integrada</span>
+    <span class="ig-section-count">2 posts</span>
+    <div class="ig-section-line"></div>
+  </div>
+
+  <div class="ig-grid">
+
+    <!-- POST 21 -->
+    <div class="ig-card" data-category="natureza">
+      <div class="ig-img">
+        <img src="https://api.apify.com/v2/key-value-stores/4golGVkNtuM29UR1n/records/generated-image.png?signature=dk15ziZxUjPaLhnd8CP" alt="Tucano na Mata Atlântica ao amanhecer" loading="lazy">
+        <div class="ig-img-overlay"></div>
+        <div class="ig-img-num">21</div>
+        <div class="ig-img-cat">Natureza</div>
+      </div>
+      <div class="ig-body">
+        <div class="ig-title">Tucanos e Gralhas</div>
+        <div class="ig-caption" id="cap21">Às 6h da manhã,
+a gralha-azul já está cantando.
+
+Às 7h, o tucano aparece na árvore da varanda.
+
+Não é sorte.
+Não é coincidência.
+
+É porque a Reserva João Paulo foi construída
+dentro de uma reserva ambiental preservada —
+onde os pássaros chegaram antes das pessoas
+e não têm intenção de ir embora.
+
+Esse é o alarme que você vai querer todo dia.
+
+reservajp.gswp.com.br</div>
+        <div class="ig-hashtags">#gswp #greystonewellness #reservajp #florianópolis #tucano #gralhaazul #natureza #mataatlântica #casadeluxo #imóveldeluxo #altopAdrao #florianópolisluxo #reservaambiental #lifestyle #bemestar #morarfloripa #qualidadedevida #fauna #imóveisflorianópolis #vivermelhor #exclusividade #légado</div>
+        <div class="ig-footer">
+          <button class="ig-copy-btn" onclick="copyCaption('cap21', this)"><span>Copiar legenda</span></button>
+          <button class="ig-copy-img-btn" onclick="copyImgUrl('https://api.apify.com/v2/key-value-stores/4golGVkNtuM29UR1n/records/generated-image.png?signature=dk15ziZxUjPaLhnd8CP', this)">⬡ URL img</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- POST 22 -->
+    <div class="ig-card" data-category="natureza">
+      <div class="ig-img">
+        <img src="https://api.apify.com/v2/key-value-stores/hHvNcBNGGql1K1pUi/records/generated-image.png?signature=18MtpKThVuU1bnipsf3H1" alt="Fachada coberta por vegetação nativa" loading="lazy">
+        <div class="ig-img-overlay"></div>
+        <div class="ig-img-num">22</div>
+        <div class="ig-img-cat">Natureza</div>
+      </div>
+      <div class="ig-body">
+        <div class="ig-title">O Verde Como Identidade</div>
+        <div class="ig-caption" id="cap22">O verde aqui não é paisagismo.
+
+Não foi escolhido por um paisagista,
+plantado no canteiro certo,
+podado para parecer perfeito.
+
+O verde aqui é selvagem.
+É Mata Atlântica de verdade.
+É identidade — não decoração.
+
+Os projetos GSWP não inserem natureza no design.
+Eles nascem da natureza que já existia.
+
+Reserva João Paulo.
+A casa que a mata construiu com a gente.
+
+reservajp.gswp.com.br</div>
+        <div class="ig-hashtags">#gswp #greystonewellness #reservajp #florianópolis #verde #mataatlântica #natureza #viversustentável #casadeluxo #imóveldeluxo #altopAdrao #florianópolisluxo #arquitetura #design #lifestyle #bemestar #morarfloripa #qualidadedevida #reservaambiental #imóveisflorianópolis #exclusividade #légado</div>
+        <div class="ig-footer">
+          <button class="ig-copy-btn" onclick="copyCaption('cap22', this)"><span>Copiar legenda</span></button>
+          <button class="ig-copy-img-btn" onclick="copyImgUrl('https://api.apify.com/v2/key-value-stores/hHvNcBNGGql1K1pUi/records/generated-image.png?signature=18MtpKThVuU1bnipsf3H1', this)">⬡ URL img</button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /grid natureza -->
+
+</main>
+
+<!-- FOOTER -->
+<footer class="ig-page-footer">
+  <div class="ig-footer-logo">GS<span>W</span>P</div>
+  <span class="ig-footer-copy">© 2025 Greystone Wellness Propriety · Instagram Content Dashboard · Reserva João Paulo</span>
+  <svg class="ig-footer-emblem" viewBox="0 0 30 30" fill="none" width="30" height="30">
+    <polygon points="15,2 28,11 28,28 2,28 2,11" stroke="#B8942E" stroke-width="0.8" fill="none"/>
+    <polygon points="15,8 24,15 24,26 6,26 6,15" stroke="#B8942E" stroke-width="0.5" fill="none" opacity="0.5"/>
+  </svg>
+</footer>
+
+<!-- TOAST -->
+<div class="ig-toast" id="toast">Legenda copiada ✓</div>
+
+<script>
+// CURSOR
+const cursor = document.getElementById('cursor');
+const ring   = document.getElementById('cursor-ring');
+let mx = -100, my = -100, rx = -100, ry = -100;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+(function animateCursor() {
+  cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+  rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(animateCursor);
+})();
+
+// COPY CAPTION
+function copyCaption(id, btn) {
+  const text = document.getElementById(id).innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.classList.add('copied');
+    btn.querySelector('span').textContent = 'Copiado ✓';
+    showToast('Legenda copiada ✓');
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.querySelector('span').textContent = 'Copiar legenda';
+    }, 2500);
+  });
+}
+
+// COPY IMAGE URL
+function copyImgUrl(url, btn) {
+  navigator.clipboard.writeText(url).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = '✓ Copiado';
+    showToast('URL da imagem copiada ✓');
+    setTimeout(() => { btn.textContent = orig; }, 2000);
+  });
+}
+
+// TOAST
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+// FILTER
+document.querySelectorAll('.ig-filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.ig-filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('.ig-card').forEach(card => {
+      if (filter === 'all' || card.dataset.category === filter) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+    // Also hide/show section headers
+    document.querySelectorAll('.ig-section-header').forEach(h => {
+      if (filter === 'all') { h.style.display = ''; return; }
+      const id = h.id;
+      h.style.display = (id === filter) ? '' : 'none';
+    });
+  });
+});
+
+// REVEAL ON SCROLL
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.ig-card').forEach((card, i) => {
+  card.style.opacity = '0';
+  card.style.transform = 'translateY(24px)';
+  card.style.transition = `opacity .5s ease ${(i % 3) * 0.08}s, transform .5s ease ${(i % 3) * 0.08}s, box-shadow .4s, border-color .3s, transform .4s cubic-bezier(0.16,1,0.3,1)`;
+  observer.observe(card);
+});
+</script>
+</body>
+</html>

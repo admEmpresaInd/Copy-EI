@@ -12,19 +12,15 @@
                   "has": [{ "type": "host", "value": "www.gswp.com.br" }],
                   "destination": "/gswp-site",
                   "permanent": false
-          }
-    ],
-    "rewrites": [
+          },
           {
                   "source": "/",
                   "has": [{ "type": "host", "value": "reservajp.gswp.com.br" }],
-                  "destination": "/reserva-jp"
-          },
-          {
-                  "source": "/:path*",
-                  "has": [{ "type": "host", "value": "reservajp.gswp.com.br" }],
-                  "destination": "/reserva-jp"
-          },
+                  "destination": "/reserva-jp",
+                  "permanent": false
+          }
+    ],
+    "rewrites": [
           { "source": "/", "destination": "/EI/ia-operating-system-pagina-de-vendas" },
           { "source": "/analise", "destination": "/EI/hormozi-analise-consultoria-ia" },
           { "source": "/prompts", "destination": "/EI/biblioteca-127-prompts-claude-code" },

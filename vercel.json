@@ -5,12 +5,12 @@
           {
                   "source": "/",
                   "has": [{ "type": "host", "value": "gswp.com.br" }],
-                  "destination": "/gswp-site"
+                  "destination": "/EI/gswp"
           },
           {
                   "source": "/",
                   "has": [{ "type": "host", "value": "www.gswp.com.br" }],
-                  "destination": "/gswp-site"
+                  "destination": "/EI/gswp"
           },
           {
                   "source": "/",

@@ -1,20 +1,17 @@
 {
     "cleanUrls": true,
-    "redirects": [
+    "redirects": [],
+    "rewrites": [
           {
                   "source": "/",
                   "has": [{ "type": "host", "value": "gswp.com.br" }],
-                  "destination": "/gswp-site",
-                  "permanent": false
+                  "destination": "/gswp-site"
           },
           {
                   "source": "/",
                   "has": [{ "type": "host", "value": "www.gswp.com.br" }],
-                  "destination": "/gswp-site",
-                  "permanent": false
+                  "destination": "/gswp-site"
           },
-    ],
-    "rewrites": [
           {
                   "source": "/",
                   "has": [{ "type": "host", "value": "reservajp.gswp.com.br" }],

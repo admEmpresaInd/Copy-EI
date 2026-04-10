@@ -135,12 +135,12 @@
   .main {
     flex: 1;
     display: grid;
-    grid-template-columns: 320px 1fr 1fr;
+    grid-template-columns: var(--left-w, 320px) 1fr 1fr;
     overflow: hidden;
   }
 
   @media (max-width: 1100px) {
-    .main { grid-template-columns: 280px 1fr; }
+    .main { grid-template-columns: var(--left-w, 280px) 1fr; }
     .panel-middle { display: none; }
   }
 
@@ -156,6 +156,21 @@
     border-right: 1px solid var(--border);
     display: flex; flex-direction: column; overflow: hidden;
     background: var(--bg-elevated);
+    position: relative;
+  }
+
+  .resize-handle {
+    position: absolute;
+    top: 0; right: -3px;
+    width: 6px; height: 100%;
+    cursor: col-resize;
+    z-index: 10;
+    background: transparent;
+    transition: background 0.15s;
+  }
+  .resize-handle:hover,
+  .resize-handle.dragging {
+    background: rgba(52, 211, 153, 0.25);
   }
 
   .panel-header {
@@ -224,7 +239,7 @@
   .skill-card.active .skill-desc { color: var(--fg-muted); }
 
   /* ─── Folders ─── */
-  .folders-section { border-top: 1px solid var(--border); overflow-y: auto; max-height: 190px; padding: 6px 8px; }
+  .folders-section { border-top: 1px solid var(--border); overflow-y: auto; max-height: 340px; padding: 6px 8px; }
   .folder-tree { display: flex; flex-direction: column; gap: 2px; }
 
   .folder-item {
@@ -660,6 +675,43 @@
   .skeleton-line.w-70 { width: 70%; }
   .skeleton-line.w-80 { width: 80%; }
 
+  /* ─── Live Log in Output Panel ─── */
+  #output-live-log {
+    padding: 20px 16px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    line-height: 1.8;
+    display: none;
+    min-height: 120px;
+    background: var(--bg-elevated);
+    border-radius: 8px;
+    margin: 4px 0;
+    transition: opacity 0.35s ease;
+  }
+  #output-live-log.active { display: block; opacity: 1; }
+  #output-live-log.fade-out { opacity: 0; pointer-events: none; }
+  .live-log-line {
+    display: flex;
+    gap: 10px;
+    padding: 1px 0;
+    animation: fadeInLog 0.25s ease both;
+  }
+  .live-log-time { color: var(--fg-dim); flex-shrink: 0; user-select: none; }
+  .live-log-icon { flex-shrink: 0; width: 16px; text-align: center; }
+  .live-log-icon.success { color: var(--primary); }
+  .live-log-icon.pending { color: var(--accent-amber); animation: spinIcon 1s linear infinite; }
+  .live-log-icon.warn { color: var(--accent-amber); }
+  .live-log-icon.start { color: var(--primary); }
+  .live-log-text { color: var(--fg-muted); }
+  @keyframes fadeInLog {
+    from { opacity: 0; transform: translateX(-4px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes spinIcon {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
   /* ─── Warning Banner (Ideia 4) ─── */
   .warning-banner {
     display: none; padding: 8px 16px;
@@ -805,6 +857,16 @@
   .skill-card:nth-child(11) { animation-delay: 0.33s; }
   .skill-card:nth-child(12) { animation-delay: 0.36s; }
   .skill-card:nth-child(13) { animation-delay: 0.39s; }
+  .skill-card:nth-child(14) { animation-delay: 0.42s; }
+  .skill-card:nth-child(15) { animation-delay: 0.45s; }
+  .skill-card:nth-child(16) { animation-delay: 0.48s; }
+  .skill-card:nth-child(17) { animation-delay: 0.51s; }
+  .skill-card:nth-child(18) { animation-delay: 0.54s; }
+  .skill-card:nth-child(19) { animation-delay: 0.57s; }
+  .skill-card:nth-child(20) { animation-delay: 0.6s; }
+  .skill-card:nth-child(21) { animation-delay: 0.63s; }
+  .skill-card:nth-child(22) { animation-delay: 0.66s; }
+  .skill-card:nth-child(23) { animation-delay: 0.69s; }
 </style>
 </head>
 <body>
@@ -851,6 +913,7 @@
 
   <!-- ─── Left Panel — Skills + Folders ─── -->
   <aside class="panel-left">
+    <div class="resize-handle" id="resizeHandle"></div>
 
     <div class="panel-header">
       <div class="panel-title">
@@ -1066,6 +1129,61 @@
           <div class="skill-desc">Jobs-to-be-done, OKRs, PRDs</div>
         </div>
 
+        <div class="skill-card" data-skill="connect-apps"
+             style="--skill-color:#10b981;--skill-color-dim:rgba(16,185,129,0.12);--skill-color-border:rgba(16,185,129,0.3)"
+             onclick="toggleSkill(this)">
+          <div class="skill-card-top">
+            <div class="skill-icon">🔗</div>
+            <div class="skill-check"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          </div>
+          <div class="skill-name">Connect Apps</div>
+          <div class="skill-desc">Gmail, Slack, GitHub e 1000+ apps</div>
+        </div>
+
+        <div class="skill-card" data-skill="instagram-post"
+             style="--skill-color:#e1306c;--skill-color-dim:rgba(225,48,108,0.12);--skill-color-border:rgba(225,48,108,0.3)"
+             onclick="toggleSkill(this)">
+          <div class="skill-card-top">
+            <div class="skill-icon">📸</div>
+            <div class="skill-check"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          </div>
+          <div class="skill-name">Instagram Post</div>
+          <div class="skill-desc">Posts e carrosseis para Instagram</div>
+        </div>
+
+        <div class="skill-card" data-skill="google-stitch"
+             style="--skill-color:#4285F4;--skill-color-dim:rgba(66,133,244,0.12);--skill-color-border:rgba(66,133,244,0.3)"
+             onclick="toggleSkill(this)">
+          <div class="skill-card-top">
+            <div class="skill-icon">🧵</div>
+            <div class="skill-check"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          </div>
+          <div class="skill-name">Google Stitch</div>
+          <div class="skill-desc">Costura de dados e integração Google</div>
+        </div>
+
+        <div class="skill-card" data-skill="nano-banana-2"
+             style="--skill-color:#FFD700;--skill-color-dim:rgba(255,215,0,0.12);--skill-color-border:rgba(255,215,0,0.3)"
+             onclick="toggleSkill(this)">
+          <div class="skill-card-top">
+            <div class="skill-icon">🍌</div>
+            <div class="skill-check"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          </div>
+          <div class="skill-name">Nano Banana 2</div>
+          <div class="skill-desc">Geração criativa e exploração de ideias</div>
+        </div>
+
+        <div class="skill-card" data-skill="21st-dev"
+             style="--skill-color:#7c3aed;--skill-color-dim:rgba(124,58,237,0.12);--skill-color-border:rgba(124,58,237,0.3)"
+             onclick="toggleSkill(this)">
+          <div class="skill-card-top">
+            <div class="skill-icon">✨</div>
+            <div class="skill-check"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          </div>
+          <div class="skill-name">21st Dev</div>
+          <div class="skill-desc">Componentes UI modernos e design systems</div>
+        </div>
+
       </div>
     </div>
 
@@ -1083,6 +1201,7 @@
     <div class="folders-section">
       <div class="folder-tree">
 
+        <!-- EI/ e subpastas -->
         <div class="folder-item" data-folder="EI/" onclick="toggleFolder(this)">
           <div class="folder-checkbox"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
           <span class="folder-icon">📁</span>
@@ -1104,13 +1223,44 @@
           <span class="folder-files">Pesquisa RMBC</span>
         </div>
 
+        <div class="folder-item child" data-folder="EI/fotos/" onclick="toggleFolder(this)">
+          <div class="folder-checkbox"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          <span class="folder-icon">📸</span>
+          <span class="folder-name">fotos/</span>
+          <span class="folder-files">fotos produto</span>
+        </div>
+
+        <div class="folder-item child" data-folder="EI/videos/" onclick="toggleFolder(this)">
+          <div class="folder-checkbox"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          <span class="folder-icon">🎬</span>
+          <span class="folder-name">videos/</span>
+          <span class="folder-files">videos produto</span>
+        </div>
+
+        <!-- DR Expert/ -->
         <div class="folder-item" data-folder="DR Expert/" onclick="toggleFolder(this)">
           <div class="folder-checkbox"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
           <span class="folder-icon">📁</span>
           <span class="folder-name">DR Expert/</span>
-          <span class="folder-files">referências DR</span>
+          <span class="folder-files">referencias DR</span>
         </div>
 
+        <!-- Fotos Zanuto/ e subpastas -->
+        <div class="folder-item" data-folder="Fotos Zanuto/" onclick="toggleFolder(this)">
+          <div class="folder-checkbox"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          <span class="folder-icon">📷</span>
+          <span class="folder-name">Fotos Zanuto/</span>
+          <span class="folder-files">fotos Zanuto</span>
+        </div>
+
+        <div class="folder-item child" data-folder="Fotos Zanuto/videos/" onclick="toggleFolder(this)">
+          <div class="folder-checkbox"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          <span class="folder-icon">📂</span>
+          <span class="folder-name">videos/</span>
+          <span class="folder-files">videos Zanuto</span>
+        </div>
+
+        <!-- Livros/ -->
         <div class="folder-item" data-folder="Livros/" onclick="toggleFolder(this)">
           <div class="folder-checkbox"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
           <span class="folder-icon">📚</span>
@@ -1118,6 +1268,7 @@
           <span class="folder-files">biblioteca</span>
         </div>
 
+        <!-- .agents/ e subpastas -->
         <div class="folder-item" data-folder=".agents/" onclick="toggleFolder(this)">
           <div class="folder-checkbox"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
           <span class="folder-icon">🤖</span>
@@ -1125,11 +1276,134 @@
           <span class="folder-files">agentes</span>
         </div>
 
+        <div class="folder-item child" data-folder=".agents/skills/" onclick="toggleFolder(this)">
+          <div class="folder-checkbox"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          <span class="folder-icon">📂</span>
+          <span class="folder-name">skills/</span>
+          <span class="folder-files">skills agentes</span>
+        </div>
+
+        <!-- .aiox-core/ -->
+        <div class="folder-item" data-folder=".aiox-core/" onclick="toggleFolder(this)">
+          <div class="folder-checkbox"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          <span class="folder-icon">🧠</span>
+          <span class="folder-name">.aiox-core/</span>
+          <span class="folder-files">framework AIOX</span>
+        </div>
+
+        <!-- .antigravity/ -->
+        <div class="folder-item" data-folder=".antigravity/" onclick="toggleFolder(this)">
+          <div class="folder-checkbox"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          <span class="folder-icon">🚀</span>
+          <span class="folder-name">.antigravity/</span>
+          <span class="folder-files">antigravity</span>
+        </div>
+
+        <!-- .claude/ e subpastas -->
         <div class="folder-item" data-folder=".claude/" onclick="toggleFolder(this)">
           <div class="folder-checkbox"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
           <span class="folder-icon">⚙️</span>
           <span class="folder-name">.claude/</span>
           <span class="folder-files">config, skills</span>
+        </div>
+
+        <div class="folder-item child" data-folder=".claude/commands/" onclick="toggleFolder(this)">
+          <div class="folder-checkbox"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          <span class="folder-icon">📂</span>
+          <span class="folder-name">commands/</span>
+          <span class="folder-files">comandos CLI</span>
+        </div>
+
+        <div class="folder-item child" data-folder=".claude/hooks/" onclick="toggleFolder(this)">
+          <div class="folder-checkbox"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          <span class="folder-icon">📂</span>
+          <span class="folder-name">hooks/</span>
+          <span class="folder-files">hooks automacao</span>
+        </div>
+
+        <div class="folder-item child" data-folder=".claude/rules/" onclick="toggleFolder(this)">
+          <div class="folder-checkbox"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          <span class="folder-icon">📂</span>
+          <span class="folder-name">rules/</span>
+          <span class="folder-files">regras contextuais</span>
+        </div>
+
+        <div class="folder-item child" data-folder=".claude/skills/" onclick="toggleFolder(this)">
+          <div class="folder-checkbox"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          <span class="folder-icon">📂</span>
+          <span class="folder-name">skills/</span>
+          <span class="folder-files">skills Claude</span>
+        </div>
+
+        <!-- .codex/ -->
+        <div class="folder-item" data-folder=".codex/" onclick="toggleFolder(this)">
+          <div class="folder-checkbox"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          <span class="folder-icon">📓</span>
+          <span class="folder-name">.codex/</span>
+          <span class="folder-files">codex config</span>
+        </div>
+
+        <!-- .cursor/ -->
+        <div class="folder-item" data-folder=".cursor/" onclick="toggleFolder(this)">
+          <div class="folder-checkbox"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          <span class="folder-icon">🖱️</span>
+          <span class="folder-name">.cursor/</span>
+          <span class="folder-files">cursor config</span>
+        </div>
+
+        <!-- .gemini/ -->
+        <div class="folder-item" data-folder=".gemini/" onclick="toggleFolder(this)">
+          <div class="folder-checkbox"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          <span class="folder-icon">💎</span>
+          <span class="folder-name">.gemini/</span>
+          <span class="folder-files">gemini config</span>
+        </div>
+
+        <!-- .github/ -->
+        <div class="folder-item" data-folder=".github/" onclick="toggleFolder(this)">
+          <div class="folder-checkbox"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          <span class="folder-icon">🐙</span>
+          <span class="folder-name">.github/</span>
+          <span class="folder-files">workflows, CI</span>
+        </div>
+
+        <!-- build/ -->
+        <div class="folder-item" data-folder="build/" onclick="toggleFolder(this)">
+          <div class="folder-checkbox"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          <span class="folder-icon">🏗️</span>
+          <span class="folder-name">build/</span>
+          <span class="folder-files">build output</span>
+        </div>
+
+        <!-- dist/ -->
+        <div class="folder-item" data-folder="dist/" onclick="toggleFolder(this)">
+          <div class="folder-checkbox"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          <span class="folder-icon">📦</span>
+          <span class="folder-name">dist/</span>
+          <span class="folder-files">distribuicao</span>
+        </div>
+
+        <!-- electron/ -->
+        <div class="folder-item" data-folder="electron/" onclick="toggleFolder(this)">
+          <div class="folder-checkbox"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          <span class="folder-icon">⚡</span>
+          <span class="folder-name">electron/</span>
+          <span class="folder-files">desktop app</span>
+        </div>
+
+        <!-- scripts/ -->
+        <div class="folder-item" data-folder="scripts/" onclick="toggleFolder(this)">
+          <div class="folder-checkbox"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          <span class="folder-icon">📜</span>
+          <span class="folder-name">scripts/</span>
+          <span class="folder-files">scripts util</span>
+        </div>
+
+        <div class="folder-item" data-folder="supabase/" onclick="toggleFolder(this)">
+          <div class="folder-checkbox"><svg viewBox="0 0 10 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 4l3 3 5-6"/></svg></div>
+          <span class="folder-icon">🗄️</span>
+          <span class="folder-name">supabase/</span>
+          <span class="folder-files">database, auth</span>
         </div>
 
       </div>
@@ -1274,6 +1548,7 @@ Ex: escreva 5 variações de headline para o Raio-X, usando os frameworks de cop
         <span>configure o contexto, escreva um prompt e clique em Gerar</span>
       </div>
       <div class="output-content" id="outputContent" style="display:none"></div>
+      <div id="output-live-log"></div>
     </div>
 
     <!-- Activity Log Toggle + Panel (Ideia 3) -->
@@ -1355,6 +1630,13 @@ Ex: escreva 5 variações de headline para o Raio-X, usando os frameworks de cop
     'pinterest-posts':         { bg: 'rgba(244,63,94,0.12)',   color: '#f43f5e', border: 'rgba(244,63,94,0.25)' },
     'gemini-image':            { bg: 'rgba(139,92,246,0.12)',  color: '#8b5cf6', border: 'rgba(139,92,246,0.25)' },
     'linkedin-personal-branding': { bg: 'rgba(37,99,235,0.12)',  color: '#2563eb', border: 'rgba(37,99,235,0.25)' },
+    'market-research-reports':  { bg: 'rgba(249,115,22,0.12)',  color: '#f97316', border: 'rgba(249,115,22,0.25)' },
+    'product-frameworks':       { bg: 'rgba(6,182,212,0.12)',   color: '#06b6d4', border: 'rgba(6,182,212,0.25)' },
+    'connect-apps':             { bg: 'rgba(16,185,129,0.12)',  color: '#10b981', border: 'rgba(16,185,129,0.25)' },
+    'instagram-post':           { bg: 'rgba(225,48,108,0.12)',  color: '#e1306c', border: 'rgba(225,48,108,0.25)' },
+    'google-stitch':            { bg: 'rgba(66,133,244,0.12)',  color: '#4285F4', border: 'rgba(66,133,244,0.25)' },
+    'nano-banana-2':            { bg: 'rgba(255,215,0,0.12)',   color: '#FFD700', border: 'rgba(255,215,0,0.25)' },
+    '21st-dev':                 { bg: 'rgba(124,58,237,0.12)',  color: '#7c3aed', border: 'rgba(124,58,237,0.25)' },
   };
 
   // ─── Selection toggles ───
@@ -1509,6 +1791,38 @@ Ex: escreva 5 variações de headline para o Raio-X, usando os frameworks de cop
     btn.textContent = log.classList.contains('visible') ? 'Ocultar logs' : 'Ver logs';
   }
 
+  // ─── Live Log in Output Panel ───
+  function appendLiveLog(icon, cssClass, text) {
+    const log = document.getElementById('output-live-log');
+    if (!log) return;
+    const now = new Date();
+    const ts = `${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}:${String(now.getSeconds()).padStart(2,'0')}`;
+    const line = document.createElement('div');
+    line.className = 'live-log-line';
+    line.innerHTML = `<span class="live-log-time">[${ts}]</span><span class="live-log-icon ${cssClass}">${icon}</span><span class="live-log-text">${escapeHtml(text)}</span>`;
+    log.appendChild(line);
+    log.scrollTop = log.scrollHeight;
+  }
+
+  function showLiveLog() {
+    const log = document.getElementById('output-live-log');
+    if (!log) return;
+    log.innerHTML = '';
+    log.classList.remove('fade-out');
+    log.classList.add('active');
+    appendLiveLog('\u2726', 'start', 'Iniciando geracao...');
+  }
+
+  function hideLiveLog() {
+    const log = document.getElementById('output-live-log');
+    if (!log) return;
+    log.classList.add('fade-out');
+    setTimeout(() => {
+      log.classList.remove('active', 'fade-out');
+      log.innerHTML = '';
+    }, 400);
+  }
+
   // ─── Pipeline Stepper (Ideia 2) ───
   function updateStepper(index) {
     const stepper = document.getElementById('pipelineStepper');
@@ -1626,8 +1940,8 @@ Ex: escreva 5 variações de headline para o Raio-X, usando os frameworks de cop
     const outputContent = document.getElementById('outputContent');
     outputContent.style.display = 'block';
 
-    // Show skeleton (Ideia 6)
-    showSkeleton();
+    // Show live log in output panel (replaces skeleton)
+    showLiveLog();
 
     // Clear and show activity log area
     document.getElementById('activityLog').innerHTML = '';
@@ -1707,6 +2021,7 @@ Ex: escreva 5 variações de headline para o Raio-X, usando os frameworks de cop
               if (currentEvent === 'delta' || (data.text !== undefined && currentEvent !== 'log' && currentEvent !== 'step' && currentEvent !== 'progress' && currentEvent !== 'warning' && currentEvent !== 'skill-loaded')) {
                 if (!firstDeltaReceived) {
                   firstDeltaReceived = true;
+                  hideLiveLog();
                   removeSkeleton();
                   renderConversation(true);
                 }
@@ -1715,15 +2030,20 @@ Ex: escreva 5 variações de headline para o Raio-X, usando os frameworks de cop
               } else if (currentEvent === 'step' && data.index !== undefined) {
                 updateStepper(data.index);
                 addLogEntry(`Step ${data.index}/${data.total}: ${data.label}`);
+                appendLiveLog('\u27F3', 'pending', data.label || ('Step ' + data.index + '/' + data.total));
               } else if (currentEvent === 'progress' && data.percent !== undefined) {
                 setProgress(data.percent);
               } else if (currentEvent === 'log' && data.text) {
                 addLogEntry(data.text);
+                appendLiveLog('\u2713', 'success', data.text);
               } else if (currentEvent === 'warning') {
                 showWarning(data.message || 'Aviso desconhecido');
                 addLogEntry('AVISO: ' + (data.message || ''));
+                appendLiveLog('\u26A0', 'warn', data.message || 'Aviso desconhecido');
               } else if (currentEvent === 'skill-loaded' && data.name) {
                 markSkillLoaded(data.name);
+                const sizeLabel = data.size ? ' (' + (data.size / 1024).toFixed(1) + ' KB)' : '';
+                appendLiveLog('\u2713', 'success', 'Skill carregada: ' + data.name + sizeLabel);
               } else if (currentEvent === 'error' && data.message) {
                 throw new Error(data.message);
               } else if (data.inputTokens !== undefined) {
@@ -1774,6 +2094,7 @@ Ex: escreva 5 variações de headline para o Raio-X, usando os frameworks de cop
       abortController = null;
       firstDeltaReceived = false;
       removeSkeleton();
+      hideLiveLog();
       hideStepper();
       btn.classList.remove('loading');
       btn.innerHTML = `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h10M9 4l4 4-4 4"/></svg> Gerar`;
@@ -2275,6 +2596,38 @@ Ex: escreva 5 variações de headline para o Raio-X, usando os frameworks de cop
       }
     } catch {}
   }
+
+  // ─── Resize Handle ───
+  (function () {
+    const handle = document.getElementById('resizeHandle');
+    const main = document.querySelector('.main');
+    const MIN = 200, MAX = 520;
+    let startX, startW;
+
+    const saved = localStorage.getItem('ps-left-w');
+    if (saved) main.style.setProperty('--left-w', saved + 'px');
+
+    handle.addEventListener('mousedown', e => {
+      e.preventDefault();
+      startX = e.clientX;
+      startW = main.querySelector('aside.panel-left').getBoundingClientRect().width;
+      handle.classList.add('dragging');
+
+      const onMove = ev => {
+        const w = Math.min(MAX, Math.max(MIN, startW + ev.clientX - startX));
+        main.style.setProperty('--left-w', w + 'px');
+      };
+      const onUp = () => {
+        handle.classList.remove('dragging');
+        const w = main.querySelector('aside.panel-left').getBoundingClientRect().width;
+        localStorage.setItem('ps-left-w', Math.round(w));
+        document.removeEventListener('mousemove', onMove);
+        document.removeEventListener('mouseup', onUp);
+      };
+      document.addEventListener('mousemove', onMove);
+      document.addEventListener('mouseup', onUp);
+    });
+  })();
 
   // ─── Init ───
   document.addEventListener('DOMContentLoaded', () => {

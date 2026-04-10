@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
 const os = require('os');
+const Anthropic = require('@anthropic-ai/sdk');
 
 const app = express();
 app.use(express.json({ limit: '10mb' }));
@@ -115,17 +116,14 @@ app.get('/api/skills', (req, res) => {
   res.json(fs.readdirSync(dir, { withFileTypes: true }).filter(d => d.isDirectory()).map(d => d.name));
 });
 
-// ─── Run claude CLI (streaming) ───
-function runClaudeStreaming(fullPrompt, imageFiles = [], send) {
+// ─── Run claude CLI (streaming, text-only) ───
+function runClaudeStreaming(fullPrompt, send) {
   return new Promise((resolve, reject) => {
     const childEnv = { ...process.env };
     delete childEnv.CLAUDECODE;
     delete childEnv.CLAUDE_CODE;
 
-    const args = ['--print', '--output-format', 'text'];
-    for (const imgPath of imageFiles) {
-      if (fs.existsSync(imgPath)) args.push('--file', imgPath);
-    }
+    const args = ['--print', '--output-format', 'text', '--dangerously-skip-permissions'];
 
     const proc = spawn(process.execPath, [CLAUDE_CLI_JS, ...args], {
       cwd: ROOT, env: childEnv, stdio: ['pipe', 'pipe', 'pipe'],
@@ -162,6 +160,53 @@ function runClaudeStreaming(fullPrompt, imageFiles = [], send) {
     });
     proc.on('error', reject);
   });
+}
+
+// ─── Run via Anthropic SDK (supports images natively) ───
+async function runAnthropicSDK(fullPrompt, imageFiles = [], send) {
+  const client = new Anthropic();
+
+  // Build content blocks: text prompt + image blocks
+  const content = [];
+  for (const imgPath of imageFiles) {
+    if (!fs.existsSync(imgPath)) continue;
+    const ext = path.extname(imgPath).toLowerCase();
+    const mimeMap = { '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.gif': 'image/gif', '.webp': 'image/webp' };
+    const mediaType = mimeMap[ext] || 'image/png';
+    const data = fs.readFileSync(imgPath).toString('base64');
+    content.push({ type: 'image', source: { type: 'base64', media_type: mediaType, data } });
+  }
+  content.push({ type: 'text', text: fullPrompt });
+
+  send('log', { text: `Anthropic SDK iniciado (com ${imageFiles.length} imagem/ns)` });
+  send('step', { index: 5, label: 'Executando Claude (SDK)...', total: 6 });
+  send('progress', { percent: 60, label: 'Claude SDK iniciado' });
+
+  let out = '';
+  let chunkCount = 0;
+
+  const stream = client.messages.stream({
+    model: process.env.ANTHROPIC_MODEL || 'claude-sonnet-4-20250514',
+    max_tokens: 8192,
+    messages: [{ role: 'user', content }],
+  });
+
+  for await (const event of stream) {
+    if (event.type === 'content_block_delta' && event.delta?.type === 'text_delta') {
+      const text = event.delta.text;
+      out += text;
+      chunkCount++;
+      send('delta', { text });
+      const streamProgress = Math.min(95, 60 + Math.floor(chunkCount * 0.5));
+      send('progress', { percent: streamProgress, label: 'Recebendo resposta...' });
+      if (chunkCount === 1) {
+        send('step', { index: 6, label: 'Recebendo resposta...', total: 6 });
+      }
+    }
+  }
+
+  send('progress', { percent: 100, label: 'Concluido' });
+  return out;
 }
 
 // ─── Health check ───
@@ -290,8 +335,21 @@ app.post('/api/generate', async (req, res) => {
   send('progress', { percent: 55, label: 'Prompt montado' });
 
   // Step 5-6: Run Claude (streaming)
+  // Use Anthropic SDK when images are present (CLI --file flag is for downloading, not uploading)
+  // Use CLI for text-only prompts (preserves existing behavior with OAuth auth)
   try {
-    await runClaudeStreaming(fullPrompt, imageFiles, send);
+    if (imageFiles.length > 0 && process.env.ANTHROPIC_API_KEY) {
+      await runAnthropicSDK(fullPrompt, imageFiles, send);
+    } else {
+      if (imageFiles.length > 0 && !process.env.ANTHROPIC_API_KEY) {
+        send('warning', {
+          type: 'images_skipped',
+          message: 'Imagens ignoradas: ANTHROPIC_API_KEY nao configurada. Defina a variavel de ambiente para habilitar analise de imagens.'
+        });
+        send('log', { text: 'AVISO: Imagens ignoradas (ANTHROPIC_API_KEY nao definida). Usando modo texto.' });
+      }
+      await runClaudeStreaming(fullPrompt, send);
+    }
     send('done', {});
   } catch (e) {
     send('error', { message: e.message });

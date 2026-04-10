@@ -21,6 +21,11 @@
       "sourceType": "github",
       "computedHash": "af0145f315f49ed498f27478d3a4f17842cbf23d7fe724a05075938027162fc2"
     },
+    "linkedin-personal-branding": {
+      "source": "schwepps/skills",
+      "sourceType": "github",
+      "computedHash": "69a9f155a605329d3810ae940eb7a510c40a1cfb1c64fda4119d45a10d9850b5"
+    },
     "market-research-reports": {
       "source": "davila7/claude-code-templates",
       "sourceType": "github",

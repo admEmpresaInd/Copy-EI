@@ -1,0 +1,3844 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jubiabá — Smart City · Estância, Sergipe · GSWP</title>
+<meta name="description" content="A primeira Smart City do litoral sul de Sergipe. Um refúgio tropical sofisticado na escala de Jurerê — assinatura GSWP Greystone Wellness Propriety.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Cormorant+Infant:ital,wght@0,300;0,400;1,300&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ====================================================
+   JUBIABÁ — Smart City · Estância, SE
+   Design System: GSWP — Pedra encontra Folha
+   ==================================================== */
+
+:root {
+  --void:        #090907;
+  --charcoal:    #1A1917;
+  --stone:       #2C2B28;
+  --stone-light: #3D3C38;
+  --sage:        #2D4A3E;
+  --forest:      #3A5A40;
+  --moss:        #4A6B50;
+  --gold:        #B8942E;
+  --gold-light:  #C4A84A;
+  --gold-pale:   #D4B96A;
+  --cream:       #F0EDE6;
+  --cream-warm:  #E8E3D8;
+  --off-white:   #FAF8F4;
+
+  --serif:  'Cormorant Garamond', 'Cormorant Infant', Georgia, serif;
+  --sans:   'DM Sans', sans-serif;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+html {
+  scroll-behavior: smooth;
+  font-size: clamp(14px, 1.5vw, 17px);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--void);
+  color: var(--cream);
+  font-family: var(--sans);
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ===== GRAIN OVERLAY ===== */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  opacity: 0.025;
+  mix-blend-mode: overlay;
+}
+
+/* ===== CUSTOM CURSOR ===== */
+.cursor {
+  position: fixed; top: 0; left: 0;
+  width: 12px; height: 12px;
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width .3s var(--ease-out-expo), height .3s var(--ease-out-expo), background .3s;
+  mix-blend-mode: screen;
+}
+.cursor-ring {
+  position: fixed; top: 0; left: 0;
+  width: 44px; height: 44px;
+  border: 1px solid rgba(184,148,46,0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width .5s var(--ease-out-expo), height .5s var(--ease-out-expo), border-color .3s, transform .1s ease;
+}
+body:has(a:hover) .cursor, body:has(button:hover) .cursor { width:6px; height:6px; }
+body:has(a:hover) .cursor-ring, body:has(button:hover) .cursor-ring { width:60px; height:60px; border-color: rgba(184,148,46,0.8); }
+
+@media (hover:none) { body { cursor:auto; } .cursor, .cursor-ring { display:none; } }
+
+/* ===== LOADING ===== */
+#loader {
+  position: fixed; inset: 0;
+  z-index: 9000;
+  background: var(--void);
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity .8s ease .3s, visibility .8s ease .3s;
+}
+#loader.hidden { opacity: 0; visibility: hidden; }
+.loader-inner { text-align: center; }
+.loader-logo {
+  font-family: var(--serif);
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(184,148,46,0.3);
+  animation: loader-reveal 2s var(--ease-out-expo) forwards;
+}
+.loader-line {
+  width: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 1.5rem auto 0;
+  animation: loader-line 1.8s var(--ease-out-expo) .4s forwards;
+}
+.loader-sub {
+  font-size: 0.6rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: rgba(184,148,46,0.5);
+  margin-top: 1rem;
+  opacity: 0;
+  animation: fade-in .6s ease 1.2s forwards;
+}
+@keyframes loader-reveal {
+  0% { -webkit-text-stroke-color: rgba(184,148,46,0); letter-spacing: 0.6em; }
+  50% { -webkit-text-stroke-color: rgba(184,148,46,0.6); }
+  100% { -webkit-text-stroke-color: rgba(184,148,46,0.25); letter-spacing: 0.3em; color: rgba(240,237,230,0.07); }
+}
+@keyframes loader-line { to { width: 200px; } }
+@keyframes fade-in { to { opacity: 1; } }
+
+/* ===== NAV ===== */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: 2rem 4rem;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: padding .5s var(--ease-out-expo), background .5s;
+}
+nav.scrolled {
+  padding: 1.2rem 4rem;
+  background: rgba(9,9,7,0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(184,148,46,0.08);
+}
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  color: var(--cream);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.nav-logo span { color: var(--gold); }
+.nav-links { display: flex; gap: 2.6rem; list-style: none; }
+.nav-links a {
+  font-size: 0.62rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(240,237,230,0.5);
+  text-decoration: none;
+  transition: color .3s;
+  font-weight: 400;
+}
+.nav-links a:hover { color: var(--gold-light); }
+.nav-cta {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-decoration: none;
+  border: 1px solid rgba(184,148,46,0.35);
+  padding: 0.7rem 1.8rem;
+  transition: all .4s var(--ease-out-expo);
+  font-weight: 400;
+}
+.nav-cta:hover { background: rgba(184,148,46,0.08); border-color: var(--gold); }
+
+/* ===== HERO ===== */
+#hero {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  min-height: 700px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.hero-video-bg {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  opacity: 0;
+  filter: brightness(0.7) saturate(1) contrast(1.05);
+  transform: scale(1.08);
+  transition: opacity 2.2s ease-out 1.6s, transform 10s var(--ease-out-expo);
+  mix-blend-mode: screen;
+}
+#hero.loaded .hero-video-bg { opacity: 0.25; transform: scale(1); }
+.hero-bg-img {
+  position: absolute; inset: 0; z-index: 0;
+  background-image: url('Investidores SERGIPE/FOTOS_/Fotos da Região_/PRAIA-DO-SACO-Foto-Cesar-de-Oliveira-Acervo-EMSETUR-1.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  filter: brightness(0.95) saturate(1.05) contrast(1.02);
+  transform: scale(1.05);
+  transition: transform 8s var(--ease-out-expo), opacity 2s ease 1.5s;
+  opacity: 0.95;
+}
+#hero.loaded .hero-bg-img { transform: scale(1); opacity: 1; }
+.hero-bg-gradient {
+  position: absolute; inset: 0; z-index: 2;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(9,9,7,0.15) 0%,
+      rgba(9,9,7,0.30) 50%,
+      rgba(9,9,7,0.65) 100%
+    ),
+    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(45,74,62,0.25) 0%, transparent 70%);
+}
+.hero-orb {
+  position: absolute;
+  width: 700px; height: 700px;
+  left: -200px; top: 30%;
+  z-index: 1;
+  border-radius: 40% 60% 55% 45% / 50% 40% 60% 50%;
+  background: radial-gradient(ellipse, rgba(45,74,62,0.18) 0%, transparent 70%);
+  animation: morph 14s ease-in-out infinite;
+  pointer-events: none;
+}
+.hero-orb-2 {
+  position: absolute;
+  width: 500px; height: 500px;
+  right: -150px; bottom: 10%;
+  z-index: 1;
+  border-radius: 55% 45% 40% 60% / 60% 50% 40% 50%;
+  background: radial-gradient(ellipse, rgba(184,148,46,0.08) 0%, transparent 70%);
+  animation: morph 18s ease-in-out infinite reverse;
+  pointer-events: none;
+}
+@keyframes morph {
+  0%,100% { border-radius: 40% 60% 55% 45% / 50% 40% 60% 50%; transform: rotate(0deg); }
+  33% { border-radius: 55% 45% 40% 60% / 60% 50% 40% 50%; transform: rotate(120deg); }
+  66% { border-radius: 45% 55% 65% 35% / 45% 60% 40% 55%; transform: rotate(240deg); }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  padding: 0 2rem;
+  max-width: 1200px;
+}
+.hero-eyebrow {
+  display: flex; align-items: center; justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+  opacity: 0;
+  animation: fade-up 1s var(--ease-out-expo) 2s forwards;
+}
+.hero-eyebrow-line { width: 40px; height: 1px; background: var(--gold); opacity: .5; }
+.hero-eyebrow-text {
+  font-size: 0.58rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 400;
+}
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(4rem, 12vw, 11rem);
+  font-weight: 300;
+  line-height: 0.95;
+  color: var(--cream);
+  letter-spacing: -0.01em;
+  opacity: 0;
+  animation: fade-up 1.4s var(--ease-out-expo) 2.2s forwards;
+}
+.hero-title em { font-style: italic; color: var(--gold-pale); font-weight: 300; }
+.hero-subtitle {
+  font-family: var(--serif);
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(240,237,230,0.55);
+  margin-top: 2rem;
+  letter-spacing: 0.05em;
+  opacity: 0;
+  animation: fade-up 1s var(--ease-out-expo) 2.6s forwards;
+}
+.hero-divider {
+  display: flex; align-items: center; justify-content: center;
+  gap: 1rem;
+  margin: 3rem auto;
+  opacity: 0;
+  animation: fade-up 1s var(--ease-out-expo) 2.8s forwards;
+}
+.hero-diamond { width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); opacity: .7; }
+.hero-divider-line {
+  width: 80px; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(184,148,46,0.4), transparent);
+}
+.hero-cta-group {
+  display: flex; align-items: center; justify-content: center;
+  gap: 2rem;
+  opacity: 0;
+  animation: fade-up 1s var(--ease-out-expo) 3s forwards;
+  flex-wrap: wrap;
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.btn-primary {
+  font-family: var(--sans);
+  font-size: 0.62rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: var(--void);
+  background: var(--gold);
+  padding: 1.1rem 3rem;
+  text-decoration: none;
+  transition: all .5s var(--ease-out-expo);
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: var(--gold-pale);
+  transform: translateX(-100%);
+  transition: transform .5s var(--ease-out-expo);
+}
+.btn-primary:hover::before { transform: translateX(0); }
+.btn-primary span { position: relative; z-index: 1; }
+
+.btn-ghost {
+  font-family: var(--sans);
+  font-size: 0.62rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  font-weight: 400;
+  color: rgba(240,237,230,0.6);
+  text-decoration: none;
+  display: flex; align-items: center; gap: 0.8rem;
+  transition: color .3s;
+}
+.btn-ghost:hover { color: var(--cream); }
+.btn-ghost svg { width: 16px; height: 16px; transition: transform .3s; }
+.btn-ghost:hover svg { transform: translateX(4px); }
+
+.hero-scroll {
+  position: absolute; bottom: 3rem; left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex; flex-direction: column; align-items: center; gap: 0.8rem;
+  opacity: 0;
+  animation: fade-in 1s ease 3.5s forwards;
+}
+.scroll-indicator {
+  width: 1px; height: 60px;
+  background: linear-gradient(180deg, rgba(184,148,46,0.6), transparent);
+  animation: scroll-pulse 2s ease infinite;
+}
+.scroll-text {
+  font-size: 0.5rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(184,148,46,0.5);
+  writing-mode: vertical-lr;
+  transform: rotate(180deg);
+}
+@keyframes scroll-pulse {
+  0%,100% { opacity: 0.4; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(1.1); }
+}
+
+/* ===== REVEAL ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1s var(--ease-out-expo), transform 1.2s var(--ease-out-expo);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: .15s; }
+.reveal-delay-2 { transition-delay: .3s; }
+.reveal-delay-3 { transition-delay: .45s; }
+.reveal-delay-4 { transition-delay: .6s; }
+.reveal-delay-5 { transition-delay: .75s; }
+
+/* ===== SECTION LABELS / DIVIDERS ===== */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.55rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 400;
+  margin-bottom: 3rem;
+}
+.section-label::before, .section-label::after {
+  content: '';
+  display: block;
+  width: 30px; height: 1px;
+  background: rgba(184,148,46,0.4);
+}
+.divider {
+  display: flex; align-items: center; justify-content: center;
+  gap: 1.2rem;
+  margin: 5rem auto;
+  max-width: 300px;
+}
+.divider-line {
+  flex: 1; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(184,148,46,0.35), transparent);
+}
+.diamond {
+  width: 7px; height: 7px;
+  background: var(--gold);
+  transform: rotate(45deg);
+  opacity: .75;
+}
+
+/* ===== MANIFESTO ===== */
+#manifesto {
+  position: relative;
+  padding: clamp(8rem, 15vw, 14rem) 0;
+  overflow: hidden;
+}
+.manifesto-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 100% 80% at 50% 50%, rgba(45,74,62,0.12) 0%, transparent 70%),
+    var(--void);
+}
+.manifesto-accent {
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent 10%, rgba(184,148,46,0.15) 50%, transparent 90%);
+}
+.manifesto-inner {
+  position: relative; z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 4rem;
+  text-align: center;
+}
+.manifesto-quote {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 3.5vw, 3rem);
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--cream);
+  letter-spacing: 0.01em;
+  position: relative;
+}
+.manifesto-quote .large-quote {
+  font-size: clamp(3rem, 8vw, 7rem);
+  line-height: 0.5;
+  vertical-align: -0.3em;
+  color: rgba(184,148,46,0.15);
+  font-family: var(--serif);
+  font-weight: 300;
+  display: inline;
+}
+.manifesto-quote .highlight { color: var(--gold-pale); font-style: italic; }
+.manifesto-body { margin-top: 4rem; display: grid; gap: 1.5rem; }
+.manifesto-p {
+  font-family: var(--serif);
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  font-weight: 300;
+  color: rgba(240,237,230,0.6);
+  line-height: 1.8;
+  font-style: italic;
+  letter-spacing: 0.02em;
+}
+.manifesto-p strong { color: rgba(240,237,230,0.9); font-weight: 400; font-style: normal; }
+
+/* ===== PROJETO ===== */
+#projeto {
+  position: relative;
+  padding: clamp(6rem, 12vw, 11rem) 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--void) 0%, #0d1009 50%, var(--void) 100%);
+}
+.projeto-bg-grid::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(184,148,46,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(184,148,46,0.03) 1px, transparent 1px);
+  background-size: 80px 80px;
+  pointer-events: none;
+}
+.projeto-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 4rem;
+}
+.projeto-header {
+  text-align: center;
+  margin-bottom: 6rem;
+}
+.projeto-title {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 5.5vw, 4.5rem);
+  font-weight: 300;
+  color: var(--cream);
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+.projeto-title em { font-style: italic; color: var(--gold-pale); }
+.projeto-subtitle {
+  font-family: var(--serif);
+  font-style: italic;
+  color: rgba(240,237,230,0.5);
+  font-size: clamp(1rem, 1.7vw, 1.3rem);
+  margin-top: 1.5rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+/* Stats */
+.projeto-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid rgba(184,148,46,0.1);
+  background: var(--charcoal);
+  margin-bottom: 5rem;
+}
+.projeto-stat {
+  padding: 3rem 2rem;
+  border-right: 1px solid rgba(184,148,46,0.08);
+  text-align: center;
+}
+.projeto-stat:last-child { border-right: none; }
+.projeto-stat-value {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 3.8vw, 3rem);
+  font-weight: 300;
+  color: var(--gold-pale);
+  line-height: 1;
+  margin-bottom: 0.6rem;
+}
+.projeto-stat-label {
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(240,237,230,0.4);
+}
+
+/* Comparativo Jurerê */
+.comparativo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  margin-top: 4rem;
+}
+.comparativo-text h3 {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.2;
+  margin-bottom: 2rem;
+}
+.comparativo-text h3 em { font-style: italic; color: var(--gold-pale); }
+.comparativo-text p {
+  font-family: var(--serif);
+  font-style: italic;
+  color: rgba(240,237,230,0.6);
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 1.2rem;
+}
+.comparativo-text p strong { color: var(--cream); font-style: normal; font-weight: 400; }
+.comparativo-img {
+  border: 1px solid rgba(184,148,46,0.15);
+  background: var(--stone);
+  padding: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+.comparativo-img img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: brightness(1) saturate(1.05);
+}
+.comparativo-caption {
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(184,148,46,0.7);
+  margin-top: 1rem;
+  text-align: center;
+}
+
+/* ===== LOCALIZAÇÃO ===== */
+#localizacao {
+  position: relative;
+  padding: clamp(6rem, 12vw, 11rem) 0;
+  overflow: hidden;
+}
+.loc-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 80% 50%, rgba(45,74,62,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 60% at 10% 70%, rgba(58,90,64,0.1) 0%, transparent 50%),
+    var(--void);
+}
+.loc-orb {
+  position: absolute;
+  right: -200px; top: 30%;
+  width: 600px; height: 600px;
+  border-radius: 40% 60% 55% 45% / 50% 40% 60% 50%;
+  background: radial-gradient(ellipse, rgba(45,74,62,0.2) 0%, transparent 70%);
+  animation: morph 12s ease-in-out infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+.loc-inner {
+  position: relative; z-index: 1;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 4rem;
+}
+.loc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  margin-bottom: 6rem;
+  align-items: center;
+}
+.loc-left h2 {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 300;
+  color: var(--cream);
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  margin-bottom: 2.5rem;
+}
+.loc-left h2 em { font-style: italic; color: var(--gold-pale); }
+.loc-left p {
+  font-family: var(--serif);
+  font-style: italic;
+  color: rgba(240,237,230,0.6);
+  font-size: 1.15rem;
+  line-height: 1.8;
+  margin-bottom: 1.4rem;
+}
+.loc-left p strong { color: var(--cream); font-style: normal; font-weight: 400; }
+
+.loc-facts {
+  margin-top: 2.5rem;
+  display: grid;
+  gap: 1rem;
+}
+.loc-fact {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(184,148,46,0.08);
+}
+.loc-fact:last-child { border-bottom: none; }
+.loc-fact-num {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--gold-pale);
+  min-width: 100px;
+}
+.loc-fact-text {
+  font-size: 0.85rem;
+  color: rgba(240,237,230,0.7);
+  letter-spacing: 0.03em;
+}
+
+.loc-map-visual {
+  position: relative;
+  aspect-ratio: 1/1.2;
+  border: 1px solid rgba(184,148,46,0.15);
+  background: var(--charcoal);
+  overflow: hidden;
+}
+.loc-map-visual img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: brightness(0.85) saturate(0.9);
+  transition: transform 1.2s var(--ease-out-expo), filter .5s;
+}
+.loc-map-visual:hover img { transform: scale(1.04); filter: brightness(1) saturate(1); }
+.loc-map-label {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 2rem 1.8rem 1.5rem;
+  background: linear-gradient(to top, rgba(9,9,7,0.85) 0%, transparent 100%);
+  color: rgba(240,237,230,0.85);
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+
+/* Nature gallery — masonry */
+.nature-gallery-title {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.nature-gallery-title h3 {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
+  font-weight: 300;
+  color: rgba(240,237,230,0.7);
+}
+.nature-gallery {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 2px;
+}
+.nature-item {
+  position: relative;
+  overflow: hidden;
+  background: var(--stone);
+  cursor: pointer;
+}
+.nature-item img, .nature-item video {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 1.4s var(--ease-out-expo), filter .4s;
+  filter: brightness(0.88) saturate(0.95);
+}
+.nature-item:hover img, .nature-item:hover video {
+  transform: scale(1.06);
+  filter: brightness(1) saturate(1.05);
+}
+.nature-item.col-6 { grid-column: span 6; height: 380px; }
+.nature-item.col-4 { grid-column: span 4; height: 380px; }
+.nature-item.col-3 { grid-column: span 3; height: 380px; }
+.nature-item.col-8 { grid-column: span 8; height: 380px; }
+
+.nature-caption {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 1.5rem 1.2rem 1rem;
+  background: linear-gradient(to top, rgba(9,9,7,0.8) 0%, transparent 100%);
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(240,237,230,0.65);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity .4s, transform .4s;
+}
+.nature-item:hover .nature-caption { opacity: 1; transform: translateY(0); }
+
+/* ===== MASTERPLAN ===== */
+#masterplan {
+  position: relative;
+  padding: clamp(6rem, 12vw, 11rem) 0;
+  overflow: hidden;
+  background: #0a0b08;
+}
+.mp-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 4rem;
+}
+.mp-header {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+.mp-header h2 {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.1;
+  margin-top: 1rem;
+}
+.mp-header h2 em { font-style: italic; color: var(--gold-pale); }
+.mp-header p {
+  font-family: var(--serif);
+  font-style: italic;
+  max-width: 700px;
+  margin: 2rem auto 0;
+  color: rgba(240,237,230,0.55);
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.mp-main-visual {
+  aspect-ratio: 16/9;
+  width: 100%;
+  border: 1px solid rgba(184,148,46,0.15);
+  background: var(--stone);
+  overflow: hidden;
+  margin-bottom: 2px;
+}
+.mp-main-visual img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.92) saturate(0.95);
+}
+.mp-phases {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+.mp-phase {
+  background: var(--charcoal);
+  padding: 3rem 2.5rem;
+  border-top: 2px solid transparent;
+  transition: border-color .5s, background .4s;
+  position: relative;
+}
+.mp-phase::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .6s var(--ease-out-expo);
+}
+.mp-phase:hover::before { transform: scaleX(1); }
+.mp-phase:hover { background: rgba(184,148,46,0.04); }
+.mp-phase-num {
+  font-family: var(--serif);
+  font-size: 0.7rem;
+  letter-spacing: 0.3em;
+  color: rgba(184,148,46,0.5);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.mp-phase-num::after {
+  content: '';
+  width: 30px; height: 1px;
+  background: rgba(184,148,46,0.3);
+}
+.mp-phase-title {
+  font-family: var(--serif);
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  font-weight: 300;
+  color: var(--cream);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+.mp-phase-title em { font-style: italic; color: var(--gold-pale); }
+.mp-phase-desc {
+  font-size: 0.85rem;
+  color: rgba(240,237,230,0.55);
+  line-height: 1.8;
+  font-weight: 300;
+}
+
+/* ===== MERCADO ===== */
+#mercado {
+  position: relative;
+  padding: clamp(6rem, 12vw, 11rem) 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--void), #0d1009 50%, var(--void));
+}
+.merc-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 4rem;
+  position: relative;
+  z-index: 1;
+}
+.merc-header {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+.merc-header h2 {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.1;
+}
+.merc-header h2 em { font-style: italic; color: var(--gold-pale); }
+.merc-header p {
+  font-family: var(--serif);
+  font-style: italic;
+  max-width: 700px;
+  margin: 1.5rem auto 0;
+  color: rgba(240,237,230,0.55);
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.merc-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  margin-bottom: 5rem;
+}
+.merc-metric {
+  background: var(--charcoal);
+  border: 1px solid rgba(184,148,46,0.08);
+  padding: 3rem 2rem;
+  text-align: center;
+  transition: border-color .4s, background .4s;
+}
+.merc-metric:hover { border-color: rgba(184,148,46,0.3); background: rgba(184,148,46,0.03); }
+.merc-metric-value {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 4vw, 3.5rem);
+  font-weight: 300;
+  color: var(--gold-pale);
+  line-height: 1;
+  margin-bottom: 0.8rem;
+}
+.merc-metric-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(240,237,230,0.5);
+  line-height: 1.6;
+}
+
+.merc-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+  margin-top: 4rem;
+}
+.merc-compare-text h3 {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.2;
+  margin-bottom: 2rem;
+}
+.merc-compare-text h3 em { font-style: italic; color: var(--gold-pale); }
+.merc-compare-text p {
+  font-family: var(--serif);
+  font-style: italic;
+  color: rgba(240,237,230,0.6);
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 1.2rem;
+}
+.merc-compare-text p strong { color: var(--cream); font-style: normal; font-weight: 400; }
+
+.benchmark-list { list-style: none; }
+.benchmark-item {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 1rem;
+  padding: 1.2rem 0;
+  border-bottom: 1px solid rgba(184,148,46,0.1);
+  font-size: 0.85rem;
+}
+.benchmark-item:first-child {
+  color: var(--gold);
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  font-weight: 400;
+  border-bottom: 1px solid rgba(184,148,46,0.3);
+}
+.benchmark-item:not(:first-child) span:first-child {
+  color: var(--cream);
+  font-family: var(--serif);
+  font-size: 1.15rem;
+}
+.benchmark-item:not(:first-child) span:nth-child(2),
+.benchmark-item:not(:first-child) span:nth-child(3) {
+  color: rgba(240,237,230,0.5);
+}
+
+/* ===== INVESTIMENTO ===== */
+#investimento {
+  position: relative;
+  padding: clamp(6rem, 12vw, 11rem) 0;
+  overflow: hidden;
+  background: var(--void);
+}
+.invest-orb {
+  position: absolute;
+  left: -150px; top: 10%;
+  width: 500px; height: 500px;
+  border-radius: 55% 45% 40% 60% / 60% 50% 40% 50%;
+  background: radial-gradient(ellipse, rgba(184,148,46,0.08) 0%, transparent 70%);
+  animation: morph 16s ease-in-out infinite reverse;
+  z-index: 0;
+  pointer-events: none;
+}
+.invest-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 4rem;
+  position: relative;
+  z-index: 1;
+}
+.invest-header {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+.invest-header h2 {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.1;
+}
+.invest-header h2 em { font-style: italic; color: var(--gold-pale); }
+.invest-header p {
+  font-family: var(--serif);
+  font-style: italic;
+  max-width: 700px;
+  margin: 1.5rem auto 0;
+  color: rgba(240,237,230,0.55);
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.invest-top-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid rgba(184,148,46,0.12);
+  background: var(--charcoal);
+  margin-bottom: 4rem;
+}
+.invest-top-stat {
+  padding: 2.5rem 1.8rem;
+  border-right: 1px solid rgba(184,148,46,0.08);
+  text-align: center;
+}
+.invest-top-stat:last-child { border-right: none; }
+.invest-top-stat-val {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  color: var(--gold-pale);
+  font-weight: 300;
+  line-height: 1;
+  margin-bottom: 0.6rem;
+}
+.invest-top-stat-lab {
+  font-size: 0.62rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(240,237,230,0.45);
+}
+
+.packages {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+.package {
+  background: var(--charcoal);
+  padding: 3rem 2.5rem;
+  border: 1px solid rgba(184,148,46,0.08);
+  transition: border-color .5s, background .4s, transform .5s;
+  position: relative;
+  overflow: hidden;
+}
+.package::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .6s var(--ease-out-expo);
+}
+.package:hover { border-color: rgba(184,148,46,0.3); background: rgba(45,74,62,0.05); }
+.package:hover::before { transform: scaleX(1); }
+.package.featured {
+  background: rgba(45,74,62,0.08);
+  border-color: rgba(184,148,46,0.25);
+}
+.package.featured::before { transform: scaleX(1); }
+.package-ribbon {
+  font-size: 0.55rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+.package-name {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 400;
+  color: var(--cream);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.package-subtitle {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--gold-pale);
+  margin-bottom: 2rem;
+  letter-spacing: 0.05em;
+}
+.package-price {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 2.8vw, 2.4rem);
+  font-weight: 300;
+  color: var(--cream);
+  margin-bottom: 0.3rem;
+  line-height: 1;
+}
+.package-price-sub {
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(240,237,230,0.4);
+  margin-bottom: 2.5rem;
+}
+.package-features {
+  list-style: none;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(184,148,46,0.08);
+}
+.package-features li {
+  font-size: 0.8rem;
+  color: rgba(240,237,230,0.7);
+  padding: 0.7rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  border-bottom: 1px solid rgba(184,148,46,0.05);
+  letter-spacing: 0.02em;
+}
+.package-features li:last-child { border-bottom: none; }
+.package-features li::before {
+  content: '◆';
+  color: var(--gold);
+  font-size: 0.5rem;
+}
+.package-returns {
+  margin-top: 1.8rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(184,148,46,0.08);
+  display: grid;
+  gap: 0.6rem;
+}
+.package-return {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+}
+.package-return-label {
+  color: rgba(240,237,230,0.5);
+  letter-spacing: 0.05em;
+}
+.package-return-value {
+  color: var(--gold-pale);
+  font-family: var(--serif);
+  font-weight: 400;
+}
+
+.invest-disclaimer {
+  margin-top: 3rem;
+  padding: 1.8rem;
+  border: 1px solid rgba(184,148,46,0.1);
+  background: var(--charcoal);
+  text-align: center;
+  font-size: 0.7rem;
+  color: rgba(240,237,230,0.45);
+  line-height: 1.7;
+  font-style: italic;
+  font-family: var(--serif);
+}
+
+/* ===== FOTOS DA ÁREA ===== */
+#area {
+  position: relative;
+  padding: clamp(6rem, 12vw, 11rem) 0;
+  overflow: hidden;
+  background: #08090a;
+}
+.area-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 4rem;
+}
+.area-header {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+.area-header h2 {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.1;
+}
+.area-header h2 em { font-style: italic; color: var(--gold-pale); }
+.area-header p {
+  font-family: var(--serif);
+  font-style: italic;
+  max-width: 700px;
+  margin: 1.5rem auto 0;
+  color: rgba(240,237,230,0.55);
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.area-gallery {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 2px;
+}
+.area-item {
+  position: relative;
+  overflow: hidden;
+  background: var(--stone);
+  cursor: pointer;
+}
+.area-item img, .area-item video {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 1.4s var(--ease-out-expo), filter .4s;
+  filter: brightness(0.92) saturate(0.95);
+}
+.area-item:hover img, .area-item:hover video {
+  transform: scale(1.06);
+  filter: brightness(1) saturate(1.05);
+}
+.area-item.col-12 { grid-column: span 12; height: 520px; }
+.area-item.col-8 { grid-column: span 8; height: 440px; }
+.area-item.col-6 { grid-column: span 6; height: 380px; }
+.area-item.col-4 { grid-column: span 4; height: 380px; }
+.area-item.col-3 { grid-column: span 3; height: 320px; }
+
+.area-item-lab {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 1.8rem 1.5rem 1.2rem;
+  background: linear-gradient(to top, rgba(9,9,7,0.8) 0%, transparent 100%);
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(240,237,230,0.7);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity .4s, transform .4s;
+}
+.area-item:hover .area-item-lab { opacity: 1; transform: translateY(0); }
+
+.video-badge {
+  position: absolute;
+  top: 1rem; right: 1rem;
+  background: rgba(9,9,7,0.75);
+  border: 1px solid rgba(184,148,46,0.3);
+  color: var(--gold);
+  font-size: 0.55rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.8rem;
+  backdrop-filter: blur(6px);
+}
+
+/* ===== VIABILIDADE ===== */
+#viabilidade {
+  position: relative;
+  padding: clamp(6rem, 12vw, 11rem) 0;
+  overflow: hidden;
+  background: var(--void);
+}
+.viab-orb {
+  position: absolute;
+  right: -200px; bottom: 10%;
+  width: 600px; height: 600px;
+  border-radius: 40% 60% 55% 45% / 50% 40% 60% 50%;
+  background: radial-gradient(ellipse, rgba(45,74,62,0.15) 0%, transparent 70%);
+  animation: morph 14s ease-in-out infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+.viab-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 4rem;
+  position: relative;
+  z-index: 1;
+}
+.viab-header {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+.viab-header h2 {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.1;
+}
+.viab-header h2 em { font-style: italic; color: var(--gold-pale); }
+.viab-header p {
+  font-family: var(--serif);
+  font-style: italic;
+  max-width: 700px;
+  margin: 1.5rem auto 0;
+  color: rgba(240,237,230,0.55);
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.viab-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+}
+.viab-card {
+  background: var(--charcoal);
+  padding: 3rem 2.5rem;
+  border: 1px solid rgba(184,148,46,0.08);
+  transition: border-color .4s, background .4s;
+  position: relative;
+}
+.viab-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .6s var(--ease-out-expo);
+}
+.viab-card:hover { border-color: rgba(184,148,46,0.25); background: rgba(45,74,62,0.05); }
+.viab-card:hover::before { transform: scaleX(1); }
+.viab-icon {
+  width: 48px; height: 48px;
+  color: var(--gold);
+  margin-bottom: 1.8rem;
+  stroke-width: 1;
+}
+.viab-title {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--cream);
+  margin-bottom: 0.8rem;
+  line-height: 1.2;
+}
+.viab-desc {
+  font-size: 0.85rem;
+  line-height: 1.8;
+  color: rgba(240,237,230,0.55);
+  font-weight: 300;
+}
+
+/* ===== CTA ===== */
+#contato {
+  position: relative;
+  padding: clamp(8rem, 15vw, 14rem) 0 clamp(4rem, 8vw, 6rem);
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--void) 0%, #0a0b08 100%);
+}
+.cta-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 4rem;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+.cta-title {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 5.5vw, 4.5rem);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.15;
+  margin-bottom: 2rem;
+  letter-spacing: -0.01em;
+}
+.cta-title em { font-style: italic; color: var(--gold-pale); }
+.cta-sub {
+  font-family: var(--serif);
+  font-style: italic;
+  color: rgba(240,237,230,0.6);
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  line-height: 1.7;
+  max-width: 700px;
+  margin: 0 auto 4rem;
+}
+.cta-buttons {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  margin-bottom: 5rem;
+  flex-wrap: wrap;
+}
+.cta-contact {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-top: 4rem;
+  border: 1px solid rgba(184,148,46,0.1);
+  background: var(--charcoal);
+}
+.cta-contact-item {
+  padding: 2.5rem 2rem;
+  border-right: 1px solid rgba(184,148,46,0.08);
+}
+.cta-contact-item:last-child { border-right: none; }
+.cta-contact-label {
+  font-size: 0.55rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+.cta-contact-value {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  color: var(--cream);
+  line-height: 1.5;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  padding: 5rem 4rem 3rem;
+  background: #06070a;
+  border-top: 1px solid rgba(184,148,46,0.08);
+}
+.footer-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 4rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid rgba(184,148,46,0.06);
+}
+.footer-brand-logo {
+  font-family: var(--serif);
+  font-size: 1.8rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  color: var(--cream);
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+.footer-brand-logo span { color: var(--gold); }
+.footer-brand-desc {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: rgba(240,237,230,0.5);
+  line-height: 1.7;
+  max-width: 400px;
+}
+.footer-col-title {
+  font-size: 0.55rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+}
+.footer-col a, .footer-col p {
+  display: block;
+  font-size: 0.85rem;
+  color: rgba(240,237,230,0.55);
+  text-decoration: none;
+  padding: 0.4rem 0;
+  transition: color .3s;
+}
+.footer-col a:hover { color: var(--gold-light); }
+.footer-bottom {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(240,237,230,0.3);
+}
+
+/* ===== LIGHTBOX ===== */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(9,9,7,0.96);
+  z-index: 10000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem;
+  backdrop-filter: blur(20px);
+}
+.lightbox.active { display: flex; }
+.lightbox img, .lightbox video {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border: 1px solid rgba(184,148,46,0.2);
+}
+.lightbox-close {
+  position: absolute;
+  top: 2rem; right: 2rem;
+  width: 44px; height: 44px;
+  border: 1px solid rgba(184,148,46,0.3);
+  background: transparent;
+  color: var(--gold);
+  cursor: pointer;
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  transition: background .3s;
+}
+.lightbox-close:hover { background: rgba(184,148,46,0.1); }
+
+/* ===== IMMERSIVE VIDEO SECTION ===== */
+#immersive {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--void);
+}
+.immersive-video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  filter: brightness(0.5) saturate(0.9) contrast(1.05);
+}
+.immersive-overlay {
+  position: absolute; inset: 0; z-index: 1;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 50%, transparent 0%, rgba(9,9,7,0.55) 70%, rgba(9,9,7,0.9) 100%),
+    linear-gradient(180deg, rgba(9,9,7,0.3) 0%, transparent 30%, transparent 70%, rgba(9,9,7,0.55) 100%);
+}
+.immersive-content {
+  position: relative; z-index: 2;
+  text-align: center;
+  padding: 0 2rem;
+  max-width: 1000px;
+}
+.immersive-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.55rem;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 3rem;
+}
+.immersive-eyebrow::before, .immersive-eyebrow::after {
+  content: '';
+  display: block;
+  width: 40px; height: 1px;
+  background: rgba(184,148,46,0.45);
+}
+.immersive-title {
+  font-family: var(--serif);
+  font-size: clamp(2.6rem, 6.5vw, 5.4rem);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin-bottom: 2rem;
+}
+.immersive-title em { font-style: italic; color: var(--gold-pale); }
+.immersive-sub {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1rem, 1.8vw, 1.35rem);
+  color: rgba(240,237,230,0.72);
+  line-height: 1.7;
+  max-width: 720px;
+  margin: 0 auto;
+  letter-spacing: 0.02em;
+}
+.immersive-divider {
+  margin: 2.5rem auto 0;
+  display: flex; align-items: center; justify-content: center;
+  gap: 1rem;
+}
+.immersive-divider-line {
+  width: 60px; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(184,148,46,0.5), transparent);
+}
+.immersive-diamond {
+  width: 6px; height: 6px;
+  background: var(--gold);
+  transform: rotate(45deg);
+}
+
+/* ===== KÖNIGSBERGER VANNUCCHI ===== */
+#kvarch {
+  position: relative;
+  padding: clamp(6rem, 12vw, 11rem) 0;
+  background: var(--charcoal);
+  overflow: hidden;
+}
+.kv-bg-accent {
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(184,148,46,0.2), transparent);
+}
+.kv-bg-accent-bottom {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(184,148,46,0.12), transparent);
+}
+.kv-orb {
+  position: absolute;
+  left: -200px; bottom: -100px;
+  width: 600px; height: 600px;
+  border-radius: 45% 55% 60% 40% / 55% 45% 50% 50%;
+  background: radial-gradient(ellipse, rgba(184,148,46,0.06) 0%, transparent 70%);
+  animation: morph 20s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+.kv-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 4rem;
+}
+.kv-partner-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.5rem 1.2rem;
+  border: 1px solid rgba(184,148,46,0.35);
+  color: var(--gold);
+  font-size: 0.55rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  margin-bottom: 3rem;
+  background: rgba(184,148,46,0.04);
+}
+.kv-partner-badge::before {
+  content: '◆';
+  font-size: 0.5rem;
+  color: var(--gold);
+}
+.kv-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 5rem;
+  align-items: flex-start;
+}
+.kv-left h2 {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.1;
+  margin-bottom: 2.2rem;
+  letter-spacing: -0.01em;
+}
+.kv-left h2 em { font-style: italic; color: var(--gold-pale); }
+.kv-quote {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.1rem, 1.7vw, 1.3rem);
+  color: rgba(240,237,230,0.7);
+  line-height: 1.7;
+  padding-left: 1.5rem;
+  border-left: 1px solid rgba(184,148,46,0.35);
+  margin-bottom: 2.2rem;
+}
+.kv-left p {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  color: rgba(240,237,230,0.6);
+  line-height: 1.85;
+  margin-bottom: 1.2rem;
+}
+.kv-left p strong { color: var(--cream); font-weight: 400; }
+
+.kv-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid rgba(184,148,46,0.15);
+  border-bottom: 1px solid rgba(184,148,46,0.15);
+  margin: 3rem 0;
+}
+.kv-stat {
+  padding: 1.8rem 0.8rem;
+  text-align: center;
+  border-right: 1px solid rgba(184,148,46,0.08);
+}
+.kv-stat:last-child { border-right: none; }
+.kv-stat-val {
+  font-family: var(--serif);
+  font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+  color: var(--gold-pale);
+  font-weight: 400;
+  margin-bottom: 0.4rem;
+  line-height: 1.1;
+}
+.kv-stat-lab {
+  font-size: 0.55rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(240,237,230,0.45);
+}
+.kv-awards {
+  display: grid;
+  gap: 0.9rem;
+  margin-top: 1rem;
+}
+.kv-award {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(184,148,46,0.06);
+  font-size: 0.85rem;
+  color: rgba(240,237,230,0.6);
+  line-height: 1.6;
+}
+.kv-award::before {
+  content: '';
+  display: block;
+  min-width: 10px;
+  height: 1px;
+  background: var(--gold);
+  margin-top: 0.75rem;
+}
+
+.kv-projects {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+.kv-project {
+  background: var(--stone);
+  padding: 2rem 1.8rem;
+  border: 1px solid rgba(184,148,46,0.08);
+  transition: border-color .4s, background .4s, transform .5s;
+  position: relative;
+  overflow: hidden;
+}
+.kv-project::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .6s var(--ease-out-expo);
+}
+.kv-project:hover {
+  border-color: rgba(184,148,46,0.35);
+  background: rgba(184,148,46,0.04);
+  transform: translateY(-2px);
+}
+.kv-project:hover::before { transform: scaleX(1); }
+.kv-project-tag {
+  font-size: 0.55rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(184,148,46,0.6);
+  margin-bottom: 0.8rem;
+}
+.kv-project-name {
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: var(--cream);
+  margin-bottom: 0.6rem;
+  line-height: 1.2;
+}
+.kv-project-name em { font-style: italic; color: var(--gold-pale); }
+.kv-project-desc {
+  font-size: 0.82rem;
+  color: rgba(240,237,230,0.55);
+  line-height: 1.7;
+}
+
+.kv-labs {
+  margin-top: 3rem;
+  padding: 2.5rem 2rem;
+  border: 1px solid rgba(184,148,46,0.15);
+  background: rgba(184,148,46,0.03);
+}
+.kv-labs-title {
+  font-size: 0.6rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+}
+.kv-labs-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+.kv-labs-item {
+  text-align: center;
+}
+.kv-labs-val {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  color: var(--gold-pale);
+  font-weight: 300;
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+.kv-labs-lab {
+  font-size: 0.58rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(240,237,230,0.5);
+  line-height: 1.5;
+}
+
+/* ===== HAMAM GLOBAL ===== */
+#hamam {
+  position: relative;
+  padding: clamp(6rem, 12vw, 11rem) 0;
+  background: var(--void);
+  overflow: hidden;
+}
+.hamam-cover {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 21/9;
+  overflow: hidden;
+  border: 1px solid rgba(184,148,46,0.12);
+  margin-bottom: 4rem;
+  background: var(--stone);
+}
+.hamam-cover img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.88) saturate(1.02);
+}
+.hamam-cover-logo {
+  position: absolute;
+  bottom: 2rem; left: 2rem;
+  display: flex; align-items: center; gap: 1.2rem;
+}
+.hamam-cover-logo img { height: 42px; opacity: 0.92; filter: drop-shadow(0 2px 12px rgba(0,0,0,0.5)); }
+.hamam-cover-tag {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.9rem;
+  color: rgba(240,237,230,0.8);
+  text-shadow: 0 2px 12px rgba(0,0,0,0.5);
+}
+.hamam-cover-seal {
+  position: absolute;
+  top: 1.5rem; right: 1.5rem;
+  width: 92px; height: 92px;
+  opacity: 0.95;
+  filter: drop-shadow(0 2px 12px rgba(0,0,0,0.5));
+}
+
+.hamam-projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-bottom: 5rem;
+}
+.hamam-project {
+  position: relative;
+  overflow: hidden;
+  background: var(--stone);
+  aspect-ratio: 16/10;
+  cursor: pointer;
+}
+.hamam-project img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 1.4s var(--ease-out-expo), filter .4s;
+  filter: brightness(0.85) saturate(1);
+}
+.hamam-project:hover img { transform: scale(1.05); filter: brightness(1) saturate(1.05); }
+.hamam-project-info {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 1.8rem 1.5rem 1.3rem;
+  background: linear-gradient(to top, rgba(9,9,7,0.9) 0%, transparent 100%);
+  color: var(--cream);
+}
+.hamam-project-tag {
+  font-size: 0.55rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.4rem;
+}
+.hamam-project-name {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--cream);
+}
+
+.hamam-logos-row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0;
+  align-items: center;
+  border-top: 1px solid rgba(184,148,46,0.12);
+  border-bottom: 1px solid rgba(184,148,46,0.12);
+  padding: 2rem 0;
+  margin-bottom: 5rem;
+  background: rgba(240,237,230,0.03);
+}
+.hamam-logos-row img {
+  height: 46px;
+  width: 100%;
+  object-fit: contain;
+  opacity: 0.72;
+  filter: brightness(1.6) saturate(0) invert(0.85);
+  transition: opacity .3s, filter .3s;
+  padding: 0 1rem;
+}
+.hamam-logos-row img:hover { opacity: 1; filter: brightness(1.8) saturate(0) invert(0.95); }
+
+.hamam-recognition {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 3rem;
+  padding: 2rem;
+  border: 1px solid rgba(184,148,46,0.15);
+  background: rgba(184,148,46,0.025);
+}
+.hamam-recognition img { height: 72px; opacity: 0.9; }
+.hamam-recognition-text {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.9rem;
+  color: rgba(240,237,230,0.7);
+  line-height: 1.6;
+}
+.hamam-recognition-text strong { color: var(--gold-pale); font-style: normal; font-weight: 400; }
+
+/* KV project cards with real photos */
+.kv-project-image {
+  position: relative;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  min-height: 220px;
+  transition: transform .5s var(--ease-out-expo);
+}
+.kv-project.has-image {
+  padding: 0;
+  background: var(--stone);
+}
+.kv-project.has-image .kv-project-image {
+  padding: 2rem 1.8rem;
+  min-height: 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.kv-project.has-image .kv-project-image::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(9,9,7,0.35) 0%, rgba(9,9,7,0.55) 55%, rgba(9,9,7,0.88) 100%);
+  transition: background .4s;
+}
+.kv-project.has-image:hover .kv-project-image::before {
+  background: linear-gradient(180deg, rgba(9,9,7,0.2) 0%, rgba(9,9,7,0.45) 55%, rgba(9,9,7,0.85) 100%);
+}
+.kv-project.has-image .kv-project-tag,
+.kv-project.has-image .kv-project-name,
+.kv-project.has-image .kv-project-desc {
+  position: relative; z-index: 1;
+}
+.kv-project.has-image .kv-project-desc { color: rgba(240,237,230,0.75); }
+
+/* KV logo block */
+.kv-logo-text {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  line-height: 1;
+}
+.kv-logo-text .kv-k {
+  font-family: var(--serif);
+  font-size: 2.2rem;
+  letter-spacing: 0.1em;
+  color: var(--gold-pale);
+  font-weight: 300;
+  display: block;
+}
+.kv-logo-text .kv-full {
+  font-family: var(--sans);
+  font-size: 0.58rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(240,237,230,0.6);
+  display: block;
+  margin-top: 0.5rem;
+}
+.hamam-grain {
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n2'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n2)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+.hamam-orb {
+  position: absolute;
+  right: -220px; top: 20%;
+  width: 700px; height: 700px;
+  border-radius: 55% 45% 50% 50% / 50% 55% 45% 50%;
+  background: radial-gradient(ellipse, rgba(45,74,62,0.14) 0%, transparent 70%);
+  animation: morph 22s ease-in-out infinite reverse;
+  pointer-events: none;
+  z-index: 0;
+}
+.hamam-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 4rem;
+}
+.hamam-header {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+.hamam-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.5rem 1.2rem;
+  border: 1px solid rgba(184,148,46,0.35);
+  color: var(--gold);
+  font-size: 0.55rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  background: rgba(184,148,46,0.04);
+}
+.hamam-badge::before { content: '◆'; font-size: 0.5rem; }
+.hamam-title {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 5.5vw, 4.5rem);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+.hamam-title em { font-style: italic; color: var(--gold-pale); }
+.hamam-sub {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1rem, 1.7vw, 1.25rem);
+  color: rgba(240,237,230,0.6);
+  max-width: 800px;
+  margin: 1.8rem auto 0;
+  line-height: 1.7;
+}
+
+.hamam-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: 1px solid rgba(184,148,46,0.12);
+  background: var(--charcoal);
+  margin-bottom: 5rem;
+}
+.hamam-stat {
+  padding: 2.5rem 1.5rem;
+  border-right: 1px solid rgba(184,148,46,0.08);
+  text-align: center;
+}
+.hamam-stat:last-child { border-right: none; }
+.hamam-stat-val {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  color: var(--gold-pale);
+  font-weight: 300;
+  line-height: 1;
+  margin-bottom: 0.6rem;
+}
+.hamam-stat-lab {
+  font-size: 0.58rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(240,237,230,0.5);
+}
+
+.hamam-portfolio {
+  margin-bottom: 5rem;
+}
+.hamam-section-label {
+  text-align: center;
+  font-size: 0.55rem;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 2.5rem;
+}
+.hamam-brands {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0;
+  border-top: 1px solid rgba(184,148,46,0.12);
+  border-bottom: 1px solid rgba(184,148,46,0.12);
+}
+.hamam-brand {
+  padding: 1.3rem 2rem;
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-style: italic;
+  color: rgba(240,237,230,0.65);
+  letter-spacing: 0.08em;
+  border-right: 1px solid rgba(184,148,46,0.08);
+  transition: color .3s, background .3s;
+}
+.hamam-brand:last-child { border-right: none; }
+.hamam-brand:hover { color: var(--gold-pale); background: rgba(184,148,46,0.03); }
+
+.hamam-concept {
+  margin: 6rem 0 4rem;
+  text-align: center;
+}
+.hamam-concept-label {
+  font-size: 0.55rem;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 2rem;
+}
+.hamam-concept h3 {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.15;
+  margin-bottom: 2rem;
+  letter-spacing: -0.01em;
+}
+.hamam-concept h3 em { font-style: italic; color: var(--gold-pale); }
+.hamam-concept-lead {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+  color: rgba(240,237,230,0.7);
+  max-width: 860px;
+  margin: 0 auto;
+  line-height: 1.75;
+}
+.hamam-concept-lead strong { color: var(--gold-pale); font-style: normal; font-weight: 400; }
+
+.hamam-services {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin-bottom: 5rem;
+}
+.hamam-service-card {
+  background: var(--charcoal);
+  padding: 3rem 2.3rem;
+  border: 1px solid rgba(184,148,46,0.1);
+  transition: border-color .4s, background .4s, transform .5s;
+  position: relative;
+  overflow: hidden;
+}
+.hamam-service-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .6s var(--ease-out-expo);
+}
+.hamam-service-card:hover {
+  border-color: rgba(184,148,46,0.3);
+  background: rgba(45,74,62,0.05);
+}
+.hamam-service-card:hover::before { transform: scaleX(1); }
+.hamam-service-tier {
+  font-size: 0.55rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+}
+.hamam-service-title {
+  font-family: var(--serif);
+  font-size: clamp(1.4rem, 2.2vw, 1.8rem);
+  font-weight: 400;
+  color: var(--cream);
+  margin-bottom: 0.4rem;
+  line-height: 1.2;
+}
+.hamam-service-title em { font-style: italic; color: var(--gold-pale); }
+.hamam-service-sub {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.85rem;
+  color: rgba(240,237,230,0.45);
+  margin-bottom: 2rem;
+}
+.hamam-service-list {
+  list-style: none;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(184,148,46,0.08);
+}
+.hamam-service-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  padding: 0.85rem 0;
+  font-size: 0.85rem;
+  color: rgba(240,237,230,0.72);
+  line-height: 1.55;
+  border-bottom: 1px solid rgba(184,148,46,0.05);
+}
+.hamam-service-list li:last-child { border-bottom: none; }
+.hamam-service-icon {
+  min-width: 18px; height: 18px;
+  color: var(--gold);
+  stroke-width: 1;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.hamam-closing {
+  max-width: 860px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 3.5rem 2rem;
+  border: 1px solid rgba(184,148,46,0.15);
+  background: rgba(184,148,46,0.025);
+  position: relative;
+}
+.hamam-closing::before, .hamam-closing::after {
+  content: '';
+  position: absolute;
+  width: 20px; height: 20px;
+  border: 1px solid var(--gold);
+  opacity: 0.5;
+}
+.hamam-closing::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+.hamam-closing::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+.hamam-closing-quote {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.2rem, 2.2vw, 1.6rem);
+  color: var(--cream);
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+}
+.hamam-closing-quote strong { color: var(--gold-pale); font-weight: 400; font-style: normal; }
+
+/* ===== IMMERSIVE SECTION BACKGROUNDS (photos/videos) ===== */
+.sec-bg {
+  position: absolute; inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.sec-bg::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: saturate(1.05) contrast(1.02);
+  transform: scale(1.02);
+}
+@media (min-width: 1025px) {
+  .sec-bg-fixed::before { background-attachment: fixed; }
+}
+.sec-bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: var(--sec-overlay, rgba(9,9,7,0.6));
+}
+.sec-bg video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: saturate(1) contrast(1.02);
+}
+
+/* Per-section backgrounds */
+#manifesto .sec-bg::before { background-image: url('Investidores SERGIPE/FOTOS_/Fotos da Região_/nascer-do-sol-na-praia.jpg'); }
+#manifesto { --sec-overlay: rgba(9,9,7,0.55); }
+
+#projeto .sec-bg::before { background-image: url('Investidores SERGIPE/FOTOS_/Fotos da Região_/dunas-da-praia-do-saco.webp'); }
+#projeto { --sec-overlay: rgba(9,9,7,0.6); }
+
+#masterplan .sec-bg::before { background-image: url('Investidores SERGIPE/Jubiabá 01 e 02.jpeg'); }
+#masterplan { --sec-overlay: rgba(9,9,7,0.7); }
+
+#mercado .sec-bg::before { background-image: url('Investidores SERGIPE/FOTOS_/Fotos da Região_/Mangue-Seco-e-Praia-do-Saco.jpg'); }
+#mercado { --sec-overlay: rgba(9,9,7,0.6); }
+
+#investimento .sec-bg::before { background-image: url('Investidores SERGIPE/FOTOS_/Fotos da Área/AEROPORTO ARACAJU.jpeg'); }
+#investimento { --sec-overlay: rgba(9,9,7,0.65); }
+
+#kvarch .sec-bg::before { background-image: url('Investidores SERGIPE/FOTOS_/Fotos da Região_/praia-do-saco-um-paraiso-proximo-de-aracaju.jpg'); }
+#kvarch { --sec-overlay: rgba(26,25,23,0.75); }
+
+#viabilidade .sec-bg::before { background-image: url('Investidores SERGIPE/FOTOS_/Fotos da Região_/mangue-seco-ponta-do-saco-1024x576-1.jpg'); }
+#viabilidade { --sec-overlay: rgba(9,9,7,0.6); }
+
+/* Ensure section inner content is above the background layer */
+#manifesto > :not(.sec-bg),
+#projeto > :not(.sec-bg),
+#masterplan > :not(.sec-bg),
+#mercado > :not(.sec-bg),
+#investimento > :not(.sec-bg),
+#kvarch > :not(.sec-bg),
+#viabilidade > :not(.sec-bg) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Override existing dark solid backgrounds on these sections so photos show through */
+#projeto { background: transparent !important; }
+#masterplan { background: transparent !important; }
+#mercado { background: transparent !important; }
+#investimento { background: transparent !important; }
+#kvarch { background: transparent !important; }
+#viabilidade { background: transparent !important; }
+#manifesto .manifesto-bg { background: transparent !important; }
+
+/* Soften card backgrounds so the background photo is still perceivable */
+#projeto .projeto-stats { background: rgba(26,25,23,0.78); backdrop-filter: blur(6px); }
+#masterplan .mp-phase { background: rgba(26,25,23,0.82); backdrop-filter: blur(4px); }
+#mercado .merc-metric { background: rgba(26,25,23,0.82); backdrop-filter: blur(4px); }
+#investimento .invest-top-stats { background: rgba(26,25,23,0.82); backdrop-filter: blur(4px); }
+#investimento .package { background: rgba(26,25,23,0.85); backdrop-filter: blur(4px); }
+#investimento .package.featured { background: rgba(45,74,62,0.4); backdrop-filter: blur(4px); }
+#investimento .invest-disclaimer { background: rgba(26,25,23,0.75); backdrop-filter: blur(4px); }
+#kvarch .kv-project { background: rgba(44,43,40,0.85); backdrop-filter: blur(4px); }
+#hamam .hamam-stats { background: rgba(26,25,23,0.82); backdrop-filter: blur(4px); }
+#hamam .hamam-service-card { background: rgba(26,25,23,0.85); backdrop-filter: blur(4px); }
+#hamam .hamam-closing { background: rgba(26,25,23,0.7); backdrop-filter: blur(4px); }
+#viabilidade .viab-card { background: rgba(26,25,23,0.82); backdrop-filter: blur(4px); }
+#mercado { background: transparent !important; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  nav { padding: 1.5rem 2rem; }
+  nav.scrolled { padding: 1rem 2rem; }
+  .nav-links { display: none; }
+
+  .comparativo, .loc-grid, .merc-compare { grid-template-columns: 1fr; gap: 3rem; }
+  .projeto-stats, .invest-top-stats, .merc-metrics { grid-template-columns: repeat(2, 1fr); }
+  .projeto-stat { border-right: none; border-bottom: 1px solid rgba(184,148,46,0.08); }
+  .projeto-stat:nth-child(2) { border-right: none; }
+  .packages, .viab-grid, .mp-phases { grid-template-columns: 1fr; }
+  .cta-contact { grid-template-columns: 1fr; }
+  .cta-contact-item { border-right: none; border-bottom: 1px solid rgba(184,148,46,0.08); }
+
+  .area-gallery .col-12, .area-gallery .col-8, .area-gallery .col-6 { grid-column: span 12; }
+  .area-gallery .col-4, .area-gallery .col-3 { grid-column: span 6; }
+  .nature-gallery .col-8, .nature-gallery .col-6 { grid-column: span 12; height: 360px; }
+  .nature-gallery .col-4, .nature-gallery .col-3 { grid-column: span 6; height: 300px; }
+
+  .kv-layout { grid-template-columns: 1fr; gap: 3rem; }
+  .kv-projects { grid-template-columns: 1fr; }
+  .hamam-projects-grid { grid-template-columns: 1fr; }
+  .hamam-logos-row { grid-template-columns: repeat(3, 1fr); gap: 1rem 0; padding: 1.5rem 0; }
+  .hamam-cover { aspect-ratio: 16/10; }
+  .hamam-cover-logo { bottom: 1rem; left: 1rem; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+  .hamam-cover-logo img { height: 32px; }
+  .hamam-cover-seal { width: 64px; height: 64px; top: 1rem; right: 1rem; }
+  .hamam-recognition { flex-direction: column; gap: 1rem; text-align: center; }
+  .kv-stats { grid-template-columns: repeat(2, 1fr); }
+  .kv-stat:nth-child(2) { border-right: none; }
+  .kv-labs-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+  .hamam-services { grid-template-columns: 1fr; }
+  .hamam-stats { grid-template-columns: repeat(2, 1fr); }
+  .hamam-stat:nth-child(2) { border-right: none; }
+  .hamam-brands { flex-direction: column; }
+  .hamam-brand { border-right: none; border-bottom: 1px solid rgba(184,148,46,0.06); }
+
+  .projeto-inner, .loc-inner, .mp-inner, .merc-inner,
+  .invest-inner, .area-inner, .viab-inner, .manifesto-inner,
+  .cta-inner, .kv-inner, .hamam-inner { padding: 0 2rem; }
+
+  .footer-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+
+@media (max-width: 640px) {
+  .hero-cta-group { flex-direction: column; gap: 1.2rem; }
+  .projeto-stats, .invest-top-stats, .merc-metrics { grid-template-columns: 1fr; }
+  .projeto-stat, .invest-top-stat { border-right: none; border-bottom: 1px solid rgba(184,148,46,0.08); }
+  .benchmark-item { grid-template-columns: 1fr; gap: 0.3rem; }
+  .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+  .cta-buttons { flex-direction: column; }
+  .kv-stats, .hamam-stats { grid-template-columns: 1fr; }
+  .kv-stat, .hamam-stat { border-right: none; border-bottom: 1px solid rgba(184,148,46,0.08); }
+  .kv-labs-grid { grid-template-columns: 1fr; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- CUSTOM CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-inner">
+    <div class="loader-logo">JUBIABÁ</div>
+    <div class="loader-line"></div>
+    <div class="loader-sub">GSWP · Greystone Wellness Propriety</div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">JUBI<span>A</span>BÁ</a>
+  <ul class="nav-links">
+    <li><a href="#manifesto">Manifesto</a></li>
+    <li><a href="#projeto">Projeto</a></li>
+    <li><a href="#localizacao">Lugar</a></li>
+    <li><a href="#masterplan">Masterplan</a></li>
+    <li><a href="#kvarch">Arquitetura</a></li>
+    <li><a href="#hamam">Hospitalidade</a></li>
+    <li><a href="#mercado">Mercado</a></li>
+    <li><a href="#investimento">Investimento</a></li>
+  </ul>
+  <a href="#contato" class="nav-cta">Investir</a>
+</nav>
+
+<!-- ============================
+     HERO
+     ============================ -->
+<section id="hero">
+  <video class="hero-video-bg" autoplay muted loop playsinline preload="metadata" poster="Investidores SERGIPE/FOTOS_/Fotos da Região_/PRAIA-DO-SACO-Foto-Cesar-de-Oliveira-Acervo-EMSETUR-1.jpg">
+    <source src="Investidores SERGIPE/FOTOS_/Fotos da Área/WhatsApp Video 2025-11-14 at 13.14.10.mp4" type="video/mp4">
+    <source src="Investidores SERGIPE/FOTOS_/Fotos da Área/WhatsApp Video 2025-11-14 at 13.14.10 (1).mp4" type="video/mp4">
+  </video>
+  <div class="hero-bg-img"></div>
+  <div class="hero-orb"></div>
+  <div class="hero-orb-2"></div>
+  <div class="hero-bg-gradient"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <span class="hero-eyebrow-text">Estância · Sergipe · Litoral Sul</span>
+      <div class="hero-eyebrow-line"></div>
+    </div>
+
+    <h1 class="hero-title">
+      <em>Jubiabá</em>
+    </h1>
+
+    <p class="hero-subtitle">
+      A primeira Smart City do litoral sul de Sergipe. Onde o Brasil ainda não chegou — e o legado começa.
+    </p>
+
+    <div class="hero-divider">
+      <div class="hero-divider-line"></div>
+      <div class="hero-diamond"></div>
+      <div class="hero-divider-line"></div>
+    </div>
+
+    <div class="hero-cta-group">
+      <a href="#investimento" class="btn-primary"><span>Ver Plano de Investimento</span></a>
+      <a href="#manifesto" class="btn-ghost">
+        Conhecer o projeto
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-indicator"></div>
+    <span class="scroll-text">Scroll</span>
+  </div>
+</section>
+
+<!-- ============================
+     MANIFESTO
+     ============================ -->
+<section id="manifesto">
+  <div class="sec-bg sec-bg-fixed"></div>
+  <div class="manifesto-bg"></div>
+  <div class="manifesto-accent"></div>
+
+  <div class="manifesto-inner">
+    <div class="section-label reveal">Manifesto</div>
+
+    <blockquote class="manifesto-quote reveal reveal-delay-1">
+      <span class="large-quote">"</span>Existe um trecho de Brasil ainda intocado — onde o <span class="highlight">coqueiral</span> encontra a <span class="highlight">duna</span>, onde o mar de Sergipe guarda um silêncio que o Nordeste perdeu. É lá que Jubiabá começa.
+    </blockquote>
+
+    <div class="manifesto-body">
+      <p class="manifesto-p reveal reveal-delay-2">
+        Não estamos construindo um loteamento. Estamos <strong>desenhando uma cidade</strong>.
+      </p>
+      <p class="manifesto-p reveal reveal-delay-3">
+        Uma cidade que não precisa competir com o passado porque foi pensada a partir do futuro. Smart city, de planta nova, em uma das últimas faixas de litoral virgem do Brasil. <strong>Energia limpa, mobilidade inteligente, arquitetura orgânica e infraestrutura enterrada</strong> — para que a paisagem continue sendo a protagonista.
+      </p>
+      <p class="manifesto-p reveal reveal-delay-4">
+        Existe um momento raro em que o capital encontra a terra certa. Para os poucos que enxergam isso antes dos outros. <strong>Para esses, Jubiabá é uma oportunidade. Para esses, é história.</strong>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================
+     PROJETO
+     ============================ -->
+<section id="projeto">
+  <div class="sec-bg sec-bg-fixed"></div>
+  <div class="projeto-bg-grid"></div>
+  <div class="projeto-inner">
+
+    <header class="projeto-header">
+      <div class="section-label reveal">O Projeto</div>
+      <h2 class="projeto-title reveal reveal-delay-1">
+        A escala de Jurerê.<br>
+        <em>A singularidade de Sergipe.</em>
+      </h2>
+      <p class="projeto-subtitle reveal reveal-delay-2">
+        Jubiabá é o maior projeto de segunda residência de alto padrão do Nordeste em desenvolvimento hoje — um masterplan integrado que transforma 250 hectares de litoral preservado em uma smart city com assinatura GSWP.
+      </p>
+    </header>
+
+    <!-- STATS -->
+    <div class="projeto-stats reveal">
+      <div class="projeto-stat">
+        <div class="projeto-stat-value">250 ha</div>
+        <div class="projeto-stat-label">Área Total</div>
+      </div>
+      <div class="projeto-stat">
+        <div class="projeto-stat-value">R$ 1,1 bi</div>
+        <div class="projeto-stat-label">VGV Projetado</div>
+      </div>
+      <div class="projeto-stat">
+        <div class="projeto-stat-value">2 km</div>
+        <div class="projeto-stat-label">Frente de Praia</div>
+      </div>
+      <div class="projeto-stat">
+        <div class="projeto-stat-value">2 Etapas</div>
+        <div class="projeto-stat-label">Master Plan ZEEC</div>
+      </div>
+    </div>
+
+    <!-- COMPARATIVO JURERÊ -->
+    <div class="comparativo">
+      <div class="comparativo-text reveal">
+        <h3>Um terreno do tamanho de <em>Jurerê Internacional</em>.</h3>
+        <p>
+          Para dimensionar a ambição de Jubiabá, sobrepusemos o perímetro do empreendimento sobre o mapa de <strong>Jurerê Internacional — Florianópolis</strong>.
+        </p>
+        <p>
+          O resultado é evidente: estamos falando de uma extensão comparável ao bairro mais valorizado do Sul do Brasil. Só que em Sergipe, em solo ainda não explorado, com projeto integrado desde a primeira linha de planejamento e sob assinatura GSWP.
+        </p>
+        <p>
+          Em Jurerê, o metro quadrado supera <strong>R$ 20.000</strong>. Em Jubiabá, ainda partimos de <strong>R$ 4.000 a R$ 5.500/m²</strong>. A janela de entrada é o próprio ativo.
+        </p>
+      </div>
+      <div class="comparativo-img reveal reveal-delay-2">
+        <img src="Investidores SERGIPE/Simulação de Jurerê, sobreposta em roxo pelo tamanho do terreno de Jubiabá.png" alt="Comparativo entre o terreno de Jubiabá e Jurerê Internacional">
+        <div class="comparativo-caption">Jubiabá (roxo) sobreposto a Jurerê Internacional · Floripa</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================
+     LOCALIZAÇÃO E NATUREZA
+     ============================ -->
+<section id="localizacao">
+  <div class="loc-bg"></div>
+  <div class="loc-orb"></div>
+  <div class="loc-inner">
+
+    <div class="loc-grid">
+      <div class="loc-left reveal">
+        <div class="section-label">O Lugar</div>
+        <h2>Praia dos Abais.<br><em>Estância, Sergipe.</em></h2>
+        <p>
+          A região de Jubiabá está na <strong>Praia dos Abais, em Estância</strong> — no litoral sul de Sergipe, na divisa com a Bahia.
+        </p>
+        <p>
+          Aqui convivem praias de areia branca, coqueirais, dunas, manguezais e a <strong>Lagoa dos Tambaquis</strong>. Um microclima de beleza rara, ainda não descoberto pelo grande mercado — exatamente por isso, ainda acessível.
+        </p>
+        <p>
+          É o trecho de Brasil que lembra Trancoso há vinte anos. E é <em>agora</em> que ele se abre para ser desenhado.
+        </p>
+
+        <div class="loc-facts">
+          <div class="loc-fact">
+            <span class="loc-fact-num">63 km</span>
+            <span class="loc-fact-text">Do Aeroporto de Aracaju · voos diretos de SP, Brasília e RJ</span>
+          </div>
+          <div class="loc-fact">
+            <span class="loc-fact-num">10 km</span>
+            <span class="loc-fact-text">Da divisa da Bahia · acesso pela Linha Verde (SE-100)</span>
+          </div>
+          <div class="loc-fact">
+            <span class="loc-fact-num">2 km</span>
+            <span class="loc-fact-text">Frente de mar contínua · pé na areia</span>
+          </div>
+          <div class="loc-fact">
+            <span class="loc-fact-num">ZEEC</span>
+            <span class="loc-fact-text">Zoneamento Ecológico-Econômico Costeiro aprovado</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="loc-map-visual reveal reveal-delay-1">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Região_/dji-1599-2-1.jpg" alt="Vista aérea da região">
+        <div class="loc-map-label">Praia dos Abais · Litoral Sul de Sergipe</div>
+      </div>
+    </div>
+
+    <div class="divider">
+      <span class="divider-line"></span>
+      <span class="diamond"></span>
+      <span class="divider-line"></span>
+    </div>
+
+    <!-- Nature gallery -->
+    <div class="nature-gallery-title reveal">
+      <h3>A natureza é o produto. A natureza é o ativo.</h3>
+    </div>
+    <div class="nature-gallery reveal">
+      <div class="nature-item col-8" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Região_/PRAIA-DO-SACO-Foto-Cesar-de-Oliveira-Acervo-EMSETUR-1.jpg" alt="Praia do Saco">
+        <div class="nature-caption">Praia do Saco · Estância</div>
+      </div>
+      <div class="nature-item col-4" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Região_/dunas-da-praia-do-saco.webp" alt="Dunas">
+        <div class="nature-caption">Dunas · Litoral Sul SE</div>
+      </div>
+
+      <div class="nature-item col-4" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Região_/lagoa-dos-tambaquis-1.png" alt="Lagoa dos Tambaquis">
+        <div class="nature-caption">Lagoa dos Tambaquis</div>
+      </div>
+      <div class="nature-item col-4" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Região_/Mangue-Seco-e-Praia-do-Saco.jpg" alt="Mangue Seco">
+        <div class="nature-caption">Mangue Seco</div>
+      </div>
+      <div class="nature-item col-4" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Região_/ilha-da-sogra-ponta-do-saco-sergipe-1-1024x576.jpg" alt="Ponta do Saco">
+        <div class="nature-caption">Ponta do Saco</div>
+      </div>
+
+      <div class="nature-item col-3" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Região_/nascer-do-sol-na-praia.jpg" alt="Nascer do sol">
+        <div class="nature-caption">Nascer do sol</div>
+      </div>
+      <div class="nature-item col-3" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Região_/barraca-sape-praia-do-saco-aracaju-se.jpg" alt="Beach club">
+        <div class="nature-caption">Beach club local</div>
+      </div>
+      <div class="nature-item col-3" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Região_/por-do-sol-na-praia-do.jpg" alt="Pôr do sol">
+        <div class="nature-caption">Pôr do sol</div>
+      </div>
+      <div class="nature-item col-3" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Região_/praia-do-saco-sergipe.webp" alt="Praia">
+        <div class="nature-caption">Faixa de areia branca</div>
+      </div>
+
+      <div class="nature-item col-6" onclick="openLightbox(this)">
+        <video muted loop autoplay playsinline preload="metadata">
+          <source src="Investidores SERGIPE/FOTOS_/Fotos da Região_/WhatsApp Video 2025-11-14 at 13.14.12 (2).mp4" type="video/mp4">
+        </video>
+        <div class="video-badge">Drone</div>
+        <div class="nature-caption">Sobrevoo do litoral</div>
+      </div>
+      <div class="nature-item col-6" onclick="openLightbox(this)">
+        <video muted loop autoplay playsinline preload="metadata">
+          <source src="Investidores SERGIPE/FOTOS_/Fotos da Região_/WhatsApp Video 2025-11-14 at 13.14.12 (3).mp4" type="video/mp4">
+        </video>
+        <div class="video-badge">Drone · 4K</div>
+        <div class="nature-caption">Coqueiral · vista aérea</div>
+      </div>
+
+      <div class="nature-item col-4" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Região_/mangue-seco-ponta-do-saco-1024x576-1.jpg" alt="Mangue seco">
+        <div class="nature-caption">Mangue seco · Ponta do Saco</div>
+      </div>
+      <div class="nature-item col-4" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Região_/g6ruimangue-seco.jpg" alt="Mangue">
+        <div class="nature-caption">Vegetação de mangue</div>
+      </div>
+      <div class="nature-item col-4" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Região_/IMG_6510-1.webp" alt="Praia preservada">
+        <div class="nature-caption">Faixa preservada</div>
+      </div>
+
+      <div class="nature-item col-3" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Região_/1237-033654-praia-do-saco-foto-luiza-machadogr.webp" alt="Praia do Saco aérea">
+        <div class="nature-caption">Vista aérea · Praia</div>
+      </div>
+      <div class="nature-item col-3" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Região_/size_800_praia-do-saco-saiba-como-aproveitar-dias-tranquilos-em-sergipe-e6f0b072.webp" alt="Praia tranquila">
+        <div class="nature-caption">Dias tranquilos</div>
+      </div>
+      <div class="nature-item col-3" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Região_/turismo-em-estancia-guia-de-viagem-praia-ponta-do-saco-conexao123.webp" alt="Ponta do Saco">
+        <div class="nature-caption">Ponta do Saco · guia</div>
+      </div>
+      <div class="nature-item col-3" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Região_/dunas-da-praia-do-saco (1).webp" alt="Dunas panorâmicas">
+        <div class="nature-caption">Dunas · panorâmica</div>
+      </div>
+
+      <div class="nature-item col-8" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Região_/praia-do-saco-o-que-fazer-no-paraiso-proximo-de-aracaju.jpg" alt="Paraíso próximo de Aracaju">
+        <div class="nature-caption">O paraíso próximo de Aracaju</div>
+      </div>
+      <div class="nature-item col-4" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Região_/olha-esse-visual.jpg" alt="Visual">
+        <div class="nature-caption">Visual intocado</div>
+      </div>
+
+      <div class="nature-item col-4" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Região_/Praia_do_Saco_SergipeCF0933-1.jpg" alt="Praia do Saco">
+        <div class="nature-caption">Costa virgem</div>
+      </div>
+      <div class="nature-item col-4" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Região_/foto-praia-do-saco-em-aracaju-sergipe-8844.jpg" alt="Praia do Saco detalhe">
+        <div class="nature-caption">Praia do Saco</div>
+      </div>
+      <div class="nature-item col-4" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Região_/WhatsApp-Image-2023-09-04-at-19.54.27.jpg" alt="Entardecer">
+        <div class="nature-caption">Entardecer tropical</div>
+      </div>
+
+      <div class="nature-item col-3" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Região_/onde-fica-a-lagoa-dos-tambaquis.webp" alt="Lagoa dos Tambaquis">
+        <div class="nature-caption">Lagoa dos Tambaquis</div>
+      </div>
+      <div class="nature-item col-3" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Região_/dji-1599-2-1.jpg" alt="Drone aéreo">
+        <div class="nature-caption">Drone · perspectiva</div>
+      </div>
+      <div class="nature-item col-3" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Região_/foto-praia-do-saco-em-aracaju-sergipe-8865.jpg" alt="Praia do Saco">
+        <div class="nature-caption">Costa preservada</div>
+      </div>
+      <div class="nature-item col-3" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Região_/praia-do-saco-um-paraiso-proximo-de-aracaju-3.jpg" alt="Praia do Saco paraíso">
+        <div class="nature-caption">Paraíso sergipano</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================
+     IMMERSIVE VIDEO · O LITORAL
+     ============================ -->
+<section id="immersive">
+  <video class="immersive-video" autoplay muted loop playsinline preload="metadata">
+    <source src="Investidores SERGIPE/FOTOS_/Fotos da Região_/WhatsApp Video 2025-11-14 at 13.14.12.mp4" type="video/mp4">
+    <source src="Investidores SERGIPE/FOTOS_/Fotos da Região_/WhatsApp Video 2025-11-14 at 13.14.12 (1).mp4" type="video/mp4">
+  </video>
+  <div class="immersive-overlay"></div>
+
+  <div class="immersive-content">
+    <div class="immersive-eyebrow">Litoral Sul · Sergipe</div>
+    <h2 class="immersive-title">O Litoral <em>mais preservado</em><br>do Brasil.</h2>
+    <p class="immersive-sub">
+      Onde o silêncio ainda é matéria-prima. Onde a duna guarda o coqueiral e o coqueiral guarda a praia. Aqui, a paisagem não foi desenhada — foi escrita pelo tempo.
+    </p>
+    <div class="immersive-divider">
+      <span class="immersive-divider-line"></span>
+      <span class="immersive-diamond"></span>
+      <span class="immersive-divider-line"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================
+     MASTERPLAN
+     ============================ -->
+<section id="masterplan">
+  <div class="sec-bg sec-bg-fixed"></div>
+  <div class="mp-inner">
+
+    <header class="mp-header">
+      <div class="section-label reveal">Masterplan</div>
+      <h2 class="reveal reveal-delay-1">O projeto, <em>em duas etapas</em>.</h2>
+      <p class="reveal reveal-delay-2">
+        O masterplan Jubiabá foi desenhado em <strong>conformidade total com o ZEEC de Estância</strong>. Duas etapas integradas, mix de lotes residenciais, apartamentos de luxo, componente hoteleiro e equipamentos de lazer resort.
+      </p>
+    </header>
+
+    <div class="mp-main-visual reveal">
+      <img src="Investidores SERGIPE/ÁREA TOTAL JUBIABÁ.jpeg" alt="Masterplan Jubiabá — Área total">
+    </div>
+
+    <div class="mp-phases">
+      <div class="mp-phase reveal">
+        <div class="mp-phase-num">Etapa 01</div>
+        <h3 class="mp-phase-title">Jubiabá <em>Seaside</em></h3>
+        <p class="mp-phase-desc">
+          Primeira frente de mar — lotes residenciais premium, residenciais multifamiliares em arquitetura orgânica de baixa densidade e o <strong>beach club</strong> âncora do empreendimento. Entrega em fases com absorção progressiva de demanda externa.
+        </p>
+      </div>
+      <div class="mp-phase reveal reveal-delay-2">
+        <div class="mp-phase-num">Etapa 02</div>
+        <h3 class="mp-phase-title">Jubiabá <em>Hinterland</em></h3>
+        <p class="mp-phase-desc">
+          Expansão para o interior do terreno — componente hoteleiro de bandeira internacional, spa, equipamentos de esporte e wellness, segundas residências com operação condo-hotel (Airbnb Luxe). Consolida Jubiabá como destino.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================
+     KÖNIGSBERGER VANNUCCHI · KV ARCH
+     ============================ -->
+<section id="kvarch">
+  <div class="sec-bg sec-bg-fixed"></div>
+  <div class="kv-bg-accent"></div>
+  <div class="kv-bg-accent-bottom"></div>
+  <div class="kv-orb"></div>
+  <div class="kv-inner">
+
+    <div class="kv-layout">
+
+      <div class="kv-left">
+        <div class="kv-partner-badge reveal">Parceiro Estratégico · Arquitetura</div>
+
+        <div class="kv-logo-text reveal">
+          <span class="kv-k">KV</span>
+          <span class="kv-full">Königsberger Vannucchi</span>
+        </div>
+
+        <h2 class="reveal reveal-delay-1">
+          Königsberger Vannucchi<br>
+          <em>Arquitetos Associados.</em>
+        </h2>
+
+        <blockquote class="kv-quote reveal reveal-delay-2">
+          Cinquenta anos de arquitetura não se medem em metros quadrados. Medem-se em cidades transformadas.
+        </blockquote>
+
+        <p class="reveal reveal-delay-2">
+          Fundado em São Paulo por <strong>Jorge Königsberger</strong> e <strong>Gianfranco Vannucchi</strong>, o escritório atravessa cinco décadas de prática contínua — reconfigurando paisagens urbanas, desenhando complexos mixed-use e redefinindo o que uma nova centralidade pode ser.
+        </p>
+        <p class="reveal reveal-delay-3">
+          Sob a liderança atual do sócio-diretor <strong>Daniel Toledo</strong>, o KV é hoje uma das assinaturas mais relevantes da arquitetura brasileira contemporânea — com sede no Brascan Century Plaza, no Itaim Bibi, e portfólio que inclui o <strong>Platina 220</strong>, o <strong>Sesc Avenida Paulista</strong> e o <strong>Eixo Platina</strong> em Tatuapé.
+        </p>
+        <p class="reveal reveal-delay-3">
+          Para o Jubiabá, convidamos o escritório que transformou paisagens urbanas do Brasil — e que agora projeta a primeira smart city do litoral sergipano.
+        </p>
+
+        <div class="kv-stats reveal">
+          <div class="kv-stat">
+            <div class="kv-stat-val">50+</div>
+            <div class="kv-stat-lab">Anos</div>
+          </div>
+          <div class="kv-stat">
+            <div class="kv-stat-val">MIPIM</div>
+            <div class="kv-stat-lab">Cannes 2026</div>
+          </div>
+          <div class="kv-stat">
+            <div class="kv-stat-val">Bienal</div>
+            <div class="kv-stat-lab">Internacional</div>
+          </div>
+          <div class="kv-stat">
+            <div class="kv-stat-val">ADIT</div>
+            <div class="kv-stat-lab">Liderança</div>
+          </div>
+        </div>
+
+        <div class="kv-awards reveal">
+          <div class="kv-award">30º Prêmio Master Imobiliário · duas categorias</div>
+          <div class="kv-award">Representação na MIPIM 2026 (Cannes) · Built by Brazil · AsBEA · ApexBrasil</div>
+          <div class="kv-award">14ª Bienal Internacional de Arquitetura</div>
+          <div class="kv-award">Anfitrião da Missão Técnica ADIT Mixed-Use · março 2024</div>
+          <div class="kv-award">Cobertura: ArchDaily · Valor Econômico · Veja SP · Revista Projeto 2026</div>
+        </div>
+      </div>
+
+      <div class="kv-right">
+        <div class="kv-projects">
+          <div class="kv-project has-image reveal">
+            <div class="kv-project-image" style="background-image: linear-gradient(rgba(9,9,7,0.35), rgba(9,9,7,0.88)), url('Investidores SERGIPE/FOTOS_/Fotos da Região_/foto-praia-do-saco-em-aracaju-sergipe-8803.jpg');">
+              <div class="kv-project-tag">Mixed-Use · São Paulo</div>
+              <div class="kv-project-name">Platina <em>220</em></div>
+              <div class="kv-project-desc">172m · 49 andares · Hotel + Residencial + Escritórios em uma única assinatura vertical.</div>
+            </div>
+          </div>
+          <div class="kv-project has-image reveal reveal-delay-1">
+            <div class="kv-project-image" style="background-image: linear-gradient(rgba(9,9,7,0.35), rgba(9,9,7,0.88)), url('Investidores SERGIPE/FOTOS_/Fotos da Região_/foto-praia-do-saco-em-aracaju-sergipe-8844.jpg');">
+              <div class="kv-project-tag">Masterplan · Tatuapé</div>
+              <div class="kv-project-name">Eixo <em>Platina</em></div>
+              <div class="kv-project-desc">Reconfiguração urbana — uma nova centralidade desenhada em escala de bairro.</div>
+            </div>
+          </div>
+          <div class="kv-project has-image reveal">
+            <div class="kv-project-image" style="background-image: linear-gradient(rgba(9,9,7,0.35), rgba(9,9,7,0.88)), url('Investidores SERGIPE/FOTOS_/Fotos da Região_/foto-praia-do-saco-em-aracaju-sergipe-8855.jpg');">
+              <div class="kv-project-tag">Icônico · Itaim Bibi</div>
+              <div class="kv-project-name">Brascan Century <em>Plaza</em></div>
+              <div class="kv-project-desc">Complexo mixed-use com praça aberta ao público — referência de urbanidade paulista.</div>
+            </div>
+          </div>
+          <div class="kv-project has-image reveal reveal-delay-1">
+            <div class="kv-project-image" style="background-image: linear-gradient(rgba(9,9,7,0.35), rgba(9,9,7,0.88)), url('Investidores SERGIPE/FOTOS_/Fotos da Região_/foto-praia-do-saco-em-aracaju-sergipe-8865.jpg');">
+              <div class="kv-project-tag">Cultura · Paulista</div>
+              <div class="kv-project-name">Sesc <em>Avenida Paulista</em></div>
+              <div class="kv-project-desc">Centro cultural na avenida mais icônica do Brasil — arquitetura pública de primeira grandeza.</div>
+            </div>
+          </div>
+          <div class="kv-project has-image reveal">
+            <div class="kv-project-image" style="background-image: linear-gradient(rgba(9,9,7,0.35), rgba(9,9,7,0.88)), url('Investidores SERGIPE/FOTOS_/Fotos da Região_/praia-do-saco-aracaju-se-8810.jpg');">
+              <div class="kv-project-tag">Corporativo · Pinheiros</div>
+              <div class="kv-project-name">HY <em>Pinheiros</em></div>
+              <div class="kv-project-desc">100% de ocupação · design estrutural em pilares em V — identidade imediata.</div>
+            </div>
+          </div>
+          <div class="kv-project has-image reveal reveal-delay-1">
+            <div class="kv-project-image" style="background-image: linear-gradient(rgba(9,9,7,0.35), rgba(9,9,7,0.88)), url('Investidores SERGIPE/FOTOS_/Fotos da Região_/Praia_do_Saco_SergipeCF0933-1.jpg');">
+              <div class="kv-project-tag">Residencial · Rio</div>
+              <div class="kv-project-name"><em>Insigna</em></div>
+              <div class="kv-project-desc">Desenvolvimento em península no Rio de Janeiro — arquitetura que dialoga com a água.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="kv-labs reveal">
+          <div class="kv-labs-title">◆ KV Labs · Inovação em Arquitetura</div>
+          <div class="kv-labs-grid">
+            <div class="kv-labs-item">
+              <div class="kv-labs-val">86</div>
+              <div class="kv-labs-lab">Ferramentas identificadas</div>
+            </div>
+            <div class="kv-labs-item">
+              <div class="kv-labs-val">33</div>
+              <div class="kv-labs-lab">Projetos mapeados</div>
+            </div>
+            <div class="kv-labs-item">
+              <div class="kv-labs-val">12</div>
+              <div class="kv-labs-lab">Iniciativas em curso</div>
+            </div>
+            <div class="kv-labs-item">
+              <div class="kv-labs-val">BIM</div>
+              <div class="kv-labs-lab">Prática integral</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================
+     HAMAM GLOBAL · HOSPITALIDADE
+     ============================ -->
+<section id="hamam">
+  <div class="hamam-grain"></div>
+  <div class="hamam-orb"></div>
+  <div class="hamam-inner">
+
+    <header class="hamam-header">
+      <div class="hamam-badge reveal">Parceiro de Hospitalidade</div>
+      <h2 class="hamam-title reveal reveal-delay-1">
+        Hamam Global.<br>
+        <em>Cinco estrelas em cada residência.</em>
+      </h2>
+      <p class="hamam-sub reveal reveal-delay-2">
+        Hamam Corporation · Hamam Global Interior Solutions — vinte e seis anos moldando a hospitalidade de alto padrão da América Latina ao Oriente Médio. Em Jubiabá, o DNA do hotel cinco estrelas atravessa a porta de cada residência.
+      </p>
+    </header>
+
+    <!-- COVER IMAGE · Palácio Tangará -->
+    <div class="hamam-cover reveal">
+      <img src="https://hamamglobal.com/wp-content/uploads/2025/02/tangara2-1024x643.webp" alt="Palácio Tangará · Hamam Global">
+      <div class="hamam-cover-logo">
+        <img src="https://hamamglobal.com/wp-content/uploads/2024/05/LOGOTIPO_Branco-1024x268.webp" alt="Hamam Global">
+        <span class="hamam-cover-tag">Palácio Tangará · Oetker Collection · São Paulo</span>
+      </div>
+      <img class="hamam-cover-seal" src="https://hamamglobal.com/wp-content/uploads/2025/04/selo.webp" alt="Reconhecimento Hamam">
+    </div>
+
+    <!-- PROJECT HIGHLIGHTS · 3 real projects -->
+    <div class="hamam-projects-grid reveal">
+      <div class="hamam-project">
+        <img src="https://hamamglobal.com/wp-content/uploads/2025/02/tangara10-1-1024x643.webp" alt="Palácio Tangará — suíte">
+        <div class="hamam-project-info">
+          <div class="hamam-project-tag">Oetker Collection · SP</div>
+          <div class="hamam-project-name">Palácio Tangará</div>
+        </div>
+      </div>
+      <div class="hamam-project">
+        <img src="https://hamamglobal.com/wp-content/uploads/2025/05/hilton-Rio-1024x572.webp" alt="Hilton Rio de Janeiro">
+        <div class="hamam-project-info">
+          <div class="hamam-project-tag">Hilton · Rio de Janeiro</div>
+          <div class="hamam-project-name">Hilton Copacabana</div>
+        </div>
+      </div>
+      <div class="hamam-project">
+        <img src="https://hamamglobal.com/wp-content/uploads/2025/03/galeria5.webp" alt="Projeto Hamam">
+        <div class="hamam-project-info">
+          <div class="hamam-project-tag">Portfólio · Hamam Global</div>
+          <div class="hamam-project-name">Hospitalidade de autor</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hamam-stats reveal">
+      <div class="hamam-stat">
+        <div class="hamam-stat-val">26</div>
+        <div class="hamam-stat-lab">Anos de operação</div>
+      </div>
+      <div class="hamam-stat">
+        <div class="hamam-stat-val">220+</div>
+        <div class="hamam-stat-lab">Projetos hoteleiros</div>
+      </div>
+      <div class="hamam-stat">
+        <div class="hamam-stat-val">40k+</div>
+        <div class="hamam-stat-lab">Chaves entregues</div>
+      </div>
+      <div class="hamam-stat">
+        <div class="hamam-stat-val">70+</div>
+        <div class="hamam-stat-lab">Marcas hoteleiras</div>
+      </div>
+    </div>
+
+    <div class="hamam-stats reveal">
+      <div class="hamam-stat">
+        <div class="hamam-stat-val">20M+ m²</div>
+        <div class="hamam-stat-lab">Implementados</div>
+      </div>
+      <div class="hamam-stat">
+        <div class="hamam-stat-val">1.000+</div>
+        <div class="hamam-stat-lab">Fornecedores aprovados</div>
+      </div>
+      <div class="hamam-stat">
+        <div class="hamam-stat-val">56+</div>
+        <div class="hamam-stat-lab">Especialistas worldwide</div>
+      </div>
+      <div class="hamam-stat">
+        <div class="hamam-stat-val">3</div>
+        <div class="hamam-stat-lab">Hubs · SP · Miami · Dubai</div>
+      </div>
+    </div>
+
+    <div class="hamam-portfolio reveal">
+      <div class="hamam-section-label">◆ Portfólio Hoteleiro Selecionado</div>
+      <div class="hamam-brands">
+        <div class="hamam-brand">Oetker · Palácio Tangará</div>
+        <div class="hamam-brand">Jumby Bay Island · Antigua</div>
+        <div class="hamam-brand">Hilton · Rio de Janeiro</div>
+        <div class="hamam-brand">W Hotels · São Paulo</div>
+        <div class="hamam-brand">Fasano · Rio de Janeiro</div>
+        <div class="hamam-brand">Sheraton · Santos</div>
+        <div class="hamam-brand">Curio by Hilton · Curitiba</div>
+      </div>
+      <div class="hamam-section-label" style="margin-top: 3rem;">Redes Parceiras</div>
+      <div class="hamam-logos-row">
+        <img src="https://hamamglobal.com/wp-content/uploads/2025/04/h1.webp" alt="Rede hoteleira 1">
+        <img src="https://hamamglobal.com/wp-content/uploads/2025/04/h2.webp" alt="Rede hoteleira 2">
+        <img src="https://hamamglobal.com/wp-content/uploads/2025/04/h3.webp" alt="Rede hoteleira 3">
+        <img src="https://hamamglobal.com/wp-content/uploads/2025/04/h4.webp" alt="Rede hoteleira 4">
+        <img src="https://hamamglobal.com/wp-content/uploads/2025/04/h5.webp" alt="Rede hoteleira 5">
+        <img src="https://hamamglobal.com/wp-content/uploads/2025/04/h6.webp" alt="Rede hoteleira 6">
+        <img src="https://hamamglobal.com/wp-content/uploads/2025/04/h7.webp" alt="Rede hoteleira 7">
+        <img src="https://hamamglobal.com/wp-content/uploads/2025/04/h8.webp" alt="Rede hoteleira 8">
+        <img src="https://hamamglobal.com/wp-content/uploads/2025/04/h9.webp" alt="Rede hoteleira 9">
+        <img src="https://hamamglobal.com/wp-content/uploads/2025/04/h10.webp" alt="Rede hoteleira 10">
+        <img src="https://hamamglobal.com/wp-content/uploads/2025/04/h11.webp" alt="Rede hoteleira 11">
+        <img src="https://hamamglobal.com/wp-content/uploads/2025/04/h12.webp" alt="Rede hoteleira 12">
+      </div>
+      <div class="hamam-recognition">
+        <img src="https://hamamglobal.com/wp-content/uploads/2025/05/Management.webp" alt="Hotel Management Magazine">
+        <div class="hamam-recognition-text">
+          <strong>Top Empresa de Procurement</strong> · Hotel Management Magazine<br>
+          <strong>6× vencedora</strong> · Revista HOTÉIS América Latina
+        </div>
+      </div>
+    </div>
+
+    <!-- CONCEITO -->
+    <div class="hamam-concept reveal">
+      <div class="hamam-concept-label">O Conceito de Hospitalidade no Jubiabá</div>
+      <h3>Quando o <em>hotel</em> vai até você.</h3>
+      <p class="hamam-concept-lead">
+        No Jubiabá, a Hamam traz o DNA da hospitalidade cinco estrelas para dentro de cada residência. Não é um condomínio com serviços — é uma <strong>experiência hoteleira que você chama quando quiser.</strong>
+      </p>
+    </div>
+
+    <!-- SERVIÇOS EM 3 CAMADAS -->
+    <div class="hamam-services">
+
+      <div class="hamam-service-card reveal">
+        <div class="hamam-service-tier">Camada 01</div>
+        <h4 class="hamam-service-title">Essenciais <em>da Casa</em></h4>
+        <p class="hamam-service-sub">O cotidiano, invisível e impecável.</p>
+        <ul class="hamam-service-list">
+          <li>
+            <svg class="hamam-service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+            <span>Arrumação e limpeza · padrão housekeeping hoteleiro</span>
+          </li>
+          <li>
+            <svg class="hamam-service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2v20M5 9l7-7 7 7M5 15l7 7 7-7"/></svg>
+            <span>Jardinagem e paisagismo</span>
+          </li>
+          <li>
+            <svg class="hamam-service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 12c3-2 6-2 9 0s6 2 9 0M3 18c3-2 6-2 9 0s6 2 9 0M3 6c3-2 6-2 9 0s6 2 9 0"/></svg>
+            <span>Piscineiro e manutenção dedicada</span>
+          </li>
+          <li>
+            <svg class="hamam-service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2l10 5v5c0 5-4 9-10 10C6 21 2 17 2 12V7l10-5z"/></svg>
+            <span>Segurança e portaria 24 horas</span>
+          </li>
+          <li>
+            <svg class="hamam-service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 2h12v20H6z"/><path d="M6 7h12M6 17h12"/></svg>
+            <span>Lavanderia e passadoria</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="hamam-service-card reveal reveal-delay-1">
+        <div class="hamam-service-tier">Camada 02</div>
+        <h4 class="hamam-service-title">Gastronomia <em>&amp; Bem-Estar</em></h4>
+        <p class="hamam-service-sub">A cozinha do hotel — na sua varanda.</p>
+        <ul class="hamam-service-list">
+          <li>
+            <svg class="hamam-service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/><path d="M12 3v9l6 4"/></svg>
+            <span>Restaurante do empreendimento · delivery na residência</span>
+          </li>
+          <li>
+            <svg class="hamam-service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 2v8c0 3 3 4 6 4s6-1 6-4V2"/><path d="M12 14v8"/></svg>
+            <span>Chef particular sob demanda</span>
+          </li>
+          <li>
+            <svg class="hamam-service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 10h16l-2 11H6L4 10zM4 10V6a4 4 0 014-4h8a4 4 0 014 4v4"/></svg>
+            <span>Cozinheira residente · cardápio personalizado</span>
+          </li>
+          <li>
+            <svg class="hamam-service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg>
+            <span>Room service até a varanda</span>
+          </li>
+          <li>
+            <svg class="hamam-service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 3h14l-4 10v8H9v-8L5 3z"/></svg>
+            <span>Bar e sommelier a domicílio</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="hamam-service-card reveal reveal-delay-2">
+        <div class="hamam-service-tier">Camada 03</div>
+        <h4 class="hamam-service-title">O Toque <em>Jubiabá</em></h4>
+        <p class="hamam-service-sub">Os detalhes que redefinem o padrão.</p>
+        <ul class="hamam-service-list">
+          <li>
+            <svg class="hamam-service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="14" r="7"/><path d="M12 7c0-2 2-4 4-4M8 14c0-3 2-5 4-5"/></svg>
+            <span>Reposição diária de frutas tropicais selecionadas</span>
+          </li>
+          <li>
+            <svg class="hamam-service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 2c3 4 5 8 5 12a5 5 0 11-10 0c0-4 2-8 5-12z"/></svg>
+            <span>Água de coco fresca entregue nas casas</span>
+          </li>
+          <li>
+            <svg class="hamam-service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            <span>Concierge pessoal 24 horas</span>
+          </li>
+          <li>
+            <svg class="hamam-service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 20c3-2 6-2 9 0s6 2 9 0"/><path d="M4 14h16l-2-4H6l-2 4z"/><path d="M12 10V4"/></svg>
+            <span>Agendamento de passeios · barco, trilha, mergulho</span>
+          </li>
+          <li>
+            <svg class="hamam-service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="8" width="20" height="10" rx="2"/><circle cx="7" cy="20" r="2"/><circle cx="17" cy="20" r="2"/></svg>
+            <span>Transporte privativo e transfer</span>
+          </li>
+          <li>
+            <svg class="hamam-service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="6" r="3"/><path d="M12 9v12M6 14h12"/></svg>
+            <span>Personal trainer na praia</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- CLOSING QUOTE -->
+    <div class="hamam-closing reveal">
+      <p class="hamam-closing-quote">
+        "Na cidade inteligente que estamos construindo, a inteligência maior está nos <strong>detalhes</strong>: a fruta certa na fruteira, a água de coco no momento certo, o chef quando você quiser. Isso não é luxo. <strong>É o novo padrão.</strong>"
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================
+     MERCADO
+     ============================ -->
+<section id="mercado">
+  <div class="sec-bg sec-bg-fixed"></div>
+  <div class="merc-inner">
+
+    <header class="merc-header">
+      <div class="section-label reveal">Análise de Mercado</div>
+      <h2 class="reveal reveal-delay-1">A janela está <em>aberta agora</em>.</h2>
+      <p class="reveal reveal-delay-2">
+        O Nordeste lidera a valorização imobiliária do país. Sergipe lidera o Nordeste. O litoral sul sergipano não tem concorrente direto — e nunca mais terá esta mesma janela de entrada.
+      </p>
+    </header>
+
+    <div class="merc-metrics reveal">
+      <div class="merc-metric">
+        <div class="merc-metric-value">+13,8%</div>
+        <div class="merc-metric-label">Aracaju — 4ª capital com maior valorização do Brasil em 2024</div>
+      </div>
+      <div class="merc-metric">
+        <div class="merc-metric-value">+80%</div>
+        <div class="merc-metric-label">Sergipe liderou o NE em crescimento de VGV imobiliário em 2024</div>
+      </div>
+      <div class="merc-metric">
+        <div class="merc-metric-value">R$ 1,1 bi</div>
+        <div class="merc-metric-label">VGV projetado para Jubiabá — factível segundo estudo de demanda</div>
+      </div>
+      <div class="merc-metric">
+        <div class="merc-metric-value">0</div>
+        <div class="merc-metric-label">Concorrentes diretos no litoral sul de Sergipe hoje</div>
+      </div>
+    </div>
+
+    <div class="merc-compare">
+      <div class="merc-compare-text reveal">
+        <h3>Posicionamento <em>Trancoso, Muro Alto, Barra de São Miguel</em>.</h3>
+        <p>
+          Estudos de mercado de 2025 posicionam Jubiabá como <strong>destino único de segunda residência de alto padrão em Sergipe</strong>, comparável aos melhores do Nordeste — com a vantagem decisiva da <em>novidade</em> e da <em>autenticidade</em>.
+        </p>
+        <p>
+          Em Trancoso, Praia do Forte e Muro Alto, o mercado já está consolidado e caro. Em Jubiabá, o ticket ainda é acessível — mas a demanda qualificada já chegou: paulistas, mineiros e estrangeiros buscam o novo refúgio tropical do Brasil.
+        </p>
+        <p>
+          O home office, a queda da Selic, os voos diretos SP→Aracaju e a infraestrutura rodoviária (Linha Verde conectando a Bahia) formam <strong>o vento ideal</strong>.
+        </p>
+      </div>
+
+      <div class="reveal reveal-delay-2">
+        <ul class="benchmark-list">
+          <li class="benchmark-item">
+            <span>Destino</span>
+            <span>Ticket (m²)</span>
+            <span>Perfil</span>
+          </li>
+          <li class="benchmark-item">
+            <span>Jurerê Int. (SC)</span>
+            <span>R$ 20.000+</span>
+            <span>Consolidado</span>
+          </li>
+          <li class="benchmark-item">
+            <span>Trancoso (BA)</span>
+            <span>R$ 15.000+</span>
+            <span>Premium</span>
+          </li>
+          <li class="benchmark-item">
+            <span>Muro Alto (PE)</span>
+            <span>R$ 12.000+</span>
+            <span>Consolidado</span>
+          </li>
+          <li class="benchmark-item">
+            <span>Barra São Miguel (AL)</span>
+            <span>R$ 10.000+</span>
+            <span>Em alta</span>
+          </li>
+          <li class="benchmark-item">
+            <span>Jubiabá — entrada</span>
+            <span>R$ 4.000</span>
+            <span>Inaugural</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================
+     INVESTIMENTO
+     ============================ -->
+<section id="investimento">
+  <div class="sec-bg sec-bg-fixed"></div>
+  <div class="invest-orb"></div>
+  <div class="invest-inner">
+
+    <header class="invest-header">
+      <div class="section-label reveal">Plano de Investimento</div>
+      <h2 class="reveal reveal-delay-1">Três cotas. <em>Uma tese.</em></h2>
+      <p class="reveal reveal-delay-2">
+        Estrutura de captação transparente, com retornos auditáveis em três cenários. Cota mínima de R$ 300.000, prazo total de 48 meses, em modelo de Joint Venture com a GSWP.
+      </p>
+    </header>
+
+    <div class="invest-top-stats reveal">
+      <div class="invest-top-stat">
+        <div class="invest-top-stat-val">R$ 20 mi</div>
+        <div class="invest-top-stat-lab">Meta de Captação</div>
+      </div>
+      <div class="invest-top-stat">
+        <div class="invest-top-stat-val">48 meses</div>
+        <div class="invest-top-stat-lab">Horizonte do Projeto</div>
+      </div>
+      <div class="invest-top-stat">
+        <div class="invest-top-stat-val">R$ 300 k</div>
+        <div class="invest-top-stat-lab">Cota Mínima</div>
+      </div>
+      <div class="invest-top-stat">
+        <div class="invest-top-stat-val">75 cotas</div>
+        <div class="invest-top-stat-lab">Cotas Disponíveis</div>
+      </div>
+    </div>
+
+    <div class="packages">
+
+      <!-- EXPLORER -->
+      <div class="package reveal">
+        <div class="package-ribbon">Cota · 01</div>
+        <div class="package-name">Explorer</div>
+        <div class="package-subtitle">Entrada no projeto</div>
+        <div class="package-price">R$ 300.000</div>
+        <div class="package-price-sub">≈ 54,57 m² · 1 cota</div>
+
+        <ul class="package-features">
+          <li>Participação proporcional no VGV</li>
+          <li>Reserva de unidade residencial</li>
+          <li>Relatórios trimestrais de obra</li>
+          <li>Evento anual de investidores</li>
+        </ul>
+
+        <div class="package-returns">
+          <div class="package-return">
+            <span class="package-return-label">Cenário Mercado</span>
+            <span class="package-return-value">+118%</span>
+          </div>
+          <div class="package-return">
+            <span class="package-return-label">Cenário IPCA</span>
+            <span class="package-return-value">+215%</span>
+          </div>
+          <div class="package-return">
+            <span class="package-return-label">Cenário Aracaju 13,84% a.a.</span>
+            <span class="package-return-value">+266%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- FOUNDER -->
+      <div class="package featured reveal reveal-delay-1">
+        <div class="package-ribbon">Mais escolhido · 04 cotas</div>
+        <div class="package-name">Founder</div>
+        <div class="package-subtitle">O ponto ótimo da tese</div>
+        <div class="package-price">R$ 1.200.000</div>
+        <div class="package-price-sub">≈ 266,80 m² · 4 cotas</div>
+
+        <ul class="package-features">
+          <li>Prioridade de escolha de unidade</li>
+          <li>Acesso a quadra Seaside (Etapa 01)</li>
+          <li>Reunião trimestral com o board</li>
+          <li>Direitos de co-naming em área comum</li>
+          <li>Pool de condo-hotel opcional</li>
+        </ul>
+
+        <div class="package-returns">
+          <div class="package-return">
+            <span class="package-return-label">Cenário Mercado</span>
+            <span class="package-return-value">+167%</span>
+          </div>
+          <div class="package-return">
+            <span class="package-return-label">Cenário IPCA</span>
+            <span class="package-return-value">+285%</span>
+          </div>
+          <div class="package-return">
+            <span class="package-return-label">Cenário Aracaju 13,84% a.a.</span>
+            <span class="package-return-value">+347%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- LEGACY -->
+      <div class="package reveal reveal-delay-2">
+        <div class="package-ribbon">Exclusivo · 07 cotas</div>
+        <div class="package-name">Legacy</div>
+        <div class="package-subtitle">Participação fundadora</div>
+        <div class="package-price">R$ 2.100.000</div>
+        <div class="package-price-sub">≈ 525 m² · 7 cotas</div>
+
+        <ul class="package-features">
+          <li>Direito de escolha em qualquer quadra</li>
+          <li>Participação no beach club anchor</li>
+          <li>Lote em frente de mar garantido</li>
+          <li>Seat no comitê consultivo (voz ativa)</li>
+          <li>Condo-hotel com operação Airbnb Luxe</li>
+          <li>Acesso vitalício a amenidades wellness</li>
+        </ul>
+
+        <div class="package-returns">
+          <div class="package-return">
+            <span class="package-return-label">Cenário Mercado</span>
+            <span class="package-return-value">+200%</span>
+          </div>
+          <div class="package-return">
+            <span class="package-return-label">Cenário IPCA</span>
+            <span class="package-return-value">+333%</span>
+          </div>
+          <div class="package-return">
+            <span class="package-return-label">Cenário Aracaju 13,84% a.a.</span>
+            <span class="package-return-value">+403%</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="invest-disclaimer reveal">
+      Cenários calculados em base de VGV Mercado (R$ 12.000/m²), atualização monetária por IPCA (9,06% a.a.) e valorização média de Aracaju (13,84% a.a. — FipeZap 2024). Retornos brutos projetados em horizonte de 48 meses. Não se trata de oferta pública. Material exclusivo a investidores qualificados.
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================
+     FOTOS DA ÁREA
+     ============================ -->
+<section id="area">
+  <div class="area-inner">
+
+    <header class="area-header">
+      <div class="section-label reveal">O Terreno</div>
+      <h2 class="reveal reveal-delay-1">O ativo, <em>em imagens</em>.</h2>
+      <p class="reveal reveal-delay-2">
+        Registros aéreos e de solo do terreno de Jubiabá. Frente de mar contínua, topografia preservada, vegetação nativa intacta. O ponto de partida — antes que tudo mude.
+      </p>
+    </header>
+
+    <div class="area-gallery reveal">
+      <div class="area-item col-8" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Área/WhatsApp Image 2025-11-14 at 13.14.09 (4).jpeg" alt="Área Jubiabá — vista aérea">
+        <div class="area-item-lab">Vista aérea · frente de mar</div>
+      </div>
+      <div class="area-item col-4" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Área/WhatsApp Image 2025-11-14 at 13.14.10.jpeg" alt="Terreno de Jubiabá">
+        <div class="area-item-lab">Coqueiral nativo</div>
+      </div>
+
+      <div class="area-item col-4" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Área/WhatsApp Image 2025-11-14 at 13.14.07.jpeg" alt="Área">
+        <div class="area-item-lab">Perspectiva norte</div>
+      </div>
+      <div class="area-item col-4" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Área/WhatsApp Image 2025-11-14 at 13.14.09 (1).jpeg" alt="Frente de praia">
+        <div class="area-item-lab">Frente de praia</div>
+      </div>
+      <div class="area-item col-4" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Área/WhatsApp Image 2025-11-14 at 13.14.10 (1).jpeg" alt="Topografia">
+        <div class="area-item-lab">Topografia preservada</div>
+      </div>
+
+      <div class="area-item col-6" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Área/WhatsApp Image 2025-11-14 at 13.14.09 (3).jpeg" alt="Litoral">
+        <div class="area-item-lab">Extensão de litoral</div>
+      </div>
+      <div class="area-item col-6" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Área/WhatsApp Image 2025-11-14 at 13.14.09 (5).jpeg" alt="Vegetação nativa">
+        <div class="area-item-lab">Vegetação nativa</div>
+      </div>
+
+      <div class="area-item col-3" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Área/WhatsApp Image 2025-11-14 at 13.14.10 (3).jpeg" alt="Detalhe">
+        <div class="area-item-lab">Detalhe · solo</div>
+      </div>
+      <div class="area-item col-3" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Área/WhatsApp Image 2025-11-14 at 13.14.10 (4).jpeg" alt="Praia">
+        <div class="area-item-lab">Linha d'água</div>
+      </div>
+      <div class="area-item col-3" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Área/AEROPORTO ARACAJU.jpeg" alt="Aeroporto">
+        <div class="area-item-lab">Aeroporto de Aracaju · 63km</div>
+      </div>
+      <div class="area-item col-3" onclick="openLightbox(this)">
+        <video muted loop autoplay playsinline preload="metadata">
+          <source src="Investidores SERGIPE/FOTOS_/Fotos da Área/WhatsApp Video 2025-11-14 at 13.14.10.mp4" type="video/mp4">
+        </video>
+        <div class="video-badge">Drone</div>
+        <div class="area-item-lab">Sobrevoo do terreno</div>
+      </div>
+
+      <div class="area-item col-6" onclick="openLightbox(this)">
+        <video muted loop autoplay playsinline preload="metadata">
+          <source src="Investidores SERGIPE/FOTOS_/Fotos da Área/WhatsApp Video 2025-11-14 at 13.14.12 (4).mp4" type="video/mp4">
+        </video>
+        <div class="video-badge">Drone · 4K</div>
+        <div class="area-item-lab">Sobrevoo leste</div>
+      </div>
+      <div class="area-item col-6" onclick="openLightbox(this)">
+        <video muted loop autoplay playsinline preload="metadata">
+          <source src="Investidores SERGIPE/FOTOS_/Fotos da Área/WhatsApp Video 2025-11-14 at 13.14.12 (5).mp4" type="video/mp4">
+        </video>
+        <div class="video-badge">Drone · 4K</div>
+        <div class="area-item-lab">Sobrevoo oeste</div>
+      </div>
+
+      <div class="area-item col-4" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Área/WhatsApp Image 2025-11-14 at 13.14.09 (2).jpeg" alt="Terreno">
+        <div class="area-item-lab">Perspectiva leste</div>
+      </div>
+      <div class="area-item col-4" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Área/WhatsApp Image 2025-11-14 at 13.14.09 (6).jpeg" alt="Terreno">
+        <div class="area-item-lab">Perspectiva oeste</div>
+      </div>
+      <div class="area-item col-4" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Área/WhatsApp Image 2025-11-14 at 13.14.09 (7).jpeg" alt="Terreno">
+        <div class="area-item-lab">Panorâmica sul</div>
+      </div>
+
+      <div class="area-item col-6" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Área/WhatsApp Image 2025-11-14 at 13.14.10 (2).jpeg" alt="Vegetação">
+        <div class="area-item-lab">Cobertura vegetal</div>
+      </div>
+      <div class="area-item col-6" onclick="openLightbox(this)">
+        <img src="Investidores SERGIPE/FOTOS_/Fotos da Área/WhatsApp Image 2025-11-12 at 18.02.58.jpeg" alt="Vista geral">
+        <div class="area-item-lab">Vista geral</div>
+      </div>
+
+      <div class="area-item col-6" onclick="openLightbox(this)">
+        <video muted loop autoplay playsinline preload="metadata">
+          <source src="Investidores SERGIPE/FOTOS_/Fotos da Área/WhatsApp Video 2025-11-14 at 13.14.10 (1).mp4" type="video/mp4">
+        </video>
+        <div class="video-badge">Drone</div>
+        <div class="area-item-lab">Sobrevoo norte</div>
+      </div>
+      <div class="area-item col-6" onclick="openLightbox(this)">
+        <video muted loop autoplay playsinline preload="metadata">
+          <source src="Investidores SERGIPE/FOTOS_/Fotos da Área/WhatsApp Video 2025-11-14 at 13.14.12 (10).mp4" type="video/mp4">
+        </video>
+        <div class="video-badge">Drone · 4K</div>
+        <div class="area-item-lab">Travessia completa</div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================
+     VIABILIDADE
+     ============================ -->
+<section id="viabilidade">
+  <div class="sec-bg sec-bg-fixed"></div>
+  <div class="viab-orb"></div>
+  <div class="viab-inner">
+
+    <header class="viab-header">
+      <div class="section-label reveal">Viabilidade</div>
+      <h2 class="reveal reveal-delay-1">Aprovado pelo <em>poder público</em>. Em conformidade com a <em>legislação</em>.</h2>
+      <p class="reveal reveal-delay-2">
+        Jubiabá foi desenhado em conformidade total com o Zoneamento Ecológico-Econômico Costeiro (ZEEC), o Plano Diretor de Estância (Lei 2.319) e os estudos de análise ambiental do Litoral Sul. Zero surpresa regulatória.
+      </p>
+    </header>
+
+    <div class="viab-grid">
+      <div class="viab-card reveal">
+        <svg class="viab-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor">
+          <path d="M24 4l16 8v12c0 10-6 18-16 20-10-2-16-10-16-20V12l16-8z"/>
+          <path d="M18 24l4 4 8-10"/>
+        </svg>
+        <h3 class="viab-title">ZEEC Aprovado</h3>
+        <p class="viab-desc">
+          Masterplan em total compliance com o Zoneamento Ecológico-Econômico Costeiro do Litoral Sul de Sergipe. Estudo de Análise de Viabilidade Ambiental assinado e validado.
+        </p>
+      </div>
+      <div class="viab-card reveal reveal-delay-1">
+        <svg class="viab-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor">
+          <path d="M6 22l18-14 18 14v18H6V22z"/>
+          <path d="M18 40V28h12v12"/>
+        </svg>
+        <h3 class="viab-title">Plano Diretor</h3>
+        <p class="viab-desc">
+          Aderência completa à Lei 2.319 (atualização do Plano Diretor de Estância) e aos mapas atualizados de zoneamento urbano. Diretrizes ambientais e edilícias respeitadas.
+        </p>
+      </div>
+      <div class="viab-card reveal reveal-delay-2">
+        <svg class="viab-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor">
+          <circle cx="24" cy="24" r="18"/>
+          <path d="M24 4c-6 6-6 24 0 40M24 4c6 6 6 24 0 40M6 24h36"/>
+        </svg>
+        <h3 class="viab-title">Análise Técnica Ambiental</h3>
+        <p class="viab-desc">
+          Duas análises técnicas ambientais concluídas para as áreas Jubiabá 01 e Jubiabá 02. Caracterização do bioma, biota e cenário hídrico — tudo pronto para licenciamento.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================
+     CTA / CONTATO
+     ============================ -->
+<section id="contato">
+  <div class="cta-inner">
+    <h2 class="cta-title reveal">Há um trecho de Brasil à venda. <em>E ele só se vende uma vez.</em></h2>
+    <p class="cta-sub reveal reveal-delay-1">
+      Este material é destinado exclusivamente a investidores qualificados. Para agendar uma visita ao terreno, uma reunião privada com o board GSWP ou receber o data room completo de Jubiabá, entre em contato.
+    </p>
+
+    <div class="cta-buttons reveal reveal-delay-2">
+      <a href="mailto:investidores@gswp.com.br?subject=Jubiabá%20·%20Reunião%20Privada" class="btn-primary"><span>Agendar Reunião Privada</span></a>
+      <a href="#projeto" class="btn-ghost">
+        Revisar o projeto
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="cta-contact reveal reveal-delay-3">
+      <div class="cta-contact-item">
+        <div class="cta-contact-label">E-mail</div>
+        <div class="cta-contact-value">investidores@gswp.com.br</div>
+      </div>
+      <div class="cta-contact-item">
+        <div class="cta-contact-label">WhatsApp</div>
+        <div class="cta-contact-value">+55 (48) 9 ____-____</div>
+      </div>
+      <div class="cta-contact-item">
+        <div class="cta-contact-label">Sede</div>
+        <div class="cta-contact-value">Florianópolis · Santa Catarina · Brasil</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================
+     FOOTER
+     ============================ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-brand-logo">GS<span>W</span>P</div>
+      <p class="footer-brand-desc">
+        Greystone Wellness Propriety. Não construímos imóveis. Construímos legados. Jubiabá é o primeiro capítulo nordestino da filosofia GSWP — onde a pedra encontra a folha.
+      </p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Projeto</div>
+      <a href="#projeto">O Projeto</a>
+      <a href="#localizacao">Localização</a>
+      <a href="#masterplan">Masterplan</a>
+      <a href="#kvarch">Königsberger Vannucchi</a>
+      <a href="#hamam">Hamam Global</a>
+      <a href="#mercado">Mercado</a>
+      <a href="#investimento">Investimento</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Investidores</div>
+      <a href="#contato">Agendar Reunião</a>
+      <a href="#contato">Data Room</a>
+      <a href="mailto:investidores@gswp.com.br">E-mail</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 GSWP · Todos os direitos reservados</span>
+    <span>Estância · Sergipe · Brasil</span>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" onclick="closeLightbox()">×</button>
+  <div id="lightbox-content"></div>
+</div>
+
+<script>
+// ====================================================
+// JUBIABÁ · Interactions
+// ====================================================
+
+// Loader
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hidden');
+    document.getElementById('hero').classList.add('loaded');
+  }, 1800);
+});
+
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const cursorRing = document.getElementById('cursor-ring');
+let cursorX = 0, cursorY = 0, ringX = 0, ringY = 0;
+
+document.addEventListener('mousemove', (e) => {
+  cursorX = e.clientX;
+  cursorY = e.clientY;
+  cursor.style.left = cursorX + 'px';
+  cursor.style.top = cursorY + 'px';
+});
+
+function animateRing() {
+  ringX += (cursorX - ringX) * 0.15;
+  ringY += (cursorY - ringY) * 0.15;
+  cursorRing.style.left = ringX + 'px';
+  cursorRing.style.top = ringY + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 80) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+});
+
+// Reveal on scroll
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// Lightbox
+function openLightbox(el) {
+  const lb = document.getElementById('lightbox');
+  const content = document.getElementById('lightbox-content');
+  const img = el.querySelector('img');
+  const video = el.querySelector('video');
+
+  content.innerHTML = '';
+  if (video) {
+    const clone = video.cloneNode(true);
+    clone.controls = true;
+    clone.autoplay = true;
+    clone.muted = false;
+    content.appendChild(clone);
+  } else if (img) {
+    const newImg = document.createElement('img');
+    newImg.src = img.src;
+    newImg.alt = img.alt || '';
+    content.appendChild(newImg);
+  }
+  lb.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  const lb = document.getElementById('lightbox');
+  lb.classList.remove('active');
+  document.getElementById('lightbox-content').innerHTML = '';
+  document.body.style.overflow = '';
+}
+
+document.getElementById('lightbox').addEventListener('click', (e) => {
+  if (e.target.id === 'lightbox') closeLightbox();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeLightbox();
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', (e) => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// Parallax hero background (subtle)
+const heroBg = document.querySelector('.hero-bg-img');
+if (heroBg) {
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    if (y < 900) {
+      heroBg.style.transform = `translateY(${y * 0.3}px) scale(1.05)`;
+    }
+  }, { passive: true });
+}
+</script>
+
+</body>
+</html>

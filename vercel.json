@@ -26,6 +26,7 @@
           { "source": "/gswp-book-apresentacao", "destination": "/EI/gswp-book-apresentacao" },
           { "source": "/gswp-site", "destination": "/EI/gswp" },
           { "source": "/gswp-instagram", "destination": "/EI/gswp-instagram" },
-          { "source": "/brand-identity", "destination": "/EI/brand-identity" }
+          { "source": "/brand-identity", "destination": "/EI/brand-identity" },
+          { "source": "/jubiaba", "destination": "/Jubiabá/apresentacao-jubiaba" }
     ]
 }

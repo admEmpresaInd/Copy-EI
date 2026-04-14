@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<base href="/Jubiab%C3%A1/">
 <meta charset="UTF-8">
+<script>if(location.hostname!=='localhost'&&location.hostname!=='127.0.0.1'){document.write('<base href="/Jubiab%C3%A1/">')}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Jubiabá — Smart City · Estância, Sergipe · GSWP</title>
 <meta name="description" content="A primeira Smart City do litoral sul de Sergipe. Um refúgio tropical sofisticado na escala de Jurerê — assinatura GSWP Greystone Wellness Propriety.">
@@ -2347,13 +2347,14 @@ footer {
 #viabilidade { --sec-overlay: rgba(9,9,7,0.6); }
 
 /* Ensure section inner content is above the background layer */
-#manifesto > :not(.sec-bg),
-#projeto > :not(.sec-bg),
+/* Exclude decorative absolute-positioned elements (orbs, accents) to avoid adding layout height */
+#manifesto > :not(.sec-bg):not(.manifesto-bg):not(.manifesto-accent),
+#projeto > :not(.sec-bg):not(.projeto-bg-grid),
 #masterplan > :not(.sec-bg),
 #mercado > :not(.sec-bg),
-#investimento > :not(.sec-bg),
-#kvarch > :not(.sec-bg),
-#viabilidade > :not(.sec-bg) {
+#investimento > :not(.sec-bg):not(.invest-orb),
+#kvarch > :not(.sec-bg):not(.kv-bg-accent):not(.kv-bg-accent-bottom):not(.kv-orb),
+#viabilidade > :not(.sec-bg):not(.viab-orb) {
   position: relative;
   z-index: 1;
 }

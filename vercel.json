@@ -27,6 +27,7 @@
           { "source": "/gswp-site", "destination": "/EI/gswp" },
           { "source": "/gswp-instagram", "destination": "/EI/gswp-instagram" },
           { "source": "/brand-identity", "destination": "/EI/brand-identity" },
-          { "source": "/jubiaba", "destination": "/Jubiabá/apresentacao-jubiaba" }
+          { "source": "/jubiaba", "destination": "/Jubiabá/apresentacao-jubiaba" },
+          { "source": "/ancestra", "destination": "/Ancestra/index" }
     ]
 }

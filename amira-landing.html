@@ -1087,16 +1087,15 @@
     }
 
     .channels-row {
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(3, 200px);
+      gap: 20px;
       justify-content: center;
-      align-items: flex-start;
-      gap: 16px;
-      flex-wrap: wrap;
       padding: 0 40px;
     }
 
     .ch-card {
-      width: 158px;
+      width: 100%;
       background: var(--bg2);
       border: 1px solid rgba(255,255,255,0.07);
       border-radius: 24px;
@@ -1169,9 +1168,12 @@
       margin-top: 48px;
     }
 
-    @media (max-width: 600px) {
-      .channels-row { gap: 12px; padding: 0 20px; }
-      .ch-card { width: calc(50% - 22px); }
+    @media (max-width: 700px) {
+      .channels-row { grid-template-columns: repeat(3, 1fr); padding: 0 16px; gap: 12px; }
+    }
+
+    @media (max-width: 420px) {
+      .channels-row { grid-template-columns: repeat(2, 1fr); }
     }
 
     /* ─── FAQ ─── */

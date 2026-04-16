@@ -1051,85 +1051,101 @@
       .compare__row { grid-template-columns: 1fr; }
     }
 
-    /* ─── Channels v2 — editorial ─── */
+    /* ─── Channels ─── */
     .channels-section {
       background: var(--bg);
-      padding: 80px 0 0;
-      overflow: hidden;
+      padding: 88px 0;
     }
 
-    .channels-eyebrow {
+    .channels-head {
       text-align: center;
+      margin-bottom: 52px;
+    }
+
+    .channels-head__label {
       font-size: 13px;
       font-weight: 500;
       color: var(--muted);
-      letter-spacing: 0.06em;
+      letter-spacing: 0.07em;
       text-transform: uppercase;
-      margin-bottom: 0;
     }
 
-    .channels-track {
+    .channels-head__title {
+      font-size: clamp(30px, 4vw, 50px);
+      font-weight: 800;
+      color: var(--pearl);
+      margin-top: 12px;
+      line-height: 1.15;
+    }
+
+    .channels-head__title em {
+      font-style: normal;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .channels-row {
       display: flex;
-      align-items: center;
-      gap: 0;
-      padding: 72px max(32px, calc((100vw - 1280px) / 2)) 88px;
-      overflow-x: auto;
-      scrollbar-width: none;
-      -webkit-overflow-scrolling: touch;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+      padding: 0 40px;
     }
-    .channels-track::-webkit-scrollbar { display: none; }
 
-    .channel-tile {
-      flex-shrink: 0;
-      width: 196px;
-      height: 310px;
-      border-radius: 24px;
-      border: 1px solid rgba(255,255,255,0.07);
+    .ch-card {
+      width: 158px;
       background: var(--bg2);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 24px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-end;
-      padding: 0 20px 28px;
+      padding: 30px 16px 26px;
+      gap: 14px;
       position: relative;
-      margin-top: 52px;
-      transition: transform 0.35s ease, border-color 0.3s, box-shadow 0.35s;
-      cursor: default;
+      overflow: hidden;
+      transition: transform 0.3s ease, border-color 0.3s, box-shadow 0.3s;
     }
 
-    .channel-tile:hover {
-      transform: translateY(-10px);
-      border-color: rgba(255,255,255,0.14);
-      box-shadow: 0 24px 64px rgba(0,0,0,0.5);
+    .ch-card:hover {
+      transform: translateY(-7px);
+      border-color: rgba(255,255,255,0.13);
+      box-shadow: 0 20px 48px rgba(0,0,0,0.5);
     }
 
-    .channel-tile__glow {
+    .ch-card::after {
+      content: '';
       position: absolute;
-      inset: 0;
-      border-radius: 24px;
-      opacity: 0.18;
-      background: var(--tile-glow, transparent);
+      bottom: -24px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 130px;
+      height: 90px;
+      border-radius: 50%;
+      background: var(--ch-glow, rgba(255,255,255,0.03));
+      filter: blur(24px);
       pointer-events: none;
     }
 
-    .channel-tile__logo {
-      position: absolute;
-      top: -44px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 88px;
-      height: 88px;
-      border-radius: 22px;
+    .ch-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.55), 0 2px 8px rgba(0,0,0,0.3);
-      z-index: 2;
+      flex-shrink: 0;
       overflow: hidden;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.4);
+      position: relative;
+      z-index: 1;
     }
 
-    .channel-tile__name {
-      font-size: 14px;
+    .ch-name {
+      font-size: 13px;
       font-weight: 700;
       color: var(--pearl);
       text-align: center;
@@ -1137,47 +1153,25 @@
       z-index: 1;
     }
 
-    .channel-tile__users {
+    .ch-users {
       font-size: 11px;
       color: var(--muted);
       text-align: center;
-      margin-top: 5px;
+      margin-top: -6px;
       position: relative;
       z-index: 1;
     }
 
-    .channels-break {
-      flex-shrink: 0;
-      padding: 0 36px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2px;
-      margin-top: 0;
-    }
-
-    .channels-break span {
-      display: block;
-      font-size: clamp(26px, 3.5vw, 46px);
-      font-weight: 800;
-      color: var(--pearl);
+    .channels-sub {
       text-align: center;
-      line-height: 1.1;
-      white-space: nowrap;
-    }
-
-    .channels-break .channels-break__em {
-      background: linear-gradient(90deg, var(--gold), var(--gold-light));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .channels-footer-line {
-      text-align: center;
-      font-size: 13px;
+      font-size: 14px;
       color: var(--muted);
-      padding: 0 0 72px;
+      margin-top: 48px;
+    }
+
+    @media (max-width: 600px) {
+      .channels-row { gap: 12px; padding: 0 20px; }
+      .ch-card { width: calc(50% - 22px); }
     }
 
     /* ─── FAQ ─── */
@@ -1388,116 +1382,101 @@
 <!-- CHANNELS -->
 <section class="channels-section">
   <div class="container">
-    <p class="channels-eyebrow fade-in">A Amira vende onde teu lead já está</p>
-  </div>
 
-  <div class="channels-track fade-in">
+    <div class="channels-head fade-in">
+      <p class="channels-head__label">6 canais integrados</p>
+      <h2 class="channels-head__title">A Amira vende onde<br>teu lead <em>já está</em></h2>
+    </div>
 
-    <!-- WhatsApp -->
-    <div class="channel-tile" style="--tile-glow: radial-gradient(ellipse at 50% 0%, #25D366 0%, transparent 70%);">
-      <div class="channel-tile__logo" style="background: #25D366;">
-        <svg width="52" height="52" viewBox="0 0 32 32" fill="none">
-          <path d="M16 2C8.268 2 2 8.268 2 16c0 2.44.642 4.733 1.763 6.722L2 30l7.52-1.97A13.924 13.924 0 0 0 16 30c7.732 0 14-6.268 14-14S23.732 2 16 2Z" fill="white" fill-opacity="0.2"/>
-          <path d="M16 4.8C9.816 4.8 4.8 9.816 4.8 16c0 2.173.603 4.213 1.653 5.947L5.2 26.8l5.013-1.307A11.14 11.14 0 0 0 16 27.2c6.184 0 11.2-5.016 11.2-11.2S22.184 4.8 16 4.8Zm6.502 14.594c-.32.88-1.893 1.707-2.587 1.76-.667.053-1.28.267-4.307-1.013-3.64-1.547-5.947-5.253-6.12-5.493-.16-.24-1.387-1.84-1.387-3.52s.88-2.507 1.2-2.853c.32-.347.693-.427.933-.427h.667c.213 0 .507-.08.8.613l1.013 2.693c.16.4.053.72-.107.987l-.48.693c-.16.24-.187.453-.053.72.48.907 1.493 2.107 2.56 2.827 1.12.747 2.293 1.013 2.72.8.427-.213.68-.56.96-.907.16-.213.4-.267.64-.16l2.507 1.173c.24.107.4.32.32.64l-.08.467Z" fill="white"/>
-        </svg>
+    <div class="channels-row fade-in">
+
+      <!-- WhatsApp -->
+      <div class="ch-card" style="--ch-glow: #25D366;">
+        <div class="ch-icon" style="background: #25D366;">
+          <svg width="44" height="44" viewBox="0 0 32 32" fill="none">
+            <path d="M16 2C8.268 2 2 8.268 2 16c0 2.44.642 4.733 1.763 6.722L2 30l7.52-1.97A13.924 13.924 0 0 0 16 30c7.732 0 14-6.268 14-14S23.732 2 16 2Z" fill="rgba(255,255,255,0.18)"/>
+            <path d="M16 4.8C9.816 4.8 4.8 9.816 4.8 16c0 2.173.603 4.213 1.653 5.947L5.2 26.8l5.013-1.307A11.14 11.14 0 0 0 16 27.2c6.184 0 11.2-5.016 11.2-11.2S22.184 4.8 16 4.8Zm6.502 14.594c-.32.88-1.893 1.707-2.587 1.76-.667.053-1.28.267-4.307-1.013-3.64-1.547-5.947-5.253-6.12-5.493-.16-.24-1.387-1.84-1.387-3.52s.88-2.507 1.2-2.853c.32-.347.693-.427.933-.427h.667c.213 0 .507-.08.8.613l1.013 2.693c.16.4.053.72-.107.987l-.48.693c-.16.24-.187.453-.053.72.48.907 1.493 2.107 2.56 2.827 1.12.747 2.293 1.013 2.72.8.427-.213.68-.56.96-.907.16-.213.4-.267.64-.16l2.507 1.173c.24.107.4.32.32.64l-.08.467Z" fill="white"/>
+          </svg>
+        </div>
+        <p class="ch-name">WhatsApp</p>
+        <p class="ch-users">+2 bi de usuários</p>
       </div>
-      <div class="channel-tile__glow"></div>
-      <p class="channel-tile__name">WhatsApp</p>
-      <p class="channel-tile__users">+2 bi de usuários</p>
-    </div>
 
-    <!-- Instagram -->
-    <div class="channel-tile" style="margin-left: 16px; --tile-glow: radial-gradient(ellipse at 50% 0%, #e1306c 0%, transparent 70%);">
-      <div class="channel-tile__logo">
-        <svg width="88" height="88" viewBox="0 0 88 88" fill="none">
-          <defs>
-            <linearGradient id="ig2-grad" x1="0" y1="88" x2="88" y2="0" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stop-color="#f09433"/>
-              <stop offset="25%" stop-color="#e6683c"/>
-              <stop offset="50%" stop-color="#dc2743"/>
-              <stop offset="75%" stop-color="#cc2366"/>
-              <stop offset="100%" stop-color="#bc1888"/>
-            </linearGradient>
-          </defs>
-          <rect width="88" height="88" fill="url(#ig2-grad)"/>
-          <rect x="19" y="19" width="50" height="50" rx="14" stroke="white" stroke-width="4.5" fill="none"/>
-          <circle cx="44" cy="44" r="12.5" stroke="white" stroke-width="4.5" fill="none"/>
-          <circle cx="60" cy="28" r="3.5" fill="white"/>
-        </svg>
+      <!-- Instagram -->
+      <div class="ch-card" style="--ch-glow: #e1306c;">
+        <div class="ch-icon">
+          <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+            <defs>
+              <linearGradient id="ig3-grad" x1="0" y1="80" x2="80" y2="0" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#f09433"/>
+                <stop offset="50%" stop-color="#dc2743"/>
+                <stop offset="100%" stop-color="#bc1888"/>
+              </linearGradient>
+            </defs>
+            <rect width="80" height="80" fill="url(#ig3-grad)"/>
+            <rect x="18" y="18" width="44" height="44" rx="12" stroke="white" stroke-width="4" fill="none"/>
+            <circle cx="40" cy="40" r="11" stroke="white" stroke-width="4" fill="none"/>
+            <circle cx="55" cy="25" r="3.5" fill="white"/>
+          </svg>
+        </div>
+        <p class="ch-name">Instagram DM</p>
+        <p class="ch-users">+2 bi de usuários</p>
       </div>
-      <div class="channel-tile__glow"></div>
-      <p class="channel-tile__name">Instagram DM</p>
-      <p class="channel-tile__users">+2 bi de usuários</p>
-    </div>
 
-    <!-- TEXT BREAK 1 -->
-    <div class="channels-break">
-      <span>num só</span>
-      <span class="channels-break__em">lugar</span>
-    </div>
-
-    <!-- Telegram -->
-    <div class="channel-tile" style="--tile-glow: radial-gradient(ellipse at 50% 0%, #0088CC 0%, transparent 70%);">
-      <div class="channel-tile__logo" style="background: #0088CC;">
-        <svg width="52" height="52" viewBox="0 0 32 32" fill="none">
-          <path d="M6.5 15.2l17-6.7c.8-.3 1.5.2 1.2 1.3L22 22.3c-.2.9-.8 1.1-1.5.7l-4.3-3.3-2.1 2c-.2.2-.5.3-.8.3l.3-4.3 7.3-6.6c.3-.3 0-.4-.5-.1l-9 5.7-3.9-1.2c-.8-.3-.8-.8.4-1.3z" fill="white"/>
-        </svg>
+      <!-- Telegram -->
+      <div class="ch-card" style="--ch-glow: #0088CC;">
+        <div class="ch-icon" style="background: #0088CC;">
+          <svg width="44" height="44" viewBox="0 0 32 32" fill="none">
+            <path d="M6.5 15.2l17-6.7c.8-.3 1.5.2 1.2 1.3l-2.7 12.5c-.2.9-.8 1.1-1.5.7l-4.3-3.3-2.1 2c-.2.2-.5.3-.8.3l.3-4.3 7.3-6.6c.3-.3 0-.4-.5-.1l-9 5.7-3.9-1.2c-.85-.3-.85-.85.4-1.3z" fill="white"/>
+          </svg>
+        </div>
+        <p class="ch-name">Telegram</p>
+        <p class="ch-users">+900 mi de usuários</p>
       </div>
-      <div class="channel-tile__glow"></div>
-      <p class="channel-tile__name">Telegram</p>
-      <p class="channel-tile__users">+900 mi de usuários</p>
-    </div>
 
-    <!-- Facebook Messenger -->
-    <div class="channel-tile" style="margin-left: 16px; --tile-glow: radial-gradient(ellipse at 50% 0%, #1877F2 0%, transparent 70%);">
-      <div class="channel-tile__logo" style="background: #1877F2;">
-        <svg width="52" height="52" viewBox="0 0 32 32" fill="none">
-          <path d="M16 4C9.373 4 4 9.149 4 15.5c0 3.563 1.714 6.74 4.4 8.84V28l4.025-2.206C13.536 26.25 14.748 26.5 16 26.5 22.627 26.5 28 21.351 28 15.5S22.627 4 16 4Zm1.6 15.3l-3.2-3.4-6.4 3.4 7.2-7.6 3.2 3.4 6.2-3.4-7 7.6Z" fill="white"/>
-        </svg>
+      <!-- Facebook Messenger -->
+      <div class="ch-card" style="--ch-glow: #1877F2;">
+        <div class="ch-icon" style="background: #1877F2;">
+          <svg width="44" height="44" viewBox="0 0 32 32" fill="none">
+            <path d="M16 4C9.373 4 4 9.149 4 15.5c0 3.563 1.714 6.74 4.4 8.84V28l4.025-2.206C13.536 26.25 14.748 26.5 16 26.5 22.627 26.5 28 21.351 28 15.5S22.627 4 16 4Zm1.6 15.3l-3.2-3.4-6.4 3.4 7.2-7.6 3.2 3.4 6.2-3.4-7 7.6Z" fill="white"/>
+          </svg>
+        </div>
+        <p class="ch-name">Messenger</p>
+        <p class="ch-users">+1 bi de usuários</p>
       </div>
-      <div class="channel-tile__glow"></div>
-      <p class="channel-tile__name">Messenger</p>
-      <p class="channel-tile__users">+1 bi de usuários</p>
-    </div>
 
-    <!-- TEXT BREAK 2 -->
-    <div class="channels-break">
-      <span>onde teu lead</span>
-      <span class="channels-break__em">já está</span>
-    </div>
-
-    <!-- LinkedIn -->
-    <div class="channel-tile" style="--tile-glow: radial-gradient(ellipse at 50% 0%, #0A66C2 0%, transparent 70%);">
-      <div class="channel-tile__logo" style="background: #0A66C2; border-radius: 20px;">
-        <svg width="52" height="52" viewBox="0 0 32 32" fill="none">
-          <rect x="5" y="11" width="5" height="15" fill="white"/>
-          <circle cx="7.5" cy="7.5" r="3" fill="white"/>
-          <path d="M13 11h5v2.5s1.2-2.5 5-2.5c3.5 0 5 2.2 5 6v9h-5v-7c0-1.8-.7-3-2.5-3s-2.5 1.2-2.5 3v7h-5V11z" fill="white"/>
-        </svg>
+      <!-- LinkedIn -->
+      <div class="ch-card" style="--ch-glow: #0A66C2;">
+        <div class="ch-icon" style="background: #0A66C2; border-radius: 20px;">
+          <svg width="44" height="44" viewBox="0 0 32 32" fill="none">
+            <rect x="4" y="10" width="5" height="16" fill="white"/>
+            <circle cx="6.5" cy="6.5" r="3" fill="white"/>
+            <path d="M13 10h5v2.5c1-1.8 3-2.5 5-2.5 3.5 0 5 2.2 5 6v9h-5v-7c0-1.8-.7-3-2.5-3s-2.5 1.2-2.5 3v7h-5V10z" fill="white"/>
+          </svg>
+        </div>
+        <p class="ch-name">LinkedIn</p>
+        <p class="ch-users">+1 bi de usuários</p>
       </div>
-      <div class="channel-tile__glow"></div>
-      <p class="channel-tile__name">LinkedIn</p>
-      <p class="channel-tile__users">+1 bi de usuários</p>
+
+      <!-- Chat do Site -->
+      <div class="ch-card" style="--ch-glow: #34d399;">
+        <div class="ch-icon" style="background: #0d2218; border: 1.5px solid #34d399;">
+          <svg width="44" height="44" viewBox="0 0 32 32" fill="none">
+            <path d="M5 7h22v13a2 2 0 0 1-2 2H10l-5 5V7Z" stroke="#34d399" stroke-width="2" fill="none"/>
+            <circle cx="11" cy="14" r="1.5" fill="#34d399"/>
+            <circle cx="16" cy="14" r="1.5" fill="#34d399"/>
+            <circle cx="21" cy="14" r="1.5" fill="#34d399"/>
+          </svg>
+        </div>
+        <p class="ch-name">Chat do Site</p>
+        <p class="ch-users">Qualquer plataforma</p>
+      </div>
+
     </div>
 
-    <!-- Chat do Site -->
-    <div class="channel-tile" style="margin-left: 16px; --tile-glow: radial-gradient(ellipse at 50% 0%, #34d399 0%, transparent 70%);">
-      <div class="channel-tile__logo" style="background: #0f2b20; border: 2px solid #34d399;">
-        <svg width="52" height="52" viewBox="0 0 32 32" fill="none">
-          <path d="M6 8h20v12a2 2 0 0 1-2 2H10l-4 4V8Z" stroke="#34d399" stroke-width="2" fill="none"/>
-          <circle cx="11" cy="14" r="1.5" fill="#34d399"/>
-          <circle cx="16" cy="14" r="1.5" fill="#34d399"/>
-          <circle cx="21" cy="14" r="1.5" fill="#34d399"/>
-        </svg>
-      </div>
-      <div class="channel-tile__glow"></div>
-      <p class="channel-tile__name">Chat do Site</p>
-      <p class="channel-tile__users">Qualquer plataforma</p>
-    </div>
+    <p class="channels-sub fade-in">Uma Amira. Seis canais. Todos ao mesmo tempo.</p>
 
   </div>
-
-  <p class="channels-footer-line fade-in">Uma Amira. Seis canais. Todos ao mesmo tempo.</p>
 </section>
 
 <!-- PROBLEM -->

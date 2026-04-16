@@ -1,0 +1,1900 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AMIRA · Nenhum lead sem resposta</title>
+  <meta name="description" content="Amira é tua vendedora de IA. Atende no WhatsApp, Instagram, Telegram, Facebook, LinkedIn e no site. 24h por dia, conversando como gente." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── RESET ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #090909;
+      --bg2:          #111111;
+      --bg3:          #0d0d0d;
+      --gold:         #34d399;
+      --gold-light:   #6ee7b7;
+      --gold-dim:     rgba(52,211,153,0.07);
+      --gold-border:  rgba(52,211,153,0.18);
+      --pearl:        #fafafa;
+      --pearl-dim:    rgba(250,250,250,0.7);
+      --pearl-faint:  rgba(250,250,250,0.35);
+      --muted:        #6b6b6b;
+      --border:       rgba(255,255,255,0.07);
+      --border-hover: rgba(52,211,153,0.25);
+      --red:          #ef4444;
+      --radius:       12px;
+      --radius-lg:    18px;
+      --radius-xl:    24px;
+      --font-display: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-body:    'Inter', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--pearl);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-display);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      font-weight: 700;
+    }
+
+    em { font-style: italic; }
+
+    /* ─── UTILITIES ─── */
+    .container       { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+    .container--sm   { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+
+    .label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(52,211,153,0.08);
+      border: 1px solid rgba(52,211,153,0.15);
+      border-radius: 99px;
+      padding: 5px 14px;
+    }
+
+    .section__title {
+      font-size: clamp(32px, 4vw, 54px);
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+
+    .section__sub {
+      font-size: 17px;
+      color: var(--pearl-dim);
+      line-height: 1.7;
+      max-width: 520px;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: none; }
+
+    /* ─── BUTTONS ─── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.22s ease;
+      border: none;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn--primary {
+      background: var(--gold);
+      color: #062115;
+      padding: 14px 28px;
+    }
+    .btn--primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-1px);
+      box-shadow: 0 0 28px rgba(52,211,153,0.3), 0 0 60px rgba(52,211,153,0.12);
+    }
+
+    .btn--ghost {
+      background: transparent;
+      color: var(--pearl);
+      padding: 13px 28px;
+      border: 1px solid var(--border);
+    }
+    .btn--ghost:hover { border-color: var(--border-hover); background: var(--gold-dim); }
+
+    .btn--dark {
+      background: #0a0a0a;
+      color: var(--pearl);
+      padding: 15px 32px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .btn--dark:hover { border-color: rgba(255,255,255,0.2); background: #141414; }
+
+    .btn--lg { padding: 18px 36px; font-size: 15px; border-radius: 12px; }
+    .btn--xl { padding: 20px 44px; font-size: 16px; font-weight: 700; border-radius: 14px; }
+
+    /* ─── GLASS CARD ─── */
+    .glass {
+      background: rgba(255,255,255,0.025);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 22px 0;
+      transition: all 0.3s ease;
+    }
+    nav.scrolled {
+      background: rgba(9,9,9,0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+    }
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav__logo {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      color: var(--pearl);
+      text-decoration: none;
+    }
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav__links a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav__links a:hover { color: var(--pearl); }
+    .nav__cta { display: flex; align-items: center; gap: 12px; }
+
+    @media (max-width: 768px) {
+      .nav__links { display: none; }
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 120px 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero__orb {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero__orb--1 {
+      width: 700px; height: 700px;
+      top: -200px; left: -100px;
+      background: radial-gradient(circle, rgba(52,211,153,0.08) 0%, transparent 70%);
+    }
+    .hero__orb--2 {
+      width: 500px; height: 500px;
+      bottom: -100px; right: -80px;
+      background: radial-gradient(circle, rgba(52,211,153,0.05) 0%, transparent 70%);
+    }
+    .hero__orb--3 {
+      width: 300px; height: 300px;
+      top: 40%; right: 20%;
+      background: radial-gradient(circle, rgba(52,211,153,0.04) 0%, transparent 70%);
+    }
+
+    .hero__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 32px;
+    }
+    .hero__eyebrow-dot {
+      width: 7px; height: 7px;
+      background: var(--gold);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--gold);
+      animation: pulse 2.4s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.7); }
+    }
+    .hero__eyebrow span {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .hero h1 {
+      font-size: clamp(40px, 5vw, 68px);
+      font-weight: 800;
+      margin-bottom: 28px;
+      color: var(--pearl);
+    }
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(120deg, var(--gold), var(--gold-light), var(--gold));
+      background-size: 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 4s linear infinite;
+    }
+    @keyframes shimmer {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
+
+    .hero__sub {
+      font-size: 17px;
+      color: var(--pearl-dim);
+      line-height: 1.75;
+      margin-bottom: 40px;
+      max-width: 460px;
+    }
+
+    .hero__ctas {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 44px;
+    }
+
+    .hero__proof {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .hero__proof-avatars {
+      display: flex;
+    }
+    .hero__proof-avatar {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--bg2);
+      border: 2px solid var(--bg);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: -8px;
+    }
+    .hero__proof-avatar:first-child { margin-left: 0; }
+    .hero__proof-text {
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .hero__proof-text strong { color: var(--pearl); }
+
+    /* HERO MOCKUP */
+    .hero__visual { position: relative; }
+
+    .hero__mockup {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: 0 0 0 1px rgba(52,211,153,0.08), 0 40px 80px rgba(0,0,0,0.6);
+    }
+    .mockup__header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+    }
+    .mockup__avatar {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 14px;
+      color: #062115;
+    }
+    .mockup__name { font-size: 14px; font-weight: 600; }
+    .mockup__status { font-size: 11px; color: var(--gold); }
+
+    .mockup__msgs { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+
+    .mockup__bubble {
+      padding: 12px 16px;
+      border-radius: 14px;
+      font-size: 14px;
+      line-height: 1.5;
+      max-width: 82%;
+    }
+    .mockup__bubble--in {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      color: var(--pearl-dim);
+      border-bottom-left-radius: 4px;
+    }
+    .mockup__bubble--out {
+      background: rgba(52,211,153,0.12);
+      border: 1px solid rgba(52,211,153,0.2);
+      color: var(--pearl);
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+    .mockup__meta {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    .mockup__meta--right { text-align: right; }
+
+    .mockup__typing {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 10px 14px;
+      background: rgba(52,211,153,0.06);
+      border: 1px solid rgba(52,211,153,0.12);
+      border-radius: 14px;
+      border-bottom-right-radius: 4px;
+      width: fit-content;
+      align-self: flex-end;
+    }
+    .mockup__dot {
+      width: 6px; height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      animation: bounce 1.2s ease-in-out infinite;
+    }
+    .mockup__dot:nth-child(2) { animation-delay: 0.2s; }
+    .mockup__dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes bounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.6; }
+      30% { transform: translateY(-5px); opacity: 1; }
+    }
+
+    .hero__badge {
+      position: absolute;
+      background: rgba(15,15,15,0.92);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 18px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    .hero__badge span { display: block; font-weight: 700; font-size: 16px; color: var(--gold); }
+    .hero__badge small { font-size: 11px; color: var(--muted); }
+    .hero__badge--1 { bottom: -20px; left: -30px; }
+    .hero__badge--2 { top: -20px; right: -20px; }
+
+    @media (max-width: 900px) {
+      .hero__grid { grid-template-columns: 1fr; gap: 48px; }
+      .hero__visual { display: none; }
+      .hero h1 { font-size: clamp(36px, 8vw, 52px); }
+    }
+
+    /* ─── CHANNELS STRIP ─── */
+    .channels-strip {
+      background: var(--bg3);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 0;
+      overflow: hidden;
+    }
+    .channels-strip__label {
+      text-align: center;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .channels-marquee {
+      display: flex;
+      gap: 0;
+      overflow: hidden;
+    }
+    .channels-track {
+      display: flex;
+      gap: 0;
+      animation: marquee 24s linear infinite;
+      flex-shrink: 0;
+      min-width: 100%;
+    }
+    .channels-track:hover { animation-play-state: paused; }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .ch-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 24px;
+      white-space: nowrap;
+      border-right: 1px solid var(--border);
+    }
+    .ch-pill__dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .ch-pill__name {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--pearl-dim);
+    }
+    .ch-pill__count {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* ─── FEATURES ─── */
+    .features {
+      padding: 120px 0;
+    }
+    .features__head {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .features__head .label { margin-bottom: 20px; }
+    .features__head .section__title { max-width: 600px; margin: 0 auto 16px; }
+    .features__head .section__sub { margin: 0 auto; text-align: center; }
+
+    .features__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 700px) {
+      .features__grid { grid-template-columns: 1fr; }
+    }
+
+    .feature-card {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 40px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(52,211,153,0.3), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .feature-card:hover {
+      border-color: rgba(52,211,153,0.15);
+      box-shadow: 0 0 40px rgba(52,211,153,0.05);
+    }
+    .feature-card:hover::before { opacity: 1; }
+
+    .feature-card.feature-card--wide {
+      grid-column: span 2;
+    }
+    @media (max-width: 700px) {
+      .feature-card.feature-card--wide { grid-column: span 1; }
+    }
+
+    .feature-card__icon {
+      width: 48px; height: 48px;
+      background: rgba(52,211,153,0.08);
+      border: 1px solid rgba(52,211,153,0.15);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 24px;
+    }
+    .feature-card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .feature-card p {
+      font-size: 15px;
+      color: var(--pearl-dim);
+      line-height: 1.7;
+    }
+
+    .feature-card--wide .feature-wide__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    @media (max-width: 600px) {
+      .feature-card--wide .feature-wide__inner { grid-template-columns: 1fr; }
+    }
+
+    .feature-wide__stat {
+      font-family: var(--font-display);
+      font-size: 72px;
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .feature-wide__stat-label {
+      font-size: 16px;
+      color: var(--pearl-dim);
+    }
+
+    .feature-wide__items { display: flex; flex-direction: column; gap: 16px; }
+    .feature-wide__item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .feature-wide__item-check {
+      width: 20px; height: 20px;
+      background: rgba(52,211,153,0.12);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .feature-wide__item p {
+      font-size: 14px;
+      color: var(--pearl-dim);
+      line-height: 1.6;
+    }
+    .feature-wide__item p strong { color: var(--pearl); }
+
+    /* ─── HOW IT WORKS ─── */
+    .how {
+      padding: 120px 0;
+      background: var(--bg3);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .how__head {
+      text-align: center;
+      margin-bottom: 72px;
+    }
+    .how__head .label { margin-bottom: 20px; }
+
+    .how__steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--border);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+    }
+    @media (max-width: 700px) {
+      .how__steps { grid-template-columns: 1fr; }
+    }
+
+    .how__step {
+      background: var(--bg3);
+      padding: 48px 36px;
+      position: relative;
+    }
+    .how__step-num {
+      font-family: var(--font-display);
+      font-size: 64px;
+      font-weight: 800;
+      color: rgba(52,211,153,0.08);
+      line-height: 1;
+      margin-bottom: 24px;
+      letter-spacing: -0.04em;
+    }
+    .how__step h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .how__step p {
+      font-size: 14px;
+      color: var(--pearl-dim);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .how__step-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(52,211,153,0.07);
+      border: 1px solid rgba(52,211,153,0.12);
+      border-radius: 99px;
+      padding: 4px 12px;
+    }
+
+    /* ─── PROOF ─── */
+    .proof { padding: 120px 0; }
+
+    .proof__stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      background: var(--border);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      margin-bottom: 72px;
+    }
+    @media (max-width: 700px) {
+      .proof__stats { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .proof__stat {
+      background: var(--bg2);
+      padding: 36px 28px;
+      text-align: center;
+    }
+    .proof__stat-num {
+      font-family: var(--font-display);
+      font-size: 44px;
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .proof__stat-label {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .proof__testimonials {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    @media (max-width: 700px) {
+      .proof__testimonials { grid-template-columns: 1fr; }
+    }
+
+    .testimonial {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 32px;
+      transition: border-color 0.3s;
+    }
+    .testimonial:hover { border-color: rgba(52,211,153,0.15); }
+
+    .testimonial__stars { color: var(--gold); font-size: 14px; margin-bottom: 16px; letter-spacing: 2px; }
+    .testimonial__text {
+      font-size: 15px;
+      color: var(--pearl-dim);
+      line-height: 1.7;
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+    .testimonial__author { display: flex; align-items: center; gap: 12px; }
+    .testimonial__avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: rgba(52,211,153,0.1);
+      border: 1px solid rgba(52,211,153,0.2);
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .testimonial__name { font-size: 14px; font-weight: 600; }
+    .testimonial__role { font-size: 12px; color: var(--muted); }
+
+    /* ─── COMPARE ─── */
+    .compare-section { padding: 120px 0; background: var(--bg3); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+    .compare-section__head { text-align: center; margin-bottom: 64px; }
+    .compare-section__head .label { margin-bottom: 20px; }
+
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      background: var(--border);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+    }
+    @media (max-width: 600px) { .compare-grid { grid-template-columns: 1fr; } }
+
+    .compare-col {
+      padding: 40px;
+    }
+    .compare-col--bad { background: rgba(239,68,68,0.03); }
+    .compare-col--good { background: rgba(52,211,153,0.03); }
+
+    .compare-col__header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 32px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .compare-col__badge {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 99px;
+    }
+    .compare-col__badge--bad { background: rgba(239,68,68,0.1); color: #ef4444; border: 1px solid rgba(239,68,68,0.15); }
+    .compare-col__badge--good { background: rgba(52,211,153,0.1); color: var(--gold); border: 1px solid rgba(52,211,153,0.2); }
+
+    .compare-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .compare-item__icon {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .compare-item__icon--x { background: rgba(239,68,68,0.12); color: #ef4444; }
+    .compare-item__icon--check { background: rgba(52,211,153,0.12); color: var(--gold); }
+    .compare-item p {
+      font-size: 14px;
+      color: var(--pearl-dim);
+      line-height: 1.6;
+    }
+    .compare-item p strong { color: var(--pearl); }
+
+    /* ─── ROI MATH ─── */
+    .roi { padding: 120px 0; }
+    .roi__head { text-align: center; margin-bottom: 64px; }
+    .roi__head .label { margin-bottom: 20px; }
+
+    .roi__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      max-width: 860px;
+      margin: 0 auto 32px;
+    }
+    @media (max-width: 600px) { .roi__grid { grid-template-columns: 1fr; } }
+
+    .roi__card {
+      border-radius: var(--radius-xl);
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .roi__card--bad { background: rgba(239,68,68,0.04); border: 1px solid rgba(239,68,68,0.12); }
+    .roi__card--good { background: rgba(52,211,153,0.04); border: 1px solid rgba(52,211,153,0.2); box-shadow: 0 0 40px rgba(52,211,153,0.06); }
+
+    .roi__card-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .roi__card-label--bad { color: #ef4444; }
+    .roi__card-label--good { color: var(--gold); }
+
+    .roi__item { border-top: 1px solid var(--border); padding-top: 20px; }
+    .roi__item-label { font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+    .roi__item-value { font-family: var(--font-display); font-size: 22px; font-weight: 700; line-height: 1.2; }
+    .roi__item-value--bad { color: #ef4444; }
+    .roi__item-value--good { color: var(--gold); }
+    .roi__item-note { font-size: 12px; color: var(--muted); margin-top: 6px; }
+
+    .roi__footer {
+      text-align: center;
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ─── MANIFESTO ─── */
+    .manifesto {
+      padding: 140px 0;
+      background: var(--bg3);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .manifesto__orb {
+      position: absolute;
+      width: 600px; height: 600px;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(52,211,153,0.05) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .manifesto__inner {
+      max-width: 740px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+    }
+    .manifesto__opening {
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 48px;
+    }
+    .manifesto__opening em {
+      font-style: italic;
+      color: var(--gold);
+      -webkit-text-fill-color: var(--gold);
+    }
+    .manifesto__body {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 48px;
+    }
+    .manifesto__body p {
+      font-size: 18px;
+      color: var(--pearl-dim);
+      line-height: 1.75;
+    }
+    .manifesto__close {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--pearl);
+      letter-spacing: -0.02em;
+    }
+
+    /* ─── WHITE CTA (high-contrast section) ─── */
+    .cta-white {
+      background: #f5f5f5;
+      padding: 120px 0;
+    }
+    .cta-white__inner {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .cta-white .label {
+      background: rgba(9,9,9,0.07);
+      border: 1px solid rgba(9,9,9,0.12);
+      color: #0d3d29;
+    }
+    .cta-white h2 {
+      font-size: clamp(36px, 4.5vw, 58px);
+      font-weight: 800;
+      color: #0a0a0a;
+      margin: 24px 0 20px;
+      letter-spacing: -0.04em;
+    }
+    .cta-white h2 em {
+      font-style: italic;
+      color: #0d8a5c;
+    }
+    .cta-white p {
+      font-size: 17px;
+      color: #4a4a4a;
+      line-height: 1.75;
+      margin-bottom: 40px;
+    }
+    .cta-white__btns {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn--white-primary {
+      background: #0a0a0a;
+      color: #fafafa;
+      padding: 18px 40px;
+      font-size: 15px;
+      font-weight: 700;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+      font-family: var(--font-body);
+    }
+    .btn--white-primary:hover { background: #1a1a1a; transform: translateY(-1px); }
+
+    .btn--white-ghost {
+      background: transparent;
+      color: #0a0a0a;
+      padding: 17px 32px;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 12px;
+      border: 1.5px solid rgba(0,0,0,0.15);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+      font-family: var(--font-body);
+    }
+    .btn--white-ghost:hover { border-color: rgba(0,0,0,0.3); background: rgba(0,0,0,0.04); }
+
+    .cta-white__proof {
+      margin-top: 28px;
+      font-size: 13px;
+      color: #888;
+    }
+    .cta-white__proof strong { color: #333; }
+
+    /* ─── GUARANTEE ─── */
+    .guarantee { padding: 120px 0; background: var(--bg3); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .guarantee__inner { max-width: 680px; margin: 0 auto; text-align: center; }
+    .guarantee__icon { font-size: 48px; margin-bottom: 24px; }
+    .guarantee h2 { margin-bottom: 24px; }
+    .guarantee p {
+      font-size: 17px;
+      color: var(--pearl-dim);
+      line-height: 1.8;
+      margin-bottom: 36px;
+    }
+    .guarantee__badges {
+      display: inline-flex;
+      align-items: center;
+      gap: 20px;
+      background: rgba(52,211,153,0.04);
+      border: 1px solid rgba(52,211,153,0.15);
+      border-radius: var(--radius-lg);
+      padding: 18px 28px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .guarantee__badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--pearl-dim);
+    }
+    .guarantee__badge-check { color: var(--gold); font-size: 15px; }
+    .guarantee__sep { color: var(--border); font-size: 20px; }
+
+    /* ─── FAQ ─── */
+    .faq { padding: 120px 0; }
+    .faq__head { text-align: center; margin-bottom: 64px; }
+    .faq__head .label { margin-bottom: 20px; }
+
+    .faq__list {
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      background: var(--border);
+    }
+
+    .faq-item {
+      background: var(--bg2);
+      cursor: pointer;
+    }
+    .faq-item summary {
+      font-size: 15px;
+      font-weight: 600;
+      padding: 22px 28px;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      color: var(--pearl);
+      transition: color 0.2s;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after {
+      content: '+';
+      font-size: 20px;
+      font-weight: 300;
+      color: var(--muted);
+      flex-shrink: 0;
+      transition: transform 0.3s;
+    }
+    .faq-item[open] summary::after { transform: rotate(45deg); }
+    .faq-item[open] summary { color: var(--gold); }
+    .faq-item p {
+      padding: 0 28px 22px;
+      font-size: 14px;
+      color: var(--pearl-dim);
+      line-height: 1.75;
+    }
+
+    /* ─── FINAL CTA ─── */
+    .final-cta {
+      padding: 140px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .final-cta__radial {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px; height: 800px;
+      background: radial-gradient(circle, rgba(52,211,153,0.09) 0%, rgba(52,211,153,0.02) 40%, transparent 70%);
+      pointer-events: none;
+    }
+    .final-cta__inner {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .final-cta .label { margin-bottom: 24px; }
+    .final-cta h2 {
+      font-size: clamp(36px, 4.5vw, 58px);
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+    .final-cta h2 em {
+      font-style: normal;
+      background: linear-gradient(120deg, var(--gold), var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .final-cta p {
+      font-size: 17px;
+      color: var(--pearl-dim);
+      line-height: 1.7;
+      margin-bottom: 44px;
+    }
+    .final-cta__btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    /* ─── FORM / AGENDAR ─── */
+    #agendar {
+      background: var(--bg3);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 100px 0;
+    }
+    .agendar__inner {
+      max-width: 520px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .agendar__inner .label { margin-bottom: 20px; }
+    .agendar__inner h2 { margin-bottom: 16px; }
+    .agendar__inner p {
+      font-size: 15px;
+      color: var(--pearl-dim);
+      margin-bottom: 36px;
+    }
+    .form__row {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .form__input {
+      width: 100%;
+      padding: 14px 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--pearl);
+      font-size: 14px;
+      font-family: var(--font-body);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form__input:focus { border-color: rgba(52,211,153,0.3); }
+    .form__input::placeholder { color: var(--muted); }
+    .form__submit {
+      width: 100%;
+      padding: 16px;
+      background: var(--gold);
+      color: #062115;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: var(--font-body);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .form__submit:hover { background: var(--gold-light); transform: translateY(-1px); }
+    .form__note { font-size: 12px; color: var(--muted); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 64px 0 40px;
+    }
+    .footer__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    @media (max-width: 700px) {
+      .footer__inner { grid-template-columns: 1fr; gap: 32px; }
+    }
+    .footer__brand {}
+    .footer__logo {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+    .footer__tagline { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    .footer__col h4 { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--pearl); margin-bottom: 16px; }
+    .footer__col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer__col ul a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .footer__col ul a:hover { color: var(--pearl); }
+
+    .footer__bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--muted);
+    }
+    @media (max-width: 600px) { .footer__bottom { flex-direction: column; gap: 12px; text-align: center; } }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="container">
+    <div class="nav__inner">
+      <a href="#" class="nav__logo">AMIRA</a>
+      <ul class="nav__links">
+        <li><a href="#como-funciona">Como funciona</a></li>
+        <li><a href="#prova">Resultados</a></li>
+        <li><a href="#garantia">Garantia</a></li>
+        <li><a href="#faq">Perguntas</a></li>
+      </ul>
+      <div class="nav__cta">
+        <a href="#agendar" class="btn btn--primary">Agendar demo →</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero__orb hero__orb--1"></div>
+  <div class="hero__orb hero__orb--2"></div>
+  <div class="hero__orb hero__orb--3"></div>
+  <div class="container">
+    <div class="hero__grid">
+
+      <div class="hero__content fade-in">
+        <div class="hero__eyebrow">
+          <div class="hero__eyebrow-dot"></div>
+          <span>Vendedora IA Multicanal</span>
+        </div>
+
+        <h1>
+          Teu lead chegou<br>
+          às 23h.<br>
+          <em>Tua Amira</em><br>
+          respondeu às 23h.
+        </h1>
+
+        <p class="hero__sub">
+          Enquanto teu concorrente dormia, ela fechou.
+          Atende no WhatsApp, Instagram, Telegram, LinkedIn e mais.
+          Sem parecer robô. Sem perder nenhum lead.
+        </p>
+
+        <div class="hero__ctas">
+          <a href="#agendar" class="btn btn--primary btn--lg">Agendar minha demonstração →</a>
+          <a href="#como-funciona" class="btn btn--ghost btn--lg">Ver como funciona</a>
+        </div>
+
+        <div class="hero__proof">
+          <div class="hero__proof-avatars">
+            <div class="hero__proof-avatar">JL</div>
+            <div class="hero__proof-avatar">MR</div>
+            <div class="hero__proof-avatar">CS</div>
+            <div class="hero__proof-avatar">AF</div>
+            <div class="hero__proof-avatar">+</div>
+          </div>
+          <p class="hero__proof-text"><strong>47 criadores</strong> já têm uma Amira ativa</p>
+        </div>
+      </div>
+
+      <div class="hero__visual fade-in" style="transition-delay:0.2s;">
+        <div class="hero__mockup">
+          <div class="mockup__header">
+            <div class="mockup__avatar">A</div>
+            <div>
+              <div class="mockup__name">Amira · Sara</div>
+              <div class="mockup__status">● Online agora</div>
+            </div>
+          </div>
+          <div class="mockup__msgs">
+            <div>
+              <div class="mockup__bubble mockup__bubble--in">
+                Oi! Vi o teu post sobre o curso. Qual o valor?
+              </div>
+              <div class="mockup__meta" style="padding-left:4px;">23:17</div>
+            </div>
+            <div>
+              <div class="mockup__bubble mockup__bubble--out">
+                Oi, Ana! O Método Completo tá em R$297 com acesso vitalício. O que te chamou atenção no post? 😊
+              </div>
+              <div class="mockup__meta mockup__meta--right" style="padding-right:4px;">23:17 · Amira</div>
+            </div>
+            <div>
+              <div class="mockup__bubble mockup__bubble--in">
+                A parte de escalar sem contratar. Sou coach e tô sozinha.
+              </div>
+            </div>
+            <div class="mockup__typing">
+              <div class="mockup__dot"></div>
+              <div class="mockup__dot"></div>
+              <div class="mockup__dot"></div>
+            </div>
+          </div>
+        </div>
+        <div class="hero__badge hero__badge--1">
+          <span>+R$ 4.760</span>
+          <small>em vendas esta semana</small>
+        </div>
+        <div class="hero__badge hero__badge--2">
+          <span>127 leads</span>
+          <small>respondidos enquanto dormia</small>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CHANNELS STRIP -->
+<div class="channels-strip">
+  <p class="channels-strip__label">Presente em todos os canais do teu lead</p>
+  <div class="channels-marquee">
+    <div class="channels-track">
+      <div class="ch-pill">
+        <div class="ch-pill__dot" style="background:#25D366;"></div>
+        <span class="ch-pill__name">WhatsApp</span>
+        <span class="ch-pill__count">+2 bi usuários</span>
+      </div>
+      <div class="ch-pill">
+        <div class="ch-pill__dot" style="background:#E1306C;"></div>
+        <span class="ch-pill__name">Instagram DM</span>
+        <span class="ch-pill__count">+2 bi usuários</span>
+      </div>
+      <div class="ch-pill">
+        <div class="ch-pill__dot" style="background:#0088CC;"></div>
+        <span class="ch-pill__name">Telegram</span>
+        <span class="ch-pill__count">+900 mi usuários</span>
+      </div>
+      <div class="ch-pill">
+        <div class="ch-pill__dot" style="background:#1877F2;"></div>
+        <span class="ch-pill__name">Facebook Messenger</span>
+        <span class="ch-pill__count">+1 bi usuários</span>
+      </div>
+      <div class="ch-pill">
+        <div class="ch-pill__dot" style="background:#0A66C2;"></div>
+        <span class="ch-pill__name">LinkedIn</span>
+        <span class="ch-pill__count">+1 bi usuários</span>
+      </div>
+      <div class="ch-pill">
+        <div class="ch-pill__dot" style="background:#34d399;"></div>
+        <span class="ch-pill__name">Chat do Site</span>
+        <span class="ch-pill__count">Qualquer plataforma</span>
+      </div>
+      <!-- duplicado para loop perfeito -->
+      <div class="ch-pill">
+        <div class="ch-pill__dot" style="background:#25D366;"></div>
+        <span class="ch-pill__name">WhatsApp</span>
+        <span class="ch-pill__count">+2 bi usuários</span>
+      </div>
+      <div class="ch-pill">
+        <div class="ch-pill__dot" style="background:#E1306C;"></div>
+        <span class="ch-pill__name">Instagram DM</span>
+        <span class="ch-pill__count">+2 bi usuários</span>
+      </div>
+      <div class="ch-pill">
+        <div class="ch-pill__dot" style="background:#0088CC;"></div>
+        <span class="ch-pill__name">Telegram</span>
+        <span class="ch-pill__count">+900 mi usuários</span>
+      </div>
+      <div class="ch-pill">
+        <div class="ch-pill__dot" style="background:#1877F2;"></div>
+        <span class="ch-pill__name">Facebook Messenger</span>
+        <span class="ch-pill__count">+1 bi usuários</span>
+      </div>
+      <div class="ch-pill">
+        <div class="ch-pill__dot" style="background:#0A66C2;"></div>
+        <span class="ch-pill__name">LinkedIn</span>
+        <span class="ch-pill__count">+1 bi usuários</span>
+      </div>
+      <div class="ch-pill">
+        <div class="ch-pill__dot" style="background:#34d399;"></div>
+        <span class="ch-pill__name">Chat do Site</span>
+        <span class="ch-pill__count">Qualquer plataforma</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="container">
+    <div class="features__head fade-in">
+      <div class="label">Por que a Amira é diferente</div>
+      <h2 class="section__title" style="margin-top:20px;">Não é chatbot.<br><em>É tua melhor vendedora.</em></h2>
+      <p class="section__sub">Todo chatbot que você já viu afasta o lead. Amira foi treinada pra vender, não pra responder.</p>
+    </div>
+
+    <div class="features__grid">
+
+      <div class="feature-card fade-in">
+        <div class="feature-card__icon">🧠</div>
+        <h3>Treinada na tua voz</h3>
+        <p>Não responde com script genérico. Responde com o que você ensinou: tua oferta, tuas palavras, teu jeito de fechar. Em 5 minutos de configuração.</p>
+      </div>
+
+      <div class="feature-card fade-in" style="transition-delay:0.1s;">
+        <div class="feature-card__icon">🎯</div>
+        <h3>Qualifica antes de acionar você</h3>
+        <p>Sabe quando o lead está pronto para comprar. Sabe quando precisa de mais informação. Só te aciona quando o momento é certo.</p>
+      </div>
+
+      <div class="feature-card fade-in" style="transition-delay:0.15s;">
+        <div class="feature-card__icon">💬</div>
+        <h3>Conversa, não responde</h3>
+        <p>Faz perguntas. Entende o contexto. Adapta o tom. Chatbot responde. Amira conduz a conversa até o fechamento.</p>
+      </div>
+
+      <div class="feature-card fade-in" style="transition-delay:0.2s;">
+        <div class="feature-card__icon">✋</div>
+        <h3>Você assume quando quiser</h3>
+        <p>A qualquer momento você entra. A Amira te avisa quando uma oportunidade precisa do teu toque — e sai do caminho.</p>
+      </div>
+
+      <div class="feature-card feature-card--wide fade-in" style="transition-delay:0.25s;">
+        <div class="feature-wide__inner">
+          <div>
+            <div class="feature-card__icon">⚡</div>
+            <div class="feature-wide__stat">&lt;30s</div>
+            <div class="feature-wide__stat-label">Tempo médio de resposta. Todo dia. Todo horário.</div>
+          </div>
+          <div class="feature-wide__items">
+            <div class="feature-wide__item">
+              <div class="feature-wide__item-check">✓</div>
+              <p><strong>Resposta imediata</strong> — lead respondido em até 5 min converte 21× mais que em 30 min</p>
+            </div>
+            <div class="feature-wide__item">
+              <div class="feature-wide__item-check">✓</div>
+              <p><strong>Nenhum lead esquecido</strong> — enquanto você dorme, treina, grava ou almoça</p>
+            </div>
+            <div class="feature-wide__item">
+              <div class="feature-wide__item-check">✓</div>
+              <p><strong>6 canais ao mesmo tempo</strong> — 1 Amira gerencia tudo sem confundir contextos</p>
+            </div>
+            <div class="feature-wide__item">
+              <div class="feature-wide__item-check">✓</div>
+              <p><strong>Painel em tempo real</strong> — veja cada conversa, cada lead qualificado, cada venda</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="como-funciona">
+  <div class="container">
+    <div class="how__head fade-in">
+      <div class="label">Simples assim</div>
+      <h2 class="section__title" style="margin-top:20px;">Do zero à Amira vendendo<br>em 5 minutos.</h2>
+    </div>
+
+    <div class="how__steps fade-in">
+      <div class="how__step">
+        <div class="how__step-num">01</div>
+        <h3>Cria tua Amira</h3>
+        <p>Dá um nome, define a personalidade e conta o que ela vai vender. Como contratar tua melhor vendedora de sempre. Só que em 5 minutos.</p>
+        <span class="how__step-tag">5 minutos</span>
+      </div>
+      <div class="how__step">
+        <div class="how__step-num">02</div>
+        <h3>Conecta teus canais</h3>
+        <p>WhatsApp, Instagram, Telegram, Facebook Messenger e chat do site. Um clique em cada. Amira passa a atender em todos, ao mesmo tempo, agora.</p>
+        <span class="how__step-tag">1 clique por canal</span>
+      </div>
+      <div class="how__step">
+        <div class="how__step-num">03</div>
+        <h3>Acompanha no painel</h3>
+        <p>Amira conversa, qualifica e fecha. Você vê tudo em tempo real: leads atendidos, conversas em andamento, vendas confirmadas. Só conta.</p>
+        <span class="how__step-tag">Resultado em tempo real</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section class="proof" id="prova">
+  <div class="container">
+    <div class="proof__stats fade-in">
+      <div class="proof__stat">
+        <div class="proof__stat-num">47</div>
+        <div class="proof__stat-label">Criadores com Amira ativa</div>
+      </div>
+      <div class="proof__stat">
+        <div class="proof__stat-num">12.3k</div>
+        <div class="proof__stat-label">Leads atendidos este mês</div>
+      </div>
+      <div class="proof__stat">
+        <div class="proof__stat-num">&lt;30s</div>
+        <div class="proof__stat-label">Tempo médio de resposta</div>
+      </div>
+      <div class="proof__stat">
+        <div class="proof__stat-num">0</div>
+        <div class="proof__stat-label">Leads perdidos por demora</div>
+      </div>
+    </div>
+
+    <div class="proof__testimonials fade-in">
+      <div class="testimonial">
+        <div class="testimonial__stars">★★★★★</div>
+        <p class="testimonial__text">"Acordei numa segunda com R$2.800 em vendas novas. A Amira tinha atendido 23 pessoas enquanto eu dormia no final de semana. Nenhuma percebeu que era IA."</p>
+        <div class="testimonial__author">
+          <div class="testimonial__avatar">JL</div>
+          <div>
+            <div class="testimonial__name">João Lemos</div>
+            <div class="testimonial__role">Coach de Performance · São Paulo</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial__stars">★★★★★</div>
+        <p class="testimonial__text">"Eu vendia por DM no Instagram. Sempre perdia lead porque não aguentava o volume. Hoje a Amira cuida do WhatsApp e do Insta ao mesmo tempo. Meu faturamento dobrou."</p>
+        <div class="testimonial__author">
+          <div class="testimonial__avatar">MC</div>
+          <div>
+            <div class="testimonial__name">Mariana Castro</div>
+            <div class="testimonial__role">Infoprodutora · Belo Horizonte</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <div class="testimonial__stars">★★★★★</div>
+        <p class="testimonial__text">"Criei a Amira numa tarde. No dia seguinte ela já tinha qualificado 8 leads e fechado 2 vendas de R$497. Nunca mais vou vender sem ela."</p>
+        <div class="testimonial__author">
+          <div class="testimonial__avatar">RS</div>
+          <div>
+            <div class="testimonial__name">Rafael Santos</div>
+            <div class="testimonial__role">Criador de conteúdo · Recife</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARE -->
+<section class="compare-section">
+  <div class="container">
+    <div class="compare-section__head fade-in">
+      <div class="label">A diferença que importa</div>
+      <h2 class="section__title" style="margin-top:20px;">Chatbot genérico<br><em>vs. Tua Amira</em></h2>
+    </div>
+
+    <div class="compare-grid fade-in">
+      <div class="compare-col compare-col--bad">
+        <div class="compare-col__header">
+          <span class="compare-col__badge compare-col__badge--bad">Chatbot genérico</span>
+        </div>
+        <div class="compare-item">
+          <div class="compare-item__icon compare-item__icon--x">✕</div>
+          <p>"Como posso te ajudar hoje?" — afasta quem já estava quase comprando</p>
+        </div>
+        <div class="compare-item">
+          <div class="compare-item__icon compare-item__icon--x">✕</div>
+          <p>Para um canal. Lead no Instagram fica sem resposta.</p>
+        </div>
+        <div class="compare-item">
+          <div class="compare-item__icon compare-item__icon--x">✕</div>
+          <p>Script rígido. Quando o lead sai do fluxo, o chatbot trava.</p>
+        </div>
+        <div class="compare-item">
+          <div class="compare-item__icon compare-item__icon--x">✕</div>
+          <p>Lead sente o robô e para de responder. Conversa morta.</p>
+        </div>
+        <div class="compare-item">
+          <div class="compare-item__icon compare-item__icon--x">✕</div>
+          <p>Você configura scripts manualmente toda vez que muda a oferta.</p>
+        </div>
+      </div>
+
+      <div class="compare-col compare-col--good">
+        <div class="compare-col__header">
+          <span class="compare-col__badge compare-col__badge--good">Tua Amira</span>
+        </div>
+        <div class="compare-item">
+          <div class="compare-item__icon compare-item__icon--check">✓</div>
+          <p><strong>"Oi! Vi que você curtiu o post sobre escalar sem contratar. Posso te contar mais?"</strong></p>
+        </div>
+        <div class="compare-item">
+          <div class="compare-item__icon compare-item__icon--check">✓</div>
+          <p><strong>6 canais ao mesmo tempo.</strong> Nenhum lead fica esperando.</p>
+        </div>
+        <div class="compare-item">
+          <div class="compare-item__icon compare-item__icon--check">✓</div>
+          <p><strong>Conversa natural.</strong> Qualifica e conduz até o fechamento.</p>
+        </div>
+        <div class="compare-item">
+          <div class="compare-item__icon compare-item__icon--check">✓</div>
+          <p><strong>Lead sente que está falando com gente.</strong> Engajamento real.</p>
+        </div>
+        <div class="compare-item">
+          <div class="compare-item__icon compare-item__icon--check">✓</div>
+          <p><strong>Você treina com linguagem natural em 5 minutos.</strong> Sem scripts.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROI MATH -->
+<section class="roi">
+  <div class="container">
+    <div class="roi__head fade-in">
+      <div class="label">Faça a conta</div>
+      <h2 class="section__title" style="margin-top:20px;">Quanto custa <em>não ter</em><br>uma Amira?</h2>
+    </div>
+
+    <div class="roi__grid fade-in">
+      <div class="roi__card roi__card--bad">
+        <div>
+          <div class="roi__card-label roi__card-label--bad">Sem a Amira</div>
+          <div style="font-size:13px; color:var(--muted);">Assistente de vendas humano</div>
+          <div style="font-family:var(--font-display); font-size:28px; font-weight:800; color:var(--pearl); margin-top:8px;">R$ 2.800<span style="font-size:14px; font-weight:400; color:var(--muted);">/mês</span></div>
+          <div style="font-size:12px; color:var(--muted); margin-top:4px;">8h/dia · 5 dias/semana · 1 canal</div>
+        </div>
+        <div class="roi__item">
+          <div class="roi__item-label">Leads fora do horário</div>
+          <div class="roi__item-value roi__item-value--bad">Sem resposta. Foram embora.</div>
+          <div class="roi__item-note">Lead respondido em até 5 min converte 21× mais que em 30 min</div>
+        </div>
+      </div>
+
+      <div class="roi__card roi__card--good">
+        <div>
+          <div class="roi__card-label roi__card-label--good">Com a Amira</div>
+          <div style="font-size:13px; color:var(--muted);">Amira ativa no seu negócio</div>
+          <div style="font-family:var(--font-display); font-size:28px; font-weight:800; color:var(--pearl); margin-top:8px;">Sob consulta<span style="font-size:14px; font-weight:400; color:var(--muted);"> · sem surpresa</span></div>
+          <div style="font-size:12px; color:var(--muted); margin-top:4px;">24h/dia · 7 dias/semana · 6 canais</div>
+        </div>
+        <div class="roi__item">
+          <div class="roi__item-label">Leads atendidos que você perderia</div>
+          <div class="roi__item-value roi__item-value--good">Todos. Às 23h. No domingo.</div>
+          <div class="roi__item-note">Resposta em &lt;30s. Qualificação automática. Você entra quando o lead está pronto.</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="roi__footer fade-in">
+      Quantos leads chegaram no último fim de semana enquanto você estava offline?
+      Cada um desses é uma venda que alguém perdeu. Com a Amira, não era você.
+    </p>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="manifesto">
+  <div class="manifesto__orb"></div>
+  <div class="container">
+    <div class="manifesto__inner fade-in">
+      <div class="label" style="margin-bottom:32px;">Nosso manifesto</div>
+      <h2 class="manifesto__opening">
+        Todo dia, milhares de DMs<br>chegam sem resposta.<br>
+        <em>Não é falta de vontade.</em><br>
+        É falta de braço.
+      </h2>
+      <div class="manifesto__body">
+        <p>Comentários viram nada. Seguidores viram nada. Leads que pediram orçamento às 23h se foram até 8h da manhã.</p>
+        <p>Ninguém devia perder cliente porque o dia tem 24 horas e o time tem 8.</p>
+        <p>Por isso criamos a Amira. Ela atende quando você dorme. Responde no canal que o cliente preferir. Conversa como gente, porque foi treinada pra isso.</p>
+        <p>Ela não é chatbot. Não pergunta "como posso te ajudar hoje?". Ela conhece teu produto, tua voz, tua oferta. E vende.</p>
+        <p>Enquanto teu concorrente perde lead por demora, tua Amira fecha.</p>
+      </div>
+      <p class="manifesto__close">Amira. Nenhum lead sem resposta.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHITE CTA (high-contrast section) -->
+<section class="cta-white">
+  <div class="container">
+    <div class="cta-white__inner fade-in">
+      <div class="label">Pronta em 5 minutos</div>
+      <h2>
+        Tua Amira começa<br>
+        a vender <em>hoje.</em>
+      </h2>
+      <p>
+        Demonstração ao vivo, com a Amira treinada no teu produto.
+        Você vê ela atender, qualificar e encaminhar um lead do zero.
+        Sem PowerPoint. Sem script pronto. 30 minutos, sem compromisso.
+      </p>
+      <div class="cta-white__btns">
+        <a href="#agendar" class="btn--white-primary">Agendar minha demonstração →</a>
+        <a href="#como-funciona" class="btn--white-ghost">Ver como funciona</a>
+      </div>
+      <p class="cta-white__proof">
+        <strong>47 criadores</strong> já têm uma Amira ativa · Garantia de Performance de 30 dias
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- GUARANTEE -->
+<section class="guarantee" id="garantia">
+  <div class="container">
+    <div class="guarantee__inner fade-in">
+      <div class="guarantee__icon">🛡️</div>
+      <div class="label" style="margin-bottom:20px;">Garantia de Performance</div>
+      <h2 class="section__title" style="margin-bottom:24px;">
+        30 dias com a Amira<br>no teu negócio.<br>
+        <em>Ela trabalha ou você não paga.</em>
+      </h2>
+      <p>
+        A garantia não é que o sistema vai funcionar. É que a Amira vai atender,
+        qualificar e encaminhar leads reais no teu negócio — às 23h, no domingo,
+        em qualquer canal que você conectar. Se em 30 dias você não ver ela
+        trabalhando de verdade, devolvemos 100% em até 48 horas. Você fica com
+        o setup completo feito na demonstração, sem custo. O risco é inteiramente
+        nosso — porque sabemos o que ela entrega.
+      </p>
+      <div class="guarantee__badges">
+        <div class="guarantee__badge">
+          <span class="guarantee__badge-check">✓</span>
+          Reembolso em 48h
+        </div>
+        <span class="guarantee__sep">·</span>
+        <div class="guarantee__badge">
+          <span class="guarantee__badge-check">✓</span>
+          Sem formulário
+        </div>
+        <span class="guarantee__sep">·</span>
+        <div class="guarantee__badge">
+          <span class="guarantee__badge-check">✓</span>
+          Você fica com o setup da demo
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="faq__head fade-in">
+      <div class="label">Perguntas frequentes</div>
+      <h2 class="section__title" style="margin-top:20px;">Tudo que você quer saber<br>antes de ver a demo.</h2>
+    </div>
+
+    <div class="faq__list fade-in">
+      <details class="faq-item">
+        <summary>Meu cliente vai saber que está falando com IA?</summary>
+        <p>Depende de como você quer trabalhar. A maioria dos nossos clientes prefere que a Amira se identifique como assistente virtual quando perguntada diretamente. Mas na prática, a grande maioria dos leads nunca pergunta. O que percebem é uma resposta rápida, personalizada e útil — e isso é o que importa pra venda acontecer.</p>
+      </details>
+      <details class="faq-item">
+        <summary>E se a Amira errar alguma coisa?</summary>
+        <p>A Amira opera dentro do que você ensinou. Ela não inventa informações. Se um lead faz uma pergunta fora do escopo que você treinou, ela diz que vai verificar e te aciona. Você sempre pode entrar na conversa, corrigir, e ela aprende com isso. Nenhuma vendedora é perfeita — mas a Amira nunca deixa de responder.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Funciona para qualquer tipo de produto?</summary>
+        <p>A Amira funciona bem para infoprodutos, serviços, consultorias, mentorias, SaaS e qualquer negócio onde a venda começa com uma conversa. Não recomendamos para e-commerce de catálogo grande ou produtos que exigem negociação de preço complexa em tempo real.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Quanto tempo leva pra configurar?</summary>
+        <p>5 minutos para criar a Amira e conectar os canais. A demonstração ao vivo inclui o setup completo — você sai com a Amira treinada no teu produto e pronta pra atender.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Precisa de conhecimento técnico?</summary>
+        <p>Nenhum. Você treina a Amira em linguagem natural, como se estivesse conversando. Sem código, sem fluxogramas, sem script manual. Se você consegue escrever uma mensagem de WhatsApp, você consegue configurar a Amira.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Como funciona a garantia de 30 dias?</summary>
+        <p>Se em 30 dias você não ver a Amira atendendo, qualificando e encaminhando leads de verdade no teu negócio, basta entrar em contato. Devolvemos 100% em até 48 horas, sem formulário e sem perguntas. Você ainda fica com todo o setup que fizemos juntos na demonstração.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- DEMO / AGENDAR -->
+<section id="agendar">
+  <div class="container">
+    <div class="agendar__inner fade-in">
+      <div class="label">Veja antes de decidir</div>
+      <h2 class="section__title" style="margin-top:20px;">A Amira em ação.<br><em>Numa conversa real.</em></h2>
+      <p>Demonstração ao vivo, 30 minutos, com a Amira treinada no teu produto. Sem compromisso.</p>
+      <form class="form__row" onsubmit="return false;">
+        <input class="form__input" type="text" placeholder="Teu nome" />
+        <input class="form__input" type="tel" placeholder="WhatsApp (com DDD)" />
+        <input class="form__input" type="text" placeholder="Nicho / tipo de produto" />
+        <button class="form__submit">Quero agendar minha demonstração →</button>
+      </form>
+      <p class="form__note">30 minutos · Sem compromisso · Amira treinada no teu produto</p>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="final-cta__radial"></div>
+  <div class="container">
+    <div class="final-cta__inner fade-in">
+      <div class="label">Comece agora</div>
+      <h2>
+        Teu concorrente<br>
+        não está esperando.<br>
+        <em>Tua Amira também não.</em>
+      </h2>
+      <p>
+        Cada lead que chega agora está esperando uma resposta.
+        Com ou sem você. Com ou sem a Amira. A diferença é quem fecha.
+      </p>
+      <div class="final-cta__btns">
+        <a href="#agendar" class="btn btn--primary btn--xl">Agendar demonstração →</a>
+        <a href="#garantia" class="btn btn--ghost btn--lg">Ver a garantia</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <div class="footer__logo">AMIRA</div>
+        <p class="footer__tagline">
+          Vendedora IA Multicanal.<br>
+          Nenhum lead sem resposta.
+        </p>
+      </div>
+      <div class="footer__col">
+        <h4>Produto</h4>
+        <ul>
+          <li><a href="#como-funciona">Como funciona</a></li>
+          <li><a href="#agendar">Agendar demo</a></li>
+          <li><a href="#garantia">Garantia</a></li>
+          <li><a href="#faq">Perguntas</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h4>Canais</h4>
+        <ul>
+          <li><a href="#">WhatsApp</a></li>
+          <li><a href="#">Instagram DM</a></li>
+          <li><a href="#">Telegram</a></li>
+          <li><a href="#">Facebook Messenger</a></li>
+          <li><a href="#">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2025 AMIRA. Todos os direitos reservados.</span>
+      <span>Feito pra quem não para de vender.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Fade-in observer
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

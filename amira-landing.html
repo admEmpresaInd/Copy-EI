@@ -1,0 +1,1721 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AMIRA · Vende enquanto você vive</title>
+  <meta name="description" content="Amira é tua vendedora de IA. Responde no WhatsApp, Instagram, Telegram, Facebook e no site. 24h por dia, conversando como gente, não como bot." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Reset & Base ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:          #1a1a1a;
+      --bg2:         #262626;
+      --gold:        #34d399;
+      --gold-light:  #6ee7b7;
+      --gold-dim:    rgba(52,211,153,0.08);
+      --green:       #1f2d28;
+      --green-light: #243b30;
+      --pearl:       #fafafa;
+      --pearl-dim:   rgba(250,250,250,0.65);
+      --terra:       #ef4444;
+      --olive:       #a3a3a3;
+      --text:        #fafafa;
+      --muted:       #a3a3a3;
+      --border:      rgba(255,255,255,0.1);
+      --border-hover:rgba(52,211,153,0.35);
+      --radius:      10px;
+      --radius-lg:   14px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Typography ─── */
+    .serif { font-family: 'Inter', system-ui, sans-serif; }
+
+    h1, h2, h3 { font-family: 'Inter', system-ui, sans-serif; font-weight: 700; line-height: 1.1; letter-spacing: -0.03em; }
+
+    .label {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 500;
+      border-radius: 9999px;
+      background: rgba(52,211,153,0.1);
+      color: var(--gold);
+      padding: 4px 12px;
+    }
+
+    /* ─── Layout ─── */
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+    .container--narrow { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+
+    /* ─── Buttons ─── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn--primary {
+      background: var(--gold);
+      color: #0a2e24;
+      padding: 14px 28px;
+    }
+    .btn--primary:hover { background: var(--gold-light); transform: translateY(-1px); box-shadow: 0 0 20px rgba(52,211,153,0.25), 0 0 60px rgba(52,211,153,0.1); }
+
+    .btn--ghost {
+      background: transparent;
+      color: var(--pearl);
+      padding: 13px 28px;
+      border: 1px solid var(--border);
+    }
+    .btn--ghost:hover { border-color: var(--border-hover); background: var(--gold-dim); }
+
+    .btn--lg { padding: 18px 36px; font-size: 15px; border-radius: 10px; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 20px 0;
+      border-bottom: 1px solid transparent;
+      transition: all 0.3s ease;
+    }
+
+    nav.scrolled {
+      background: rgba(26,26,26,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom-color: var(--border);
+      padding: 14px 0;
+    }
+
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav__logo {
+      font-family: 'Inter', sans-serif;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--gold);
+      text-decoration: none;
+    }
+
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav__links a {
+      color: var(--pearl-dim);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav__links a:hover { color: var(--pearl); }
+
+    .nav__cta { display: flex; align-items: center; gap: 12px; }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      padding: 120px 0 80px;
+      overflow: hidden;
+    }
+
+    .hero__glow {
+      position: absolute;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 600px;
+      background: radial-gradient(ellipse at center, rgba(52,211,153,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero__glow-2 {
+      position: absolute;
+      bottom: -100px;
+      right: -100px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(ellipse at center, rgba(52,211,153,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(52,211,153,0.05);
+      border: 1px solid rgba(52,211,153,0.2);
+      border-radius: 9999px;
+      padding: 6px 16px;
+      margin-bottom: 28px;
+    }
+
+    .hero__eyebrow-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    .hero__eyebrow span { font-size: 12px; font-weight: 500; color: var(--gold); }
+
+    .hero h1 {
+      font-size: clamp(42px, 5.5vw, 72px);
+      margin-bottom: 24px;
+      color: var(--pearl);
+      font-weight: 800;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero__sub {
+      font-size: 18px;
+      color: var(--pearl-dim);
+      line-height: 1.7;
+      margin-bottom: 40px;
+      max-width: 480px;
+    }
+
+    .hero__ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .hero__proof {
+      margin-top: 48px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .hero__proof-avatars {
+      display: flex;
+    }
+
+    .hero__proof-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid var(--bg);
+      background: var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gold);
+      margin-left: -10px;
+    }
+    .hero__proof-avatar:first-child { margin-left: 0; }
+
+    .hero__proof-text { font-size: 13px; color: var(--muted); }
+    .hero__proof-text strong { color: var(--pearl); }
+
+    /* Mockup */
+    .hero__visual {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero__mockup {
+      position: relative;
+      width: 340px;
+      background: rgba(38,38,38,0.9);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px;
+      padding: 24px;
+      backdrop-filter: blur(8px);
+    }
+
+    .mockup__header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .mockup__avatar {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      color: #0a2e24;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .mockup__name { font-size: 14px; font-weight: 600; color: var(--pearl); }
+    .mockup__status { font-size: 11px; color: var(--olive); }
+
+    .mockup__msg {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .mockup__bubble {
+      max-width: 88%;
+      padding: 10px 14px;
+      border-radius: 14px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .mockup__bubble--in {
+      background: rgba(255,255,255,0.06);
+      color: var(--pearl-dim);
+      border-radius: 14px 14px 14px 4px;
+      align-self: flex-start;
+    }
+
+    .mockup__bubble--out {
+      background: rgba(52,211,153,0.12);
+      color: var(--gold-light);
+      border-radius: 14px 14px 4px 14px;
+      align-self: flex-end;
+      border: 1px solid rgba(52,211,153,0.2);
+    }
+
+    .mockup__time { font-size: 10px; color: var(--muted); margin-top: 2px; }
+
+    .mockup__typing {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 14px 14px 14px 4px;
+      width: fit-content;
+    }
+
+    .mockup__dot {
+      width: 5px; height: 5px;
+      background: var(--muted);
+      border-radius: 50%;
+      animation: typing 1.4s ease-in-out infinite;
+    }
+    .mockup__dot:nth-child(2) { animation-delay: 0.2s; }
+    .mockup__dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes typing {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+      30% { transform: translateY(-4px); opacity: 1; }
+    }
+
+    /* Floating badges */
+    .hero__badge {
+      position: absolute;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--pearl);
+      white-space: nowrap;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+
+    .hero__badge--1 { top: -20px; right: -40px; }
+    .hero__badge--2 { bottom: 30px; left: -50px; }
+
+    .hero__badge span { color: var(--gold); font-weight: 700; }
+    .hero__badge small { display: block; color: var(--muted); font-size: 10px; margin-top: 2px; }
+
+    /* ─── TICKER ─── */
+    .ticker {
+      background: rgba(52,211,153,0.04);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+      overflow: hidden;
+    }
+
+    .ticker__track {
+      display: flex;
+      gap: 60px;
+      animation: ticker 30s linear infinite;
+      white-space: nowrap;
+    }
+
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .ticker__item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--pearl-dim);
+      flex-shrink: 0;
+    }
+
+    .ticker__item strong { color: var(--gold); font-weight: 700; }
+    .ticker__sep { color: var(--border); }
+
+    /* ─── SECTION BASE ─── */
+    section { padding: 100px 0; }
+
+    .section__label { margin-bottom: 16px; }
+    .section__title { font-size: clamp(32px, 4vw, 52px); margin-bottom: 20px; }
+    .section__sub { font-size: 17px; color: var(--pearl-dim); line-height: 1.7; max-width: 600px; }
+
+    /* ─── PROBLEM ─── */
+    .problem { background: var(--bg); }
+
+    .problem__intro {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .problem__intro .section__sub { margin: 0 auto; }
+
+    .problem__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .problem__card {
+      background: var(--bg2);
+      padding: 40px 32px;
+      transition: background 0.3s;
+    }
+
+    .problem__card:hover { background: #2e2e2e; }
+
+    .problem__icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(239,68,68,0.08);
+      border: 1px solid rgba(239,68,68,0.15);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      font-size: 20px;
+    }
+
+    .problem__card h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 20px;
+      font-weight: 500;
+      color: var(--pearl);
+      margin-bottom: 12px;
+    }
+
+    .problem__card p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+    .problem__cta-block {
+      text-align: center;
+      margin-top: 56px;
+      padding: 48px;
+      border: 1px solid rgba(52,211,153,0.15);
+      border-radius: var(--radius-lg);
+      background: rgba(52,211,153,0.04);
+    }
+
+    .problem__cta-block p {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(22px, 3vw, 36px);
+      color: var(--pearl);
+      margin-bottom: 28px;
+      line-height: 1.3;
+    }
+
+    .problem__cta-block p em { font-style: italic; color: var(--gold); }
+
+    /* ─── SOLUTION / CONTRAST ─── */
+    .solution {
+      background: linear-gradient(180deg, var(--bg) 0%, rgba(52,211,153,0.04) 50%, var(--bg) 100%);
+    }
+
+    .solution__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .solution__left {}
+
+    .solution__right {
+      position: relative;
+    }
+
+    .compare {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .compare__row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .compare__cell {
+      padding: 16px 18px;
+      border-radius: 10px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .compare__cell--bad {
+      background: rgba(239,68,68,0.05);
+      border: 1px solid rgba(239,68,68,0.12);
+      color: rgba(250,250,250,0.35);
+      text-decoration: line-through;
+      text-decoration-color: rgba(239,68,68,0.4);
+    }
+
+    .compare__cell--good {
+      background: rgba(52,211,153,0.07);
+      border: 1px solid rgba(52,211,153,0.18);
+      color: var(--pearl);
+    }
+
+    .compare__header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+
+    .compare__header span {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0 18px;
+    }
+
+    .compare__header .bad-label { color: var(--terra); }
+    .compare__header .good-label { color: var(--gold); }
+
+    /* ─── HOW IT WORKS ─── */
+    .how { background: var(--bg2); }
+
+    .how__title { text-align: center; margin-bottom: 64px; }
+
+    .how__steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 48px;
+    }
+
+    .how__step {
+      background: var(--bg2);
+      padding: 48px 36px;
+      position: relative;
+    }
+
+    .how__step-num {
+      font-family: 'Inter', sans-serif;
+      font-size: 48px;
+      font-weight: 800;
+      color: rgba(52,211,153,0.15);
+      line-height: 1;
+      margin-bottom: 24px;
+      letter-spacing: -0.04em;
+    }
+
+    .how__step h3 {
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--pearl);
+      margin-bottom: 12px;
+    }
+
+    .how__step p { font-size: 14px; color: var(--muted); line-height: 1.7; }
+
+    .how__step-tag {
+      display: inline-block;
+      margin-top: 16px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* Channels */
+    .how__channels {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-top: 48px;
+    }
+
+    .channel-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--pearl-dim);
+      background: var(--bg);
+      transition: all 0.2s;
+    }
+
+    .channel-pill:hover { border-color: var(--border-hover); color: var(--pearl); }
+
+    .channel-pill .ch-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    /* ─── OBJECTION ─── */
+    .objection { background: var(--bg); }
+
+    .objection__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .objection__quote {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(28px, 3.5vw, 46px);
+      color: var(--muted);
+      line-height: 1.2;
+      font-style: italic;
+    }
+
+    .objection__quote strong { color: var(--pearl); font-style: normal; }
+
+    .objection__answer {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .objection__point {
+      display: flex;
+      gap: 16px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(52,211,153,0.02);
+      transition: border-color 0.2s;
+    }
+
+    .objection__point:hover { border-color: var(--border-hover); }
+
+    .objection__point-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .objection__point h4 {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--pearl);
+      margin-bottom: 4px;
+    }
+
+    .objection__point p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    /* ─── SOCIAL PROOF ─── */
+    .proof { background: var(--bg2); }
+
+    .proof__stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      background: var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 64px;
+    }
+
+    .proof__stat {
+      background: var(--bg2);
+      padding: 36px 28px;
+      text-align: center;
+    }
+
+    .proof__stat-num {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(30px, 4vw, 48px);
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .proof__stat-label { font-size: 13px; color: var(--muted); }
+
+    .proof__testimonials {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .testimonial {
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: var(--bg);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .testimonial:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+
+    .testimonial__stars { color: var(--gold); font-size: 14px; margin-bottom: 16px; letter-spacing: 2px; }
+
+    .testimonial__text {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--pearl-dim);
+      margin-bottom: 20px;
+      font-style: italic;
+    }
+
+    .testimonial__author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .testimonial__avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .testimonial__name { font-size: 14px; font-weight: 600; color: var(--pearl); }
+    .testimonial__role { font-size: 12px; color: var(--muted); }
+
+    /* ─── MANIFESTO ─── */
+    .manifesto {
+      background: var(--bg2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .manifesto::before {
+      content: '';
+      position: absolute;
+      top: -200px; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 400px;
+      background: radial-gradient(ellipse, rgba(52,211,153,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .manifesto__inner {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .manifesto__opening {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(28px, 4vw, 52px);
+      font-weight: 700;
+      color: var(--pearl);
+      line-height: 1.2;
+      margin-bottom: 40px;
+    }
+
+    .manifesto__opening em {
+      font-style: normal;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .manifesto__body {
+      font-size: 17px;
+      color: rgba(250,250,250,0.65);
+      line-height: 1.85;
+      margin-bottom: 40px;
+    }
+
+    .manifesto__body p + p { margin-top: 20px; }
+
+    .manifesto__close {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(20px, 3vw, 32px);
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ─── PRICING ─── */
+    .pricing { background: var(--bg); }
+
+    .pricing__intro { text-align: center; margin-bottom: 56px; }
+    .pricing__intro .section__sub { margin: 0 auto; }
+
+    .pricing__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    .pricing__card {
+      padding: 36px 28px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: var(--bg2);
+      transition: border-color 0.2s;
+    }
+
+    .pricing__card:hover { border-color: var(--border-hover); }
+
+    .pricing__card--featured {
+      border-color: var(--gold);
+      background: rgba(52,211,153,0.04);
+      position: relative;
+      box-shadow: 0 0 30px rgba(52,211,153,0.12), 0 0 80px rgba(52,211,153,0.05);
+    }
+
+    .pricing__badge {
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--gold);
+      color: #0a2e24;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 9999px;
+    }
+
+    .pricing__plan-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .pricing__price {
+      font-family: 'Inter', sans-serif;
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--pearl);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .pricing__price sup { font-size: 24px; vertical-align: top; margin-top: 10px; }
+    .pricing__price-period { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
+
+    .pricing__desc { font-size: 14px; color: var(--pearl-dim); line-height: 1.6; margin-bottom: 28px; }
+
+    .pricing__features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .pricing__features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--pearl-dim);
+      line-height: 1.5;
+    }
+
+    .pricing__check { color: var(--gold); flex-shrink: 0; }
+
+    /* ─── FINAL CTA ─── */
+    .final-cta {
+      background: var(--bg2);
+      text-align: center;
+    }
+
+    .final-cta__inner {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .final-cta h2 {
+      font-size: clamp(36px, 5vw, 64px);
+      margin-bottom: 20px;
+    }
+
+    .final-cta h2 em {
+      font-style: normal;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .final-cta__sub {
+      font-size: 17px;
+      color: var(--pearl-dim);
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+
+    .final-cta__buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    .final-cta__fine {
+      margin-top: 20px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 48px 0 32px;
+    }
+
+    .footer__inner {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .footer__brand { max-width: 280px; }
+
+    .footer__logo {
+      font-family: 'Inter', sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .footer__tagline { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    .footer__links {
+      display: flex;
+      gap: 60px;
+    }
+
+    .footer__col h4 {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .footer__col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+
+    .footer__col ul a {
+      font-size: 13px;
+      color: var(--pearl-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer__col ul a:hover { color: var(--pearl); }
+
+    .footer__bottom {
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .footer__copy { font-size: 12px; color: var(--muted); }
+    .footer__sig { font-size: 12px; color: var(--muted); }
+    .footer__sig strong { color: var(--gold); }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 900px) {
+      .hero__grid { grid-template-columns: 1fr; gap: 60px; }
+      .hero__visual { display: none; }
+      .solution__grid { grid-template-columns: 1fr; }
+      .problem__grid { grid-template-columns: 1fr; }
+      .how__steps { grid-template-columns: 1fr; }
+      .proof__stats { grid-template-columns: repeat(2, 1fr); }
+      .proof__testimonials { grid-template-columns: 1fr; }
+      .pricing__grid { grid-template-columns: 1fr; }
+      .objection__inner { grid-template-columns: 1fr; }
+      .footer__inner { flex-direction: column; }
+      .footer__links { flex-direction: column; gap: 32px; }
+      nav .nav__links { display: none; }
+    }
+
+    @media (max-width: 600px) {
+      .proof__stats { grid-template-columns: 1fr 1fr; }
+      .compare__row { grid-template-columns: 1fr; }
+    }
+
+    /* ─── Animations ─── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="container">
+    <div class="nav__inner">
+      <a href="#" class="nav__logo">AMIRA</a>
+      <ul class="nav__links">
+        <li><a href="#como-funciona">Como funciona</a></li>
+        <li><a href="#prova">Resultados</a></li>
+        <li><a href="#planos">Planos</a></li>
+      </ul>
+      <div class="nav__cta">
+        <a href="#demo" class="btn btn--ghost">Ver demo</a>
+        <a href="#planos" class="btn btn--primary">Criar minha Amira</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero__glow"></div>
+  <div class="hero__glow-2"></div>
+  <div class="container">
+    <div class="hero__grid">
+      <div class="hero__content fade-in">
+        <div class="hero__eyebrow">
+          <div class="hero__eyebrow-dot"></div>
+          <span>Vendedora IA Multicanal</span>
+        </div>
+
+        <h1>
+          Teu lead chegou às 23h.<br>
+          <em>Tua Amira</em><br>
+          respondeu às 23h.
+        </h1>
+
+        <p class="hero__sub">
+          Enquanto teu concorrente dormia, ela fechou.
+          Amira é tua vendedora de IA. Atende no WhatsApp, Instagram,
+          Telegram, LinkedIn e mais. Sem parecer robô. Sem perder nenhum lead.
+        </p>
+
+        <div class="hero__ctas">
+          <a href="#planos" class="btn btn--primary btn--lg">
+            Criar minha Amira grátis →
+          </a>
+          <a href="#demo" class="btn btn--ghost btn--lg">
+            Ver demo ao vivo
+          </a>
+        </div>
+
+        <div class="hero__proof">
+          <div class="hero__proof-avatars">
+            <div class="hero__proof-avatar">JL</div>
+            <div class="hero__proof-avatar">MR</div>
+            <div class="hero__proof-avatar">CS</div>
+            <div class="hero__proof-avatar">AF</div>
+            <div class="hero__proof-avatar">+</div>
+          </div>
+          <p class="hero__proof-text">
+            <strong>47 criadores</strong> já têm uma Amira ativa
+          </p>
+        </div>
+      </div>
+
+      <div class="hero__visual fade-in" style="transition-delay: 0.2s;">
+        <div class="hero__mockup">
+          <div class="mockup__header">
+            <div class="mockup__avatar">A</div>
+            <div>
+              <div class="mockup__name">Amira · Sara</div>
+              <div class="mockup__status">● Online agora</div>
+            </div>
+          </div>
+          <div class="mockup__msg">
+            <div>
+              <div class="mockup__bubble mockup__bubble--in">
+                Oi! Vi o teu post sobre o curso. Qual o valor?
+              </div>
+              <div class="mockup__time" style="text-align:left; padding-left:4px;">23:17</div>
+            </div>
+            <div>
+              <div class="mockup__bubble mockup__bubble--out">
+                Oi, Ana! O Método Completo tá em R$297 com acesso vitalício. O que te chamou atenção no post? 😊
+              </div>
+              <div class="mockup__time" style="text-align:right; padding-right:4px;">23:17 · Amira</div>
+            </div>
+            <div>
+              <div class="mockup__bubble mockup__bubble--in">
+                A parte de escalar sem contratar. Sou coach e tô sozinha.
+              </div>
+            </div>
+            <div class="mockup__typing">
+              <div class="mockup__dot"></div>
+              <div class="mockup__dot"></div>
+              <div class="mockup__dot"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero__badge hero__badge--1">
+          <span>+R$ 4.760</span>
+          <small>em vendas esta semana</small>
+        </div>
+
+        <div class="hero__badge hero__badge--2">
+          <span>127 leads</span>
+          <small>respondidos enquanto dormia</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker__track">
+    <!-- duplicado pra loop perfeito -->
+    <div class="ticker__item"><strong>47</strong> Amiras ativas hoje</div>
+    <div class="ticker__sep">·</div>
+    <div class="ticker__item"><strong>12.348</strong> leads atendidos este mês</div>
+    <div class="ticker__sep">·</div>
+    <div class="ticker__item"><strong>0</strong> perdidos por demora</div>
+    <div class="ticker__sep">·</div>
+    <div class="ticker__item"><strong>6 canais</strong> simultaneamente</div>
+    <div class="ticker__sep">·</div>
+    <div class="ticker__item"><strong>24/7</strong> sem folga, sem cansaço</div>
+    <div class="ticker__sep">·</div>
+    <div class="ticker__item">Resposta média em <strong>&lt; 30 seg</strong></div>
+    <div class="ticker__sep">·</div>
+    <!-- repeat -->
+    <div class="ticker__item"><strong>47</strong> Amiras ativas hoje</div>
+    <div class="ticker__sep">·</div>
+    <div class="ticker__item"><strong>12.348</strong> leads atendidos este mês</div>
+    <div class="ticker__sep">·</div>
+    <div class="ticker__item"><strong>0</strong> perdidos por demora</div>
+    <div class="ticker__sep">·</div>
+    <div class="ticker__item"><strong>6 canais</strong> simultaneamente</div>
+    <div class="ticker__sep">·</div>
+    <div class="ticker__item"><strong>24/7</strong> sem folga, sem cansaço</div>
+    <div class="ticker__sep">·</div>
+    <div class="ticker__item">Resposta média em <strong>&lt; 30 seg</strong></div>
+    <div class="ticker__sep">·</div>
+  </div>
+</div>
+
+<!-- PROBLEM -->
+<section class="problem" id="problema">
+  <div class="container">
+    <div class="problem__intro fade-in">
+      <div class="label section__label">O problema real</div>
+      <h2 class="section__title">Todo dia você perde venda.<br><span style="color:#a3a3a3; font-weight:400;">E sabe disso.</span></h2>
+      <p class="section__sub">
+        Não é falta de produto bom. Não é falta de audiência. É que ninguém
+        consegue estar em 6 canais ao mesmo tempo, 24 horas por dia. Ninguém humano.
+      </p>
+    </div>
+
+    <div class="problem__grid fade-in">
+      <div class="problem__card">
+        <div class="problem__icon">🌙</div>
+        <h3>O lead de meia-noite que vai embora</h3>
+        <p>
+          Ele viu teu post, curtiu, mandou DM perguntando o preço.
+          Você dormia. Quando acordou às 8h, ele já tinha comprado do concorrente que respondeu às 00h03.
+        </p>
+      </div>
+
+      <div class="problem__card">
+        <div class="problem__icon">📱</div>
+        <h3>6 canais. 1 você. Matemática impossível.</h3>
+        <p>
+          WhatsApp piscando, Instagram com 60 DMs novas, Telegram parado,
+          comentários sem resposta, formulário do site acumulando. Um lead esfria em 5 minutos. Você demora 5 horas.
+        </p>
+      </div>
+
+      <div class="problem__card">
+        <div class="problem__icon">😰</div>
+        <h3>A culpa que não sai da cabeça</h3>
+        <p>
+          "Trabalho muito e vendo pouco." A sensação de que tem dinheiro passando na sua frente
+          e você não tem braço pra pegar. Isso não é falta de esforço. É falta de sistema.
+        </p>
+      </div>
+    </div>
+
+    <div class="problem__cta-block fade-in">
+      <p>
+        "Ninguém deveria perder cliente<br>
+        por falta de braço. Principalmente<br>
+        <em>quando existe solução pra isso.</em>"
+      </p>
+      <a href="#planos" class="btn btn--primary btn--lg">Quero resolver isso agora →</a>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="solution" id="solucao">
+  <div class="container">
+    <div class="solution__grid">
+      <div class="solution__left fade-in">
+        <div class="label section__label">A diferença que importa</div>
+        <h2 class="section__title">
+          Amira não é chatbot.<br>
+          <em>É tua melhor vendedora.</em>
+        </h2>
+        <p class="section__sub" style="margin-bottom: 32px;">
+          Todo chatbot que você já viu faz a mesma coisa: pergunta "como posso te ajudar hoje?"
+          e afasta o lead em vez de vender. Amira foi treinada pra ser diferente.
+          Ela conhece teu produto, tua voz, tua oferta. E vende.
+        </p>
+        <p style="font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 32px;">
+          Teu lead precisa sentir que está falando com alguém que entende ele.
+          Amira entrega exatamente isso. Nos 6 canais. Ao mesmo tempo. Enquanto você dorme, treina,
+          toma café ou grava conteúdo.
+        </p>
+        <a href="#planos" class="btn btn--primary">Criar minha Amira →</a>
+      </div>
+
+      <div class="solution__right fade-in" style="transition-delay: 0.15s;">
+        <div class="compare__header">
+          <span class="bad-label">Chatbot genérico</span>
+          <span class="good-label">Tua Amira</span>
+        </div>
+        <div class="compare">
+          <div class="compare__row">
+            <div class="compare__cell compare__cell--bad">"Como posso te ajudar hoje?"</div>
+            <div class="compare__cell compare__cell--good">"Oi! Vi que você curtiu o post sobre escalar sem contratar. Posso te contar mais sobre como funciona?"</div>
+          </div>
+          <div class="compare__row">
+            <div class="compare__cell compare__cell--bad">Para um canal</div>
+            <div class="compare__cell compare__cell--good">6 canais ao mesmo tempo</div>
+          </div>
+          <div class="compare__row">
+            <div class="compare__cell compare__cell--bad">Respostas de script rígido</div>
+            <div class="compare__cell compare__cell--good">Conversa natural, qualifica e fecha</div>
+          </div>
+          <div class="compare__row">
+            <div class="compare__cell compare__cell--bad">Afasta o lead que sente o robô</div>
+            <div class="compare__cell compare__cell--good">Lead sente que está falando com gente</div>
+          </div>
+          <div class="compare__row">
+            <div class="compare__cell compare__cell--bad">Você configura scripts manualmente</div>
+            <div class="compare__cell compare__cell--good">Você treina com linguagem natural em 5 min</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="como-funciona">
+  <div class="container">
+    <div class="how__title fade-in">
+      <div class="label section__label">Simples assim</div>
+      <h2 class="section__title">Do zero à Amira vendendo<br>em 5 minutos.</h2>
+    </div>
+
+    <div class="how__steps fade-in">
+      <div class="how__step">
+        <div class="how__step-num">01</div>
+        <h3>Cria tua Amira</h3>
+        <p>
+          Dá um nome, define a personalidade e conta o que ela vai vender.
+          Como contratar tua melhor vendedora de sempre. Só que em 5 minutos.
+        </p>
+        <span class="how__step-tag">5 minutos</span>
+      </div>
+
+      <div class="how__step">
+        <div class="how__step-num">02</div>
+        <h3>Conecta teus canais</h3>
+        <p>
+          WhatsApp, Instagram, Telegram, Facebook Messenger e chat do site.
+          Um clique em cada. Amira passa a atender em todos, ao mesmo tempo, agora.
+        </p>
+        <span class="how__step-tag">1 clique por canal</span>
+      </div>
+
+      <div class="how__step">
+        <div class="how__step-num">03</div>
+        <h3>Acompanha pelo painel</h3>
+        <p>
+          Amira conversa, qualifica e fecha. Você vê tudo no painel em tempo real:
+          leads atendidos, conversas em andamento, vendas confirmadas. Só conta.
+        </p>
+        <span class="how__step-tag">Resultado em tempo real</span>
+      </div>
+    </div>
+
+    <div style="text-align: center;" class="fade-in">
+      <p class="label" style="margin-bottom: 16px;">Funciona em todos esses canais</p>
+      <div class="how__channels">
+        <div class="channel-pill">
+          <div class="ch-dot" style="background:#25D366;"></div>
+          WhatsApp
+        </div>
+        <div class="channel-pill">
+          <div class="ch-dot" style="background:#E1306C;"></div>
+          Instagram DM
+        </div>
+        <div class="channel-pill">
+          <div class="ch-dot" style="background:#0088CC;"></div>
+          Telegram
+        </div>
+        <div class="channel-pill">
+          <div class="ch-dot" style="background:#1877F2;"></div>
+          Facebook Messenger
+        </div>
+        <div class="channel-pill">
+          <div class="ch-dot" style="background:#0A66C2;"></div>
+          LinkedIn
+        </div>
+        <div class="channel-pill">
+          <div class="ch-dot" style="background:var(--gold);"></div>
+          Chat do Site
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OBJECTION -->
+<section class="objection" id="demo">
+  <div class="container">
+    <div class="objection__inner">
+      <div class="fade-in">
+        <div class="label section__label">A objeção que todo mundo tem</div>
+        <p class="objection__quote">
+          "Mas vai<br>parecer <strong>robô</strong>,<br>né?"
+        </p>
+        <p style="font-size: 14px; color: var(--muted); margin-top: 24px; line-height: 1.7;">
+          Faz sentido pensar assim. Porque tudo que você conhece até hoje é chatbot robótico.
+          Amira é outra coisa.
+        </p>
+      </div>
+
+      <div class="objection__answer fade-in" style="transition-delay: 0.15s;">
+        <div class="objection__point">
+          <div class="objection__point-icon">🧠</div>
+          <div>
+            <h4>Ela conhece o teu produto de verdade</h4>
+            <p>Não responde com script genérico. Responde com o que você ensinou: sua oferta, suas palavras, seu jeito.</p>
+          </div>
+        </div>
+        <div class="objection__point">
+          <div class="objection__point-icon">💬</div>
+          <div>
+            <h4>Conversa, não responde</h4>
+            <p>Faz perguntas. Entende o contexto do lead. Adapta a conversa. Chatbot responde. Amira vende.</p>
+          </div>
+        </div>
+        <div class="objection__point">
+          <div class="objection__point-icon">🎯</div>
+          <div>
+            <h4>Treinada pra qualificar e fechar</h4>
+            <p>Sabe quando o lead está pronto. Sabe quando precisa de mais informação. Sabe quando acionar você.</p>
+          </div>
+        </div>
+        <div class="objection__point">
+          <div class="objection__point-icon">✋</div>
+          <div>
+            <h4>Você assume quando quiser</h4>
+            <p>A qualquer momento você entra na conversa. Amira te avisa quando uma oportunidade precisa de toque humano.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section class="proof" id="prova">
+  <div class="container">
+    <div class="proof__stats fade-in">
+      <div class="proof__stat">
+        <div class="proof__stat-num">47</div>
+        <div class="proof__stat-label">Criadores com Amira ativa</div>
+      </div>
+      <div class="proof__stat">
+        <div class="proof__stat-num">12.3k</div>
+        <div class="proof__stat-label">Leads atendidos este mês</div>
+      </div>
+      <div class="proof__stat">
+        <div class="proof__stat-num">&lt;30s</div>
+        <div class="proof__stat-label">Tempo médio de resposta</div>
+      </div>
+      <div class="proof__stat">
+        <div class="proof__stat-num">0</div>
+        <div class="proof__stat-label">Leads perdidos por demora</div>
+      </div>
+    </div>
+
+    <div class="proof__testimonials fade-in">
+      <div class="testimonial">
+        <div class="testimonial__stars">★★★★★</div>
+        <p class="testimonial__text">
+          "Acordei numa segunda com R$2.800 em vendas novas. A Amira tinha atendido 23 pessoas enquanto eu dormia no final de semana. Nenhuma delas percebeu que era IA."
+        </p>
+        <div class="testimonial__author">
+          <div class="testimonial__avatar">JL</div>
+          <div>
+            <div class="testimonial__name">João Lemos</div>
+            <div class="testimonial__role">Coach de Performance · São Paulo</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <div class="testimonial__stars">★★★★★</div>
+        <p class="testimonial__text">
+          "Eu vendia por DM no Instagram. Sempre perdia lead porque não aguentava o volume. Hoje a Amira cuida do WhatsApp e do Insta ao mesmo tempo. Meu faturamento dobrou."
+        </p>
+        <div class="testimonial__author">
+          <div class="testimonial__avatar">MC</div>
+          <div>
+            <div class="testimonial__name">Mariana Castro</div>
+            <div class="testimonial__role">Infoprodutora · Belo Horizonte</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <div class="testimonial__stars">★★★★★</div>
+        <p class="testimonial__text">
+          "Criei a Amira numa tarde. No dia seguinte ela já tinha qualificado 8 leads e fechado 2 vendas de R$497. Nunca mais vou vender sem ela."
+        </p>
+        <div class="testimonial__author">
+          <div class="testimonial__avatar">RS</div>
+          <div>
+            <div class="testimonial__name">Rafael Santos</div>
+            <div class="testimonial__role">Criador de conteúdo · Recife</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="manifesto">
+  <div class="container">
+    <div class="manifesto__inner fade-in">
+      <div class="label section__label" style="margin-bottom: 32px;">Nosso manifesto</div>
+      <h2 class="manifesto__opening">
+        Todo dia, milhares de DMs<br>chegam sem resposta.<br>
+        <em>Não é falta de vontade.</em><br>
+        É falta de braço.
+      </h2>
+      <div class="manifesto__body">
+        <p>
+          Comentários viram nada. Seguidores viram nada.
+          Leads que pediram orçamento às 23h se foram até 8h da manhã.
+        </p>
+        <p>
+          Ninguém devia perder cliente porque o dia tem 24 horas e o time tem 8.
+        </p>
+        <p>
+          Por isso criamos a Amira. Ela atende quando você dorme.
+          Responde no canal que o cliente preferir. Conversa como gente, porque foi treinada pra isso.
+        </p>
+        <p>
+          Ela não é chatbot. Não pergunta "como posso te ajudar hoje?".
+          Ela conhece teu produto, tua voz, tua oferta. E vende.
+        </p>
+        <p>
+          Enquanto teu concorrente perde lead por demora, tua Amira fecha.
+        </p>
+      </div>
+      <p class="manifesto__close">Amira. Vende enquanto você vive.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="planos">
+  <div class="container">
+    <div class="pricing__intro fade-in">
+      <div class="label section__label">Escolha tua Amira</div>
+      <h2 class="section__title">Começa grátis.<br>Escala quando vender.</h2>
+      <p class="section__sub">
+        Nenhuma Amira precisa de contrato de 12 meses, reunião de vendas ou proposta comercial.
+        Você cria agora e começa a vender hoje.
+      </p>
+    </div>
+
+    <div class="pricing__grid fade-in">
+      <!-- Start -->
+      <div class="pricing__card">
+        <div class="pricing__plan-label">Amira Start</div>
+        <div class="pricing__price"><sup>R$</sup>0</div>
+        <div class="pricing__price-period">grátis pra sempre</div>
+        <p class="pricing__desc">Pra entender o que é ter uma vendedora de IA. Sem cartão.</p>
+        <ul class="pricing__features">
+          <li><span class="pricing__check">✓</span> 1 canal conectado</li>
+          <li><span class="pricing__check">✓</span> 100 conversas/mês</li>
+          <li><span class="pricing__check">✓</span> Treinamento básico de produto</li>
+          <li><span class="pricing__check">✓</span> Painel de acompanhamento</li>
+        </ul>
+        <a href="#" class="btn btn--ghost" style="width:100%; justify-content:center;">Criar minha Amira grátis</a>
+      </div>
+
+      <!-- Pro (Featured) -->
+      <div class="pricing__card pricing__card--featured">
+        <div class="pricing__badge">Mais popular</div>
+        <div class="pricing__plan-label" style="color: var(--gold);">Amira Pro</div>
+        <div class="pricing__price"><sup>R$</sup>197</div>
+        <div class="pricing__price-period">/mês · cancela quando quiser</div>
+        <p class="pricing__desc">Pra quem já vende e quer parar de perder lead. A Amira completa.</p>
+        <ul class="pricing__features">
+          <li><span class="pricing__check">✓</span> 6 canais simultâneos</li>
+          <li><span class="pricing__check">✓</span> Conversas ilimitadas</li>
+          <li><span class="pricing__check">✓</span> Treinamento avançado + voz da marca</li>
+          <li><span class="pricing__check">✓</span> Qualificação e fechamento automáticos</li>
+          <li><span class="pricing__check">✓</span> Alertas de lead quente</li>
+          <li><span class="pricing__check">✓</span> Integração com CRM</li>
+        </ul>
+        <a href="#" class="btn btn--primary" style="width:100%; justify-content:center;">Começar agora →</a>
+      </div>
+
+      <!-- Scale -->
+      <div class="pricing__card">
+        <div class="pricing__plan-label">Amira Scale</div>
+        <div class="pricing__price"><sup>R$</sup>497</div>
+        <div class="pricing__price-period">/mês · para times e agências</div>
+        <p class="pricing__desc">Quando uma Amira não é suficiente. Múltiplas instâncias, múltiplos produtos.</p>
+        <ul class="pricing__features">
+          <li><span class="pricing__check">✓</span> Amiras ilimitadas</li>
+          <li><span class="pricing__check">✓</span> Canais ilimitados</li>
+          <li><span class="pricing__check">✓</span> White-label (marca própria)</li>
+          <li><span class="pricing__check">✓</span> API completa</li>
+          <li><span class="pricing__check">✓</span> Onboarding dedicado</li>
+          <li><span class="pricing__check">✓</span> Suporte prioritário</li>
+        </ul>
+        <a href="#" class="btn btn--ghost" style="width:100%; justify-content:center;">Falar com time comercial</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="container">
+    <div class="final-cta__inner fade-in">
+      <div class="label section__label">Última pergunta</div>
+      <h2>
+        Quanto vale<br>o lead que você<br>
+        <em>vai perder essa noite?</em>
+      </h2>
+      <p class="final-cta__sub">
+        Tua Amira custa menos que um jantar. E trabalha enquanto você janta.
+        Cria a tua agora, em 5 minutos, sem cartão de crédito.
+      </p>
+      <div class="final-cta__buttons">
+        <a href="#planos" class="btn btn--primary btn--lg">Criar minha Amira grátis →</a>
+        <a href="#demo" class="btn btn--ghost btn--lg">Ver demo ao vivo</a>
+      </div>
+      <p class="final-cta__fine">Sem contrato. Sem cartão. Sem conversa com vendedor.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <div class="footer__logo">AMIRA</div>
+        <p class="footer__tagline">
+          Vendedora IA Multicanal.<br>
+          Vende enquanto você vive.
+        </p>
+      </div>
+      <div class="footer__links">
+        <div class="footer__col">
+          <h4>Produto</h4>
+          <ul>
+            <li><a href="#como-funciona">Como funciona</a></li>
+            <li><a href="#planos">Planos</a></li>
+            <li><a href="#prova">Cases</a></li>
+            <li><a href="#">Amira Academy</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Empresa</h4>
+          <ul>
+            <li><a href="#">Sobre nós</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Afiliados</a></li>
+            <li><a href="#">Contato</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#">Termos de uso</a></li>
+            <li><a href="#">Privacidade</a></li>
+            <li><a href="#">Cookies</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p class="footer__copy">© 2026 AMIRA. Todos os direitos reservados.</p>
+      <p class="footer__sig"><strong>Amira não erra lead.</strong></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll effect
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Intersection Observer for fade-in
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Smooth scroll for nav links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Counter animation
+  const counters = document.querySelectorAll('.proof__stat-num');
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        counterObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  counters.forEach(counter => counterObserver.observe(counter));
+</script>
+</body>
+</html>

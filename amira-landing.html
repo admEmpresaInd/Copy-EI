@@ -121,11 +121,23 @@
 
     .nav__logo {
       font-family: 'Inter', sans-serif;
-      font-size: 22px;
-      font-weight: 600;
-      letter-spacing: 0.06em;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
       color: var(--gold);
       text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      line-height: 1.1;
+    }
+
+    .nav__logo-sub {
+      font-size: 8px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
     }
 
     .nav__links {
@@ -684,8 +696,14 @@
     .objection__point:hover { border-color: var(--border-hover); }
 
     .objection__point-icon {
-      font-size: 18px;
+      width: 36px;
+      height: 36px;
       flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(52,211,153,0.08);
+      border-radius: 8px;
       margin-top: 2px;
     }
 
@@ -984,11 +1002,20 @@
 
     .footer__logo {
       font-family: 'Inter', sans-serif;
-      font-size: 20px;
-      font-weight: 600;
-      letter-spacing: 0.06em;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
       color: var(--gold);
-      margin-bottom: 12px;
+      margin-bottom: 4px;
+    }
+
+    .footer__logo-sub {
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 14px;
     }
 
     .footer__tagline { font-size: 13px; color: var(--muted); line-height: 1.6; }
@@ -1239,7 +1266,7 @@
 <nav id="nav">
   <div class="container">
     <div class="nav__inner">
-      <a href="#" class="nav__logo">AMIRA</a>
+      <a href="#" class="nav__logo">AMIRA<span class="nav__logo-sub">Vendedora IA Multicanal</span></a>
       <ul class="nav__links">
         <li><a href="#como-funciona">Como funciona</a></li>
         <li><a href="#prova">Resultados</a></li>
@@ -1495,7 +1522,7 @@
 
     <div class="problem__grid fade-in">
       <div class="problem__card">
-        <div class="problem__icon">🌙</div>
+        <div class="problem__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></div>
         <h3>O lead de meia-noite que vai embora</h3>
         <p>
           Ele viu teu post, curtiu, mandou DM perguntando o preço.
@@ -1504,7 +1531,7 @@
       </div>
 
       <div class="problem__card">
-        <div class="problem__icon">📱</div>
+        <div class="problem__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18" stroke-width="3"/></svg></div>
         <h3>6 canais. 1 você. Matemática impossível.</h3>
         <p>
           WhatsApp piscando, Instagram com 60 DMs novas, Telegram parado,
@@ -1513,7 +1540,7 @@
       </div>
 
       <div class="problem__card">
-        <div class="problem__icon">😰</div>
+        <div class="problem__icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
         <h3>A culpa que não sai da cabeça</h3>
         <p>
           "Trabalho muito e vendo pouco." A sensação de que tem dinheiro passando na sua frente
@@ -1688,28 +1715,28 @@
 
       <div class="objection__answer fade-in" style="transition-delay: 0.15s;">
         <div class="objection__point">
-          <div class="objection__point-icon">🧠</div>
+          <div class="objection__point-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
           <div>
             <h4>Ela conhece o teu produto de verdade</h4>
             <p>Não responde com script genérico. Responde com o que você ensinou: sua oferta, suas palavras, seu jeito.</p>
           </div>
         </div>
         <div class="objection__point">
-          <div class="objection__point-icon">💬</div>
+          <div class="objection__point-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
           <div>
             <h4>Conversa, não responde</h4>
             <p>Faz perguntas. Entende o contexto do lead. Adapta a conversa. Chatbot responde. Amira vende.</p>
           </div>
         </div>
         <div class="objection__point">
-          <div class="objection__point-icon">🎯</div>
+          <div class="objection__point-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
           <div>
             <h4>Treinada pra qualificar e fechar</h4>
             <p>Sabe quando o lead está pronto. Sabe quando precisa de mais informação. Sabe quando acionar você.</p>
           </div>
         </div>
         <div class="objection__point">
-          <div class="objection__point-icon">✋</div>
+          <div class="objection__point-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg></div>
           <div>
             <h4>Você assume quando quiser</h4>
             <p>A qualquer momento você entra na conversa. Amira te avisa quando uma oportunidade precisa de toque humano.</p>
@@ -1996,8 +2023,8 @@
     <div class="footer__inner">
       <div class="footer__brand">
         <div class="footer__logo">AMIRA</div>
+        <p class="footer__logo-sub">Vendedora IA Multicanal</p>
         <p class="footer__tagline">
-          Vendedora IA Multicanal.<br>
           Nenhum lead sem resposta.
         </p>
       </div>

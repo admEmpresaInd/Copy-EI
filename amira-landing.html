@@ -119,17 +119,32 @@
       justify-content: space-between;
     }
 
+    @keyframes spin-slow {
+      from { transform: rotate(-30deg); }
+      to { transform: rotate(330deg); }
+    }
+    @keyframes pulse-slow {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(0.85); }
+    }
+
     .nav__logo {
       font-family: 'Inter', sans-serif;
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 700;
       letter-spacing: 0.12em;
       color: var(--gold);
       text-decoration: none;
       display: flex;
+      align-items: center;
+      gap: 10px;
+      line-height: 1.1;
+    }
+
+    .nav__logo-text {
+      display: flex;
       flex-direction: column;
       gap: 2px;
-      line-height: 1.1;
     }
 
     .nav__logo-sub {
@@ -138,6 +153,45 @@
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--muted);
+    }
+
+    .logo-symbol {
+      width: 36px;
+      height: 36px;
+      position: relative;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-symbol__dot {
+      width: 10px;
+      height: 10px;
+      background: var(--gold);
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(52,211,153,0.6);
+      animation: pulse-slow 3s ease-in-out infinite;
+      position: relative;
+      z-index: 1;
+    }
+
+    .logo-symbol__arc {
+      position: absolute;
+      inset: 0;
+      border: 1.5px solid rgba(52,211,153,0.45);
+      border-radius: 50%;
+      border-top-color: transparent;
+      animation: spin-slow 12s linear infinite;
+    }
+
+    .logo-symbol__arc2 {
+      position: absolute;
+      inset: 6px;
+      border: 1px solid rgba(52,211,153,0.2);
+      border-radius: 50%;
+      border-bottom-color: transparent;
+      animation: spin-slow 18s linear infinite reverse;
     }
 
     .nav__links {
@@ -1266,7 +1320,14 @@
 <nav id="nav">
   <div class="container">
     <div class="nav__inner">
-      <a href="#" class="nav__logo">AMIRA<span class="nav__logo-sub">Vendedora IA Multicanal</span></a>
+      <a href="#" class="nav__logo">
+        <div class="logo-symbol">
+          <div class="logo-symbol__dot"></div>
+          <div class="logo-symbol__arc"></div>
+          <div class="logo-symbol__arc2"></div>
+        </div>
+        <div class="nav__logo-text">AMIRA<span class="nav__logo-sub">Vendedora IA Multicanal</span></div>
+      </a>
       <ul class="nav__links">
         <li><a href="#como-funciona">Como funciona</a></li>
         <li><a href="#prova">Resultados</a></li>
@@ -2022,7 +2083,10 @@
   <div class="container">
     <div class="footer__inner">
       <div class="footer__brand">
-        <div class="footer__logo">AMIRA</div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+          <div class="logo-symbol"><div class="logo-symbol__dot"></div><div class="logo-symbol__arc"></div><div class="logo-symbol__arc2"></div></div>
+          <div class="footer__logo">AMIRA</div>
+        </div>
         <p class="footer__logo-sub">Vendedora IA Multicanal</p>
         <p class="footer__tagline">
           Nenhum lead sem resposta.

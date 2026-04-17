@@ -1,5 +1,56 @@
+# ============================================================
+# Dependencies & Build Artifacts
+# ============================================================
 node_modules/
+build/
+dist/
+electron/
 *.log
+
+# ============================================================
+# Environment & Secrets
+# ============================================================
 .env
 .env.*
+!.env.example
 .vercel
+
+# ============================================================
+# IDE / AI Agent Local Configs (framework infra)
+# ============================================================
+.aiox-core/
+.antigravity/
+.codex/
+.cursor/
+.gemini/
+.agents/
+.claude/settings.local.json
+.claude/hooks/
+.claude/skills/
+.claude/commands/
+.claude/rules/
+.github/
+
+# ============================================================
+# OS / Editor
+# ============================================================
+.DS_Store
+Thumbs.db
+*.swp
+
+# ============================================================
+# Heavy Assets (too large for git)
+# ============================================================
+*.rar
+*.zip
+*.7z
+Fotos Zanuto-ORIGINAL/
+
+# PDFs grandes (> 50MB estouram warnings do GitHub)
+EI/gswp-book-apresentacao-old.pdf
+
+# ============================================================
+# Backup files
+# ============================================================
+*.backup
+*.backup.*

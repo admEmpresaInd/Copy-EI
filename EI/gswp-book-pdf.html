@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rooftop Houses | Reserva João Paulo - Book de Apresentação</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    @page {
+      size: A4 landscape;
+      margin: 0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      color: #2C2B28;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    /* --- VARIABLES --- */
+    :root {
+      --charcoal: #2C2B28;
+      --sage: #2D4A3E;
+      --forest: #3A5A40;
+      --cream: #F0EDE6;
+      --gold: #B8942E;
+      --gold-light: #D4AF37;
+      --white: #FFFFFF;
+      --page-w: 297mm;
+      --page-h: 210mm;
+    }
+
+    /* --- PAGE BASE --- */
+    .page {
+      width: var(--page-w);
+      height: var(--page-h);
+      page-break-after: always;
+      overflow: hidden;
+      position: relative;
+      background: var(--cream);
+    }
+
+    .page:last-child {
+      page-break-after: auto;
+    }
+
+    /* --- TYPOGRAPHY --- */
+    h1, h2, h3, h4 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    .headline-xl {
+      font-family: 'Playfair Display', serif;
+      font-size: 42pt;
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+    }
+
+    .headline-lg {
+      font-family: 'Playfair Display', serif;
+      font-size: 28pt;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .headline-md {
+      font-family: 'Playfair Display', serif;
+      font-size: 20pt;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    .body-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 10pt;
+      font-weight: 300;
+      line-height: 1.7;
+      letter-spacing: 0.01em;
+    }
+
+    .body-text-sm {
+      font-family: 'Inter', sans-serif;
+      font-size: 8.5pt;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    .label {
+      font-family: 'Inter', sans-serif;
+      font-size: 7pt;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+    }
+
+    .gold-line {
+      width: 60px;
+      height: 2px;
+      background: var(--gold);
+      display: block;
+    }
+
+    .gold-line-thin {
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+      display: block;
+    }
+
+    /* ============================================================
+       PAGE 1 — CAPA
+       ============================================================ */
+    .page-capa {
+      background: #000;
+    }
+
+    .page-capa .hero-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.7;
+    }
+
+    .page-capa .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(0,0,0,0.15) 0%,
+        rgba(0,0,0,0.05) 40%,
+        rgba(0,0,0,0.50) 75%,
+        rgba(0,0,0,0.80) 100%
+      );
+    }
+
+    .page-capa .logo-top {
+      position: absolute;
+      top: 28mm;
+      left: 32mm;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .page-capa .logo-top .logo-symbol {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.95);
+      letter-spacing: 0.2em;
+      line-height: 1;
+    }
+    .page-capa .logo-top .logo-diamond {
+      width: 7px;
+      height: 7px;
+      background: var(--gold);
+      transform: rotate(45deg);
+      margin: 5px 0;
+    }
+    .page-capa .logo-top .logo-name {
+      font-size: 0.45rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+    }
+
+    .page-capa .content-bottom {
+      position: absolute;
+      bottom: 28mm;
+      left: 32mm;
+      right: 32mm;
+      color: var(--white);
+    }
+
+    .page-capa .title-main {
+      font-family: 'Playfair Display', serif;
+      font-size: 48pt;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.04em;
+      line-height: 1.05;
+      margin-bottom: 4mm;
+    }
+
+    .page-capa .title-sub {
+      font-family: 'Playfair Display', serif;
+      font-size: 16pt;
+      font-weight: 400;
+      color: var(--gold-light);
+      letter-spacing: 0.08em;
+      margin-bottom: 6mm;
+    }
+
+    .page-capa .tagline {
+      font-family: 'Playfair Display', serif;
+      font-size: 13pt;
+      font-weight: 400;
+      font-style: italic;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 8mm;
+    }
+
+    .page-capa .meta-line {
+      font-family: 'Inter', sans-serif;
+      font-size: 8pt;
+      font-weight: 500;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+    }
+
+    .page-capa .gold-accent {
+      width: 80px;
+      height: 2px;
+      background: var(--gold);
+      margin-bottom: 5mm;
+    }
+
+    /* ============================================================
+       PAGE 2 — O EMPREENDIMENTO
+       ============================================================ */
+    .page-empreendimento {
+      display: flex;
+      background: var(--cream);
+    }
+
+    .page-empreendimento .photo-col {
+      width: 50%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-empreendimento .photo-col img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .page-empreendimento .photo-col .photo-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent 60%, var(--cream) 100%);
+    }
+
+    .page-empreendimento .text-col {
+      width: 50%;
+      padding: 30mm 28mm 24mm 20mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .page-empreendimento .pre-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 7pt;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 5mm;
+    }
+
+    .page-empreendimento .text-col h2 {
+      font-size: 26pt;
+      color: var(--charcoal);
+      margin-bottom: 5mm;
+      line-height: 1.2;
+    }
+
+    .page-empreendimento .text-col .description {
+      font-size: 10pt;
+      font-weight: 300;
+      line-height: 1.8;
+      color: #555;
+      margin-bottom: 10mm;
+    }
+
+    .page-empreendimento .stats-row {
+      display: flex;
+      gap: 20mm;
+      margin-top: 6mm;
+    }
+
+    .page-empreendimento .stat-item {
+      text-align: center;
+    }
+
+    .page-empreendimento .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 28pt;
+      font-weight: 700;
+      color: var(--charcoal);
+    }
+
+    .page-empreendimento .stat-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 7pt;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 2mm;
+    }
+
+    /* ============================================================
+       PAGE 3 — DIFERENCIAIS
+       ============================================================ */
+    .page-diferenciais {
+      background: var(--charcoal);
+      padding: 24mm 32mm;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page-diferenciais .section-header {
+      margin-bottom: 14mm;
+    }
+
+    .page-diferenciais .section-header .pre-title {
+      font-size: 7pt;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 4mm;
+    }
+
+    .page-diferenciais .section-header h2 {
+      font-size: 26pt;
+      color: var(--white);
+    }
+
+    .page-diferenciais .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 10mm 16mm;
+      flex: 1;
+    }
+
+    .page-diferenciais .diff-card {
+      padding: 8mm 6mm;
+      border: 1px solid rgba(184, 148, 46, 0.2);
+      border-radius: 2px;
+    }
+
+    .page-diferenciais .diff-card .icon-wrap {
+      width: 36px;
+      height: 36px;
+      margin-bottom: 4mm;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .page-diferenciais .diff-card .icon-wrap svg {
+      width: 28px;
+      height: 28px;
+      stroke: var(--gold);
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    .page-diferenciais .diff-card h4 {
+      font-size: 11pt;
+      color: var(--white);
+      margin-bottom: 3mm;
+      font-weight: 600;
+    }
+
+    .page-diferenciais .diff-card p {
+      font-size: 8pt;
+      font-weight: 300;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.65);
+    }
+
+    /* ============================================================
+       PAGE 4 — PLANTAS & TIPOLOGIAS
+       ============================================================ */
+    .page-plantas {
+      display: flex;
+      background: var(--cream);
+    }
+
+    .page-plantas .table-col {
+      width: 55%;
+      padding: 28mm 24mm 24mm 32mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .page-plantas .pre-title {
+      font-size: 7pt;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 5mm;
+    }
+
+    .page-plantas h2 {
+      font-size: 26pt;
+      color: var(--charcoal);
+      margin-bottom: 10mm;
+    }
+
+    .page-plantas table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 8mm;
+    }
+
+    .page-plantas table th {
+      font-family: 'Inter', sans-serif;
+      font-size: 7pt;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-align: left;
+      padding: 3mm 4mm;
+      border-bottom: 1px solid var(--gold);
+    }
+
+    .page-plantas table td {
+      font-family: 'Inter', sans-serif;
+      font-size: 10pt;
+      font-weight: 400;
+      padding: 4mm;
+      border-bottom: 1px solid rgba(44,43,40,0.1);
+      color: var(--charcoal);
+    }
+
+    .page-plantas table tr:last-child td {
+      border-bottom: 2px solid var(--gold);
+      font-weight: 600;
+    }
+
+    .page-plantas .total-area {
+      font-family: 'Playfair Display', serif;
+      font-size: 32pt;
+      font-weight: 700;
+      color: var(--charcoal);
+      margin-top: 4mm;
+    }
+
+    .page-plantas .total-area span {
+      font-size: 14pt;
+      color: var(--gold);
+      font-weight: 400;
+    }
+
+    .page-plantas .photo-col {
+      width: 45%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-plantas .photo-col img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .page-plantas .photo-col .photo-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(270deg, transparent 70%, var(--cream) 100%);
+    }
+
+    /* ============================================================
+       PAGE 5 — AMBIENTES
+       ============================================================ */
+    .page-ambientes {
+      background: var(--charcoal);
+      padding: 18mm 24mm;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page-ambientes .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12mm;
+      margin-bottom: 10mm;
+    }
+
+    .page-ambientes .section-header .pre-title {
+      font-size: 7pt;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .page-ambientes .section-header h2 {
+      font-size: 22pt;
+      color: var(--white);
+    }
+
+    .page-ambientes .gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 4mm;
+      flex: 1;
+    }
+
+    .page-ambientes .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px;
+    }
+
+    .page-ambientes .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .page-ambientes .gallery-item .caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 4mm 5mm;
+      background: linear-gradient(transparent, rgba(0,0,0,0.7));
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 7.5pt;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    /* ============================================================
+       PAGE 6 — LOCALIZACAO
+       ============================================================ */
+    .page-localizacao {
+      display: flex;
+      background: var(--cream);
+    }
+
+    .page-localizacao .text-col {
+      width: 50%;
+      padding: 28mm 24mm 24mm 32mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .page-localizacao .pre-title {
+      font-size: 7pt;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 5mm;
+    }
+
+    .page-localizacao h2 {
+      font-size: 24pt;
+      color: var(--charcoal);
+      margin-bottom: 6mm;
+    }
+
+    .page-localizacao .bairro-text {
+      font-size: 9.5pt;
+      font-weight: 300;
+      line-height: 1.8;
+      color: #555;
+      margin-bottom: 10mm;
+    }
+
+    .page-localizacao .poi-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5mm 12mm;
+    }
+
+    .page-localizacao .poi-item {
+      display: flex;
+      align-items: center;
+      gap: 4mm;
+    }
+
+    .page-localizacao .poi-item .poi-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--sage);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .page-localizacao .poi-item .poi-icon svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--white);
+      fill: none;
+      stroke-width: 2;
+    }
+
+    .page-localizacao .poi-item .poi-info .poi-name {
+      font-size: 8.5pt;
+      font-weight: 500;
+      color: var(--charcoal);
+    }
+
+    .page-localizacao .poi-item .poi-info .poi-dist {
+      font-size: 7pt;
+      font-weight: 400;
+      color: var(--gold);
+    }
+
+    .page-localizacao .photo-col {
+      width: 50%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-localizacao .photo-col img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .page-localizacao .photo-col .photo-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, var(--cream) 0%, transparent 30%);
+    }
+
+    /* ============================================================
+       PAGE 7 — SUSTENTABILIDADE
+       ============================================================ */
+    .page-sustentabilidade {
+      background: var(--sage);
+      padding: 28mm 32mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .page-sustentabilidade .section-header {
+      margin-bottom: 16mm;
+    }
+
+    .page-sustentabilidade .pre-title {
+      font-size: 7pt;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 4mm;
+    }
+
+    .page-sustentabilidade h2 {
+      font-size: 26pt;
+      color: var(--white);
+      max-width: 500px;
+    }
+
+    .page-sustentabilidade .pillars-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 12mm;
+    }
+
+    .page-sustentabilidade .pillar {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 3px;
+      padding: 10mm 8mm;
+      text-align: center;
+    }
+
+    .page-sustentabilidade .pillar .pillar-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 6mm;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .page-sustentabilidade .pillar .pillar-icon svg {
+      width: 36px;
+      height: 36px;
+      stroke: var(--gold-light);
+      fill: none;
+      stroke-width: 1.5;
+    }
+
+    .page-sustentabilidade .pillar h4 {
+      font-size: 11pt;
+      color: var(--white);
+      margin-bottom: 3mm;
+    }
+
+    .page-sustentabilidade .pillar p {
+      font-size: 8pt;
+      font-weight: 300;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.7);
+    }
+
+    /* ============================================================
+       PAGE 8 — SOBRE + CTA
+       ============================================================ */
+    .page-cta {
+      background: var(--charcoal);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24mm 48mm;
+      position: relative;
+    }
+
+    .page-cta .border-frame {
+      position: absolute;
+      top: 14mm;
+      left: 18mm;
+      right: 18mm;
+      bottom: 14mm;
+      border: 1px solid rgba(184, 148, 46, 0.25);
+      pointer-events: none;
+    }
+
+    .page-cta .logo-cta-text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 10mm;
+    }
+    .page-cta .logo-symbol {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.2rem;
+      font-weight: 700;
+      color: var(--cream);
+      letter-spacing: 0.15em;
+    }
+    .page-cta .logo-diamond {
+      width: 10px;
+      height: 10px;
+      background: var(--gold);
+      transform: rotate(45deg);
+      margin: 6px auto;
+    }
+    .page-cta .logo-name {
+      font-size: 0.55rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: rgba(240, 237, 230, 0.55);
+    }
+
+    .page-cta .gold-line-center {
+      width: 60px;
+      height: 2px;
+      background: var(--gold);
+      margin: 0 auto 8mm;
+    }
+
+    .page-cta h2 {
+      font-size: 22pt;
+      color: var(--white);
+      margin-bottom: 6mm;
+    }
+
+    .page-cta .institutional {
+      font-size: 9.5pt;
+      font-weight: 300;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.65);
+      max-width: 480px;
+      margin-bottom: 12mm;
+    }
+
+    .page-cta .cta-box {
+      background: rgba(184, 148, 46, 0.12);
+      border: 1px solid var(--gold);
+      border-radius: 3px;
+      padding: 8mm 16mm;
+      margin-bottom: 8mm;
+    }
+
+    .page-cta .cta-box .cta-headline {
+      font-family: 'Playfair Display', serif;
+      font-size: 14pt;
+      font-weight: 600;
+      color: var(--gold-light);
+      margin-bottom: 3mm;
+    }
+
+    .page-cta .cta-box .cta-text {
+      font-size: 9pt;
+      font-weight: 400;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .page-cta .contact-row {
+      display: flex;
+      gap: 16mm;
+      margin-top: 4mm;
+    }
+
+    .page-cta .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 3mm;
+      color: rgba(255,255,255,0.6);
+      font-size: 8pt;
+      font-weight: 400;
+    }
+
+    .page-cta .contact-item svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--gold);
+      fill: none;
+      stroke-width: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== PAGE 1 — CAPA ========== -->
+  <div class="page page-capa">
+    <img class="hero-bg" src="file:///D:/Copy%20EI/EI/fotos/fachada-hero.jpg" alt="Fachada Rooftop Houses">
+    <div class="overlay"></div>
+    <div class="logo-top">
+      <div class="logo-symbol">GSWP</div>
+      <div class="logo-diamond"></div>
+      <div class="logo-name">Greystone Wellness Propriety</div>
+    </div>
+    <div class="content-bottom">
+      <div class="gold-accent"></div>
+      <div class="title-main">Rooftop Houses</div>
+      <div class="title-sub">Reserva João Paulo</div>
+      <div class="tagline">Onde a natureza encontra o extraordinário.</div>
+      <div class="meta-line">Florianópolis &middot; João Paulo &middot; 4 Unidades Exclusivas</div>
+    </div>
+  </div>
+
+  <!-- ========== PAGE 2 — O EMPREENDIMENTO ========== -->
+  <div class="page page-empreendimento">
+    <div class="photo-col">
+      <img src="file:///D:/Copy%20EI/EI/fotos/fachada-about.jpg" alt="Fachada">
+      <div class="photo-overlay"></div>
+    </div>
+    <div class="text-col">
+      <div class="pre-title">O Empreendimento</div>
+      <span class="gold-line" style="margin-bottom: 6mm;"></span>
+      <h2>Viver acima<br>do comum</h2>
+      <p class="description">
+        O Rooftop Houses — Reserva João Paulo — é um empreendimento de alto padrão que redefine o conceito de moradia em Florianópolis. São apenas 4 unidades exclusivas, cada uma com 357m² de área total distribuídos em 5 pavimentos, projetadas para quem busca privacidade, sofisticação e contato direto com a natureza.
+      </p>
+      <p class="description" style="margin-top: -5mm;">
+        Cada residência conta com rooftop privativo, garagem para 4 veículos, acabamentos premium e uma arquitetura que privilegia a luz natural e a ventilação cruzada.
+      </p>
+      <div class="stats-row">
+        <div class="stat-item">
+          <div class="stat-number">357</div>
+          <div class="stat-label">metros quadrados</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">5</div>
+          <div class="stat-label">pavimentos</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">3</div>
+          <div class="stat-label">suítes</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== PAGE 3 — DIFERENCIAIS ========== -->
+  <div class="page page-diferenciais">
+    <div class="section-header">
+      <div class="pre-title">Por que escolher</div>
+      <h2>Diferenciais</h2>
+    </div>
+    <div class="grid">
+      <!-- 1 Rooftop Privativo -->
+      <div class="diff-card">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M3 21h18M3 21V9l9-6 9 6v12M9 21v-6h6v6"/></svg>
+        </div>
+        <h4>Rooftop Privativo</h4>
+        <p>Terraço exclusivo com 62m² em cada unidade, ideal para lazer, contemplação e recepções ao ar livre com vista privilegiada.</p>
+      </div>
+      <!-- 2 Garagem 4 Vagas -->
+      <div class="diff-card">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-2M6 16h-4V6"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </div>
+        <h4>Garagem 4 Veículos</h4>
+        <p>Subsolo privativo com espaço para 4 automóveis, além de área técnica e depósito integrado.</p>
+      </div>
+      <!-- 3 Energia Solar -->
+      <div class="diff-card">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </div>
+        <h4>Energia Solar</h4>
+        <p>Sistema fotovoltaico integrado para geração de energia limpa, reduzindo custos e impacto ambiental.</p>
+      </div>
+      <!-- 4 Isolamento -->
+      <div class="diff-card">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+        </div>
+        <h4>Isolamento Termoacústico</h4>
+        <p>Paredes e lajes com tratamento acústico premium, garantindo conforto térmico e silêncio absoluto.</p>
+      </div>
+      <!-- 5 Automacao -->
+      <div class="diff-card">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <h4>Automação Residencial</h4>
+        <p>Infraestrutura completa para automação de iluminação, cortinas, climatização e segurança.</p>
+      </div>
+      <!-- 6 Localizacao -->
+      <div class="diff-card">
+        <div class="icon-wrap">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <h4>Localização Privilegiada</h4>
+        <p>No João Paulo, a 300m do mar e 6 minutos do centro, entre natureza e conveniência urbana.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== PAGE 4 — PLANTAS & TIPOLOGIAS ========== -->
+  <div class="page page-plantas">
+    <div class="table-col">
+      <div class="pre-title">Tipologia</div>
+      <span class="gold-line" style="margin-bottom: 6mm;"></span>
+      <h2>Plantas &amp; Áreas</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Pavimento</th>
+            <th>Área Privativa</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Subsolo (Garagem + Depósito)</td>
+            <td>74,40 m²</td>
+          </tr>
+          <tr>
+            <td>1º Andar (Social)</td>
+            <td>80,83 m²</td>
+          </tr>
+          <tr>
+            <td>Mezanino (Office)</td>
+            <td>44,54 m²</td>
+          </tr>
+          <tr>
+            <td>2º Andar (Íntimo)</td>
+            <td>77,19 m²</td>
+          </tr>
+          <tr>
+            <td>Rooftop (Lazer)</td>
+            <td>62,64 m²</td>
+          </tr>
+          <tr>
+            <td><strong>Total</strong></td>
+            <td><strong>357,19 m²</strong></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="total-area">
+        357,19 <span>m² de área total</span>
+      </div>
+    </div>
+    <div class="photo-col">
+      <img src="file:///D:/Copy%20EI/EI/fotos/estar-02.jpg" alt="Estar">
+      <div class="photo-overlay"></div>
+    </div>
+  </div>
+
+  <!-- ========== PAGE 5 — AMBIENTES ========== -->
+  <div class="page page-ambientes">
+    <div class="section-header">
+      <div class="pre-title">Galeria</div>
+      <span class="gold-line-thin"></span>
+      <h2>Ambientes</h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="file:///D:/Copy%20EI/EI/fotos/area-gourmet-01.jpg" alt="Área Gourmet">
+        <div class="caption">Área Gourmet</div>
+      </div>
+      <div class="gallery-item">
+        <img src="file:///D:/Copy%20EI/EI/fotos/suite-master.jpg" alt="Suíte Master">
+        <div class="caption">Suíte Master</div>
+      </div>
+      <div class="gallery-item">
+        <img src="file:///D:/Copy%20EI/EI/fotos/estar-01.jpg" alt="Estar">
+        <div class="caption">Estar</div>
+      </div>
+      <div class="gallery-item">
+        <img src="file:///D:/Copy%20EI/EI/fotos/estar-cozinha.jpg" alt="Cozinha Integrada">
+        <div class="caption">Cozinha Integrada</div>
+      </div>
+      <div class="gallery-item">
+        <img src="file:///D:/Copy%20EI/EI/fotos/banheiro-master.jpg" alt="Banheiro Master">
+        <div class="caption">Banheiro Master</div>
+      </div>
+      <div class="gallery-item">
+        <img src="file:///D:/Copy%20EI/EI/fotos/office.jpg" alt="Office">
+        <div class="caption">Office</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== PAGE 6 — LOCALIZACAO ========== -->
+  <div class="page page-localizacao">
+    <div class="text-col">
+      <div class="pre-title">Localização</div>
+      <span class="gold-line" style="margin-bottom: 6mm;"></span>
+      <h2>João Paulo,<br>Florianópolis</h2>
+      <p class="bairro-text">
+        O bairro João Paulo é um dos endereços mais cobiçados de Florianópolis. Rodeado por natureza exuberante, com acesso rápido ao centro e às melhores praias do norte da ilha, o bairro combina tranquilidade residencial com infraestrutura urbana completa.
+      </p>
+      <div class="poi-grid">
+        <div class="poi-item">
+          <div class="poi-icon">
+            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+          </div>
+          <div class="poi-info">
+            <div class="poi-name">Centro de Florianópolis</div>
+            <div class="poi-dist">6 minutos</div>
+          </div>
+        </div>
+        <div class="poi-item">
+          <div class="poi-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="poi-info">
+            <div class="poi-name">Jurerê Internacional</div>
+            <div class="poi-dist">10 minutos</div>
+          </div>
+        </div>
+        <div class="poi-item">
+          <div class="poi-icon">
+            <svg viewBox="0 0 24 24"><path d="M2 12s4-8 10-8 10 8 10 8-4 8-10 8-10-8-10-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <div class="poi-info">
+            <div class="poi-name">Beira-Mar / Praia</div>
+            <div class="poi-dist">300 metros</div>
+          </div>
+        </div>
+        <div class="poi-item">
+          <div class="poi-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <div class="poi-info">
+            <div class="poi-name">Hospitais e Clínicas</div>
+            <div class="poi-dist">8 minutos</div>
+          </div>
+        </div>
+        <div class="poi-item">
+          <div class="poi-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+          </div>
+          <div class="poi-info">
+            <div class="poi-name">Escolas Internacionais</div>
+            <div class="poi-dist">5 minutos</div>
+          </div>
+        </div>
+        <div class="poi-item">
+          <div class="poi-icon">
+            <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 01-8 0"/></svg>
+          </div>
+          <div class="poi-info">
+            <div class="poi-name">Comércio e Serviços</div>
+            <div class="poi-dist">3 minutos</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="photo-col">
+      <img src="file:///D:/Copy%20EI/EI/fotos/fachada-02.jpg" alt="Fachada Lateral">
+      <div class="photo-overlay"></div>
+    </div>
+  </div>
+
+  <!-- ========== PAGE 7 — SUSTENTABILIDADE ========== -->
+  <div class="page page-sustentabilidade">
+    <div class="section-header">
+      <div class="pre-title">Sustentabilidade &amp; Tecnologia</div>
+      <span class="gold-line" style="margin-top: 4mm; margin-bottom: 4mm;"></span>
+      <h2>Onde o silêncio e a<br>tecnologia se encontram</h2>
+    </div>
+    <div class="pillars-grid">
+      <!-- Energia Solar -->
+      <div class="pillar">
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </div>
+        <h4>Energia Solar</h4>
+        <p>Painéis fotovoltaicos integrados para geração de energia renovável e economia na conta de luz.</p>
+      </div>
+      <!-- Reaproveitamento -->
+      <div class="pillar">
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/></svg>
+        </div>
+        <h4>Reaproveitamento<br>de Água</h4>
+        <p>Sistema de captação de água pluvial para irrigação de jardins e uso em áreas comuns.</p>
+      </div>
+      <!-- Isolamento -->
+      <div class="pillar">
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+        </div>
+        <h4>Isolamento<br>Termoacústico</h4>
+        <p>Paredes duplas e lajes com tratamento especial para máximo conforto térmico e silêncio.</p>
+      </div>
+      <!-- Automacao -->
+      <div class="pillar">
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <h4>Automação<br>Residencial</h4>
+        <p>Infraestrutura para controle inteligente de iluminação, climatização, cortinas e segurança.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== PAGE 8 — SOBRE + CTA ========== -->
+  <div class="page page-cta">
+    <div class="border-frame"></div>
+    <div class="logo-cta-text">
+      <div class="logo-symbol">GSWP</div>
+      <div class="logo-diamond"></div>
+      <div class="logo-name">Greystone Wellness Propriety</div>
+    </div>
+    <div class="gold-line-center"></div>
+    <h2>Construindo o extraordinário</h2>
+    <p class="institutional">
+      A GSWP Empreendimentos é referência em projetos residenciais de alto padrão em Florianópolis. Com compromisso inabalável com qualidade, design e inovação, cada empreendimento é concebido para oferecer uma experiência de moradia única e sofisticada.
+    </p>
+    <div class="cta-box">
+      <div class="cta-headline">Apenas 4 unidades. Agende sua visita.</div>
+      <div class="cta-text">Oportunidade exclusiva no João Paulo — Florianópolis</div>
+    </div>
+    <div class="contact-row">
+      <div class="contact-item">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+        <span>(48) 99999-9999</span>
+      </div>
+      <div class="contact-item">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+        <span>contato@gswp.com.br</span>
+      </div>
+      <div class="contact-item">
+        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>gswp.com.br</span>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

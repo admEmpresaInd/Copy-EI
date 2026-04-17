@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-BR" style="color-scheme:dark;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VSL — Raio-X Empresa Independente - 7min</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0c0c0c; --bg-elevated: #141414; --bg-card: #1a1a1a;
+    --fg: #f0f0f0; --fg-muted: #888888; --fg-dim: #555555;
+    --primary: #34d399; --border: rgba(255,255,255,0.07);
+    --accent-violet: #a78bfa; --accent-amber: #fbbf24; --accent-blue: #60a5fa;
+    --accent-rose: #fb7185; --accent-cyan: #22d3ee;
+    --font-display: 'Space Grotesk', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --radius: 10px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--fg); font-family: var(--font-display); line-height: 1.7; padding: 48px 24px; -webkit-font-smoothing: antialiased; }
+  .page { max-width: 720px; margin: 0 auto; }
+  .page-header { margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+  .page-title { font-size: 1.1rem; font-weight: 600; color: var(--fg-muted); letter-spacing: -0.01em; }
+  .page-date { font-size: 0.75rem; color: var(--fg-dim); margin-top: 4px; font-family: var(--font-mono); }
+  ::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+  /* Markdown output */
+  h1,h2,h3,h4,h5,h6 { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.02em; margin: 1.6em 0 0.6em; color: var(--fg); }
+  h1 { font-size: 1.8rem; color: var(--primary); }
+  h2 { font-size: 1.35rem; }
+  h3 { font-size: 1.1rem; color: var(--fg-muted); }
+  p { margin: 0.75em 0; color: var(--fg); }
+  ul, ol { padding-left: 1.5em; margin: 0.75em 0; }
+  li { margin: 0.3em 0; }
+  strong { font-weight: 600; color: var(--fg); }
+  em { color: var(--fg-muted); font-style: italic; }
+  code { font-family: var(--font-mono); font-size: 0.82em; background: rgba(255,255,255,0.07); padding: 2px 6px; border-radius: 4px; color: var(--primary); }
+  pre { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; overflow-x: auto; margin: 1em 0; }
+  pre code { background: none; padding: 0; color: var(--fg); font-size: 0.85em; }
+  blockquote { border-left: 3px solid var(--primary); margin: 1em 0; padding: 8px 16px; background: rgba(52,211,153,0.05); color: var(--fg-muted); border-radius: 0 6px 6px 0; }
+  hr { border: none; border-top: 1px solid var(--border); margin: 2em 0; }
+  a { color: var(--primary); text-decoration: none; } a:hover { text-decoration: underline; }
+  table { width: 100%; border-collapse: collapse; margin: 1em 0; font-size: 0.88rem; }
+  th { background: var(--bg-elevated); padding: 10px 14px; text-align: left; font-weight: 600; border: 1px solid var(--border); }
+  td { padding: 9px 14px; border: 1px solid var(--border); color: var(--fg-muted); }
+  tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="page-header">
+    <div class="page-title">VSL — Raio-X Empresa Independente - 7min</div>
+    <div class="page-date">11/03/2026, 00:03:51</div>
+  </div>
+  <p>Tenho tudo que preciso. Já existem dois rascunhos de VSL no projeto — agora vou escrever a versão definitiva de 7 minutos, calibrada para público frio, com os dados reais do site (Breier, depoimentos, números), estrutura mais enxuta e CTA para agendamento.</p>
+<hr>
+<h1>VSL — Raio-X Empresa Independente</h1>
+<p><strong>Funil:</strong> Público Frio → VSL → Agendamento → Fecha na Call
+<strong>Duração:</strong> 7 minutos (~900 palavras | ritmo: 130 palavras/min)
+<strong>Lead:</strong> Proclamation + Problem-Solution
+<strong>Nível de consciência:</strong> 4 — Problema Aware (sente a dor, não conhece o EI)
+<strong>Sofisticação:</strong> Nível 4 — cético com promessas genéricas de "empresa sem você"
+<strong>Objetivo da VSL:</strong> AGENDAR O RAIO-X — não vender o método</p>
+<hr>
+<h2>[HOOK — 0:00 a 0:35]</h2>
+<p><strong>[Câmera direta. Sem abertura. Sem música. Primeira palavra é a primeira coisa que o assistente ouve.]</strong></p>
+<p>Você não está sobrecarregado por falta de esforço.</p>
+<p>Você está sobrecarregado porque a sua empresa ainda não existe sem você.</p>
+<p>E enquanto isso não mudar — não importa quanto você fature, quantas pessoas contratar, ou quantas horas colocar — você vai continuar sendo o teto do próprio crescimento.</p>
+<p>Nos próximos 7 minutos, eu vou te mostrar por que isso acontece, o que está realmente travando a sua empresa — e qual é o próximo passo para mudar isso de uma vez por todas.</p>
+<p>Fica até o final. Vai valer.</p>
+<hr>
+<h2>[IDENTIFICAÇÃO + NOMEANDO O PROBLEMA — 0:35 a 2:30]</h2>
+<p><strong>[Tom de diagnóstico — não de guru]</strong></p>
+<p>Você já passou da fase difícil. Construiu o negócio do zero. Tem clientes. Tem equipe. Tem faturamento.</p>
+<p>Mas em algum momento você percebeu que crescer só criou mais trabalho pra você.</p>
+<p>Você tem colaboradores, mas ainda é você quem decide tudo. Você tem equipe, mas ainda é você quem apaga incêndio. Você tem um negócio — mas não tem liberdade.</p>
+<p>E já tentou resolver. Já delegou e a tarefa voltou errada. Já criou processo e ninguém seguiu. Já contratou e a contratação foi um erro custoso.</p>
+<p>E chegou na conclusão mais perigosa que um empresário pode chegar:</p>
+<p><em>"Mais rápido eu fazer do que explicar."</em></p>
+<p>Mas o problema não é sua equipe. E não é falta de esforço.</p>
+<p>O problema é que todo o conhecimento da sua empresa ainda está dentro da sua cabeça.</p>
+<p>Os critérios de qualidade. A forma certa de atender o cliente. Como resolver cada problema que aparece. Como cada entrega deve ser feita.</p>
+<p>Você é o manual de operações vivo da sua empresa.</p>
+<p>E enquanto for assim, você não tem uma empresa — você tem um emprego sofisticado onde você é o patrão e o maior funcionário ao mesmo tempo.</p>
+<p>Esse modelo tem um nome técnico: <strong>empresa dependente do fundador.</strong></p>
+<p>E mais de 50% das PMEs fecham antes de 5 anos, segundo o Sebrae. A causa número 1 não é falta de cliente. É falta de gestão estruturada.</p>
+<p>Mas o que ninguém te explica é: por que os processos que você tentou criar não funcionaram?</p>
+<hr>
+<h2>[QUEM SOU EU — CREDENCIAL — 2:30 a 3:30]</h2>
+<p><strong>[Tom pessoal, sem arrogância]</strong></p>
+<p>Meu nome é Breier.</p>
+<p>Fui sócio e gestor de operações em negócios que chegaram a múltiplos 9 dígitos de faturamento.</p>
+<p>E aprendi na prática o que separa a empresa que funciona da empresa que só existe quando o dono está presente.</p>
+<p>Desde então, nos últimos anos, mais de 300 empresários passaram pelo Sistema Empresa Independente.</p>
+<p>Diferentes segmentos. Diferentes tamanhos. Uma coisa em comum:</p>
+<p>Todos chegaram até mim sendo o gargalo da própria empresa. E todos saíram com uma operação que roda sem eles precisarem estar em cima de tudo.</p>
+<p>Deixa eu te mostrar o que acontece quando você muda essa estrutura.</p>
+<hr>
+<h2>[PROVA SOCIAL — RESULTADOS REAIS — 3:30 a 4:45]</h2>
+<p><strong>[Apresentar como "o que aconteceu com quem implementou" — não como venda]</strong></p>
+<p>O Daniel Tenório chegou faturando R$80 mil por mês. Em 3 meses de implementação, cruzou R$450 mil. Depois R$1,4 milhão. Hoje fatura R$2,2 milhões por mês — com a mesma equipe que tinha antes.</p>
+<p>A Rejuv Cosméticos expandiu 54% em 90 dias. De R$1,1 milhão para R$1,7 milhão por mês — sem contratar ninguém novo. A equipe que já existia passou a trabalhar com processo em vez de improviso.</p>
+<p>O Marlon Jonck dobrou o faturamento em 60 dias. De R$50 mil para mais de R$100 mil mensais.</p>
+<p>Resultados diferentes. Segmentos diferentes.</p>
+<p>Uma coisa em comum: eles pararam de ser o centro de gravidade da própria empresa.</p>
+<p>E o que permitiu isso não foi força de vontade. Foi um sistema específico.</p>
+<hr>
+<h2>[O MECANISMO — O SISTEMA EI EM 60 SEGUNDOS — 4:45 a 5:45]</h2>
+<p>O Sistema Empresa Independente resolve em 5 frentes o que mantém o dono preso na operação.</p>
+<p><strong>Primeiro:</strong> mapeia onde você joga seu tempo fora — e coloca número nisso.</p>
+<p><strong>Segundo:</strong> tira o conhecimento da sua cabeça e transforma em processo que qualquer pessoa da equipe consegue executar — com IA. Um áudio de 2 minutos seu vira um checklist completo pronto pra equipe usar. Sem planilha. Sem horas documentando.</p>
+<p><strong>Terceiro:</strong> substitui a contratação por intuição por um método com 84% de assertividade. Sem mais apostar no feeling.</p>
+<p><strong>Quarto:</strong> estrutura delegação real — não microgestão disfarçada.</p>
+<p><strong>Quinto:</strong> cria visibilidade total da operação sem você precisar estar em cima de tudo.</p>
+<p>O resultado: você migra da cadeira de executor para a de estrategista. Sua empresa roda com ou sem você presente.</p>
+<hr>
+<h2>[A OFERTA — RAIO-X — 5:45 a 6:35]</h2>
+<p>Agora, eu poderia te vender um curso.</p>
+<p>Mas eu não vou fazer isso.</p>
+<p>Porque eu aprendi que cada empresa tem um gargalo diferente. E a solução genérica não resolve problema específico.</p>
+<p>Por isso, o que eu quero te oferecer é diferente.</p>
+<p>Uma sessão individual de 45 minutos que eu chamo de <strong>Raio-X da Empresa Independente.</strong></p>
+<p>Nessa conversa, eu — ou um especialista do meu time — vai mapear exatamente onde está o seu gargalo real hoje. Identificar o quanto isso está te custando em horas e faturamento reprimido. E mostrar qual é o próximo passo específico para a sua empresa.</p>
+<p>Não é pitch de vendas. É diagnóstico real.</p>
+<p>Você sai sabendo o que está travando o seu crescimento — mesmo que não decida trabalhar comigo.</p>
+<p>Mas ela não é para todo mundo.</p>
+<p>É para você se já tem uma empresa operando, já tem equipe, já percebeu que o gargalo agora é gestão — não produto ou vendas. E está disposto a implementar, não só a aprender mais teoria.</p>
+<hr>
+<h2>[CTA — 6:35 a 7:00]</h2>
+<p><strong>[Ritmo mais lento. Tom direto.]</strong></p>
+<p>Abaixo desse vídeo tem um botão.</p>
+<p>Você preenche duas informações sobre o seu negócio, escolhe um horário disponível na agenda. Leva menos de 3 minutos.</p>
+<p>Na data marcada, você tem 45 minutos de diagnóstico real — sem compromisso de compra.</p>
+<p>As vagas são limitadas. O diagnóstico é individual e meu time tem capacidade finita por semana.</p>
+<p>Se você assistiu até aqui, você já reconheceu o problema.</p>
+<p>A única decisão agora é se você vai continuar sendo o gargalo da sua empresa por mais um ano — ou vai fazer algo diferente.</p>
+<p>Clica no botão. Escolhe o horário.</p>
+<p>Te vejo na call.</p>
+<p><strong>[Fade. Sem música dramática. Sem countdown falso.]</strong></p>
+<hr>
+<h2>ELEMENTOS DE PRODUÇÃO</h2>
+<table>
+<thead>
+<tr>
+<th>Elemento</th>
+<th>Recomendação</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Formato</strong></td>
+<td>Direto pra câmera. Teleprompter ou decorado. Sem cortes rápidos excessivos.</td>
+</tr>
+<tr>
+<td><strong>Cenário</strong></td>
+<td>Ambiente clean, neutro — escritório real. Sem fundo virtual.</td>
+</tr>
+<tr>
+<td><strong>Ritmo</strong></td>
+<td>Pausas intencionais após perguntas retóricas. Não apressar.</td>
+</tr>
+<tr>
+<td><strong>Legendas</strong></td>
+<td>Sim — roda sem som no feed</td>
+</tr>
+<tr>
+<td><strong>CTA no vídeo</strong></td>
+<td>Mostrar o botão/link na tela em 5:45 e novamente no fechamento</td>
+</tr>
+<tr>
+<td><strong>Thumbnail</strong></td>
+<td>Breier olhando direto pra câmera + headline: <em>"Sua empresa para sem você?"</em></td>
+</tr>
+<tr>
+<td><strong>Hook de ad</strong></td>
+<td>Usar a Variação 5 do arquivo existente como criativo de topo (3-5s): <em>"Você não está sobrecarregado por falta de disciplina. Você está sobrecarregado porque sua empresa ainda não existe sem você."</em></td>
+</tr>
+</tbody></table>
+<hr>
+<h2>LÓGICA ESTRATÉGICA DA VERSÃO 7 MIN</h2>
+<p>A versão de 7 minutos sacrifica a fase de "invalidação das soluções anteriores" (que no roteiro longo ficava entre 4:30 e 6:30) para aumentar a retenção. O público frio em meta ads tende a cair antes de 10 minutos — então a prioridade é:</p>
+<ol>
+<li>Identificação imediata no hook</li>
+<li>Dor nomeada com precisão cirúrgica</li>
+<li>Credencial rápida + prova social com números reais</li>
+<li>Mecanismo explicado em 60 segundos (não precisa de profundidade aqui — a call faz isso)</li>
+<li>Oferta do Raio-X posicionada como diagnóstico, não como venda</li>
+<li>CTA limpo e direto</li>
+</ol>
+<p><strong>O que vende a call:</strong> a abertura emocional criada pela dor bem nomeada + a percepção de que o diagnóstico tem valor real mesmo sem comprar nada.</p>
+<hr>
+<p>Quer que eu escreva agora o <strong>script da call de Raio-X</strong> — estrutura de diagnóstico + transição para o fechamento? Ou prefere algum ajuste na VSL primeiro?</p>
+
+</div>
+</body>
+</html>

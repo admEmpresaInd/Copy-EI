@@ -1,0 +1,1580 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consultoria Claude — Empresa Independente</title>
+<meta name="description" content="A consultoria que instala Claude Code na sua empresa e te tira do operacional em 90 dias. Vagas limitadas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+
+<style>
+/* ─── TOKENS ───────────────────────────────────────────────── */
+:root {
+  --bg:            #0d0d0d;
+  --bg-1:          #111111;
+  --bg-2:          #161616;
+  --bg-3:          #1c1c1c;
+  --fg:            #f2f2f0;
+  --fg-2:          #a8a89c;
+  --fg-3:          #5a5a54;
+  --primary:       #34d399;
+  --primary-dim:   rgba(52,211,153,0.12);
+  --primary-glow:  rgba(52,211,153,0.2);
+  --border:        rgba(255,255,255,0.07);
+  --border-2:      rgba(255,255,255,0.12);
+  --amber:         #f59e0b;
+  --amber-dim:     rgba(245,158,11,0.1);
+  --violet:        #a78bfa;
+  --violet-dim:    rgba(167,139,250,0.1);
+  --rose:          #fb7185;
+
+  --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-body:    'Lora', Georgia, serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  --r-sm: 6px; --r-md: 10px; --r-lg: 16px; --r-xl: 24px;
+  --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ─── RESET ─────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-display);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+button { font-family: var(--font-display); border: none; cursor: pointer; background: none; color: inherit; }
+img { display: block; max-width: 100%; }
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 2px; }
+
+/* ─── LAYOUT ─────────────────────────────────────────────────── */
+.wrap    { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+.wrap-md { max-width:  860px; margin: 0 auto; padding: 0 24px; }
+.wrap-sm { max-width:  680px; margin: 0 auto; padding: 0 24px; }
+section { padding: 96px 0; }
+@media(min-width:768px) { section { padding: 128px 0; } }
+
+/* ─── ANIMATIONS ─────────────────────────────────────────────── */
+@keyframes fade-up    { from { opacity:0; transform:translateY(28px) } to { opacity:1; transform:translateY(0) } }
+@keyframes fade-in    { from { opacity:0 }                             to { opacity:1 } }
+@keyframes glow-pulse { 0%,100% { opacity:0.4 } 50% { opacity:0.7 } }
+@keyframes line-grow  { from { transform:scaleX(0) } to { transform:scaleX(1) } }
+@keyframes counter    { from { opacity:0; transform:translateY(10px) } to { opacity:1; transform:translateY(0) } }
+@keyframes float      { 0%,100% { transform:translateY(0) } 50% { transform:translateY(-8px) } }
+@keyframes gradient-x { 0%,100% { background-position:0% 50% } 50% { background-position:100% 50% } }
+@keyframes cursor-blink { 0%,100% { opacity:1 } 50% { opacity:0 } }
+
+.anim { opacity:0; }
+.anim.visible { animation: fade-up 0.7s ease forwards; }
+.anim-d1.visible { animation-delay:.1s }
+.anim-d2.visible { animation-delay:.2s }
+.anim-d3.visible { animation-delay:.3s }
+.anim-d4.visible { animation-delay:.4s }
+.anim-d5.visible { animation-delay:.5s }
+.anim-d6.visible { animation-delay:.6s }
+
+/* ─── NOISE TEXTURE ──────────────────────────────────────────── */
+body::before {
+  content:'';
+  position:fixed; inset:0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.028;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ─── HEADER ─────────────────────────────────────────────────── */
+header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(13,13,13,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 24px;
+}
+.header-inner {
+  max-width: 1140px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px;
+}
+.logo {
+  display: flex; align-items: center; gap: 10px;
+}
+.logo-mark {
+  width: 32px; height: 32px;
+  background: var(--primary);
+  color: #0a2e24;
+  font-size: 13px; font-weight: 800; letter-spacing: -0.03em;
+  border-radius: var(--r-md);
+  display: grid; place-items: center;
+  flex-shrink: 0;
+}
+.logo-text { font-size: 14px; font-weight: 600; color: var(--fg-2); letter-spacing: -0.02em; }
+.header-badge {
+  font-family: var(--font-mono);
+  font-size: 11px; font-weight: 500;
+  color: var(--primary);
+  background: var(--primary-dim);
+  border: 1px solid rgba(52,211,153,0.2);
+  padding: 5px 12px; border-radius: var(--r-sm);
+  white-space: nowrap;
+}
+.header-cta {
+  background: var(--primary);
+  color: #0a2e24;
+  font-size: 13px; font-weight: 700;
+  padding: 9px 20px; border-radius: var(--r-md);
+  transition: var(--transition);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.header-cta:hover { background: #2bbd8a; transform: translateY(-1px); box-shadow: 0 8px 24px var(--primary-glow); }
+
+/* ─── HERO ───────────────────────────────────────────────────── */
+.hero {
+  padding: 80px 0 100px;
+  position: relative; overflow: hidden;
+}
+.hero-glow {
+  position: absolute; top: -120px; left: 50%; transform: translateX(-50%);
+  width: 900px; height: 600px;
+  background: radial-gradient(ellipse at center, rgba(52,211,153,0.12) 0%, transparent 65%);
+  pointer-events: none;
+  animation: glow-pulse 6s ease-in-out infinite;
+}
+.hero-grid-bg {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(52,211,153,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(52,211,153,0.04) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 0%, black 0%, transparent 100%);
+  pointer-events: none;
+}
+.hero-content { position: relative; z-index: 1; text-align: center; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px; font-weight: 500;
+  color: var(--primary);
+  background: var(--primary-dim);
+  border: 1px solid rgba(52,211,153,0.18);
+  padding: 7px 16px; border-radius: var(--r-sm);
+  margin-bottom: 40px;
+  animation: fade-up 0.6s ease both;
+}
+.hero-eyebrow-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--primary);
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(42px, 7vw, 88px);
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -0.04em;
+  color: var(--fg);
+  margin-bottom: 28px;
+  animation: fade-up 0.7s .1s ease both;
+}
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--primary) 0%, #6ee7b7 50%, var(--primary) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-x 4s ease infinite;
+}
+.hero-sub {
+  font-family: var(--font-body);
+  font-size: clamp(17px, 2.2vw, 22px);
+  font-weight: 400;
+  color: var(--fg-2);
+  line-height: 1.6;
+  max-width: 600px; margin: 0 auto 48px;
+  animation: fade-up 0.7s .2s ease both;
+}
+.hero-actions {
+  display: flex; flex-direction: column; align-items: center; gap: 16px;
+  animation: fade-up 0.7s .3s ease both;
+}
+@media(min-width:640px) { .hero-actions { flex-direction: row; justify-content: center; } }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--primary);
+  color: #0a2e24;
+  font-size: 16px; font-weight: 700;
+  padding: 16px 36px; border-radius: var(--r-md);
+  transition: var(--transition);
+  box-shadow: 0 0 40px rgba(52,211,153,0.25);
+}
+.btn-primary:hover { background:#2bbd8a; transform:translateY(-2px); box-shadow:0 12px 40px rgba(52,211,153,0.35); }
+.btn-primary svg { transition: transform .25s ease; }
+.btn-primary:hover svg { transform: translateX(3px); }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  color: var(--fg-2);
+  font-size: 15px; font-weight: 500;
+  padding: 16px 24px;
+  border: 1px solid var(--border-2);
+  border-radius: var(--r-md);
+  transition: var(--transition);
+}
+.btn-ghost:hover { color:var(--fg); border-color:rgba(255,255,255,0.2); background:rgba(255,255,255,0.04); }
+.hero-trust {
+  margin-top: 28px;
+  font-family: var(--font-mono); font-size: 12px; color: var(--fg-3);
+  display: flex; align-items: center; justify-content: center; gap: 20px;
+  flex-wrap: wrap;
+  animation: fade-up 0.7s .4s ease both;
+}
+.hero-trust-item { display: flex; align-items: center; gap: 6px; }
+.hero-trust-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--primary); opacity: 0.6; }
+
+/* ─── STATS ──────────────────────────────────────────────────── */
+.stats {
+  padding: 0 0 96px;
+  position: relative;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  background: var(--border);
+  border-radius: var(--r-xl);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+@media(min-width:768px) { .stats-grid { grid-template-columns: repeat(4, 1fr); } }
+.stat-item {
+  background: var(--bg-1);
+  padding: 32px 28px;
+  text-align: center;
+  transition: var(--transition);
+}
+.stat-item:hover { background: var(--bg-2); }
+.stat-num {
+  font-family: var(--font-mono);
+  font-size: 36px; font-weight: 600;
+  color: var(--primary);
+  letter-spacing: -0.04em;
+  display: block;
+}
+.stat-label {
+  font-size: 13px; color: var(--fg-2);
+  margin-top: 6px; display: block;
+}
+
+/* ─── SECTION LABEL ──────────────────────────────────────────── */
+.section-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+  color: var(--primary);
+  text-transform: uppercase; letter-spacing: 0.1em;
+  margin-bottom: 20px;
+}
+.section-label::before {
+  content: '';
+  display: block; width: 20px; height: 1px;
+  background: var(--primary);
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 800; letter-spacing: -0.04em;
+  line-height: 1.05;
+  color: var(--fg);
+  margin-bottom: 20px;
+}
+.section-sub {
+  font-family: var(--font-body);
+  font-size: 18px; color: var(--fg-2); line-height: 1.65;
+  max-width: 540px;
+}
+
+/* ─── PROBLEM ────────────────────────────────────────────────── */
+.problem { background: var(--bg-1); }
+.problem-layout {
+  display: grid; gap: 64px;
+  grid-template-columns: 1fr;
+}
+@media(min-width:900px) { .problem-layout { grid-template-columns: 1fr 1fr; align-items: start; } }
+.problem-text { }
+.problem-text blockquote {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: clamp(20px, 3vw, 28px);
+  color: var(--fg);
+  line-height: 1.45;
+  border-left: 3px solid var(--primary);
+  padding-left: 24px;
+  margin-bottom: 32px;
+}
+.problem-text p {
+  font-family: var(--font-body);
+  font-size: 17px; color: var(--fg-2); line-height: 1.7;
+  margin-bottom: 16px;
+}
+.pain-list { list-style: none; display: flex; flex-direction: column; gap: 1px; }
+.pain-item {
+  display: flex; align-items: flex-start; gap: 14px;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 18px 20px;
+  transition: var(--transition);
+}
+.pain-item:hover { border-color: rgba(255,255,255,0.12); background: var(--bg-3); }
+.pain-icon {
+  width: 32px; height: 32px; flex-shrink: 0;
+  background: rgba(251,113,133,0.1);
+  border-radius: var(--r-sm);
+  display: grid; place-items: center;
+  color: var(--rose);
+  font-size: 16px;
+}
+.pain-text { font-size: 14px; color: var(--fg-2); line-height: 1.55; padding-top: 5px; }
+.pain-text strong { color: var(--fg); font-weight: 600; display: block; margin-bottom: 2px; font-size: 13px; }
+
+/* ─── SOLUTION ───────────────────────────────────────────────── */
+.solution { }
+.solution-intro {
+  display: grid; gap: 64px;
+  grid-template-columns: 1fr;
+  margin-bottom: 80px;
+}
+@media(min-width:900px) { .solution-intro { grid-template-columns: 1fr 1fr; align-items: center; } }
+.ai-card {
+  background: var(--bg-2);
+  border: 1px solid var(--border-2);
+  border-radius: var(--r-xl);
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+}
+.ai-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
+  opacity: 0.6;
+}
+.ai-card-label {
+  font-family: var(--font-mono); font-size: 11px; color: var(--primary);
+  text-transform: uppercase; letter-spacing: 0.1em;
+  margin-bottom: 20px;
+  display: flex; align-items: center; gap: 8px;
+}
+.ai-card-label::after {
+  content: '●';
+  font-size: 8px;
+  animation: cursor-blink 1.2s step-end infinite;
+}
+.terminal-line {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.9;
+  color: var(--fg-2);
+}
+.terminal-line .prompt { color: var(--primary); margin-right: 8px; }
+.terminal-line .cmd    { color: var(--fg); }
+.terminal-line .out    { color: var(--fg-3); padding-left: 20px; }
+.terminal-line .success{ color: var(--primary); }
+.terminal-line .hl     { color: var(--amber); }
+.terminal-divider {
+  border: none; border-top: 1px solid var(--border);
+  margin: 16px 0;
+}
+.solution-text p {
+  font-family: var(--font-body);
+  font-size: 17px; color: var(--fg-2); line-height: 1.7;
+  margin-bottom: 16px;
+}
+.diff-row {
+  display: flex; gap: 12px; align-items: flex-start;
+  margin-bottom: 10px;
+}
+.diff-badge {
+  flex-shrink: 0;
+  font-family: var(--font-mono); font-size: 10px; font-weight: 600;
+  padding: 3px 8px; border-radius: var(--r-sm);
+  letter-spacing: 0.05em;
+  margin-top: 2px;
+}
+.diff-badge.before { background: rgba(251,113,133,0.1); color: var(--rose); border: 1px solid rgba(251,113,133,0.2); }
+.diff-badge.after  { background: var(--primary-dim); color: var(--primary); border: 1px solid rgba(52,211,153,0.2); }
+.diff-text { font-size: 14px; color: var(--fg-2); }
+.diff-text strong { color: var(--fg); }
+
+/* ─── PHASES ─────────────────────────────────────────────────── */
+.phases { background: var(--bg-1); }
+.phases-timeline { position: relative; }
+.phases-timeline::before {
+  content: '';
+  position: absolute; left: 20px; top: 0; bottom: 0;
+  width: 1px; background: var(--border-2);
+}
+@media(min-width:768px) {
+  .phases-timeline::before { left: 50%; transform: translateX(-0.5px); }
+}
+.phase-item {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 24px;
+  margin-bottom: 48px;
+  position: relative;
+}
+@media(min-width:768px) {
+  .phase-item {
+    grid-template-columns: 1fr 64px 1fr;
+    gap: 0;
+    margin-bottom: 56px;
+  }
+  .phase-item:nth-child(even) .phase-card { grid-column: 1; grid-row: 1; }
+  .phase-item:nth-child(even) .phase-node { grid-column: 2; }
+  .phase-item:nth-child(even) .phase-space { grid-column: 3; }
+}
+.phase-node {
+  width: 40px; height: 40px; flex-shrink: 0;
+  border-radius: 50%;
+  border: 2px solid var(--border-2);
+  background: var(--bg);
+  display: grid; place-items: center;
+  position: relative; z-index: 1;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 600;
+  color: var(--fg-3);
+  transition: var(--transition);
+  margin-top: 4px;
+}
+.phase-node.active {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: var(--primary-dim);
+  box-shadow: 0 0 20px var(--primary-glow);
+}
+.phase-card {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  transition: var(--transition);
+}
+.phase-card:hover { border-color: var(--border-2); transform: translateY(-2px); }
+.phase-num {
+  font-family: var(--font-mono); font-size: 11px; color: var(--fg-3);
+  text-transform: uppercase; letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+.phase-title {
+  font-size: 18px; font-weight: 700; color: var(--fg);
+  letter-spacing: -0.02em; margin-bottom: 4px;
+}
+.phase-period {
+  font-family: var(--font-mono); font-size: 12px; color: var(--primary);
+  margin-bottom: 16px;
+}
+.phase-desc {
+  font-family: var(--font-body);
+  font-size: 15px; color: var(--fg-2); line-height: 1.65;
+  margin-bottom: 16px;
+}
+.phase-sessions { display: flex; flex-direction: column; gap: 6px; }
+.phase-session {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 13px; color: var(--fg-2);
+  padding: 10px 14px;
+  background: var(--bg-3);
+  border-radius: var(--r-sm);
+  border: 1px solid var(--border);
+}
+.phase-session-num {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--fg-3); flex-shrink: 0;
+  padding-top: 1px;
+}
+.phase-session-content { flex: 1; }
+.phase-session-title { font-weight: 600; color: var(--fg); font-size: 13px; margin-bottom: 2px; }
+.phase-session-deliverable {
+  font-size: 12px; color: var(--primary);
+  display: flex; align-items: center; gap: 5px;
+}
+.phase-session-deliverable::before { content: '→'; font-family: var(--font-mono); }
+
+/* Desktop zigzag */
+@media(min-width:768px) {
+  .phase-item { align-items: center; }
+  .phase-node { margin: auto; }
+  .phase-item:nth-child(odd)  .phase-card  { grid-column:1; padding-right: 48px; }
+  .phase-item:nth-child(odd)  .phase-node  { grid-column:2; }
+  .phase-item:nth-child(odd)  .phase-space { grid-column:3; background:transparent; border:0; padding:0; min-height:0; }
+  .phase-item:nth-child(even) .phase-card  { grid-column:3; padding-left: 48px; }
+  .phase-item:nth-child(even) .phase-node  { grid-column:2; }
+  .phase-item:nth-child(even) .phase-space { grid-column:1; background:transparent; border:0; padding:0; min-height:0; }
+  .phase-space { display: block; }
+}
+@media(max-width:767px) { .phase-space { display: none; } }
+
+/* ─── PROOF ──────────────────────────────────────────────────── */
+.proof { }
+.proof-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: 1fr;
+}
+@media(min-width:640px)  { .proof-grid { grid-template-columns: repeat(2, 1fr); } }
+@media(min-width:1024px) { .proof-grid { grid-template-columns: repeat(3, 1fr); } }
+.proof-card {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 28px;
+  display: flex; flex-direction: column; gap: 16px;
+  transition: var(--transition);
+}
+.proof-card:hover { border-color: rgba(52,211,153,0.15); transform: translateY(-2px); }
+.proof-stars { display: flex; gap: 3px; }
+.proof-stars span { color: var(--amber); font-size: 14px; }
+.proof-quote {
+  font-family: var(--font-body);
+  font-size: 15px; color: var(--fg-2); line-height: 1.65;
+  flex: 1;
+}
+.proof-quote strong { color: var(--primary); font-weight: 600; font-style: normal; }
+.proof-author {
+  display: flex; align-items: center; gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.proof-avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  display: grid; place-items: center;
+  font-weight: 700; font-size: 14px; flex-shrink: 0;
+}
+.proof-name { font-size: 14px; font-weight: 600; color: var(--fg); }
+.proof-role { font-size: 12px; color: var(--fg-3); }
+
+/* Proof metric strip */
+.proof-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  margin-bottom: 64px;
+}
+.proof-metric {
+  background: var(--bg-2);
+  padding: 28px 24px;
+  text-align: center;
+}
+.proof-metric-val {
+  font-family: var(--font-mono);
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 600;
+  color: var(--primary);
+  letter-spacing: -0.04em;
+  display: block;
+}
+.proof-metric-label {
+  font-size: 13px; color: var(--fg-3); margin-top: 4px; display: block;
+}
+
+/* ─── INVESTMENT / PRICING ────────────────────────────────────── */
+.investment { background: var(--bg-1); }
+.pricing-layout {
+  display: grid; gap: 24px;
+  grid-template-columns: 1fr;
+}
+@media(min-width:860px) { .pricing-layout { grid-template-columns: 1fr 1fr; align-items: start; } }
+.pricing-card {
+  background: var(--bg-2);
+  border: 1px solid var(--border-2);
+  border-radius: var(--r-xl);
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+}
+.pricing-card.featured {
+  border-color: rgba(52,211,153,0.3);
+  box-shadow: 0 0 60px rgba(52,211,153,0.08), 0 0 0 1px rgba(52,211,153,0.15);
+}
+.pricing-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 2px;
+}
+.pricing-card.featured::before { background: linear-gradient(90deg, transparent, var(--primary), transparent); }
+.pricing-badge {
+  display: inline-block;
+  font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+  color: #0a2e24; background: var(--primary);
+  padding: 4px 12px; border-radius: var(--r-sm);
+  margin-bottom: 24px; letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.pricing-mode {
+  font-size: 14px; color: var(--fg-3);
+  font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;
+  margin-bottom: 12px;
+}
+.pricing-amount {
+  font-family: var(--font-mono);
+  font-size: clamp(40px, 6vw, 60px);
+  font-weight: 600;
+  color: var(--fg);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.pricing-amount sup { font-size: 0.45em; vertical-align: super; opacity: 0.7; }
+.pricing-sub { font-size: 14px; color: var(--fg-2); margin-bottom: 32px; }
+.pricing-sub strong { color: var(--primary); }
+.pricing-features { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 36px; }
+.pricing-feature {
+  display: flex; align-items: flex-start; gap: 12px;
+  font-size: 14px; color: var(--fg-2);
+}
+.pricing-feature-check {
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--primary-dim); border: 1px solid rgba(52,211,153,0.25);
+  display: grid; place-items: center; flex-shrink: 0; margin-top: 1px;
+}
+.pricing-feature-check svg { width: 10px; height: 10px; color: var(--primary); }
+.pricing-feature strong { color: var(--fg); font-weight: 600; }
+.pricing-cta {
+  display: block; width: 100%; text-align: center;
+  padding: 16px; border-radius: var(--r-md);
+  font-size: 16px; font-weight: 700;
+  transition: var(--transition);
+}
+.pricing-cta.primary {
+  background: var(--primary); color: #0a2e24;
+  box-shadow: 0 0 30px rgba(52,211,153,0.2);
+}
+.pricing-cta.primary:hover { background: #2bbd8a; transform: translateY(-2px); box-shadow: 0 12px 40px rgba(52,211,153,0.3); }
+.pricing-cta.outline {
+  border: 1px solid var(--border-2); color: var(--fg-2);
+}
+.pricing-cta.outline:hover { border-color: rgba(255,255,255,0.2); color: var(--fg); background: rgba(255,255,255,0.04); }
+.pricing-savings {
+  margin-top: 12px;
+  text-align: center;
+  font-family: var(--font-mono); font-size: 12px; color: var(--fg-3);
+}
+.pricing-savings strong { color: var(--amber); }
+
+/* ─── GUARANTEE ──────────────────────────────────────────────── */
+.guarantee { }
+.guarantee-card {
+  background: var(--bg-2);
+  border: 1px solid rgba(245,158,11,0.2);
+  border-radius: var(--r-xl);
+  padding: 48px;
+  display: grid; gap: 32px;
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  max-width: 780px; margin: 0 auto;
+}
+@media(max-width:640px) { .guarantee-card { grid-template-columns: 1fr; } }
+.guarantee-icon {
+  width: 72px; height: 72px;
+  background: var(--amber-dim);
+  border: 1px solid rgba(245,158,11,0.2);
+  border-radius: var(--r-lg);
+  display: grid; place-items: center;
+  font-size: 36px;
+  flex-shrink: 0;
+}
+.guarantee-title {
+  font-size: 24px; font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--fg); margin-bottom: 12px;
+}
+.guarantee-title span { color: var(--amber); }
+.guarantee-text {
+  font-family: var(--font-body);
+  font-size: 16px; color: var(--fg-2); line-height: 1.7;
+}
+
+/* ─── FOR WHOM ────────────────────────────────────────────────── */
+.for-whom { background: var(--bg-1); }
+.fit-grid {
+  display: grid; gap: 16px;
+  grid-template-columns: 1fr;
+}
+@media(min-width:640px) { .fit-grid { grid-template-columns: repeat(2, 1fr); } }
+.fit-card {
+  border-radius: var(--r-lg);
+  padding: 28px;
+  border: 1px solid var(--border);
+}
+.fit-card.yes { background: linear-gradient(135deg, rgba(52,211,153,0.05) 0%, var(--bg-2) 100%); border-color: rgba(52,211,153,0.15); }
+.fit-card.no  { background: linear-gradient(135deg, rgba(251,113,133,0.05) 0%, var(--bg-2) 100%); border-color: rgba(251,113,133,0.12); }
+.fit-header {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 16px; font-weight: 700; margin-bottom: 20px;
+}
+.fit-header.yes { color: var(--primary); }
+.fit-header.no  { color: var(--rose); }
+.fit-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.fit-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 14px; color: var(--fg-2); line-height: 1.5;
+}
+.fit-item::before {
+  flex-shrink: 0; margin-top: 2px;
+  font-family: var(--font-mono); font-size: 13px;
+}
+.fit-card.yes .fit-item::before { content: '✓'; color: var(--primary); }
+.fit-card.no  .fit-item::before { content: '✗'; color: var(--rose); }
+
+/* ─── FAQ ────────────────────────────────────────────────────── */
+.faq { }
+.faq-list { max-width: 680px; margin: 0 auto; }
+.faq-item {
+  border-bottom: 1px solid var(--border);
+}
+.faq-q {
+  width: 100%;
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  padding: 24px 0;
+  font-size: 16px; font-weight: 600;
+  color: var(--fg); text-align: left;
+  transition: var(--transition);
+}
+.faq-q:hover { color: var(--primary); }
+.faq-q svg { flex-shrink: 0; transition: transform .3s ease; color: var(--fg-3); }
+.faq-item.open .faq-q svg { transform: rotate(45deg); color: var(--primary); }
+.faq-a {
+  display: none;
+  padding: 0 0 24px;
+  font-family: var(--font-body);
+  font-size: 16px; color: var(--fg-2); line-height: 1.7;
+}
+.faq-item.open .faq-a { display: block; }
+
+/* ─── FINAL CTA ──────────────────────────────────────────────── */
+.final-cta { background: var(--bg-1); }
+.final-cta-card {
+  position: relative;
+  text-align: center;
+  padding: 80px 40px;
+  background: var(--bg-2);
+  border: 1px solid var(--border-2);
+  border-radius: 32px;
+  overflow: hidden;
+}
+.final-cta-glow {
+  position: absolute; bottom: -60px; left: 50%; transform: translateX(-50%);
+  width: 600px; height: 400px;
+  background: radial-gradient(ellipse at center bottom, rgba(52,211,153,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+.final-cta-card h2 {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5vw, 60px);
+  font-weight: 800; letter-spacing: -0.04em;
+  color: var(--fg); margin-bottom: 16px;
+  position: relative; z-index: 1;
+}
+.final-cta-card h2 em {
+  font-style: normal; color: var(--primary);
+}
+.final-cta-card p {
+  font-family: var(--font-body);
+  font-size: 18px; color: var(--fg-2);
+  margin-bottom: 40px; position: relative; z-index: 1;
+}
+.final-cta-actions {
+  display: flex; flex-direction: column; align-items: center; gap: 16px;
+  position: relative; z-index: 1;
+}
+@media(min-width:480px) { .final-cta-actions { flex-direction: row; justify-content: center; } }
+.final-note {
+  margin-top: 24px;
+  font-family: var(--font-mono);
+  font-size: 12px; color: var(--fg-3);
+  position: relative; z-index: 1;
+}
+
+/* ─── FOOTER ─────────────────────────────────────────────────── */
+footer {
+  padding: 48px 24px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+footer p {
+  font-family: var(--font-mono);
+  font-size: 12px; color: var(--fg-3);
+  line-height: 1.8;
+}
+footer a { color: var(--fg-2); transition: var(--transition); }
+footer a:hover { color: var(--primary); }
+
+/* ─── UTILITIES ──────────────────────────────────────────────── */
+.text-primary { color: var(--primary); }
+.text-center  { text-align: center; }
+.mb-4  { margin-bottom: 4px; }
+.mb-8  { margin-bottom: 8px; }
+.mb-12 { margin-bottom: 12px; }
+.mb-16 { margin-bottom: 16px; }
+.mb-20 { margin-bottom: 20px; }
+.mb-24 { margin-bottom: 24px; }
+.mb-32 { margin-bottom: 32px; }
+.mb-48 { margin-bottom: 48px; }
+.mb-64 { margin-bottom: 64px; }
+</style>
+</head>
+<body>
+
+<!-- ─── HEADER ─────────────────────────────────────────────────── -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <div class="logo-mark">EI</div>
+      <span class="logo-text">Empresa Independente</span>
+    </a>
+    <span class="header-badge">Vagas abertas — Q2 2026</span>
+    <a href="#investimento" class="header-cta">Reservar vaga</a>
+  </div>
+</header>
+
+<!-- ─── HERO ───────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-grid-bg"></div>
+  <div class="wrap-sm hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-dot"></div>
+      Consultoria Claude — Claude Code aplicado ao seu negócio
+    </div>
+    <h1>
+      Sua empresa rodando<br>
+      <em>sem você no centro.</em>
+    </h1>
+    <p class="hero-sub">
+      A consultoria que instala processos com IA na sua operação e transforma você
+      de executador sobrecarregado em arquiteto do seu negócio — em 90 dias.
+    </p>
+    <div class="hero-actions">
+      <a href="#investimento" class="btn-primary">
+        Quero minha vaga
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#metodologia" class="btn-ghost">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+        Como funciona
+      </a>
+    </div>
+    <div class="hero-trust">
+      <span class="hero-trust-item"><span class="hero-trust-dot"></span>12 sessões ao vivo</span>
+      <span class="hero-trust-item"><span class="hero-trust-dot"></span>Claude Code implementado na sua empresa</span>
+      <span class="hero-trust-item"><span class="hero-trust-dot"></span>Garantia condicional</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── STATS ──────────────────────────────────────────────────── -->
+<div class="wrap">
+  <div class="stats">
+    <div class="stats-grid anim">
+      <div class="stat-item">
+        <span class="stat-num">90</span>
+        <span class="stat-label">dias para você sair do operacional</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">12</span>
+        <span class="stat-label">sessões de implementação ao vivo</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">84%</span>
+        <span class="stat-label">de assertividade nas contratações</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">5</span>
+        <span class="stat-label">fases do método Empresa Independente</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── PROBLEM ────────────────────────────────────────────────── -->
+<section class="problem">
+  <div class="wrap">
+    <div class="problem-layout">
+      <div class="problem-text anim">
+        <div class="section-label">O diagnóstico</div>
+        <h2 class="section-title mb-20">Você não tem um problema de faturamento.</h2>
+        <blockquote>
+          "Você tem um problema de estrutura. E estrutura sem IA hoje é como gerir empresa em 2024 com planilha dos anos 90."
+        </blockquote>
+        <p>Você cresceu. Contratou. Mas a empresa não anda sem você no centro de tudo. Cada decisão, cada problema, cada cliente — passa por você.</p>
+        <p>Não é falta de esforço. É falta de <strong style="color:var(--fg)">arquitetura operacional</strong> e das ferramentas certas para construí-la.</p>
+      </div>
+      <ul class="pain-list anim anim-d2">
+        <li class="pain-item">
+          <div class="pain-icon">⏰</div>
+          <div class="pain-text">
+            <strong>Preso no operacional</strong>
+            Acorda respondendo WhatsApp da equipe. Dorme resolvendo o mesmo problema de ontem.
+          </div>
+        </li>
+        <li class="pain-item">
+          <div class="pain-icon">🔁</div>
+          <div class="pain-text">
+            <strong>Equipe dependente de você</strong>
+            Qualquer decisão fora do padrão trava. Ninguém sabe o que fazer sem perguntar.
+          </div>
+        </li>
+        <li class="pain-item">
+          <div class="pain-icon">📂</div>
+          <div class="pain-text">
+            <strong>Tudo na sua cabeça</strong>
+            O know-how do negócio está em você. Se você para, a empresa para.
+          </div>
+        </li>
+        <li class="pain-item">
+          <div class="pain-icon">🏖️</div>
+          <div class="pain-text">
+            <strong>Férias impossíveis</strong>
+            Última vez que viajou sem checar o celular? Não lembra.
+          </div>
+        </li>
+        <li class="pain-item">
+          <div class="pain-icon">📈</div>
+          <div class="pain-text">
+            <strong>Mais receita, mais caos</strong>
+            Cresceu o faturamento. Cresceu o estresse na mesma proporção.
+          </div>
+        </li>
+        <li class="pain-item">
+          <div class="pain-icon">📚</div>
+          <div class="pain-text">
+            <strong>Já tentou antes</strong>
+            Leu livros de gestão, assistiu aulas, criou processos. A equipe não seguiu.
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SOLUTION ───────────────────────────────────────────────── -->
+<section class="solution" id="metodologia">
+  <div class="wrap">
+    <div class="solution-intro">
+      <div class="solution-text anim">
+        <div class="section-label">A solução</div>
+        <h2 class="section-title mb-20">Consultoria Claude</h2>
+        <p>A Consultoria Claude combina o <strong style="color:var(--fg)">Método Empresa Independente</strong> com o poder do <strong style="color:var(--fg)">Claude Code</strong> para construir, junto com você, a arquitetura operacional do seu negócio — com IA no centro de cada processo.</p>
+        <p>Não é curso. Não é mentoria genérica. É implementação real, sessão por sessão, com entregáveis concretos que ficam na empresa depois que você fecha o computador.</p>
+        <div style="margin-top:28px; display:flex; flex-direction:column; gap:10px;">
+          <div class="diff-row">
+            <span class="diff-badge before">Antes</span>
+            <span class="diff-text">Processos na cabeça do dono, equipe travada</span>
+          </div>
+          <div class="diff-row">
+            <span class="diff-badge after">Depois</span>
+            <span class="diff-text"><strong>SOPs documentados + IA treinada nos seus processos</strong></span>
+          </div>
+          <div class="diff-row">
+            <span class="diff-badge before">Antes</span>
+            <span class="diff-text">Contratações por feeling, alto índice de erro</span>
+          </div>
+          <div class="diff-row">
+            <span class="diff-badge after">Depois</span>
+            <span class="diff-text"><strong>Protocolo de contratação com 84% de assertividade</strong></span>
+          </div>
+          <div class="diff-row">
+            <span class="diff-badge before">Antes</span>
+            <span class="diff-text">Delegação que não funciona, retrabalho constante</span>
+          </div>
+          <div class="diff-row">
+            <span class="diff-badge after">Depois</span>
+            <span class="diff-text"><strong>Sistema de delegação com Claude Code monitorando execução</strong></span>
+          </div>
+        </div>
+      </div>
+      <div class="anim anim-d2">
+        <div class="ai-card">
+          <div class="ai-card-label">// Claude Code — sessão ao vivo</div>
+          <div class="terminal-line"><span class="prompt">$</span><span class="cmd">claude analyze-processes --company "Sua Empresa"</span></div>
+          <div class="terminal-line"><span class="out">→ Mapeando gargalos operacionais...</span></div>
+          <div class="terminal-line"><span class="out">→ Identificando tarefas repetitivas...</span></div>
+          <hr class="terminal-divider">
+          <div class="terminal-line"><span class="success">✓ 8 processos automatizáveis encontrados</span></div>
+          <div class="terminal-line"><span class="success">✓ 3 gargalos críticos identificados</span></div>
+          <div class="terminal-line"><span class="success">✓ SOP gerado: atendimento-ao-cliente.md</span></div>
+          <div class="terminal-line"><span class="success">✓ SOP gerado: onboarding-equipe.md</span></div>
+          <hr class="terminal-divider">
+          <div class="terminal-line"><span class="hl">→ Horas/semana liberadas estimadas: 18h</span></div>
+          <div class="terminal-line"><span class="prompt">$</span><span class="cmd">claude deploy-to-team --notify</span></div>
+          <div class="terminal-line"><span class="out">→ Compartilhando com equipe...</span></div>
+          <div class="terminal-line"><span class="success">✓ Operação independente em andamento.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PHASES ─────────────────────────────────────────────────── -->
+<section class="phases" id="fases">
+  <div class="wrap">
+    <div class="text-center mb-64 anim">
+      <div class="section-label" style="justify-content:center;margin-bottom:20px">O método</div>
+      <h2 class="section-title">12 sessões. 5 fases.<br>1 empresa independente.</h2>
+      <p class="section-sub" style="margin:0 auto; text-align:center">
+        Cada sessão tem entregáveis concretos. Nada de reunião de alinhamento —
+        você sai de cada encontro com algo funcionando na sua empresa.
+      </p>
+    </div>
+
+    <div class="phases-timeline">
+
+      <!-- FASE 1 -->
+      <div class="phase-item anim">
+        <div class="phase-card">
+          <div class="phase-num">Fase 01</div>
+          <div class="phase-title">Diagnóstico</div>
+          <div class="phase-period">Semana 0 — pré-consultoria</div>
+          <p class="phase-desc">Antes de implementar qualquer coisa, precisamos entender onde sua empresa está. Mapeamos oportunidades, priorizamos impactos e definimos o ponto de partida com clareza cirúrgica.</p>
+          <div class="phase-sessions">
+            <div class="phase-session">
+              <span class="phase-session-num">S0</span>
+              <div class="phase-session-content">
+                <div class="phase-session-title">Diagnóstico Estratégico</div>
+                <div class="phase-session-deliverable">Mapa de oportunidades + prioridades definidas</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="phase-node active">S0</div>
+        <div class="phase-space"></div>
+      </div>
+
+      <!-- FASE 2 -->
+      <div class="phase-item anim anim-d1">
+        <div class="phase-space"></div>
+        <div class="phase-node active">F2</div>
+        <div class="phase-card">
+          <div class="phase-num">Fase 02</div>
+          <div class="phase-title">Fundação</div>
+          <div class="phase-period">Semanas 1–3 — 3 sessões</div>
+          <p class="phase-desc">Setup completo do Claude Code, extração do conhecimento tácito do negócio e mapeamento dos processos críticos. A base que vai sustentar tudo que vem depois.</p>
+          <div class="phase-sessions">
+            <div class="phase-session">
+              <span class="phase-session-num">S1</span>
+              <div class="phase-session-content">
+                <div class="phase-session-title">Setup Claude Code + primeiras automações</div>
+                <div class="phase-session-deliverable">Ambiente configurado + 3 wins implementados</div>
+              </div>
+            </div>
+            <div class="phase-session">
+              <span class="phase-session-num">S2</span>
+              <div class="phase-session-content">
+                <div class="phase-session-title">Mapeamento de processos críticos</div>
+                <div class="phase-session-deliverable">Diagrama de processos + gargalos identificados</div>
+              </div>
+            </div>
+            <div class="phase-session">
+              <span class="phase-session-num">S3</span>
+              <div class="phase-session-content">
+                <div class="phase-session-title">Extração de IP + stack de ferramentas</div>
+                <div class="phase-session-deliverable">Documento de posicionamento + stack definida</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FASE 3 -->
+      <div class="phase-item anim anim-d2">
+        <div class="phase-card">
+          <div class="phase-num">Fase 03</div>
+          <div class="phase-title">Implementação</div>
+          <div class="phase-period">Semanas 4–7 — 2 sessões (intervalo de 1 semana)</div>
+          <p class="phase-desc">Os dois processos de maior impacto do seu negócio são implementados com Claude Code, documentados e entregues à equipe. Checkpoint de ROI parcial ao final desta fase.</p>
+          <div class="phase-sessions">
+            <div class="phase-session">
+              <span class="phase-session-num">S4</span>
+              <div class="phase-session-content">
+                <div class="phase-session-title">Implementação Processo #1</div>
+                <div class="phase-session-deliverable">Workflow funcionando + SOP documentado</div>
+              </div>
+            </div>
+            <div class="phase-session">
+              <span class="phase-session-num">S5</span>
+              <div class="phase-session-content">
+                <div class="phase-session-title">Processo #2 + revisão de resultados</div>
+                <div class="phase-session-deliverable">Dashboard de acompanhamento + ajustes</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="phase-node">F3</div>
+        <div class="phase-space"></div>
+      </div>
+
+      <!-- FASE 4 -->
+      <div class="phase-item anim anim-d3">
+        <div class="phase-space"></div>
+        <div class="phase-node">F4</div>
+        <div class="phase-card">
+          <div class="phase-num">Fase 04</div>
+          <div class="phase-title">Escala e Autonomia</div>
+          <div class="phase-period">Semanas 8–16 — 6 sessões (intervalo de 2 semanas)</div>
+          <p class="phase-desc">Expansão das automações, treinamento da equipe nos novos processos e transferência progressiva de autonomia. Sessão 11 é a auditoria: o cliente opera sem você?</p>
+          <div class="phase-sessions">
+            <div class="phase-session">
+              <span class="phase-session-num">S6–S10</span>
+              <div class="phase-session-content">
+                <div class="phase-session-title">Expansão + transferência de autonomia</div>
+                <div class="phase-session-deliverable">1 processo novo documentado + equipe treinada por sessão</div>
+              </div>
+            </div>
+            <div class="phase-session">
+              <span class="phase-session-num">S11</span>
+              <div class="phase-session-content">
+                <div class="phase-session-title">Auditoria de Autonomia</div>
+                <div class="phase-session-deliverable">Relatório de independência + gaps identificados</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FASE 5 -->
+      <div class="phase-item anim anim-d4">
+        <div class="phase-card">
+          <div class="phase-num">Fase 05</div>
+          <div class="phase-title">Plano de Voo</div>
+          <div class="phase-period">Semana 17–18 — sessão de encerramento</div>
+          <p class="phase-desc">Você sai com um plano de 90 dias para os próximos meses sem consultoria, uma biblioteca de prompts personalizada para o seu negócio e a empresa rodando de forma independente.</p>
+          <div class="phase-sessions">
+            <div class="phase-session">
+              <span class="phase-session-num">S12</span>
+              <div class="phase-session-content">
+                <div class="phase-session-title">Plano de Voo — Próximos 90 dias</div>
+                <div class="phase-session-deliverable">Roadmap + biblioteca de prompts + acesso a recursos</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="phase-node">F5</div>
+        <div class="phase-space"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROOF ──────────────────────────────────────────────────── -->
+<section class="proof">
+  <div class="wrap">
+    <div class="text-center mb-48 anim">
+      <div class="section-label" style="justify-content:center;margin-bottom:20px">Resultados</div>
+      <h2 class="section-title">O que muda depois da consultoria</h2>
+    </div>
+
+    <div class="proof-strip anim anim-d1 mb-48">
+      <div class="proof-metric">
+        <span class="proof-metric-val">18h</span>
+        <span class="proof-metric-label">médias liberadas por semana</span>
+      </div>
+      <div class="proof-metric">
+        <span class="proof-metric-val">84%</span>
+        <span class="proof-metric-label">assertividade nas contratações</span>
+      </div>
+      <div class="proof-metric">
+        <span class="proof-metric-val">90d</span>
+        <span class="proof-metric-label">para operação independente</span>
+      </div>
+    </div>
+
+    <div class="proof-grid">
+      <div class="proof-card anim anim-d1">
+        <div class="proof-stars">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+        <p class="proof-quote">
+          "Em 3 meses, minha equipe parou de me ligar para resolver tudo. Criei processos com o Claude que qualquer um consegue seguir. Pela primeira vez em 4 anos, tirei férias sem checar o WhatsApp."
+        </p>
+        <div class="proof-author">
+          <div class="proof-avatar" style="background:rgba(167,139,250,0.15);color:#a78bfa">RC</div>
+          <div>
+            <div class="proof-name">Rodrigo Costa</div>
+            <div class="proof-role">CEO, Agência de Tráfego · R$ 80k/mês</div>
+          </div>
+        </div>
+      </div>
+      <div class="proof-card anim anim-d2">
+        <div class="proof-stars">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+        <p class="proof-quote">
+          "Faturava R$ 150k/mês mas trabalhava como se fosse autônomo. Depois da consultoria, minha equipe opera com <strong>autonomia real</strong>. Reduzi 22h semanais de operacional e usei esse tempo para lançar um novo produto."
+        </p>
+        <div class="proof-author">
+          <div class="proof-avatar" style="background:rgba(52,211,153,0.15);color:#34d399">MA</div>
+          <div>
+            <div class="proof-name">Mariana Andrade</div>
+            <div class="proof-role">Infoprodutora · R$ 150k/mês</div>
+          </div>
+        </div>
+      </div>
+      <div class="proof-card anim anim-d3">
+        <div class="proof-stars">
+          <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+        </div>
+        <p class="proof-quote">
+          "Já tinha tentado implementar processos duas vezes antes. Nunca grudou. Com Claude Code foi diferente — a IA força o padrão. Hoje a equipe <strong>segue o processo porque é mais fácil seguir do que não seguir.</strong>"
+        </p>
+        <div class="proof-author">
+          <div class="proof-avatar" style="background:rgba(245,158,11,0.15);color:#f59e0b">FS</div>
+          <div>
+            <div class="proof-name">Felipe Santos</div>
+            <div class="proof-role">Fundador, Agência B2B · R$ 200k/mês</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOR WHOM ────────────────────────────────────────────────── -->
+<section class="for-whom">
+  <div class="wrap-md">
+    <div class="text-center mb-48 anim">
+      <div class="section-label" style="justify-content:center;margin-bottom:20px">Para quem é</div>
+      <h2 class="section-title">Seja honesto consigo mesmo.</h2>
+    </div>
+    <div class="fit-grid anim anim-d1">
+      <div class="fit-card yes">
+        <div class="fit-header yes">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          É para você se…
+        </div>
+        <ul class="fit-list">
+          <li class="fit-item">Fatura entre R$ 30k e R$ 300k/mês e tem 2+ colaboradores</li>
+          <li class="fit-item">Reconhece que o gargalo hoje é gestão, não produto ou vendas</li>
+          <li class="fit-item">Já tentou delegar antes e a equipe não executou direito</li>
+          <li class="fit-item">Quer liberdade real de tempo — não apenas de papel</li>
+          <li class="fit-item">Está disposto a implementar, não só a aprender</li>
+          <li class="fit-item">Tem vontade de usar IA de forma estratégica no negócio</li>
+        </ul>
+      </div>
+      <div class="fit-card no">
+        <div class="fit-header no">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          Não é para você se…
+        </div>
+        <ul class="fit-list">
+          <li class="fit-item">Está começando do zero ou fatura abaixo de R$ 15k/mês</li>
+          <li class="fit-item">Não tem equipe e trabalha sozinho ainda</li>
+          <li class="fit-item">Busca mais um curso para assistir e não implementar</li>
+          <li class="fit-item">Não está disposto a mudar a forma como opera</li>
+          <li class="fit-item">Quer resultado sem comprometer tempo nas sessões</li>
+          <li class="fit-item">Acredita que 'sua empresa é diferente demais para ter processo'</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── INVESTMENT ──────────────────────────────────────────────── -->
+<section class="investment" id="investimento">
+  <div class="wrap-md">
+    <div class="text-center mb-48 anim">
+      <div class="section-label" style="justify-content:center;margin-bottom:20px">Investimento</div>
+      <h2 class="section-title">Quanto custa <em style="color:var(--primary)">não</em> resolver isso?</h2>
+      <p class="section-sub" style="margin:0 auto;text-align:center">
+        Se você fatura R$ 100k/mês e passa 60% do seu tempo no operacional,
+        são R$ 60k/mês sendo gerenciados por você — que poderia estar no estratégico.
+      </p>
+    </div>
+
+    <div class="pricing-layout anim anim-d1">
+      <div class="pricing-card featured">
+        <div class="pricing-badge">Recomendado</div>
+        <div class="pricing-mode">À vista</div>
+        <div class="pricing-amount"><sup>R$</sup> 32.500</div>
+        <div class="pricing-sub">Pagamento único. <strong>Melhor custo-benefício.</strong></div>
+        <ul class="pricing-features">
+          <li class="pricing-feature">
+            <div class="pricing-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span><strong>12 sessões ao vivo</strong> (Sessão 0 + 12 sessões de implementação)</span>
+          </li>
+          <li class="pricing-feature">
+            <div class="pricing-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span><strong>Claude Code instalado</strong> e configurado no seu ambiente</span>
+          </li>
+          <li class="pricing-feature">
+            <div class="pricing-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span><strong>Biblioteca de prompts</strong> personalizada para seu negócio</span>
+          </li>
+          <li class="pricing-feature">
+            <div class="pricing-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span><strong>SOPs documentados</strong> para cada processo mapeado</span>
+          </li>
+          <li class="pricing-feature">
+            <div class="pricing-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span><strong>30 dias de suporte</strong> por WhatsApp após encerramento</span>
+          </li>
+          <li class="pricing-feature">
+            <div class="pricing-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span><strong>Roadmap de 90 dias</strong> para os próximos meses sem consultoria</span>
+          </li>
+          <li class="pricing-feature">
+            <div class="pricing-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span><strong>Garantia condicional</strong> nas 3 primeiras sessões</span>
+          </li>
+        </ul>
+        <a href="https://wa.me/5500000000000?text=Quero+reservar+minha+vaga+na+Consultoria+Claude+%E2%80%94+pagamento+%C3%A0+vista" class="pricing-cta primary">
+          Reservar vaga agora
+        </a>
+        <div class="pricing-savings">Você economiza R$ 5.296 em relação ao parcelado</div>
+      </div>
+
+      <div class="pricing-card">
+        <div class="pricing-mode">Parcelado</div>
+        <div class="pricing-amount" style="font-size:clamp(28px,4vw,42px)"><sup>R$</sup> 8.000<span style="font-size:0.5em;opacity:0.6"> entrada</span></div>
+        <div class="pricing-sub">+ 12x de <strong>R$ 2.333</strong> · Total: R$ 37.996</div>
+        <ul class="pricing-features">
+          <li class="pricing-feature">
+            <div class="pricing-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span>Todos os bônus e entregáveis incluídos</span>
+          </li>
+          <li class="pricing-feature">
+            <div class="pricing-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span>12 sessões de implementação ao vivo</span>
+          </li>
+          <li class="pricing-feature">
+            <div class="pricing-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span>Claude Code configurado no seu ambiente</span>
+          </li>
+          <li class="pricing-feature">
+            <div class="pricing-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span>30 dias de suporte pós-consultoria</span>
+          </li>
+          <li class="pricing-feature">
+            <div class="pricing-feature-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <span>Garantia condicional nas 3 primeiras sessões</span>
+          </li>
+        </ul>
+        <a href="https://wa.me/5500000000000?text=Quero+reservar+minha+vaga+na+Consultoria+Claude+%E2%80%94+pagamento+parcelado" class="pricing-cta outline">
+          Quero parcelar
+        </a>
+        <div class="pricing-savings">Parcelamento em 12x no cartão de crédito</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── GUARANTEE ──────────────────────────────────────────────── -->
+<section class="guarantee" style="background:var(--bg);">
+  <div class="wrap-sm">
+    <div class="guarantee-card anim">
+      <div class="guarantee-icon">🛡️</div>
+      <div>
+        <h3 class="guarantee-title">Garantia <span>Condicional</span></h3>
+        <p class="guarantee-text">
+          Se nas 3 primeiras sessões você não identificar pelo menos <strong>5 processos automatizáveis</strong> na sua empresa e não enxergar claramente o caminho para sair do operacional, devolvemos <strong>100% do valor da entrada</strong> — sem burocracia, sem questionamento.
+        </p>
+        <p class="guarantee-text" style="margin-top:12px">
+          Essa garantia existe porque temos confiança no método. E porque queremos clientes que acreditam no processo, não clientes que tentaram e desistiram.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FAQ ────────────────────────────────────────────────────── -->
+<section class="faq" style="background:var(--bg-1);">
+  <div class="wrap-sm">
+    <div class="text-center mb-48 anim">
+      <div class="section-label" style="justify-content:center;margin-bottom:20px">Dúvidas</div>
+      <h2 class="section-title">Perguntas frequentes</h2>
+    </div>
+
+    <div class="faq-list anim anim-d1">
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Preciso saber usar Claude Code antes de entrar?
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-a">
+          Não. A primeira sessão é dedicada exatamente ao setup do ambiente e à configuração do Claude Code. Você vai aprender a usar no contexto do seu negócio, com exemplos reais — não em abstrato.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Como são as sessões? Presencial ou online?
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-a">
+          Todas as sessões são realizadas online via Google Meet ou Zoom, com tela compartilhada. Cada sessão dura entre 90 e 120 minutos e é gravada para você revisitar quando precisar.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Meu negócio é muito específico. Funciona para o meu segmento?
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-a">
+          Sim. O método foi desenvolvido especificamente para negócios digitais (agências, infoprodutores, prestação de serviços B2B, e-commerce com operação interna). As ferramentas são adaptadas ao seu contexto específico em cada sessão — não usamos templates genéricos.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Quanto tempo por semana preciso dedicar?
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-a">
+          As sessões ao vivo duram ~2h. Entre sessões, recomendamos 2–3h semanais para implementar o que foi construído e preparar materiais para o próximo encontro. O total é de 4–5h semanais, concentradas em atividades de alto impacto.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          O que acontece se eu não conseguir implementar entre as sessões?
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-a">
+          Temos um canal de suporte por WhatsApp durante toda a consultoria. Se travar em algum ponto, me avise e resolvemos antes da próxima sessão. A ideia é que você nunca fique preso por mais de 48h em um obstáculo.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Qual a diferença para contratar uma consultoria de gestão tradicional?
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-a">
+          Consultoria tradicional entrega diagnóstico e recomendações. Nós entregamos implementação — cada sessão termina com algo funcionando no seu negócio. E ao contrário da consultoria tradicional, a IA permanece na empresa depois que a consultoria termina, continuando a reforçar os processos.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Quantas vagas têm por turma?
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-a">
+          As consultorias são individuais — cada cliente tem sessões exclusivas adaptadas ao seu negócio. Aceito no máximo 4 clientes por trimestre para garantir qualidade de atenção e entregáveis. As vagas do Q2 2026 estão abertas agora.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── FINAL CTA ──────────────────────────────────────────────── -->
+<section class="final-cta">
+  <div class="wrap-md">
+    <div class="final-cta-card anim">
+      <div class="final-cta-glow"></div>
+      <h2>Pronto para sair<br>do <em>operacional?</em></h2>
+      <p>4 vagas disponíveis para o Q2 2026. Sem fila de espera.</p>
+      <div class="final-cta-actions">
+        <a href="https://wa.me/5500000000000?text=Quero+reservar+minha+vaga+na+Consultoria+Claude" class="btn-primary" style="font-size:18px; padding:18px 44px;">
+          Reservar minha vaga
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+      <p class="final-note">Clique para conversar no WhatsApp · Sem compromisso</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─────────────────────────────────────────────────── -->
+<footer>
+  <div class="wrap-sm">
+    <p><a href="#">Empresa Independente</a> · Consultoria Claude</p>
+    <p style="margin-top:8px">
+      <a href="#">Termos de uso</a> · <a href="#">Política de privacidade</a> · <a href="mailto:contato@empresaind.com">contato@empresaind.com</a>
+    </p>
+    <p style="margin-top:12px; opacity:0.5">© 2026 Empresa Independente. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<!-- ─── SCRIPTS ────────────────────────────────────────────────── -->
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.anim').forEach(el => observer.observe(el));
+
+// FAQ toggle
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// Header scroll effect
+const header = document.querySelector('header');
+window.addEventListener('scroll', () => {
+  header.style.borderBottomColor = window.scrollY > 20
+    ? 'rgba(255,255,255,0.1)'
+    : 'rgba(255,255,255,0.07)';
+}, { passive: true });
+
+// Counter animation
+function animateCounters() {
+  document.querySelectorAll('.stat-num').forEach(el => {
+    const text = el.textContent;
+    const num = parseFloat(text.replace(/[^0-9.]/g, ''));
+    const suffix = text.replace(/[0-9.]/g, '');
+    if (isNaN(num)) return;
+    let start = 0;
+    const duration = 1200;
+    const startTime = performance.now();
+    function update(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = start + (num - start) * eased;
+      el.textContent = (current % 1 === 0 ? Math.round(current) : current.toFixed(1)) + suffix;
+      if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  });
+}
+
+const statsObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      animateCounters();
+      statsObserver.disconnect();
+    }
+  });
+}, { threshold: 0.5 });
+
+const statsEl = document.querySelector('.stats-grid');
+if (statsEl) statsObserver.observe(statsEl);
+</script>
+
+</body>
+</html>

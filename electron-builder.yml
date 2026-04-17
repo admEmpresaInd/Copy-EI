@@ -1,0 +1,55 @@
+appId: com.promptstudio.app
+productName: Prompt Studio
+copyright: Copyright © 2025
+
+directories:
+  output: dist
+  buildResources: build
+
+files:
+  - electron/**
+  - server.js
+  - prompt-builder.html
+  - marked.min.js
+  - package.json
+  - package-lock.json
+  - node_modules/**
+  - .claude/skills/**
+  - EI/**
+  - "!EI/ICP/**"
+  - "!EI/Metodologia/**"
+  - "!memory/**"
+  - "!supabase/**"
+  - "!dist/**"
+  - "!*.log"
+  - "!*.rar"
+
+win:
+  signingHashAlgorithms: []
+  sign: null
+  target:
+    - target: nsis
+      arch:
+        - x64
+
+mac:
+  target:
+    - target: dmg
+      arch:
+        - x64
+        - arm64
+  category: public.app-category.productivity
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+
+dmg:
+  title: "${productName} ${version}"
+  background: null
+  window:
+    width: 540
+    height: 380

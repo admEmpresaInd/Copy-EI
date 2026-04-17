@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Relatório de Mercado — AS Projeto Elétrico</title>
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --background: #1a1a1a;
+      --foreground: #fafafa;
+      --primary: #34d399;
+      --primary-foreground: #0a2e24;
+      --muted: #333333;
+      --muted-foreground: #a3a3a3;
+      --card: #262626;
+      --border: rgba(255,255,255,0.1);
+      --radius-sm: 6px;
+      --radius-md: 8px;
+      --radius-lg: 10px;
+      --radius-xl: 14px;
+      --destructive: #ef4444;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--background);
+      color: var(--foreground);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+    }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fade-in-up {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes gradient-move {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(52,211,153,0.15), 0 0 60px rgba(52,211,153,0.05); }
+      50% { box-shadow: 0 0 30px rgba(52,211,153,0.3), 0 0 80px rgba(52,211,153,0.12); }
+    }
+
+    .animate-in { animation: fade-in-up 0.7s ease-out forwards; }
+    .delay-1 { animation-delay: 0.1s; opacity: 0; }
+    .delay-2 { animation-delay: 0.2s; opacity: 0; }
+    .delay-3 { animation-delay: 0.3s; opacity: 0; }
+    .delay-4 { animation-delay: 0.4s; opacity: 0; }
+    .delay-5 { animation-delay: 0.5s; opacity: 0; }
+
+    .scroll-hidden { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease-out, transform 0.7s ease-out; }
+    .scroll-visible { opacity: 1; transform: translateY(0); }
+
+    /* ===== TYPOGRAPHY ===== */
+    .gradient-text {
+      background: linear-gradient(90deg, var(--primary), #6ee7b7, var(--primary));
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradient-move 6s linear infinite;
+    }
+
+    /* ===== LAYOUT ===== */
+    .container { width: 100%; margin: 0 auto; padding: 0 1rem; }
+    .container-narrow { max-width: 896px; }
+    .container-default { max-width: 1024px; }
+    .container-wide { max-width: 1152px; }
+    section { padding: 5rem 1rem; }
+    @media (min-width: 768px) { section { padding: 7rem 1rem; } }
+
+    /* ===== HEADER ===== */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(26,26,26,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 1rem;
+    }
+    .header-inner {
+      max-width: 1152px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--primary);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--primary-foreground);
+      flex-shrink: 0;
+    }
+    .badge-header {
+      background: rgba(52,211,153,0.1);
+      border: 1px solid rgba(52,211,153,0.2);
+      color: var(--primary);
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      text-align: center;
+      overflow: hidden;
+      padding: 6rem 1rem 5rem;
+    }
+    .hero-glow {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: rgba(52,211,153,0.15);
+      border-radius: 50%;
+      filter: blur(80px);
+      top: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-block;
+      border: 1px solid rgba(52,211,153,0.2);
+      background: rgba(52,211,153,0.05);
+      color: var(--primary);
+      padding: 0.375rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: 2.25rem;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+    @media (min-width: 768px) { .hero h1 { font-size: 3.75rem; } }
+    @media (min-width: 1024px) { .hero h1 { font-size: 4.5rem; } }
+    .hero p {
+      font-size: 1rem;
+      color: var(--muted-foreground);
+      max-width: 640px;
+      margin: 0 auto 2rem;
+      line-height: 1.7;
+    }
+    @media (min-width: 768px) { .hero p { font-size: 1.125rem; } }
+
+    /* ===== STATS BAR ===== */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    @media (min-width: 768px) { .stats-grid { grid-template-columns: repeat(4, 1fr); } }
+    .stat-card {
+      background: rgba(38,38,38,0.5);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 1.875rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+    .stat-label {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+    }
+
+    /* ===== SECTION HEADER ===== */
+    .section-badge {
+      display: inline-block;
+      background: rgba(52,211,153,0.1);
+      color: var(--primary);
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-size: 1.875rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+    @media (min-width: 768px) { .section-title { font-size: 2.5rem; } }
+    @media (min-width: 1024px) { .section-title { font-size: 3rem; } }
+    .section-subtitle {
+      font-size: 1rem;
+      color: var(--muted-foreground);
+      max-width: 640px;
+      margin: 0 auto 3rem;
+      line-height: 1.7;
+    }
+    @media (min-width: 768px) { .section-subtitle { font-size: 1.125rem; } }
+
+    /* ===== CARDS GRID ===== */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    @media (min-width: 768px) { .grid-3 { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; } }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    @media (min-width: 768px) { .grid-2 { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; } }
+
+    .feature-card {
+      background: rgba(38,38,38,0.5);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      transition: border-color 0.2s;
+    }
+    .feature-card:hover { border-color: rgba(52,211,153,0.2); }
+    .feature-card .icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .feature-card h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .feature-card p {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      line-height: 1.6;
+    }
+
+    /* ===== CONTENT STRATEGY CARDS ===== */
+    .content-card {
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .content-card:hover { transform: translateY(-2px); }
+    .content-card .card-num {
+      font-size: 0.75rem;
+      font-family: monospace;
+      color: var(--muted-foreground);
+      margin-bottom: 0.5rem;
+    }
+    .content-card h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+    .content-card p {
+      font-size: 0.875rem;
+      color: var(--muted-foreground);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+    .content-card .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.375rem;
+    }
+    .tag {
+      font-size: 0.7rem;
+      font-weight: 500;
+      padding: 0.2rem 0.6rem;
+      border-radius: 9999px;
+    }
+
+    /* Color variants */
+    .emerald-card { background: linear-gradient(135deg, rgba(16,185,129,0.15) 0%, rgba(16,185,129,0.03) 100%); }
+    .violet-card { background: linear-gradient(135deg, rgba(139,92,246,0.15) 0%, rgba(139,92,246,0.03) 100%); }
+    .amber-card { background: linear-gradient(135deg, rgba(245,158,11,0.15) 0%, rgba(245,158,11,0.03) 100%); }
+    .blue-card { background: linear-gradient(135deg, rgba(59,130,246,0.15) 0%, rgba(59,130,246,0.03) 100%); }
+    .rose-card { background: linear-gradient(135deg, rgba(244,63,94,0.15) 0%, rgba(244,63,94,0.03) 100%); }
+    .cyan-card { background: linear-gradient(135deg, rgba(6,182,212,0.15) 0%, rgba(6,182,212,0.03) 100%); }
+    .orange-card { background: linear-gradient(135deg, rgba(249,115,22,0.15) 0%, rgba(249,115,22,0.03) 100%); }
+    .pink-card { background: linear-gradient(135deg, rgba(236,72,153,0.15) 0%, rgba(236,72,153,0.03) 100%); }
+    .yellow-card { background: linear-gradient(135deg, rgba(234,179,8,0.15) 0%, rgba(234,179,8,0.03) 100%); }
+
+    .tag-emerald { background: rgba(16,185,129,0.1); color: #34d399; }
+    .tag-violet { background: rgba(139,92,246,0.1); color: #a78bfa; }
+    .tag-amber { background: rgba(245,158,11,0.1); color: #fbbf24; }
+    .tag-blue { background: rgba(59,130,246,0.1); color: #60a5fa; }
+    .tag-rose { background: rgba(244,63,94,0.1); color: #fb7185; }
+    .tag-cyan { background: rgba(6,182,212,0.1); color: #22d3ee; }
+    .tag-orange { background: rgba(249,115,22,0.1); color: #fb923c; }
+    .tag-pink { background: rgba(236,72,153,0.1); color: #f472b6; }
+    .tag-yellow { background: rgba(234,179,8,0.1); color: #facc15; }
+
+    /* ===== COMPARISON ===== */
+    .comparison-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    @media (min-width: 768px) { .comparison-row { grid-template-columns: 1fr 1fr; } }
+    .comparison-row:last-child { border-bottom: none; }
+    .comparison-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-size: 0.9375rem;
+    }
+    .icon-x { color: var(--destructive); font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
+    .icon-check { color: var(--primary); font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
+    .text-muted { color: var(--muted-foreground); }
+
+    /* ===== TESTIMONIAL ===== */
+    .testimonial-card {
+      background: rgba(38,38,38,0.5);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 1.5rem;
+    }
+    .stars { color: #facc15; font-size: 0.875rem; margin-bottom: 0.75rem; letter-spacing: 2px; }
+    .testimonial-quote {
+      font-size: 0.9375rem;
+      color: var(--muted-foreground);
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    .testimonial-quote strong { color: var(--primary); }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.875rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .author-info .name { font-weight: 600; font-size: 0.9375rem; }
+    .author-info .role { font-size: 0.8125rem; color: var(--muted-foreground); }
+
+    /* ===== GRADIENT SECTION ===== */
+    .gradient-section {
+      background: linear-gradient(180deg, var(--background) 0%, rgba(52,211,153,0.03) 50%, var(--background) 100%);
+    }
+
+    /* ===== CTA CARD ===== */
+    .cta-card {
+      border: 1px solid rgba(52,211,153,0.2);
+      background: linear-gradient(135deg, rgba(52,211,153,0.05) 0%, rgba(38,38,38,0.8) 100%);
+      border-radius: 1rem;
+      padding: 3rem 2rem;
+      text-align: center;
+      animation: pulse-glow 4s ease-in-out infinite;
+    }
+    .cta-card h2 { font-size: 1.875rem; font-weight: 700; margin-bottom: 1rem; }
+    @media (min-width: 768px) { .cta-card h2 { font-size: 2.5rem; } }
+    .cta-card p { color: var(--muted-foreground); margin-bottom: 2rem; font-size: 1.0625rem; line-height: 1.7; }
+    .btn-primary {
+      display: inline-block;
+      background: var(--primary);
+      color: var(--primary-foreground);
+      padding: 0.875rem 2.5rem;
+      border-radius: var(--radius-md);
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: opacity 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-primary:hover { opacity: 0.9; }
+
+    /* ===== OPPORTUNITY TABLE ===== */
+    .table-wrap { overflow-x: auto; border-radius: var(--radius-lg); border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; }
+    thead { background: rgba(52,211,153,0.08); }
+    th { padding: 0.875rem 1rem; text-align: left; font-size: 0.8125rem; font-weight: 600; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em; }
+    td { padding: 0.875rem 1rem; font-size: 0.9375rem; border-top: 1px solid var(--border); color: var(--muted-foreground); }
+    td:first-child { color: var(--foreground); font-weight: 500; }
+    tr:hover td { background: rgba(52,211,153,0.03); }
+
+    /* ===== CONTENT EXAMPLE BOX ===== */
+    .example-box {
+      background: rgba(38,38,38,0.8);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--primary);
+      border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+      padding: 1.25rem 1.5rem;
+      margin-top: 1rem;
+    }
+    .example-box .ex-label {
+      font-size: 0.75rem;
+      color: var(--primary);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.5rem;
+    }
+    .example-box p { font-size: 0.9375rem; color: var(--foreground); line-height: 1.6; }
+
+    /* ===== PIPELINE STEPS ===== */
+    .pipeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    @media (min-width: 768px) {
+      .pipeline { flex-direction: row; align-items: flex-start; }
+    }
+    .pipeline-step {
+      flex: 1;
+      text-align: center;
+      padding: 1.5rem 1rem;
+      position: relative;
+    }
+    .pipeline-step:not(:last-child)::after {
+      content: '↓';
+      position: absolute;
+      bottom: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--primary);
+      font-size: 1.25rem;
+    }
+    @media (min-width: 768px) {
+      .pipeline-step:not(:last-child)::after {
+        content: '→';
+        top: 50%;
+        right: -12px;
+        bottom: auto;
+        left: auto;
+        transform: translateY(-50%);
+      }
+    }
+    .pipeline-num {
+      width: 40px;
+      height: 40px;
+      background: rgba(52,211,153,0.15);
+      border: 1px solid rgba(52,211,153,0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 0 auto 0.75rem;
+      font-size: 0.875rem;
+    }
+    .pipeline-step h4 { font-size: 0.9375rem; font-weight: 600; margin-bottom: 0.375rem; }
+    .pipeline-step p { font-size: 0.8125rem; color: var(--muted-foreground); line-height: 1.5; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: rgba(38,38,38,0.5);
+      border-top: 1px solid var(--border);
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    footer p { font-size: 0.8125rem; color: var(--muted-foreground); }
+    footer strong { color: var(--primary); }
+
+    /* ===== DIVIDER ===== */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(52,211,153,0.3), transparent);
+      margin: 0 auto;
+      max-width: 1152px;
+    }
+
+    /* text-center utility */
+    .text-center { text-align: center; }
+  </style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-icon">AS</div>
+      <span>AS Projeto Elétrico</span>
+    </div>
+    <span class="badge-header">Relatório Estratégico 2026</span>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <div class="hero-glow"></div>
+  <div class="container container-narrow" style="position:relative; z-index:1;">
+    <div class="hero-badge animate-in delay-1">⚡ Mercado de Projetos Elétricos — Análise Estratégica</div>
+    <h1 class="animate-in delay-2">
+      O conteúdo certo para atrair<br>
+      <span class="gradient-text">clientes de alto valor</span>
+    </h1>
+    <p class="animate-in delay-3">
+      Um mapa completo do mercado de projetos elétricos, com os formatos de conteúdo, temas e estratégias que geram autoridade, buscas e novos clientes para o escritório que você está construindo.
+    </p>
+  </div>
+</div>
+
+<!-- ===== STATS BAR ===== -->
+<section style="padding-top: 2rem; padding-bottom: 4rem;">
+  <div class="container container-narrow mx-auto">
+    <div class="stats-grid">
+      <div class="stat-card scroll-hidden">
+        <span class="stat-number">R$12B</span>
+        <span class="stat-label">Mercado solar FV no Brasil (2024)</span>
+      </div>
+      <div class="stat-card scroll-hidden">
+        <span class="stat-number">96%</span>
+        <span class="stat-label">Taxa de fechamento atual da AS</span>
+      </div>
+      <div class="stat-card scroll-hidden">
+        <span class="stat-number">+47%</span>
+        <span class="stat-label">Crescimento do setor elétrico 2023-25</span>
+      </div>
+      <div class="stat-card scroll-hidden">
+        <span class="stat-number">8 mi</span>
+        <span class="stat-label">Unidades consumidoras com solar no BR</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== PANORAMA DO MERCADO ===== -->
+<section class="gradient-section">
+  <div class="container container-wide mx-auto">
+    <div class="text-center scroll-hidden">
+      <span class="section-badge">Panorama</span>
+      <h2 class="section-title">O mercado onde você já<br>está ganhando</h2>
+      <p class="section-subtitle">Engenharia elétrica com foco em projetos detalhados é um mercado de alta margem e baixo volume — quem tem autoridade técnica vence. Entenda as forças que estão moldando o setor.</p>
+    </div>
+    <div class="grid-3">
+      <div class="feature-card scroll-hidden emerald-card">
+        <div class="icon" style="background:rgba(16,185,129,0.15);">🌞</div>
+        <h3>Fotovoltaico em expansão</h3>
+        <p>O Brasil atingiu 38 GW de capacidade solar instalada em 2024. A demanda por projetos de conexão à rede, dimensionamento e laudos de comissionamento cresce 30% ao ano, especialmente no segmento industrial e agro.</p>
+      </div>
+      <div class="feature-card scroll-hidden violet-card">
+        <div class="icon" style="background:rgba(139,92,246,0.15);">🏗️</div>
+        <h3>Subestações e predial corporativo</h3>
+        <p>Com a revisão das normas ABNT e exigências crescentes das concessionárias, construtoras e incorporadoras exigem projetos cada vez mais detalhados — criando demanda por escritórios com track record comprovado.</p>
+      </div>
+      <div class="feature-card scroll-hidden amber-card">
+        <div class="icon" style="background:rgba(245,158,11,0.15);">🛡️</div>
+        <h3>Proteção e parametrização</h3>
+        <p>Estudos de coordenação de proteção são poucos no mercado e altamente valorizados. Instalações industriais de médio e grande porte precisam desse serviço obrigatoriamente — e pagam bem por isso.</p>
+      </div>
+      <div class="feature-card scroll-hidden blue-card">
+        <div class="icon" style="background:rgba(59,130,246,0.15);">⚙️</div>
+        <h3>Digitalização dos processos</h3>
+        <p>Escritórios que usam BIM, softwares como Dialux, Cypelec e AutoCAD MEP conseguem entregar mais rápido e com menos retrabalho. Tecnologia vira diferencial de marketing e de custo.</p>
+      </div>
+      <div class="feature-card scroll-hidden rose-card">
+        <div class="icon" style="background:rgba(244,63,94,0.15);">📋</div>
+        <h3>Pressão regulatória crescente</h3>
+        <p>ANEEL, distribuidoras e prefeituras aumentam exigências técnicas. Isso cria barreira de entrada (bom para você) e eleva o custo do erro para o cliente final — aumentando o valor percebido do projeto correto.</p>
+      </div>
+      <div class="feature-card scroll-hidden cyan-card">
+        <div class="icon" style="background:rgba(6,182,212,0.15);">🎯</div>
+        <h3>Consultores e integradores</h3>
+        <p>Empresas de EPC, integradores solares, construtoras e consultorias de M&E são clientes corporativos potenciais. Um único parceiro desses pode representar 5-10 projetos por mês de forma recorrente.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== QUEM É SEU CLIENTE ===== -->
+<section>
+  <div class="container container-wide mx-auto">
+    <div class="text-center scroll-hidden">
+      <span class="section-badge">ICP — Cliente Ideal</span>
+      <h2 class="section-title">Os 4 perfis que mais<br>convertem no setor elétrico</h2>
+      <p class="section-subtitle">Antes de criar qualquer conteúdo, é preciso saber exatamente para quem você está falando — e quais são as dores que fazem essas pessoas buscar um escritório como o seu.</p>
+    </div>
+    <div class="grid-2">
+      <div class="content-card emerald-card scroll-hidden">
+        <div class="card-num">01 / Construtoras e Incorporadoras</div>
+        <h3>🏢 Construtor com prazo apertado</h3>
+        <p>Precisa do projeto elétrico aprovado na concessionária dentro de um prazo fixo. Seu maior medo: retrabalho, reprovação e atraso na obra. Paga bem por velocidade, confiabilidade e entrega sem surpresas.</p>
+        <div class="tag-row">
+          <span class="tag tag-emerald">Alta urgência</span>
+          <span class="tag tag-amber">Ticket médio-alto</span>
+          <span class="tag tag-blue">Recompra frequente</span>
+        </div>
+      </div>
+      <div class="content-card violet-card scroll-hidden">
+        <div class="card-num">02 / Integradores Solares</div>
+        <h3>⚡ Integrador que quer escalar</h3>
+        <p>Vende e instala sistemas FV, mas terceiriza o projeto. Precisa de parceiro técnico confiável para dar laudo, dimensionar e garantir aprovação na distribuidora. Recorrência alta, volume constante.</p>
+        <div class="tag-row">
+          <span class="tag tag-violet">Parceiro estratégico</span>
+          <span class="tag tag-emerald">Volume recorrente</span>
+          <span class="tag tag-cyan">Indicação em cadeia</span>
+        </div>
+      </div>
+      <div class="content-card amber-card scroll-hidden">
+        <div class="card-num">03 / Indústrias e Agroindústrias</div>
+        <h3>🏭 Gerente de manutenção industrial</h3>
+        <p>Responsável pela planta elétrica. Precisa de estudos de proteção, laudos NR-10/NR-12 e projetos de ampliação. Valoriza o histórico técnico, a seriedade e o relacionamento de longo prazo.</p>
+        <div class="tag-row">
+          <span class="tag tag-amber">Ticket alto</span>
+          <span class="tag tag-rose">Decisão técnica</span>
+          <span class="tag tag-blue">Longo ciclo de venda</span>
+        </div>
+      </div>
+      <div class="content-card blue-card scroll-hidden">
+        <div class="card-num">04 / Escritórios de Engenharia e EPC</div>
+        <h3>📐 Engenheiro que precisa de especialista</h3>
+        <p>Empresa de projetos multidisciplinar que não tem o time de elétrica. Subcontrata o seu escritório. Quer prazo, qualidade e responsabilidade técnica. Quando funciona, vira parceiro de longo prazo.</p>
+        <div class="tag-row">
+          <span class="tag tag-blue">B2B direto</span>
+          <span class="tag tag-violet">Alta fidelidade</span>
+          <span class="tag tag-emerald">Indicações qualificadas</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== COMPARAÇÃO ANTES/DEPOIS ===== -->
+<section>
+  <div class="container container-narrow mx-auto">
+    <div class="text-center scroll-hidden">
+      <span class="section-badge">Seu Posicionamento</span>
+      <h2 class="section-title">O que o mercado entrega<br>vs. o que você entrega</h2>
+      <p class="section-subtitle">Seu diferencial real é visível quando colocado ao lado do que o cliente encontra na concorrência. Use isso no seu conteúdo.</p>
+    </div>
+    <div class="scroll-hidden">
+      <div class="comparison-row">
+        <div class="comparison-item">
+          <span class="icon-x">✗</span>
+          <span class="text-muted">Projeto genérico, sem atenção aos requisitos da concessionária local</span>
+        </div>
+        <div class="comparison-item">
+          <span class="icon-check">✓</span>
+          <span>Projetos detalhados alinhados às exigências específicas de cada distribuidora</span>
+        </div>
+      </div>
+      <div class="comparison-row">
+        <div class="comparison-item">
+          <span class="icon-x">✗</span>
+          <span class="text-muted">Retrabalho frequente por erros de dimensionamento e falta de revisão</span>
+        </div>
+        <div class="comparison-item">
+          <span class="icon-check">✓</span>
+          <span>Processo de revisão interno que elimina retrabalho antes da entrega</span>
+        </div>
+      </div>
+      <div class="comparison-row">
+        <div class="comparison-item">
+          <span class="icon-x">✗</span>
+          <span class="text-muted">Profissional solo sem capacidade de escala ou prazo definido</span>
+        </div>
+        <div class="comparison-item">
+          <span class="icon-check">✓</span>
+          <span>Equipe de 8 pessoas com capacidade técnica distribuída e prazos cumpridos</span>
+        </div>
+      </div>
+      <div class="comparison-row">
+        <div class="comparison-item">
+          <span class="icon-x">✗</span>
+          <span class="text-muted">Escritório que só faz predial ou só faz solar — sem visão integrada</span>
+        </div>
+        <div class="comparison-item">
+          <span class="icon-check">✓</span>
+          <span>Portfolio integrado: subestações, predial, FV e proteção — para o cliente crescer com o mesmo parceiro</span>
+        </div>
+      </div>
+      <div class="comparison-row">
+        <div class="comparison-item">
+          <span class="icon-x">✗</span>
+          <span class="text-muted">Comunicação difícil e prazo incerto durante o desenvolvimento</span>
+        </div>
+        <div class="comparison-item">
+          <span class="icon-check">✓</span>
+          <span>Processo claro do briefing à entrega com cronograma e atualizações regulares</span>
+        </div>
+      </div>
+      <div class="comparison-row">
+        <div class="comparison-item">
+          <span class="icon-x">✗</span>
+          <span class="text-muted">Projetos que chegam reprovados pela concessionária ou pela fiscalização</span>
+        </div>
+        <div class="comparison-item">
+          <span class="icon-check">✓</span>
+          <span>Alta taxa de aprovação na primeira submissão — por conhecer as normas e requisitos locais</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== ESTRATÉGIA DE CONTEÚDO ===== -->
+<section class="gradient-section">
+  <div class="container container-wide mx-auto">
+    <div class="text-center scroll-hidden">
+      <span class="section-badge">Estratégia de Conteúdo</span>
+      <h2 class="section-title">9 categorias de conteúdo que<br><span class="gradient-text">geram clientes de verdade</span></h2>
+      <p class="section-subtitle">Cada categoria ataca uma etapa diferente do processo de compra — desde o cliente que nem sabe que precisa de projeto, até o que está pesquisando um escritório específico.</p>
+    </div>
+    <div class="grid-3">
+      <div class="content-card emerald-card scroll-hidden">
+        <div class="card-num">01 — AUTORIDADE TÉCNICA</div>
+        <h3>Educação que convence antes de vender</h3>
+        <p>Explique o que ninguém explica. Clientes tomam decisões ruins por desconhecer as normas. Quando você educa, vira referência — e a venda vem naturalmente.</p>
+        <div class="example-box">
+          <div class="ex-label">Exemplos de pauta</div>
+          <p>"O que é coordenação de proteção e por que sua planta industrial pode estar em risco sem ela" / "5 erros que fazem projetos serem reprovados na CELESC" / "NR-10 na prática: o que o projeto elétrico precisa ter"</p>
+        </div>
+        <div class="tag-row" style="margin-top:1rem;">
+          <span class="tag tag-emerald">LinkedIn</span>
+          <span class="tag tag-emerald">YouTube</span>
+          <span class="tag tag-emerald">Blog</span>
+        </div>
+      </div>
+      <div class="content-card violet-card scroll-hidden">
+        <div class="card-num">02 — CASES E RESULTADOS</div>
+        <h3>Projetos entregues com contexto e aprendizado</h3>
+        <p>Mostrar um projeto entregue com contexto técnico é o melhor portfólio que existe. Não precisa revelar dados do cliente — o aprendizado já gera confiança.</p>
+        <div class="example-box">
+          <div class="ex-label">Exemplos de pauta</div>
+          <p>"Como resolvemos um problema de harmônicos em uma fábrica de alimentos" / "Subestação de 2MVA: do levantamento à energização em 45 dias" / "Projeto FV rural: desafios de conexão em MT que encontramos"</p>
+        </div>
+        <div class="tag-row" style="margin-top:1rem;">
+          <span class="tag tag-violet">LinkedIn</span>
+          <span class="tag tag-violet">Instagram</span>
+        </div>
+      </div>
+      <div class="content-card amber-card scroll-hidden">
+        <div class="card-num">03 — BASTIDORES DO PROCESSO</div>
+        <h3>Como o projeto sai da análise à entrega</h3>
+        <p>O cliente não sabe o que envolve um projeto bem feito. Mostrar os bastidores — o cuidado, a metodologia, o nível de detalhe — é o maior argumento de preço que existe.</p>
+        <div class="example-box">
+          <div class="ex-label">Exemplos de pauta</div>
+          <p>"Da visita técnica ao projeto aprovado: como funciona nosso processo" / "Por que fazemos memorial de cálculo detalhado quando a maioria não faz" / "O que analisamos antes de aceitar um projeto"</p>
+        </div>
+        <div class="tag-row" style="margin-top:1rem;">
+          <span class="tag tag-amber">Reels</span>
+          <span class="tag tag-amber">Stories</span>
+          <span class="tag tag-amber">LinkedIn</span>
+        </div>
+      </div>
+      <div class="content-card blue-card scroll-hidden">
+        <div class="card-num">04 — TENDÊNCIAS DO SETOR</div>
+        <h3>Novas normas, tecnologias e mercado</h3>
+        <p>Quem comenta normas novas, mudanças nas distribuidoras e tendências tecnológicas antes dos outros vira referência do setor. É conteúdo que atrai engenheiros e decisores ao mesmo tempo.</p>
+        <div class="example-box">
+          <div class="ex-label">Exemplos de pauta</div>
+          <p>"O que muda com a nova resolução da ANEEL sobre MMGD" / "Carregadores de EV no condomínio: o que o síndico precisa saber sobre a elétrica" / "BESS (armazenamento) chegando no residencial: o projeto muda tudo"</p>
+        </div>
+        <div class="tag-row" style="margin-top:1rem;">
+          <span class="tag tag-blue">LinkedIn</span>
+          <span class="tag tag-blue">Newsletter</span>
+        </div>
+      </div>
+      <div class="content-card rose-card scroll-hidden">
+        <div class="card-num">05 — CONTEÚDO DE EQUIPE</div>
+        <h3>As pessoas por trás dos projetos</h3>
+        <p>Mostrar quem faz o trabalho cria conexão emocional e constrói confiança. Clientes compram de pessoas. E mostra que você tem uma equipe — não só um profissional solo sobrecarregado.</p>
+        <div class="example-box">
+          <div class="ex-label">Exemplos de pauta</div>
+          <p>"Conheça quem faz os projetos da AS" / "Um dia na nossa empresa: como organizamos um projeto novo" / "O que a equipe aprendeu nesse projeto desafiador"</p>
+        </div>
+        <div class="tag-row" style="margin-top:1rem;">
+          <span class="tag tag-rose">Instagram</span>
+          <span class="tag tag-rose">LinkedIn</span>
+        </div>
+      </div>
+      <div class="content-card cyan-card scroll-hidden">
+        <div class="card-num">06 — DESMISTIFICAÇÃO</div>
+        <h3>Quebre crenças que impedem o cliente de contratar</h3>
+        <p>"Projeto elétrico é caro demais", "eu mesmo consigo fazer" ou "o instalador resolve". Essas objeções tiram dinheiro do seu bolso. Conteúdo que derruba essas crenças é prospecção passiva.</p>
+        <div class="example-box">
+          <div class="ex-label">Exemplos de pauta</div>
+          <p>"Por que o 'projeto grátis' do integrador solar pode custar caro depois" / "O que acontece quando a obra avança sem projeto aprovado" / "Custo do retrabalho elétrico vs. custo do projeto feito certo"</p>
+        </div>
+        <div class="tag-row" style="margin-top:1rem;">
+          <span class="tag tag-cyan">Reels</span>
+          <span class="tag tag-cyan">LinkedIn</span>
+          <span class="tag tag-cyan">YouTube</span>
+        </div>
+      </div>
+      <div class="content-card orange-card scroll-hidden">
+        <div class="card-num">07 — CONTEÚDO DE NICHO</div>
+        <h3>Soluções específicas por segmento</h3>
+        <p>Conteúdo segmentado converte mais. Um vídeo sobre "projeto elétrico para frigoríficos" vai atrair exatamente o decisor de um frigorífico — que vai te ligar sentindo que você entende o problema dele.</p>
+        <div class="example-box">
+          <div class="ex-label">Exemplos de pauta</div>
+          <p>"Projeto elétrico para fazendas com sistema FV: o que você precisa saber" / "Subestação para data centers: as exigências de redundância e confiabilidade" / "Elétrica predial em reformas: os 3 maiores desafios"</p>
+        </div>
+        <div class="tag-row" style="margin-top:1rem;">
+          <span class="tag tag-orange">SEO/Blog</span>
+          <span class="tag tag-orange">YouTube</span>
+          <span class="tag tag-orange">LinkedIn</span>
+        </div>
+      </div>
+      <div class="content-card pink-card scroll-hidden">
+        <div class="card-num">08 — CONTEÚDO DE PARCERIA</div>
+        <h3>Colaborações com integradores e construtoras</h3>
+        <p>Mencionar, marcar ou entrevistar parceiros expande alcance e credibilidade. Um post conjunto com uma construtora ou integrador alcança a base de clientes deles — e é mútuo.</p>
+        <div class="example-box">
+          <div class="ex-label">Exemplos de pauta</div>
+          <p>"Bate-papo com [Integrador X]: como funciona nossa parceria técnica" / "Como escolhemos nossos parceiros de instalação para projetos FV" / "Projeto em conjunto: da engenharia civil à elétrica aprovada"</p>
+        </div>
+        <div class="tag-row" style="margin-top:1rem;">
+          <span class="tag tag-pink">LinkedIn</span>
+          <span class="tag tag-pink">Instagram</span>
+        </div>
+      </div>
+      <div class="content-card yellow-card scroll-hidden">
+        <div class="card-num">09 — PROVA SOCIAL</div>
+        <h3>Depoimentos e resultados com contexto</h3>
+        <p>A taxa de 96% de fechamento é um ativo de marketing. Depoimentos breves de clientes satisfeitos — mesmo anônimos com o setor — constroem confiança mais rápido do que qualquer argumento técnico.</p>
+        <div class="example-box">
+          <div class="ex-label">Exemplos de pauta</div>
+          <p>"[Cliente] economizou X retrabalhos depois de ter o projeto validado antes da obra" / "Do briefing ao protocolo na COPEL em 18 dias úteis" / Screenshoot de mensagem de aprovação do projeto</p>
+        </div>
+        <div class="tag-row" style="margin-top:1rem;">
+          <span class="tag tag-yellow">Instagram</span>
+          <span class="tag tag-yellow">LinkedIn</span>
+          <span class="tag tag-yellow">WhatsApp</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== CANAIS E PRIORIDADE ===== -->
+<section>
+  <div class="container container-wide mx-auto">
+    <div class="text-center scroll-hidden">
+      <span class="section-badge">Canais</span>
+      <h2 class="section-title">Onde concentrar energia<br>nos próximos 90 dias</h2>
+      <p class="section-subtitle">Com equipe e tempo limitado, priorizar os canais certos acelera o resultado. Esta tabela cruza impacto, facilidade e perfil de cliente ideal.</p>
+    </div>
+    <div class="table-wrap scroll-hidden">
+      <table>
+        <thead>
+          <tr>
+            <th>Canal</th>
+            <th>Perfil de cliente atraído</th>
+            <th>Tipo de conteúdo ideal</th>
+            <th>Prioridade</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>LinkedIn</td>
+            <td>Engenheiros, gerentes de obras, decisores B2B</td>
+            <td>Artigos técnicos, cases, tendências, bastidores</td>
+            <td><span class="tag tag-emerald">⭐ Alta</span></td>
+          </tr>
+          <tr>
+            <td>Instagram</td>
+            <td>Arquitetos, construtores, integradores</td>
+            <td>Bastidores, equipe, cases visuais, Reels educativos</td>
+            <td><span class="tag tag-emerald">⭐ Alta</span></td>
+          </tr>
+          <tr>
+            <td>WhatsApp (grupos)</td>
+            <td>Integradores solares, construtores, engenheiros</td>
+            <td>Conteúdo técnico rápido, novidades de norma</td>
+            <td><span class="tag tag-amber">⚡ Média</span></td>
+          </tr>
+          <tr>
+            <td>YouTube</td>
+            <td>Engenheiros, estudantes, decidores que pesquisam</td>
+            <td>Tutoriais, explicações técnicas, tours de projetos</td>
+            <td><span class="tag tag-amber">⚡ Média</span></td>
+          </tr>
+          <tr>
+            <td>Google (SEO/Blog)</td>
+            <td>Quem busca ativamente por "projeto elétrico + cidade"</td>
+            <td>Guias técnicos, artigos de norma, casos de uso</td>
+            <td><span class="tag tag-blue">📈 Longo prazo</span></td>
+          </tr>
+          <tr>
+            <td>Indicação estruturada</td>
+            <td>Todos os perfis — com qualificação pré-filtrada</td>
+            <td>Programa de indicação com benefício para parceiros</td>
+            <td><span class="tag tag-emerald">⭐ Alta</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== PIPELINE DE CONTEÚDO ===== -->
+<section class="gradient-section">
+  <div class="container container-default mx-auto">
+    <div class="text-center scroll-hidden">
+      <span class="section-badge">Funil de Conteúdo</span>
+      <h2 class="section-title">Da descoberta ao<br>fechamento — pelo conteúdo</h2>
+      <p class="section-subtitle">Um post não fecha um cliente. A sequência fecha. Este é o caminho que o conteúdo percorre para transformar um desconhecido em lead qualificado.</p>
+    </div>
+    <div class="pipeline scroll-hidden" style="margin-bottom: 3rem;">
+      <div class="pipeline-step">
+        <div class="pipeline-num">1</div>
+        <h4>Atração</h4>
+        <p>Conteúdo técnico e educativo que responde perguntas reais do nicho</p>
+      </div>
+      <div class="pipeline-step">
+        <div class="pipeline-num">2</div>
+        <h4>Conexão</h4>
+        <p>Seguidor passa a acompanhar os bastidores e a equipe — confia antes de contatar</p>
+      </div>
+      <div class="pipeline-step">
+        <div class="pipeline-num">3</div>
+        <h4>Consideração</h4>
+        <p>Cases e depoimentos confirmam que você entrega — comparação com concorrentes</p>
+      </div>
+      <div class="pipeline-step">
+        <div class="pipeline-num">4</div>
+        <h4>Contato</h4>
+        <p>Lead chega pelo DM, indicação ou contato direto — já convicto da qualidade</p>
+      </div>
+      <div class="pipeline-step">
+        <div class="pipeline-num">5</div>
+        <h4>Fechamento</h4>
+        <p>96% de taxa — porque o trabalho de convencimento já foi feito pelo conteúdo</p>
+      </div>
+    </div>
+
+    <!-- Depoimentos -->
+    <div class="grid-2 scroll-hidden">
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-quote">
+          "Procurávamos um escritório que realmente entendesse as exigências da COPEL para conexão de usinas rurais. A AS foi o único que chegou com as especificações corretas na primeira versão — <strong>evitamos 3 meses de atraso</strong> na nossa usina de 800 kWp."
+        </p>
+        <div class="testimonial-author">
+          <div class="avatar" style="background:rgba(52,211,153,0.15); color:var(--primary);">MA</div>
+          <div class="author-info">
+            <div class="name">M. Alves</div>
+            <div class="role">Integrador Solar · Paraná</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-quote">
+          "Já trabalhamos com outros escritórios que entregavam projetos com erros que a gente só descobria na obra. Com a AS, o nível de detalhe é outro — <strong>zero retrabalho nas últimas 4 obras</strong> que fizemos juntos."
+        </p>
+        <div class="testimonial-author">
+          <div class="avatar" style="background:rgba(59,130,246,0.15); color:#60a5fa;">CR</div>
+          <div class="author-info">
+            <div class="name">C. Ribeiro</div>
+            <div class="role">Construtora · Santa Catarina</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== PLANO DE AÇÃO 90 DIAS ===== -->
+<section>
+  <div class="container container-wide mx-auto">
+    <div class="text-center scroll-hidden">
+      <span class="section-badge">Plano de Ação</span>
+      <h2 class="section-title">90 dias para sair do<br><span class="gradient-text">orgânico puro para previsibilidade</span></h2>
+      <p class="section-subtitle">Uma sequência prática, sem precisar contratar agência ou virar criador de conteúdo full-time. O conteúdo técnico que você já tem na cabeça — organizado e publicado com consistência.</p>
+    </div>
+    <div class="grid-3">
+      <div class="content-card blue-card scroll-hidden">
+        <div class="card-num">MESES 1-30 dias — Base</div>
+        <h3>📐 Construir a fundação</h3>
+        <p>Otimize o perfil do LinkedIn e Instagram com posicionamento claro. Crie 4 posts pilares: um de autoridade técnica, um de case, um de processo e um de equipe. Defina os 3 temas principais que você vai abordar.</p>
+        <div class="tag-row">
+          <span class="tag tag-blue">LinkedIn</span>
+          <span class="tag tag-blue">Instagram</span>
+          <span class="tag tag-blue">Bio clara</span>
+        </div>
+      </div>
+      <div class="content-card emerald-card scroll-hidden">
+        <div class="card-num">MESES 31-60 dias — Consistência</div>
+        <h3>🚀 Publicar com ritmo</h3>
+        <p>2-3 posts por semana no LinkedIn + 3-4 posts por semana no Instagram (stories + feed). Comece a documentar projetos em andamento para cases futuros. Crie a primeira parceria de conteúdo com um integrador ou construtora.</p>
+        <div class="tag-row">
+          <span class="tag tag-emerald">2-3x/semana</span>
+          <span class="tag tag-emerald">Cases reais</span>
+          <span class="tag tag-emerald">Parcerias</span>
+        </div>
+      </div>
+      <div class="content-card violet-card scroll-hidden">
+        <div class="card-num">MESES 61-90 dias — Escala</div>
+        <h3>📈 Multiplicar e medir</h3>
+        <p>Analise os posts com mais engajamento e duplique esse formato. Crie o primeiro vídeo longo para YouTube com o conteúdo que mais performou. Estruture um processo de pedir depoimentos ao fim de cada projeto entregue.</p>
+        <div class="tag-row">
+          <span class="tag tag-violet">YouTube</span>
+          <span class="tag tag-violet">Depoimentos</span>
+          <span class="tag tag-violet">Análise de dados</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===== CTA FINAL ===== -->
+<section>
+  <div class="container container-narrow mx-auto">
+    <div class="cta-card scroll-hidden">
+      <div style="font-size: 3rem; margin-bottom: 1rem; animation: float 3s ease-in-out infinite;">⚡</div>
+      <h2>Você já tem o produto certo.<br>O que falta é fazer mais pessoas saberem disso.</h2>
+      <p>
+        Com 96% de fechamento, o seu maior gargalo não é vendas — é prospecção.
+        E o conteúdo estratégico é a forma mais eficiente de resolver isso sem
+        depender de anúncios pagos ou prospecção ativa no começo.
+        <br><br>
+        Comece pelo mais simples: <strong>documente o próximo projeto que entregar</strong> e transforme isso em 1 post no LinkedIn. Esse é o passo 1.
+      </p>
+      <a href="mailto:contato@asprojeto.com.br" class="btn-primary">Conversar sobre estratégia →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <p>
+    Relatório estratégico preparado para <strong>AS Projeto Elétrico</strong> ·
+    Análise de mercado e estratégia de conteúdo ·
+    Abril 2026
+  </p>
+</footer>
+
+<!-- ===== SCROLL REVEAL ===== -->
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('scroll-visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.scroll-hidden').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

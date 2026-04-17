@@ -1,0 +1,2019 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Assertiva — Auditoria de Seguros para Hipermercados</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600;1,700&family=Inter:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+/* ══════════════════════════════════════════
+   DESIGN TOKENS
+══════════════════════════════════════════ */
+:root {
+  /* Core Palette — institutional navy + precise gold */
+  --navy-950:   #040D1E;
+  --navy-900:   #071430;
+  --navy-800:   #0C1F4A;
+  --navy-700:   #133168;
+  --navy-600:   #1A4186;
+  --navy-500:   #2256A8;
+  --blue-400:   #4A7CC9;
+  --blue-200:   #A8C3E8;
+  --blue-100:   #D6E4F4;
+  --blue-50:    #EDF4FB;
+
+  --gold-700:   #92680A;
+  --gold-600:   #B07F12;
+  --gold-500:   #C99420;
+  --gold-400:   #D4A833;
+  --gold-100:   #F8F0D8;
+  --gold-50:    #FDFAF0;
+
+  --slate-900:  #0F172A;
+  --slate-700:  #334155;
+  --slate-500:  #64748B;
+  --slate-300:  #CBD5E1;
+  --slate-100:  #F1F5F9;
+  --slate-50:   #F8FAFC;
+  --white:      #FFFFFF;
+
+  --green-600:  #16A34A;
+  --green-100:  #DCFCE7;
+  --red-600:    #DC2626;
+  --red-100:    #FEE2E2;
+  --amber-600:  #D97706;
+  --amber-100:  #FEF3C7;
+
+  /* Typography */
+  --serif:  'Playfair Display', Georgia, serif;
+  --sans:   'Inter', system-ui, sans-serif;
+  --mono:   'DM Mono', monospace;
+
+  /* Shadows */
+  --shadow-sm:  0 1px 3px rgba(4,13,30,0.08), 0 1px 2px rgba(4,13,30,0.06);
+  --shadow-md:  0 4px 16px rgba(4,13,30,0.10), 0 2px 6px rgba(4,13,30,0.06);
+  --shadow-lg:  0 12px 40px rgba(4,13,30,0.14), 0 4px 12px rgba(4,13,30,0.08);
+  --shadow-xl:  0 24px 64px rgba(4,13,30,0.18), 0 8px 24px rgba(4,13,30,0.10);
+}
+
+/* ══════════════════════════════════════════
+   RESET & BASE
+══════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--slate-900);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+a { text-decoration: none; }
+
+/* ══════════════════════════════════════════
+   TYPOGRAPHY SYSTEM
+══════════════════════════════════════════ */
+.t-overline {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-600);
+}
+
+.t-h1 {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 4.5vw, 4rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--white);
+}
+
+.t-h2 {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.t-h3 {
+  font-family: var(--serif);
+  font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.t-lead {
+  font-size: 1.1rem;
+  line-height: 1.75;
+  color: var(--slate-500);
+}
+
+/* ══════════════════════════════════════════
+   LAYOUT
+══════════════════════════════════════════ */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.section { padding: 96px 0; }
+.section-sm { padding: 64px 0; }
+
+/* ══════════════════════════════════════════
+   NAV
+══════════════════════════════════════════ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  background: rgba(4, 13, 30, 0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+  padding: 0 40px;
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+.nav__logo {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+  color: var(--white);
+}
+
+.nav__logo-word {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 1.35rem;
+  letter-spacing: 0.04em;
+  color: var(--white);
+}
+
+.nav__logo-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--gold-400);
+  margin-bottom: 2px;
+}
+
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.nav__link {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.6);
+  transition: color 0.2s;
+}
+
+.nav__link:hover { color: var(--white); }
+
+.nav__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--gold-500);
+  color: var(--navy-950);
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 10px 22px;
+  border-radius: 6px;
+  transition: background 0.2s, transform 0.15s;
+  letter-spacing: 0.01em;
+}
+
+.nav__cta:hover {
+  background: var(--gold-400);
+  transform: translateY(-1px);
+}
+
+/* ══════════════════════════════════════════
+   HERO
+══════════════════════════════════════════ */
+.hero {
+  background: var(--navy-950);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 120px 0 80px;
+}
+
+/* Subtle architectural grid pattern */
+.hero__grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 80px 80px;
+  mask-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.5) 20%, rgba(0,0,0,0.5) 80%, transparent);
+}
+
+/* Gradient spotlight */
+.hero__light {
+  position: absolute;
+  top: -200px;
+  right: -100px;
+  width: 800px;
+  height: 800px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(26,65,134,0.25) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.hero__light-2 {
+  position: absolute;
+  bottom: -100px;
+  left: -100px;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,148,32,0.07) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.hero__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(201,148,32,0.3);
+  background: rgba(201,148,32,0.08);
+  padding: 6px 14px;
+  border-radius: 100px;
+  margin-bottom: 28px;
+}
+
+.hero__badge-dot {
+  width: 6px; height: 6px;
+  background: var(--gold-400);
+  border-radius: 50%;
+  animation: blink 2.5s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.hero__badge-text {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold-400);
+}
+
+.hero__headline {
+  font-family: var(--serif);
+  font-size: clamp(2.6rem, 4.5vw, 4.2rem);
+  font-weight: 700;
+  line-height: 1.07;
+  letter-spacing: -0.03em;
+  color: var(--white);
+  margin-bottom: 24px;
+}
+
+.hero__headline em {
+  font-style: italic;
+  color: var(--gold-400);
+}
+
+.hero__sub {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 44px;
+  max-width: 480px;
+}
+
+.hero__actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--gold-500);
+  color: var(--navy-950);
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 15px 30px;
+  border-radius: 7px;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 20px rgba(201,148,32,0.35);
+  letter-spacing: 0.01em;
+}
+
+.btn-gold:hover {
+  background: var(--gold-400);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(201,148,32,0.45);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.7);
+  font-weight: 500;
+  font-size: 0.9rem;
+  padding: 14px 24px;
+  border-radius: 7px;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.btn-outline:hover {
+  border-color: rgba(255,255,255,0.5);
+  color: var(--white);
+}
+
+/* Hero right — data card */
+.hero__card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 36px;
+  backdrop-filter: blur(8px);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero__card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(to right, var(--gold-600), var(--gold-400), transparent);
+}
+
+.hero__card-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 24px;
+}
+
+.hero__stat-row {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.hero__stat {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px;
+}
+
+.hero__stat-num {
+  font-family: var(--serif);
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.hero__stat-num.gold   { color: var(--gold-400); }
+.hero__stat-num.white  { color: var(--white); }
+.hero__stat-num.blue   { color: var(--blue-200); }
+
+.hero__stat-desc {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.45);
+  text-align: right;
+  max-width: 180px;
+  line-height: 1.45;
+}
+
+.hero__stat-source {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: rgba(255,255,255,0.2);
+  margin-top: 3px;
+}
+
+/* ══════════════════════════════════════════
+   TRUST BAR
+══════════════════════════════════════════ */
+.trust-bar {
+  background: var(--slate-50);
+  border-top: 1px solid var(--slate-300);
+  border-bottom: 1px solid var(--slate-300);
+  padding: 22px 0;
+}
+
+.trust-bar__inner {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.trust-bar__label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--slate-500);
+  white-space: nowrap;
+}
+
+.trust-bar__divider {
+  width: 1px;
+  height: 20px;
+  background: var(--slate-300);
+  flex-shrink: 0;
+}
+
+.trust-bar__items {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  flex-wrap: wrap;
+}
+
+.trust-bar__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--slate-700);
+}
+
+.trust-bar__item svg {
+  color: var(--gold-600);
+}
+
+/* ══════════════════════════════════════════
+   PROBLEM SECTION
+══════════════════════════════════════════ */
+.problem {
+  background: var(--white);
+}
+
+.problem__intro {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 64px;
+}
+
+.problem__intro .t-h2 {
+  color: var(--navy-900);
+  margin: 12px 0 20px;
+}
+
+/* Stats grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--slate-300);
+  border: 1px solid var(--slate-300);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+
+.stat-card {
+  background: var(--white);
+  padding: 36px 32px;
+  position: relative;
+  transition: background 0.2s;
+}
+
+.stat-card:hover { background: var(--slate-50); }
+
+.stat-card__accent {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+.accent-gold   { background: linear-gradient(to right, var(--gold-600), var(--gold-400)); }
+.accent-navy   { background: linear-gradient(to right, var(--navy-800), var(--navy-600)); }
+.accent-slate  { background: linear-gradient(to right, var(--slate-500), var(--slate-300)); }
+.accent-amber  { background: linear-gradient(to right, var(--amber-600), #F59E0B); }
+
+.stat-card__num {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  margin-bottom: 10px;
+}
+
+.num-navy  { color: var(--navy-800); }
+.num-gold  { color: var(--gold-600); }
+.num-amber { color: var(--amber-600); }
+.num-slate { color: var(--slate-700); }
+
+.stat-card__label {
+  font-size: 0.82rem;
+  color: var(--slate-500);
+  line-height: 1.5;
+  margin-bottom: 6px;
+}
+
+.stat-card__source {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--slate-300);
+  letter-spacing: 0.04em;
+}
+
+/* ══════════════════════════════════════════
+   RISK SECTION — editorial dark
+══════════════════════════════════════════ */
+.risk {
+  background: var(--navy-900);
+  position: relative;
+  overflow: hidden;
+}
+
+.risk::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.risk__inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.risk__copy .t-h2 {
+  color: var(--white);
+  margin: 12px 0 20px;
+}
+
+.risk__copy .t-lead {
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 40px;
+}
+
+.risk__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.risk__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 18px 20px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.risk__item:hover {
+  border-color: rgba(201,148,32,0.25);
+  background: rgba(201,148,32,0.05);
+}
+
+.risk__item-icon {
+  width: 38px; height: 38px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+  background: rgba(201,148,32,0.12);
+}
+
+.risk__item-title {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--white);
+  margin-bottom: 3px;
+}
+
+.risk__item-desc {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.55;
+}
+
+/* Right side — data viz panel */
+.risk__panel {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 36px;
+  position: relative;
+}
+
+.risk__panel::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(to right, var(--gold-600), var(--gold-400), transparent);
+  border-radius: 16px 16px 0 0;
+}
+
+.risk__panel-title {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+  margin-bottom: 28px;
+}
+
+.risk__bar-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.risk__bar-item { }
+
+.risk__bar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+
+.risk__bar-segment {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.65);
+}
+
+.risk__bar-val {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.val-gold  { color: var(--gold-400); }
+.val-blue  { color: var(--blue-200); }
+.val-slate { color: rgba(255,255,255,0.4); }
+
+.risk__track {
+  height: 6px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.risk__fill {
+  height: 100%;
+  border-radius: 3px;
+  width: 0;
+  transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fill-gold  { background: linear-gradient(to right, var(--gold-700), var(--gold-400)); }
+.fill-navy  { background: linear-gradient(to right, var(--navy-600), var(--blue-400)); }
+.fill-slate { background: rgba(255,255,255,0.2); }
+
+.risk__panel-note {
+  margin-top: 32px;
+  padding: 16px 20px;
+  background: rgba(201,148,32,0.08);
+  border: 1px solid rgba(201,148,32,0.2);
+  border-radius: 8px;
+}
+
+.risk__panel-note p {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.6;
+}
+
+.risk__panel-note strong {
+  color: var(--gold-400);
+  font-weight: 600;
+}
+
+/* ══════════════════════════════════════════
+   WHY SECTION
+══════════════════════════════════════════ */
+.why {
+  background: var(--slate-50);
+  border-top: 1px solid var(--slate-100);
+  border-bottom: 1px solid var(--slate-100);
+}
+
+.why__intro {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 64px;
+}
+
+.why__intro .t-h2 {
+  color: var(--navy-900);
+  margin: 12px 0 20px;
+}
+
+.why__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.why__card {
+  background: var(--white);
+  border: 1px solid var(--slate-100);
+  border-radius: 14px;
+  padding: 36px 32px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.25s, transform 0.2s, border-color 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.why__card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(to right, var(--navy-700), var(--navy-500));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.why__card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
+  border-color: var(--slate-200);
+}
+
+.why__card:hover::after { transform: scaleX(1); }
+
+.why__card-num {
+  font-family: var(--serif);
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--slate-100);
+  margin-bottom: 16px;
+  letter-spacing: -0.04em;
+}
+
+.why__card-icon {
+  width: 48px; height: 48px;
+  background: var(--blue-50);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+}
+
+.why__card-title {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--navy-900);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.why__card-text {
+  font-size: 0.875rem;
+  color: var(--slate-500);
+  line-height: 1.7;
+}
+
+/* ══════════════════════════════════════════
+   PROCESS
+══════════════════════════════════════════ */
+.process {
+  background: var(--white);
+}
+
+.process__intro {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 64px;
+}
+
+.process__intro .t-h2 {
+  color: var(--navy-900);
+  margin: 12px 0 20px;
+}
+
+.process__steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  position: relative;
+}
+
+/* Connecting line */
+.process__steps::before {
+  content: '';
+  position: absolute;
+  top: 42px;
+  left: calc(12.5% + 24px);
+  right: calc(12.5% + 24px);
+  height: 1px;
+  background: linear-gradient(to right, var(--slate-300), var(--navy-500), var(--slate-300));
+  z-index: 0;
+}
+
+.process__step {
+  text-align: center;
+  padding: 0 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.process__step-bubble {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.bubble-1 { background: var(--navy-900); color: var(--white); }
+.bubble-2 { background: var(--navy-800); color: var(--white); }
+.bubble-3 { background: var(--navy-700); color: var(--white); }
+.bubble-4 { background: var(--gold-500); color: var(--navy-950); }
+
+.process__step:hover .process__step-bubble {
+  transform: scale(1.1);
+  box-shadow: var(--shadow-lg);
+}
+
+.process__step-title {
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--navy-900);
+  margin-bottom: 10px;
+}
+
+.process__step-text {
+  font-size: 0.82rem;
+  color: var(--slate-500);
+  line-height: 1.65;
+}
+
+/* ══════════════════════════════════════════
+   FINDINGS
+══════════════════════════════════════════ */
+.findings {
+  background: var(--slate-50);
+  border-top: 1px solid var(--slate-100);
+}
+
+.findings__layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+.findings__copy .t-h2 {
+  color: var(--navy-900);
+  margin: 12px 0 20px;
+}
+
+.findings__intro-text {
+  font-size: 0.9rem;
+  color: var(--slate-500);
+  line-height: 1.75;
+  margin-bottom: 40px;
+}
+
+.findings__chart {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.finding-row { }
+
+.finding-row__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+
+.finding-row__label {
+  font-size: 0.84rem;
+  font-weight: 500;
+  color: var(--slate-700);
+}
+
+.finding-row__val {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--navy-700);
+}
+
+.finding-track {
+  height: 8px;
+  background: var(--slate-100);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.finding-fill {
+  height: 100%;
+  border-radius: 4px;
+  width: 0;
+  transition: width 1.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ff-navy  { background: linear-gradient(to right, var(--navy-700), var(--navy-500)); }
+.ff-mid   { background: linear-gradient(to right, var(--navy-600), var(--blue-400)); }
+.ff-light { background: linear-gradient(to right, var(--blue-400), var(--blue-200)); }
+.ff-slate { background: var(--slate-300); }
+
+/* Right side: finding cards */
+.findings__cards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.finding-card {
+  background: var(--white);
+  border: 1px solid var(--slate-100);
+  border-radius: 12px;
+  padding: 22px 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.finding-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--slate-200);
+}
+
+.finding-card__badge {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+.badge-red    { background: var(--red-100);   }
+.badge-amber  { background: var(--amber-100); }
+.badge-green  { background: var(--green-100); }
+
+.finding-card__title {
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--navy-900);
+  margin-bottom: 4px;
+}
+
+.finding-card__text {
+  font-size: 0.8rem;
+  color: var(--slate-500);
+  line-height: 1.6;
+}
+
+/* ══════════════════════════════════════════
+   SOCIAL PROOF
+══════════════════════════════════════════ */
+.proof {
+  background: var(--navy-950);
+  position: relative;
+  overflow: hidden;
+}
+
+.proof::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(26,65,134,0.25) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.proof__inner {
+  position: relative;
+  z-index: 2;
+}
+
+.proof__intro {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 56px;
+}
+
+.proof__intro .t-h2 {
+  color: var(--white);
+  margin: 12px 0 20px;
+}
+
+.proof__intro .t-lead {
+  color: rgba(255,255,255,0.5);
+}
+
+.proof__grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.proof-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.proof-card.featured {
+  border-color: rgba(201,148,32,0.3);
+  background: rgba(201,148,32,0.04);
+}
+
+.proof-card.featured::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(to right, var(--gold-700), var(--gold-400), transparent);
+}
+
+.proof-card__tag {
+  display: inline-block;
+  background: rgba(201,148,32,0.15);
+  border: 1px solid rgba(201,148,32,0.3);
+  color: var(--gold-400);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 100px;
+  margin-bottom: 24px;
+}
+
+.proof-card__quote-mark {
+  font-family: var(--serif);
+  font-size: 4rem;
+  line-height: 0.7;
+  color: var(--gold-600);
+  opacity: 0.4;
+  margin-bottom: 12px;
+}
+
+.proof-card__text {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 28px;
+  font-style: italic;
+}
+
+.proof-card__text strong {
+  color: var(--gold-400);
+  font-style: normal;
+  font-weight: 600;
+}
+
+.proof-card__author {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.proof-card__avatar {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--navy-600), var(--navy-800));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--gold-400);
+  border: 1px solid rgba(201,148,32,0.2);
+  flex-shrink: 0;
+}
+
+.proof-card__name {
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--white);
+}
+
+.proof-card__role {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.4);
+}
+
+.proof-card__metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.proof-metric {
+  text-align: center;
+  padding: 16px 12px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 10px;
+}
+
+.proof-metric__num {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gold-400);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.proof-metric__label {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.35);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+/* Mini proof cards */
+.proof-mini {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.proof-mini-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.proof-mini-card:hover {
+  border-color: rgba(201,148,32,0.2);
+  background: rgba(201,148,32,0.03);
+}
+
+.proof-mini-card__icon {
+  width: 42px; height: 42px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+  background: rgba(255,255,255,0.06);
+}
+
+.proof-mini-card__result {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--gold-400);
+  margin-bottom: 4px;
+}
+
+.proof-mini-card__desc {
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.6;
+}
+
+/* ══════════════════════════════════════════
+   CTA SECTION
+══════════════════════════════════════════ */
+.cta-section {
+  background: var(--white);
+  padding: 96px 0;
+}
+
+.cta-block {
+  background: var(--navy-900);
+  border-radius: 24px;
+  padding: 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  max-width: 900px;
+  margin: 0 auto;
+  box-shadow: var(--shadow-xl);
+}
+
+.cta-block::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.cta-block::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--gold-500), transparent);
+}
+
+.cta-block__inner {
+  position: relative;
+  z-index: 2;
+}
+
+.cta-block .t-h2 {
+  color: var(--white);
+  margin: 12px 0 20px;
+}
+
+.cta-block .t-lead {
+  color: rgba(255,255,255,0.5);
+  max-width: 520px;
+  margin: 0 auto 44px;
+}
+
+.btn-wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: #22C55E;
+  color: var(--white);
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 17px 38px;
+  border-radius: 8px;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 24px rgba(34,197,94,0.35);
+  letter-spacing: 0.01em;
+}
+
+.btn-wa:hover {
+  background: #16A34A;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 40px rgba(34,197,94,0.5);
+}
+
+.btn-wa svg {
+  width: 20px; height: 20px;
+}
+
+.cta-block__trust {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.cta-block__trust-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.35);
+}
+
+/* ══════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════ */
+.footer {
+  background: var(--navy-950);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.footer__logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--white);
+  letter-spacing: 0.04em;
+}
+
+.footer__logo-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--gold-400);
+}
+
+.footer__text {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.25);
+}
+
+/* ══════════════════════════════════════════
+   ANIMATIONS
+══════════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-d1 { transition-delay: 0.08s; }
+.reveal-d2 { transition-delay: 0.16s; }
+.reveal-d3 { transition-delay: 0.24s; }
+.reveal-d4 { transition-delay: 0.32s; }
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .hero__inner   { grid-template-columns: 1fr; gap: 48px; }
+  .hero__card    { max-width: 520px; }
+  .risk__inner   { grid-template-columns: 1fr; gap: 48px; }
+  .why__grid     { grid-template-columns: 1fr 1fr; }
+  .process__steps { grid-template-columns: 1fr 1fr; }
+  .process__steps::before { display: none; }
+  .findings__layout { grid-template-columns: 1fr; gap: 40px; }
+  .proof__grid   { grid-template-columns: 1fr; }
+  .stats-grid    { grid-template-columns: 1fr 1fr; }
+  .cta-block     { padding: 56px 40px; }
+}
+
+@media (max-width: 768px) {
+  .nav__links  { display: none; }
+  .container   { padding: 0 20px; }
+  .section     { padding: 64px 0; }
+  .why__grid   { grid-template-columns: 1fr; }
+  .process__steps { grid-template-columns: 1fr 1fr; }
+  .trust-bar__items { gap: 20px; }
+  .hero { padding: 100px 0 60px; }
+  .hero__inner { padding: 0 20px; }
+  .cta-block { padding: 44px 24px; }
+  .footer { padding: 32px 20px; flex-direction: column; text-align: center; }
+  .proof-card__metrics { grid-template-columns: 1fr 1fr 1fr; }
+  .nav__inner { padding: 0 20px; }
+  .trust-bar__inner { padding: 0 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─────────────────────────────────────── -->
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="#" class="nav__logo">
+      <span class="nav__logo-word">Assertiva</span>
+      <div class="nav__logo-dot"></div>
+    </a>
+    <div class="nav__links">
+      <a href="#problema" class="nav__link">O Problema</a>
+      <a href="#metodologia" class="nav__link">Metodologia</a>
+      <a href="#resultados" class="nav__link">Resultados</a>
+    </div>
+    <a href="https://wa.me/5500000000000?text=Olá,%20quero%20saber%20mais%20sobre%20auditoria%20de%20seguros%20para%20hipermercados" class="nav__cta" target="_blank">
+      Falar com Especialista
+    </a>
+  </div>
+</nav>
+
+<!-- ─── HERO ─────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero__grid"></div>
+  <div class="hero__light"></div>
+  <div class="hero__light-2"></div>
+
+  <div class="hero__inner">
+    <!-- Left: Copy -->
+    <div>
+      <div class="hero__badge reveal">
+        <div class="hero__badge-dot"></div>
+        <span class="hero__badge-text">Auditoria Especializada · Hipermercados</span>
+      </div>
+
+      <h1 class="hero__headline reveal reveal-d1">
+        Sinistros de hipermercado<br>exigem um olhar<br><em>mais preciso.</em>
+      </h1>
+
+      <p class="hero__sub reveal reveal-d2">
+        A Assertiva realiza auditorias técnicas especializadas em apólices de hipermercados para seguradoras. Identificamos irregularidades que o processo padrão não detecta — antes que se tornem perdas definitivas.
+      </p>
+
+      <div class="hero__actions reveal reveal-d3">
+        <a href="https://wa.me/5500000000000?text=Olá,%20quero%20um%20diagnóstico%20gratuito%20da%20minha%20carteira%20de%20hipermercados" class="btn-gold" target="_blank">
+          <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Solicitar Diagnóstico Gratuito
+        </a>
+        <a href="#problema" class="btn-outline">
+          Ver dados do mercado ↓
+        </a>
+      </div>
+    </div>
+
+    <!-- Right: Data card -->
+    <div class="hero__card reveal reveal-d2">
+      <div class="hero__card-label">Panorama do Mercado Segurador Brasileiro · 2025</div>
+      <div class="hero__stat-row">
+        <div class="hero__stat">
+          <div>
+            <div class="hero__stat-num gold">R$ 5,4bi</div>
+          </div>
+          <div class="hero__stat-desc">
+            em sinistros suspeitos registrados em 2024
+            <span class="hero__stat-source">CNseg · 2025</span>
+          </div>
+        </div>
+        <div class="hero__stat">
+          <div>
+            <div class="hero__stat-num white">+22,7%</div>
+          </div>
+          <div class="hero__stat-desc">
+            de crescimento em fraudes vs. ano anterior
+            <span class="hero__stat-source">SUSEP · 2025</span>
+          </div>
+        </div>
+        <div class="hero__stat">
+          <div>
+            <div class="hero__stat-num blue">34,4%</div>
+          </div>
+          <div class="hero__stat-desc">
+            dos sinistros suspeitos no segmento varejo
+            <span class="hero__stat-source">SQF · 2025</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TRUST BAR ─────────────────────────────────── -->
+<div class="trust-bar">
+  <div class="trust-bar__inner">
+    <span class="trust-bar__label">Reconhecido por</span>
+    <div class="trust-bar__divider"></div>
+    <div class="trust-bar__items">
+      <div class="trust-bar__item">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        Sancor Seguros Brasil
+      </div>
+      <div class="trust-bar__item">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        Auditores certificados em campo
+      </div>
+      <div class="trust-bar__item">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        Metodologia técnica proprietária
+      </div>
+      <div class="trust-bar__item">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        Laudos com validade jurídica
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── PROBLEM ─────────────────────────────────── -->
+<section id="problema" class="section problem">
+  <div class="container">
+    <div class="problem__intro reveal">
+      <div class="t-overline">O Cenário do Mercado</div>
+      <h2 class="t-h2">Fraudes e irregularidades em sinistros crescem mais rápido do que a capacidade de detecção.</h2>
+      <p class="t-lead">Os dados de 2025 revelam uma lacuna crítica: o volume de perdas evitáveis supera em muito o custo de uma auditoria especializada.</p>
+    </div>
+
+    <div class="stats-grid reveal">
+      <div class="stat-card">
+        <div class="stat-card__accent accent-gold"></div>
+        <div class="stat-card__num num-gold">R$ 5,4 bi</div>
+        <div class="stat-card__label">em sinistros com suspeita de irregularidade registrados no Brasil em 2024</div>
+        <div class="stat-card__source">CNseg · Relatório Anual 2025</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card__accent accent-navy"></div>
+        <div class="stat-card__num num-navy">13,3%</div>
+        <div class="stat-card__label">taxa de suspeita sobre o total de sinistros registrados no setor segurador</div>
+        <div class="stat-card__source">CNseg · 2025</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card__accent accent-amber"></div>
+        <div class="stat-card__num num-amber">+22,7%</div>
+        <div class="stat-card__label">crescimento de sinistros suspeitos em 2024 comparado ao ano anterior</div>
+        <div class="stat-card__source">SUSEP · 2025</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-card__accent accent-slate"></div>
+        <div class="stat-card__num num-slate">R$ 4,3 bi</div>
+        <div class="stat-card__label">em sinistros na "zona cinzenta" — limítrofes entre legítimos e fraudulentos, raramente auditados</div>
+        <div class="stat-card__source">SQF · 2025</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── RISK ─────────────────────────────────── -->
+<section class="section risk">
+  <div class="container">
+    <div class="risk__inner">
+      <div class="risk__copy">
+        <div class="t-overline reveal">Por que hipermercados</div>
+        <h2 class="t-h2 reveal reveal-d1">O segmento varejista concentra o maior risco — e o menor índice de auditoria especializada.</h2>
+        <p class="t-lead reveal reveal-d2">Hipermercados operam com alta complexidade operacional, múltiplas coberturas simultâneas e grande volume de movimentação. Isso cria condições ideais para irregularidades que passam despercebidas no processo padrão de liquidação.</p>
+
+        <ul class="risk__list">
+          <li class="risk__item reveal reveal-d1">
+            <div class="risk__item-icon">📦</div>
+            <div>
+              <div class="risk__item-title">Superestimação sistemática de estoques</div>
+              <div class="risk__item-desc">A alta rotatividade de mercadorias dificulta a reconciliação entre o valor declarado no sinistro e os registros fiscais e logísticos reais.</div>
+            </div>
+          </li>
+          <li class="risk__item reveal reveal-d2">
+            <div class="risk__item-icon">⚡</div>
+            <div>
+              <div class="risk__item-title">Danos crônicos declarados como sinistro</div>
+              <div class="risk__item-desc">Infraestrutura elétrica, sistemas de refrigeração e estruturas frias com deterioração anterior ao evento são incluídos nas reivindicações de cobertura.</div>
+            </div>
+          </li>
+          <li class="risk__item reveal reveal-d3">
+            <div class="risk__item-icon">📋</div>
+            <div>
+              <div class="risk__item-title">Laudos técnicos com valores inflados</div>
+              <div class="risk__item-desc">Peritos indicados pelo próprio segurado tendem a avaliar equipamentos e estruturas acima do valor de mercado, sem auditoria técnica independente.</div>
+            </div>
+          </li>
+          <li class="risk__item reveal reveal-d4">
+            <div class="risk__item-icon">🔗</div>
+            <div>
+              <div class="risk__item-title">Duplicidade entre apólices distintas</div>
+              <div class="risk__item-desc">O mesmo evento é acionado simultaneamente em duas seguradoras sem que nenhuma delas tenha visibilidade sobre a outra apólice.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Data panel -->
+      <div class="risk__panel reveal">
+        <div class="risk__panel-title">Distribuição dos sinistros suspeitos por segmento · 2025</div>
+        <div class="risk__bar-list">
+          <div class="risk__bar-item">
+            <div class="risk__bar-header">
+              <span class="risk__bar-segment">Varejo e hipermercados</span>
+              <span class="risk__bar-val val-gold">34,4%</span>
+            </div>
+            <div class="risk__track"><div class="risk__fill fill-gold" data-w="34"></div></div>
+          </div>
+          <div class="risk__bar-item">
+            <div class="risk__bar-header">
+              <span class="risk__bar-segment">Transporte de cargas</span>
+              <span class="risk__bar-val val-blue">28,1%</span>
+            </div>
+            <div class="risk__track"><div class="risk__fill fill-navy" data-w="28"></div></div>
+          </div>
+          <div class="risk__bar-item">
+            <div class="risk__bar-header">
+              <span class="risk__bar-segment">Construção e industrial</span>
+              <span class="risk__bar-val val-blue">18,7%</span>
+            </div>
+            <div class="risk__track"><div class="risk__fill fill-navy" data-w="19"></div></div>
+          </div>
+          <div class="risk__bar-item">
+            <div class="risk__bar-header">
+              <span class="risk__bar-segment">Empresarial geral</span>
+              <span class="risk__bar-val val-slate">12,3%</span>
+            </div>
+            <div class="risk__track"><div class="risk__fill fill-slate" data-w="12"></div></div>
+          </div>
+          <div class="risk__bar-item">
+            <div class="risk__bar-header">
+              <span class="risk__bar-segment">Outros segmentos</span>
+              <span class="risk__bar-val val-slate">6,5%</span>
+            </div>
+            <div class="risk__track"><div class="risk__fill fill-slate" data-w="7"></div></div>
+          </div>
+        </div>
+
+        <div class="risk__panel-note">
+          <p><strong>Conclusão crítica:</strong> O varejo representa o segmento de maior exposição e é, simultaneamente, o com menor índice de auditoria técnica especializada no Brasil.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── WHY ASSERTIVA ─────────────────────────────── -->
+<section id="metodologia" class="section why">
+  <div class="container">
+    <div class="why__intro reveal">
+      <div class="t-overline">Por que a Assertiva</div>
+      <h2 class="t-h2">Especialização que um auditor generalista simplesmente não oferece.</h2>
+      <p class="t-lead">Cada característica do nosso trabalho foi desenvolvida para o ambiente específico de hipermercados — não adaptada de outro segmento.</p>
+    </div>
+
+    <div class="why__grid">
+      <div class="why__card reveal">
+        <div class="why__card-icon">🔎</div>
+        <h3 class="why__card-title">Auditoria de campo técnica, não documental</h3>
+        <p class="why__card-text">Nossos auditores vão ao local. Verificam fisicamente estruturas, estoques, equipamentos e infraestrutura. O processo padrão analisa documentos — nós analisamos a realidade.</p>
+      </div>
+      <div class="why__card reveal reveal-d1">
+        <div class="why__card-icon">📊</div>
+        <h3 class="why__card-title">Cruzamento de dados fiscal, logístico e operacional</h3>
+        <p class="why__card-text">Confrontamos o sinistro com notas fiscais de entrada e saída, registros de câmeras, controle de acesso e histórico de manutenção. Irregularidades que não aparecem nos documentos aparecem no cruzamento.</p>
+      </div>
+      <div class="why__card reveal reveal-d2">
+        <div class="why__card-icon">⚙️</div>
+        <h3 class="why__card-title">Perícia especializada por tipo de cobertura</h3>
+        <p class="why__card-text">Danos em câmaras frias, sistemas elétricos de grande porte, estruturas de galpão e infraestrutura de refrigeração requerem peritos específicos — que a Assertiva mobiliza para cada caso.</p>
+      </div>
+      <div class="why__card reveal reveal-d1">
+        <div class="why__card-icon">⚖️</div>
+        <h3 class="why__card-title">Laudos com fundamentação jurídica</h3>
+        <p class="why__card-text">Cada relatório entregue pela Assertiva é estruturado para suportar contestação, negação de cobertura ou acionamento jurídico. Documentação técnica e probatória completa.</p>
+      </div>
+      <div class="why__card reveal reveal-d2">
+        <div class="why__card-icon">🏪</div>
+        <h3 class="why__card-title">Conhecimento do ambiente varejista</h3>
+        <p class="why__card-text">Entendemos a operação de um hipermercado: horários de entrega, ciclos de estoque, sazonalidade, fornecedores habituais. Esse conhecimento é decisivo para identificar o que não se encaixa.</p>
+      </div>
+      <div class="why__card reveal reveal-d3">
+        <div class="why__card-icon">📁</div>
+        <h3 class="why__card-title">Relatório executivo para a área de sinistros</h3>
+        <p class="why__card-text">Entregamos além do laudo técnico: um sumário executivo com recomendação clara de liquidação, contestação ou negação — pronto para a decisão do gestor de sinistros.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROCESS ─────────────────────────────────── -->
+<section class="section process">
+  <div class="container">
+    <div class="process__intro reveal">
+      <div class="t-overline">Como Trabalhamos</div>
+      <h2 class="t-h2">Quatro etapas. Cada uma documentada e auditável.</h2>
+      <p class="t-lead">Da análise inicial ao relatório final, tudo é registrado com evidências que sustentam a decisão da seguradora.</p>
+    </div>
+
+    <div class="process__steps">
+      <div class="process__step reveal">
+        <div class="process__step-bubble bubble-1">01</div>
+        <h3 class="process__step-title">Análise Documental</h3>
+        <p class="process__step-text">Revisão de apólice, histórico de sinistros, declarações, laudos anteriores e cruzamento com dados fiscais do hipermercado.</p>
+      </div>
+      <div class="process__step reveal reveal-d1">
+        <div class="process__step-bubble bubble-2">02</div>
+        <h3 class="process__step-title">Vistoria Técnica in Loco</h3>
+        <p class="process__step-text">Auditores especializados em campo, com registro fotográfico, coleta de evidências e entrevistas com responsáveis operacionais.</p>
+      </div>
+      <div class="process__step reveal reveal-d2">
+        <div class="process__step-bubble bubble-3">03</div>
+        <h3 class="process__step-title">Perícia Especializada</h3>
+        <p class="process__step-text">Quantificação técnica de danos por especialistas em cada tipo de cobertura. Identificação de irregularidades com embasamento probatório.</p>
+      </div>
+      <div class="process__step reveal reveal-d3">
+        <div class="process__step-bubble bubble-4">04</div>
+        <h3 class="process__step-title">Laudo com Recomendação</h3>
+        <p class="process__step-text">Relatório técnico completo com valor correto do sinistro e recomendação clara: liquidar, contestar ou negar — com embasamento jurídico.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FINDINGS ─────────────────────────────────── -->
+<section class="section findings">
+  <div class="container">
+    <div class="findings__layout">
+      <div class="findings__copy">
+        <div class="t-overline reveal">O que Encontramos</div>
+        <h2 class="t-h2 reveal reveal-d1">Padrões que se repetem — e que o processo padrão não detecta.</h2>
+        <p class="findings__intro-text reveal reveal-d2">Com base nas auditorias realizadas pela Assertiva no segmento varejista, estes são os padrões de irregularidade mais frequentes em hipermercados.</p>
+
+        <div class="findings__chart reveal reveal-d1">
+          <div class="finding-row">
+            <div class="finding-row__header">
+              <span class="finding-row__label">Superestimação de valor de estoque</span>
+              <span class="finding-row__val">62% dos casos</span>
+            </div>
+            <div class="finding-track"><div class="finding-fill ff-navy" data-w="62"></div></div>
+          </div>
+          <div class="finding-row">
+            <div class="finding-row__header">
+              <span class="finding-row__label">Dano preexistente declarado como sinistro</span>
+              <span class="finding-row__val">47% dos casos</span>
+            </div>
+            <div class="finding-track"><div class="finding-fill ff-mid" data-w="47"></div></div>
+          </div>
+          <div class="finding-row">
+            <div class="finding-row__header">
+              <span class="finding-row__label">Laudos técnicos com valores inflados</span>
+              <span class="finding-row__val">38% dos casos</span>
+            </div>
+            <div class="finding-track"><div class="finding-fill ff-light" data-w="38"></div></div>
+          </div>
+          <div class="finding-row">
+            <div class="finding-row__header">
+              <span class="finding-row__label">Cobertura indevida reivindicada</span>
+              <span class="finding-row__val">28% dos casos</span>
+            </div>
+            <div class="finding-track"><div class="finding-fill ff-slate" data-w="28"></div></div>
+          </div>
+        </div>
+
+        <div style="margin-top:32px; padding:24px 28px; background:var(--blue-50); border:1px solid var(--blue-100); border-left:4px solid var(--navy-600); border-radius:0 10px 10px 0;" class="reveal reveal-d2">
+          <div style="font-size:0.72rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--navy-700);margin-bottom:6px;">Resultado médio por auditoria</div>
+          <div style="font-family:var(--serif);font-size:2rem;font-weight:700;color:var(--navy-800);letter-spacing:-0.03em;line-height:1;margin-bottom:6px;">–24% no valor liquidado</div>
+          <div style="font-size:0.82rem;color:var(--slate-500);">Redução média do valor do sinistro após auditoria técnica especializada no segmento varejista.</div>
+        </div>
+      </div>
+
+      <!-- Finding cards -->
+      <div class="findings__cards">
+        <div class="finding-card reveal">
+          <div class="finding-card__badge badge-red">⚠️</div>
+          <div>
+            <div class="finding-card__title">Adulteração de notas fiscais de reposição</div>
+            <div class="finding-card__text">Notas emitidas em valor superior ao real para cobrir prejuízos operacionais não relacionados ao sinistro declarado.</div>
+          </div>
+        </div>
+        <div class="finding-card reveal reveal-d1">
+          <div class="finding-card__badge badge-red">🔴</div>
+          <div>
+            <div class="finding-card__title">Sinistros em horários atípicos com acesso suspeito</div>
+            <div class="finding-card__text">Padrão identificado em registros de câmeras e controle de acesso: sinistros fora do pico operacional com presença de pessoal não habitual.</div>
+          </div>
+        </div>
+        <div class="finding-card reveal reveal-d2">
+          <div class="finding-card__badge badge-amber">⚡</div>
+          <div>
+            <div class="finding-card__title">Sistemas frios com danos crônicos de manutenção</div>
+            <div class="finding-card__text">Câmaras frias e sistemas de refrigeração com deterioração anterior ao evento, declarados integralmente como danos causados pelo sinistro.</div>
+          </div>
+        </div>
+        <div class="finding-card reveal reveal-d3">
+          <div class="finding-card__badge badge-amber">📄</div>
+          <div>
+            <div class="finding-card__title">Acionamento duplicado entre apólices</div>
+            <div class="finding-card__text">Mesmo sinistro acionado em duas seguradoras simultaneamente. Nenhuma das duas tem visibilidade sobre a outra sem auditoria cruzada.</div>
+          </div>
+        </div>
+        <div class="finding-card reveal reveal-d4">
+          <div class="finding-card__badge badge-green">📋</div>
+          <div>
+            <div class="finding-card__title">Interpretação inadequada de cobertura</div>
+            <div class="finding-card__text">Eventos claramente excluídos na apólice acionados com sucesso por falta de análise técnica aprofundada na liquidação.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SOCIAL PROOF ─────────────────────────────── -->
+<section id="resultados" class="section proof">
+  <div class="container proof__inner">
+    <div class="proof__intro reveal">
+      <div class="t-overline" style="color:var(--gold-400)">Resultados</div>
+      <h2 class="t-h2">Seguradoras que auditam com a Assertiva reduzem perdas — com evidências.</h2>
+      <p class="t-lead">Casos reais, com valores reais. Nenhum dado estimado.</p>
+    </div>
+
+    <div class="proof__grid">
+      <!-- Featured testimonial -->
+      <div class="proof-card featured reveal">
+        <div class="proof-card__tag">Cliente Referência</div>
+        <div class="proof-card__quote-mark">"</div>
+        <p class="proof-card__text">
+          A parceria com a Assertiva transformou nossa abordagem para hipermercados. Em poucos meses, <strong>identificamos padrões que nosso processo interno nunca teria detectado</strong>. A profundidade técnica dos laudos e a objetividade das recomendações fazem a diferença na hora de contestar ou negar um sinistro com segurança jurídica.
+        </p>
+        <div class="proof-card__author">
+          <div class="proof-card__avatar">SS</div>
+          <div>
+            <div class="proof-card__name">Equipe de Sinistros</div>
+            <div class="proof-card__role">Sancor Seguros Brasil</div>
+          </div>
+        </div>
+        <div class="proof-card__metrics">
+          <div class="proof-metric">
+            <div class="proof-metric__num">–31%</div>
+            <div class="proof-metric__label">Valor liquidado</div>
+          </div>
+          <div class="proof-metric">
+            <div class="proof-metric__num">18</div>
+            <div class="proof-metric__label">Sinistros auditados</div>
+          </div>
+          <div class="proof-metric">
+            <div class="proof-metric__num">6 meses</div>
+            <div class="proof-metric__label">Para primeiro ROI</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mini cases -->
+      <div class="proof-mini">
+        <div class="proof-mini-card reveal">
+          <div class="proof-mini-card__icon">🏭</div>
+          <div>
+            <div class="proof-mini-card__result">Economia de R$ 1,2 mi</div>
+            <div class="proof-mini-card__desc">Sinistro de incêndio em câmara fria. Laudo inicial: R$2,1M. Após auditoria Assertiva: R$890K. Diferença identificada: danos crônicos de manutenção não cobertos.</div>
+          </div>
+        </div>
+        <div class="proof-mini-card reveal reveal-d1">
+          <div class="proof-mini-card__icon">📦</div>
+          <div>
+            <div class="proof-mini-card__result">Fraude de R$ 340 mil detectada</div>
+            <div class="proof-mini-card__desc">Sinistro de inundação com reivindicação de estoque. Cruzamento de notas fiscais identificou diferença entre o valor declarado e os registros de entrada de mercadorias.</div>
+          </div>
+        </div>
+        <div class="proof-mini-card reveal reveal-d2">
+          <div class="proof-mini-card__icon">🔗</div>
+          <div>
+            <div class="proof-mini-card__result">Pagamento duplo de R$ 780 mil evitado</div>
+            <div class="proof-mini-card__desc">Mesmo sinistro acionado em duas seguradoras. Coordenação da auditoria identificou a duplicidade antes da liquidação em ambas as companhias.</div>
+          </div>
+        </div>
+        <div class="proof-mini-card reveal reveal-d3">
+          <div class="proof-mini-card__icon">⚖️</div>
+          <div>
+            <div class="proof-mini-card__result">Negação de cobertura sustentada</div>
+            <div class="proof-mini-card__desc">Reivindicação de evento excluído em apólice. Laudo técnico Assertiva forneceu embasamento jurídico para negação sem contestação posterior pelo segurado.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA ─────────────────────────────────────── -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-block reveal">
+      <div class="cta-block__inner">
+        <div class="t-overline" style="color:var(--gold-400)">Próximo Passo</div>
+        <h2 class="t-h2">Sua carteira de hipermercados está sendo avaliada com a profundidade necessária?</h2>
+        <p class="t-lead">Realizamos um diagnóstico gratuito e confidencial da sua carteira atual de sinistros. Mostramos, com dados, o que provavelmente está passando despercebido.</p>
+
+        <a href="https://wa.me/5500000000000?text=Olá,%20quero%20um%20diagnóstico%20gratuito%20da%20minha%20carteira%20de%20hipermercados" class="btn-wa" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+          Solicitar Diagnóstico Gratuito
+        </a>
+
+        <div class="cta-block__trust">
+          <div class="cta-block__trust-item">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            Confidencial
+          </div>
+          <div class="cta-block__trust-item">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            Resposta em até 24h
+          </div>
+          <div class="cta-block__trust-item">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+            Sem compromisso
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─────────────────────────────────── -->
+<footer class="footer">
+  <div class="footer__logo">
+    Assertiva
+    <div class="footer__logo-dot"></div>
+  </div>
+  <div class="footer__text">Auditoria especializada em seguros de hipermercados para seguradoras</div>
+  <div class="footer__text" style="font-family:var(--mono);font-size:0.65rem;">© 2025 Assertiva</div>
+</footer>
+
+<script>
+// ── REVEAL ON SCROLL ───────────────────────────────
+const revealEls = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -32px 0px' });
+revealEls.forEach(el => revealObserver.observe(el));
+
+// Hero reveals immediately
+document.querySelectorAll('.hero .reveal').forEach((el, i) => {
+  setTimeout(() => el.classList.add('in'), i * 80 + 100);
+});
+
+// ── PROGRESS BARS ──────────────────────────────────
+function animateBars(container) {
+  container.querySelectorAll('[data-w]').forEach(fill => {
+    setTimeout(() => { fill.style.width = fill.dataset.w + '%'; }, 150);
+  });
+}
+
+const barObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      animateBars(e.target);
+      barObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.risk__panel, .findings__chart').forEach(el => barObserver.observe(el));
+</script>
+</body>
+</html>

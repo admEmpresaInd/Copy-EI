@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Renascimento Flora — Viveiro de Plantas e Árvores | Dona Euzébia/MG</title>
+  <meta name="description" content="Viveiro de plantas e árvores em Dona Euzébia/MG. Mais de 600 clientes satisfeitos. Plantas ornamentais, frutíferas, oliveiras e paisagismo completo.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --forest:   #0f2318;
+      --deep:     #162d1f;
+      --pine:     #1e4030;
+      --moss:     #2d5a40;
+      --fern:     #3d7a56;
+      --sage:     #5fa376;
+      --mint:     #a8d5b5;
+      --cream:    #f5f0e8;
+      --ivory:    #faf8f3;
+      --gold:     #c8a84b;
+      --gold-lt:  #e2c97e;
+      --text:     #1a1a1a;
+      --muted:    #6b7c70;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--ivory);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ──────────────── NAV ──────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 20px 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: all .4s ease;
+    }
+    nav.scrolled {
+      background: rgba(15,35,24,.95);
+      backdrop-filter: blur(12px);
+      padding: 14px 60px;
+      box-shadow: 0 1px 0 rgba(168,213,181,.1);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--cream);
+      letter-spacing: .04em;
+      text-decoration: none;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .nav-logo svg { width: 28px; height: 28px; }
+    .nav-links {
+      display: flex; gap: 36px; list-style: none;
+    }
+    .nav-links a {
+      color: rgba(245,240,232,.7);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      transition: color .25s;
+    }
+    .nav-links a:hover { color: var(--mint); }
+    .nav-cta {
+      background: var(--gold);
+      color: var(--forest) !important;
+      padding: 10px 24px !important;
+      border-radius: 2px;
+      font-weight: 500 !important;
+      text-transform: none !important;
+      letter-spacing: .02em !important;
+      font-size: 14px !important;
+      transition: background .25s, transform .2s !important;
+    }
+    .nav-cta:hover { background: var(--gold-lt) !important; transform: translateY(-1px); }
+
+    /* ──────────────── HERO ──────────────── */
+    #hero {
+      height: 100vh; min-height: 700px;
+      position: relative;
+      display: flex; align-items: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #0a1a0f 0%, #0f2318 40%, #1a3828 70%, #162d1f 100%);
+    }
+    /* Botanical pattern overlay */
+    .hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(ellipse 60% 50% at 70% 50%, rgba(61,122,86,.18) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 20% 80%, rgba(45,90,64,.2) 0%, transparent 60%);
+    }
+    .hero-noise {
+      position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.04'/%3E%3C/svg%3E");
+      opacity: .3;
+    }
+
+    /* Floating leaves */
+    .leaf { position: absolute; opacity: 0; pointer-events: none; }
+    .leaf svg { fill: rgba(93,163,118,.12); }
+    @keyframes float1 { 0%{transform:translate(0,100vh) rotate(0deg);opacity:0} 10%{opacity:.6} 90%{opacity:.4} 100%{transform:translate(30px,-100px) rotate(360deg);opacity:0} }
+    @keyframes float2 { 0%{transform:translate(0,100vh) rotate(-20deg);opacity:0} 10%{opacity:.5} 90%{opacity:.3} 100%{transform:translate(-40px,-120px) rotate(300deg);opacity:0} }
+    @keyframes float3 { 0%{transform:translate(0,100vh) rotate(15deg);opacity:0} 10%{opacity:.4} 90%{opacity:.3} 100%{transform:translate(20px,-80px) rotate(-200deg);opacity:0} }
+    .leaf:nth-child(1){left:10%;animation:float1 14s 0s infinite linear}
+    .leaf:nth-child(2){left:25%;animation:float2 18s 3s infinite linear}
+    .leaf:nth-child(3){left:45%;animation:float3 16s 1s infinite linear}
+    .leaf:nth-child(4){left:65%;animation:float1 20s 5s infinite linear}
+    .leaf:nth-child(5){left:80%;animation:float2 15s 2s infinite linear}
+    .leaf:nth-child(6){left:90%;animation:float3 17s 7s infinite linear}
+
+    /* Big decorative leaf right */
+    .hero-deco {
+      position: absolute; right: -60px; top: 50%; transform: translateY(-55%);
+      width: 55vw; max-width: 750px; opacity: .07;
+    }
+
+    .hero-inner {
+      position: relative; z-index: 2;
+      max-width: 1200px; margin: 0 auto; padding: 0 60px;
+    }
+    .hero-eyebrow {
+      font-size: 11px; font-weight: 500; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--gold);
+      display: flex; align-items: center; gap: 12px; margin-bottom: 28px;
+    }
+    .hero-eyebrow::after {
+      content: ''; display: block; width: 40px; height: 1px; background: var(--gold); opacity: .5;
+    }
+    .hero-h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(56px, 8vw, 100px);
+      font-weight: 300;
+      line-height: 1.0;
+      color: var(--cream);
+      max-width: 720px;
+      margin-bottom: 30px;
+    }
+    .hero-h1 em {
+      font-style: italic;
+      color: var(--mint);
+    }
+    .hero-sub {
+      font-size: 16px; font-weight: 300; line-height: 1.7;
+      color: rgba(245,240,232,.65);
+      max-width: 480px;
+      margin-bottom: 50px;
+    }
+    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--gold); color: var(--forest);
+      padding: 16px 36px; border-radius: 2px;
+      font-size: 14px; font-weight: 500; letter-spacing: .04em;
+      text-decoration: none; transition: all .25s;
+    }
+    .btn-primary:hover { background: var(--gold-lt); transform: translateY(-2px); box-shadow: 0 12px 30px rgba(200,168,75,.25); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 10px;
+      border: 1px solid rgba(168,213,181,.3);
+      color: var(--mint); padding: 16px 36px; border-radius: 2px;
+      font-size: 14px; font-weight: 400; letter-spacing: .04em;
+      text-decoration: none; transition: all .25s;
+    }
+    .btn-outline:hover { border-color: var(--mint); background: rgba(168,213,181,.07); }
+
+    .hero-stats {
+      position: absolute; bottom: 50px; right: 60px; z-index: 2;
+      display: flex; gap: 48px;
+    }
+    .hero-stat { text-align: right; }
+    .hero-stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 42px; font-weight: 300; line-height: 1;
+      color: var(--cream);
+    }
+    .hero-stat-num span { font-size: 22px; color: var(--gold); }
+    .hero-stat-label {
+      font-size: 11px; text-transform: uppercase; letter-spacing: .12em;
+      color: rgba(245,240,232,.4); margin-top: 4px;
+    }
+    .hero-scroll {
+      position: absolute; bottom: 50px; left: 60px; z-index: 2;
+      display: flex; align-items: center; gap: 14px;
+      color: rgba(245,240,232,.35); font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+    }
+    .hero-scroll-line {
+      width: 40px; height: 1px; background: rgba(245,240,232,.2);
+      position: relative; overflow: hidden;
+    }
+    .hero-scroll-line::after {
+      content: ''; position: absolute; left: -100%; top: 0; width: 100%; height: 100%;
+      background: var(--mint); animation: scrollline 2s infinite ease-in-out;
+    }
+    @keyframes scrollline { 0%{left:-100%} 100%{left:100%} }
+
+    /* ──────────────── INTRO BAND ──────────────── */
+    .band {
+      background: var(--forest);
+      padding: 28px 60px;
+      display: flex; align-items: center; justify-content: center; gap: 60px;
+      border-top: 1px solid rgba(168,213,181,.08);
+      border-bottom: 1px solid rgba(168,213,181,.08);
+      flex-wrap: wrap;
+    }
+    .band-item {
+      display: flex; align-items: center; gap: 12px;
+      color: rgba(245,240,232,.5); font-size: 13px; letter-spacing: .04em;
+    }
+    .band-item svg { width: 16px; height: 16px; opacity: .6; }
+    .band-sep { width: 1px; height: 20px; background: rgba(168,213,181,.12); }
+
+    /* ──────────────── SECTION BASE ──────────────── */
+    .section { padding: 120px 60px; max-width: 1200px; margin: 0 auto; }
+    .section-full { padding: 120px 0; }
+    .eyebrow {
+      font-size: 11px; font-weight: 500; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--fern);
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 24px;
+    }
+    .eyebrow::before { content: ''; display: block; width: 30px; height: 1px; background: var(--fern); }
+    h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(38px, 5vw, 60px);
+      font-weight: 300; line-height: 1.1; color: var(--forest);
+    }
+    h2 em { font-style: italic; color: var(--moss); }
+
+    /* ──────────────── SOBRE ──────────────── */
+    #sobre { background: var(--ivory); }
+    .sobre-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: center;
+    }
+    .sobre-img-wrap {
+      position: relative;
+    }
+    .sobre-img {
+      width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 2px;
+      filter: saturate(1.1);
+    }
+    .sobre-img-tag {
+      position: absolute; bottom: -24px; right: -24px;
+      background: var(--gold); color: var(--forest);
+      padding: 20px 28px; font-family: 'Cormorant Garamond', serif;
+      font-size: 14px; font-weight: 600; letter-spacing: .04em;
+    }
+    .sobre-img-tag strong { display: block; font-size: 32px; font-weight: 300; line-height: 1; }
+    .sobre-text p {
+      font-size: 16px; line-height: 1.8; color: var(--muted); margin-bottom: 20px;
+    }
+    .sobre-text p strong { color: var(--forest); font-weight: 500; }
+    .sobre-values {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 40px;
+    }
+    .sobre-value {
+      padding: 20px; border: 1px solid rgba(61,122,86,.15); border-radius: 2px;
+      transition: border-color .25s, background .25s;
+    }
+    .sobre-value:hover { border-color: rgba(61,122,86,.4); background: rgba(61,122,86,.03); }
+    .sobre-value-icon { font-size: 22px; margin-bottom: 8px; }
+    .sobre-value strong { display: block; font-size: 14px; font-weight: 500; color: var(--forest); margin-bottom: 4px; }
+    .sobre-value span { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+    /* ──────────────── SERVIÇOS ──────────────── */
+    #servicos { background: var(--forest); padding: 120px 0; }
+    .servicos-inner { max-width: 1200px; margin: 0 auto; padding: 0 60px; }
+    .servicos-inner h2 { color: var(--cream); }
+    .servicos-inner .eyebrow { color: var(--mint); }
+    .servicos-inner .eyebrow::before { background: var(--mint); }
+    .servicos-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+      margin-top: 60px;
+    }
+    .servico-card {
+      position: relative; overflow: hidden;
+      aspect-ratio: 3/4; cursor: pointer;
+    }
+    .servico-card img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .6s ease, filter .4s;
+      filter: saturate(0.8) brightness(0.7);
+    }
+    .servico-card:hover img { transform: scale(1.06); filter: saturate(1) brightness(0.6); }
+    .servico-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,25,16,.95) 0%, transparent 60%);
+    }
+    .servico-content {
+      position: absolute; bottom: 0; left: 0; right: 0; padding: 32px;
+      transform: translateY(10px); transition: transform .3s ease;
+    }
+    .servico-card:hover .servico-content { transform: translateY(0); }
+    .servico-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 12px; color: var(--gold); letter-spacing: .15em; margin-bottom: 8px;
+    }
+    .servico-content h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px; font-weight: 400; color: var(--cream); margin-bottom: 10px;
+    }
+    .servico-content p {
+      font-size: 13px; color: rgba(245,240,232,.6); line-height: 1.6;
+      max-height: 0; overflow: hidden; transition: max-height .4s ease;
+    }
+    .servico-card:hover .servico-content p { max-height: 100px; }
+
+    /* ──────────────── PLANTAS DESTAQUE ──────────────── */
+    #plantas { background: var(--cream); }
+    .plantas-header {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      margin-bottom: 60px; flex-wrap: wrap; gap: 20px;
+    }
+    .plantas-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+    }
+    .planta-card {
+      background: white; border-radius: 2px; overflow: hidden;
+      box-shadow: 0 2px 20px rgba(15,35,24,.06);
+      transition: transform .3s ease, box-shadow .3s ease;
+      cursor: pointer;
+    }
+    .planta-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(15,35,24,.12); }
+    .planta-img {
+      width: 100%; aspect-ratio: 1; object-fit: cover;
+      transition: transform .5s ease;
+      filter: saturate(1.1);
+    }
+    .planta-card:hover .planta-img { transform: scale(1.04); }
+    .planta-info { padding: 20px; }
+    .planta-tag {
+      font-size: 10px; text-transform: uppercase; letter-spacing: .14em;
+      color: var(--fern); font-weight: 500; margin-bottom: 6px;
+    }
+    .planta-info h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px; font-weight: 400; color: var(--forest); margin-bottom: 6px;
+    }
+    .planta-info p { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+    /* ──────────────── NÚMEROS ──────────────── */
+    #numeros {
+      background: var(--pine);
+      padding: 100px 0;
+    }
+    .numeros-inner {
+      max-width: 1200px; margin: 0 auto; padding: 0 60px;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+    }
+    .numero-item {
+      padding: 50px 40px; text-align: center;
+      border-right: 1px solid rgba(168,213,181,.1);
+      position: relative;
+    }
+    .numero-item:last-child { border-right: none; }
+    .numero-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 72px; font-weight: 300; line-height: 1;
+      color: var(--cream);
+    }
+    .numero-val sup {
+      font-size: 32px; color: var(--gold); vertical-align: super;
+    }
+    .numero-label {
+      font-size: 12px; text-transform: uppercase; letter-spacing: .14em;
+      color: rgba(168,213,181,.5); margin-top: 12px; line-height: 1.5;
+    }
+
+    /* ──────────────── PROCESSO ──────────────── */
+    #processo { background: var(--ivory); }
+    .processo-steps {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0; margin-top: 70px;
+      border: 1px solid rgba(61,122,86,.15);
+    }
+    .processo-step {
+      padding: 48px 36px;
+      border-right: 1px solid rgba(61,122,86,.15);
+      position: relative;
+    }
+    .processo-step:last-child { border-right: none; }
+    .step-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 64px; font-weight: 300; color: rgba(61,122,86,.12);
+      line-height: 1; margin-bottom: 20px;
+    }
+    .step-icon { font-size: 28px; margin-bottom: 16px; }
+    .processo-step h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 400; color: var(--forest); margin-bottom: 10px;
+    }
+    .processo-step p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .step-arrow {
+      position: absolute; right: -12px; top: 50%; transform: translateY(-50%);
+      width: 22px; height: 22px; background: var(--fern);
+      clip-path: polygon(0 0, 100% 50%, 0 100%);
+      z-index: 1;
+    }
+    .processo-step:last-child .step-arrow { display: none; }
+
+    /* ──────────────── DEPOIMENTOS ──────────────── */
+    #depoimentos { background: var(--forest); padding: 120px 0; }
+    .depoimentos-inner { max-width: 1200px; margin: 0 auto; padding: 0 60px; }
+    .depoimentos-inner h2 { color: var(--cream); }
+    .depoimentos-inner .eyebrow { color: var(--mint); }
+    .depoimentos-inner .eyebrow::before { background: var(--mint); }
+    .dep-grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; margin-top: 60px;
+    }
+    .dep-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(168,213,181,.1);
+      border-radius: 2px; padding: 36px;
+      transition: border-color .3s, background .3s;
+    }
+    .dep-card:hover { border-color: rgba(168,213,181,.3); background: rgba(255,255,255,.07); }
+    .dep-stars { color: var(--gold); font-size: 14px; letter-spacing: 3px; margin-bottom: 20px; }
+    .dep-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px; font-weight: 300; font-style: italic;
+      color: rgba(245,240,232,.8); line-height: 1.7; margin-bottom: 24px;
+    }
+    .dep-text::before { content: '"'; font-size: 48px; color: var(--gold); opacity: .4; line-height: 0; vertical-align: -16px; margin-right: 4px; }
+    .dep-author { display: flex; align-items: center; gap: 12px; }
+    .dep-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: var(--moss); display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--mint);
+    }
+    .dep-author-name { font-size: 14px; font-weight: 500; color: var(--cream); }
+    .dep-author-role { font-size: 12px; color: rgba(245,240,232,.4); }
+
+    /* ──────────────── CTA FINAL ──────────────── */
+    #cta {
+      background: var(--ivory);
+      padding: 140px 60px;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    #cta::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 50%, rgba(45,90,64,.06) 0%, transparent 70%);
+    }
+    #cta h2 { position: relative; z-index: 1; max-width: 700px; margin: 0 auto 20px; }
+    #cta p {
+      font-size: 17px; color: var(--muted); max-width: 480px;
+      margin: 0 auto 48px; line-height: 1.7; position: relative; z-index: 1;
+    }
+    .cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+    .btn-whatsapp {
+      display: inline-flex; align-items: center; gap: 12px;
+      background: #25d366; color: white;
+      padding: 18px 40px; border-radius: 2px;
+      font-size: 15px; font-weight: 500;
+      text-decoration: none; transition: all .25s;
+      letter-spacing: .02em;
+    }
+    .btn-whatsapp:hover { background: #20c05c; transform: translateY(-2px); box-shadow: 0 14px 40px rgba(37,211,102,.25); }
+    .btn-insta {
+      display: inline-flex; align-items: center; gap: 12px;
+      border: 1px solid rgba(61,122,86,.25); color: var(--moss);
+      padding: 18px 40px; border-radius: 2px;
+      font-size: 15px; font-weight: 400;
+      text-decoration: none; transition: all .25s;
+    }
+    .btn-insta:hover { border-color: var(--moss); background: rgba(61,122,86,.05); }
+    .cta-address {
+      margin-top: 48px; font-size: 13px; color: var(--muted);
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+
+    /* ──────────────── FOOTER ──────────────── */
+    footer {
+      background: var(--forest);
+      padding: 60px;
+      border-top: 1px solid rgba(168,213,181,.1);
+    }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px;
+    }
+    .footer-brand p {
+      font-size: 13px; color: rgba(245,240,232,.4); line-height: 1.7; margin-top: 16px; max-width: 280px;
+    }
+    footer h5 {
+      font-size: 11px; text-transform: uppercase; letter-spacing: .18em;
+      color: rgba(168,213,181,.5); margin-bottom: 20px;
+    }
+    footer ul { list-style: none; }
+    footer ul li { margin-bottom: 10px; }
+    footer ul a {
+      font-size: 13px; color: rgba(245,240,232,.5); text-decoration: none;
+      transition: color .2s;
+    }
+    footer ul a:hover { color: var(--mint); }
+    .footer-bottom {
+      max-width: 1200px; margin: 48px auto 0;
+      padding-top: 28px; border-top: 1px solid rgba(168,213,181,.08);
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-bottom p { font-size: 12px; color: rgba(245,240,232,.25); }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px; font-weight: 600; color: var(--cream);
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    /* ──────────────── ANIMATIONS ──────────────── */
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+    .reveal-delay-4 { transition-delay: .4s; }
+
+    /* ──────────────── RESPONSIVE ──────────────── */
+    @media (max-width: 900px) {
+      nav { padding: 20px 24px; }
+      nav.scrolled { padding: 14px 24px; }
+      .nav-links { display: none; }
+      .hero-inner { padding: 0 24px; }
+      .hero-stats { right: 24px; gap: 28px; }
+      .hero-scroll { display: none; }
+      .section { padding: 80px 24px; }
+      .band { padding: 20px 24px; gap: 20px; }
+      .sobre-grid { grid-template-columns: 1fr; gap: 48px; }
+      .servicos-grid { grid-template-columns: 1fr; }
+      .servico-card { aspect-ratio: 3/2; }
+      .plantas-grid { grid-template-columns: repeat(2, 1fr); }
+      .numeros-inner { grid-template-columns: repeat(2, 1fr); padding: 0 24px; }
+      .numero-item { border-right: none; border-bottom: 1px solid rgba(168,213,181,.1); }
+      .processo-steps { grid-template-columns: 1fr; }
+      .processo-step { border-right: none; border-bottom: 1px solid rgba(61,122,86,.1); }
+      .step-arrow { display: none; }
+      .dep-grid { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; gap: 40px; }
+      #cta { padding: 80px 24px; }
+      .servicos-inner { padding: 0 24px; }
+      .depoimentos-inner { padding: 0 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <a href="#" class="nav-logo">
+      <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M14 4C14 4 6 10 6 17C6 21.4 9.6 25 14 25C18.4 25 22 21.4 22 17C22 10 14 4 14 4Z" fill="rgba(168,213,181,0.9)"/>
+        <path d="M14 12C14 12 9 16 9 20" stroke="rgba(15,35,24,0.6)" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M14 12C14 12 19 16 19 20" stroke="rgba(15,35,24,0.6)" stroke-width="1.2" stroke-linecap="round"/>
+        <line x1="14" y1="12" x2="14" y2="25" stroke="rgba(15,35,24,0.5)" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      Renascimento Flora
+    </a>
+    <ul class="nav-links">
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#plantas">Plantas</a></li>
+      <li><a href="#numeros">Resultados</a></li>
+      <li><a href="#cta" class="nav-cta">Falar no WhatsApp</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-noise"></div>
+
+    <!-- Floating leaves -->
+    <div class="leaf"><svg viewBox="0 0 40 60" width="30"><path d="M20 2C20 2 2 20 2 38C2 49 10 58 20 58C30 58 38 49 38 38C38 20 20 2 20 2Z"/></svg></div>
+    <div class="leaf"><svg viewBox="0 0 30 50" width="22"><path d="M15 2C15 2 2 16 2 30C2 39 8 48 15 48C22 48 28 39 28 30C28 16 15 2 15 2Z"/></svg></div>
+    <div class="leaf"><svg viewBox="0 0 24 40" width="18"><path d="M12 2C12 2 2 14 2 24C2 32 6.5 38 12 38C17.5 38 22 32 22 24C22 14 12 2 12 2Z"/></svg></div>
+    <div class="leaf"><svg viewBox="0 0 36 56" width="26"><path d="M18 2C18 2 2 18 2 34C2 46 9 54 18 54C27 54 34 46 34 34C34 18 18 2 18 2Z"/></svg></div>
+    <div class="leaf"><svg viewBox="0 0 28 44" width="20"><path d="M14 2C14 2 2 14 2 26C2 36 7.5 42 14 42C20.5 42 26 36 26 26C26 14 14 2 14 2Z"/></svg></div>
+    <div class="leaf"><svg viewBox="0 0 32 52" width="24"><path d="M16 2C16 2 2 16 2 30C2 42 8.5 50 16 50C23.5 50 30 42 30 30C30 16 16 2 16 2Z"/></svg></div>
+
+    <!-- Big deco leaf -->
+    <div class="hero-deco">
+      <svg viewBox="0 0 600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M300 50C300 50 50 220 50 480C50 680 160 850 300 850C440 850 550 680 550 480C550 220 300 50 300 50Z" fill="white"/>
+        <path d="M300 200C300 200 150 360 150 500" stroke="rgba(0,0,0,0.3)" stroke-width="8" stroke-linecap="round"/>
+        <path d="M300 200C300 200 200 300 180 420" stroke="rgba(0,0,0,0.2)" stroke-width="5" stroke-linecap="round"/>
+        <path d="M300 200C300 200 400 300 420 420" stroke="rgba(0,0,0,0.2)" stroke-width="5" stroke-linecap="round"/>
+        <path d="M300 200C300 200 450 360 450 500" stroke="rgba(0,0,0,0.15)" stroke-width="4" stroke-linecap="round"/>
+        <line x1="300" y1="200" x2="300" y2="850" stroke="rgba(0,0,0,0.25)" stroke-width="6" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <div class="hero-inner">
+      <div class="hero-eyebrow reveal">Viveiro de Plantas e Árvores · Dona Euzébia/MG</div>
+      <h1 class="hero-h1 reveal reveal-delay-1">
+        Onde o <em>verde</em><br>ganha vida
+      </h1>
+      <p class="hero-sub reveal reveal-delay-2">
+        Colorindo jardins e transformando espaços desde 2021. Do nosso viveiro diretamente para a sua casa, com cada planta cultivada com propósito.
+      </p>
+      <div class="hero-btns reveal reveal-delay-3">
+        <a href="https://wa.me/5532998244555" target="_blank" class="btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Falar no WhatsApp
+        </a>
+        <a href="#servicos" class="btn-outline">
+          Ver nossos serviços
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-stats reveal">
+      <div class="hero-stat">
+        <div class="hero-stat-num">600<span>+</span></div>
+        <div class="hero-stat-label">Clientes satisfeitos</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">4<span>+</span></div>
+        <div class="hero-stat-label">Anos cultivando</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">6k<span>+</span></div>
+        <div class="hero-stat-label">Seguidores</div>
+      </div>
+    </div>
+
+    <div class="hero-scroll">
+      <div class="hero-scroll-line"></div>
+      Role para explorar
+    </div>
+  </section>
+
+  <!-- BAND -->
+  <div class="band">
+    <div class="band-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Qualidade garantida
+    </div>
+    <div class="band-sep"></div>
+    <div class="band-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      Entrega em toda a região
+    </div>
+    <div class="band-sep"></div>
+    <div class="band-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+      600+ clientes satisfeitos
+    </div>
+    <div class="band-sep"></div>
+    <div class="band-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a10 10 0 100 20 10 10 0 000-20z"/><path d="M12 6v6l4 2"/></svg>
+      Atendimento personalizado
+    </div>
+    <div class="band-sep"></div>
+    <div class="band-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3.09 12a9 9 0 1017.82 0H3.09z"/><path d="M12 3v1m0 16v1M4.22 4.22l.71.71m13.86 13.86l.71.71M3 12h1m16 0h1M4.22 19.78l.71-.71M18.36 5.64l.71-.71"/></svg>
+      Do solo ao seu jardim
+    </div>
+  </div>
+
+  <!-- SOBRE -->
+  <section id="sobre">
+    <div class="section">
+      <div class="sobre-grid">
+        <div class="sobre-img-wrap reveal">
+          <img
+            src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=800&q=80"
+            alt="Viveiro Renascimento Flora"
+            class="sobre-img"
+          >
+          <div class="sobre-img-tag">
+            <strong>2021</strong>
+            Fundação
+          </div>
+        </div>
+        <div class="sobre-text">
+          <div class="eyebrow reveal">Nossa história</div>
+          <h2 class="reveal reveal-delay-1">Nascemos do <em>amor</em> pela natureza</h2>
+          <p class="reveal reveal-delay-2" style="margin-top:28px">
+            <strong>A Renascimento Flora nasceu com um sonho simples:</strong> levar mais verde para a vida das pessoas. Em Dona Euzébia/MG, começamos cultivando com propósito e cuidado, planta por planta.
+          </p>
+          <p class="reveal reveal-delay-2">
+            Hoje, somos referência em paisagismo e reflorestamento, atendendo desde clientes residenciais até paisagistas, arquitetos e projetos empresariais em toda a região. Cada entrega é feita com a mesma paixão do primeiro dia.
+          </p>
+          <div class="sobre-values reveal reveal-delay-3">
+            <div class="sobre-value">
+              <div class="sobre-value-icon">🌱</div>
+              <strong>Propósito</strong>
+              <span>Cultivamos com consciência ambiental e compromisso com a qualidade</span>
+            </div>
+            <div class="sobre-value">
+              <div class="sobre-value-icon">🌿</div>
+              <strong>Variedade</strong>
+              <span>Centenas de espécies ornamentais, frutíferas e árvores disponíveis</span>
+            </div>
+            <div class="sobre-value">
+              <div class="sobre-value-icon">🚚</div>
+              <strong>Entrega</strong>
+              <span>Levamos as plantas diretamente ao seu espaço com segurança</span>
+            </div>
+            <div class="sobre-value">
+              <div class="sobre-value-icon">🤝</div>
+              <strong>Parceria</strong>
+              <span>Atendemos paisagistas, arquitetos, empresas e projetos ambientais</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVIÇOS -->
+  <section id="servicos" class="section-full">
+    <div class="servicos-inner">
+      <div class="eyebrow reveal">O que fazemos</div>
+      <h2 class="reveal reveal-delay-1">Soluções completas<br>em <em>plantas e paisagismo</em></h2>
+    </div>
+    <div class="servicos-grid" style="margin-top:60px">
+      <div class="servico-card reveal">
+        <img src="https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&fit=crop&w=600&q=80" alt="Plantas Ornamentais">
+        <div class="servico-overlay"></div>
+        <div class="servico-content">
+          <div class="servico-num">01 ·</div>
+          <h3>Plantas Ornamentais</h3>
+          <p>Costela de Adão, Xanadu, Calatheas, Palmeiras e muito mais. Plantas selecionadas para ambientes internos e externos.</p>
+        </div>
+      </div>
+      <div class="servico-card reveal reveal-delay-1">
+        <img src="https://images.unsplash.com/photo-1459156212016-c812468e2115?auto=format&fit=crop&w=600&q=80" alt="Árvores e Frutíferas">
+        <div class="servico-overlay"></div>
+        <div class="servico-content">
+          <div class="servico-num">02 ·</div>
+          <h3>Árvores & Frutíferas</h3>
+          <p>Oliveiras, jaboticabas, árvores frutíferas e nativas. Cultivadas com qualidade e entregues prontas para plantar.</p>
+        </div>
+      </div>
+      <div class="servico-card reveal reveal-delay-2">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=600&q=80" alt="Paisagismo">
+        <div class="servico-overlay"></div>
+        <div class="servico-content">
+          <div class="servico-num">03 ·</div>
+          <h3>Paisagismo & Reflorestamento</h3>
+          <p>Projetos completos para residências, empresas e áreas de reflorestamento. Do projeto à execução e entrega.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLANTAS DESTAQUE -->
+  <section id="plantas">
+    <div class="section">
+      <div class="plantas-header">
+        <div>
+          <div class="eyebrow reveal">Destaques do viveiro</div>
+          <h2 class="reveal reveal-delay-1">Plantas que <em>transformam</em></h2>
+        </div>
+        <a href="https://wa.me/5532998244555" target="_blank" class="btn-outline reveal" style="border-color:rgba(61,122,86,.3);color:var(--moss)">
+          Ver catálogo completo →
+        </a>
+      </div>
+      <div class="plantas-grid">
+        <div class="planta-card reveal">
+          <img src="https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&w=500&q=80" alt="Costela de Adão" class="planta-img">
+          <div class="planta-info">
+            <div class="planta-tag">Ornamental Interior</div>
+            <h4>Costela de Adão</h4>
+            <p>Monstera deliciosa — símbolo de conexão e beleza, perfeita para ambientes sofisticados.</p>
+          </div>
+        </div>
+        <div class="planta-card reveal reveal-delay-1">
+          <img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=500&q=80" alt="Palmeira Elegans" class="planta-img">
+          <div class="planta-info">
+            <div class="planta-tag">Palmeiras</div>
+            <h4>Palmeira Elegans</h4>
+            <p>Compacta, sem espinhos e elegante. Traz o tropical ao seu interior com facilidade de cuidado.</p>
+          </div>
+        </div>
+        <div class="planta-card reveal reveal-delay-2">
+          <img src="https://images.unsplash.com/photo-1592150621744-aca64f48394a?auto=format&fit=crop&w=500&q=80" alt="Oliveira" class="planta-img">
+          <div class="planta-info">
+            <div class="planta-tag">Árvores</div>
+            <h4>Oliveira</h4>
+            <p>Símbolo milenar de paz e sabedoria. Árvore de alto valor ornamental e produção de frutos.</p>
+          </div>
+        </div>
+        <div class="planta-card reveal reveal-delay-3">
+          <img src="https://images.unsplash.com/photo-1567225557594-88d73e55f2cb?auto=format&fit=crop&w=500&q=80" alt="Jaboticaba" class="planta-img">
+          <div class="planta-info">
+            <div class="planta-tag">Frutífera</div>
+            <h4>Jaboticaba Híbrida</h4>
+            <p>Produzida com qualidade no nosso viveiro. Frutífera única que combina beleza ornamental e produção.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NÚMEROS -->
+  <section id="numeros">
+    <div class="numeros-inner">
+      <div class="numero-item reveal">
+        <div class="numero-val">600<sup>+</sup></div>
+        <div class="numero-label">Clientes<br>satisfeitos</div>
+      </div>
+      <div class="numero-item reveal reveal-delay-1">
+        <div class="numero-val">4<sup>+</sup></div>
+        <div class="numero-label">Anos<br>cultivando</div>
+      </div>
+      <div class="numero-item reveal reveal-delay-2">
+        <div class="numero-val">100<sup>s</sup></div>
+        <div class="numero-label">Espécies<br>disponíveis</div>
+      </div>
+      <div class="numero-item reveal reveal-delay-3">
+        <div class="numero-val">6k<sup>+</sup></div>
+        <div class="numero-label">Seguidores<br>no Instagram</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESSO -->
+  <section id="processo">
+    <div class="section">
+      <div class="eyebrow reveal">Como funciona</div>
+      <h2 class="reveal reveal-delay-1">Do viveiro ao <em>seu espaço</em></h2>
+      <div class="processo-steps">
+        <div class="processo-step reveal">
+          <div class="step-num">01</div>
+          <div class="step-icon">💬</div>
+          <h4>Você faz contato</h4>
+          <p>Chama no WhatsApp ou visita nosso viveiro em Dona Euzébia/MG. Conta o que você precisa.</p>
+          <div class="step-arrow"></div>
+        </div>
+        <div class="processo-step reveal reveal-delay-1">
+          <div class="step-num">02</div>
+          <div class="step-icon">🌱</div>
+          <h4>Consultoria personalizada</h4>
+          <p>Nossa equipe indica as melhores espécies para o seu projeto, ambiente e necessidade.</p>
+          <div class="step-arrow"></div>
+        </div>
+        <div class="processo-step reveal reveal-delay-2">
+          <div class="step-num">03</div>
+          <div class="step-icon">🌿</div>
+          <h4>Seleção e preparo</h4>
+          <p>Selecionamos as plantas com cuidado, garantindo que cheguem até você em perfeito estado.</p>
+          <div class="step-arrow"></div>
+        </div>
+        <div class="processo-step reveal reveal-delay-3">
+          <div class="step-num">04</div>
+          <div class="step-icon">🚚</div>
+          <h4>Entrega & Plantio</h4>
+          <p>Entregamos na sua porta e, se necessário, realizamos o plantio e instalação completos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEPOIMENTOS -->
+  <section id="depoimentos" class="section-full">
+    <div class="depoimentos-inner">
+      <div class="eyebrow reveal">O que nossos clientes dizem</div>
+      <h2 class="reveal reveal-delay-1">A voz de quem<br><em>já transformou</em> seu espaço</h2>
+      <div class="dep-grid">
+        <div class="dep-card reveal">
+          <div class="dep-stars">★★★★★</div>
+          <div class="dep-text">Plantas chegaram lindas, com muito cuidado no empacotamento. A equipe é super atenciosa e me ajudou a escolher as melhores para o meu jardim.</div>
+          <div class="dep-author">
+            <div class="dep-avatar">A</div>
+            <div>
+              <div class="dep-author-name">Andriws Moraes</div>
+              <div class="dep-author-role">Cliente verificado · @andriwsmoraes</div>
+            </div>
+          </div>
+        </div>
+        <div class="dep-card reveal reveal-delay-1">
+          <div class="dep-stars">★★★★★</div>
+          <div class="dep-text">Comprei uma oliveira e ficou ainda mais linda do que esperava. Entrega rápida e plantas de altíssima qualidade. Com certeza voltarei a comprar!</div>
+          <div class="dep-author">
+            <div class="dep-avatar">M</div>
+            <div>
+              <div class="dep-author-name">Maria Clara S.</div>
+              <div class="dep-author-role">Cliente · Muriaé/MG</div>
+            </div>
+          </div>
+        </div>
+        <div class="dep-card reveal reveal-delay-2">
+          <div class="dep-stars">★★★★★</div>
+          <div class="dep-text">Usamos para um projeto de paisagismo comercial. Serviço impecável, variedade enorme e preço justo. Parceiro de confiança para futuros projetos!</div>
+          <div class="dep-author">
+            <div class="dep-avatar">R</div>
+            <div>
+              <div class="dep-author-name">Roberto Alves</div>
+              <div class="dep-author-role">Paisagista · Leopoldina/MG</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section id="cta">
+    <div class="eyebrow" style="justify-content:center;margin-bottom:20px" class="reveal">
+      Pronto para transformar seu espaço?
+    </div>
+    <h2 class="reveal">Seu jardim dos sonhos começa<br>com <em>uma mensagem</em></h2>
+    <p class="reveal reveal-delay-1">
+      Fale com nossa equipe agora mesmo. Em poucos minutos você receberá orientação personalizada para o seu projeto — sem compromisso.
+    </p>
+    <div class="cta-btns reveal reveal-delay-2">
+      <a href="https://wa.me/5532998244555" target="_blank" class="btn-whatsapp">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        (32) 99824-4555
+      </a>
+      <a href="https://instagram.com/renascimento_flora" target="_blank" class="btn-insta">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        @renascimento_flora
+      </a>
+    </div>
+    <div class="cta-address reveal reveal-delay-3">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      Rod. Cid Vieira Magalhães — Dona Euzébia / MG
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <svg width="22" height="22" viewBox="0 0 28 28" fill="none">
+            <path d="M14 4C14 4 6 10 6 17C6 21.4 9.6 25 14 25C18.4 25 22 21.4 22 17C22 10 14 4 14 4Z" fill="rgba(168,213,181,0.8)"/>
+          </svg>
+          Renascimento Flora
+        </div>
+        <p>Viveiro de plantas e árvores em Dona Euzébia/MG. Colorindo jardins e transformando espaços desde 2021.</p>
+      </div>
+      <div>
+        <h5>Navegação</h5>
+        <ul>
+          <li><a href="#sobre">Nossa história</a></li>
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a href="#plantas">Plantas</a></li>
+          <li><a href="#processo">Como funciona</a></li>
+          <li><a href="#depoimentos">Depoimentos</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Plantas</h5>
+        <ul>
+          <li><a href="#plantas">Ornamentais</a></li>
+          <li><a href="#plantas">Frutíferas</a></li>
+          <li><a href="#plantas">Árvores</a></li>
+          <li><a href="#plantas">Palmeiras</a></li>
+          <li><a href="#plantas">Paisagismo</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Contato</h5>
+        <ul>
+          <li><a href="https://wa.me/5532998244555" target="_blank">(32) 99824-4555</a></li>
+          <li><a href="https://instagram.com/renascimento_flora" target="_blank">@renascimento_flora</a></li>
+          <li><a href="https://renascimentoflora.com" target="_blank">renascimentoflora.com</a></li>
+          <li><a href="#">Dona Euzébia/MG</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Renascimento Flora — Viveiro de Plantas e Árvores. Todos os direitos reservados.</p>
+      <p>Dona Euzébia · Minas Gerais · Brasil</p>
+    </div>
+  </footer>
+
+  <script>
+    // Nav scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 80);
+    });
+
+    // Reveal on scroll
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+
+    // Hero elements instant reveal
+    document.querySelectorAll('#hero .reveal').forEach((el, i) => {
+      setTimeout(() => el.classList.add('visible'), 200 + i * 120);
+    });
+
+    // Counter animation
+    function animateCounter(el, target, suffix = '') {
+      let current = 0;
+      const increment = target / 60;
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) { current = target; clearInterval(timer); }
+        el.textContent = Math.floor(current) + suffix;
+      }, 20);
+    }
+
+    const numObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const vals = e.target.querySelectorAll('.numero-val');
+          const targets = [600, 4, 100, 6];
+          const suffixes = ['+', '+', 's', 'k+'];
+          vals.forEach((v, i) => {
+            const sup = v.querySelector('sup');
+            const supText = sup ? sup.textContent : '';
+            sup && sup.remove();
+            animateCounter(v, targets[i], '');
+            setTimeout(() => {
+              const newSup = document.createElement('sup');
+              newSup.textContent = supText;
+              v.appendChild(newSup);
+            }, 1200);
+          });
+          numObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    const numerosSection = document.getElementById('numeros');
+    if (numerosSection) numObs.observe(numerosSection);
+
+    // Smooth anchor scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Empresa Independente — Sua empresa funciona sem você?</title>
+<meta name="theme-color" content="#0f172a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+/* ─── TOKENS ────────────────────────────────────────────── */
+:root {
+  --background:       #141414;
+  --foreground:       #fafafa;
+  --primary:          #34d399;
+  --primary-fg:       #0a2e24;
+  --muted:            #292929;
+  --muted-fg:         #a3a3a3;
+  --card:             #1f1f1f;
+  --border:           rgba(255,255,255,0.09);
+  --border-2:         rgba(255,255,255,0.14);
+  --destructive:      #ef4444;
+
+  /* Framework colors */
+  --emerald:  #10b981; --emerald-4: #34d399;
+  --violet:   #8b5cf6;
+  --amber:    #f59e0b;
+  --blue:     #3b82f6;
+  --rose:     #f43f5e;
+  --cyan:     #06b6d4;
+  --orange:   #f97316;
+  --pink:     #ec4899;
+  --yellow:   #eab308;
+
+  --font: 'Inter', -apple-system, system-ui, sans-serif;
+  --mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  --r-sm: 6px;
+  --r-md: 8px;
+  --r-lg: 10px;
+  --r-xl: 14px;
+  --r-2xl: 16px;
+  --r-full: 9999px;
+}
+
+/* ─── RESET ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; cursor: pointer; }
+button { font-family: var(--font); border: none; cursor: pointer; background: none; color: inherit; }
+img { display: block; max-width: 100%; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+
+/* ─── LAYOUT ─────────────────────────────────────────────── */
+.container   { max-width: 1152px; margin: 0 auto; padding: 0 16px; }
+.container-md { max-width: 1024px; margin: 0 auto; padding: 0 16px; }
+.container-sm { max-width: 896px;  margin: 0 auto; padding: 0 16px; }
+.container-xs { max-width: 768px;  margin: 0 auto; padding: 0 16px; }
+section { padding: 80px 16px; }
+@media(min-width:768px) { section { padding: 112px 16px; } }
+
+/* ─── ANIMATIONS ─────────────────────────────────────────── */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in-left {
+  from { opacity: 0; transform: translateX(-30px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes gradient-shift {
+  0%,100% { background-position: 0% 50%; }
+  50%     { background-position: 100% 50%; }
+}
+@keyframes float {
+  0%,100% { transform: translateY(0px); }
+  50%     { transform: translateY(-8px); }
+}
+@keyframes pulse-glow {
+  0%,100% { box-shadow: 0 0 20px rgba(52,211,153,0.15), 0 0 60px rgba(52,211,153,0.05); }
+  50%     { box-shadow: 0 0 30px rgba(52,211,153,0.25), 0 0 80px rgba(52,211,153,0.1); }
+}
+.animate-fade-in-up  { animation: fade-in-up 0.7s ease-out both; }
+.animate-float       { animation: float 3s ease-in-out infinite; }
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+
+/* Scroll reveal */
+.sr { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease-out, transform 0.7s ease-out; }
+.sr.visible { opacity: 1; transform: translateY(0); }
+.sr.stagger-1 { transition-delay: 0.1s; }
+.sr.stagger-2 { transition-delay: 0.2s; }
+.sr.stagger-3 { transition-delay: 0.3s; }
+.sr.stagger-4 { transition-delay: 0.4s; }
+.sr.stagger-5 { transition-delay: 0.5s; }
+.sr.stagger-6 { transition-delay: 0.6s; }
+.sr.stagger-7 { transition-delay: 0.7s; }
+.sr.stagger-8 { transition-delay: 0.8s; }
+.sr.stagger-9 { transition-delay: 0.9s; }
+
+/* ─── NAV ────────────────────────────────────────────────── */
+header {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(20,20,20,0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner {
+  max-width: 1152px; margin: 0 auto; padding: 0 16px;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 56px;
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 8px;
+  font-weight: 700; font-size: 1.125rem;
+}
+.logo-icon {
+  width: 32px; height: 32px; border-radius: var(--r-md);
+  background: var(--primary); color: var(--primary-fg);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700;
+}
+.nav-links {
+  display: flex; align-items: center; gap: 24px;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 14px; color: var(--muted-fg);
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--primary); }
+.nav-ctas { display: flex; align-items: center; gap: 8px; }
+.nav-mobile { display: none; }
+@media(max-width:768px) {
+  .nav-links { display: none; }
+  .nav-mobile { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: var(--r-md); border: 1px solid var(--border); color: var(--foreground); }
+}
+
+/* ─── BUTTONS ────────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  border-radius: var(--r-md); font-weight: 500; font-size: 14px;
+  transition: all 0.2s; white-space: nowrap; cursor: pointer;
+}
+.btn-primary {
+  background: var(--primary); color: var(--primary-fg);
+  height: 48px; padding: 0 32px; font-size: 16px; border-radius: var(--r-lg);
+}
+.btn-primary:hover { background: rgba(52,211,153,0.9); }
+.btn-outline {
+  background: transparent; color: var(--foreground);
+  height: 48px; padding: 0 32px; font-size: 16px; border-radius: var(--r-lg);
+  border: 1px solid var(--border-2);
+}
+.btn-outline:hover { background: rgba(255,255,255,0.05); }
+.btn-sm-ghost {
+  background: transparent; color: var(--muted-fg);
+  height: 32px; padding: 0 12px; border-radius: var(--r-md);
+  transition: color 0.2s, background 0.2s;
+}
+.btn-sm-ghost:hover { color: var(--foreground); background: rgba(255,255,255,0.06); }
+.btn-sm-primary {
+  background: var(--primary); color: var(--primary-fg);
+  height: 32px; padding: 0 14px; border-radius: var(--r-md); font-size: 14px; font-weight: 600;
+}
+.btn-sm-primary:hover { background: rgba(52,211,153,0.9); }
+.btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+/* ─── BADGES ─────────────────────────────────────────────── */
+.badge-section {
+  display: inline-block;
+  border-radius: var(--r-full);
+  background: rgba(52,211,153,0.1);
+  color: var(--primary);
+  padding: 4px 12px; font-size: 12px; font-weight: 500;
+}
+.badge-hero {
+  display: inline-flex; align-items: center; gap: 8px;
+  border-radius: var(--r-full);
+  border: 1px solid rgba(52,211,153,0.2);
+  background: rgba(52,211,153,0.05);
+  color: var(--primary);
+  padding: 6px 16px; font-size: 14px;
+}
+.badge-tier {
+  display: inline-block;
+  border-radius: var(--r-full);
+  padding: 2px 8px; font-size: 11px; font-weight: 500;
+}
+
+/* ─── SECTION HEADER ─────────────────────────────────────── */
+.section-header { text-align: center; margin-bottom: 48px; }
+@media(min-width:768px) { .section-header { margin-bottom: 64px; } }
+.section-header .badge-section { margin-bottom: 16px; }
+.section-header h2 {
+  font-size: clamp(1.875rem, 4vw, 3rem);
+  font-weight: 700; line-height: 1.1;
+  letter-spacing: -0.025em; margin-bottom: 16px;
+}
+.section-header p {
+  font-size: 1.125rem; color: var(--muted-fg);
+  max-width: 672px; margin: 0 auto; line-height: 1.7;
+}
+
+/* ─── GRADIENT TEXT ──────────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(90deg, var(--primary), #6ee7b7, var(--primary));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 6s linear infinite;
+}
+
+/* ─── HERO ───────────────────────────────────────────────── */
+.hero {
+  padding: 80px 16px;
+  position: relative; overflow: hidden; text-align: center;
+}
+@media(min-width:768px) { .hero { padding: 112px 16px; } }
+.hero-glow {
+  position: absolute;
+  width: 384px; height: 384px;
+  background: rgba(52,211,153,0.2);
+  border-radius: 50%; filter: blur(64px);
+  top: 0; left: 50%; transform: translateX(-50%);
+  pointer-events: none;
+}
+.hero-content { position: relative; z-index: 1; }
+.hero h1 {
+  font-size: clamp(2.25rem, 7vw, 4.5rem);
+  font-weight: 700; line-height: 1.1;
+  letter-spacing: -0.03em; margin-bottom: 24px;
+}
+.hero-sub {
+  font-size: 1.125rem; color: var(--muted-fg);
+  max-width: 640px; margin: 0 auto 40px; line-height: 1.7;
+}
+.hero-actions { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; }
+.hero-trust {
+  margin-top: 24px;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  font-size: 13px; color: var(--muted-fg); flex-wrap: wrap;
+}
+.hero-trust .check { color: var(--primary); }
+.hero-diag {
+  margin-top: 16px;
+  font-size: 14px; color: var(--muted-fg);
+}
+.hero-diag a { color: var(--primary); }
+.hero-diag a:hover { text-decoration: underline; }
+
+/* ─── STATS BAR ──────────────────────────────────────────── */
+.stats { padding: 48px 16px; }
+.stats-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media(min-width:768px) { .stats-grid { grid-template-columns: repeat(4,1fr); } }
+.stat-card {
+  background: rgba(31,31,31,0.5); border: 1px solid var(--border);
+  border-radius: var(--r-xl); padding: 24px; text-align: center;
+}
+.stat-num {
+  font-size: 1.875rem; font-weight: 700; color: var(--primary);
+  line-height: 1; margin-bottom: 6px;
+}
+.stat-label { font-size: 14px; color: var(--muted-fg); }
+
+/* ─── FRAMEWORK ──────────────────────────────────────────── */
+.fw-grid {
+  display: grid; grid-template-columns: 1fr; gap: 16px;
+}
+@media(min-width:768px) { .fw-grid { grid-template-columns: repeat(3,1fr); gap: 16px; } }
+.fw-card {
+  border: 1px solid var(--border); border-radius: var(--r-xl);
+  padding: 24px; cursor: default; position: relative;
+  transition: border-color 0.2s, transform 0.2s;
+  background: linear-gradient(135deg, var(--card-grad-from), var(--card-grad-to));
+}
+.fw-card:hover { border-color: rgba(255,255,255,0.2); transform: translateY(-2px); }
+.fw-card:hover .fw-icon { transform: scale(1.1); }
+.fw-num { font-family: var(--mono); font-size: 11px; color: var(--muted-fg); margin-bottom: 12px; }
+.fw-icon { width: 32px; height: 32px; margin-bottom: 12px; transition: transform 0.2s; }
+.fw-title { font-weight: 600; font-size: 1.125rem; margin-bottom: 8px; }
+.fw-desc { font-size: 13px; color: var(--muted-fg); line-height: 1.6; margin-bottom: 16px; }
+.fw-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+
+/* ─── AI SECTION ─────────────────────────────────────────── */
+.ai-section { background: linear-gradient(180deg, transparent, rgba(52,211,153,0.03), transparent); }
+.ai-stats {
+  display: flex; align-items: center; justify-content: center; gap: 40px;
+  margin-bottom: 48px; flex-wrap: wrap;
+}
+.ai-stat { text-align: center; }
+.ai-stat-n { font-size: 1.875rem; font-weight: 700; color: var(--primary); }
+.ai-stat-l { font-size: 12px; color: var(--muted-fg); }
+.ai-cards-grid {
+  display: grid; grid-template-columns: 1fr;
+  gap: 16px; margin-bottom: 40px;
+}
+@media(min-width:768px) { .ai-cards-grid { grid-template-columns: repeat(3,1fr); } }
+.ai-card {
+  background: rgba(31,31,31,0.5); border: 1px solid var(--border);
+  border-radius: var(--r-xl); padding: 24px;
+  transition: border-color 0.2s;
+}
+.ai-card:hover { border-color: rgba(52,211,153,0.2); }
+.ai-card-icon { margin-bottom: 16px; }
+.ai-card-icon svg { width: 40px; height: 40px; color: var(--primary); }
+.ai-card h3 { font-weight: 600; font-size: 1.125rem; margin-bottom: 8px; }
+.ai-card p { font-size: 14px; color: var(--muted-fg); line-height: 1.6; }
+.ai-count { font-size: 12px; color: var(--primary); margin-top: 8px; font-weight: 500; }
+
+/* AI Demo */
+.ai-demo {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--r-2xl); padding: 32px;
+  max-width: 896px; margin: 0 auto;
+}
+.demo-bar {
+  display: flex; align-items: center; gap: 6px; margin-bottom: 20px;
+}
+.demo-dot { width: 10px; height: 10px; border-radius: 50%; }
+.demo-title { font-family: var(--mono); font-size: 12px; color: var(--muted-fg); margin-left: 8px; }
+.demo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media(max-width:640px) { .demo-grid { grid-template-columns: 1fr; } }
+.demo-col { display: flex; flex-direction: column; gap: 10px; }
+.demo-msg {
+  border-radius: var(--r-lg); padding: 12px 16px;
+  font-size: 13px; line-height: 1.6;
+}
+.demo-msg.user { background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.2); }
+.demo-msg.ai   { background: var(--muted); color: var(--muted-fg); }
+.demo-msg strong { color: var(--foreground); }
+.demo-insight {
+  background: rgba(52,211,153,0.06); border: 1px solid rgba(52,211,153,0.15);
+  border-radius: var(--r-lg); padding: 12px 14px;
+  font-size: 12px; color: var(--muted-fg); display: flex; gap: 8px; align-items: flex-start;
+}
+.demo-insight svg { color: var(--primary); flex-shrink: 0; margin-top: 1px; }
+
+/* ─── HIRING ─────────────────────────────────────────────── */
+.hiring-grid {
+  display: grid; grid-template-columns: 1fr;
+  gap: 16px; margin-bottom: 48px;
+}
+@media(min-width:768px) { .hiring-grid { grid-template-columns: repeat(3,1fr); } }
+.hiring-card {
+  background: rgba(31,31,31,0.5); border: 1px solid var(--border);
+  border-radius: var(--r-xl); padding: 24px;
+  transition: border-color 0.2s;
+}
+.hiring-card:hover { border-color: rgba(52,211,153,0.2); }
+.hiring-icon { margin-bottom: 12px; }
+.hiring-icon svg { width: 24px; height: 24px; color: var(--primary); }
+.hiring-card h3 { font-weight: 600; font-size: 1rem; margin-bottom: 6px; }
+.hiring-card p { font-size: 13px; color: var(--muted-fg); line-height: 1.6; }
+.hiring-flow {
+  display: flex; align-items: center; gap: 0; flex-wrap: wrap; justify-content: center;
+}
+.flow-step {
+  display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center;
+  padding: 20px 24px;
+}
+.flow-num {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.3);
+  color: var(--primary); display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 14px;
+}
+.flow-label { font-size: 13px; color: var(--muted-fg); max-width: 90px; }
+.flow-arrow { color: var(--muted-fg); padding: 0 8px; }
+@media(max-width:640px) { .flow-arrow { display: none; } }
+
+/* ─── COMPARISON ─────────────────────────────────────────── */
+.comp-list { display: flex; flex-direction: column; gap: 0; }
+.comp-item {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 16px; padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+  align-items: start;
+}
+.comp-item:last-child { border-bottom: none; }
+.comp-side { display: flex; align-items: flex-start; gap: 12px; }
+.comp-icon { flex-shrink: 0; margin-top: 2px; }
+.comp-icon svg { width: 16px; height: 16px; }
+.comp-icon.bad svg { color: var(--destructive); }
+.comp-icon.good svg { color: var(--primary); }
+.comp-text { font-size: 14px; color: var(--muted-fg); line-height: 1.6; }
+.comp-text strong { display: block; font-weight: 600; color: var(--foreground); margin-bottom: 2px; }
+.comp-side.good .comp-text { color: var(--foreground); }
+@media(max-width:640px) { .comp-item { grid-template-columns: 1fr; } }
+
+/* ─── FEATURES ───────────────────────────────────────────── */
+.features-grid {
+  display: grid; grid-template-columns: 1fr;
+  gap: 16px;
+}
+@media(min-width:768px) { .features-grid { grid-template-columns: repeat(3,1fr); } }
+.feature-card {
+  background: rgba(31,31,31,0.5); border: 1px solid var(--border);
+  border-radius: var(--r-xl); padding: 24px;
+  transition: border-color 0.2s;
+}
+.feature-card:hover { border-color: rgba(52,211,153,0.2); }
+.feature-card svg { width: 40px; height: 40px; color: var(--primary); margin-bottom: 16px; }
+.feature-card h3 { font-weight: 600; font-size: 1.125rem; margin-bottom: 8px; }
+.feature-card p { font-size: 14px; color: var(--muted-fg); line-height: 1.6; }
+
+/* ─── VERTICALS ──────────────────────────────────────────── */
+.verticals-grid {
+  display: grid; grid-template-columns: repeat(2,1fr);
+  gap: 12px;
+}
+@media(min-width:768px) { .verticals-grid { grid-template-columns: repeat(3,1fr); } }
+@media(min-width:1024px) { .verticals-grid { grid-template-columns: repeat(6,1fr); } }
+.vertical-card {
+  background: rgba(31,31,31,0.5); border: 1px solid var(--border);
+  border-radius: var(--r-xl); padding: 20px;
+  text-align: center; transition: border-color 0.2s;
+}
+.vertical-card:hover { border-color: rgba(52,211,153,0.2); }
+.vertical-card svg { width: 24px; height: 24px; color: var(--primary); margin: 0 auto 8px; }
+.vertical-card span { font-size: 13px; font-weight: 500; }
+
+/* ─── TESTIMONIALS ───────────────────────────────────────── */
+.social-proof {
+  display: flex; align-items: center; justify-content: center; gap: 32px;
+  margin-bottom: 48px; flex-wrap: wrap;
+}
+.sp-item { text-align: center; }
+.sp-n { font-size: 1.875rem; font-weight: 700; color: var(--primary); }
+.sp-l { font-size: 12px; color: var(--muted-fg); }
+.testimonials-grid {
+  display: grid; grid-template-columns: 1fr;
+  gap: 20px;
+}
+@media(min-width:768px) { .testimonials-grid { grid-template-columns: repeat(2,1fr); } }
+.t-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--r-xl); padding: 24px;
+}
+.t-stars { display: flex; gap: 2px; margin-bottom: 16px; }
+.t-stars svg { width: 16px; height: 16px; color: #eab308; fill: #eab308; }
+.t-quote { font-size: 14px; color: var(--muted-fg); line-height: 1.75; margin-bottom: 20px; }
+.t-quote .highlight { color: var(--primary); font-weight: 600; }
+.t-author { display: flex; align-items: center; gap: 10px; justify-content: space-between; }
+.t-author-left { display: flex; align-items: center; gap: 10px; }
+.t-av {
+  width: 40px; height: 40px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 600; font-size: 14px; flex-shrink: 0;
+}
+.t-name { font-weight: 600; font-size: 14px; }
+.t-title-role { font-size: 12px; color: var(--muted-fg); }
+.t-linkedin svg { width: 16px; height: 16px; color: var(--muted-fg); }
+.t-linkedin:hover svg { color: var(--primary); }
+
+/* ─── PRICING ────────────────────────────────────────────── */
+.plans-grid {
+  display: grid; grid-template-columns: 1fr;
+  gap: 20px;
+}
+@media(min-width:768px) { .plans-grid { grid-template-columns: repeat(3,1fr); } }
+.plan-card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--r-2xl); padding: 32px;
+  position: relative; transition: transform 0.2s;
+}
+.plan-card:hover { transform: translateY(-4px); }
+.plan-card.popular {
+  border-color: var(--primary);
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+.popular-badge {
+  position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+  background: var(--primary); color: var(--primary-fg);
+  font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: var(--r-full);
+  white-space: nowrap;
+}
+.plan-name { font-size: 14px; font-weight: 500; color: var(--muted-fg); margin-bottom: 16px; }
+.plan-price { display: flex; align-items: baseline; gap: 4px; margin-bottom: 8px; }
+.plan-price .curr { font-size: 18px; color: var(--muted-fg); margin-top: 8px; }
+.plan-price .amount { font-size: 2.5rem; font-weight: 700; }
+.plan-price .period { font-size: 14px; color: var(--muted-fg); }
+.plan-desc { font-size: 14px; color: var(--muted-fg); margin-bottom: 24px; line-height: 1.6; }
+.plan-cta { width: 100%; margin-bottom: 24px; }
+.plan-cta.solid { background: var(--primary); color: var(--primary-fg); height: 44px; border-radius: var(--r-lg); font-weight: 600; font-size: 15px; width: 100%; cursor: pointer; border: none; transition: background 0.2s; }
+.plan-cta.solid:hover { background: rgba(52,211,153,0.9); }
+.plan-cta.outline-btn { background: transparent; color: var(--foreground); height: 44px; border-radius: var(--r-lg); font-weight: 600; font-size: 15px; width: 100%; cursor: pointer; border: 1px solid var(--border-2); transition: background 0.2s; }
+.plan-cta.outline-btn:hover { background: rgba(255,255,255,0.05); }
+.plan-divider { height: 1px; background: var(--border); margin-bottom: 20px; }
+.plan-features { display: flex; flex-direction: column; gap: 10px; }
+.pf { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; line-height: 1.5; }
+.pf svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 1px; }
+.pf.on svg { color: var(--primary); }
+.pf.off { opacity: 0.4; }
+.pf.off svg { color: var(--muted-fg); }
+
+/* ─── FAQ ────────────────────────────────────────────────── */
+.faq-list { display: flex; flex-direction: column; gap: 0; }
+.faq-item {
+  border-bottom: 1px solid var(--border);
+}
+.faq-item:first-child { border-top: 1px solid var(--border); }
+.faq-btn {
+  width: 100%; text-align: left; background: none; color: var(--foreground);
+  padding: 20px 0; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  font-size: 15px; font-weight: 500; cursor: pointer; transition: color 0.2s;
+}
+.faq-btn:hover { color: var(--primary); }
+.faq-chevron { flex-shrink: 0; color: var(--muted-fg); transition: transform 0.25s; }
+.faq-item.open .faq-chevron { transform: rotate(180deg); color: var(--primary); }
+.faq-body {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  font-size: 14px; color: var(--muted-fg); line-height: 1.75;
+}
+.faq-item.open .faq-body { max-height: 300px; padding-bottom: 20px; }
+
+/* ─── DIAGNOSTIC CTA ─────────────────────────────────────── */
+.diag-card {
+  position: relative; border-radius: var(--r-2xl);
+  padding: 48px; text-align: center;
+  background: var(--card);
+}
+.diag-border {
+  position: absolute; inset: -1px; border-radius: var(--r-2xl);
+  background: linear-gradient(90deg, rgba(52,211,153,0.2), rgba(52,211,153,0.4), rgba(52,211,153,0.2));
+  z-index: -1;
+}
+.diag-card h2 {
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 700; margin-bottom: 16px; letter-spacing: -0.02em;
+}
+.diag-card p { font-size: 15px; color: var(--muted-fg); max-width: 480px; margin: 0 auto 32px; line-height: 1.7; }
+
+/* ─── FINAL CTA ──────────────────────────────────────────── */
+.final-cta {
+  text-align: center; position: relative; overflow: hidden;
+}
+.final-glow {
+  position: absolute; width: 384px; height: 384px;
+  background: rgba(52,211,153,0.1);
+  border-radius: 50%; filter: blur(80px);
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+  pointer-events: none;
+}
+.final-cta h2 {
+  font-size: clamp(1.875rem, 5vw, 3rem);
+  font-weight: 700; margin-bottom: 16px; letter-spacing: -0.025em;
+  position: relative;
+}
+.final-cta p { font-size: 1.125rem; color: var(--muted-fg); margin-bottom: 40px; position: relative; }
+.final-actions { display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap; position: relative; }
+.final-note { margin-top: 16px; font-size: 12px; color: var(--muted-fg); position: relative; }
+
+/* ─── FOOTER ─────────────────────────────────────────────── */
+footer {
+  background: rgba(31,31,31,0.5);
+  border-top: 1px solid var(--border);
+  padding: 48px 16px;
+}
+.footer-inner {
+  max-width: 1152px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(2,1fr); gap: 32px;
+  margin-bottom: 40px;
+}
+@media(min-width:768px) { .footer-inner { grid-template-columns: 2fr 1fr 1fr 1fr; } }
+.footer-brand p { font-size: 13px; color: var(--muted-fg); max-width: 240px; margin-top: 12px; line-height: 1.6; }
+.footer-col-title { font-size: 12px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted-fg); margin-bottom: 16px; }
+.footer-links { display: flex; flex-direction: column; gap: 10px; }
+.footer-links a { font-size: 14px; color: var(--muted-fg); transition: color 0.15s; }
+.footer-links a:hover { color: var(--primary); }
+.footer-bottom {
+  max-width: 1152px; margin: 0 auto;
+  border-top: 1px solid var(--border); padding-top: 32px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  font-size: 12px; color: var(--muted-fg);
+}
+
+/* ─── UTILITY ────────────────────────────────────────────── */
+.text-primary { color: var(--primary); }
+.text-muted { color: var(--muted-fg); }
+.text-center { text-align: center; }
+@media(prefers-reduced-motion: reduce) {
+  .sr { transition: none !important; opacity: 1; transform: none; }
+  .animate-fade-in-up { animation: none; opacity: 1; transform: none; }
+  .animate-float, .gradient-shift, .pulse-glow { animation: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ══════════════════════════════════════════════ -->
+<header>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <div class="logo-icon">EI</div>
+      Empresa Independente
+    </a>
+    <ul class="nav-links">
+      <li><a href="#framework">Método</a></li>
+      <li><a href="#comparacao">Comparação</a></li>
+      <li><a href="#precos">Preços</a></li>
+      <li><a href="#blog">Blog</a></li>
+      <li><a href="#sobre">Sobre</a></li>
+    </ul>
+    <div class="nav-ctas">
+      <button class="btn btn-sm-ghost">Entrar</button>
+      <button class="btn btn-sm-primary">Começar grátis</button>
+    </div>
+    <button class="nav-mobile" aria-label="Menu">
+      <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- ═══ HERO ════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-content container-sm">
+    <div class="badge-hero animate-fade-in-up">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+      Framework + IA para gestão empresarial
+    </div>
+
+    <h1 class="animate-fade-in-up delay-1">
+      Sua empresa funciona<br>
+      <span class="gradient-text">sem você?</span>
+    </h1>
+
+    <p class="hero-sub animate-fade-in-up delay-2">
+      Transforme sua empresa em um negócio independente com o framework de 9 partes e 22 assistentes de IA treinados no seu contexto.
+    </p>
+
+    <div class="hero-actions animate-fade-in-up delay-3">
+      <button class="btn btn-primary">
+        Comece grátis
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+      <button class="btn btn-outline">Ver planos e preços</button>
+    </div>
+
+    <p class="hero-trust animate-fade-in-up delay-4">
+      <svg class="check" style="display:inline;width:14px;height:14px;margin-right:4px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>
+      Sem cartão de crédito. Comece em 30 segundos.
+    </p>
+    <p class="hero-diag animate-fade-in-up delay-5">
+      <a href="#">→ Faça o diagnóstico gratuito de maturidade</a>
+    </p>
+  </div>
+</section>
+
+<!-- ═══ STATS ════════════════════════════════════════════════ -->
+<section class="stats">
+  <div class="container-sm">
+    <div class="stats-grid">
+      <div class="stat-card sr stagger-1">
+        <div class="stat-num">+200</div>
+        <div class="stat-label">Empresas usando</div>
+      </div>
+      <div class="stat-card sr stagger-2">
+        <div class="stat-num">9</div>
+        <div class="stat-label">Partes do framework</div>
+      </div>
+      <div class="stat-card sr stagger-3">
+        <div class="stat-num">NPS 78</div>
+        <div class="stat-label">Satisfação</div>
+      </div>
+      <div class="stat-card sr stagger-4">
+        <div class="stat-num">14 dias</div>
+        <div class="stat-label">Trial gratuito</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FRAMEWORK ════════════════════════════════════════════ -->
+<section id="framework">
+  <div class="container">
+    <div class="section-header sr">
+      <span class="badge-section">O Método</span>
+      <h2 style="margin-top:16px">Framework de 9 partes para uma<br>empresa que funciona sem você</h2>
+      <p>Cada parte resolve um problema específico de gestão. Juntas, constroem a autonomia operacional da sua empresa.</p>
+    </div>
+
+    <div class="fw-grid">
+      <!-- 1 Emerald -->
+      <div class="fw-card sr stagger-1" style="--card-grad-from:rgba(16,185,129,0.12);--card-grad-to:rgba(16,185,129,0.03)">
+        <div class="fw-num">01</div>
+        <svg class="fw-icon" style="color:#34d399" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <div class="fw-title">Matriz Tempo</div>
+        <div class="fw-desc">Mapeie onde seu tempo vai e construa o sistema de delegação estruturado.</div>
+        <div class="fw-footer">
+          <span class="badge-tier" style="background:rgba(16,185,129,0.12);color:#34d399">Starter</span>
+        </div>
+      </div>
+      <!-- 2 Violet -->
+      <div class="fw-card sr stagger-2" style="--card-grad-from:rgba(139,92,246,0.12);--card-grad-to:rgba(139,92,246,0.03)">
+        <div class="fw-num">02</div>
+        <svg class="fw-icon" style="color:#a78bfa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <div class="fw-title">Delegação</div>
+        <div class="fw-desc">Sistema claro de responsabilidades com dono, prazo e critério de entrega.</div>
+        <div class="fw-footer">
+          <span class="badge-tier" style="background:rgba(139,92,246,0.12);color:#a78bfa">Starter</span>
+        </div>
+      </div>
+      <!-- 3 Amber -->
+      <div class="fw-card sr stagger-3" style="--card-grad-from:rgba(245,158,11,0.12);--card-grad-to:rgba(245,158,11,0.03)">
+        <div class="fw-num">03</div>
+        <svg class="fw-icon" style="color:#fcd34d" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+        <div class="fw-title">Contratação</div>
+        <div class="fw-desc">Score automático, pipeline visual e IA para reduzir o tempo de contratação de 45 para 12 dias.</div>
+        <div class="fw-footer">
+          <span class="badge-tier" style="background:rgba(245,158,11,0.12);color:#fcd34d">Starter</span>
+        </div>
+      </div>
+      <!-- 4 Blue -->
+      <div class="fw-card sr stagger-4" style="--card-grad-from:rgba(59,130,246,0.12);--card-grad-to:rgba(59,130,246,0.03)">
+        <div class="fw-num">04</div>
+        <svg class="fw-icon" style="color:#60a5fa" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        <div class="fw-title">Estruturação</div>
+        <div class="fw-desc">Organograma funcional, fluxos de decisão e hierarquia que escala com o crescimento.</div>
+        <div class="fw-footer">
+          <span class="badge-tier" style="background:rgba(59,130,246,0.12);color:#60a5fa">Pro</span>
+        </div>
+      </div>
+      <!-- 5 Rose -->
+      <div class="fw-card sr stagger-5" style="--card-grad-from:rgba(244,63,94,0.12);--card-grad-to:rgba(244,63,94,0.03)">
+        <div class="fw-num">05</div>
+        <svg class="fw-icon" style="color:#fb7185" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <div class="fw-title">Processos</div>
+        <div class="fw-desc">SOPs gerados por IA, mapeamento de fluxos e padronização das operações críticas.</div>
+        <div class="fw-footer">
+          <span class="badge-tier" style="background:rgba(244,63,94,0.12);color:#fb7185">Pro</span>
+        </div>
+      </div>
+      <!-- 6 Cyan -->
+      <div class="fw-card sr stagger-6" style="--card-grad-from:rgba(6,182,212,0.12);--card-grad-to:rgba(6,182,212,0.03)">
+        <div class="fw-num">06</div>
+        <svg class="fw-icon" style="color:#22d3ee" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <div class="fw-title">Ritos</div>
+        <div class="fw-desc">Rituais de gestão semanais, mensais e trimestrais que mantêm a equipe alinhada sem você.</div>
+        <div class="fw-footer">
+          <span class="badge-tier" style="background:rgba(6,182,212,0.12);color:#22d3ee">Pro</span>
+        </div>
+      </div>
+      <!-- 7 Orange -->
+      <div class="fw-card sr stagger-7" style="--card-grad-from:rgba(249,115,22,0.12);--card-grad-to:rgba(249,115,22,0.03)">
+        <div class="fw-num">07</div>
+        <svg class="fw-icon" style="color:#fb923c" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 8 12 12 16 14"/></svg>
+        <div class="fw-title">Projetos</div>
+        <div class="fw-desc">KPIs, OKRs e dashboards de resultado em tempo real com alertas inteligentes.</div>
+        <div class="fw-footer">
+          <span class="badge-tier" style="background:rgba(249,115,22,0.12);color:#fb923c">Enterprise</span>
+        </div>
+      </div>
+      <!-- 8 Pink -->
+      <div class="fw-card sr stagger-8" style="--card-grad-from:rgba(236,72,153,0.12);--card-grad-to:rgba(236,72,153,0.03)">
+        <div class="fw-num">08</div>
+        <svg class="fw-icon" style="color:#f472b6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <div class="fw-title">Pessoas</div>
+        <div class="fw-desc">PDIs, avaliações de desempenho e ciclos de feedback estruturados pela IA.</div>
+        <div class="fw-footer">
+          <span class="badge-tier" style="background:rgba(236,72,153,0.12);color:#f472b6">Enterprise</span>
+        </div>
+      </div>
+      <!-- 9 Yellow -->
+      <div class="fw-card sr stagger-9" style="--card-grad-from:rgba(234,179,8,0.12);--card-grad-to:rgba(234,179,8,0.03)">
+        <div class="fw-num">09</div>
+        <svg class="fw-icon" style="color:#facc15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+        <div class="fw-title">Líderes</div>
+        <div class="fw-desc">Trilha de desenvolvimento de liderança para construir gestores que dispensam sua presença.</div>
+        <div class="fw-footer">
+          <span class="badge-tier" style="background:rgba(234,179,8,0.12);color:#facc15">Enterprise</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ AI SECTION ═══════════════════════════════════════════ -->
+<section class="ai-section">
+  <div class="container">
+    <div class="section-header sr">
+      <span class="badge-section">Inteligência Artificial</span>
+      <h2 style="margin-top:16px">22 assistentes de IA trabalhando<br>pela sua empresa</h2>
+      <p>Não são chatbots genéricos. São 22 IAs especializadas por módulo, treinadas com os dados reais do seu negócio.</p>
+    </div>
+
+    <div class="ai-stats sr">
+      <div class="ai-stat"><div class="ai-stat-n">22</div><div class="ai-stat-l">assistentes de IA</div></div>
+      <div class="ai-stat"><div class="ai-stat-n">6</div><div class="ai-stat-l">módulos cobertos</div></div>
+      <div class="ai-stat"><div class="ai-stat-n">200+</div><div class="ai-stat-l">análises/dia (Enterprise)</div></div>
+    </div>
+
+    <div class="ai-cards-grid">
+      <div class="ai-card sr stagger-1">
+        <div class="ai-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
+        </div>
+        <h3>Contratação Inteligente</h3>
+        <p>Score automático de candidatos, análise de LinkedIn e Instagram, guia de entrevista personalizado.</p>
+        <div class="ai-count">8 assistentes de IA</div>
+      </div>
+      <div class="ai-card sr stagger-2">
+        <div class="ai-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/><polyline points="12 6 12 12 16 14"/></svg>
+        </div>
+        <h3>Delegação & Tempo</h3>
+        <p>Mapeamento inteligente de atividades, sugestões de delegação e priorização baseada em impacto.</p>
+        <div class="ai-count">3 assistentes de IA</div>
+      </div>
+      <div class="ai-card sr stagger-3">
+        <div class="ai-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3>Processos & Operações</h3>
+        <p>Geração automática de SOPs, mapeamento de fluxos e otimização de processos operacionais.</p>
+        <div class="ai-count">5 assistentes de IA</div>
+      </div>
+      <div class="ai-card sr stagger-4">
+        <div class="ai-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <h3>Pessoas & Performance</h3>
+        <p>PDIs automatizados, avaliação 360° e planos de desenvolvimento personalizados por colaborador.</p>
+        <div class="ai-count">8 assistentes de IA</div>
+      </div>
+      <div class="ai-card sr stagger-5">
+        <div class="ai-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+        </div>
+        <h3>Desenvolvimento de Líderes</h3>
+        <p>Trilha de liderança personalizada com desafios, reflexões e plano de evolução para cada gestor.</p>
+        <div class="ai-count">9 assistentes de IA</div>
+      </div>
+      <div class="ai-card sr stagger-6">
+        <div class="ai-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
+        <h3>Projetos & KPIs</h3>
+        <p>Monitoramento inteligente de metas, alertas preditivos e análise de desvios em tempo real.</p>
+        <div class="ai-count">7 assistentes de IA</div>
+      </div>
+    </div>
+
+    <div class="ai-demo sr">
+      <div class="demo-bar">
+        <div class="demo-dot" style="background:#ff5f57"></div>
+        <div class="demo-dot" style="background:#febc2e"></div>
+        <div class="demo-dot" style="background:#28c840"></div>
+        <span class="demo-title">ei-assistant — análise de processos</span>
+      </div>
+      <div class="demo-grid">
+        <div class="demo-col">
+          <div class="demo-msg user">
+            <strong style="display:block;font-size:11px;color:var(--primary);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:6px">Você perguntou</strong>
+            Analise nosso processo de onboarding e identifique onde estamos perdendo tempo.
+          </div>
+          <div class="demo-insight">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Baseado nos dados da sua empresa dos últimos 90 dias
+          </div>
+        </div>
+        <div class="demo-col">
+          <div class="demo-msg ai">
+            <strong style="display:block;color:var(--foreground);margin-bottom:8px">3 gargalos identificados:</strong>
+            <strong style="color:var(--primary)">1.</strong> 68% das tarefas concentradas nos primeiros 3 dias — distribua em 4 semanas.<br><br>
+            <strong style="color:var(--primary)">2.</strong> Ausência de buddy system — empresas similares reduziram adaptação em 40%.<br><br>
+            <strong style="color:var(--primary)">3.</strong> Docs em 4 ferramentas — custo de ~2,3h/semana por colaborador.
+          </div>
+          <div class="demo-insight">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Economia estimada: <strong style="color:var(--primary)">12h/mês</strong> do seu time de RH
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HIRING ════════════════════════════════════════════════ -->
+<section>
+  <div class="container">
+    <div class="section-header sr">
+      <span class="badge-section">Contratação Inteligente</span>
+      <h2 style="margin-top:16px">Do caos de planilhas para<br>12 dias de processo</h2>
+      <p>O módulo mais completo de contratação com IA do mercado brasileiro. Disponível no plano Starter.</p>
+    </div>
+    <div class="hiring-grid">
+      <div class="hiring-card sr stagger-1">
+        <div class="hiring-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+        <h3>Formulário público de candidatura</h3>
+        <p>Formulário personalizado para cada vaga, com perguntas específicas do cargo e da sua cultura.</p>
+      </div>
+      <div class="hiring-card sr stagger-2">
+        <div class="hiring-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+        <h3>Score automático 0–10</h3>
+        <p>IA avalia cada candidato automaticamente com base nos critérios da sua vaga. Zero viés manual.</p>
+      </div>
+      <div class="hiring-card sr stagger-3">
+        <div class="hiring-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></div>
+        <h3>Enriquecimento de LinkedIn</h3>
+        <p>Análise automática do perfil profissional, histórico de carreira e presença digital do candidato.</p>
+      </div>
+      <div class="hiring-card sr stagger-4">
+        <div class="hiring-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 2H3v16h5l3 3 3-3h7V2z"/><path d="M12 8v4M12 16h.01"/></svg></div>
+        <h3>Análise de Instagram</h3>
+        <p>Verificação de presença e consistência de valores para cargos onde a cultura importa.</p>
+      </div>
+      <div class="hiring-card sr stagger-5">
+        <div class="hiring-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div>
+        <h3>Kanban visual</h3>
+        <p>Pipeline de candidatos arrastar-e-soltar com etapas customizáveis para cada tipo de processo.</p>
+      </div>
+      <div class="hiring-card sr stagger-6">
+        <div class="hiring-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <h3>Guia de entrevista por IA</h3>
+        <p>Perguntas geradas automaticamente para cada candidato com base no score e no perfil da vaga.</p>
+      </div>
+    </div>
+    <div class="hiring-flow sr" style="margin-top:40px">
+      <div class="flow-step">
+        <div class="flow-num">1</div>
+        <div class="flow-label">Candidato aplica</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-num">2</div>
+        <div class="flow-label">IA analisa e pontua</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-num">3</div>
+        <div class="flow-label">Entrevista guiada</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step">
+        <div class="flow-num">4</div>
+        <div class="flow-label">Decisão em 12 dias</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ COMPARISON ════════════════════════════════════════════ -->
+<section id="comparacao">
+  <div class="container-sm">
+    <div class="section-header sr">
+      <span class="badge-section">Comparação</span>
+      <h2 style="margin-top:16px">Por que mudar?</h2>
+      <p>A diferença entre continuar gerenciando no improviso e construir uma empresa que se autogerencia.</p>
+    </div>
+    <div class="comp-list sr">
+      <div class="comp-item">
+        <div class="comp-side bad">
+          <div class="comp-icon bad"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg></div>
+          <div class="comp-text"><strong>Planilhas e WhatsApp</strong>Informações espalhadas, histórico perdido e decisões baseadas em achismo.</div>
+        </div>
+        <div class="comp-side good">
+          <div class="comp-icon good"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <div class="comp-text"><strong>Plataforma unificada com IA</strong>Tudo em um lugar. IA que aprende com seus dados e sugere ações em tempo real.</div>
+        </div>
+      </div>
+      <div class="comp-item">
+        <div class="comp-side bad">
+          <div class="comp-icon bad"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg></div>
+          <div class="comp-text"><strong>Delegação na base da confiança</strong>Sem critérios claros, você retrabalha tudo e a equipe nunca assume responsabilidade real.</div>
+        </div>
+        <div class="comp-side good">
+          <div class="comp-icon good"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <div class="comp-text"><strong>Delegação com critérios claros</strong>Cada tarefa tem dono, prazo e critério de entrega definidos. Sem ambiguidade.</div>
+        </div>
+      </div>
+      <div class="comp-item">
+        <div class="comp-side bad">
+          <div class="comp-icon bad"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg></div>
+          <div class="comp-text"><strong>Contratação por feeling</strong>45 dias de processo, alta taxa de erro e turnover que drena energia e caixa.</div>
+        </div>
+        <div class="comp-side good">
+          <div class="comp-icon good"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <div class="comp-text"><strong>Contratação em 12 dias</strong>Score automático, análise de perfil por IA e pipeline visual. 73% mais rápido.</div>
+        </div>
+      </div>
+      <div class="comp-item">
+        <div class="comp-side bad">
+          <div class="comp-icon bad"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg></div>
+          <div class="comp-text"><strong>Reuniões sem pauta</strong>2h de reunião para algo que levaria 15 minutos com a estrutura certa.</div>
+        </div>
+        <div class="comp-side good">
+          <div class="comp-icon good"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <div class="comp-text"><strong>Ritos de gestão estruturados</strong>Rituais semanais e mensais prontos. Equipe alinhada sem você precisar conduzir.</div>
+        </div>
+      </div>
+      <div class="comp-item">
+        <div class="comp-side bad">
+          <div class="comp-icon bad"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg></div>
+          <div class="comp-text"><strong>Métricas inexistentes</strong>Você não sabe o que funciona, o que falha ou para onde está indo.</div>
+        </div>
+        <div class="comp-side good">
+          <div class="comp-icon good"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <div class="comp-text"><strong>Dashboard em tempo real</strong>KPIs claros. Saiba exatamente o que funciona e o que precisa de atenção.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FEATURES ══════════════════════════════════════════════ -->
+<section>
+  <div class="container-md">
+    <div class="section-header sr">
+      <span class="badge-section">Plataforma completa</span>
+      <h2 style="margin-top:16px">Tudo que você precisa<br>em um só lugar</h2>
+      <p>Uma plataforma construída para empresários que querem resultados reais, não mais uma ferramenta de gestão genérica.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card sr stagger-1">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="13" cy="13" r="6"/><path d="M9.5 9.5L5 5M4.5 4.5L3 3"/><circle cx="3" cy="3" r="1.5"/></svg>
+        <h3>Implementação em dias</h3>
+        <p>Resultados visíveis nas primeiras 2 semanas. Não em 6 meses de consultoria.</p>
+      </div>
+      <div class="feature-card sr stagger-2">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+        <h3>22 IAs integradas</h3>
+        <p>Assistentes especializados por módulo, treinados no contexto real da sua empresa.</p>
+      </div>
+      <div class="feature-card sr stagger-3">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <h3>Dados isolados e seguros</h3>
+        <p>Cada empresa tem seu ambiente isolado. Seus dados nunca treinam modelos de terceiros.</p>
+      </div>
+      <div class="feature-card sr stagger-4">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <h3>Colaboração em equipe</h3>
+        <p>Convide líderes, gestores e RH. Cada um com o nível de acesso certo.</p>
+      </div>
+      <div class="feature-card sr stagger-5">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        <h3>Métricas e dashboards</h3>
+        <p>Acompanhe o progresso de maturidade da sua empresa em tempo real, por módulo.</p>
+      </div>
+      <div class="feature-card sr stagger-6">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        <h3>Templates prontos</h3>
+        <p>Mais de 50 templates de processos, SOPs e rituais para começar imediatamente.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ VERTICALS ═════════════════════════════════════════════ -->
+<section>
+  <div class="container-sm">
+    <div class="section-header sr">
+      <span class="badge-section">Para quem é</span>
+      <h2 style="margin-top:16px">Funciona para diversos segmentos</h2>
+      <p>Se você tem uma equipe e quer que ela funcione sem depender de você, o EI é para o seu negócio.</p>
+    </div>
+    <div class="verticals-grid sr">
+      <div class="vertical-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        <span>Varejo</span>
+      </div>
+      <div class="vertical-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        <span>Consultoria</span>
+      </div>
+      <div class="vertical-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        <span>Agências</span>
+      </div>
+      <div class="vertical-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        <span>Educação</span>
+      </div>
+      <div class="vertical-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        <span>Saúde</span>
+      </div>
+      <div class="vertical-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        <span>E-commerce</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIALS ══════════════════════════════════════════ -->
+<section>
+  <div class="container-md">
+    <div class="section-header sr">
+      <span class="badge-section">Depoimentos</span>
+      <h2 style="margin-top:16px">Quem usa, recomenda</h2>
+    </div>
+    <div class="social-proof sr">
+      <div class="sp-item"><div class="sp-n">+200</div><div class="sp-l">empresas ativas</div></div>
+      <div class="sp-item"><div class="sp-n">NPS 78</div><div class="sp-l">satisfação</div></div>
+    </div>
+    <div class="testimonials-grid">
+      <div class="t-card sr stagger-1">
+        <div class="t-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="t-quote">Em 3 meses usando o EI consegui tirar as minhas <span class="highlight">primeiras férias em 5 anos</span>. A empresa continuou funcionando perfeitamente sem mim presente.</p>
+        <div class="t-author">
+          <div class="t-author-left">
+            <div class="t-av" style="background:rgba(52,211,153,0.15);color:var(--primary)">MR</div>
+            <div><div class="t-name">Marcos Rodrigues</div><div class="t-title-role">CEO · Agência Digital · São Paulo</div></div>
+          </div>
+          <a href="#" class="t-linkedin"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+        </div>
+      </div>
+      <div class="t-card sr stagger-2">
+        <div class="t-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="t-quote">Nosso tempo de contratação caiu de <span class="highlight">45 para 12 dias</span>. O score automático da IA eliminou a subjetividade e erramos muito menos nas contratações.</p>
+        <div class="t-author">
+          <div class="t-author-left">
+            <div class="t-av" style="background:rgba(245,158,11,0.15);color:#fcd34d">AL</div>
+            <div><div class="t-name">Ana Lima</div><div class="t-title-role">Diretora de RH · Clínica · BH</div></div>
+          </div>
+          <a href="#" class="t-linkedin"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+        </div>
+      </div>
+      <div class="t-card sr stagger-3">
+        <div class="t-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="t-quote">Crescemos de <span class="highlight">12 para 40 colaboradores</span> em 14 meses sem perder cultura. Os processos do EI foram fundamentais para manter a qualidade na expansão.</p>
+        <div class="t-author">
+          <div class="t-author-left">
+            <div class="t-av" style="background:rgba(59,130,246,0.15);color:#60a5fa">CP</div>
+            <div><div class="t-name">Carlos Pereira</div><div class="t-title-role">Fundador · E-commerce · Rio de Janeiro</div></div>
+          </div>
+          <a href="#" class="t-linkedin"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+        </div>
+      </div>
+      <div class="t-card sr stagger-4">
+        <div class="t-stars">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <p class="t-quote">A autonomia da minha equipe aumentou <span class="highlight">70% em 6 meses</span>. Medimos antes e depois. Os ritos de gestão e os processos documentados pela IA transformaram o time.</p>
+        <div class="t-author">
+          <div class="t-author-left">
+            <div class="t-av" style="background:rgba(139,92,246,0.15);color:#a78bfa">JS</div>
+            <div><div class="t-name">Juliana Santos</div><div class="t-title-role">CEO · Consultoria · Curitiba</div></div>
+          </div>
+          <a href="#" class="t-linkedin"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PRICING ═══════════════════════════════════════════════ -->
+<section id="precos">
+  <div class="container-md">
+    <div class="section-header sr">
+      <span class="badge-section">Investimento</span>
+      <h2 style="margin-top:16px">Planos para cada momento</h2>
+      <p>14 dias grátis em todos os planos. Sem cartão de crédito.</p>
+    </div>
+    <div class="plans-grid">
+      <!-- Starter -->
+      <div class="plan-card sr stagger-1">
+        <div class="plan-name">Starter</div>
+        <div class="plan-price"><span class="curr">R$</span><span class="amount">97</span><span class="period">/mês</span></div>
+        <p class="plan-desc">Para empresários começando a estruturar a delegação e os primeiros processos.</p>
+        <button class="plan-cta outline-btn">Começar grátis</button>
+        <div class="plan-divider"></div>
+        <div class="plan-features">
+          <div class="pf on"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>Partes 1–3 do framework</div>
+          <div class="pf on"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>Até 5 membros da equipe</div>
+          <div class="pf on"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>30 análises de IA/dia</div>
+          <div class="pf on"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>Módulo de contratação completo</div>
+          <div class="pf off"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M6 18L18 6M6 6l12 12"/></svg>Partes 4–9</div>
+        </div>
+      </div>
+      <!-- Pro -->
+      <div class="plan-card popular sr stagger-2">
+        <div class="popular-badge">Mais popular</div>
+        <div class="plan-name">Pro</div>
+        <div class="plan-price"><span class="curr">R$</span><span class="amount">197</span><span class="period">/mês</span></div>
+        <p class="plan-desc">Para equipes em crescimento que precisam de processos estruturados e IA avançada.</p>
+        <button class="plan-cta solid">Começar grátis</button>
+        <div class="plan-divider" style="background:rgba(255,255,255,0.12)"></div>
+        <div class="plan-features">
+          <div class="pf on"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>Partes 1–6 do framework</div>
+          <div class="pf on"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>Até 20 membros da equipe</div>
+          <div class="pf on"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>80 análises de IA/dia</div>
+          <div class="pf on"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>Processos, Ritos e Estruturação</div>
+          <div class="pf on"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>Suporte por WhatsApp</div>
+        </div>
+      </div>
+      <!-- Enterprise -->
+      <div class="plan-card sr stagger-3">
+        <div class="plan-name">Enterprise</div>
+        <div class="plan-price"><span class="curr">R$</span><span class="amount">397</span><span class="period">/mês</span></div>
+        <p class="plan-desc">Para empresas maduras construindo lideranças autônomas e operando em escala.</p>
+        <button class="plan-cta outline-btn">Começar grátis</button>
+        <div class="plan-divider"></div>
+        <div class="plan-features">
+          <div class="pf on"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>Todas as 9 partes</div>
+          <div class="pf on"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>Usuários ilimitados</div>
+          <div class="pf on"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>200 análises de IA/dia</div>
+          <div class="pf on"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>Projetos, Pessoas e Líderes</div>
+          <div class="pf on"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>Suporte prioritário</div>
+        </div>
+      </div>
+    </div>
+    <p style="text-align:center;margin-top:24px;font-size:14px;color:var(--muted-fg)">
+      Precisa de um plano personalizado?
+      <a href="#" style="color:var(--primary)">Fale conosco pelo WhatsApp →</a>
+    </p>
+  </div>
+</section>
+
+<!-- ═══ FAQ ═══════════════════════════════════════════════════ -->
+<section>
+  <div class="container-xs">
+    <div class="section-header sr">
+      <span class="badge-section">Dúvidas</span>
+      <h2 style="margin-top:16px">Perguntas frequentes</h2>
+    </div>
+    <div class="faq-list sr">
+      <div class="faq-item open">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          O que é exatamente o Método Empresa Independente?
+          <svg class="faq-chevron" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-body">É um framework de 9 partes que transforma empresas dependentes do dono em negócios autônomos. Cada parte resolve um problema específico de gestão — de delegação até desenvolvimento de líderes — com 22 assistentes de IA integrados em cada módulo para acelerar a implementação.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          Quanto tempo leva para implementar e ver resultados?
+          <svg class="faq-chevron" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-body">As primeiras 3 partes são implementadas em 2 a 4 semanas. O framework completo leva de 3 a 6 meses, dependendo do tamanho e maturidade da sua empresa. A maioria dos clientes sente impacto perceptível na equipe já no primeiro mês de uso.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          Os assistentes de IA realmente entendem o meu negócio?
+          <svg class="faq-chevron" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-body">Sim. As IAs são treinadas com o contexto da sua empresa — seus processos, histórico de contratações, estrutura de equipe e dados de performance. Cada assistente é especializado em um módulo e aprende com o uso ao longo do tempo.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          Posso testar gratuitamente antes de pagar?
+          <svg class="faq-chevron" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-body">Sim. Todos os planos têm 14 dias de trial gratuito, sem cartão de crédito. Você tem acesso completo ao plano escolhido durante o período de teste. Se não for para você, cancele sem burocracia.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          Para que tipo de empresa o EI funciona melhor?
+          <svg class="faq-chevron" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-body">Funciona para empresas com 5 a 500 colaboradores em qualquer segmento — varejo, consultoria, agências, educação, saúde, e-commerce. O denominador comum é ter um dono que quer se liberar das operações do dia a dia.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          Posso mudar de plano depois que começar?
+          <svg class="faq-chevron" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-body">Sim, a qualquer momento. Você pode fazer upgrade ou downgrade sem perder dados. A maioria dos clientes começa no Starter, implementa as 3 primeiras partes e migra para Pro quando quer avançar no framework.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          O EI é adequado para startups ou só para empresas tradicionais?
+          <svg class="faq-chevron" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="faq-body">Para ambos. Startups em fase de escala usam o EI para estruturar antes de crescer rápido demais. Empresas tradicionais usam para se modernizar e automatizar a gestão. O framework adapta-se ao momento de cada negócio.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DIAGNOSTIC CTA ════════════════════════════════════════ -->
+<section>
+  <div class="container-sm">
+    <div style="position:relative" class="sr">
+      <div class="diag-border"></div>
+      <div class="diag-card">
+        <span class="badge-section" style="margin-bottom:16px;display:inline-block">Gratuito — 2 minutos</span>
+        <h2>Descubra o nível de maturidade<br>da sua empresa</h2>
+        <p>10 perguntas cobrindo os 9 módulos de gestão. Receba um diagnóstico personalizado com seu plano de ação para o momento atual.</p>
+        <button class="btn btn-primary">
+          Fazer diagnóstico gratuito
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FINAL CTA ═════════════════════════════════════════════ -->
+<section class="final-cta">
+  <div class="final-glow"></div>
+  <div class="container-xs">
+    <h2 class="sr">Pronto para ter uma empresa<br><span class="gradient-text">independente?</span></h2>
+    <p class="sr">Comece grátis hoje. Sem cartão de crédito. 14 dias para provar que funciona para o seu negócio.</p>
+    <div class="final-actions sr">
+      <button class="btn btn-primary">
+        Começar grátis agora
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+      <button class="btn btn-outline">Ver planos e preços</button>
+    </div>
+    <p class="final-note sr">Sem cartão de crédito · Cancele quando quiser · Dados isolados e seguros</p>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ════════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="nav-logo">
+        <div class="logo-icon">EI</div>
+        Empresa Independente
+      </div>
+      <p>Transforme sua empresa em um negócio independente com o framework de 9 partes + IA.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Produto</div>
+      <div class="footer-links">
+        <a href="#framework">Método</a>
+        <a href="#precos">Preços</a>
+        <a href="#">Começar grátis</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Empresa</div>
+      <div class="footer-links">
+        <a href="#">Sobre nós</a>
+        <a href="#">Termos de uso</a>
+        <a href="#">Política de privacidade</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Recursos</div>
+      <div class="footer-links">
+        <a href="#">Diagnóstico gratuito</a>
+        <a href="#">Blog</a>
+        <a href="#">FAQ</a>
+        <a href="#">contato@empresaind.com</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Empresa Independente. Todos os direitos reservados.</span>
+    <span>Feito com dedicação para empresários brasileiros. 🇧🇷</span>
+  </div>
+</footer>
+
+<script>
+// FAQ accordion
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// Scroll reveal
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.sr').forEach(el => revealObserver.observe(el));
+
+// Respect reduced motion
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.querySelectorAll('.sr').forEach(el => el.classList.add('visible'));
+  document.querySelectorAll('.animate-fade-in-up').forEach(el => {
+    el.style.animationDuration = '0ms';
+  });
+}
+</script>
+</body>
+</html>

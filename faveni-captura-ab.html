@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAVENI — Pós-Graduação EAD | Transforme sua Carreira</title>
+  <meta name="description" content="Pós-Graduação EAD de alto nível. Transforme sua carreira com a FAVENI.">
+  <meta property="og:title" content="FAVENI — Pós-Graduação EAD | Transforme sua Carreira">
+  <meta property="og:description" content="Pós-Graduação EAD de alto nível. Transforme sua carreira com a FAVENI.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="FAVENI — Pós-Graduação EAD | Transforme sua Carreira">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23080808'/><text x='16' y='22' text-anchor='middle' font-size='14' fill='%23c9a84c' font-family='serif'>F</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:   #080808;
+      --offwhite: #f0ece4;
+      --cream:   #e8e2d6;
+      --gold:    #c9a84c;
+      --gold-lt: #e2c47a;
+      --muted:   #6b6560;
+      --border:  rgba(201, 168, 76, 0.25);
+      --glass:   rgba(255,255,255,0.03);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--offwhite);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ─── CUSTOM CURSOR — apenas dispositivos com mouse/hover real ──────── */
+    @media (hover: hover) and (pointer: fine) {
+      body { cursor: none; }
+
+      .cursor {
+        position: fixed;
+        width: 8px; height: 8px;
+        background: var(--gold);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+        transition: transform 0.1s;
+      }
+      .cursor-ring {
+        position: fixed;
+        width: 36px; height: 36px;
+        border: 1px solid rgba(201,168,76,0.5);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9998;
+        transform: translate(-50%, -50%);
+        transition: all 0.18s ease;
+      }
+      a:hover ~ .cursor-ring, button:hover ~ .cursor-ring {
+        width: 52px; height: 52px;
+      }
+    }
+
+    /* Em touch/mobile, oculta os elementos de cursor customizado */
+    @media not all and (hover: hover) {
+      .cursor, .cursor-ring { display: none; }
+    }
+
+    /* ─── NOISE OVERLAY ──────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9990;
+      opacity: 0.6;
+    }
+
+    /* ─── BACKGROUND GLOW ────────────────────────────── */
+    .bg-glow {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .bg-glow::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 70vw;
+      height: 70vw;
+      background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 65%);
+    }
+    .bg-glow::after {
+      content: '';
+      position: absolute;
+      bottom: -20%;
+      left: -10%;
+      width: 50vw;
+      height: 50vw;
+      background: radial-gradient(circle, rgba(201,168,76,0.05) 0%, transparent 65%);
+    }
+
+    /* ─── LAYOUT ─────────────────────────────────────── */
+    .page-wrapper {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto 1fr auto;
+    }
+
+    /* ─── HEADER ─────────────────────────────────────── */
+    header {
+      grid-column: 1 / -1;
+      padding: 32px 64px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      animation: fadeDown 0.8s ease both;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .logo-mark {
+      width: 36px;
+      height: 36px;
+      border: 1.5px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--gold);
+      transform: rotate(45deg);
+    }
+    .logo-mark span { transform: rotate(-45deg); display: block; }
+    .logo-name {
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--offwhite);
+    }
+
+    .header-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+    }
+    .badge-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--gold);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .badge-text {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    /* ─── LEFT COLUMN (COPY) ─────────────────────────── */
+    .copy-col {
+      padding: 80px 64px 80px 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-right: 1px solid var(--border);
+      animation: fadeLeft 0.9s 0.2s ease both;
+    }
+
+    .eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .eyebrow::before {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(56px, 6vw, 88px);
+      font-weight: 300;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      color: var(--offwhite);
+      margin-bottom: 8px;
+    }
+    h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    h1 strong {
+      display: block;
+      font-weight: 600;
+    }
+
+    .subtitle {
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--muted);
+      max-width: 440px;
+      margin-top: 28px;
+      margin-bottom: 52px;
+      line-height: 1.7;
+    }
+
+    .proof-strip {
+      display: flex;
+      gap: 40px;
+      margin-bottom: 52px;
+    }
+    .proof-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .proof-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 40px;
+      font-weight: 300;
+      color: var(--gold-lt);
+      line-height: 1;
+    }
+    .proof-label {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    .trust-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .trust-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--cream);
+    }
+    .trust-icon {
+      color: var(--gold);
+      font-size: 16px;
+      line-height: 1.4;
+      flex-shrink: 0;
+    }
+
+    /* ─── DIAGONAL DIVIDER ───────────────────────────── */
+    .diagonal {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 2px;
+      background: linear-gradient(to bottom, transparent, var(--gold) 30%, var(--gold) 70%, transparent);
+      opacity: 0.3;
+    }
+
+    /* ─── RIGHT COLUMN (FORM) ────────────────────────── */
+    .form-col {
+      padding: 80px 64px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      animation: fadeRight 0.9s 0.3s ease both;
+    }
+
+    .form-header {
+      margin-bottom: 40px;
+    }
+    .form-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 12px;
+    }
+    .form-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--offwhite);
+    }
+    .form-title span {
+      color: var(--gold);
+      font-style: italic;
+    }
+
+    .price-box {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      padding: 20px 24px;
+      margin-bottom: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+    .price-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .price-original {
+      font-size: 13px;
+      color: var(--muted);
+      text-decoration: line-through;
+    }
+    .price-current {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 40px;
+      font-weight: 300;
+      color: var(--gold-lt);
+      line-height: 1;
+    }
+    .price-period {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .price-badge {
+      background: var(--gold);
+      color: var(--black);
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      padding: 6px 12px;
+      text-transform: uppercase;
+    }
+
+    /* ─── FORM ───────────────────────────────────────── */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .field {
+      position: relative;
+    }
+
+    .field label {
+      display: block;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 14px 18px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--offwhite);
+      outline: none;
+      appearance: none;
+      transition: border-color 0.25s, background 0.25s;
+      border-radius: 0;
+    }
+    .field select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9a84c' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 18px center;
+      cursor: pointer;
+    }
+    .field select option {
+      background: #1a1712;
+      color: var(--offwhite);
+    }
+    .field input:focus,
+    .field select:focus {
+      border-color: var(--gold);
+      background: rgba(201,168,76,0.04);
+    }
+    .field input::placeholder {
+      color: rgba(240, 236, 228, 0.25);
+    }
+    .field input:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0 30px #101010 inset;
+      -webkit-text-fill-color: var(--offwhite);
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    /* ─── CTA BUTTON ─────────────────────────────────── */
+    .cta-btn {
+      position: relative;
+      background: var(--gold);
+      color: var(--black);
+      border: none;
+      padding: 20px 32px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      overflow: hidden;
+      margin-top: 8px;
+      transition: transform 0.2s;
+    }
+    .cta-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.15);
+      transform: translateX(-100%) skewX(-15deg);
+      transition: transform 0.5s ease;
+    }
+    .cta-btn:hover::before {
+      transform: translateX(200%) skewX(-15deg);
+    }
+    .cta-btn:hover {
+      transform: translateY(-1px);
+    }
+    .cta-btn:active {
+      transform: translateY(0);
+    }
+    .cta-btn .btn-arrow {
+      display: inline-block;
+      margin-left: 10px;
+      transition: transform 0.2s;
+    }
+    .cta-btn:hover .btn-arrow {
+      transform: translateX(4px);
+    }
+
+    .form-footer {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .form-footer-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .form-footer-icon {
+      color: var(--gold);
+      font-size: 14px;
+    }
+
+    /* ─── FOOTER BAR ─────────────────────────────────── */
+    footer {
+      grid-column: 1 / -1;
+      padding: 24px 64px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      animation: fadeUp 0.8s 0.5s ease both;
+    }
+    .footer-text {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .footer-mec {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .mec-badge {
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      font-size: 11px;
+      color: var(--gold);
+    }
+
+    /* ─── VERTICAL TICKER ────────────────────────────── */
+    .side-ticker {
+      position: fixed;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%) rotate(-90deg);
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(201,168,76,0.3);
+      white-space: nowrap;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    /* ─── SUCCESS STATE ──────────────────────────────── */
+    .success-state {
+      display: none;
+      text-align: center;
+      padding: 48px 32px;
+    }
+    .success-state.active { display: block; }
+    .success-icon {
+      font-size: 48px;
+      margin-bottom: 24px;
+      display: block;
+    }
+    .success-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      font-weight: 300;
+      color: var(--offwhite);
+      margin-bottom: 12px;
+    }
+    .success-sub {
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 320px;
+      margin: 0 auto 32px;
+    }
+
+    .whatsapp-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      border: 1px solid #25D366;
+      color: #25D366;
+      padding: 14px 28px;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .whatsapp-cta:hover {
+      background: rgba(37,211,102,0.08);
+    }
+
+    /* ─── ANIMATIONS ─────────────────────────────────── */
+    @keyframes fadeDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeLeft {
+      from { opacity: 0; transform: translateX(-30px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes fadeRight {
+      from { opacity: 0; transform: translateX(30px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(0.7); }
+    }
+    @keyframes countUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Number counter animation */
+    .proof-number {
+      animation: countUp 0.8s 0.6s ease both;
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────── */
+    @media (max-width: 960px) {
+      .page-wrapper {
+        grid-template-columns: 1fr;
+      }
+      header {
+        padding: 24px 32px;
+      }
+      .copy-col {
+        padding: 56px 32px 48px;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+      .form-col {
+        padding: 48px 32px 56px;
+      }
+      footer {
+        padding: 20px 32px;
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+      }
+      h1 { font-size: clamp(44px, 10vw, 72px); }
+      .proof-strip { gap: 24px; }
+      .field-row { grid-template-columns: 1fr; }
+      .side-ticker { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      header { padding: 20px 24px; }
+      .copy-col, .form-col { padding: 40px 24px; }
+      footer { padding: 20px 24px; }
+      .header-badge { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Background glow -->
+  <div class="bg-glow"></div>
+
+  <!-- Vertical side text -->
+  <div class="side-ticker">Faveni.Group — Pós-Graduação EAD — Reconhecida pelo MEC</div>
+
+  <div class="page-wrapper">
+
+    <!-- ─── HEADER ─────────────────────── -->
+    <header>
+      <div class="logo">
+        <div class="logo-mark"><span>F</span></div>
+        <span class="logo-name">Faveni</span>
+      </div>
+      <div class="header-badge">
+        <span class="badge-dot"></span>
+        <span class="badge-text">Vagas abertas — 2026</span>
+      </div>
+    </header>
+
+    <!-- ─── COPY COLUMN ───────────────── -->
+    <div class="copy-col">
+
+      <span class="eyebrow">Pós-Graduação 100% Online</span>
+
+      <h1>
+        Sua carreira<br>
+        <em>merece</em><br>
+        <strong>mais.</strong>
+      </h1>
+
+      <p class="subtitle">
+        Especialize-se com a maior referência em EAD do Brasil.
+        Mais de 1.000 cursos reconhecidos pelo MEC — do seu ritmo,
+        no seu tempo.
+      </p>
+
+      <div class="proof-strip">
+        <div class="proof-item">
+          <span class="proof-number" data-target="500">500k+</span>
+          <span class="proof-label">Alunos formados</span>
+        </div>
+        <div class="proof-item">
+          <span class="proof-number">1.000+</span>
+          <span class="proof-label">Cursos disponíveis</span>
+        </div>
+        <div class="proof-item">
+          <span class="proof-number">MEC</span>
+          <span class="proof-label">Reconhecido</span>
+        </div>
+      </div>
+
+      <div class="trust-list">
+        <div class="trust-item">
+          <span class="trust-icon">◆</span>
+          <span>Certificado digital imediato + diploma físico</span>
+        </div>
+        <div class="trust-item">
+          <span class="trust-icon">◆</span>
+          <span>Acesso 24h — estude quando e onde quiser</span>
+        </div>
+        <div class="trust-item">
+          <span class="trust-icon">◆</span>
+          <span>Garantia incondicional de 7 dias</span>
+        </div>
+        <div class="trust-item">
+          <span class="trust-icon">◆</span>
+          <span>Tutores especializados prontos para te apoiar</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ─── FORM COLUMN ───────────────── -->
+    <div class="form-col">
+
+      <div class="form-header">
+        <span class="form-tag">// Garantir minha vaga</span>
+        <h2 class="form-title">Comece hoje por <span>R$69,90</span><br>por mês.</h2>
+      </div>
+
+      <div class="price-box">
+        <div>
+          <div class="price-original">De R$139,80/mês</div>
+          <div class="price-current">R$69<span style="font-size:22px">,90</span></div>
+          <div class="price-period">por mês · 50% de desconto</div>
+        </div>
+        <div class="price-badge">50% OFF</div>
+      </div>
+
+      <!-- FORM -->
+      <form id="leadForm" novalidate>
+        <div class="field">
+          <label for="name">Nome completo</label>
+          <input type="text" id="name" name="name" placeholder="Seu nome" required />
+        </div>
+
+        <div class="field">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" placeholder="seu@email.com" required />
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="phone">WhatsApp</label>
+            <input type="tel" id="phone" name="phone" placeholder="(00) 00000-0000" />
+          </div>
+          <div class="field">
+            <label for="area">Área de interesse</label>
+            <select id="area" name="area" required>
+              <option value="" disabled selected>Selecione</option>
+              <option>Educação</option>
+              <option>Saúde</option>
+              <option>Direito</option>
+              <option>Empresarial</option>
+              <option>Tecnologia</option>
+              <option>Engenharia</option>
+              <option>Teologia</option>
+              <option>Serviço Social</option>
+              <option>Trânsito</option>
+              <option>Outra área</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="cta-btn">
+          Quero garantir meu desconto
+          <span class="btn-arrow">→</span>
+        </button>
+
+        <div class="form-footer">
+          <span class="form-footer-item">
+            <span class="form-footer-icon">🔒</span>
+            Seus dados estão seguros
+          </span>
+          <span class="form-footer-item">
+            <span class="form-footer-icon">✦</span>
+            Sem spam, prometemos
+          </span>
+        </div>
+      </form>
+
+      <!-- Success State -->
+      <div class="success-state" id="successState">
+        <span class="success-icon">✦</span>
+        <h3 class="success-title">Recebemos seu interesse!</h3>
+        <p class="success-sub">
+          Nossa equipe vai entrar em contato em breve com os próximos passos para sua especialização.
+        </p>
+        <a href="https://api.whatsapp.com/send?phone=5500000000000&text=Ol%C3%A1%2C%20quero%20saber%20mais%20sobre%20a%20p%C3%B3s-gradua%C3%A7%C3%A3o"
+           class="whatsapp-cta" target="_blank">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Falar no WhatsApp agora
+        </a>
+      </div>
+
+    </div>
+
+    <!-- ─── FOOTER ─────────────────────── -->
+    <footer>
+      <span class="footer-text">© 2026 FAVENI — Faculdade de Venda Nova do Imigrante. Todos os direitos reservados.</span>
+      <div class="footer-mec">
+        <span>Reconhecida</span>
+        <span class="mec-badge">MEC</span>
+        <span>Portaria nº 1.312/2016</span>
+      </div>
+    </footer>
+
+  </div><!-- /page-wrapper -->
+
+  <script>
+    // ─── Custom cursor
+    const cursor = document.getElementById('cursor');
+    const ring   = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx + 'px';
+      cursor.style.top  = my + 'px';
+    });
+
+    function animateRing() {
+      rx += (mx - rx) * 0.15;
+      ry += (my - ry) * 0.15;
+      ring.style.left = rx + 'px';
+      ring.style.top  = ry + 'px';
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    // Scale ring on interactive elements
+    document.querySelectorAll('a, button, input, select').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        ring.style.width  = '52px';
+        ring.style.height = '52px';
+        ring.style.borderColor = 'rgba(201,168,76,0.8)';
+      });
+      el.addEventListener('mouseleave', () => {
+        ring.style.width  = '36px';
+        ring.style.height = '36px';
+        ring.style.borderColor = 'rgba(201,168,76,0.5)';
+      });
+    });
+
+    // ─── Phone mask
+    const phoneInput = document.getElementById('phone');
+    phoneInput.addEventListener('input', () => {
+      let v = phoneInput.value.replace(/\D/g, '');
+      if (v.length > 11) v = v.slice(0, 11);
+      if (v.length >= 7) {
+        v = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
+      } else if (v.length >= 3) {
+        v = `(${v.slice(0,2)}) ${v.slice(2)}`;
+      } else if (v.length >= 1) {
+        v = `(${v}`;
+      }
+      phoneInput.value = v;
+    });
+
+    // ─── Form submit
+    const form         = document.getElementById('leadForm');
+    const successState = document.getElementById('successState');
+
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+
+      const btn = form.querySelector('.cta-btn');
+      btn.textContent = 'Enviando…';
+      btn.disabled = true;
+
+      // Simulate API call (replace with real endpoint)
+      await new Promise(r => setTimeout(r, 1200));
+
+      form.style.display         = 'none';
+      document.querySelector('.form-header').style.display  = 'none';
+      document.querySelector('.price-box').style.display    = 'none';
+      successState.classList.add('active');
+    });
+
+    // ─── Intersection observer for copy-col entrance
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.style.opacity = '1';
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.copy-col, .form-col').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

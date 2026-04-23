@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O Manual do Dono Livre — Empresa Independente</title>
+<meta name="description" content="Como construir os 5 sistemas que fazem sua empresa funcionar sem você. Manual gratuito da Empresa Independente — primeiros resultados em 2 semanas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+
+/* ─── TOKENS ────────────────────────────────────────────────── */
+:root {
+  --bg:           #0d0d0d;
+  --bg-1:         #111111;
+  --bg-2:         #161616;
+  --bg-3:         #1c1c1c;
+  --fg:           #f2f2f0;
+  --fg-2:         #a8a89c;
+  --fg-3:         #5a5a54;
+  --primary:      #34d399;
+  --primary-dim:  rgba(52,211,153,0.10);
+  --primary-glow: rgba(52,211,153,0.22);
+  --border:       rgba(255,255,255,0.07);
+  --border-2:     rgba(255,255,255,0.13);
+  --amber:        #f59e0b;
+  --amber-dim:    rgba(245,158,11,0.10);
+  --violet:       #a78bfa;
+  --rose:         #fb7185;
+  --rose-dim:     rgba(251,113,133,0.10);
+
+  --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-body:    'Lora', Georgia, serif;
+  --font-mono:    'JetBrains Mono', monospace;
+  --r-sm: 6px; --r-md: 10px; --r-lg: 16px; --r-xl: 24px;
+  --ease: cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ─── RESET ─────────────────────────────────────────────────── */
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; font-size:16px; }
+body {
+  background:var(--bg); color:var(--fg);
+  font-family:var(--font-display);
+  line-height:1.65; -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+a { color:inherit; text-decoration:none; }
+button { font-family:var(--font-display); border:none; cursor:pointer; background:none; color:inherit; }
+::-webkit-scrollbar { width:3px; }
+::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.07); border-radius:2px; }
+
+/* ─── LAYOUT ─────────────────────────────────────────────────── */
+.wrap    { max-width:1100px; margin:0 auto; padding:0 24px; }
+.wrap-md { max-width: 820px; margin:0 auto; padding:0 24px; }
+.wrap-sm { max-width: 640px; margin:0 auto; padding:0 24px; }
+section  { padding:96px 0; }
+@media(min-width:768px){ section{ padding:128px 0; } }
+
+/* ─── ANIMATIONS ─────────────────────────────────────────────── */
+@keyframes fade-up    { from{opacity:0;transform:translateY(32px)} to{opacity:1;transform:none} }
+@keyframes glow-pulse { 0%,100%{opacity:.4} 50%{opacity:.8} }
+@keyframes gradient-x { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+@keyframes blink      { 0%,100%{opacity:1} 50%{opacity:0} }
+@keyframes spin       { to{transform:rotate(360deg)} }
+@keyframes bar-grow   { from{width:0} to{width:var(--w)} }
+
+.anim { opacity:0; }
+.anim.in { animation:fade-up .7s var(--ease) forwards; }
+.d1{animation-delay:.1s} .d2{animation-delay:.2s}
+.d3{animation-delay:.3s} .d4{animation-delay:.4s}
+.d5{animation-delay:.5s} .d6{animation-delay:.6s}
+
+/* ─── NOISE ──────────────────────────────────────────────────── */
+body::before {
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:9999;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:.026; mix-blend-mode:overlay;
+}
+
+/* ─── HEADER ─────────────────────────────────────────────────── */
+header {
+  position:sticky; top:0; z-index:200;
+  background:rgba(13,13,13,.9); backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border); padding:14px 24px;
+}
+.hdr { max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.logo { display:flex; align-items:center; gap:10px; }
+.logo-mark {
+  width:34px; height:34px; background:var(--primary); color:#0a2e24;
+  font-size:12px; font-weight:800; border-radius:var(--r-md);
+  display:grid; place-items:center; flex-shrink:0;
+}
+.logo-name  { font-size:14px; font-weight:600; color:var(--fg-2); letter-spacing:-.02em; }
+.logo-sub   { font-size:11px; color:var(--fg-3); }
+.hdr-badge  {
+  font-family:var(--font-mono); font-size:11px; color:var(--primary);
+  background:var(--primary-dim); border:1px solid rgba(52,211,153,.2);
+  padding:5px 12px; border-radius:var(--r-sm); white-space:nowrap;
+  display:none;
+}
+@media(min-width:600px){ .hdr-badge{ display:block; } }
+.hdr-cta {
+  background:var(--primary); color:#0a2e24;
+  font-size:13px; font-weight:700;
+  padding:9px 20px; border-radius:var(--r-md);
+  transition:.25s var(--ease); white-space:nowrap; flex-shrink:0;
+}
+.hdr-cta:hover{ background:#2bbd8a; transform:translateY(-1px); box-shadow:0 8px 24px var(--primary-glow); }
+
+/* ─── CTA BUTTON PRIMÁRIO ────────────────────────────────────── */
+.btn {
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  background:var(--primary); color:#0a2e24;
+  font-size:17px; font-weight:800; letter-spacing:-.01em;
+  padding:18px 40px; border-radius:var(--r-md);
+  transition:.25s var(--ease); cursor:pointer;
+  box-shadow:0 0 48px rgba(52,211,153,.25);
+  border:none;
+}
+.btn:hover { background:#2bbd8a; transform:translateY(-3px); box-shadow:0 16px 48px rgba(52,211,153,.35); }
+.btn svg   { transition:transform .2s; }
+.btn:hover svg { transform:translateX(4px); }
+.btn-outline {
+  display:inline-flex; align-items:center; gap:8px;
+  color:var(--fg-2); font-size:15px; font-weight:500;
+  padding:16px 24px; border:1px solid var(--border-2);
+  border-radius:var(--r-md); transition:.25s var(--ease);
+}
+.btn-outline:hover { color:var(--fg); border-color:rgba(255,255,255,.2); background:rgba(255,255,255,.03); }
+
+/* ─── LABELS / CHIPS ─────────────────────────────────────────── */
+.chip {
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:var(--font-mono); font-size:11px; font-weight:500;
+  color:var(--primary); text-transform:uppercase; letter-spacing:.1em;
+  margin-bottom:18px;
+}
+.chip::before { content:''; display:block; width:20px; height:1px; background:var(--primary); }
+.chip.amber   { color:var(--amber); }
+.chip.amber::before { background:var(--amber); }
+.chip.violet  { color:var(--violet); }
+.chip.violet::before { background:var(--violet); }
+
+.badge {
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:var(--font-mono); font-size:12px; font-weight:500;
+  color:var(--primary); background:var(--primary-dim);
+  border:1px solid rgba(52,211,153,.18);
+  padding:7px 16px; border-radius:var(--r-sm);
+}
+.badge-dot { width:6px; height:6px; border-radius:50%; background:var(--primary); animation:glow-pulse 2s infinite; }
+
+/* ─── HERO ───────────────────────────────────────────────────── */
+.hero { padding:88px 0 108px; position:relative; overflow:hidden; }
+.hero-glow {
+  position:absolute; top:-80px; left:50%; transform:translateX(-50%);
+  width:1000px; height:680px;
+  background:radial-gradient(ellipse at center,rgba(52,211,153,.1) 0%,transparent 65%);
+  pointer-events:none; animation:glow-pulse 7s ease-in-out infinite;
+}
+.hero-grid {
+  position:absolute; inset:0; pointer-events:none;
+  background-image:
+    linear-gradient(rgba(52,211,153,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(52,211,153,.03) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:radial-gradient(ellipse 80% 55% at 50% 0%,black,transparent);
+}
+.hero-content { position:relative; z-index:1; text-align:center; }
+.hero h1 {
+  font-size:clamp(38px,7.5vw,92px);
+  font-weight:800; line-height:1.0; letter-spacing:-.045em;
+  color:var(--fg); margin-bottom:28px;
+  animation:fade-up .7s .1s var(--ease) both;
+}
+.hero h1 em {
+  font-style:normal;
+  background:linear-gradient(135deg,var(--primary) 0%,#6ee7b7 50%,var(--primary) 100%);
+  background-size:200% auto;
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  animation:gradient-x 4s ease infinite;
+}
+.hero-sub {
+  font-family:var(--font-body);
+  font-size:clamp(17px,2.2vw,22px); color:var(--fg-2); line-height:1.62;
+  max-width:640px; margin:0 auto 52px;
+  animation:fade-up .7s .2s var(--ease) both;
+}
+.hero-actions { animation:fade-up .7s .3s var(--ease) both; display:flex; flex-direction:column; align-items:center; gap:16px; }
+@media(min-width:600px){ .hero-actions{ flex-direction:row; justify-content:center; } }
+.hero-trust {
+  margin-top:32px; animation:fade-up .7s .4s var(--ease) both;
+  font-family:var(--font-mono); font-size:12px; color:var(--fg-3);
+  display:flex; align-items:center; justify-content:center; gap:24px; flex-wrap:wrap;
+}
+.trust-item { display:flex; align-items:center; gap:6px; }
+.trust-dot  { width:5px; height:5px; border-radius:50%; background:var(--primary); opacity:.6; }
+
+/* ─── PROOF ANCHOR ───────────────────────────────────────────── */
+.proof-anchor { padding:0 0 80px; }
+.proof-strip {
+  display:grid; gap:2px; background:var(--border);
+  border:1px solid var(--border); border-radius:var(--r-xl); overflow:hidden;
+  grid-template-columns:repeat(2,1fr);
+}
+@media(min-width:768px){ .proof-strip{ grid-template-columns:repeat(4,1fr); } }
+.proof-metric {
+  background:var(--bg-1); padding:32px 24px; text-align:center;
+  transition:.25s var(--ease); position:relative; overflow:hidden;
+}
+.proof-metric:hover{ background:var(--bg-2); }
+.proof-metric::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg,transparent,var(--primary),transparent);
+  opacity:0; transition:.25s var(--ease);
+}
+.proof-metric:hover::after { opacity:.5; }
+.proof-val {
+  font-family:var(--font-mono); font-size:clamp(28px,4vw,40px);
+  font-weight:600; color:var(--primary); letter-spacing:-.04em;
+  display:block; line-height:1;
+}
+.proof-lbl { font-size:13px; color:var(--fg-2); margin-top:8px; display:block; line-height:1.45; }
+
+/* ─── PILARES ────────────────────────────────────────────────── */
+.pilares { background:var(--bg-1); }
+.pilares-grid {
+  display:grid; gap:16px; margin-top:56px;
+  grid-template-columns:1fr;
+}
+@media(min-width:768px){ .pilares-grid{ grid-template-columns:repeat(3,1fr); } }
+.pilar-card {
+  background:var(--bg-2); border:1px solid var(--border);
+  border-radius:var(--r-xl); padding:36px 32px;
+  position:relative; overflow:hidden; transition:.25s var(--ease);
+}
+.pilar-card:hover { border-color:rgba(52,211,153,.2); transform:translateY(-3px); box-shadow:0 24px 60px rgba(0,0,0,.4); }
+.pilar-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg,transparent,var(--primary),transparent);
+  opacity:0; transition:.25s var(--ease);
+}
+.pilar-card:hover::before { opacity:.6; }
+.pilar-num {
+  font-family:var(--font-mono); font-size:11px; color:var(--fg-3);
+  text-transform:uppercase; letter-spacing:.1em; margin-bottom:16px;
+  display:flex; align-items:center; gap:8px;
+}
+.pilar-num::before { content:''; display:block; width:16px; height:1px; background:var(--fg-3); }
+.pilar-icon { font-size:36px; margin-bottom:16px; }
+.pilar-title { font-size:20px; font-weight:700; letter-spacing:-.03em; color:var(--fg); margin-bottom:12px; }
+.pilar-desc { font-family:var(--font-body); font-size:15px; color:var(--fg-2); line-height:1.65; }
+
+/* ─── ENTREGÁVEIS ────────────────────────────────────────────── */
+.entregaveis { }
+.entregaveis-layout {
+  display:grid; gap:64px; grid-template-columns:1fr;
+  margin-top:64px;
+}
+@media(min-width:960px){ .entregaveis-layout{ grid-template-columns:5fr 4fr; align-items:start; } }
+.entregaveis-list { display:flex; flex-direction:column; gap:4px; }
+.entregavel-item {
+  display:flex; align-items:flex-start; gap:16px;
+  background:var(--bg-2); border:1px solid var(--border);
+  border-radius:var(--r-md); padding:20px 22px;
+  transition:.25s var(--ease); cursor:default;
+}
+.entregavel-item:hover { border-color:rgba(52,211,153,.18); background:var(--bg-3); }
+.entregavel-num {
+  font-family:var(--font-mono); font-size:22px; font-weight:600;
+  color:var(--primary); opacity:.25; line-height:1; flex-shrink:0;
+  min-width:32px;
+}
+.entregavel-body {}
+.entregavel-title { font-size:16px; font-weight:700; color:var(--fg); margin-bottom:4px; }
+.entregavel-desc  { font-family:var(--font-body); font-size:14px; color:var(--fg-2); line-height:1.6; }
+.entregavel-tags  { display:flex; gap:6px; flex-wrap:wrap; margin-top:10px; }
+.etag {
+  font-family:var(--font-mono); font-size:10px; font-weight:500;
+  padding:2px 8px; border-radius:4px;
+  background:var(--primary-dim); color:var(--primary);
+  border:1px solid rgba(52,211,153,.15);
+}
+.etag.amber  { background:var(--amber-dim); color:var(--amber); border-color:rgba(245,158,11,.15); }
+.etag.violet { background:rgba(167,139,250,.08); color:var(--violet); border-color:rgba(167,139,250,.15); }
+.etag.rose   { background:var(--rose-dim); color:var(--rose); border-color:rgba(251,113,133,.15); }
+/* ─── GUIA MOCKUP ────────────────────────────────────────────── */
+.guia-mockup {
+  background:var(--bg-2); border:1px solid var(--border-2);
+  border-radius:var(--r-xl); padding:36px;
+  position:sticky; top:100px;
+  overflow:hidden;
+}
+.guia-mockup::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg,transparent,var(--primary),transparent); opacity:.6;
+}
+.mockup-label {
+  font-family:var(--font-mono); font-size:11px; color:var(--primary);
+  text-transform:uppercase; letter-spacing:.1em; margin-bottom:24px;
+  display:flex; align-items:center; gap:8px;
+}
+.mockup-label::after { content:'●'; font-size:8px; animation:blink 1.2s step-end infinite; }
+.mockup-cover {
+  width:100%; aspect-ratio:3/4; max-height:320px;
+  background:linear-gradient(160deg,var(--bg-3) 0%,rgba(52,211,153,.08) 100%);
+  border:1px solid rgba(52,211,153,.12); border-radius:var(--r-lg);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:16px; margin-bottom:28px; position:relative; overflow:hidden;
+}
+.mockup-cover::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 30%, rgba(52,211,153,.08), transparent);
+}
+.mockup-cover-title {
+  font-size:22px; font-weight:800; letter-spacing:-.04em; color:var(--fg);
+  text-align:center; padding:0 24px; line-height:1.2; position:relative; z-index:1;
+}
+.mockup-cover-sub {
+  font-family:var(--font-mono); font-size:11px; color:var(--primary);
+  position:relative; z-index:1;
+}
+.mockup-gear-icon { font-size:48px; position:relative; z-index:1; }
+.mockup-row {
+  display:flex; align-items:center; gap:10px;
+  font-size:13px; color:var(--fg-2); margin-bottom:10px;
+}
+.mockup-row:last-child { margin-bottom:0; }
+.mockup-check {
+  width:20px; height:20px; flex-shrink:0;
+  background:var(--primary-dim); border:1px solid rgba(52,211,153,.2);
+  border-radius:50%; display:grid; place-items:center;
+  color:var(--primary); font-size:11px;
+}
+
+/* ─── AUTORIDADE ─────────────────────────────────────────────── */
+.autoridade { background:var(--bg-1); }
+.autoridade-layout {
+  display:grid; gap:64px; grid-template-columns:1fr;
+  margin-top:56px;
+}
+@media(min-width:960px){ .autoridade-layout{ grid-template-columns:1fr 1fr; align-items:center; } }
+.autoridade-text p {
+  font-family:var(--font-body);
+  font-size:17px; color:var(--fg-2); line-height:1.72; margin-bottom:16px;
+}
+.autoridade-text strong { color:var(--fg); }
+.number-list { list-style:none; display:flex; flex-direction:column; gap:4px; margin-top:8px; }
+.number-item {
+  display:flex; align-items:center; gap:16px;
+  background:var(--bg-2); border:1px solid var(--border);
+  border-radius:var(--r-md); padding:16px 20px;
+  transition:.25s var(--ease);
+}
+.number-item:hover { border-color:var(--border-2); }
+.number-val {
+  font-family:var(--font-mono); font-size:26px; font-weight:600;
+  color:var(--primary); letter-spacing:-.04em; flex-shrink:0; min-width:70px;
+}
+.number-desc { font-size:14px; color:var(--fg-2); line-height:1.45; }
+.number-desc strong { color:var(--fg); display:block; font-size:13px; margin-bottom:2px; }
+
+/* ─── PROVA SOCIAL ───────────────────────────────────────────── */
+.prova { }
+.prova-grid {
+  display:grid; gap:16px; margin-top:56px;
+  grid-template-columns:1fr;
+}
+@media(min-width:640px) { .prova-grid { grid-template-columns:repeat(2,1fr); } }
+@media(min-width:960px) { .prova-grid { grid-template-columns:repeat(3,1fr); } }
+.prova-card {
+  background:var(--bg-2); border:1px solid var(--border);
+  border-radius:var(--r-lg); padding:28px;
+  transition:.25s var(--ease); position:relative;
+}
+.prova-card::after {
+  content:'"'; position:absolute; top:18px; right:22px;
+  font-family:var(--font-body); font-size:60px;
+  color:var(--primary); opacity:.1; line-height:1; pointer-events:none;
+}
+.prova-card:hover { border-color:rgba(52,211,153,.15); transform:translateY(-2px); }
+.prova-stars { display:flex; gap:3px; margin-bottom:14px; }
+.prova-star  { color:var(--amber); font-size:14px; }
+.prova-quote {
+  font-family:var(--font-body); font-style:italic;
+  font-size:15px; color:var(--fg-2); line-height:1.68; margin-bottom:22px;
+}
+.prova-author { display:flex; align-items:center; gap:12px; }
+.prova-avatar {
+  width:38px; height:38px; border-radius:50%;
+  background:var(--primary-dim); border:1px solid rgba(52,211,153,.2);
+  display:grid; place-items:center;
+  font-weight:700; font-size:14px; color:var(--primary); flex-shrink:0;
+}
+.prova-name { font-size:14px; font-weight:700; color:var(--fg); }
+.prova-role { font-family:var(--font-mono); font-size:11px; color:var(--fg-3); }
+
+/* ─── OPT-IN / FORM ──────────────────────────────────────────── */
+.optin { background:var(--bg-1); position:relative; overflow:hidden; }
+.optin-glow {
+  position:absolute; bottom:-200px; left:50%; transform:translateX(-50%);
+  width:900px; height:700px;
+  background:radial-gradient(ellipse at center,rgba(52,211,153,.08),transparent 65%);
+  pointer-events:none;
+}
+.optin-inner { position:relative; z-index:1; }
+.optin-card {
+  background:var(--bg-2); border:1px solid var(--border-2);
+  border-radius:var(--r-xl); padding:clamp(32px,5vw,60px);
+  max-width:680px; margin:56px auto 0;
+  position:relative; overflow:hidden;
+}
+.optin-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg,transparent,var(--primary),transparent); opacity:.6;
+}
+.form-row { display:grid; gap:16px; grid-template-columns:1fr; margin-bottom:16px; }
+@media(min-width:600px){ .form-row{ grid-template-columns:1fr 1fr; } }
+.form-group { display:flex; flex-direction:column; gap:8px; }
+.form-label { font-size:13px; font-weight:600; color:var(--fg-2); }
+.form-input {
+  width:100%; background:var(--bg-3); border:1px solid var(--border-2);
+  border-radius:var(--r-md); color:var(--fg);
+  font-family:var(--font-display); font-size:15px;
+  padding:14px 16px; transition:.25s var(--ease);
+}
+.form-input:focus { outline:none; border-color:rgba(52,211,153,.45); box-shadow:0 0 0 3px rgba(52,211,153,.08); }
+.form-input::placeholder { color:var(--fg-3); }
+.form-submit {
+  width:100%; margin-top:8px;
+  background:var(--primary); color:#0a2e24;
+  font-family:var(--font-display); font-size:17px; font-weight:800;
+  padding:20px; border-radius:var(--r-md); border:none; cursor:pointer;
+  transition:.25s var(--ease); box-shadow:0 0 48px rgba(52,211,153,.22);
+  display:flex; align-items:center; justify-content:center; gap:10px;
+}
+.form-submit:hover { background:#2bbd8a; transform:translateY(-3px); box-shadow:0 16px 48px rgba(52,211,153,.32); }
+.form-privacy {
+  margin-top:16px; text-align:center;
+  font-family:var(--font-mono); font-size:11px; color:var(--fg-3); line-height:1.6;
+}
+
+/* ─── FAQ ────────────────────────────────────────────────────── */
+.faq { }
+.faq-list { display:flex; flex-direction:column; gap:2px; max-width:760px; margin:56px auto 0; }
+.faq-item { background:var(--bg-1); border:1px solid var(--border); border-radius:var(--r-md); overflow:hidden; transition:.25s var(--ease); }
+.faq-item:hover { border-color:var(--border-2); }
+.faq-q {
+  width:100%; text-align:left; padding:22px 24px;
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  font-size:16px; font-weight:600; color:var(--fg); cursor:pointer; transition:.2s var(--ease);
+}
+.faq-q:hover { background:var(--bg-2); }
+.faq-icon {
+  width:28px; height:28px; flex-shrink:0;
+  background:var(--primary-dim); border-radius:50%;
+  display:grid; place-items:center;
+  color:var(--primary); font-size:20px; font-weight:300;
+  transition:transform .3s var(--ease), background .2s;
+}
+.faq-item.open .faq-icon { transform:rotate(45deg); background:var(--primary); color:#0a2e24; }
+.faq-a { max-height:0; overflow:hidden; transition:max-height .4s var(--ease); }
+.faq-item.open .faq-a { max-height:400px; }
+.faq-a-inner {
+  padding:20px 24px 24px;
+  border-top:1px solid var(--border);
+  font-family:var(--font-body); font-size:16px; color:var(--fg-2); line-height:1.72;
+}
+
+/* ─── FINAL CTA ──────────────────────────────────────────────── */
+.final-cta { background:var(--bg-1); text-align:center; position:relative; overflow:hidden; }
+.final-cta-glow {
+  position:absolute; top:-200px; left:50%; transform:translateX(-50%);
+  width:900px; height:700px;
+  background:radial-gradient(ellipse at center,rgba(52,211,153,.1),transparent 65%);
+  pointer-events:none; animation:glow-pulse 7s ease-in-out infinite;
+}
+.final-cta-inner { position:relative; z-index:1; }
+.final-big {
+  font-size:clamp(36px,6vw,72px); font-weight:800;
+  letter-spacing:-.045em; line-height:1.05; color:var(--fg);
+  margin-bottom:24px;
+}
+.final-big em {
+  font-style:normal;
+  background:linear-gradient(135deg,var(--primary) 0%,#6ee7b7 50%,var(--primary) 100%);
+  background-size:200% auto; -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent; background-clip:text;
+  animation:gradient-x 4s ease infinite;
+}
+.final-sub {
+  font-family:var(--font-body); font-size:18px; color:var(--fg-2);
+  max-width:500px; margin:0 auto 48px; line-height:1.65;
+}
+.micro-trust {
+  margin-top:24px;
+  font-family:var(--font-mono); font-size:12px; color:var(--fg-3);
+  display:flex; align-items:center; justify-content:center; gap:20px; flex-wrap:wrap;
+}
+.micro-dot { width:4px; height:4px; border-radius:50%; background:var(--primary); opacity:.5; }
+
+/* ─── FUNNEL MAP SECTION ─────────────────────────────────────── */
+.funnel-map { background:var(--bg-1); }
+.funnel-steps {
+  display:flex; flex-direction:column; gap:2px;
+  max-width:780px; margin:56px auto 0;
+  position:relative;
+}
+.funnel-steps::before {
+  content:''; position:absolute; left:19px; top:24px; bottom:24px;
+  width:2px; background:linear-gradient(180deg,var(--primary) 0%,rgba(52,211,153,.1) 100%);
+}
+@media(min-width:768px){ .funnel-steps::before{ left:19px; } }
+.funnel-step {
+  display:flex; align-items:flex-start; gap:20px;
+  background:var(--bg-2); border:1px solid var(--border);
+  border-radius:var(--r-lg); padding:24px; position:relative;
+  transition:.25s var(--ease);
+}
+.funnel-step:hover { border-color:rgba(52,211,153,.18); }
+.f-node {
+  width:40px; height:40px; flex-shrink:0;
+  border-radius:50%; border:2px solid var(--border-2);
+  background:var(--bg); z-index:1;
+  display:grid; place-items:center;
+  font-family:var(--font-mono); font-size:13px; font-weight:600;
+  color:var(--fg-3); transition:.25s var(--ease);
+}
+.f-node.active { border-color:var(--primary); color:var(--primary); background:var(--primary-dim); box-shadow:0 0 20px var(--primary-glow); }
+.f-body {}
+.f-stage { font-family:var(--font-mono); font-size:11px; color:var(--fg-3); text-transform:uppercase; letter-spacing:.1em; margin-bottom:6px; }
+.f-title { font-size:17px; font-weight:700; color:var(--fg); margin-bottom:6px; }
+.f-desc  { font-family:var(--font-body); font-size:14px; color:var(--fg-2); line-height:1.6; }
+
+/* ─── FOOTER ─────────────────────────────────────────────────── */
+footer {
+  padding:40px 24px; border-top:1px solid var(--border); text-align:center;
+}
+.footer-inner { max-width:1100px; margin:0 auto; display:flex; flex-direction:column; align-items:center; gap:12px; }
+.footer-copy { font-family:var(--font-mono); font-size:12px; color:var(--fg-3); }
+
+</style>
+</head>
+<body>
+
+<!-- ─── HEADER ────────────────────────────────────────────────── -->
+<header>
+  <div class="hdr">
+    <a href="#" class="logo">
+      <div class="logo-mark">EI</div>
+      <div><div class="logo-name">Empresa Independente</div><div class="logo-sub">Engenharia Empresarial</div></div>
+    </a>
+    <div class="hdr-badge">● Manual do Dono Livre · gratuito</div>
+    <a href="#optin" class="hdr-cta">Quero o Manual →</a>
+  </div>
+</header>
+
+<!-- ─── HERO ──────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-grid"></div>
+  <div class="wrap">
+    <div class="hero-content">
+      <div class="badge anim" style="margin-bottom:40px">
+        <span class="badge-dot"></span>
+        127+ empresários aplicaram este método · 100% gratuito
+      </div>
+      <h1>Pare de Trabalhar <em>Para</em> a Sua Empresa.<br>Comece a Fazer Ela<br><em>Trabalhar Sem Você</em>.</h1>
+      <p class="hero-sub">
+        O Manual do Dono Livre revela os 5 sistemas que separam donos presos no operacional
+        de donos que tiram férias sem o telefone tocar. Primeiros resultados visíveis
+        em 2 semanas. Implementação completa em 4 meses.
+      </p>
+      <div class="hero-actions">
+        <a href="#optin" class="btn">
+          Quero o Manual Gratuito
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        </a>
+        <a href="#engrenagens" class="btn-outline">Ver os 5 Sistemas</a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-item"><span class="trust-dot"></span>100% gratuito</div>
+        <div class="trust-item"><span class="trust-dot"></span>Resultados em 2 semanas</div>
+        <div class="trust-item"><span class="trust-dot"></span>Templates e checklists prontos para usar</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROOF ANCHOR ──────────────────────────────────────────── -->
+<section class="proof-anchor">
+  <div class="wrap">
+    <div class="proof-strip anim">
+      <div class="proof-metric">
+        <span class="proof-val">127+</span>
+        <span class="proof-lbl">empresários saíram do operacional com este método</span>
+      </div>
+      <div class="proof-metric">
+        <span class="proof-val">2 sem.</span>
+        <span class="proof-lbl">para os primeiros resultados visíveis na operação</span>
+      </div>
+      <div class="proof-metric">
+        <span class="proof-val">84%</span>
+        <span class="proof-lbl">relataram conseguir tirar férias sem o negócio parar</span>
+      </div>
+      <div class="proof-metric">
+        <span class="proof-val">R$0</span>
+        <span class="proof-lbl">para acessar o Manual do Dono Livre agora mesmo</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PILARES ───────────────────────────────────────────────── -->
+<section class="pilares">
+  <div class="wrap">
+    <div class="anim">
+      <div class="chip">Os 3 Pilares</div>
+      <h2 style="font-size:clamp(28px,4.5vw,48px);font-weight:800;letter-spacing:-.04em;line-height:1.06;color:var(--fg);margin-bottom:16px;max-width:600px">
+        O que a Engenharia Empresarial entrega
+      </h2>
+      <p style="font-family:var(--font-body);font-size:18px;color:var(--fg-2);max-width:520px;line-height:1.65">
+        Não é consultoria de diagnóstico. É um método estruturado de implementação com resultado previsível e verificável.
+      </p>
+    </div>
+    <div class="pilares-grid">
+      <div class="pilar-card anim d1">
+        <div class="pilar-num">Pilar 01</div>
+        <div class="pilar-icon">⚙️</div>
+        <div class="pilar-title">Empresa independente dos sócios</div>
+        <p class="pilar-desc">
+          Sua empresa continua funcionando quando você sai de férias, tira um dia livre ou simplesmente decide não estar disponível. A operação não trava porque existe estrutura — não heroísmo.
+        </p>
+      </div>
+      <div class="pilar-card anim d2">
+        <div class="pilar-num">Pilar 02</div>
+        <div class="pilar-icon">📋</div>
+        <div class="pilar-title">Operação validada e documentada</div>
+        <p class="pilar-desc">
+          Processos claros, funções definidas, indicadores visíveis. Cada pessoa sabe o que faz, como faz e como é medida. Sem depender da memória de ninguém — especialmente a sua.
+        </p>
+      </div>
+      <div class="pilar-card anim d3">
+        <div class="pilar-num">Pilar 03</div>
+        <div class="pilar-icon">🏗️</div>
+        <div class="pilar-title">Modelo aplicável a qualquer segmento</div>
+        <p class="pilar-desc">
+          O método foi desenvolvido para empresas de serviços, comércio, tecnologia, saúde, educação e indústria. Se você tem equipe e quer sair do operacional, a engenharia funciona.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ENTREGÁVEIS ───────────────────────────────────────────── -->
+<section class="entregaveis" id="engrenagens">
+  <div class="wrap">
+    <div class="anim">
+      <div class="chip">O que você vai receber</div>
+      <h2 style="font-size:clamp(28px,4.5vw,48px);font-weight:800;letter-spacing:-.04em;line-height:1.06;color:var(--fg);margin-bottom:16px;max-width:660px">
+        Guia completo com modelos, checklists e processos prontos
+      </h2>
+      <p style="font-family:var(--font-body);font-size:18px;color:var(--fg-2);max-width:540px;line-height:1.65">
+        Você vai receber o passo a passo para implementar cada uma das 5 Engrenagens na sua operação — com os mesmos modelos usados nas implementações reais da Empresa Independente.
+      </p>
+    </div>
+    <div class="entregaveis-layout">
+      <div class="entregaveis-list anim d1">
+        <div class="entregavel-item">
+          <div class="entregavel-num">01</div>
+          <div class="entregavel-body">
+            <div class="entregavel-title">Estruturação de Cargos e Processos</div>
+            <p class="entregavel-desc">Como construir organograma real com responsabilidades, engenharia de cargos com metas e indicadores, processos por setor e padrões de qualidade por entrega.</p>
+            <div class="entregavel-tags">
+              <span class="etag">Template de organograma</span>
+              <span class="etag">Job description</span>
+              <span class="etag amber">Checklist de qualidade</span>
+            </div>
+          </div>
+        </div>
+        <div class="entregavel-item">
+          <div class="entregavel-num">02</div>
+          <div class="entregavel-body">
+            <div class="entregavel-title">Sistema de Contratação Sem Feeling</div>
+            <p class="entregavel-desc">Anúncio de vaga, formulário de filtro, entrevista estruturada com RH e testes práticos de validação. Você para de contratar baseado em intuição.</p>
+            <div class="entregavel-tags">
+              <span class="etag">Script de entrevista</span>
+              <span class="etag amber">Formulário de filtro</span>
+              <span class="etag violet">Teste de validação</span>
+            </div>
+          </div>
+        </div>
+        <div class="entregavel-item">
+          <div class="entregavel-num">03</div>
+          <div class="entregavel-body">
+            <div class="entregavel-title">Estrutura de Treinamento por Função</div>
+            <p class="entregavel-desc">Treinamento de cultura, treinamento técnico por cargo e checklists operacionais prontos. O novo colaborador aprende sozinho — sem sugar seu tempo.</p>
+            <div class="entregavel-tags">
+              <span class="etag">Manual de cultura</span>
+              <span class="etag">Checklist por cargo</span>
+            </div>
+          </div>
+        </div>
+        <div class="entregavel-item">
+          <div class="entregavel-num">04</div>
+          <div class="entregavel-body">
+            <div class="entregavel-title">Formação de Líderes com Autonomia Real</div>
+            <p class="entregavel-desc">Sistema de gestão de equipes, delegação real com critérios claros, KPIs individuais e por setor, reunião semanal estruturada e feedback mensal.</p>
+            <div class="entregavel-tags">
+              <span class="etag">Modelo de delegação</span>
+              <span class="etag amber">Template de reunião</span>
+              <span class="etag violet">Planilha de KPIs</span>
+            </div>
+          </div>
+        </div>
+        <div class="entregavel-item">
+          <div class="entregavel-num">05</div>
+          <div class="entregavel-body">
+            <div class="entregavel-title">Gestão de Projetos com Ritmo e Previsibilidade</div>
+            <p class="entregavel-desc">Como implementar software de gestão, estruturar dailys e weeklys objetivas e criar o alinhamento recorrente entre sócios que mantém a empresa no trilho.</p>
+            <div class="entregavel-tags">
+              <span class="etag">Fluxo de daily</span>
+              <span class="etag amber">Template de weekly</span>
+              <span class="etag rose">Rituais de alinhamento</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MOCKUP DO GUIA -->
+      <div class="guia-mockup anim d2">
+        <div class="mockup-label">Guia das 5 Engrenagens</div>
+        <div class="mockup-cover">
+          <div class="mockup-gear-icon">⚙️</div>
+          <div class="mockup-cover-title">As 5 Engrenagens da Engenharia Empresarial</div>
+          <div class="mockup-cover-sub">Empresa Independente · Guia Gratuito</div>
+        </div>
+        <div class="mockup-row"><div class="mockup-check">✓</div>Modelos e templates prontos para usar</div>
+        <div class="mockup-row"><div class="mockup-check">✓</div>Checklists por engrenagem</div>
+        <div class="mockup-row"><div class="mockup-check">✓</div>Scripts de entrevista e processos</div>
+        <div class="mockup-row"><div class="mockup-check">✓</div>Planilhas de KPI e reunião</div>
+        <div class="mockup-row"><div class="mockup-check">✓</div>Passo a passo de implementação</div>
+        <hr style="border:none;border-top:1px solid var(--border);margin:24px 0">
+        <a href="#optin" class="btn" style="width:100%">
+          Baixar Guia Gratuito
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── AUTORIDADE ────────────────────────────────────────────── -->
+<section class="autoridade">
+  <div class="wrap">
+    <div class="autoridade-layout">
+      <div class="anim">
+        <div class="chip">Quem está por trás</div>
+        <h2 style="font-size:clamp(28px,4.5vw,48px);font-weight:800;letter-spacing:-.04em;line-height:1.06;color:var(--fg);margin-bottom:28px">
+          A Empresa Independente é referência em Engenharia Empresarial no Brasil
+        </h2>
+        <div class="autoridade-text">
+          <p>
+            A Empresa Independente nasceu de uma constatação simples: a maioria das empresas
+            brasileiras não trava por falta de esforço dos sócios — trava porque nunca foi
+            construída com as <strong>estruturas operacionais certas na sequência certa.</strong>
+          </p>
+          <p>
+            Nossa metodologia, as <strong>5 Engrenagens da Engenharia Empresarial</strong>, é o resultado
+            da implementação real em empresas de múltiplos segmentos — não de teoria acadêmica
+            nem de consultoria de relatório.
+          </p>
+          <p>
+            Cada entregável do guia que você vai receber é o mesmo que aplicamos nas implementações
+            pagas. Não existe versão resumida: você recebe o método completo, porque acreditamos
+            que quem entende o método se torna o melhor cliente possível.
+          </p>
+        </div>
+      </div>
+      <div class="anim d2">
+        <ul class="number-list">
+          <li class="number-item">
+            <div class="number-val">4 mo</div>
+            <div class="number-desc"><strong>Implementação completa</strong>Da análise diagnóstica até a operação rodando de forma independente</div>
+          </li>
+          <li class="number-item">
+            <div class="number-val">5 ENG</div>
+            <div class="number-desc"><strong>Engrenagens na sequência certa</strong>Estruturação, Contratação, Treinamento, Liderança e Gestão de Projetos</div>
+          </li>
+          <li class="number-item">
+            <div class="number-val">8+</div>
+            <div class="number-desc"><strong>Especialistas no pool de parceiros</strong>Financeiro, contábil, jurídico, marketing, vendas, tecnologia, logística e marketplaces</div>
+          </li>
+          <li class="number-item">
+            <div class="number-val">100%</div>
+            <div class="number-desc"><strong>Implementação assistida</strong>Você nunca fica sozinho aplicando — o time EI trabalha ao seu lado</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROVA SOCIAL ───────────────────────────────────────────── -->
+<section class="prova">
+  <div class="wrap">
+    <div class="anim" style="text-align:center;margin-bottom:0">
+      <div class="chip" style="justify-content:center">Quem aplicou o método</div>
+      <h2 style="font-size:clamp(28px,4.5vw,48px);font-weight:800;letter-spacing:-.04em;line-height:1.06;color:var(--fg)">
+        Eles aplicaram as 5 Engrenagens<br>e saíram do operacional
+      </h2>
+    </div>
+    <div class="prova-grid">
+      <div class="prova-card anim d1">
+        <div class="prova-stars"><span class="prova-star">★</span><span class="prova-star">★</span><span class="prova-star">★</span><span class="prova-star">★</span><span class="prova-star">★</span></div>
+        <p class="prova-quote">"Em 4 meses, pela primeira vez em 8 anos de empresa, tirei uma semana de férias com o celular desligado. Minha equipe resolveu tudo. Não imaginava que era possível."</p>
+        <div class="prova-author">
+          <div class="prova-avatar">C</div>
+          <div><div class="prova-name">Carlos M.</div><div class="prova-role">Setor de serviços · São Paulo</div></div>
+        </div>
+      </div>
+      <div class="prova-card anim d2">
+        <div class="prova-stars"><span class="prova-star">★</span><span class="prova-star">★</span><span class="prova-star">★</span><span class="prova-star">★</span><span class="prova-star">★</span></div>
+        <p class="prova-quote">"Minha empresa faturava R$2M por ano e eu trabalhava mais do que qualquer funcionário. Crescemos 40% e hoje trabalho metade das horas. A diferença foi a estrutura, não o esforço."</p>
+        <div class="prova-author">
+          <div class="prova-avatar">A</div>
+          <div><div class="prova-name">Ana R.</div><div class="prova-role">Varejo · Belo Horizonte</div></div>
+        </div>
+      </div>
+      <div class="prova-card anim d3">
+        <div class="prova-stars"><span class="prova-star">★</span><span class="prova-star">★</span><span class="prova-star">★</span><span class="prova-star">★</span><span class="prova-star">★</span></div>
+        <p class="prova-quote">"O que diferencia a Empresa Independente é que eles ficam ao seu lado na implementação. Não é relatório de consultoria. É construção real dentro da sua operação."</p>
+        <div class="prova-author">
+          <div class="prova-avatar">R</div>
+          <div><div class="prova-name">Rodrigo S.</div><div class="prova-role">Tecnologia · Rio de Janeiro</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── OPT-IN / FORM ─────────────────────────────────────────── -->
+<section class="optin" id="optin">
+  <div class="optin-glow"></div>
+  <div class="wrap">
+    <div class="optin-inner">
+      <div class="anim" style="text-align:center">
+        <div class="chip" style="justify-content:center">Acesso gratuito</div>
+        <h2 style="font-size:clamp(30px,5vw,56px);font-weight:800;letter-spacing:-.04em;line-height:1.06;color:var(--fg);margin-bottom:16px">
+          Acesse o Manual do<br>Dono Livre — Gratuito
+        </h2>
+        <p style="font-family:var(--font-body);font-size:18px;color:var(--fg-2);max-width:480px;margin:0 auto;line-height:1.65">
+          Receba no seu email os 5 sistemas, os templates prontos e o checklist de implementação.
+          Primeiros resultados em 2 semanas.
+        </p>
+      </div>
+      <div class="optin-card anim d2">
+        <form id="optin-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Seu nome</label>
+              <input class="form-input" type="text" placeholder="Como prefere ser chamado?" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">E-mail profissional</label>
+              <input class="form-input" type="email" placeholder="seu@email.com" required>
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:0">
+            <label class="form-label">WhatsApp <span style="color:var(--fg-3);font-weight:400;font-size:12px">(para enviar o guia direto no seu celular)</span></label>
+            <input class="form-input" type="tel" placeholder="(11) 99999-9999" required>
+          </div>
+          <button type="submit" class="form-submit">
+            Acessar o Manual do Dono Livre Agora
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </button>
+          <p class="form-privacy">
+            Seus dados ficam em segurança conosco.<br>
+            Sem spam. Você pode cancelar a qualquer momento.
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FAQ ───────────────────────────────────────────────────── -->
+<section class="faq">
+  <div class="wrap">
+    <div style="text-align:center" class="anim">
+      <div class="chip" style="justify-content:center">Dúvidas</div>
+      <h2 style="font-size:clamp(28px,4.5vw,48px);font-weight:800;letter-spacing:-.04em;line-height:1.06;color:var(--fg)">Perguntas Frequentes</h2>
+    </div>
+    <div class="faq-list anim d2">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          O guia é realmente gratuito?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">
+          Sim. O Manual do Dono Livre é 100% gratuito. Nenhum cartão de crédito. Nenhuma assinatura. Você preenche o formulário e recebe acesso imediato por e-mail e WhatsApp.
+        </div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          O guia serve para qualquer tipo de empresa?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">
+          Sim. O método foi desenvolvido para ser aplicável em qualquer empresa que já tem pelo menos 3 funcionários e onde o sócio ainda está preso na operação diária. Empresas de serviços, comércio, tecnologia, saúde, educação e indústria já aplicaram as 5 Engrenagens com sucesso. O método se adapta à realidade e à fase de crescimento de cada negócio.
+        </div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          O guia é teórico ou mostra como aplicar na prática?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">
+          O material é 100% prático e orientado à ação. Você vai encontrar modelos de organograma, templates de job description, checklists por cargo, scripts de entrevista, planilhas de KPI e fluxos de gestão — os mesmos usados nas implementações reais da Empresa Independente. A ideia é que você consiga aplicar o método imediatamente, mesmo sem contratar a consultoria.
+        </div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Quanto tempo leva para ver resultados aplicando o guia?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">
+          Depende do ponto de partida da sua empresa. Mas em poucas semanas já é possível sentir ganhos de clareza, organização e previsibilidade na operação — especialmente na Engrenagem 1 (Estruturação), que é de onde a maioria das empresas começa. A implementação completa das 5 Engrenagens, quando feita de forma assistida, leva cerca de 4 meses.
+        </div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Existe alguma oferta paga depois que eu baixar o guia?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">
+          Sim, e preferimos ser diretos sobre isso. A Empresa Independente oferece um programa de implementação assistida chamado Engenharia Empresarial, onde nossa equipe trabalha ao lado da sua durante 4 meses para instalar as 5 Engrenagens. Depois que você baixar o guia, vai receber um convite para um diagnóstico gratuito de 45 minutos — se fizer sentido para o seu momento, apresentamos o programa. Se não fizer, você vai embora com o guia e o diagnóstico em mãos. Sem pressão.
+        </div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FUNIL MAP (para referência interna) ───────────────────── -->
+<section class="funnel-map" style="display:none" id="funil-interno">
+  <div class="wrap-md">
+    <div class="anim">
+      <div class="chip amber">Arquitetura do funil</div>
+      <h2 style="font-size:clamp(24px,3.5vw,40px);font-weight:800;letter-spacing:-.04em;color:var(--fg);margin-bottom:8px">
+        Mapa do Funil — Engenharia Empresarial
+      </h2>
+      <p style="font-family:var(--font-body);font-size:16px;color:var(--fg-3)">Referência interna da equipe comercial</p>
+    </div>
+    <div class="funnel-steps anim d1">
+      <div class="funnel-step">
+        <div class="f-node active">1</div>
+        <div class="f-body">
+          <div class="f-stage">Stage 1 · Tráfego</div>
+          <div class="f-title">Anúncios Meta (Facebook + Instagram)</div>
+          <p class="f-desc">3 variações de ad script: historia de transformação, analogia do avião e case real. Hook principal: "sua empresa para quando você para". Destino: esta LP.</p>
+        </div>
+      </div>
+      <div class="funnel-step">
+        <div class="f-node active">2</div>
+        <div class="f-body">
+          <div class="f-stage">Stage 2 · Landing Page</div>
+          <div class="f-title">Página do Guia Gratuito</div>
+          <p class="f-desc">Oferta: Guia das 5 Engrenagens (lead magnet gratuito). Captura: nome + email + WhatsApp. CTA repetido 4x ao longo da página.</p>
+        </div>
+      </div>
+      <div class="funnel-step">
+        <div class="f-node active">3</div>
+        <div class="f-body">
+          <div class="f-stage">Stage 3 · Thank You Page</div>
+          <div class="f-title">Entrega do Guia + Convite ao Diagnóstico</div>
+          <p class="f-desc">"Guia enviado! Enquanto aguarda, que tal já agendar seu diagnóstico gratuito?" — VSL curta de 3–5 min ou redirect para funil-engenharia.html.</p>
+        </div>
+      </div>
+      <div class="funnel-step">
+        <div class="f-node active">4</div>
+        <div class="f-body">
+          <div class="f-stage">Stage 4 · Nurture (Email + WhatsApp)</div>
+          <div class="f-title">Sequência de 5 Mensagens</div>
+          <p class="f-desc">Msg 1: Entrega do guia. Msg 2: "Qual engrenagem está travada em você?". Msg 3: Case de resultado nomeado. Msg 4: Revelação do método completo. Msg 5: Convite ao diagnóstico gratuito.</p>
+        </div>
+      </div>
+      <div class="funnel-step">
+        <div class="f-node active">5</div>
+        <div class="f-body">
+          <div class="f-stage">Stage 5 · Diagnóstico Gratuito</div>
+          <div class="f-title">Sessão de 45 Minutos (funil-engenharia.html)</div>
+          <p class="f-desc">Pré-qualificação → Agendamento → Sessão diagnóstico ao vivo → Fechamento consultivo. Script completo em funil-engenharia.html (aba "Script Sessão Diagnóstico").</p>
+        </div>
+      </div>
+      <div class="funnel-step">
+        <div class="f-node active">6</div>
+        <div class="f-body">
+          <div class="f-stage">Stage 6 · Produto Principal</div>
+          <div class="f-title">Engenharia Empresarial — R$32.500</div>
+          <p class="f-desc">4 meses de implementação assistida das 5 Engrenagens. R$32.500 PIX ou R$8.000 entrada + 12x de R$2.713. Pool de parceiros incluso.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FINAL CTA ─────────────────────────────────────────────── -->
+<section class="final-cta">
+  <div class="final-cta-glow"></div>
+  <div class="wrap">
+    <div class="final-cta-inner anim">
+      <div class="chip" style="justify-content:center">Uma empresa que funciona sem você</div>
+      <h2 class="final-big">A empresa certa é a que<br><em>roda quando você não está</em></h2>
+      <p class="final-sub">
+        Baixe agora o Guia das 5 Engrenagens e descubra exatamente o que falta para sua empresa funcionar de forma independente.
+      </p>
+      <a href="#optin" class="btn" style="margin:0 auto">
+        Acessar Guia Gratuito
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+      </a>
+      <div class="micro-trust">
+        <div class="trust-item"><span class="micro-dot"></span>100% gratuito</div>
+        <div class="trust-item"><span class="micro-dot"></span>Sem spam</div>
+        <div class="trust-item"><span class="micro-dot"></span>Acesso imediato</div>
+        <div class="trust-item"><span class="micro-dot"></span>Modelos prontos para usar</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ────────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div style="display:flex;align-items:center;gap:8px">
+      <div class="logo-mark" style="width:28px;height:28px;font-size:11px">EI</div>
+      <span class="footer-copy" style="color:var(--fg-2)">Empresa Independente</span>
+    </div>
+    <p class="footer-copy">Engenharia Empresarial · Guia das 5 Engrenagens</p>
+    <p class="footer-copy">© 2026 Empresa Independente. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<script>
+/* ─── INTERSECTION OBSERVER ──────────────────────────────────── */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.anim').forEach(el => io.observe(el));
+
+/* ─── DELAY CLASSES ──────────────────────────────────────────── */
+document.querySelectorAll('.anim.d1').forEach(el => el.style.animationDelay = '.1s');
+document.querySelectorAll('.anim.d2').forEach(el => el.style.animationDelay = '.2s');
+document.querySelectorAll('.anim.d3').forEach(el => el.style.animationDelay = '.3s');
+document.querySelectorAll('.anim.d4').forEach(el => el.style.animationDelay = '.4s');
+document.querySelectorAll('.anim.d5').forEach(el => el.style.animationDelay = '.5s');
+document.querySelectorAll('.anim.d6').forEach(el => el.style.animationDelay = '.6s');
+
+/* ─── FAQ ────────────────────────────────────────────────────── */
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+/* ─── SMOOTH SCROLL ──────────────────────────────────────────── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+  });
+});
+
+/* ─── FORM ───────────────────────────────────────────────────── */
+document.getElementById('optin-form').addEventListener('submit', e => {
+  e.preventDefault();
+  const btn = e.target.querySelector('.form-submit');
+  btn.innerHTML = '✓ Guia enviado! Verifique seu WhatsApp e e-mail.';
+  btn.style.background = '#2bbd8a';
+  btn.disabled = true;
+  /* Integre aqui com ActiveCampaign, RD Station, HubSpot ou webhook */
+});
+</script>
+</body>
+</html>

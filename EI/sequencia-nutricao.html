@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sequência de Nutrição — Funil EI · Uso Interno</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+
+/* ─── TOKENS ────────────────────────────────────────────────── */
+:root {
+  --bg:           #0d0d0d;
+  --bg-1:         #111111;
+  --bg-2:         #161616;
+  --bg-3:         #1c1c1c;
+  --fg:           #f2f2f0;
+  --fg-2:         #a8a89c;
+  --fg-3:         #5a5a54;
+  --primary:      #34d399;
+  --primary-dim:  rgba(52,211,153,0.10);
+  --primary-glow: rgba(52,211,153,0.22);
+  --border:       rgba(255,255,255,0.07);
+  --border-2:     rgba(255,255,255,0.13);
+  --amber:        #f59e0b;
+  --amber-dim:    rgba(245,158,11,0.12);
+  --violet:       #a78bfa;
+  --violet-dim:   rgba(167,139,250,0.10);
+  --rose:         #fb7185;
+  --rose-dim:     rgba(251,113,133,0.10);
+  --sky:          #38bdf8;
+  --sky-dim:      rgba(56,189,248,0.10);
+  --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-body:    'Lora', Georgia, serif;
+  --font-mono:    'JetBrains Mono', monospace;
+  --r-sm: 6px; --r-md: 10px; --r-lg: 16px; --r-xl: 24px;
+  --ease: cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ─── RESET ─────────────────────────────────────────────────── */
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; font-size:16px; }
+body {
+  background:var(--bg); color:var(--fg);
+  font-family:var(--font-display);
+  line-height:1.65; -webkit-font-smoothing:antialiased;
+}
+::-webkit-scrollbar { width:3px; }
+::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.07); border-radius:2px; }
+
+/* ─── NOISE ──────────────────────────────────────────────────── */
+body::before {
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:9999;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:.026; mix-blend-mode:overlay;
+}
+
+/* ─── LAYOUT ─────────────────────────────────────────────────── */
+.wrap    { max-width:1100px; margin:0 auto; padding:0 24px; }
+.wrap-md { max-width:860px; margin:0 auto; padding:0 24px; }
+
+/* ─── HEADER ─────────────────────────────────────────────────── */
+.page-header {
+  border-bottom:1px solid var(--border);
+  padding:32px 24px 28px;
+  background:var(--bg-1);
+}
+.page-header-inner {
+  max-width:1100px; margin:0 auto;
+  display:flex; align-items:center; justify-content:space-between; gap:24px;
+  flex-wrap:wrap;
+}
+.logo { display:flex; align-items:center; gap:10px; }
+.logo-mark {
+  width:34px; height:34px; background:var(--primary); color:#0a2e24;
+  font-size:12px; font-weight:800; border-radius:var(--r-md);
+  display:grid; place-items:center;
+}
+.logo-name { font-size:14px; font-weight:600; color:var(--fg-2); }
+.logo-sub  { font-size:11px; color:var(--fg-3); }
+.page-title {
+  font-size:clamp(22px,3.5vw,36px);
+  font-weight:800; letter-spacing:-.04em; color:var(--fg);
+  margin-bottom:8px;
+}
+.page-desc {
+  font-family:var(--font-mono); font-size:12px; color:var(--fg-3);
+}
+.page-tags {
+  display:flex; flex-wrap:wrap; gap:8px; margin-top:12px;
+}
+.page-tag {
+  font-family:var(--font-mono); font-size:11px;
+  padding:5px 12px; border-radius:var(--r-sm);
+  border:1px solid;
+}
+.tag-primary { color:var(--primary); background:var(--primary-dim); border-color:rgba(52,211,153,.2); }
+.tag-amber   { color:var(--amber); background:var(--amber-dim); border-color:rgba(245,158,11,.2); }
+.tag-violet  { color:var(--violet); background:var(--violet-dim); border-color:rgba(167,139,250,.2); }
+
+/* ─── FUNNEL MAP ─────────────────────────────────────────────── */
+.funnel-overview {
+  padding:40px 24px;
+  background:var(--bg-2);
+  border-bottom:1px solid var(--border);
+}
+.funnel-overview-inner { max-width:1100px; margin:0 auto; }
+.funnel-overview-title {
+  font-family:var(--font-mono); font-size:12px; color:var(--fg-3);
+  text-transform:uppercase; letter-spacing:.08em; margin-bottom:20px;
+}
+.funnel-stages {
+  display:flex; flex-wrap:wrap; gap:0; align-items:center;
+}
+.funnel-stage {
+  display:flex; align-items:center; gap:8px;
+}
+.stage-pill {
+  font-family:var(--font-mono); font-size:11px; font-weight:600;
+  padding:7px 14px; border-radius:var(--r-sm);
+  border:1px solid; white-space:nowrap;
+}
+.stage-done { color:var(--primary); background:var(--primary-dim); border-color:rgba(52,211,153,.25); }
+.stage-active { color:var(--amber); background:var(--amber-dim); border-color:rgba(245,158,11,.3); }
+.stage-next { color:var(--fg-3); background:transparent; border-color:var(--border); }
+.stage-arrow { color:var(--fg-3); font-size:14px; padding:0 4px; }
+
+/* ─── TABS ───────────────────────────────────────────────────── */
+.tabs-bar {
+  position:sticky; top:0; z-index:100;
+  background:rgba(13,13,13,.95); backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:0 24px;
+}
+.tabs-inner {
+  max-width:1100px; margin:0 auto;
+  display:flex; gap:0;
+}
+.tab-btn {
+  padding:18px 24px; font-size:14px; font-weight:600; color:var(--fg-3);
+  border-bottom:2px solid transparent; cursor:pointer;
+  transition:.2s var(--ease); white-space:nowrap;
+  display:flex; align-items:center; gap:8px;
+}
+.tab-btn:hover { color:var(--fg-2); }
+.tab-btn.active { color:var(--fg); border-bottom-color:var(--primary); }
+.tab-count {
+  font-family:var(--font-mono); font-size:11px;
+  padding:2px 7px; border-radius:var(--r-sm);
+  background:var(--bg-2); color:var(--fg-3);
+}
+.tab-btn.active .tab-count { background:var(--primary-dim); color:var(--primary); }
+
+/* ─── TAB CONTENT ────────────────────────────────────────────── */
+.tab-pane { display:none; padding:48px 24px 80px; }
+.tab-pane.active { display:block; }
+.tab-content { max-width:1100px; margin:0 auto; }
+
+/* ─── SECTION TITLE ──────────────────────────────────────────── */
+.section-title {
+  font-size:clamp(22px,3vw,32px);
+  font-weight:800; letter-spacing:-.04em; color:var(--fg);
+  margin-bottom:8px;
+}
+.section-sub {
+  font-family:var(--font-body); font-size:16px; color:var(--fg-2);
+  margin-bottom:40px; line-height:1.6; max-width:640px;
+}
+
+/* ─── TIMELINE ───────────────────────────────────────────────── */
+.timeline {
+  position:relative;
+  padding-left:32px;
+}
+.timeline::before {
+  content:''; position:absolute; left:9px; top:0; bottom:0;
+  width:1px; background:var(--border);
+}
+
+/* ─── EMAIL CARD ─────────────────────────────────────────────── */
+.email-block {
+  position:relative; margin-bottom:40px;
+}
+.email-block::before {
+  content:''; position:absolute; left:-28px; top:22px;
+  width:10px; height:10px; border-radius:50%;
+  background:var(--bg-1); border:2px solid var(--border-2);
+}
+.email-block:first-child::before { background:var(--primary); border-color:var(--primary); }
+.email-block.type-story::before { border-color:var(--amber); }
+.email-block.type-case::before  { border-color:var(--violet); }
+.email-block.type-cta::before   { border-color:var(--rose); }
+.email-block.type-close::before { border-color:var(--fg-3); }
+
+.email-card {
+  background:var(--bg-2); border:1px solid var(--border);
+  border-radius:var(--r-lg); overflow:hidden;
+}
+.email-card:hover { border-color:var(--border-2); }
+
+.email-meta {
+  display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+  padding:16px 24px; background:var(--bg-3);
+  border-bottom:1px solid var(--border);
+}
+.email-day {
+  font-family:var(--font-mono); font-size:11px; font-weight:700;
+  color:var(--primary); background:var(--primary-dim);
+  border:1px solid rgba(52,211,153,.2);
+  padding:4px 10px; border-radius:var(--r-sm);
+}
+.email-type {
+  font-family:var(--font-mono); font-size:11px;
+  padding:4px 10px; border-radius:var(--r-sm); border:1px solid;
+}
+.et-welcome { color:var(--primary); background:var(--primary-dim); border-color:rgba(52,211,153,.2); }
+.et-story   { color:var(--amber); background:var(--amber-dim); border-color:rgba(245,158,11,.2); }
+.et-educacao{ color:var(--sky); background:var(--sky-dim); border-color:rgba(56,189,248,.2); }
+.et-prova   { color:var(--violet); background:var(--violet-dim); border-color:rgba(167,139,250,.2); }
+.et-cta     { color:var(--rose); background:var(--rose-dim); border-color:rgba(251,113,133,.2); }
+.et-close   { color:var(--fg-3); background:var(--bg-2); border-color:var(--border); }
+
+.email-timing {
+  margin-left:auto; font-family:var(--font-mono);
+  font-size:11px; color:var(--fg-3);
+}
+
+.email-body { padding:28px 24px; }
+
+.email-field {
+  display:flex; gap:12px; margin-bottom:12px; align-items:baseline;
+}
+.email-field-label {
+  font-family:var(--font-mono); font-size:11px; color:var(--fg-3);
+  text-transform:uppercase; letter-spacing:.06em;
+  min-width:80px; flex-shrink:0; padding-top:1px;
+}
+.email-field-value {
+  font-size:14px; color:var(--fg-2); line-height:1.5;
+}
+.email-field-value strong { color:var(--fg); }
+
+.email-copy {
+  margin-top:20px; padding-top:20px;
+  border-top:1px solid var(--border);
+}
+.email-copy-label {
+  font-family:var(--font-mono); font-size:11px; color:var(--fg-3);
+  text-transform:uppercase; letter-spacing:.06em; margin-bottom:16px;
+}
+.email-body-text {
+  font-family:var(--font-body); font-size:15px; color:var(--fg-2);
+  line-height:1.75; white-space:pre-wrap;
+}
+.email-body-text p { margin-bottom:16px; }
+.email-body-text p:last-child { margin-bottom:0; }
+.email-body-text strong { color:var(--fg); font-weight:600; }
+.email-body-text em { color:var(--primary); font-style:normal; }
+.email-ps {
+  display:block; font-family:var(--font-body); font-size:14px;
+  color:var(--fg-3); margin-top:20px; padding-top:16px;
+  border-top:1px dashed var(--border); line-height:1.65;
+}
+
+.email-cta-preview {
+  margin-top:20px; padding:16px 20px;
+  background:var(--bg-3); border:1px dashed var(--border-2);
+  border-radius:var(--r-md); display:inline-block;
+}
+.email-cta-preview-text {
+  font-family:var(--font-mono); font-size:12px; color:var(--fg-3);
+  margin-bottom:8px;
+}
+.email-cta-btn-preview {
+  display:inline-flex; align-items:center; gap:8px;
+  background:var(--primary); color:#0a2e24;
+  font-size:14px; font-weight:700; padding:11px 22px;
+  border-radius:var(--r-md);
+}
+
+.email-notes {
+  margin-top:16px; padding:14px 16px;
+  background:var(--amber-dim); border:1px solid rgba(245,158,11,.15);
+  border-radius:var(--r-md);
+}
+.email-notes-text {
+  font-family:var(--font-mono); font-size:12px; color:var(--amber);
+  line-height:1.6;
+}
+
+/* ─── WHATSAPP CARDS ─────────────────────────────────────────── */
+.wa-grid {
+  display:grid; grid-template-columns:1fr;
+  gap:24px;
+}
+@media(min-width:720px){ .wa-grid{ grid-template-columns: repeat(2,1fr); } }
+@media(min-width:1060px){ .wa-grid{ grid-template-columns: repeat(3,1fr); } }
+
+.wa-card {
+  background:var(--bg-2); border:1px solid var(--border);
+  border-radius:var(--r-lg); overflow:hidden;
+  display:flex; flex-direction:column;
+}
+.wa-header {
+  padding:14px 18px; background:var(--bg-3);
+  border-bottom:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between;
+}
+.wa-day {
+  font-family:var(--font-mono); font-size:11px; font-weight:700;
+  color:var(--primary); background:var(--primary-dim);
+  border:1px solid rgba(52,211,153,.2);
+  padding:4px 10px; border-radius:var(--r-sm);
+}
+.wa-timing {
+  font-family:var(--font-mono); font-size:11px; color:var(--fg-3);
+}
+.wa-body { padding:18px; flex:1; display:flex; flex-direction:column; gap:12px; }
+.wa-label {
+  font-family:var(--font-mono); font-size:11px; color:var(--fg-3);
+  text-transform:uppercase; letter-spacing:.06em;
+}
+
+/* ─── WHATSAPP BUBBLE ────────────────────────────────────────── */
+.wa-bubble-wrap {
+  display:flex; flex-direction:column; gap:2px;
+}
+.wa-bubble {
+  background:#1f2d23; border:1px solid rgba(52,211,153,.15);
+  border-radius:12px 12px 12px 2px; padding:14px 16px;
+  font-family:var(--font-body); font-size:14px; color:var(--fg-2);
+  line-height:1.65; position:relative;
+}
+.wa-bubble strong { color:var(--fg); font-weight:600; }
+.wa-bubble em { color:var(--primary); font-style:normal; }
+.wa-timestamp {
+  font-family:var(--font-mono); font-size:10px; color:var(--fg-3);
+  text-align:right; margin-top:6px;
+}
+.wa-intent {
+  font-family:var(--font-mono); font-size:11px; color:var(--fg-3);
+  line-height:1.5; padding:10px 12px;
+  background:var(--bg-3); border-radius:var(--r-sm);
+  border-left:2px solid var(--amber);
+}
+
+/* ─── SEQUENCE SUMMARY ───────────────────────────────────────── */
+.summary-grid {
+  display:grid; grid-template-columns:1fr;
+  gap:16px; margin-bottom:48px;
+}
+@media(min-width:640px){ .summary-grid{ grid-template-columns: repeat(2,1fr); } }
+@media(min-width:960px){ .summary-grid{ grid-template-columns: repeat(4,1fr); } }
+.summary-card {
+  background:var(--bg-2); border:1px solid var(--border);
+  border-radius:var(--r-lg); padding:20px;
+}
+.summary-val {
+  font-size:32px; font-weight:800; letter-spacing:-.04em;
+  color:var(--primary); margin-bottom:4px;
+}
+.summary-lbl {
+  font-family:var(--font-mono); font-size:12px; color:var(--fg-3);
+  line-height:1.5;
+}
+
+/* ─── STRATEGY NOTES ─────────────────────────────────────────── */
+.strategy-block {
+  background:var(--bg-2); border:1px solid var(--border);
+  border-radius:var(--r-lg); padding:28px; margin-bottom:40px;
+}
+.strategy-title {
+  font-size:16px; font-weight:700; color:var(--fg);
+  letter-spacing:-.02em; margin-bottom:16px;
+}
+.strategy-list {
+  list-style:none; display:flex; flex-direction:column; gap:10px;
+}
+.strategy-list li {
+  font-family:var(--font-body); font-size:14px; color:var(--fg-2);
+  line-height:1.6; padding-left:20px; position:relative;
+}
+.strategy-list li::before {
+  content:'→'; position:absolute; left:0;
+  color:var(--primary); font-size:13px;
+}
+
+</style>
+</head>
+<body>
+
+<!-- ─── PAGE HEADER ───────────────────────────────────────────── -->
+<div class="page-header">
+  <div class="page-header-inner">
+    <div class="logo">
+      <div class="logo-mark">EI</div>
+      <div>
+        <div class="logo-name">Empresa Independente</div>
+        <div class="logo-sub">Funil de Marketing</div>
+      </div>
+    </div>
+    <div>
+      <div class="page-title">Sequência de Nutrição</div>
+      <p class="page-desc">7 emails + 5 mensagens WhatsApp · 14 dias · Uso interno da equipe EI</p>
+      <div class="page-tags">
+        <span class="page-tag tag-primary">Post Opt-in</span>
+        <span class="page-tag tag-amber">Lead Magnet → Diagnóstico</span>
+        <span class="page-tag tag-violet">14 dias de nutrição</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FUNNEL MAP ─────────────────────────────────────────────── -->
+<div class="funnel-overview">
+  <div class="funnel-overview-inner">
+    <div class="funnel-overview-title">Posição no Funil</div>
+    <div class="funnel-stages">
+      <div class="funnel-stage">
+        <span class="stage-pill stage-done">✓ Anúncio</span>
+        <span class="stage-arrow">→</span>
+      </div>
+      <div class="funnel-stage">
+        <span class="stage-pill stage-done">✓ LP Guia</span>
+        <span class="stage-arrow">→</span>
+      </div>
+      <div class="funnel-stage">
+        <span class="stage-pill stage-done">✓ Obrigado</span>
+        <span class="stage-arrow">→</span>
+      </div>
+      <div class="funnel-stage">
+        <span class="stage-pill stage-active">● Nutrição (você está aqui)</span>
+        <span class="stage-arrow">→</span>
+      </div>
+      <div class="funnel-stage">
+        <span class="stage-pill stage-next">Diagnóstico</span>
+        <span class="stage-arrow">→</span>
+      </div>
+      <div class="funnel-stage">
+        <span class="stage-pill stage-next">Engenharia Empresarial</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── TABS ──────────────────────────────────────────────────── -->
+<div class="tabs-bar">
+  <div class="tabs-inner">
+    <button class="tab-btn active" onclick="switchTab(this,'emails')">
+      📧 Sequência de Email
+      <span class="tab-count">7 emails</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab(this,'whatsapp')">
+      💬 Sequência WhatsApp
+      <span class="tab-count">5 mensagens</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab(this,'estrategia')">
+      🗺️ Estratégia
+    </button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- TAB 1: EMAILS                                               -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<div class="tab-pane active" id="tab-emails">
+  <div class="tab-content">
+
+    <div class="summary-grid">
+      <div class="summary-card">
+        <div class="summary-val">7</div>
+        <div class="summary-lbl">emails ao longo de 14 dias</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-val">14</div>
+        <div class="summary-lbl">dias de duração da sequência</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-val">D7</div>
+        <div class="summary-lbl">primeiro CTA direto para diagnóstico</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-val">1</div>
+        <div class="summary-lbl">crença central a mudar por email</div>
+      </div>
+    </div>
+
+    <div class="timeline">
+
+      <!-- ─── EMAIL 1 ─────────────────────────────────────────── -->
+      <div class="email-block">
+        <div class="email-card">
+          <div class="email-meta">
+            <span class="email-day">D+0</span>
+            <span class="email-type et-welcome">Boas-vindas</span>
+            <span class="email-timing">Envio: imediato após opt-in</span>
+          </div>
+          <div class="email-body">
+            <div class="email-field">
+              <span class="email-field-label">Assunto</span>
+              <span class="email-field-value"><strong>Aqui está o seu Manual do Dono Livre — e o que fazer PRIMEIRO 🎁</strong></span>
+            </div>
+            <div class="email-field">
+              <span class="email-field-label">Preview</span>
+              <span class="email-field-value">Não leia tudo de uma vez. Comece aqui.</span>
+            </div>
+            <div class="email-copy">
+              <div class="email-copy-label">Corpo do email</div>
+              <div class="email-body-text">
+<p>Olá, <strong>[Nome]</strong> —</p>
+
+<p>Seu Manual do Dono Livre está aqui.</p>
+
+<p>→ <em>[BOTÃO: Acessar o Guia Agora]</em></p>
+
+<p>Mas antes de você abrir o guia, quero te dar uma orientação.</p>
+
+<p>A maioria das pessoas lê o guia e pensa: <strong>"faz sentido, mas por onde começo?"</strong></p>
+
+<p>Aqui está a resposta: <strong>comece identificando qual das 5 engrenagens está mais quebrada na sua operação hoje.</strong></p>
+
+<p>Não tente implementar tudo de uma vez. O método é sequencial por uma razão — cada engrenagem prepara o terreno para a próxima.</p>
+
+<p>Nos próximos dias vou te enviar algumas reflexões que vão ajudar você a identificar exatamente onde está o seu maior gargalo.</p>
+
+<p>Até lá — aproveite o guia.</p>
+
+<p>Abraço,<br><strong>Gabriel</strong><br>Empresa Independente</p>
+              </div>
+              <span class="email-ps">P.S. — Se você ler o guia e tiver curiosidade de entender qual das 5 engrenagens está criando o maior impacto na SUA empresa especificamente, temos uma sessão diagnóstico gratuita de 45 minutos. Mas isso fica para a próxima mensagem.</span>
+            </div>
+            <div class="email-notes">
+              <div class="email-notes-text">⚡ Objetivo: entrega limpa do lead magnet + plantar semente do diagnóstico sem pressão. Botão de CTA deve abrir o PDF/landing do guia diretamente.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── EMAIL 2 ─────────────────────────────────────────── -->
+      <div class="email-block type-story">
+        <div class="email-card">
+          <div class="email-meta">
+            <span class="email-day">D+1</span>
+            <span class="email-type et-story">História</span>
+            <span class="email-timing">Envio: 24h após opt-in · Tarde (15h)</span>
+          </div>
+          <div class="email-body">
+            <div class="email-field">
+              <span class="email-field-label">Assunto</span>
+              <span class="email-field-value"><strong>A empresa que você sonhou x a empresa que você tem</strong></span>
+            </div>
+            <div class="email-field">
+              <span class="email-field-label">Preview</span>
+              <span class="email-field-value">Às 23h, Carlos olhava para o teto sem conseguir dormir...</span>
+            </div>
+            <div class="email-copy">
+              <div class="email-copy-label">Corpo do email</div>
+              <div class="email-body-text">
+<p>Olá, <strong>[Nome]</strong> —</p>
+
+<p>Deixa eu te contar uma história.</p>
+
+<p>Carlos tem uma empresa de serviços em São Paulo. Fatura R$300 mil por mês. Tem 12 funcionários.</p>
+
+<p>Em tese, está bem.</p>
+
+<p>Mas às 23h de uma quinta-feira, ele estava deitado olhando para o teto. Na cabeça, um loop infinito de <strong>orçamentos não fechados, funcionário que saiu sem aviso, cliente insatisfeito e um caixa que não fecha no final do mês</strong>.</p>
+
+<p>Ele me escreveu: <em>"Gabriel, eu não entendo. A empresa cresceu. Mas eu nunca trabalhei tanto na vida."</em></p>
+
+<p>Se você se identificou com isso, precisa entender o que aconteceu com o Carlos.</p>
+
+<p>O problema dele não era falta de clientes.<br>
+Não era falta de esforço.<br>
+Era que a empresa tinha crescido, mas as <strong>5 engrenagens que sustentam uma empresa independente</strong> não tinham sido montadas ainda.</p>
+
+<p>Sem as engrenagens, o crescimento te deixa mais preso — não mais livre.</p>
+
+<p>É exatamente isso que o Guia que você recebeu ontem explica em detalhes.</p>
+
+<p>Hoje quero que você leia especialmente a seção sobre a <strong>Engrenagem de Pessoas</strong>.</p>
+
+<p>É lá que a maioria dos empresários encontra o primeiro grande gargalo.</p>
+
+<p>Abraço,<br><strong>Gabriel</strong></p>
+              </div>
+              <span class="email-ps">P.S. — O Carlos implementou as 5 engrenagens em 4 meses. Nas próximas mensagens vou mostrar o que mudou.</span>
+            </div>
+            <div class="email-notes">
+              <div class="email-notes-text">⚡ Objetivo: criar identificação com o avatar via história. Não há CTA de compra — só direcionamento para o guia. A história do Carlos vai ser referenciada de volta no Email 7.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── EMAIL 3 ─────────────────────────────────────────── -->
+      <div class="email-block">
+        <div class="email-card">
+          <div class="email-meta">
+            <span class="email-day">D+3</span>
+            <span class="email-type et-educacao">Educação</span>
+            <span class="email-timing">Envio: 72h após opt-in · Manhã (9h)</span>
+          </div>
+          <div class="email-body">
+            <div class="email-field">
+              <span class="email-field-label">Assunto</span>
+              <span class="email-field-value"><strong>Qual das 5 engrenagens está travando você hoje?</strong></span>
+            </div>
+            <div class="email-field">
+              <span class="email-field-label">Preview</span>
+              <span class="email-field-value">Um diagnóstico rápido que você pode fazer agora (3 minutos).</span>
+            </div>
+            <div class="email-copy">
+              <div class="email-copy-label">Corpo do email</div>
+              <div class="email-body-text">
+<p>Olá, <strong>[Nome]</strong> —</p>
+
+<p>Vou ser direto: existem 5 engrenagens numa empresa independente.</p>
+
+<p>Mas na maioria das empresas que analiso, <strong>uma delas está quebrada e é responsável por 80% dos problemas da operação</strong>.</p>
+
+<p>Faça esse teste rápido: qual das situações abaixo descreve melhor o que você está vivendo AGORA?</p>
+
+<p><strong>Engrenagem 1 — Cargos e Processos:</strong> "Meus funcionários precisam me perguntar tudo. Não existe um processo claro para nada."</p>
+
+<p><strong>Engrenagem 2 — Contratação:</strong> "Já contratei pessoas que pareciam perfeitas na entrevista e decepcionaram em 90 dias."</p>
+
+<p><strong>Engrenagem 3 — Treinamento:</strong> "Treinar uma pessoa nova depende de mim ou de outro funcionário-chave. Se eu sair, o novo não consegue funcionar."</p>
+
+<p><strong>Engrenagem 4 — Indicadores:</strong> "Não sei ao certo quanto custa cada produto ou serviço. E quando os números chegam, já é tarde para reagir."</p>
+
+<p><strong>Engrenagem 5 — Financeiro:</strong> "O fluxo de caixa é uma caixa preta. Vejo o saldo, mas não entendo para onde o dinheiro vai."</p>
+
+<p>Se uma delas fez você parar e pensar <em>"esse sou eu"</em> — você acabou de identificar seu maior gargalo.</p>
+
+<p>No guia tem o passo a passo para resolver cada uma delas.</p>
+
+<p>Se quiser uma análise personalizada da SUA operação, na semana que vem vou abrir algumas vagas para diagnóstico gratuito de 45 minutos.</p>
+
+<p>Abraço,<br><strong>Gabriel</strong></p>
+              </div>
+            </div>
+            <div class="email-notes">
+              <div class="email-notes-text">⚡ Objetivo: fazer o lead se auto-diagnosticar. Isso aumenta engajamento e qualifica quem clica. A menção ao diagnóstico é suave — "vou abrir vagas" cria antecipação sem pressão.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── EMAIL 4 ─────────────────────────────────────────── -->
+      <div class="email-block type-story">
+        <div class="email-card">
+          <div class="email-meta">
+            <span class="email-day">D+5</span>
+            <span class="email-type et-educacao">Educação + Provocação</span>
+            <span class="email-timing">Envio: 5 dias após opt-in · Tarde (14h)</span>
+          </div>
+          <div class="email-body">
+            <div class="email-field">
+              <span class="email-field-label">Assunto</span>
+              <span class="email-field-value"><strong>O erro que custa R$180 mil por ano (e a maioria não percebe)</strong></span>
+            </div>
+            <div class="email-field">
+              <span class="email-field-label">Preview</span>
+              <span class="email-field-value">Não é culpa sua. Mas custa caro do mesmo jeito.</span>
+            </div>
+            <div class="email-copy">
+              <div class="email-copy-label">Corpo do email</div>
+              <div class="email-body-text">
+<p>Olá, <strong>[Nome]</strong> —</p>
+
+<p>Existe um erro que eu vejo repetido em quase todas as empresas que analiso.</p>
+
+<p>E ele custa, em média, <strong>R$180 mil por ano em produtividade desperdiçada</strong>.</p>
+
+<p>O erro chama: <strong>contratar baseado em feeling</strong>.</p>
+
+<p>Funciona assim: o candidato tem boa energia na entrevista. Fala bem. Te deu a sensação de que vai se virar.</p>
+
+<p>Três meses depois, você está resolvendo os problemas dele, cobrindo as lacunas dele, e pensando quando vai ter coragem de ter uma conversa difícil.</p>
+
+<p>Não é culpa sua. A maioria dos empresários nunca foi treinado para contratar — e o feeling foi o único critério disponível.</p>
+
+<p>A <strong>Engrenagem 2 do método</strong> (Sistema de Contratação Sem Feeling) existe exatamente para isso.</p>
+
+<p>São 4 filtros que eliminam 80% dos candidatos errados antes de chegar em uma entrevista presencial:</p>
+
+<p><strong>1.</strong> Anúncio que qualifica antes de atrair<br>
+<strong>2.</strong> Formulário de filtro com perguntas de eliminação<br>
+<strong>3.</strong> Entrevista estruturada com rubrica de avaliação<br>
+<strong>4.</strong> Teste prático de validação antes da contratação</p>
+
+<p>Você encontra o passo a passo completo no guia.</p>
+
+<p>Abraço,<br><strong>Gabriel</strong></p>
+              </div>
+              <span class="email-ps">P.S. — Amanhã abro as vagas para o diagnóstico gratuito de 45 minutos. Se quiser que eu analise a engrenagem de pessoas da SUA empresa especificamente, fique de olho no próximo email.</span>
+            </div>
+            <div class="email-notes">
+              <div class="email-notes-text">⚡ Objetivo: atacar uma dor específica com dado concreto. P.S. planta urgência para o próximo email de CTA. "Amanhã abro vagas" é teaser — não abre ainda.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── EMAIL 5 ─────────────────────────────────────────── -->
+      <div class="email-block type-case">
+        <div class="email-card">
+          <div class="email-meta">
+            <span class="email-day">D+7</span>
+            <span class="email-type et-prova">Prova Social + CTA</span>
+            <span class="email-timing">Envio: 7 dias após opt-in · Manhã (8h30)</span>
+          </div>
+          <div class="email-body">
+            <div class="email-field">
+              <span class="email-field-label">Assunto</span>
+              <span class="email-field-value"><strong>Como Carlos saiu do operacional em 90 dias</strong></span>
+            </div>
+            <div class="email-field">
+              <span class="email-field-label">Preview</span>
+              <span class="email-field-value">E o que isso tem a ver com você.</span>
+            </div>
+            <div class="email-copy">
+              <div class="email-copy-label">Corpo do email</div>
+              <div class="email-body-text">
+<p>Olá, <strong>[Nome]</strong> —</p>
+
+<p>Me lembro do Carlos. Te contei sobre ele no início da semana.</p>
+
+<p>Faturava R$300k/mês. Não conseguia dormir. Sentia que a empresa estava crescendo mas ele estava afundando.</p>
+
+<p>Quando fizemos o diagnóstico dele, ficou claro que <strong>3 das 5 engrenagens estavam completamente quebradas</strong>.</p>
+
+<p>Começamos pelo mais crítico: Engrenagem 2 (Contratação) e Engrenagem 1 (Cargos e Processos).</p>
+
+<p>Em 30 dias, ele tinha um processo de contratação rodando sozinho. Em 60 dias, 80% das decisões operacionais eram tomadas pelos líderes de equipe — sem passar por ele.</p>
+
+<p>Em 90 dias, ele tirou 10 dias de férias. Pela primeira vez em 6 anos.</p>
+
+<p>Ele me mandou uma mensagem do hotel: <em>"Gabriel, o telefone não tocou. A empresa continua funcionando."</em></p>
+
+<p>Isso é o que uma empresa com as 5 engrenagens montadas entrega.</p>
+
+<p>Hoje estou abrindo <strong>8 vagas para Sessão Diagnóstico Gratuita de 45 minutos</strong>.</p>
+
+<p>Esse diagnóstico custa R$1.200 quando clientes pagam. Para quem está na minha lista, é gratuito.</p>
+
+<p>Em 45 minutos mapeamos os 5 sistemas da sua operação, calculamos o custo mensal do problema, e você sai com 3 movimentos concretos para implementar essa semana.</p>
+
+<p>Sem compromisso de compra.</p>
+              </div>
+              <div class="email-cta-preview">
+                <div class="email-cta-preview-text">CTA principal do email:</div>
+                <div class="email-cta-btn-preview">→ Quero Agendar Meu Diagnóstico Gratuito</div>
+              </div>
+              <div class="email-body-text" style="margin-top:20px">
+<span class="email-ps">P.S. — São só 8 vagas por semana. Se você está lendo isso no dia em que enviei, ainda tem chance. Clique no link acima e preencha o formulário.</span>
+              </div>
+            </div>
+            <div class="email-notes">
+              <div class="email-notes-text">⚡ PRIMEIRO CTA direto para o diagnóstico. Botão deve apontar para agendar-diagnostico.html. Fecha o loop da história do Carlos aberta no Email 2. Urgência real (8 vagas).</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── EMAIL 6 ─────────────────────────────────────────── -->
+      <div class="email-block type-cta">
+        <div class="email-card">
+          <div class="email-meta">
+            <span class="email-day">D+10</span>
+            <span class="email-type et-cta">CTA de Urgência</span>
+            <span class="email-timing">Envio: 10 dias após opt-in · Tarde (17h)</span>
+          </div>
+          <div class="email-body">
+            <div class="email-field">
+              <span class="email-field-label">Assunto</span>
+              <span class="email-field-value"><strong>Sua vaga de diagnóstico ainda está disponível?</strong></span>
+            </div>
+            <div class="email-field">
+              <span class="email-field-label">Preview</span>
+              <span class="email-field-value">Só faltam 3 vagas para essa semana.</span>
+            </div>
+            <div class="email-copy">
+              <div class="email-copy-label">Corpo do email</div>
+              <div class="email-body-text">
+<p>Olá, <strong>[Nome]</strong> —</p>
+
+<p>Semana passada abri 8 vagas para diagnóstico gratuito.</p>
+
+<p>5 foram preenchidas. Restam 3 para essa semana.</p>
+
+<p>Se você recebeu meu email de quarta e pensou <em>"vou fazer isso depois"</em>, esse é o depois.</p>
+
+<p>Uma pergunta direta: <strong>o que está impedindo você de agendar 45 minutos para entender exatamente o que está travando sua empresa?</strong></p>
+
+<p>Se for falta de tempo — entendo. Mas se é porque você não tem certeza de que vai valer a pena, me responde esse email. Quero entender sua situação antes.</p>
+
+<p>Se quiser avançar diretamente:</p>
+              </div>
+              <div class="email-cta-preview">
+                <div class="email-cta-preview-text">CTA principal do email:</div>
+                <div class="email-cta-btn-preview">→ Garantir Minha Vaga no Diagnóstico</div>
+              </div>
+              <div class="email-body-text" style="margin-top:20px">
+<p>Abraço,<br><strong>Gabriel</strong></p>
+<span class="email-ps">P.S. — Se você já agendou, ignore esse email e me vejo na sessão em breve.</span>
+              </div>
+            </div>
+            <div class="email-notes">
+              <div class="email-notes-text">⚡ Email curto, direto. Urgência com número real de vagas restantes. Convite para responder cria abertura de conversa individual — leads que respondem têm altíssima intenção.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── EMAIL 7 ─────────────────────────────────────────── -->
+      <div class="email-block type-close">
+        <div class="email-card">
+          <div class="email-meta">
+            <span class="email-day">D+14</span>
+            <span class="email-type et-close">Fechamento</span>
+            <span class="email-timing">Envio: 14 dias após opt-in · Manhã (10h)</span>
+          </div>
+          <div class="email-body">
+            <div class="email-field">
+              <span class="email-field-label">Assunto</span>
+              <span class="email-field-value"><strong>Última mensagem desta sequência (sem drama)</strong></span>
+            </div>
+            <div class="email-field">
+              <span class="email-field-label">Preview</span>
+              <span class="email-field-value">Não vou sumir, mas vou parar de falar sobre diagnóstico.</span>
+            </div>
+            <div class="email-copy">
+              <div class="email-copy-label">Corpo do email</div>
+              <div class="email-body-text">
+<p>Olá, <strong>[Nome]</strong> —</p>
+
+<p>Hoje é o último email desta sequência.</p>
+
+<p>Nos últimos 14 dias te enviei o guia, te contei sobre o Carlos, te mostrei o erro dos R$180 mil, e abri vagas para diagnóstico gratuito.</p>
+
+<p>Se você não agendou, tudo bem. A decisão é sempre sua.</p>
+
+<p>Só quero deixar uma coisa clara antes de ir:</p>
+
+<p><strong>O guia que você baixou não é material de marketing. É o método real que aplicamos nas implementações.</strong></p>
+
+<p>Se você leu com atenção e implementou ao menos uma coisa, já valeu. Se implementou alguma coisa e quer continuar, minha porta está aberta.</p>
+
+<p>Vou continuar enviando conteúdo sobre gestão, estrutura e independência operacional — mas sem a frequência das últimas semanas.</p>
+
+<p>E se em algum momento você decidir que quer um olhar externo na sua operação, o diagnóstico gratuito estará disponível.</p>
+              </div>
+              <div class="email-cta-preview">
+                <div class="email-cta-preview-text">CTA secundário (sem urgência):</div>
+                <div class="email-cta-btn-preview">→ Agendar Diagnóstico Gratuito</div>
+              </div>
+              <div class="email-body-text" style="margin-top:20px">
+<p>Abraço,<br><strong>Gabriel</strong><br>Empresa Independente</p>
+              </div>
+            </div>
+            <div class="email-notes">
+              <div class="email-notes-text">⚡ Email de fechamento honesto — não forçado. Aumenta confiança e reduz unsubscribes. Leads que abrem este email mas não clicam entram em lista de "interesse baixo" para nutrição longa (mensal).</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /timeline -->
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- TAB 2: WHATSAPP                                             -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<div class="tab-pane" id="tab-whatsapp">
+  <div class="tab-content">
+
+    <div class="summary-grid">
+      <div class="summary-card">
+        <div class="summary-val">5</div>
+        <div class="summary-lbl">mensagens ao longo de 10 dias</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-val">D+0</div>
+        <div class="summary-lbl">primeira mensagem: imediata após opt-in</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-val">2×</div>
+        <div class="summary-lbl">touchpoints com CTA de diagnóstico</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-val">Tom</div>
+        <div class="summary-lbl">pessoal, conversa — não broadcast</div>
+      </div>
+    </div>
+
+    <p class="section-sub" style="margin-bottom:32px">
+      A sequência de WhatsApp corre em paralelo com os emails, com tom mais pessoal e conversal.
+      Use um número dedicado com nome "Gabriel · Empresa Independente" para melhorar abertura.
+    </p>
+
+    <div class="wa-grid">
+
+      <!-- M1 -->
+      <div class="wa-card">
+        <div class="wa-header">
+          <span class="wa-day">M+0 · Imediato</span>
+          <span class="wa-timing">Logo após opt-in</span>
+        </div>
+        <div class="wa-body">
+          <div class="wa-label">Mensagem de entrega do guia</div>
+          <div class="wa-bubble-wrap">
+            <div class="wa-bubble">
+Olá, <strong>[Nome]</strong>! 👋
+
+Aqui é o Gabriel da Empresa Independente.
+
+Você acabou de se cadastrar para receber o Manual do Dono Livre — e ele já está no seu email!
+
+Verifique sua caixa de entrada. Se não chegou em 5 minutos, dá uma olhada no spam.
+
+Qualquer dúvida, pode responder aqui diretamente. 🙏
+            </div>
+            <div class="wa-timestamp">Enviado automaticamente · via API</div>
+          </div>
+          <div class="wa-intent">💡 Objetivo: confirmar entrega + abrir canal de conversa. Não enviar junto com o Email D+0 — dar 5 minutos de intervalo.</div>
+        </div>
+      </div>
+
+      <!-- M2 -->
+      <div class="wa-card">
+        <div class="wa-header">
+          <span class="wa-day">M+1 · D+1</span>
+          <span class="wa-timing">24h após opt-in · 15h</span>
+        </div>
+        <div class="wa-body">
+          <div class="wa-label">Follow-up de leitura + abertura</div>
+          <div class="wa-bubble-wrap">
+            <div class="wa-bubble">
+Oi <strong>[Nome]</strong> —
+
+Você já teve tempo de dar uma olhada no Manual do Dono Livre?
+
+Tem uma parte específica que não para de aparecer nas conversas que tenho com empresários: a <em>Engrenagem 2 — Contratação</em>.
+
+Se você já contratou alguém que pareceu ótimo na entrevista e decepcionou depois, vai se identificar bastante com o que está escrito ali.
+
+Se quiser trocar uma ideia sobre a sua situação específica, pode responder aqui. 👇
+            </div>
+            <div class="wa-timestamp">15:00</div>
+          </div>
+          <div class="wa-intent">💡 Objetivo: engajar em conversa 1:1. Quem responde é um lead quente — passe para atendimento humano se possível.</div>
+        </div>
+      </div>
+
+      <!-- M3 -->
+      <div class="wa-card">
+        <div class="wa-header">
+          <span class="wa-day">M+3 · D+3</span>
+          <span class="wa-timing">72h após opt-in · 9h</span>
+        </div>
+        <div class="wa-body">
+          <div class="wa-label">Identificação de gargalo + teaser do diagnóstico</div>
+          <div class="wa-bubble-wrap">
+            <div class="wa-bubble">
+<strong>[Nome]</strong>, pergunta rápida:
+
+Qual dessas frases descreve melhor o que você está vivendo hoje na sua empresa?
+
+A) "Meus funcionários me perguntam tudo — nada funciona sem mim"
+
+B) "Já contratei pessoas que pareciam boas e decepcionaram"
+
+C) "Não tenho visibilidade real do financeiro"
+
+D) "A empresa cresce, mas o lucro não"
+
+Me responde com a letra. Quero entender com o que você mais se identifica. 👇
+            </div>
+            <div class="wa-timestamp">09:00</div>
+          </div>
+          <div class="wa-intent">💡 Mini-quiz por WhatsApp. Quem responde vai para segmento de alto engajamento. A resposta informa qual engrenagem destacar na comunicação seguinte.</div>
+        </div>
+      </div>
+
+      <!-- M4 -->
+      <div class="wa-card">
+        <div class="wa-header">
+          <span class="wa-day">M+7 · D+7</span>
+          <span class="wa-timing">7 dias após opt-in · 10h</span>
+        </div>
+        <div class="wa-body">
+          <div class="wa-label">CTA de diagnóstico + case</div>
+          <div class="wa-bubble-wrap">
+            <div class="wa-bubble">
+Oi <strong>[Nome]</strong> —
+
+Hoje abri as vagas para Sessão Diagnóstico Gratuita de 45 minutos.
+
+São só 8 vagas por semana. Já preenchemos 5.
+
+Em 45 minutos analiso as 5 engrenagens da sua operação e te entrego um plano de ação claro para os próximos 90 dias. Sem custo. Sem compromisso.
+
+Se quiser garantir sua vaga: [LINK agendar-diagnostico.html]
+
+Responde aqui se tiver alguma dúvida antes de preencher. 🙏
+            </div>
+            <div class="wa-timestamp">10:00</div>
+          </div>
+          <div class="wa-intent">💡 Enviado no mesmo dia do Email D+7. Urgência real com vagas restantes. Link leva para agendar-diagnostico.html.</div>
+        </div>
+      </div>
+
+      <!-- M5 -->
+      <div class="wa-card">
+        <div class="wa-header">
+          <span class="wa-day">M+10 · D+10</span>
+          <span class="wa-timing">10 dias após opt-in · 11h</span>
+        </div>
+        <div class="wa-body">
+          <div class="wa-label">Última mensagem de nutrição ativa</div>
+          <div class="wa-bubble-wrap">
+            <div class="wa-bubble">
+<strong>[Nome]</strong>, última mensagem por aqui por um tempo.
+
+Semana passada abri vagas para diagnóstico gratuito. Se você não agendou, sem problema — a decisão é sempre sua.
+
+Só quero deixar um link aqui caso você mude de ideia: [LINK]
+
+A partir de agora vou continuar enviando conteúdo sobre gestão e estrutura, mas com menos frequência.
+
+Qualquer dúvida, pode me chamar aqui. Abraço! 👋
+            </div>
+            <div class="wa-timestamp">11:00</div>
+          </div>
+          <div class="wa-intent">💡 Fechamento honesto — tom parecido com o Email D+14. Quem clica no link neste ponto tem intenção alta. Evita parecer spam e preserva o canal.</div>
+        </div>
+      </div>
+
+    </div><!-- /wa-grid -->
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- TAB 3: ESTRATÉGIA                                           -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<div class="tab-pane" id="tab-estrategia">
+  <div class="tab-content">
+
+    <div style="max-width:800px">
+      <div class="section-title" style="margin-bottom:8px">Estratégia da Sequência</div>
+      <p class="section-sub">Princípios por trás de cada decisão de copy e cadência.</p>
+
+      <div class="strategy-block">
+        <div class="strategy-title">Crença Central a Mudar</div>
+        <ul class="strategy-list">
+          <li><strong>Crença atual:</strong> "Pra minha empresa funcionar, eu preciso estar presente."</li>
+          <li><strong>Nova crença:</strong> "Com as 5 engrenagens montadas, a empresa funciona independente de mim."</li>
+          <li>A jornada de 14 dias existe para conduzir o lead desta crença para a outra — sem argumentação direta, apenas evidência gradual.</li>
+        </ul>
+      </div>
+
+      <div class="strategy-block">
+        <div class="strategy-title">Sequência de Emoções (Arco da Sequência)</div>
+        <ul class="strategy-list">
+          <li><strong>D+0:</strong> Alívio e boas-vindas — "Fiz a escolha certa ao baixar isso"</li>
+          <li><strong>D+1:</strong> Identificação — "Esse Carlos poderia ser eu"</li>
+          <li><strong>D+3:</strong> Autoconsciência — "Eu sei qual é minha engrenagem quebrada"</li>
+          <li><strong>D+5:</strong> Dor quantificada — "Isso está me custando dinheiro real"</li>
+          <li><strong>D+7:</strong> Esperança + ação — "Tem solução e ela está disponível agora"</li>
+          <li><strong>D+10:</strong> Urgência suave — "Preciso agir antes que feche"</li>
+          <li><strong>D+14:</strong> Respeito + porta aberta — "Ele entende que é minha decisão"</li>
+        </ul>
+      </div>
+
+      <div class="strategy-block">
+        <div class="strategy-title">Segmentação por Engajamento</div>
+        <ul class="strategy-list">
+          <li><strong>Abriu 5+ emails:</strong> Lead quente → oferecer diagnóstico por WhatsApp direto</li>
+          <li><strong>Abriu 2-4 emails:</strong> Lead morno → manter na sequência padrão</li>
+          <li><strong>Abriu 0-1 email:</strong> Lead frio → testar reengajamento com assunto provocativo na semana 3</li>
+          <li><strong>Respondeu WhatsApp:</strong> Lead ultra-quente → atendimento humano imediato, marcar diagnóstico direto</li>
+          <li><strong>Clicou no CTA do diagnóstico mas não agendou:</strong> Sequência de abandono de formulário (3 mensagens em 72h)</li>
+        </ul>
+      </div>
+
+      <div class="strategy-block">
+        <div class="strategy-title">Boas Práticas de Entregabilidade</div>
+        <ul class="strategy-list">
+          <li>Configurar DKIM, SPF e DMARC no domínio empresaind.com antes de disparar</li>
+          <li>Usar ferramenta de ESP como ActiveCampaign, RD Station ou Klaviyo — nunca enviar em massa pelo Gmail</li>
+          <li>Limitar volume inicial: começar com 200 envios/dia e escalar gradualmente</li>
+          <li>Verificar taxa de abertura no D+1 — se abaixo de 30%, revisar assunto e hora de envio</li>
+          <li>Nunca comprar listas — só leads que fizeram opt-in ativo pelo formulário do guia</li>
+        </ul>
+      </div>
+
+      <div class="strategy-block">
+        <div class="strategy-title">Métricas de Sucesso para a Sequência</div>
+        <ul class="strategy-list">
+          <li><strong>Taxa de abertura média esperada:</strong> 35-45% (D+0 > 60%, decaindo até D+14)</li>
+          <li><strong>Taxa de clique esperada:</strong> 4-8% no email de CTA (D+7)</li>
+          <li><strong>Conversão opt-in → candidatura diagnóstico:</strong> 8-15% (meta: 10%)</li>
+          <li><strong>Candidatura → diagnóstico confirmado:</strong> 60-80% (filtro de qualidade)</li>
+          <li><strong>Diagnóstico → proposta:</strong> 70-80% (depende do script da sessão)</li>
+          <li><strong>Proposta → cliente:</strong> 40-60% (meta com método Hormozi)</li>
+        </ul>
+      </div>
+
+      <div class="strategy-block">
+        <div class="strategy-title">Integração com Outras Peças do Funil</div>
+        <ul class="strategy-list">
+          <li><strong>funil-guia-engrenagens.html</strong> → página de captação do lead (opt-in)</li>
+          <li><strong>obrigado-guia.html</strong> → página imediata pós opt-in com primeiro CTA de diagnóstico</li>
+          <li><strong>agendar-diagnostico.html</strong> → destino de todos os CTAs de diagnóstico na sequência</li>
+          <li><strong>funil-engenharia.html</strong> → copy completa da oferta principal (para referência do especialista na sessão)</li>
+          <li>Todos os links da sequência de email e WhatsApp devem usar UTMs para rastreamento: <code style="font-family:var(--font-mono);font-size:12px;color:var(--primary)">?utm_source=email&utm_campaign=nutricao&utm_content=d7-cta</code></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+function switchTab(btn, id) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-' + id).classList.add('active');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1924 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico Gratuito — Engenharia Empresarial · Empresa Independente</title>
+<meta name="description" content="Descubra qual das 5 Engrenagens está travando sua empresa. Diagnóstico gratuito de 45 minutos com especialista da Empresa Independente.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+
+<style>
+/* ─── TOKENS ───────────────────────────────────────────────── */
+:root {
+  --bg:            #0d0d0d;
+  --bg-1:          #111111;
+  --bg-2:          #161616;
+  --bg-3:          #1c1c1c;
+  --fg:            #f2f2f0;
+  --fg-2:          #a8a89c;
+  --fg-3:          #5a5a54;
+  --primary:       #34d399;
+  --primary-dim:   rgba(52,211,153,0.10);
+  --primary-glow:  rgba(52,211,153,0.2);
+  --border:        rgba(255,255,255,0.07);
+  --border-2:      rgba(255,255,255,0.12);
+  --amber:         #f59e0b;
+  --amber-dim:     rgba(245,158,11,0.10);
+  --violet:        #a78bfa;
+  --violet-dim:    rgba(167,139,250,0.10);
+  --rose:          #fb7185;
+  --rose-dim:      rgba(251,113,133,0.10);
+
+  --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-body:    'Lora', Georgia, serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  --r-sm: 6px; --r-md: 10px; --r-lg: 16px; --r-xl: 24px;
+  --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ─── RESET ─────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-display);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+button { font-family: var(--font-display); border: none; cursor: pointer; background: none; color: inherit; }
+img { display: block; max-width: 100%; }
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 2px; }
+
+/* ─── LAYOUT ─────────────────────────────────────────────────── */
+.wrap    { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+.wrap-md { max-width:  880px; margin: 0 auto; padding: 0 24px; }
+.wrap-sm { max-width:  680px; margin: 0 auto; padding: 0 24px; }
+section  { padding: 96px 0; }
+@media(min-width:768px) { section { padding: 128px 0; } }
+
+/* ─── ANIMATIONS ─────────────────────────────────────────────── */
+@keyframes fade-up    { from { opacity:0; transform:translateY(28px) } to { opacity:1; transform:translateY(0) } }
+@keyframes fade-in    { from { opacity:0 } to { opacity:1 } }
+@keyframes glow-pulse { 0%,100% { opacity:0.4 } 50% { opacity:0.75 } }
+@keyframes line-grow  { from { transform:scaleX(0) } to { transform:scaleX(1) } }
+@keyframes gradient-x { 0%,100% { background-position:0% 50% } 50% { background-position:100% 50% } }
+@keyframes cursor-blink { 0%,100% { opacity:1 } 50% { opacity:0 } }
+@keyframes spin-slow { from { transform: rotate(0deg) } to { transform: rotate(360deg) } }
+
+.anim { opacity:0; }
+.anim.visible { animation: fade-up 0.7s ease forwards; }
+.anim-d1.visible { animation-delay:.1s }
+.anim-d2.visible { animation-delay:.2s }
+.anim-d3.visible { animation-delay:.3s }
+.anim-d4.visible { animation-delay:.4s }
+.anim-d5.visible { animation-delay:.5s }
+.anim-d6.visible { animation-delay:.6s }
+
+/* ─── NOISE TEXTURE ──────────────────────────────────────────── */
+body::before {
+  content:'';
+  position:fixed; inset:0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.028;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: overlay;
+}
+
+/* ─── HEADER ─────────────────────────────────────────────────── */
+header {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(13,13,13,0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 24px;
+}
+.header-inner {
+  max-width: 1140px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px;
+}
+.logo { display: flex; align-items: center; gap: 10px; }
+.logo-mark {
+  width: 34px; height: 34px;
+  background: var(--primary);
+  color: #0a2e24;
+  font-size: 12px; font-weight: 800; letter-spacing: -0.03em;
+  border-radius: var(--r-md);
+  display: grid; place-items: center;
+  flex-shrink: 0;
+}
+.logo-text { font-size: 14px; font-weight: 600; color: var(--fg-2); letter-spacing: -0.02em; }
+.logo-sub  { font-size: 11px; font-weight: 400; color: var(--fg-3); }
+.header-badge {
+  font-family: var(--font-mono);
+  font-size: 11px; font-weight: 500;
+  color: var(--primary);
+  background: var(--primary-dim);
+  border: 1px solid rgba(52,211,153,0.2);
+  padding: 5px 12px; border-radius: var(--r-sm);
+  white-space: nowrap;
+  display: none;
+}
+@media(min-width:640px) { .header-badge { display: block; } }
+.header-cta {
+  background: var(--primary);
+  color: #0a2e24;
+  font-size: 13px; font-weight: 700;
+  padding: 9px 20px; border-radius: var(--r-md);
+  transition: var(--transition);
+  white-space: nowrap; flex-shrink: 0;
+}
+.header-cta:hover { background: #2bbd8a; transform: translateY(-1px); box-shadow: 0 8px 24px var(--primary-glow); }
+
+/* ─── BUTTONS ────────────────────────────────────────────────── */
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--primary);
+  color: #0a2e24;
+  font-size: 16px; font-weight: 700;
+  padding: 16px 36px; border-radius: var(--r-md);
+  transition: var(--transition);
+  box-shadow: 0 0 40px rgba(52,211,153,0.25);
+  cursor: pointer;
+}
+.btn-primary:hover { background:#2bbd8a; transform:translateY(-2px); box-shadow:0 12px 40px rgba(52,211,153,0.35); }
+.btn-primary svg { transition: transform .25s ease; }
+.btn-primary:hover svg { transform: translateX(3px); }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  color: var(--fg-2); font-size: 15px; font-weight: 500;
+  padding: 16px 24px;
+  border: 1px solid var(--border-2); border-radius: var(--r-md);
+  transition: var(--transition);
+}
+.btn-ghost:hover { color:var(--fg); border-color:rgba(255,255,255,0.2); background:rgba(255,255,255,0.04); }
+
+/* ─── SECTION LABELS ─────────────────────────────────────────── */
+.section-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+  color: var(--primary);
+  text-transform: uppercase; letter-spacing: 0.1em;
+  margin-bottom: 20px;
+}
+.section-label::before { content:''; display:block; width:20px; height:1px; background:var(--primary); }
+.section-label.amber { color: var(--amber); }
+.section-label.amber::before { background: var(--amber); }
+.section-label.violet { color: var(--violet); }
+.section-label.violet::before { background: var(--violet); }
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(30px, 5vw, 52px);
+  font-weight: 800; letter-spacing: -0.04em;
+  line-height: 1.06; color: var(--fg);
+  margin-bottom: 20px;
+}
+.section-sub {
+  font-family: var(--font-body);
+  font-size: 18px; color: var(--fg-2); line-height: 1.65;
+  max-width: 540px;
+}
+
+/* ─── HERO ───────────────────────────────────────────────────── */
+.hero {
+  padding: 80px 0 100px;
+  position: relative; overflow: hidden;
+}
+.hero-glow {
+  position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
+  width: 1000px; height: 640px;
+  background: radial-gradient(ellipse at center, rgba(52,211,153,0.11) 0%, transparent 65%);
+  pointer-events: none;
+  animation: glow-pulse 7s ease-in-out infinite;
+}
+.hero-grid-bg {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(52,211,153,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(52,211,153,0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 75% 55% at 50% 0%, black 0%, transparent 100%);
+  pointer-events: none;
+}
+.hero-content { position: relative; z-index: 1; text-align: center; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 500;
+  color: var(--primary);
+  background: var(--primary-dim);
+  border: 1px solid rgba(52,211,153,0.18);
+  padding: 7px 16px; border-radius: var(--r-sm);
+  margin-bottom: 40px;
+  animation: fade-up 0.6s ease both;
+}
+.hero-eyebrow-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--primary);
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(40px, 7.5vw, 90px);
+  font-weight: 800; line-height: 1.0; letter-spacing: -0.04em;
+  color: var(--fg); margin-bottom: 28px;
+  animation: fade-up 0.7s .1s ease both;
+}
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(135deg, var(--primary) 0%, #6ee7b7 50%, var(--primary) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-x 4s ease infinite;
+}
+.hero-sub {
+  font-family: var(--font-body);
+  font-size: clamp(17px, 2.2vw, 22px);
+  font-weight: 400; color: var(--fg-2); line-height: 1.6;
+  max-width: 620px; margin: 0 auto 48px;
+  animation: fade-up 0.7s .2s ease both;
+}
+.hero-actions {
+  display: flex; flex-direction: column; align-items: center; gap: 16px;
+  animation: fade-up 0.7s .3s ease both;
+}
+@media(min-width:640px) { .hero-actions { flex-direction: row; justify-content: center; } }
+.hero-trust {
+  margin-top: 32px;
+  font-family: var(--font-mono); font-size: 12px; color: var(--fg-3);
+  display: flex; align-items: center; justify-content: center; gap: 24px;
+  flex-wrap: wrap;
+  animation: fade-up 0.7s .4s ease both;
+}
+.hero-trust-item { display: flex; align-items: center; gap: 6px; }
+.hero-trust-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--primary); opacity: 0.6; }
+
+/* ─── STATS ──────────────────────────────────────────────────── */
+.stats { padding: 0 0 96px; }
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2px;
+  background: var(--border);
+  border-radius: var(--r-xl);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+@media(min-width:768px) { .stats-grid { grid-template-columns: repeat(4, 1fr); } }
+.stat-item {
+  background: var(--bg-1); padding: 32px 24px;
+  text-align: center; transition: var(--transition);
+}
+.stat-item:hover { background: var(--bg-2); }
+.stat-num {
+  font-family: var(--font-mono);
+  font-size: 36px; font-weight: 600;
+  color: var(--primary); letter-spacing: -0.04em;
+  display: block;
+}
+.stat-label { font-size: 13px; color: var(--fg-2); margin-top: 6px; display: block; }
+
+/* ─── PROBLEM ────────────────────────────────────────────────── */
+.problem { background: var(--bg-1); }
+.problem-layout {
+  display: grid; gap: 64px;
+  grid-template-columns: 1fr;
+}
+@media(min-width:900px) { .problem-layout { grid-template-columns: 1fr 1fr; align-items: start; } }
+.problem-text blockquote {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: clamp(20px, 3vw, 26px);
+  color: var(--fg); line-height: 1.45;
+  border-left: 3px solid var(--primary);
+  padding-left: 24px; margin-bottom: 32px;
+}
+.problem-text p {
+  font-family: var(--font-body);
+  font-size: 17px; color: var(--fg-2); line-height: 1.7;
+  margin-bottom: 16px;
+}
+.pain-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.pain-item {
+  display: flex; align-items: flex-start; gap: 14px;
+  background: var(--bg-2); border: 1px solid var(--border);
+  border-radius: var(--r-md); padding: 16px 18px;
+  transition: var(--transition);
+}
+.pain-item:hover { border-color: rgba(255,255,255,0.12); background: var(--bg-3); }
+.pain-icon {
+  width: 32px; height: 32px; flex-shrink: 0;
+  background: var(--rose-dim); border-radius: var(--r-sm);
+  display: grid; place-items: center;
+  color: var(--rose); font-size: 15px; padding-top: 1px;
+}
+.pain-text { font-size: 14px; color: var(--fg-2); line-height: 1.55; padding-top: 5px; }
+.pain-text strong { color: var(--fg); font-weight: 600; display: block; margin-bottom: 2px; font-size: 13px; }
+
+/* ─── MECHANISM ──────────────────────────────────────────────── */
+.mechanism { }
+.gears-intro {
+  max-width: 720px;
+  margin-bottom: 72px;
+}
+.gears-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2px;
+  background: var(--border);
+  border-radius: var(--r-xl);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+@media(min-width:768px) { .gears-grid { grid-template-columns: 1fr 1fr; } }
+.gear-card {
+  background: var(--bg-1);
+  padding: 36px 32px;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.gear-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
+  opacity: 0;
+  transition: var(--transition);
+}
+.gear-card:hover { background: var(--bg-2); }
+.gear-card:hover::before { opacity: 0.7; }
+.gear-card.span-full { grid-column: 1 / -1; }
+.gear-num {
+  font-family: var(--font-mono); font-size: 11px; color: var(--fg-3);
+  text-transform: uppercase; letter-spacing: 0.12em;
+  margin-bottom: 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+.gear-num::before {
+  content: '';
+  display: block; width: 16px; height: 1px;
+  background: var(--fg-3);
+}
+.gear-title {
+  font-size: 20px; font-weight: 700; letter-spacing: -0.03em;
+  color: var(--fg); margin-bottom: 12px;
+}
+.gear-result {
+  font-family: var(--font-mono); font-size: 12px;
+  color: var(--primary);
+  background: var(--primary-dim); border: 1px solid rgba(52,211,153,0.15);
+  padding: 4px 10px; border-radius: var(--r-sm);
+  display: inline-block; margin-bottom: 16px;
+}
+.gear-desc {
+  font-family: var(--font-body);
+  font-size: 15px; color: var(--fg-2); line-height: 1.65;
+  margin-bottom: 20px;
+}
+.gear-deliverables { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.gear-deliverable {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 13px; color: var(--fg-2); line-height: 1.5;
+}
+.gear-deliverable::before {
+  content: '⚙';
+  color: var(--primary); opacity: 0.7; font-size: 12px; flex-shrink: 0; margin-top: 2px;
+}
+
+/* ─── SOCIAL PROOF ───────────────────────────────────────────── */
+.proof { background: var(--bg-1); }
+.proof-grid {
+  display: grid; gap: 16px;
+  grid-template-columns: 1fr;
+  margin-top: 56px;
+}
+@media(min-width:768px) { .proof-grid { grid-template-columns: repeat(3, 1fr); } }
+.proof-card {
+  background: var(--bg-2); border: 1px solid var(--border);
+  border-radius: var(--r-lg); padding: 28px;
+  transition: var(--transition); position: relative;
+}
+.proof-card::after {
+  content: '"';
+  position: absolute; top: 20px; right: 24px;
+  font-family: var(--font-body); font-size: 64px;
+  color: var(--primary); opacity: 0.12; line-height: 1;
+}
+.proof-card:hover { border-color: var(--border-2); transform: translateY(-2px); }
+.proof-stars {
+  display: flex; gap: 3px; margin-bottom: 16px;
+}
+.proof-star { color: var(--amber); font-size: 14px; }
+.proof-text {
+  font-family: var(--font-body); font-style: italic;
+  font-size: 15px; color: var(--fg-2); line-height: 1.65;
+  margin-bottom: 20px;
+}
+.proof-author { display: flex; align-items: center; gap: 12px; }
+.proof-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--primary-dim); border: 1px solid rgba(52,211,153,0.2);
+  display: grid; place-items: center;
+  font-weight: 700; font-size: 13px; color: var(--primary);
+  flex-shrink: 0;
+}
+.proof-name { font-size: 14px; font-weight: 600; color: var(--fg); }
+.proof-role { font-family: var(--font-mono); font-size: 11px; color: var(--fg-3); }
+
+/* ─── WHAT YOU GET ───────────────────────────────────────────── */
+.diagnosis-section { }
+.diagnosis-layout {
+  display: grid; gap: 64px;
+  grid-template-columns: 1fr;
+}
+@media(min-width:960px) { .diagnosis-layout { grid-template-columns: 1fr 1fr; align-items: start; } }
+.diagnosis-steps { display: flex; flex-direction: column; gap: 4px; }
+.diagnosis-step {
+  display: flex; align-items: flex-start; gap: 16px;
+  background: var(--bg-2); border: 1px solid var(--border);
+  border-radius: var(--r-md); padding: 20px;
+  transition: var(--transition);
+}
+.diagnosis-step:hover { border-color: rgba(52,211,153,0.2); background: var(--bg-3); }
+.step-num {
+  width: 36px; height: 36px; flex-shrink: 0;
+  background: var(--primary-dim); border: 1px solid rgba(52,211,153,0.2);
+  border-radius: 50%;
+  display: grid; place-items: center;
+  font-family: var(--font-mono); font-size: 13px; font-weight: 600;
+  color: var(--primary);
+}
+.step-title { font-size: 15px; font-weight: 700; color: var(--fg); margin-bottom: 4px; }
+.step-desc { font-family: var(--font-body); font-size: 14px; color: var(--fg-2); line-height: 1.6; }
+.diagnosis-card {
+  background: var(--bg-2); border: 1px solid var(--border-2);
+  border-radius: var(--r-xl); padding: 40px;
+  position: relative; overflow: hidden;
+}
+.diagnosis-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
+  opacity: 0.6;
+}
+.diagnosis-card-label {
+  font-family: var(--font-mono); font-size: 11px; color: var(--primary);
+  text-transform: uppercase; letter-spacing: 0.1em;
+  margin-bottom: 24px; display: flex; align-items: center; gap: 8px;
+}
+.diagnosis-card-label::after {
+  content: '●'; font-size: 8px;
+  animation: cursor-blink 1.2s step-end infinite;
+}
+.diagnosis-feature {
+  display: flex; align-items: flex-start; gap: 14px;
+  margin-bottom: 20px;
+}
+.diagnosis-feature:last-child { margin-bottom: 0; }
+.feature-icon {
+  width: 40px; height: 40px; flex-shrink: 0;
+  border-radius: var(--r-md);
+  display: grid; place-items: center;
+  font-size: 18px;
+}
+.feature-icon.green  { background: var(--primary-dim); }
+.feature-icon.amber  { background: var(--amber-dim); }
+.feature-icon.violet { background: var(--violet-dim); }
+.feature-title { font-size: 15px; font-weight: 700; color: var(--fg); margin-bottom: 3px; }
+.feature-desc  { font-family: var(--font-body); font-size: 13px; color: var(--fg-2); line-height: 1.55; }
+.diagnosis-divider { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+.no-sales-tag {
+  font-family: var(--font-mono); font-size: 12px; color: var(--fg-3);
+  display: flex; align-items: center; gap: 8px;
+}
+.no-sales-tag::before {
+  content: ''; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--primary); opacity: 0.5; flex-shrink: 0;
+}
+
+/* ─── CTA SECTION ────────────────────────────────────────────── */
+.cta-section {
+  background: var(--bg-1);
+  position: relative; overflow: hidden;
+}
+.cta-glow {
+  position: absolute; bottom: -200px; left: 50%; transform: translateX(-50%);
+  width: 800px; height: 600px;
+  background: radial-gradient(ellipse at center, rgba(52,211,153,0.09) 0%, transparent 65%);
+  pointer-events: none;
+}
+.cta-inner { text-align: center; position: relative; z-index: 1; }
+.cta-inner .section-title { max-width: 700px; margin-left: auto; margin-right: auto; margin-bottom: 16px; }
+.cta-inner .section-sub { margin: 0 auto 48px; text-align: center; max-width: 500px; }
+.cta-micro {
+  margin-top: 20px;
+  font-family: var(--font-mono); font-size: 12px; color: var(--fg-3);
+  display: flex; align-items: center; justify-content: center; gap: 20px;
+  flex-wrap: wrap;
+}
+.cta-micro-item { display: flex; align-items: center; gap: 6px; }
+.cta-micro-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--primary); opacity: 0.5; }
+
+/* ─── FAQ ────────────────────────────────────────────────────── */
+.faq { }
+.faq-list { display: flex; flex-direction: column; gap: 2px; max-width: 760px; margin: 56px auto 0; }
+.faq-item {
+  background: var(--bg-1); border: 1px solid var(--border);
+  border-radius: var(--r-md); overflow: hidden;
+  transition: var(--transition);
+}
+.faq-item:hover { border-color: var(--border-2); }
+.faq-q {
+  width: 100%; text-align: left;
+  padding: 22px 24px;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  font-size: 16px; font-weight: 600; color: var(--fg);
+  cursor: pointer; transition: var(--transition);
+}
+.faq-q:hover { color: var(--fg); background: var(--bg-2); }
+.faq-icon {
+  width: 28px; height: 28px; flex-shrink: 0;
+  background: var(--primary-dim); border-radius: 50%;
+  display: grid; place-items: center;
+  color: var(--primary); font-size: 18px; font-weight: 300;
+  transition: var(--transition);
+}
+.faq-item.open .faq-icon { transform: rotate(45deg); background: var(--primary); color: #0a2e24; }
+.faq-a {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+.faq-item.open .faq-a { max-height: 400px; }
+.faq-a-inner {
+  padding: 0 24px 24px;
+  font-family: var(--font-body);
+  font-size: 16px; color: var(--fg-2); line-height: 1.7;
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
+}
+
+/* ─── TABS (Ad Scripts + Session Script) ────────────────────── */
+.assets-section { background: var(--bg-1); }
+.tabs-nav {
+  display: flex; gap: 4px; flex-wrap: wrap;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 40px;
+}
+.tab-btn {
+  font-family: var(--font-mono); font-size: 12px; font-weight: 500;
+  padding: 10px 18px; border-radius: var(--r-sm) var(--r-sm) 0 0;
+  color: var(--fg-3); cursor: pointer;
+  border: 1px solid transparent; border-bottom: none;
+  transition: var(--transition);
+  position: relative; bottom: -1px;
+}
+.tab-btn:hover { color: var(--fg-2); background: var(--bg-2); }
+.tab-btn.active {
+  color: var(--primary);
+  background: var(--bg-2);
+  border-color: var(--border);
+  border-bottom-color: var(--bg-2);
+}
+.tab-pane { display: none; }
+.tab-pane.active { display: block; }
+
+/* ─── SCRIPT CARD ────────────────────────────────────────────── */
+.script-header {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap; margin-bottom: 32px;
+}
+.script-meta { display: flex; flex-direction: column; gap: 6px; }
+.script-title { font-size: 22px; font-weight: 700; letter-spacing: -0.03em; color: var(--fg); }
+.script-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.script-tag {
+  font-family: var(--font-mono); font-size: 11px;
+  padding: 3px 10px; border-radius: var(--r-sm);
+}
+.script-tag.green  { background: var(--primary-dim); color: var(--primary); border: 1px solid rgba(52,211,153,0.2); }
+.script-tag.amber  { background: var(--amber-dim);   color: var(--amber);   border: 1px solid rgba(245,158,11,0.2); }
+.script-tag.violet { background: var(--violet-dim);  color: var(--violet);  border: 1px solid rgba(167,139,250,0.2); }
+.script-tag.rose   { background: var(--rose-dim);    color: var(--rose);    border: 1px solid rgba(251,113,133,0.2); }
+.script-duration {
+  font-family: var(--font-mono); font-size: 13px; color: var(--fg-3);
+  white-space: nowrap;
+}
+.script-block {
+  background: var(--bg-2); border: 1px solid var(--border);
+  border-radius: var(--r-lg); margin-bottom: 8px;
+  overflow: hidden;
+}
+.script-block-header {
+  padding: 14px 20px;
+  display: flex; align-items: center; gap: 12px;
+  background: var(--bg-3); border-bottom: 1px solid var(--border);
+}
+.script-block-tag {
+  font-family: var(--font-mono); font-size: 10px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  padding: 3px 8px; border-radius: 4px;
+}
+.script-block-tag.hook   { background: rgba(245,158,11,0.12); color: var(--amber); }
+.script-block-tag.prob   { background: var(--rose-dim); color: var(--rose); }
+.script-block-tag.mech   { background: var(--primary-dim); color: var(--primary); }
+.script-block-tag.cta    { background: var(--violet-dim); color: var(--violet); }
+.script-block-tag.story  { background: rgba(167,139,250,0.1); color: var(--violet); }
+.script-block-tag.fase   { background: var(--primary-dim); color: var(--primary); }
+.script-block-tag.diag   { background: var(--amber-dim); color: var(--amber); }
+.script-block-tag.close  { background: var(--rose-dim); color: var(--rose); }
+.script-block-time {
+  font-family: var(--font-mono); font-size: 11px; color: var(--fg-3);
+  margin-left: auto;
+}
+.script-block-body {
+  padding: 20px;
+  font-family: var(--font-body);
+  font-size: 15px; color: var(--fg-2); line-height: 1.75;
+  white-space: pre-wrap;
+}
+.script-block-body strong { color: var(--fg); font-style: normal; }
+.script-block-body em {
+  color: var(--fg-3); font-size: 13px;
+  font-family: var(--font-mono); font-style: normal;
+  display: block; margin-top: 8px;
+}
+.script-block-body .highlight {
+  color: var(--primary);
+  font-family: var(--font-display); font-style: normal; font-weight: 700;
+}
+.script-note {
+  background: var(--amber-dim); border: 1px solid rgba(245,158,11,0.15);
+  border-radius: var(--r-md); padding: 16px 20px;
+  margin-bottom: 20px;
+  font-family: var(--font-mono); font-size: 12px; color: var(--amber);
+  display: flex; gap: 10px; align-items: flex-start;
+}
+.script-note::before { content: '⚡'; flex-shrink: 0; }
+
+/* ─── FORM SECTION ───────────────────────────────────────────── */
+.form-section { }
+.form-card {
+  background: var(--bg-1); border: 1px solid var(--border-2);
+  border-radius: var(--r-xl); padding: clamp(32px, 5vw, 56px);
+  max-width: 680px; margin: 0 auto;
+  position: relative; overflow: hidden;
+}
+.form-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
+  opacity: 0.5;
+}
+.form-label {
+  display: block; font-size: 14px; font-weight: 600; color: var(--fg);
+  margin-bottom: 8px; margin-top: 24px;
+}
+.form-label:first-of-type { margin-top: 0; }
+.form-label span { color: var(--fg-3); font-weight: 400; font-size: 13px; }
+.form-select,
+.form-textarea {
+  width: 100%;
+  background: var(--bg-2); border: 1px solid var(--border-2);
+  border-radius: var(--r-md); color: var(--fg);
+  font-family: var(--font-body); font-size: 15px;
+  padding: 14px 16px;
+  transition: var(--transition);
+  -webkit-appearance: none;
+}
+.form-select:focus, .form-textarea:focus {
+  outline: none;
+  border-color: rgba(52,211,153,0.4);
+  box-shadow: 0 0 0 3px rgba(52,211,153,0.08);
+}
+.form-select option { background: var(--bg-2); }
+.form-textarea { resize: vertical; min-height: 120px; }
+.form-radio-group { display: flex; flex-direction: column; gap: 8px; }
+.form-radio {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--bg-2); border: 1px solid var(--border);
+  border-radius: var(--r-md); padding: 14px 16px;
+  cursor: pointer; transition: var(--transition);
+}
+.form-radio:hover { border-color: var(--border-2); background: var(--bg-3); }
+.form-radio input[type="radio"] { accent-color: var(--primary); }
+.form-radio span { font-size: 14px; color: var(--fg-2); }
+.form-divider { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+.form-submit-btn {
+  width: 100%;
+  background: var(--primary); color: #0a2e24;
+  font-family: var(--font-display);
+  font-size: 16px; font-weight: 700;
+  padding: 18px; border-radius: var(--r-md);
+  transition: var(--transition);
+  cursor: pointer;
+  box-shadow: 0 0 40px rgba(52,211,153,0.2);
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+}
+.form-submit-btn:hover { background: #2bbd8a; transform: translateY(-2px); box-shadow: 0 12px 40px rgba(52,211,153,0.3); }
+.form-privacy {
+  margin-top: 16px; text-align: center;
+  font-family: var(--font-mono); font-size: 11px; color: var(--fg-3);
+}
+
+/* ─── OBJECTIONS STRIP ───────────────────────────────────────── */
+.objections { background: var(--bg-1); padding: 64px 0; }
+.objections-grid {
+  display: grid; gap: 16px;
+  grid-template-columns: repeat(2, 1fr);
+}
+@media(min-width:768px) { .objections-grid { grid-template-columns: repeat(3, 1fr); } }
+.objection-card {
+  background: var(--bg-2); border: 1px solid var(--border);
+  border-radius: var(--r-lg); padding: 24px;
+  transition: var(--transition);
+}
+.objection-card:hover { border-color: var(--border-2); }
+.obj-q {
+  font-size: 14px; font-weight: 600; color: var(--rose);
+  margin-bottom: 10px; display: flex; gap: 8px;
+}
+.obj-q::before { content: '?'; opacity: 0.5; }
+.obj-a {
+  font-family: var(--font-body);
+  font-size: 14px; color: var(--fg-2); line-height: 1.6;
+}
+
+/* ─── GUARANTEE ──────────────────────────────────────────────── */
+.guarantee {
+  padding: 48px 0;
+  text-align: center;
+}
+.guarantee-badge {
+  display: inline-flex; flex-direction: column; align-items: center;
+  gap: 12px;
+  background: var(--bg-2); border: 1px solid rgba(52,211,153,0.2);
+  border-radius: var(--r-xl); padding: 32px 48px;
+  max-width: 560px; margin: 0 auto;
+}
+.guarantee-icon { font-size: 40px; }
+.guarantee-title { font-size: 18px; font-weight: 700; color: var(--fg); }
+.guarantee-desc {
+  font-family: var(--font-body);
+  font-size: 15px; color: var(--fg-2); line-height: 1.6; text-align: center;
+}
+
+/* ─── FOOTER ─────────────────────────────────────────────────── */
+footer {
+  padding: 40px 24px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+.footer-inner {
+  max-width: 1140px; margin: 0 auto;
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+}
+.footer-logo { display: flex; align-items: center; gap: 8px; }
+.footer-copy {
+  font-family: var(--font-mono); font-size: 12px; color: var(--fg-3);
+}
+</style>
+</head>
+
+<body>
+
+<!-- ─── HEADER ────────────────────────────────────────────────── -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <div class="logo-mark">EI</div>
+      <div>
+        <div class="logo-text">Empresa Independente</div>
+        <div class="logo-sub">Engenharia Empresarial</div>
+      </div>
+    </a>
+    <div class="header-badge">● Vagas abertas esta semana</div>
+    <a href="#form" class="header-cta">Diagnóstico Gratuito →</a>
+  </div>
+</header>
+
+<!-- ─── HERO ──────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-grid-bg"></div>
+  <div class="wrap">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="hero-eyebrow-dot"></span>
+        Diagnóstico Gratuito · 45 minutos · 100% Online
+      </div>
+      <h1>Descubra qual das<br><em>5 Engrenagens</em><br>trava sua empresa</h1>
+      <p class="hero-sub">
+        Diagnóstico gratuito para empresários que faturam acima de R$500k
+        e querem uma operação que funcione sem depender deles.
+      </p>
+      <div class="hero-actions">
+        <a href="#form" class="btn-primary">
+          Quero meu diagnóstico gratuito
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        </a>
+        <a href="#engrenagens" class="btn-ghost">
+          Ver as 5 Engrenagens
+        </a>
+      </div>
+      <div class="hero-trust">
+        <div class="hero-trust-item"><span class="hero-trust-dot"></span>Sem pitch de vendas disfarçado</div>
+        <div class="hero-trust-item"><span class="hero-trust-dot"></span>Diagnóstico real da sua operação</div>
+        <div class="hero-trust-item"><span class="hero-trust-dot"></span>Implementação assistida, não teoria</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── STATS ─────────────────────────────────────────────────── -->
+<section class="stats">
+  <div class="wrap">
+    <div class="stats-grid anim">
+      <div class="stat-item">
+        <span class="stat-num">4</span>
+        <span class="stat-label">meses de implementação</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">5</span>
+        <span class="stat-label">engrenagens instaladas</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">6+</span>
+        <span class="stat-label">reuniões estratégicas</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">45'</span>
+        <span class="stat-label">de diagnóstico gratuito</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROBLEM ───────────────────────────────────────────────── -->
+<section class="problem" id="problema">
+  <div class="wrap">
+    <div class="problem-layout">
+      <div class="problem-text">
+        <div class="section-label">O problema</div>
+        <blockquote>
+          "Você não tem uma equipe.<br>Você tem uma extensão sua."
+        </blockquote>
+        <p>
+          A empresa só anda quando você empurra. As decisões travam porque tudo
+          precisa passar por você. Não existe clareza de função, nem previsibilidade
+          real de resultado.
+        </p>
+        <p>
+          Você não lidera uma estrutura. Você apaga incêndios dentro dela.
+        </p>
+        <p>
+          O problema não é esforço — você já provou que esforço você tem.
+          O problema é que ninguém te ensinou a construir uma <strong style="color:var(--fg)">engenharia empresarial</strong>.
+        </p>
+      </div>
+      <ul class="pain-list anim">
+        <li class="pain-item">
+          <div class="pain-icon">✗</div>
+          <div class="pain-text">
+            <strong>Tudo passa por você</strong>
+            Toda decisão importante, mesmo as pequenas, travas quando você some por um dia
+          </div>
+        </li>
+        <li class="pain-item">
+          <div class="pain-icon">✗</div>
+          <div class="pain-text">
+            <strong>Equipe que executa, não resolve</strong>
+            Seu time entrega tarefas mas não resolve problemas — e tudo termina em você
+          </div>
+        </li>
+        <li class="pain-item">
+          <div class="pain-icon">✗</div>
+          <div class="pain-text">
+            <strong>Delegação que vira retrabalho</strong>
+            Você já tentou delegar. Voltou mais complicado do que saiu
+          </div>
+        </li>
+        <li class="pain-item">
+          <div class="pain-icon">✗</div>
+          <div class="pain-text">
+            <strong>Operação que para quando você para</strong>
+            Quando você some por uma semana, a empresa range nas costuras
+          </div>
+        </li>
+        <li class="pain-item">
+          <div class="pain-icon">✗</div>
+          <div class="pain-text">
+            <strong>Crescimento descolado do esforço</strong>
+            Você fatura bem, mas o negócio não escala proporcionalmente ao que você investe
+          </div>
+        </li>
+        <li class="pain-item">
+          <div class="pain-icon">✗</div>
+          <div class="pain-text">
+            <strong>CEO, RH, vendedor e bombeiro</strong>
+            Você ocupa todos os papéis ao mesmo tempo — e não consegue sair de nenhum
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MECHANISM ─────────────────────────────────────────────── -->
+<section class="mechanism" id="engrenagens">
+  <div class="wrap">
+    <div class="gears-intro anim">
+      <div class="section-label">A solução</div>
+      <h2 class="section-title">As 5 Engrenagens da<br>Engenharia Empresarial</h2>
+      <p class="section-sub">
+        Não é consultoria de PowerPoint. É a implementação, em 4 meses, das 5 estruturas
+        responsáveis por transformar caos operacional em empresa escalável — com processos,
+        pessoas e liderança funcionando de forma independente.
+      </p>
+    </div>
+
+    <div class="gears-grid">
+
+      <div class="gear-card anim anim-d1">
+        <div class="gear-num">Engrenagem 01</div>
+        <div class="gear-title">Estruturação</div>
+        <div class="gear-result">Cada pessoa sabe o que faz, por quê faz e como é medida</div>
+        <p class="gear-desc">
+          Antes de contratar, delegar ou cobrar resultado, a empresa precisa ter desenho.
+          Aqui construímos a arquitetura operacional do seu negócio.
+        </p>
+        <ul class="gear-deliverables">
+          <li class="gear-deliverable">Organograma com níveis de responsabilidade</li>
+          <li class="gear-deliverable">Engenharia de cargos: funções, metas e indicadores</li>
+          <li class="gear-deliverable">Processos por setor com responsáveis e prazos</li>
+          <li class="gear-deliverable">Checklist de qualidade por entrega</li>
+          <li class="gear-deliverable">Padronização de execução para escala</li>
+        </ul>
+      </div>
+
+      <div class="gear-card anim anim-d2">
+        <div class="gear-num">Engrenagem 02</div>
+        <div class="gear-title">Contratação</div>
+        <div class="gear-result">Pessoas alinhadas à cultura — sem contratar no feeling</div>
+        <p class="gear-desc">
+          Você não pode escalar com contratações baseadas em intuição.
+          Construímos um sistema de seleção que filtra certo desde o início.
+        </p>
+        <ul class="gear-deliverables">
+          <li class="gear-deliverable">Job Description estratégica por cargo</li>
+          <li class="gear-deliverable">Anúncio de vaga estruturado</li>
+          <li class="gear-deliverable">Formulário com filtros técnicos e comportamentais</li>
+          <li class="gear-deliverable">Entrevista estruturada com RH</li>
+          <li class="gear-deliverable">Call de entrevista ao vivo com você</li>
+        </ul>
+      </div>
+
+      <div class="gear-card anim anim-d3">
+        <div class="gear-num">Engrenagem 03</div>
+        <div class="gear-title">Treinamento</div>
+        <div class="gear-result">Previsibilidade de execução sem microgerenciamento</div>
+        <p class="gear-desc">
+          Contratar bem não basta. Sem treinamento estruturado, você cria dependência —
+          de você. Construímos o sistema que faz o time aprender sem sugar seu tempo.
+        </p>
+        <ul class="gear-deliverables">
+          <li class="gear-deliverable">Treinamento de cultura e princípios operacionais</li>
+          <li class="gear-deliverable">Treinamento técnico por função</li>
+          <li class="gear-deliverable">Checklists operacionais por cargo</li>
+        </ul>
+      </div>
+
+      <div class="gear-card anim anim-d4">
+        <div class="gear-num">Engrenagem 04</div>
+        <div class="gear-title">Formação de Líderes</div>
+        <div class="gear-result">Líderes que resolvem sem escalar tudo para os sócios</div>
+        <p class="gear-desc">
+          Se tudo depende de você, você não tem líderes — tem executores.
+          Instalamos a estrutura que converte executores em gestores reais.
+        </p>
+        <ul class="gear-deliverables">
+          <li class="gear-deliverable">Gestão estruturada de equipes</li>
+          <li class="gear-deliverable">Autonomia de decisão com critérios claros</li>
+          <li class="gear-deliverable">Delegação real — não delargação</li>
+          <li class="gear-deliverable">KPIs individuais e por setor</li>
+          <li class="gear-deliverable">Feedback mensal + lições aprendidas</li>
+        </ul>
+      </div>
+
+      <div class="gear-card span-full anim anim-d5">
+        <div class="gear-num">Engrenagem 05</div>
+        <div class="gear-title">Gestão de Projetos</div>
+        <div class="gear-result">Clareza de prioridades, execução coordenada e crescimento sustentável</div>
+        <p class="gear-desc">
+          Sem ritmo, a empresa perde velocidade. Sem método, perde controle.
+          Implementamos o sistema de cadência que mantém tudo em movimento — sem você empurrar.
+        </p>
+        <ul class="gear-deliverables" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:6px 32px">
+          <li class="gear-deliverable">Implementação de software de gestão</li>
+          <li class="gear-deliverable">Dailys objetivas e weeklys estratégicas</li>
+          <li class="gear-deliverable">Alinhamento recorrente entre sócios</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── SOCIAL PROOF ───────────────────────────────────────────── -->
+<section class="proof" id="resultados">
+  <div class="wrap">
+    <div class="anim">
+      <div class="section-label">Resultados</div>
+      <h2 class="section-title">O que muda depois da<br>Engenharia Empresarial</h2>
+    </div>
+    <div class="proof-grid">
+      <div class="proof-card anim anim-d1">
+        <div class="proof-stars">
+          <span class="proof-star">★</span><span class="proof-star">★</span>
+          <span class="proof-star">★</span><span class="proof-star">★</span>
+          <span class="proof-star">★</span>
+        </div>
+        <p class="proof-text">
+          "Em 4 meses, pela primeira vez em 8 anos de empresa, tirei uma semana de férias
+          com o celular desligado. Minha equipe resolveu tudo. Não imaginava que era possível."
+        </p>
+        <div class="proof-author">
+          <div class="proof-avatar">C</div>
+          <div>
+            <div class="proof-name">Carlos M.</div>
+            <div class="proof-role">Empresário · Setor de serviços · SP</div>
+          </div>
+        </div>
+      </div>
+      <div class="proof-card anim anim-d2">
+        <div class="proof-stars">
+          <span class="proof-star">★</span><span class="proof-star">★</span>
+          <span class="proof-star">★</span><span class="proof-star">★</span>
+          <span class="proof-star">★</span>
+        </div>
+        <p class="proof-text">
+          "Minha empresa faturava R$2M por ano e eu trabalhava mais do que qualquer
+          funcionário. Hoje o time tem clareza do que fazer. Crescemos 40% e
+          eu trabalho metade das horas."
+        </p>
+        <div class="proof-author">
+          <div class="proof-avatar">A</div>
+          <div>
+            <div class="proof-name">Ana R.</div>
+            <div class="proof-role">Sócia-fundadora · Varejo · MG</div>
+          </div>
+        </div>
+      </div>
+      <div class="proof-card anim anim-d3">
+        <div class="proof-stars">
+          <span class="proof-star">★</span><span class="proof-star">★</span>
+          <span class="proof-star">★</span><span class="proof-star">★</span>
+          <span class="proof-star">★</span>
+        </div>
+        <p class="proof-text">
+          "A diferença da Empresa Independente é que eles ficam ao seu lado
+          na implementação. Não é relatório de consultoria. É construção real,
+          dentro da sua operação."
+        </p>
+        <div class="proof-author">
+          <div class="proof-avatar">R</div>
+          <div>
+            <div class="proof-name">Rodrigo S.</div>
+            <div class="proof-role">Diretor · Tecnologia · RJ</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── WHAT YOU GET ───────────────────────────────────────────── -->
+<section class="diagnosis-section" id="diagnostico">
+  <div class="wrap">
+    <div class="diagnosis-layout">
+      <div>
+        <div class="section-label anim">O diagnóstico</div>
+        <h2 class="section-title anim anim-d1">O que acontece nos seus<br>45 minutos de diagnóstico</h2>
+        <p class="section-sub anim anim-d2" style="margin-bottom:40px">
+          Não é uma call de vendas disfarçada de consultoria. É um diagnóstico real.
+          Se a Engenharia Empresarial não for o caminho certo pra você hoje, a gente te diz isso na call.
+        </p>
+        <div class="diagnosis-steps anim anim-d3">
+          <div class="diagnosis-step">
+            <div class="step-num">01</div>
+            <div>
+              <div class="step-title">Mapeamento das 5 Engrenagens</div>
+              <p class="step-desc">Identificamos qual engrenagem está travada na sua operação — e por quê.</p>
+            </div>
+          </div>
+          <div class="diagnosis-step">
+            <div class="step-num">02</div>
+            <div>
+              <div class="step-title">Clareza sobre o maior gargalo</div>
+              <p class="step-desc">Você sai sabendo o que exatamente impede sua empresa de funcionar sem você.</p>
+            </div>
+          </div>
+          <div class="diagnosis-step">
+            <div class="step-num">03</div>
+            <div>
+              <div class="step-title">Plano de prioridade</div>
+              <p class="step-desc">As próximas ações concretas para começar a reduzir sua dependência operacional.</p>
+            </div>
+          </div>
+          <div class="diagnosis-step">
+            <div class="step-num">04</div>
+            <div>
+              <div class="step-title">Resposta direta sobre o fit</div>
+              <p class="step-desc">Dizemos com clareza se a Engenharia Empresarial faz sentido para o seu momento.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="diagnosis-card anim anim-d2">
+        <div class="diagnosis-card-label">Formato de entrega</div>
+
+        <div class="diagnosis-feature">
+          <div class="feature-icon green">🔍</div>
+          <div>
+            <div class="feature-title">Diagnóstico de Análise Inicial</div>
+            <div class="feature-desc">Reunião de análise aprofundada da sua empresa — mapeamento das 5 engrenagens na sua operação real.</div>
+          </div>
+        </div>
+
+        <div class="diagnosis-feature">
+          <div class="feature-icon amber">📋</div>
+          <div>
+            <div class="feature-title">6 Reuniões Estratégicas</div>
+            <div class="feature-desc">Uma reunião por engrenagem mais revisões de progresso. Acompanhamento próximo durante os 4 meses.</div>
+          </div>
+        </div>
+
+        <div class="diagnosis-feature">
+          <div class="feature-icon violet">🎯</div>
+          <div>
+            <div class="feature-title">Contratação ao Vivo</div>
+            <div class="feature-desc">Ficamos ao lado de você na próxima entrevista e aplicamos o método junto — você não treina sozinho.</div>
+          </div>
+        </div>
+
+        <div class="diagnosis-feature">
+          <div class="feature-icon green">⚡</div>
+          <div>
+            <div class="feature-title">Implementação Assistida</div>
+            <div class="feature-desc">Você não fica sozinho instalando nenhuma engrenagem. Acompanhamento durante todo o período.</div>
+          </div>
+        </div>
+
+        <hr class="diagnosis-divider">
+
+        <div class="diagnosis-feature" style="margin-bottom:0">
+          <div class="feature-icon amber">🤝</div>
+          <div>
+            <div class="feature-title">Pool de Parceiros</div>
+            <div class="feature-desc">Acesso a especialistas em financeiro, contábil, jurídico, marketing, vendas, tecnologia, logística e marketplaces.</div>
+          </div>
+        </div>
+
+        <hr class="diagnosis-divider">
+
+        <div class="no-sales-tag">
+          Diagnóstico gratuito · Sem compromisso · Sem pitch de 2 horas
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA ────────────────────────────────────────────────────── -->
+<section class="cta-section">
+  <div class="cta-glow"></div>
+  <div class="wrap">
+    <div class="cta-inner anim">
+      <div class="section-label" style="justify-content:center">Próximo passo</div>
+      <h2 class="section-title">Qual engrenagem da sua<br>empresa está travada agora?</h2>
+      <p class="section-sub">
+        Responda 4 perguntas rápidas sobre sua operação e agende seu diagnóstico gratuito.
+      </p>
+      <a href="#form" class="btn-primary" style="margin:0 auto">
+        Quero meu diagnóstico gratuito
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+      </a>
+      <div class="cta-micro">
+        <div class="cta-micro-item"><span class="cta-micro-dot"></span>Vagas abertas para esta semana</div>
+        <div class="cta-micro-item"><span class="cta-micro-dot"></span>100% online · 45 min</div>
+        <div class="cta-micro-item"><span class="cta-micro-dot"></span>Empresas com 5+ funcionários</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FORM ───────────────────────────────────────────────────── -->
+<section class="form-section" id="form">
+  <div class="wrap-sm">
+    <div style="text-align:center;margin-bottom:40px" class="anim">
+      <div class="section-label" style="justify-content:center">Pré-qualificação</div>
+      <h2 class="section-title">Antes de agendar, precisamos<br>entender onde você está</h2>
+      <p style="font-family:var(--font-body);font-size:16px;color:var(--fg-2)">4 perguntas · 2 minutos · Respostas confidenciais</p>
+    </div>
+
+    <div class="form-card anim anim-d1">
+      <form id="qualification-form">
+
+        <label class="form-label">
+          Qual é o faturamento anual aproximado da sua empresa?
+        </label>
+        <div class="form-radio-group">
+          <label class="form-radio">
+            <input type="radio" name="faturamento" value="menos-300k">
+            <span>Menos de R$300 mil</span>
+          </label>
+          <label class="form-radio">
+            <input type="radio" name="faturamento" value="300k-800k">
+            <span>Entre R$300 mil e R$800 mil</span>
+          </label>
+          <label class="form-radio">
+            <input type="radio" name="faturamento" value="800k-3m">
+            <span>Entre R$800 mil e R$3 milhões</span>
+          </label>
+          <label class="form-radio">
+            <input type="radio" name="faturamento" value="acima-3m">
+            <span>Acima de R$3 milhões</span>
+          </label>
+        </div>
+
+        <label class="form-label" style="margin-top:28px">
+          Quantos funcionários (ou colaboradores diretos) sua empresa tem hoje?
+        </label>
+        <div class="form-radio-group">
+          <label class="form-radio">
+            <input type="radio" name="funcionarios" value="1-4">
+            <span>1 a 4</span>
+          </label>
+          <label class="form-radio">
+            <input type="radio" name="funcionarios" value="5-15">
+            <span>5 a 15</span>
+          </label>
+          <label class="form-radio">
+            <input type="radio" name="funcionarios" value="16-50">
+            <span>16 a 50</span>
+          </label>
+          <label class="form-radio">
+            <input type="radio" name="funcionarios" value="50+">
+            <span>Mais de 50</span>
+          </label>
+        </div>
+
+        <label class="form-label" style="margin-top:28px">
+          Qual dessas situações descreve melhor o seu maior desafio hoje?
+        </label>
+        <select class="form-select">
+          <option value="" disabled selected>Selecione a que mais se identifica...</option>
+          <option>Não consigo delegar — tudo volta pra mim</option>
+          <option>Minha equipe não entrega no padrão que preciso</option>
+          <option>Não tenho líderes — tenho executores</option>
+          <option>Cresço em faturamento mas não em lucro ou tempo livre</option>
+          <option>Minha operação não tem processos documentados</option>
+          <option>Outro</option>
+        </select>
+
+        <label class="form-label" style="margin-top:28px">
+          Se em 4 meses sua empresa funcionasse sem depender de você diariamente — o que mudaria na sua vida?
+          <span>(Seja específico — isso nos ajuda a personalizar o diagnóstico)</span>
+        </label>
+        <textarea class="form-textarea" placeholder="Ex: Poderia finalmente sair de férias sem o celular tocar. Teria tempo para expandir para uma segunda unidade. Pararia de trabalhar fins de semana..."></textarea>
+
+        <hr class="form-divider">
+
+        <button type="submit" class="form-submit-btn">
+          Ver horários disponíveis
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        </button>
+        <p class="form-privacy">Suas respostas ficam confidenciais e são usadas apenas para personalizar o seu diagnóstico.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ─── GUARANTEE ─────────────────────────────────────────────── -->
+<section class="guarantee">
+  <div class="wrap">
+    <div class="guarantee-badge anim">
+      <div class="guarantee-icon">🛡️</div>
+      <div class="guarantee-title">Diagnóstico 100% sem compromisso</div>
+      <p class="guarantee-desc">
+        Se por qualquer motivo você precisar reagendar, sem problema —
+        basta usar o link enviado por email com pelo menos 24 horas de antecedência.
+        Se a Engenharia Empresarial não for o caminho certo pra você hoje, a gente te diz isso na call.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── OBJECTIONS ────────────────────────────────────────────── -->
+<section class="objections" id="faq">
+  <div class="wrap-md">
+    <div style="text-align:center;margin-bottom:48px" class="anim">
+      <div class="section-label" style="justify-content:center">Dúvidas frequentes</div>
+      <h2 class="section-title">Perguntas Frequentes</h2>
+    </div>
+    <div class="faq-list anim">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Minha empresa é pequena demais para isso?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            A Engenharia Empresarial é feita para empresas que faturam entre R$500k e R$10M por ano
+            e já têm pelo menos 5 funcionários. Se a sua empresa está nessa faixa e você ainda é
+            o principal pilar da operação, o diagnóstico vai ser revelador.
+          </div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          É só mais uma consultoria teórica?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            Não. A diferença central da Engenharia Empresarial é implementação assistida — a gente
+            não entrega um relatório e vai embora. Durante 4 meses, acompanhamos a instalação de
+            cada engrenagem junto com o seu time. Você não fica sozinho.
+          </div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Quanto tempo preciso dedicar?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            Menos do que você imagina. O objetivo é justamente reduzir sua dependência da operação,
+            não aumentar. As reuniões são objetivas e o time de implementação faz o trabalho pesado
+            junto com você.
+          </div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Já tentei consultoria antes e não funcionou.
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            Essa é a objeção mais legítima que ouvimos. Na maioria dos casos o que aconteceu foi:
+            entregaram diagnóstico e recomendações, mas a implementação ficou na sua mão.
+            A diferença da Engenharia Empresarial é que a implementação acontece junto com você,
+            dentro da sua operação. O que diferencia não é o que entregamos no papel — é o que
+            acontece no chão da sua empresa.
+          </div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Qual é o investimento para a Engenharia Empresarial completa?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">
+            O investimento é R$32.500 no pix ou R$8.000 de entrada mais 12 parcelas de R$2.713.
+            Fazemos o diagnóstico primeiro — se fizer sentido para o seu momento, apresentamos
+            todos os detalhes na call. O diagnóstico em si é gratuito, sem compromisso.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ASSETS SECTION (Ad Scripts + Session Script) ──────────── -->
+<section class="assets-section" id="materiais">
+  <div class="wrap">
+    <div class="anim" style="margin-bottom:48px">
+      <div class="section-label amber">Materiais do funil</div>
+      <h2 class="section-title">Scripts e Roteiros de Venda</h2>
+      <p class="section-sub">
+        Todos os scripts do funil — anúncios em vídeo e roteiro da sessão diagnóstico.
+        Para uso interno da equipe comercial.
+      </p>
+    </div>
+
+    <div class="tabs-nav anim anim-d1">
+      <button class="tab-btn active" onclick="switchTab(this, 'ad-a')">Ad Script A — Empresa que Para</button>
+      <button class="tab-btn" onclick="switchTab(this, 'ad-b')">Ad Script B — Analogia do Avião</button>
+      <button class="tab-btn" onclick="switchTab(this, 'ad-c')">Ad Script C — Case Real</button>
+      <button class="tab-btn" onclick="switchTab(this, 'session')">Script Sessão Diagnóstico</button>
+    </div>
+
+    <!-- AD SCRIPT A -->
+    <div class="tab-pane active" id="tab-ad-a">
+      <div class="script-header">
+        <div class="script-meta">
+          <div class="script-title">Ad Script A — "A Empresa que Para Quando Você Para"</div>
+          <div class="script-tags">
+            <span class="script-tag green">Problem-Solution Lead</span>
+            <span class="script-tag amber">Feed / Reels</span>
+            <span class="script-tag violet">Direct-to-camera</span>
+          </div>
+        </div>
+        <div class="script-duration">⏱ 75 segundos</div>
+      </div>
+
+      <div class="script-note">
+        Tom: direto, seco, sem sorrisos forçados. Fala como alguém que já viu esse filme centenas de vezes. No hook: pausa de 1 segundo após a pergunta — deixa o incômodo pousar. Fundo limpo (escritório ou fundo sólido escuro).
+      </div>
+
+      <div class="script-block">
+        <div class="script-block-header">
+          <span class="script-block-tag hook">Hook</span>
+          <span style="font-family:var(--font-mono);font-size:13px;color:var(--fg-2)">0:00 – 0:06</span>
+          <span class="script-block-time">6s</span>
+        </div>
+        <div class="script-block-body">"Você tem uma empresa... ou você tem um emprego caro que te ocupa <strong>60 horas por semana</strong>?"
+
+<em>[Pausa de 1 segundo. Olha direto pra câmera.]</em></div>
+      </div>
+
+      <div class="script-block">
+        <div class="script-block-header">
+          <span class="script-block-tag prob">Problema</span>
+          <span style="font-family:var(--font-mono);font-size:13px;color:var(--fg-2)">0:06 – 0:25</span>
+          <span class="script-block-time">19s</span>
+        </div>
+        <div class="script-block-body">"Porque a diferença é simples:
+
+Se você sai de férias e a equipe trava...
+Se toda decisão importante tem que passar por você...
+Se você é, ao mesmo tempo, CEO, vendedor, RH e apagador de incêndio...
+
+Você <strong>não lidera uma estrutura</strong>. Você é a estrutura.
+
+E toda hora que você empurra esse negócio, é uma hora que ele NÃO está andando sozinho."</div>
+      </div>
+
+      <div class="script-block">
+        <div class="script-block-header">
+          <span class="script-block-tag mech">Mecanismo</span>
+          <span style="font-family:var(--font-mono);font-size:13px;color:var(--fg-2)">0:25 – 0:50</span>
+          <span class="script-block-time">25s</span>
+        </div>
+        <div class="script-block-body">"O problema não é você. É que ninguém te ensinou a construir uma empresa de verdade.
+
+Na Empresa Independente, a gente implementa as <strong class="highlight">5 Engrenagens da Engenharia Empresarial</strong> —
+Estruturação, Contratação, Treinamento, Formação de Líderes e Gestão de Projetos.
+
+Não é consultoria de PowerPoint.
+É implementação ao lado de você, durante 4 meses,
+até sua empresa rodar sem precisar que você empurre."</div>
+      </div>
+
+      <div class="script-block">
+        <div class="script-block-header">
+          <span class="script-block-tag cta">CTA</span>
+          <span style="font-family:var(--font-mono);font-size:13px;color:var(--fg-2)">0:50 – 1:15</span>
+          <span class="script-block-time">25s</span>
+        </div>
+        <div class="script-block-body">"Se você fatura pelo menos <strong>R$500 mil por ano</strong> e quer saber exatamente o que trava a sua operação, clica no link aqui embaixo.
+
+A gente faz um <strong>diagnóstico gratuito</strong> da sua empresa e te mostra em qual engrenagem o seu negócio está travado.
+
+Sem enrolação. Sem pitch de vendas de 2 horas. Só o diagnóstico.
+
+<strong>Link abaixo. Clica agora.</strong>"</div>
+      </div>
+    </div>
+
+    <!-- AD SCRIPT B -->
+    <div class="tab-pane" id="tab-ad-b">
+      <div class="script-header">
+        <div class="script-meta">
+          <div class="script-title">Ad Script B — "A Analogia do Avião"</div>
+          <div class="script-tags">
+            <span class="script-tag violet">Proclamação Contraintuitiva</span>
+            <span class="script-tag amber">Stories / Reels</span>
+            <span class="script-tag green">Vídeo com legenda</span>
+          </div>
+        </div>
+        <div class="script-duration">⏱ 60 segundos</div>
+      </div>
+
+      <div class="script-note">
+        Nível de consciência 3 — prospect que já sabe que "tem que mudar algo", mas não sabe o quê. A analogia do avião é o gancho que faz ele perceber o problema de forma nova. Ideal para Reels e Stories.
+      </div>
+
+      <div class="script-block">
+        <div class="script-block-header">
+          <span class="script-block-tag hook">Hook</span>
+          <span style="font-family:var(--font-mono);font-size:13px;color:var(--fg-2)">0:00 – 0:05</span>
+          <span class="script-block-time">5s</span>
+        </div>
+        <div class="script-block-body">"<strong>Avião não voa por causa do piloto.<br>Voa por causa da engenharia.</strong>"</div>
+      </div>
+
+      <div class="script-block">
+        <div class="script-block-header">
+          <span class="script-block-tag prob">Desenvolvimento</span>
+          <span style="font-family:var(--font-mono);font-size:13px;color:var(--fg-2)">0:05 – 0:35</span>
+          <span class="script-block-time">30s</span>
+        </div>
+        <div class="script-block-body">"O piloto é importante. Mas se o avião depender exclusivamente do piloto para se manter no ar, qualquer problema vira catástrofe.
+
+<strong>Empresa é igual.</strong>
+
+Se o seu negócio voa só porque você está no cockpit 24 horas por dia —
+tomando toda decisão, resolvendo todo problema, destravando todo processo —
+
+você não construiu uma empresa.
+Você construiu uma <strong>máquina que te prende</strong>.
+
+O que faz um avião voar sozinho é ENGENHARIA.
+Estrutura. Processos. Sistemas.
+Pessoas no lugar certo, sabendo o que fazer, sem precisar te consultar pra cada coisa."</div>
+      </div>
+
+      <div class="script-block">
+        <div class="script-block-header">
+          <span class="script-block-tag cta">CTA</span>
+          <span style="font-family:var(--font-mono);font-size:13px;color:var(--fg-2)">0:35 – 1:00</span>
+          <span class="script-block-time">25s</span>
+        </div>
+        <div class="script-block-body">"Isso é o que a <strong class="highlight">Engenharia Empresarial</strong> constrói.
+
+5 engrenagens. 4 meses. Implementação junto com você.
+
+Se você quer saber em qual ponto sua operação está mais vulnerável, faz o <strong>diagnóstico gratuito</strong> pelo link aqui embaixo.
+
+<strong>Clica agora.</strong>"</div>
+      </div>
+    </div>
+
+    <!-- AD SCRIPT C -->
+    <div class="tab-pane" id="tab-ad-c">
+      <div class="script-header">
+        <div class="script-meta">
+          <div class="script-title">Ad Script C — "Case Real" (maior conversão esperada)</div>
+          <div class="script-tags">
+            <span class="script-tag rose">Story Lead · Prova Social</span>
+            <span class="script-tag amber">Feed (90s)</span>
+            <span class="script-tag green">Maior conversão esperada</span>
+          </div>
+        </div>
+        <div class="script-duration">⏱ 90 segundos</div>
+      </div>
+
+      <div class="script-note">
+        Substitua [Nome do cliente] e [empresa do cliente] por dados reais. Quanto mais específico — nome, setor, número de funcionários, cidade — maior a conversão. Esse é o formato com maior taxa de conversão para high ticket segundo os benchmarks.
+      </div>
+
+      <div class="script-block">
+        <div class="script-block-header">
+          <span class="script-block-tag hook">Hook</span>
+          <span style="font-family:var(--font-mono);font-size:13px;color:var(--fg-2)">0:00 – 0:08</span>
+          <span class="script-block-time">8s</span>
+        </div>
+        <div class="script-block-body">"<strong>[Nome do cliente]</strong> tinha 23 funcionários e trabalhava mais do que qualquer um deles."</div>
+      </div>
+
+      <div class="script-block">
+        <div class="script-block-header">
+          <span class="script-block-tag story">História</span>
+          <span style="font-family:var(--font-mono);font-size:13px;color:var(--fg-2)">0:08 – 0:45</span>
+          <span class="script-block-time">37s</span>
+        </div>
+        <div class="script-block-body">"Toda decisão passava por ele.
+Toda contratação, ele entrevistava.
+Todo problema de cliente, o WhatsApp dele tocava.
+
+Ele não tinha equipe. Ele tinha extensões.
+
+Quando a gente fez o diagnóstico da operação dele, a primeira coisa que ficou clara foi:
+<strong>não faltava esforço. Faltava ESTRUTURA.</strong>
+
+Não tinha organograma real.
+Não tinha função clara para ninguém.
+Não tinha processo documentado em lugar nenhum.
+Cada um fazia do jeito que achava certo.
+
+Em 4 meses de implementação das 5 Engrenagens, a <strong>[empresa do cliente]</strong> ganhou o que o sócio nunca tinha tido em 8 anos de negócio:
+
+<strong>Uma semana de férias. Sem o celular tocar.</strong>"</div>
+      </div>
+
+      <div class="script-block">
+        <div class="script-block-header">
+          <span class="script-block-tag mech">Mecanismo</span>
+          <span style="font-family:var(--font-mono);font-size:13px;color:var(--fg-2)">0:45 – 1:10</span>
+          <span class="script-block-time">25s</span>
+        </div>
+        <div class="script-block-body">"Isso acontece quando você instala as <strong class="highlight">5 Engrenagens</strong> na sua operação — na ordem certa, do jeito certo.
+
+Estruturação, Contratação, Treinamento, Formação de Líderes e Gestão de Projetos.
+
+Cada engrenagem tem entregáveis concretos. <strong>Não é teoria. É implementação assistida.</strong>"</div>
+      </div>
+
+      <div class="script-block">
+        <div class="script-block-header">
+          <span class="script-block-tag cta">CTA</span>
+          <span style="font-family:var(--font-mono);font-size:13px;color:var(--fg-2)">1:10 – 1:30</span>
+          <span class="script-block-time">20s</span>
+        </div>
+        <div class="script-block-body">"Se a história do <strong>[Nome do cliente]</strong> parece com o que você vive hoje,
+
+clica no link abaixo, responde 4 perguntas rápidas sobre a sua operação,
+
+e um especialista da <strong>Empresa Independente</strong> faz o diagnóstico gratuito da sua empresa — e te mostra exatamente onde você está travado.
+
+<strong>Link aqui embaixo.</strong>"</div>
+      </div>
+    </div>
+
+    <!-- SESSION SCRIPT -->
+    <div class="tab-pane" id="tab-session">
+      <div class="script-header">
+        <div class="script-meta">
+          <div class="script-title">Script — Sessão Diagnóstico (45 min)</div>
+          <div class="script-tags">
+            <span class="script-tag green">Hormozi Perfect Closer</span>
+            <span class="script-tag amber">SPIN Selling</span>
+            <span class="script-tag violet">Videochamada</span>
+          </div>
+        </div>
+        <div class="script-duration">⏱ 45 minutos</div>
+      </div>
+
+      <div class="script-note">
+        REGRA DE OURO: você diagnostica, não vende. Quem apresenta o problema com clareza é quem vende a solução. Nunca saia de uma fase sem o "sim" do prospect. Escute mais do que fala nas Fases 2 e 3.
+      </div>
+
+      <div class="script-block">
+        <div class="script-block-header">
+          <span class="script-block-tag fase">Fase 1 — Abertura e Contrato de Comunicação</span>
+          <span class="script-block-time">0:00 – 3:00</span>
+        </div>
+        <div class="script-block-body">"[Nome], muito bom te ter aqui.
+
+Antes de começar, quero ser direto sobre como essa sessão funciona — pra gente usar bem o tempo dos dois.
+
+Vou fazer algumas perguntas sobre sua empresa. Não são perguntas retóricas — são diagnóstico real. Quanto mais honesto você for, mais preciso eu consigo ser no que te mostro.
+
+Ao final dos 45 minutos, <strong>uma de duas coisas</strong> vai acontecer:
+
+Um: você vai sair com clareza sobre onde sua empresa está travada e o que fazer a respeito — com ou sem a gente. Você leva isso.
+
+Dois: se fizer sentido, eu vou te apresentar como a Engenharia Empresarial funciona no contexto específico da sua empresa.
+
+Se não fizer sentido, eu te digo isso.
+
+<strong>Combinado?"</strong>
+
+<em>[Espera a confirmação. Só avança depois do "sim".]</em></div>
+      </div>
+
+      <div class="script-block">
+        <div class="script-block-header">
+          <span class="script-block-tag fase">Fase 2 — Entendimento da Situação Atual</span>
+          <span class="script-block-time">3:00 – 12:00</span>
+        </div>
+        <div class="script-block-body"><em>[Perguntas de situação — Hormozi: "Understand before prescribe". Escute. Não interrompa. Tome notas mentais sobre os detalhes que vão virar espelho mais tarde.]</em>
+
+"Pra eu entender o cenário: qual é o faturamento mensal médio da empresa hoje?"
+
+"Há quanto tempo você está nesse negócio?"
+
+"Quantas pessoas você tem na equipe?"
+
+"Como está dividida a operação hoje — você tem gestores de setor, ou todo mundo responde direto pra você?"</div>
+      </div>
+
+      <div class="script-block">
+        <div class="script-block-header">
+          <span class="script-block-tag diag">Fase 3 — Diagnóstico da Dor</span>
+          <span class="script-block-time">12:00 – 22:00</span>
+        </div>
+        <div class="script-block-body"><em>[Perguntas de problema — SPIN. Use o espelho após cada resposta: "Então se eu entendi bem, o que tá acontecendo é... [repete a dor com as palavras dele]. É isso?" Isso cria validação emocional.]</em>
+
+"Se você tirasse férias de 15 dias amanhã e desligasse o celular — <strong>o que travaria primeiro na sua operação?</strong>"
+
+"Quais decisões do dia a dia ainda passam por você que deveriam ser resolvidas sem a sua intervenção?"
+
+"Quando você tenta delegar uma área pra alguém da equipe, o que tipicamente acontece?"
+
+"O que você já tentou fazer pra resolver essa dependência — consultoria, processos, algum sistema?"
+
+<em>[Pergunta de implicação — deixe ele calcular. O silêncio aqui é poderoso.]</em>
+
+"E o que essa situação tá custando pra você hoje em termos práticos — <strong>tempo, dinheiro, crescimento que não acontece?</strong>"
+
+"No ritmo atual — daqui a 12 meses, onde você imagina que vai estar se nada mudar?"
+
+<em>[Essa pergunta planta a urgência sem pressão. O próprio lead projeta o cenário ruim.]</em></div>
+      </div>
+
+      <div class="script-block">
+        <div class="script-block-header">
+          <span class="script-block-tag diag">Fase 4 — O Diagnóstico (entrega de valor real)</span>
+          <span class="script-block-time">22:00 – 32:00</span>
+        </div>
+        <div class="script-block-body">"Baseado no que você me contou, deixa eu te mostrar o que eu vejo na sua operação.
+
+A Engenharia Empresarial mapeia toda empresa em 5 Engrenagens. Vou te dizer onde você está em cada uma."
+
+<em>[Mapeie honestamente. Use as respostas que ele deu para personalizar. Seja específico — não genérico.]</em>
+
+"Na <strong>Estruturação</strong>: você me disse que [repete o que ele disse]. O que eu vejo é [diagnóstico].
+
+Na <strong>Contratação</strong>: você mencionou que [repete]. Aqui o risco é [diagnóstico].
+
+No <strong>Treinamento</strong>: [diagnóstico com base nas respostas].
+
+Na <strong>Formação de Líderes</strong>: você disse que [repete]. Isso é sintoma de [diagnóstico].
+
+Na <strong>Gestão de Projetos</strong>: [diagnóstico]."
+
+<em>[Depois do mapa:]</em>
+
+"Dos 5 pontos, o que está mais crítico pra você agora — o que, se resolvido nos próximos 90 dias, teria o maior impacto na sua operação — é a Engrenagem [X].
+
+Enquanto essa engrenagem não funcionar, as outras vão continuar produzindo o mesmo resultado que você já vê hoje."
+
+<em>[Pausa. Deixe ele processar.]</em>
+
+<strong>"Faz sentido o que eu te mostrei?"</strong>
+
+<em>[Espere o "sim" antes de continuar.]</em></div>
+      </div>
+
+      <div class="script-block">
+        <div class="script-block-header">
+          <span class="script-block-tag mech">Fase 5 — Transição para a Oferta</span>
+          <span class="script-block-time">32:00 – 38:00</span>
+        </div>
+        <div class="script-block-body"><strong>"Faz sentido eu te mostrar como a gente trabalha pra resolver exatamente isso?"</strong>
+
+<em>[Espere o "sim".]</em>
+
+"A Engenharia Empresarial é um processo de implementação de 4 meses.
+
+Não é curso. Não é consultoria de relatório. É implementação junto com você — dentro da sua empresa.
+
+O que está incluído:
+
+→ Uma reunião de análise e diagnóstico aprofundado da sua operação
+→ Seis reuniões estratégicas de consultoria — uma por engrenagem mais revisões
+→ Uma call de entrevista para contratação ao vivo — ao lado de você na próxima contratação
+→ Implementação assistida durante todo o período
+→ Acesso ao pool de parceiros — financeiro, contábil, jurídico, marketing, vendas, tecnologia, logística e marketplaces
+→ Ferramentas de IA para acelerar a aplicação do método
+
+O investimento é <strong>R$32.500 no pix</strong>, ou <strong>R$8.000 de entrada mais 12 vezes de R$2.713</strong>."</div>
+      </div>
+
+      <div class="script-block">
+        <div class="script-block-header">
+          <span class="script-block-tag mech">Fase 6 — Âncora de Valor (Hormozi: Value Equation)</span>
+          <span class="script-block-time">38:00 – 41:00</span>
+        </div>
+        <div class="script-block-body">"Deixa eu te dar uma perspectiva sobre o que esse número representa.
+
+Você me disse que fatura [X] por mês. E que o principal gargalo hoje é [dor principal].
+
+Se em 4 meses você tiver líderes funcionando de forma autônoma — e você sair da operação diária mesmo que por 20% do que hoje consome —
+
+<strong>quanto vale isso em horas devolvidas pra você por semana?</strong> Em decisões que param de chegar na sua mesa?
+
+E se uma contratação que a gente estrutura junto durar o dobro do tempo que as suas contratações atuais costumam durar — <strong>quanto isso representa em custo de turnover evitado?</strong>"
+
+<em>[Deixe ele calcular. Não responda por ele.]</em>
+
+"O investimento não é de R$32.500. É a diferença entre mais 12 meses do jeito que está — ou 4 meses pra mudar a estrutura pelo resto da existência da empresa."</div>
+      </div>
+
+      <div class="script-block">
+        <div class="script-block-header">
+          <span class="script-block-tag diag">Fase 7 — Objeções Antecipadas</span>
+          <span class="script-block-time">Sempre que surgirem</span>
+        </div>
+        <div class="script-block-body"><strong>OBJEÇÃO: "Preciso pensar"</strong>
+"Claro. O que especificamente você precisa avaliar melhor? Porque se for sobre encaixe na sua realidade, eu consigo responder agora. Se for sobre o investimento financeiro, a gente pode olhar a estrutura de parcelamento. <strong>O que está te travando?</strong>"
+
+<em>[Nunca aceite "precisar pensar" como final. Sempre descubra o que está por baixo.]</em>
+
+<strong>OBJEÇÃO: "Não tenho tempo agora"</strong>
+"Entendo. E é justamente por isso que faz sentido agir agora — porque enquanto você não tiver a estrutura, seu tempo vai continuar sendo consumido pela operação. Quanto tempo você acha que vai ter daqui a 6 meses se nada mudar no modelo atual?"
+
+<strong>OBJEÇÃO: "Já tentei consultoria e não funcionou"</strong>
+"Essa é uma das objeções mais legítimas que eu ouço. Me conta o que aconteceu — o que foi entregue e o que não funcionou. [Ouve.] O que eu ouço na maioria dos casos é: entregaram diagnóstico e recomendações, mas a implementação ficou na sua mão. A diferença é que a implementação acontece <strong>dentro da sua operação</strong>."
+
+<strong>OBJEÇÃO: "O preço está alto"</strong>
+"Comparado a o quê? [Pausa.] Uma contratação errada custa em média entre R$20k e R$50k quando você soma salário, encargos, tempo de treinamento e turnover. A Engenharia Empresarial te ajuda a não errar as próximas. O que seria mais caro: investir agora ou continuar pagando o custo do problema?"</div>
+      </div>
+
+      <div class="script-block">
+        <div class="script-block-header">
+          <span class="script-block-tag close">Fase 8 — Fechamento</span>
+          <span class="script-block-time">41:00 – 45:00</span>
+        </div>
+        <div class="script-block-body">"Baseado em tudo que você me contou hoje — e no diagnóstico que fizemos — você quer continuar com esse problema por mais 12 meses ou prefere resolver agora em 4?
+
+<strong>Qual das duas formas de investimento funciona melhor pra você: o pix de R$32.500 ou a entrada de R$8.000 mais as parcelas?</strong>"
+
+<em>[Use a pergunta alternativa. Não pergunte "quer comprar?" — pergunte qual forma de pagamento.]</em>
+
+Se positivo: "Perfeito. O próximo passo é [instrução clara]. Vou te enviar agora por WhatsApp. Você consegue olhar ainda hoje?"
+
+Se precisar de mais tempo: "Tudo bem. Quando você vai ter essa resposta? [data específica] — posso te ligar nesse dia?"
+
+<em>[Nunca saia sem data de follow-up.]</em></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── FOOTER ─────────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <div class="logo-mark" style="width:28px;height:28px;font-size:11px">EI</div>
+      <span class="footer-copy" style="color:var(--fg-2)">Empresa Independente</span>
+    </div>
+    <p class="footer-copy">Engenharia Empresarial · Diagnóstico Gratuito</p>
+    <p class="footer-copy">© 2026 Empresa Independente. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<script>
+/* ─── INTERSECTION OBSERVER ──────────────────────────────────── */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.anim').forEach(el => observer.observe(el));
+
+/* ─── FAQ TOGGLE ─────────────────────────────────────────────── */
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+/* ─── TABS ───────────────────────────────────────────────────── */
+function switchTab(btn, id) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-' + id).classList.add('active');
+}
+
+/* ─── SMOOTH SCROLL ──────────────────────────────────────────── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+/* ─── FORM ───────────────────────────────────────────────────── */
+document.getElementById('qualification-form').addEventListener('submit', e => {
+  e.preventDefault();
+  const btn = e.target.querySelector('.form-submit-btn');
+  btn.textContent = '✓ Redirecionando para o agendamento...';
+  btn.style.background = '#2bbd8a';
+  setTimeout(() => {
+    alert('Integre aqui com o Calendly ou sistema de agendamento.');
+  }, 800);
+});
+
+/* ─── RADIO HIGHLIGHT ────────────────────────────────────────── */
+document.querySelectorAll('.form-radio input').forEach(input => {
+  input.addEventListener('change', () => {
+    const group = input.closest('.form-radio-group');
+    group.querySelectorAll('.form-radio').forEach(r => r.style.borderColor = 'var(--border)');
+    input.closest('.form-radio').style.borderColor = 'rgba(52,211,153,0.4)';
+    input.closest('.form-radio').style.background = 'rgba(52,211,153,0.04)';
+  });
+});
+</script>
+
+</body>
+</html>

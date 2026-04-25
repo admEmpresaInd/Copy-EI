@@ -476,7 +476,8 @@ header {
   font-size:17px; color:var(--fg-2); line-height:1.72; margin-bottom:16px;
 }
 .autoridade-text strong { color:var(--fg); }
-.number-list { list-style:none; display:flex; flex-direction:column; gap:4px; margin-top:8px; }
+.number-list { list-style:none; display:grid; grid-template-columns:repeat(2,1fr); gap:4px; margin-top:32px; }
+@media(min-width:768px){ .number-list{ grid-template-columns:repeat(4,1fr); } }
 .number-item {
   display:flex; align-items:center; gap:16px;
   background:var(--bg-2); border:1px solid var(--border);
@@ -684,7 +685,7 @@ footer {
           instalados
         </h1>
 
-        <p class="hero-statement">Isso não é falta de talento — é falta de sistema.</p>
+        <p class="hero-statement">Isso não é falta de talento é falta de sistema.</p>
 
         <p class="hero-sub">
           <span class="hero-pain">Equipe dependente &nbsp;·&nbsp; Decisão parada &nbsp;·&nbsp; WhatsApp lotado</span>
@@ -908,7 +909,7 @@ footer {
         </h2>
         <div class="autoridade-text">
           <p>
-            Se você já tentou se afastar e a empresa travou — <strong>não foi fraqueza sua, foi arquitetura.</strong> A maioria das empresas é construída sobre o dono: as decisões passam por ele, os problemas chegam nele, os clientes pedem por ele. Sair é arriscado porque o sistema foi feito assim. O problema não é você. É a estrutura.
+            Se você já tentou se afastar e a empresa travou <strong>não foi fraqueza sua, foi arquitetura.</strong> A maioria das empresas é construída sobre o dono: as decisões passam por ele, os problemas chegam nele, os clientes pedem por ele. Sair é arriscado porque o sistema foi feito assim. O problema não é você. É a estrutura.
           </p>
           <p>
             Antes de sistematizar a Engenharia Empresarial, <strong>Gabriel Breier era o gargalo da própria empresa.</strong> Time esperando sua decisão, sua resposta, sua aprovação. 14 horas por dia para a operação não parar e ela ainda parava quando ele tentava sair.
@@ -919,24 +920,6 @@ footer {
           <p>
             Nos últimos 8 anos, <strong>Gabriel validou esse método em mais de 300 empresas</strong> de indústria, varejo, construção, distribuição, serviços e saúde com faturamento acima de R$1Mi ano. O manual que você vai receber é o mesmo método que aplicamos nas implementações pagas publicado integralmente porque acreditamos que quem entende o método se torna o melhor cliente possível.
           </p>
-          <ul class="number-list">
-            <li class="number-item">
-              <div class="number-val">12+</div>
-              <div class="number-desc"><strong>Segmentos diferentes</strong>Indústria, varejo, serviços, saúde, construção, distribuição, transporte e mais</div>
-            </li>
-            <li class="number-item">
-              <div class="number-val">9 em 10</div>
-              <div class="number-desc"><strong>Donos saem do operacional</strong>Dentro dos primeiros 180 dias de implementação completa dos 5 sistemas</div>
-            </li>
-            <li class="number-item">
-              <div class="number-val">8 anos</div>
-              <div class="number-desc"><strong>De aplicação real</strong>Método validado em mais de 300 empresas com faturamento acima de R$1Mi ano</div>
-            </li>
-            <li class="number-item">
-              <div class="number-val">4 meses</div>
-              <div class="number-desc"><strong>Tempo médio de implementação</strong>Para instalar os 5 sistemas e tirar o dono do operacional diário</div>
-            </li>
-          </ul>
         </div>
       </div>
       <div class="anim d2">
@@ -945,9 +928,26 @@ footer {
           alt="Gabriel Breier — Empresa Independente"
           class="expert-photo"
         >
-        
       </div>
     </div>
+    <ul class="number-list anim d3">
+      <li class="number-item">
+        <div class="number-val">12+</div>
+        <div class="number-desc"><strong>Segmentos diferentes</strong>Indústria, varejo, serviços, saúde, construção, distribuição, transporte e mais</div>
+      </li>
+      <li class="number-item">
+        <div class="number-val">9 em 10</div>
+        <div class="number-desc"><strong>Donos saem do operacional</strong>Dentro dos primeiros 180 dias de implementação completa dos 5 sistemas</div>
+      </li>
+      <li class="number-item">
+        <div class="number-val">8 anos</div>
+        <div class="number-desc"><strong>De aplicação real</strong>Método validado em mais de 300 empresas com faturamento acima de R$1Mi ano</div>
+      </li>
+      <li class="number-item">
+        <div class="number-val">4 meses</div>
+        <div class="number-desc"><strong>Tempo médio de implementação</strong>Para instalar os 5 sistemas e tirar o dono do operacional diário</div>
+      </li>
+    </ul>
   </div>
 </section>
 
@@ -1010,7 +1010,7 @@ footer {
             Quero o Manual Gratuito →
           </button>
           <p class="form-privacy">
-            Seus dados ficam em segurança conosco. Sem spam. Cancelamento em 1 clique. Conforme LGPD.
+            Seus dados ficam em segurança conosco. Conforme LGPD.
           </p>
         </form>
       </div>

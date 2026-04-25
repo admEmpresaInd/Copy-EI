@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Manual do Dono Livre Empresa Independente — v2</title>
 <meta name="description" content="Os 5 sistemas operacionais que tiram o dono do operacional em 90 a 180 dias. Manual gratuito com templates prontos Empresa Independente.">
+<base href="/EI/Manual%20do%20Dono/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
@@ -259,6 +260,42 @@ header {
   .hero-sub { text-align:center; }
   .hero-actions { align-items:center; justify-content:center; flex-direction:column; }
   .hero-trust { justify-content:center; }
+}
+
+/* ── Primeira dobra mobile (tudo visível até o botão) ── */
+@media(max-width:640px){
+  .hero { padding:18px 0 24px; }
+  .hero-content { gap:14px; }
+
+  /* imagem menor e sem transform 3D */
+  .hero-book {
+    max-width:150px;
+    transform:none;
+    box-shadow:0 16px 40px rgba(0,0,0,.65), 0 0 28px rgba(0,247,216,.09);
+  }
+  .hero-book:hover {
+    transform:none;
+    box-shadow:0 16px 40px rgba(0,0,0,.65), 0 0 28px rgba(0,247,216,.09);
+  }
+  .hero-visual::before { display:none; }
+
+  /* título mais compacto */
+  .hero h1 { font-size:21px; margin-bottom:8px; letter-spacing:-.03em; }
+
+  /* subtexto menor e sem o parágrafo longo */
+  .hero-sub { font-size:13px; margin:0 0 14px; line-height:1.55; }
+  .hero-sub > br { display:none; }
+
+  /* esconde a parte longa do sub — mantém só a dor + frase de sistema */
+  .hero-sub-long { display:none; }
+
+  /* botões */
+  .hero-actions { gap:8px; }
+  .btn { font-size:14px; padding:13px 20px; width:100%; justify-content:center; }
+  .btn-outline { display:none; }
+
+  /* trust strip menor */
+  .hero-trust { margin-top:10px; gap:12px; font-size:10px; }
 }
 
 /* ─── PROOF STRIP ────────────────────────────────────────────── */
@@ -632,10 +669,10 @@ footer {
 
         <p class="hero-sub">
           <span class="hero-pain">Equipe dependente &nbsp;·&nbsp; Decisão parada &nbsp;·&nbsp; WhatsApp lotado</span>
-          Isso não é falta de talento <strong>é falta de sistema.</strong><br><br>
+          Isso não é falta de talento <strong>é falta de sistema.</strong><span class="hero-sub-long"><br><br>
           O Manual do Dono Livre mostra como <strong>300+ empresas que fazem mais de R$1Mi ano</strong>
           instalaram os 5 sistemas e saíram do operacional em 90 dias.
-          Gratuito, com 12 templates e 8 checklists prontos para usar agora.
+          Gratuito, com 12 templates e 8 checklists prontos para usar agora.</span>
         </p>
 
         <div class="hero-actions">
@@ -823,8 +860,7 @@ footer {
       <div class="guia-mockup anim d2">
         <div class="mockup-label">Manual do Dono Livre</div>
         <div class="mockup-cover">
-          <div class="mockup-gear-icon">📋</div>
-          <div class="mockup-cover-title">Os 5 Sistemas da Empresa Independente</div>
+          <img src="icon-5.png" alt="" class="mockup-gear-icon" style="font-size:unset;height:250px;object-fit:contain;">
           <div class="mockup-cover-sub">Manual Gratuito · Empresa Independente</div>
         </div>
         <div class="mockup-row"><div class="mockup-check">✓</div>47 páginas de passo a passo prático</div>

@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Manual do Dono Livre Empresa Independente</title>
 <meta name="description" content="Os 5 sistemas operacionais que tiram o dono do operacional em 90 a 180 dias. Manual gratuito com templates prontos Empresa Independente.">
+<meta property="og:title" content="Manual do Dono Livre — Os 5 Sistemas da Empresa Independente">
+<meta property="og:description" content="Como 300+ empresas saíram do operacional em 90 dias. Gratuito, com 12 templates e 8 checklists prontos.">
+<meta property="og:image" content="/EI/Manual%20do%20Dono/img-ebook.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
 <script>if(location.protocol!=='file:'){document.write('<base href="/EI/Manual%20do%20Dono/">')}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,9 +25,9 @@
   --fg:           #f2f2f0;
   --fg-2:         #a8a89c;
   --fg-3:         #5a5a54;
-  --primary:      #34d399;
-  --primary-dim:  rgba(52,211,153,0.10);
-  --primary-glow: rgba(52,211,153,0.22);
+  --primary:      #00F7D8;
+  --primary-dim:  rgba(0,247,216,0.10);
+  --primary-glow: rgba(0,247,216,0.22);
   --border:       rgba(255,255,255,0.07);
   --border-2:     rgba(255,255,255,0.13);
   --amber:        #f59e0b;
@@ -39,7 +44,8 @@
 
 /* ─── RESET ─────────────────────────────────────────────────── */
 *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
-html { scroll-behavior:smooth; font-size:16px; }
+html { scroll-behavior:smooth; font-size:16px; color-scheme:dark; }
+@media(prefers-reduced-motion:reduce){ *, *::before, *::after { animation-duration:.01ms !important; transition-duration:.01ms !important; } }
 body {
   background:var(--bg); color:var(--fg);
   font-family:var(--font-display);
@@ -86,7 +92,7 @@ header {
 .hdr { max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:16px; }
 .logo { display:flex; align-items:center; gap:10px; }
 .logo-mark {
-  width:34px; height:34px; background:var(--primary); color:#0a2e24;
+  width:34px; height:34px; background:var(--primary); color:#001c1a;
   font-size:12px; font-weight:800; border-radius:var(--r-md);
   display:grid; place-items:center; flex-shrink:0;
 }
@@ -94,30 +100,31 @@ header {
 .logo-wordmark { height:22px; width:auto; }
 .hdr-badge  {
   font-family:var(--font-mono); font-size:11px; color:var(--primary);
-  background:var(--primary-dim); border:1px solid rgba(52,211,153,.2);
+  background:var(--primary-dim); border:1px solid rgba(0,247,216,.2);
   padding:5px 12px; border-radius:var(--r-sm); white-space:nowrap;
   display:none;
 }
 @media(min-width:600px){ .hdr-badge{ display:block; } }
 .hdr-cta {
-  background:var(--primary); color:#0a2e24;
+  background:var(--primary); color:#001c1a;
   font-size:13px; font-weight:700;
   padding:9px 20px; border-radius:var(--r-md);
   transition:.25s var(--ease); white-space:nowrap; flex-shrink:0;
 }
-.hdr-cta:hover{ background:#2bbd8a; transform:translateY(-1px); box-shadow:0 8px 24px var(--primary-glow); }
+.hdr-cta:hover{ background:#00d4b8; transform:translateY(-1px); box-shadow:0 8px 24px var(--primary-glow); }
 
 /* ─── CTA BUTTON ────────────────────────────────────────────── */
 .btn {
   display:inline-flex; align-items:center; justify-content:center; gap:10px;
-  background:var(--primary); color:#0a2e24;
+  background:var(--primary); color:#001c1a;
   font-size:17px; font-weight:800; letter-spacing:-.01em;
   padding:18px 40px; border-radius:var(--r-md);
-  transition:.25s var(--ease); cursor:pointer;
-  box-shadow:0 0 48px rgba(52,211,153,.25);
+  transition:background .25s var(--ease), transform .25s var(--ease), box-shadow .25s var(--ease);
+  cursor:pointer; touch-action:manipulation;
+  box-shadow:0 0 48px rgba(0,247,216,.25);
   border:none;
 }
-.btn:hover { background:#2bbd8a; transform:translateY(-3px); box-shadow:0 16px 48px rgba(52,211,153,.35); }
+.btn:hover { background:#00d4b8; transform:translateY(-3px); box-shadow:0 16px 48px rgba(0,247,216,.35); }
 .btn svg   { transition:transform .2s; }
 .btn:hover svg { transform:translateX(4px); }
 .btn-outline {
@@ -143,7 +150,7 @@ header {
   display:inline-flex; align-items:center; gap:8px;
   font-family:var(--font-mono); font-size:12px; font-weight:500;
   color:var(--primary); background:var(--primary-dim);
-  border:1px solid rgba(52,211,153,.18);
+  border:1px solid rgba(0,247,216,.18);
   padding:7px 16px; border-radius:var(--r-sm);
 }
 .badge-dot { width:6px; height:6px; border-radius:50%; background:var(--primary); animation:glow-pulse 2s infinite; }
@@ -153,14 +160,14 @@ header {
 .hero-glow {
   position:absolute; top:-80px; left:50%; transform:translateX(-50%);
   width:1200px; height:720px;
-  background:radial-gradient(ellipse at 35% 50%,rgba(52,211,153,.12) 0%,transparent 65%);
-  pointer-events:none; animation:glow-pulse 7s ease-in-out infinite;
+  background:radial-gradient(ellipse at 35% 50%,rgba(0,247,216,.12) 0%,transparent 65%);
+  pointer-events:none; opacity:.6;
 }
 .hero-grid {
   position:absolute; inset:0; pointer-events:none;
   background-image:
-    linear-gradient(rgba(52,211,153,.03) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(52,211,153,.03) 1px,transparent 1px);
+    linear-gradient(rgba(0,247,216,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,247,216,.03) 1px,transparent 1px);
   background-size:64px 64px;
   mask-image:radial-gradient(ellipse 90% 60% at 40% 0%,black,transparent);
 }
@@ -178,15 +185,27 @@ header {
 .hero h1 {
   font-size:clamp(30px,3.8vw,54px);
   font-weight:800; line-height:1.06; letter-spacing:-.04em;
-  color:var(--fg); margin-bottom:24px;
+  color:var(--fg); margin-bottom:24px; text-wrap:balance;
   animation:fade-up .7s .1s var(--ease) both;
 }
 .hero h1 em {
   font-style:normal;
-  background:linear-gradient(135deg,var(--primary) 0%,#6ee7b7 50%,var(--primary) 100%);
+  background:linear-gradient(135deg,var(--primary) 0%,#7ffff0 50%,var(--primary) 100%);
   background-size:200% auto;
   -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
   animation:gradient-x 4s ease infinite;
+}
+.hero-statement {
+  font-size:clamp(15px,1.6vw,19px);
+  font-weight:700;
+  color:var(--fg);
+  letter-spacing:-.02em;
+  margin-bottom:20px;
+  padding:14px 20px;
+  border-left:3px solid var(--primary);
+  background:var(--primary-dim);
+  border-radius:0 var(--r-md) var(--r-md) 0;
+  animation:fade-up .7s .15s var(--ease) both;
 }
 .hero-sub {
   font-family:var(--font-body);
@@ -225,7 +244,7 @@ header {
   content:'';
   position:absolute; bottom:-48px; left:50%; transform:translateX(-50%);
   width:75%; height:60px;
-  background:radial-gradient(ellipse,rgba(52,211,153,.22) 0%,transparent 70%);
+  background:radial-gradient(ellipse,rgba(0,247,216,.22) 0%,transparent 70%);
   filter:blur(24px);
   pointer-events:none;
 }
@@ -237,7 +256,7 @@ header {
     0 48px 100px rgba(0,0,0,.75),
     0 24px 48px rgba(0,0,0,.5),
     0 0 0 1px rgba(255,255,255,.06),
-    0 0 80px rgba(52,211,153,.12);
+    0 0 80px rgba(0,247,216,.12);
   transform:perspective(1200px) rotateY(-6deg) rotateX(2deg) translateY(-4px);
   transition:transform .5s var(--ease), box-shadow .5s var(--ease);
 }
@@ -247,7 +266,7 @@ header {
     0 2px 0 rgba(255,255,255,.06) inset,
     0 64px 120px rgba(0,0,0,.7),
     0 0 0 1px rgba(255,255,255,.08),
-    0 0 120px rgba(52,211,153,.2);
+    0 0 120px rgba(0,247,216,.2);
 }
 
 /* ── Responsivo ── */
@@ -260,6 +279,42 @@ header {
   .hero-sub { text-align:center; }
   .hero-actions { align-items:center; justify-content:center; flex-direction:column; }
   .hero-trust { justify-content:center; }
+}
+
+/* ── Primeira dobra mobile (tudo visível até o botão) ── */
+@media(max-width:640px){
+  .hero { padding:18px 0 24px; }
+  .hero-content { gap:14px; }
+
+  /* imagem menor e sem transform 3D */
+  .hero-book {
+    max-width:150px;
+    transform:none;
+    box-shadow:0 16px 40px rgba(0,0,0,.65), 0 0 28px rgba(0,247,216,.09);
+  }
+  .hero-book:hover {
+    transform:none;
+    box-shadow:0 16px 40px rgba(0,0,0,.65), 0 0 28px rgba(0,247,216,.09);
+  }
+  .hero-visual::before { display:none; }
+
+  /* título mais compacto */
+  .hero h1 { font-size:21px; margin-bottom:8px; letter-spacing:-.03em; }
+
+  /* subtexto menor e sem o parágrafo longo */
+  .hero-sub { font-size:13px; margin:0 0 14px; line-height:1.55; }
+  .hero-sub > br { display:none; }
+
+  /* esconde a parte longa do sub — mantém só a dor + frase de sistema */
+  .hero-sub-long { display:none; }
+
+  /* botões */
+  .hero-actions { gap:8px; }
+  .btn { font-size:14px; padding:13px 20px; width:100%; justify-content:center; }
+  .btn-outline { display:none; }
+
+  /* trust strip menor */
+  .hero-trust { margin-top:10px; gap:12px; font-size:10px; }
 }
 
 /* ─── PROOF STRIP ────────────────────────────────────────────── */
@@ -300,7 +355,7 @@ header {
   border-radius:var(--r-xl); padding:36px 32px;
   position:relative; overflow:hidden; transition:.25s var(--ease);
 }
-.pilar-card:hover { border-color:rgba(52,211,153,.2); transform:translateY(-3px); box-shadow:0 24px 60px rgba(0,0,0,.4); }
+.pilar-card:hover { border-color:rgba(0,247,216,.2); transform:translateY(-3px); box-shadow:0 24px 60px rgba(0,0,0,.4); }
 .pilar-card::before {
   content:''; position:absolute; top:0; left:0; right:0; height:1px;
   background:linear-gradient(90deg,transparent,var(--primary),transparent);
@@ -335,7 +390,7 @@ header {
   border-radius:var(--r-md); padding:20px 22px;
   transition:.25s var(--ease); cursor:default;
 }
-.entregavel-item:hover { border-color:rgba(52,211,153,.18); background:var(--bg-3); }
+.entregavel-item:hover { border-color:rgba(0,247,216,.18); background:var(--bg-3); }
 .entregavel-num {
   font-family:var(--font-mono); font-size:22px; font-weight:600;
   color:var(--primary); opacity:.25; line-height:1; flex-shrink:0;
@@ -349,7 +404,7 @@ header {
   font-family:var(--font-mono); font-size:10px; font-weight:500;
   padding:2px 8px; border-radius:4px;
   background:var(--primary-dim); color:var(--primary);
-  border:1px solid rgba(52,211,153,.15);
+  border:1px solid rgba(0,247,216,.15);
 }
 .etag.amber  { background:var(--amber-dim); color:var(--amber); border-color:rgba(245,158,11,.15); }
 .etag.violet { background:rgba(167,139,250,.08); color:var(--violet); border-color:rgba(167,139,250,.15); }
@@ -371,17 +426,17 @@ header {
   text-transform:uppercase; letter-spacing:.1em; margin-bottom:24px;
   display:flex; align-items:center; gap:8px;
 }
-.mockup-label::after { content:'●'; font-size:8px; animation:blink 1.2s step-end infinite; }
+.mockup-label::after { content:'●'; font-size:8px; opacity:.6; }
 .mockup-cover {
   width:100%; aspect-ratio:3/4; max-height:320px;
-  background:linear-gradient(160deg,var(--bg-3) 0%,rgba(52,211,153,.08) 100%);
-  border:1px solid rgba(52,211,153,.12); border-radius:var(--r-lg);
+  background:linear-gradient(160deg,var(--bg-3) 0%,rgba(0,247,216,.08) 100%);
+  border:1px solid rgba(0,247,216,.12); border-radius:var(--r-lg);
   display:flex; flex-direction:column; align-items:center; justify-content:center;
   gap:16px; margin-bottom:28px; position:relative; overflow:hidden;
 }
 .mockup-cover::before {
   content:''; position:absolute; inset:0;
-  background:radial-gradient(ellipse 80% 60% at 50% 30%, rgba(52,211,153,.08), transparent);
+  background:radial-gradient(ellipse 80% 60% at 50% 30%, rgba(0,247,216,.08), transparent);
 }
 .mockup-cover-title {
   font-size:22px; font-weight:800; letter-spacing:-.04em; color:var(--fg);
@@ -399,7 +454,7 @@ header {
 .mockup-row:last-child { margin-bottom:0; }
 .mockup-check {
   width:20px; height:20px; flex-shrink:0;
-  background:var(--primary-dim); border:1px solid rgba(52,211,153,.2);
+  background:var(--primary-dim); border:1px solid rgba(0,247,216,.2);
   border-radius:50%; display:grid; place-items:center;
   color:var(--primary); font-size:11px;
 }
@@ -423,20 +478,22 @@ header {
   font-size:17px; color:var(--fg-2); line-height:1.72; margin-bottom:16px;
 }
 .autoridade-text strong { color:var(--fg); }
-.number-list { list-style:none; display:flex; flex-direction:column; gap:4px; margin-top:8px; }
+.number-list { list-style:none; display:grid; grid-template-columns:repeat(2,1fr); gap:4px; margin-top:32px; }
+@media(min-width:768px){ .number-list{ grid-template-columns:repeat(4,1fr); } }
 .number-item {
-  display:flex; align-items:center; gap:16px;
+  display:flex; flex-direction:column; align-items:center; text-align:center; gap:0;
   background:var(--bg-2); border:1px solid var(--border);
-  border-radius:var(--r-md); padding:16px 20px;
-  transition:.25s var(--ease);
+  border-radius:var(--r-md); padding:32px 20px;
+  transition:border-color .25s var(--ease), transform .25s var(--ease);
 }
-.number-item:hover { border-color:var(--border-2); }
+.number-item:hover { border-color:rgba(0,247,216,.2); transform:translateY(-2px); }
 .number-val {
-  font-family:var(--font-mono); font-size:26px; font-weight:600;
-  color:var(--primary); letter-spacing:-.04em; flex-shrink:0; min-width:70px;
+  font-family:var(--font-mono); font-size:clamp(28px,3.5vw,42px); font-weight:600;
+  color:var(--primary); letter-spacing:-.04em; line-height:1;
+  font-variant-numeric:tabular-nums; display:block;
 }
-.number-desc { font-size:14px; color:var(--fg-2); line-height:1.45; }
-.number-desc strong { color:var(--fg); display:block; font-size:13px; margin-bottom:2px; }
+.number-desc { font-size:13px; color:var(--fg-2); line-height:1.45; margin-top:12px; text-wrap:balance; }
+.number-desc strong { color:var(--fg); display:block; font-size:14px; font-weight:700; margin-bottom:4px; }
 
 /* ─── PROVA SOCIAL ───────────────────────────────────────────── */
 .prova { }
@@ -452,7 +509,7 @@ header {
   display:block;
   transition:.25s var(--ease);
 }
-.depoimento-img:hover { transform:translateY(-3px); box-shadow:0 24px 64px rgba(0,0,0,.6); border-color:rgba(52,211,153,.15); }
+.depoimento-img:hover { transform:translateY(-3px); box-shadow:0 24px 64px rgba(0,0,0,.6); border-color:rgba(0,247,216,.15); }
 .prova-card {
   background:var(--bg-2); border:1px solid var(--border);
   border-radius:var(--r-lg); padding:28px;
@@ -463,7 +520,7 @@ header {
   font-family:var(--font-body); font-size:60px;
   color:var(--primary); opacity:.1; line-height:1; pointer-events:none;
 }
-.prova-card:hover { border-color:rgba(52,211,153,.15); transform:translateY(-2px); }
+.prova-card:hover { border-color:rgba(0,247,216,.15); transform:translateY(-2px); }
 .prova-stars { display:flex; gap:3px; margin-bottom:14px; }
 .prova-star  { color:var(--amber); font-size:14px; }
 .prova-quote {
@@ -473,7 +530,7 @@ header {
 .prova-author { display:flex; align-items:center; gap:12px; }
 .prova-avatar {
   width:38px; height:38px; border-radius:50%;
-  background:var(--primary-dim); border:1px solid rgba(52,211,153,.2);
+  background:var(--primary-dim); border:1px solid rgba(0,247,216,.2);
   display:grid; place-items:center;
   font-weight:700; font-size:14px; color:var(--primary); flex-shrink:0;
 }
@@ -481,7 +538,7 @@ header {
 .prova-role { font-family:var(--font-mono); font-size:11px; color:var(--fg-3); margin-top:2px; }
 .prova-result {
   display:inline-flex; align-items:center; gap:6px;
-  background:var(--primary-dim); border:1px solid rgba(52,211,153,.15);
+  background:var(--primary-dim); border:1px solid rgba(0,247,216,.15);
   border-radius:999px; padding:3px 10px;
   font-family:var(--font-mono); font-size:10px; font-weight:700; color:var(--primary);
   margin-top:8px;
@@ -492,7 +549,7 @@ header {
 .optin-glow {
   position:absolute; bottom:-200px; left:50%; transform:translateX(-50%);
   width:900px; height:700px;
-  background:radial-gradient(ellipse at center,rgba(52,211,153,.08),transparent 65%);
+  background:radial-gradient(ellipse at center,rgba(0,247,216,.08),transparent 65%);
   pointer-events:none;
 }
 .optin-inner { position:relative; z-index:1; }
@@ -516,17 +573,17 @@ header {
   font-family:var(--font-display); font-size:15px;
   padding:14px 16px; transition:.25s var(--ease);
 }
-.form-input:focus { outline:none; border-color:rgba(52,211,153,.45); box-shadow:0 0 0 3px rgba(52,211,153,.08); }
+.form-input:focus { outline:none; border-color:rgba(0,247,216,.45); box-shadow:0 0 0 3px rgba(0,247,216,.08); }
 .form-input::placeholder { color:var(--fg-3); }
 .form-submit {
   width:100%; margin-top:8px;
-  background:var(--primary); color:#0a2e24;
+  background:var(--primary); color:#001c1a;
   font-family:var(--font-display); font-size:17px; font-weight:800;
   padding:20px; border-radius:var(--r-md); border:none; cursor:pointer;
-  transition:.25s var(--ease); box-shadow:0 0 48px rgba(52,211,153,.22);
+  transition:.25s var(--ease); box-shadow:0 0 48px rgba(0,247,216,.22);
   display:flex; align-items:center; justify-content:center; gap:10px;
 }
-.form-submit:hover { background:#2bbd8a; transform:translateY(-3px); box-shadow:0 16px 48px rgba(52,211,153,.32); }
+.form-submit:hover { background:#00d4b8; transform:translateY(-3px); box-shadow:0 16px 48px rgba(0,247,216,.32); }
 .form-privacy {
   margin-top:16px; text-align:center;
   font-family:var(--font-mono); font-size:11px; color:var(--fg-3); line-height:1.6;
@@ -550,7 +607,7 @@ header {
   color:var(--primary); font-size:20px; font-weight:300;
   transition:transform .3s var(--ease), background .2s;
 }
-.faq-item.open .faq-icon { transform:rotate(45deg); background:var(--primary); color:#0a2e24; }
+.faq-item.open .faq-icon { transform:rotate(45deg); background:var(--primary); color:#001c1a; }
 .faq-a { max-height:0; overflow:hidden; transition:max-height .4s var(--ease); }
 .faq-item.open .faq-a { max-height:500px; }
 .faq-a-inner {
@@ -565,8 +622,8 @@ header {
 .final-cta-glow {
   position:absolute; top:-200px; left:50%; transform:translateX(-50%);
   width:900px; height:700px;
-  background:radial-gradient(ellipse at center,rgba(52,211,153,.1),transparent 65%);
-  pointer-events:none; animation:glow-pulse 7s ease-in-out infinite;
+  background:radial-gradient(ellipse at center,rgba(0,247,216,.1),transparent 65%);
+  pointer-events:none; opacity:.6;
 }
 .final-cta-inner { position:relative; z-index:1; }
 .final-big {
@@ -576,7 +633,7 @@ header {
 }
 .final-big em {
   font-style:normal;
-  background:linear-gradient(135deg,var(--primary) 0%,#6ee7b7 50%,var(--primary) 100%);
+  background:linear-gradient(135deg,var(--primary) 0%,#7ffff0 50%,var(--primary) 100%);
   background-size:200% auto; -webkit-background-clip:text;
   -webkit-text-fill-color:transparent; background-clip:text;
   animation:gradient-x 4s ease infinite;
@@ -624,19 +681,26 @@ footer {
       <!-- ── Coluna Texto ── -->
       <div class="hero-text">
         
-        <h1>
+        <!--<h1>
           O dono que tira férias sem checar<br>
           o <em>WhatsApp</em> não <br>tem sorte 
           tem os <br><em>5 sistemas</em><br>
           instalados
+        </h1>-->
+        <h1>
+          Dono de negócio implante<br>
+          <em>5 sistemas</em> <br>
+          em menos de uma semana e tire férias
+          sem precisar olhar o <em>WhatsApp</em>
         </h1>
+
+        <!--<p class="hero-statement">Isso não é falta de talento é falta de sistema.</p>-->
 
         <p class="hero-sub">
           <span class="hero-pain">Equipe dependente &nbsp;·&nbsp; Decisão parada &nbsp;·&nbsp; WhatsApp lotado</span>
-          Isso não é falta de talento <strong>é falta de sistema.</strong><br><br>
-          O Manual do Dono Livre mostra como <strong>300+ empresas que fazem mais de R$1Mi ano</strong>
-          instalaram os 5 sistemas e saíram do operacional em 90 dias.
-          Gratuito, com 12 templates e 8 checklists prontos para usar agora.
+          <span class="hero-sub-long">O Manual do Dono Livre mostra como <strong>300+ empresas que fazem mais de R$1Mi ano</strong>
+          instalaram os 5 sistemas e saíram do operacional em poucos dias.
+          Gratuito, com 12 templates e 8 checklists prontos para usar agora.</span>
         </p>
 
         <div class="hero-actions">
@@ -651,6 +715,7 @@ footer {
           <div class="trust-item"><span class="trust-dot"></span>100% gratuito</div>
           <div class="trust-item"><span class="trust-dot"></span>12 templates prontos</div>
           <div class="trust-item"><span class="trust-dot"></span>Sem cartão de crédito</div>
+          <div class="trust-item"><span class="trust-dot"></span>Atualizado abril/2026</div>
         </div>
       </div>
 
@@ -824,8 +889,7 @@ footer {
       <div class="guia-mockup anim d2">
         <div class="mockup-label">Manual do Dono Livre</div>
         <div class="mockup-cover">
-          <div class="mockup-gear-icon">📋</div>
-          <div class="mockup-cover-title">Os 5 Sistemas da Empresa Independente</div>
+          <img src="icon-5.png" alt="" class="mockup-gear-icon" style="font-size:unset;height:250px;object-fit:contain;">
           <div class="mockup-cover-sub">Manual Gratuito · Empresa Independente</div>
         </div>
         <div class="mockup-row"><div class="mockup-check">✓</div>47 páginas de passo a passo prático</div>
@@ -854,6 +918,9 @@ footer {
         </h2>
         <div class="autoridade-text">
           <p>
+            Se você já tentou se afastar e a empresa travou <strong>não foi fraqueza sua, foi arquitetura.</strong> A maioria das empresas é construída sobre o dono: as decisões passam por ele, os problemas chegam nele, os clientes pedem por ele. Sair é arriscado porque o sistema foi feito assim. O problema não é você. É a estrutura.
+          </p>
+          <p>
             Antes de sistematizar a Engenharia Empresarial, <strong>Gabriel Breier era o gargalo da própria empresa.</strong> Time esperando sua decisão, sua resposta, sua aprovação. 14 horas por dia para a operação não parar e ela ainda parava quando ele tentava sair.
           </p>
           <p>
@@ -870,9 +937,26 @@ footer {
           alt="Gabriel Breier — Empresa Independente"
           class="expert-photo"
         >
-        
       </div>
     </div>
+    <ul class="number-list anim d3">
+      <li class="number-item">
+        <div class="number-val">12+</div>
+        <div class="number-desc"><strong>Segmentos diferentes</strong>Indústria, varejo, serviços, saúde, construção, distribuição, transporte e mais</div>
+      </li>
+      <li class="number-item">
+        <div class="number-val">9 em 10</div>
+        <div class="number-desc"><strong>Donos saem do operacional</strong>Dentro dos primeiros 180 dias de implementação completa dos 5 sistemas</div>
+      </li>
+      <li class="number-item">
+        <div class="number-val">8 anos</div>
+        <div class="number-desc"><strong>De aplicação real</strong>Método validado em mais de 300 empresas com faturamento acima de R$1Mi ano</div>
+      </li>
+      <li class="number-item">
+        <div class="number-val">4 meses</div>
+        <div class="number-desc"><strong>Tempo médio de implementação</strong>Para instalar os 5 sistemas e tirar o dono do operacional diário</div>
+      </li>
+    </ul>
   </div>
 </section>
 
@@ -882,7 +966,7 @@ footer {
     <div class="anim" style="text-align:center;margin-bottom:0">
       <h2 style="font-size:clamp(28px,4.5vw,48px);font-weight:800;letter-spacing:-.04em;line-height:1.06;color:var(--fg)">
         Eles instalaram os <em style="font-style: normal;
-        background: linear-gradient(135deg, var(--primary) 0%, #6ee7b7 50%, var(--primary) 100%);
+        background: linear-gradient(135deg, var(--primary) 0%, #7ffff0 50%, var(--primary) 100%);
         background-size: 200% auto;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -913,29 +997,28 @@ footer {
         </p>
       </div>
       <div class="optin-card anim d2">
-        <form id="optin-form">
+        <form id="optin-form" novalidate>
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">Seu nome</label>
-              <input class="form-input" type="text" placeholder="Como prefere ser chamado?" required>
+              <label class="form-label" for="optin-name">Seu nome</label>
+              <input id="optin-name" name="name" class="form-input" type="text" placeholder="Como prefere ser chamado?" autocomplete="name" required>
             </div>
             <div class="form-group">
-              <label class="form-label">E-mail</label>
-              <input class="form-input" type="email" placeholder="seu@email.com.br" required>
+              <label class="form-label" for="optin-email">E-mail</label>
+              <input id="optin-email" name="email" class="form-input" type="email" placeholder="seu@email.com.br" autocomplete="email" required>
             </div>
           </div>
           <div class="form-group" style="margin-bottom:0">
-            <label class="form-label">
+            <label class="form-label" for="optin-phone">
               WhatsApp
               <span style="color:var(--fg-3);font-weight:400;font-size:12px"> para enviar o manual direto no seu celular</span>
             </label>
-            <input class="form-input" type="tel" placeholder="(11) 99999-9999" required>
+            <input id="optin-phone" name="phone" class="form-input" type="tel" inputmode="tel" placeholder="(11) 99999-9999" autocomplete="tel" required>
           </div>
           <button type="submit" class="form-submit">
-            Acessar o Manual do Dono Livre Agora
-            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+            Quero o Manual Gratuito →
           </button>
-          <p class="form-privacy">
+          <p class="form-privacy" id="form-feedback">
             Seus dados ficam em segurança conosco. Conforme LGPD.
           </p>
         </form>
@@ -961,6 +1044,16 @@ footer {
         <div class="faq-a"><div class="faq-a-inner">
           Na maioria das empresas, processos falham porque foram criados como <strong>documentos</strong> não como sistemas. Um documento depende de disciplina para ser seguido. Um sistema está embutido na rotina, no treinamento e nos indicadores e funciona mesmo quando você não está olhando.<br><br>
           Este manual não ensina a criar documentos. Ensina a instalar os 5 sistemas em que <strong>processo + treinamento + indicador + acompanhamento semanal</strong> funcionam juntos. Quando um dos quatro falta, o processo morre. Quando os quatro existem, ele vira rotina automática.
+        </div></div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Quanto tempo por semana preciso dedicar para implementar?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">
+          A implementação foi desenhada para donos com agendas cheias. <strong>O mínimo funcional é 2 a 3 horas por semana</strong> dedicadas ao processo reuniões de alinhamento com a equipe, revisão de indicadores e ajustes nos sistemas. Cada sistema tem um "quick win" aplicável em 48h que já gera resultado antes da implementação completa. O ritmo certo não é intensidade é consistência semanal ao longo de 90 a 180 dias.
         </div></div>
       </div>
 
@@ -1076,15 +1169,102 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-/* ─── FORM ───────────────────────────────────────────────────── */
-document.getElementById('optin-form').addEventListener('submit', e => {
-  e.preventDefault();
-  const btn = e.target.querySelector('.form-submit');
-  btn.innerHTML = '✓ Manual enviado! Verifique seu WhatsApp e e-mail.';
-  btn.style.background = '#2bbd8a';
-  btn.disabled = true;
-  /* Integre aqui com ActiveCampaign, RD Station, HubSpot ou webhook */
+/* ─── CRM EI INTEGRATION ─────────────────────────────────────── */
+const CRM_EI_API_KEY = 'crm_live_REPLACE_ME';
+const CRM_EI_ENDPOINT = 'https://crm-ei.vercel.app/api/leads/inbound';
+const CRM_EI_TAGS = ['isca-mdl'];
+
+function sanitizePhone(raw) {
+  return (raw || '').replace(/\D+/g, '');
+}
+
+function setFeedback(el, msg, color) {
+  if (!el) return;
+  el.textContent = msg;
+  el.style.color = color || 'var(--fg-3)';
+}
+
+async function submitLeadToCRM(payload) {
+  const response = await fetch(CRM_EI_ENDPOINT, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': CRM_EI_API_KEY
+    },
+    body: JSON.stringify(payload)
+  });
+  if (!response.ok) {
+    let detail = '';
+    try { detail = (await response.json()).error || ''; } catch (_) {}
+    throw new Error(`HTTP ${response.status}${detail ? ' - ' + detail : ''}`);
+  }
+  return response.json().catch(() => ({}));
+}
+
+document.querySelectorAll('form#optin-form, form[data-crm-ei]').forEach(form => {
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+
+    const btn = form.querySelector('.form-submit, button[type="submit"]');
+    const feedback = form.querySelector('#form-feedback') || form.querySelector('.form-privacy');
+    const originalBtnHTML = btn ? btn.innerHTML : '';
+    const originalBg = btn ? btn.style.background : '';
+
+    const nameField  = form.querySelector('[name="name"], input[type="text"]');
+    const emailField = form.querySelector('[name="email"], input[type="email"]');
+    const phoneField = form.querySelector('[name="phone"], input[type="tel"]');
+
+    const name  = (nameField  && nameField.value  || '').trim();
+    const email = (emailField && emailField.value || '').trim();
+    const phone = sanitizePhone(phoneField && phoneField.value);
+
+    if (!name || !phone || !email) {
+      setFeedback(feedback, 'Preencha nome, e-mail e WhatsApp para continuar.', 'var(--rose)');
+      return;
+    }
+    if (phone.length < 10) {
+      setFeedback(feedback, 'WhatsApp inválido. Use DDD + número.', 'var(--rose)');
+      return;
+    }
+
+    if (btn) {
+      btn.disabled = true;
+      btn.innerHTML = 'Enviando...';
+      btn.style.opacity = '.85';
+      btn.style.cursor = 'wait';
+    }
+
+    try {
+      await submitLeadToCRM({ name, email, phone, tags: CRM_EI_TAGS });
+
+      if (btn) {
+        btn.innerHTML = '✓ Manual enviado! Verifique seu WhatsApp e e-mail.';
+        btn.style.background = '#00d4b8';
+        btn.style.opacity = '1';
+        btn.style.cursor = 'default';
+      }
+      setFeedback(feedback, 'Recebemos seus dados. O manual chega no seu WhatsApp em até 2 minutos.', 'var(--primary)');
+      form.reset();
+    } catch (err) {
+      console.error('[CRM EI] submit failed:', err);
+      setFeedback(feedback, 'Não foi possível enviar agora. Tente novamente em instantes.', 'var(--rose)');
+      if (btn) {
+        btn.innerHTML = 'Tentar novamente';
+        btn.style.background = originalBg || 'var(--primary)';
+      }
+      setTimeout(() => {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = originalBtnHTML;
+          btn.style.background = originalBg;
+          btn.style.opacity = '1';
+          btn.style.cursor = 'pointer';
+        }
+      }, 3000);
+    }
+  });
 });
 </script>
 </body>
 </html>
+

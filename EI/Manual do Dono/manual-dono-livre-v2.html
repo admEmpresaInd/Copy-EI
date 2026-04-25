@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Manual do Dono Livre Empresa Independente — v2</title>
+<title>Manual do Dono Livre Empresa Independente</title>
 <meta name="description" content="Os 5 sistemas operacionais que tiram o dono do operacional em 90 a 180 dias. Manual gratuito com templates prontos Empresa Independente.">
 <meta property="og:title" content="Manual do Dono Livre — Os 5 Sistemas da Empresa Independente">
 <meta property="og:description" content="Como 300+ empresas saíram do operacional em 90 dias. Gratuito, com 12 templates e 8 checklists prontos.">
@@ -44,7 +44,8 @@
 
 /* ─── RESET ─────────────────────────────────────────────────── */
 *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
-html { scroll-behavior:smooth; font-size:16px; }
+html { scroll-behavior:smooth; font-size:16px; color-scheme:dark; }
+@media(prefers-reduced-motion:reduce){ *, *::before, *::after { animation-duration:.01ms !important; transition-duration:.01ms !important; } }
 body {
   background:var(--bg); color:var(--fg);
   font-family:var(--font-display);
@@ -118,7 +119,8 @@ header {
   background:var(--primary); color:#001c1a;
   font-size:17px; font-weight:800; letter-spacing:-.01em;
   padding:18px 40px; border-radius:var(--r-md);
-  transition:.25s var(--ease); cursor:pointer;
+  transition:background .25s var(--ease), transform .25s var(--ease), box-shadow .25s var(--ease);
+  cursor:pointer; touch-action:manipulation;
   box-shadow:0 0 48px rgba(0,247,216,.25);
   border:none;
 }
@@ -183,7 +185,7 @@ header {
 .hero h1 {
   font-size:clamp(30px,3.8vw,54px);
   font-weight:800; line-height:1.06; letter-spacing:-.04em;
-  color:var(--fg); margin-bottom:24px;
+  color:var(--fg); margin-bottom:24px; text-wrap:balance;
   animation:fade-up .7s .1s var(--ease) both;
 }
 .hero h1 em {
@@ -479,18 +481,19 @@ header {
 .number-list { list-style:none; display:grid; grid-template-columns:repeat(2,1fr); gap:4px; margin-top:32px; }
 @media(min-width:768px){ .number-list{ grid-template-columns:repeat(4,1fr); } }
 .number-item {
-  display:flex; align-items:center; gap:16px;
+  display:flex; flex-direction:column; align-items:center; text-align:center; gap:0;
   background:var(--bg-2); border:1px solid var(--border);
-  border-radius:var(--r-md); padding:16px 20px;
-  transition:.25s var(--ease);
+  border-radius:var(--r-md); padding:32px 20px;
+  transition:border-color .25s var(--ease), transform .25s var(--ease);
 }
-.number-item:hover { border-color:var(--border-2); }
+.number-item:hover { border-color:rgba(0,247,216,.2); transform:translateY(-2px); }
 .number-val {
-  font-family:var(--font-mono); font-size:26px; font-weight:600;
-  color:var(--primary); letter-spacing:-.04em; flex-shrink:0; min-width:70px;
+  font-family:var(--font-mono); font-size:clamp(28px,3.5vw,42px); font-weight:600;
+  color:var(--primary); letter-spacing:-.04em; line-height:1;
+  font-variant-numeric:tabular-nums; display:block;
 }
-.number-desc { font-size:14px; color:var(--fg-2); line-height:1.45; }
-.number-desc strong { color:var(--fg); display:block; font-size:13px; margin-bottom:2px; }
+.number-desc { font-size:13px; color:var(--fg-2); line-height:1.45; margin-top:12px; text-wrap:balance; }
+.number-desc strong { color:var(--fg); display:block; font-size:14px; font-weight:700; margin-bottom:4px; }
 
 /* ─── PROVA SOCIAL ───────────────────────────────────────────── */
 .prova { }
@@ -1044,7 +1047,7 @@ footer {
           <span class="faq-icon">+</span>
         </button>
         <div class="faq-a"><div class="faq-a-inner">
-          A implementação foi desenhada para donos com agendas cheias. <strong>O mínimo funcional é 2 a 3 horas por semana</strong> dedicadas ao processo — reuniões de alinhamento com a equipe, revisão de indicadores e ajustes nos sistemas. Cada sistema tem um "quick win" aplicável em 48h que já gera resultado antes da implementação completa. O ritmo certo não é intensidade — é consistência semanal ao longo de 90 a 180 dias.
+          A implementação foi desenhada para donos com agendas cheias. <strong>O mínimo funcional é 2 a 3 horas por semana</strong> dedicadas ao processo reuniões de alinhamento com a equipe, revisão de indicadores e ajustes nos sistemas. Cada sistema tem um "quick win" aplicável em 48h que já gera resultado antes da implementação completa. O ritmo certo não é intensidade é consistência semanal ao longo de 90 a 180 dias.
         </div></div>
       </div>
 

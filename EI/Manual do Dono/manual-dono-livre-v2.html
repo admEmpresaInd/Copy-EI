@@ -161,7 +161,7 @@ header {
   position:absolute; top:-80px; left:50%; transform:translateX(-50%);
   width:1200px; height:720px;
   background:radial-gradient(ellipse at 35% 50%,rgba(0,247,216,.12) 0%,transparent 65%);
-  pointer-events:none; animation:glow-pulse 7s ease-in-out infinite;
+  pointer-events:none; opacity:.6;
 }
 .hero-grid {
   position:absolute; inset:0; pointer-events:none;
@@ -426,7 +426,7 @@ header {
   text-transform:uppercase; letter-spacing:.1em; margin-bottom:24px;
   display:flex; align-items:center; gap:8px;
 }
-.mockup-label::after { content:'●'; font-size:8px; animation:blink 1.2s step-end infinite; }
+.mockup-label::after { content:'●'; font-size:8px; opacity:.6; }
 .mockup-cover {
   width:100%; aspect-ratio:3/4; max-height:320px;
   background:linear-gradient(160deg,var(--bg-3) 0%,rgba(0,247,216,.08) 100%);

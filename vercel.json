@@ -30,6 +30,7 @@
           { "source": "/jubiaba", "destination": "/Jubiabá/apresentacao-jubiaba" },
           { "source": "/ancestra", "destination": "/Ancestra/index" },
           { "source": "/manual-dono-livre", "destination": "/EI/Manual do Dono/manual-dono-livre" },
-          { "source": "/manual-dono-livre-v2", "destination": "/EI/Manual do Dono/manual-dono-livre-v2" }
+          { "source": "/manual-dono-livre-v2", "destination": "/EI/Manual do Dono/manual-dono-livre-v2" },
+          { "source": "/obrigado", "destination": "/EI/Manual do Dono/obrigado" }
     ]
 }

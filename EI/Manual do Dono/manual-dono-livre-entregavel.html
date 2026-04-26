@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>O Manual do Dono Livre — Empresa Independente</title>
+<title>O Manual do Dono Livre · Empresa Independente</title>
 <meta name="description" content="O método completo para construir os 5 sistemas que fazem sua empresa funcionar sem você. Templates, checklists e quick wins acionáveis.">
 <link rel="icon" href="/EI/Manual%20do%20Dono/logo-raio.png">
 <link rel="apple-touch-icon" href="/EI/Manual%20do%20Dono/logo-raio.png">
@@ -84,21 +84,7 @@ button { font-family:var(--font-display); border:none; cursor:pointer; backgroun
   padding-bottom:20px; border-bottom:1px solid var(--border);
   margin-bottom:20px;
 }
-.sidebar-logo img {
-  width:36px; height:36px; object-fit:contain;
-  background:var(--primary); border-radius:var(--r-md);
-  padding:5px;
-}
-.sidebar-logo-text {
-  font-family:var(--font-display);
-  font-weight:700; letter-spacing:-.02em;
-  font-size:14px; color:var(--fg); line-height:1.15;
-}
-.sidebar-logo-text small {
-  display:block; font-family:var(--font-mono); font-weight:400;
-  font-size:10px; color:var(--fg-3); letter-spacing:.08em;
-  text-transform:uppercase; margin-top:3px;
-}
+.sidebar-logo img { display:block; }
 .sidebar-version {
   font-family:var(--font-mono); font-size:10px;
   color:var(--primary); background:var(--primary-dim);
@@ -161,10 +147,7 @@ button { font-family:var(--font-display); border:none; cursor:pointer; backgroun
 }
 @media(max-width:900px){ .mobile-header{ display:flex; } }
 .mobile-logo { display:flex; align-items:center; gap:10px; }
-.mobile-logo img {
-  width:30px; height:30px; object-fit:contain;
-  background:var(--primary); border-radius:var(--r-sm); padding:4px;
-}
+.mobile-logo img { display:block; }
 .mobile-cta {
   background:var(--primary); color:#001c1a;
   font-size:12px; font-weight:700; padding:9px 16px;
@@ -581,20 +564,13 @@ button { font-family:var(--font-display); border:none; cursor:pointer; backgroun
 <!-- ─── SIDEBAR ───────────────────────────────────────────────── -->
 <aside class="sidebar">
   <div class="sidebar-logo">
-    <img src="/EI/Manual%20do%20Dono/logo-raio.png" alt="Empresa Independente">
-    <div class="sidebar-logo-text">
-      Empresa Independente
-      <small>Manual do Dono Livre</small>
-    </div>
+    <img src="/EI/Manual%20do%20Dono/logo-raio.png" alt="EI" style="height:28px;width:auto;">
+    <img src="/EI/Manual%20do%20Dono/logo-wordmark.png" alt="Empresa Independente" style="height:22px;width:auto;">
   </div>
 
-  <span class="sidebar-version">
-    <span class="sidebar-version-dot"></span>
-    EDIÇÃO 2025 · v1.0
-  </span>
-
+ 
   <div class="nav-section-label">Introdução</div>
-  <a class="nav-link active" onclick="navTo(event,'intro')"><span class="nav-num">—</span>Por que você está preso</a>
+  <a class="nav-link active" onclick="navTo(event,'intro')"><span class="nav-num"></span>Por que você está preso</a>
 
   <div class="nav-section-label">Os 5 Sistemas</div>
   <a class="nav-link" onclick="navTo(event,'s1')"><span class="nav-num">01</span>Cargos e Processos</a>
@@ -619,8 +595,8 @@ button { font-family:var(--font-display); border:none; cursor:pointer; backgroun
   <!-- Mobile Header -->
   <div class="mobile-header">
     <div class="mobile-logo">
-      <img src="/EI/Manual%20do%20Dono/logo-raio.png" alt="EI">
-      <span style="font-size:13px;font-weight:600;color:var(--fg-2)">Manual do Dono Livre</span>
+      <img src="/EI/Manual%20do%20Dono/logo-raio.png" alt="EI" style="height:24px;width:auto;">
+      <img src="/EI/Manual%20do%20Dono/logo-wordmark.png" alt="Empresa Independente" style="height:18px;width:auto;">
     </div>
     <a href="agendar-diagnostico.html" class="mobile-cta">Diagnóstico →</a>
   </div>
@@ -632,11 +608,11 @@ button { font-family:var(--font-display); border:none; cursor:pointer; backgroun
     <div class="cover-content">
       <div class="cover-eyebrow">Empresa Independente · Engenharia Empresarial</div>
       <h1>O Manual do<br><span class="accent">Dono Livre</span></h1>
-      <div class="cover-subtitle">Como Construir os 5 Sistemas que Fazem<br>sua Empresa Funcionar Sem Você</div>
+      <div class="cover-subtitle">Os 5 Sistemas que Fazem<br>sua Empresa Rodar Sem Você</div>
       <p class="cover-promise">
-        Este manual não é teoria. É o mesmo método que aplicamos nas implementações reais da
-        Empresa Independente — os mesmos frameworks, os mesmos templates, os mesmos checklists.
-        Se você implementar, a empresa para de depender de você. É simples assim.
+        Isso aqui não é teoria. É o mesmo método que a gente aplica nas empresas que
+        atende os mesmos frameworks, os mesmos templates, os mesmos checklists.
+        Se você fizer, a empresa para de depender de você. Simples assim.
       </p>
       <div class="cover-meta">
         <div class="cover-meta-item"><span class="cover-meta-dot"></span>5 sistemas completos</div>
@@ -655,34 +631,34 @@ button { font-family:var(--font-display); border:none; cursor:pointer; backgroun
     <div class="chapter-header anim">
       <div class="chapter-label">Introdução</div>
       <h2>Por Que Você Está Preso no Operacional (e Não é Culpa Sua)</h2>
-      <p class="chapter-deck">Antes de apresentar os 5 sistemas, você precisa entender por que a maioria dos empresários está presa — mesmo quando trabalha mais do que nunca.</p>
+      <p class="chapter-deck">Antes de te mostrar os 5 sistemas, você precisa entender por que a maioria dos donos está presa mesmo trabalhando mais do que nunca.</p>
     </div>
 
     <div class="intro-box anim d1">
-      <p>Se você fatura entre R$50 mil e R$2 milhões por mês, tem pelo menos 3 funcionários, e ainda sente que a empresa para quando você para — você não tem um problema de esforço. Você tem um <strong>problema de arquitetura</strong>.</p>
-      <p>A empresa foi construída sobre você, não sobre sistemas. E isso não é falha de caráter — é o caminho natural de qualquer negócio que cresce antes de se estruturar. O problema é que esse modelo tem um limite duro: <strong>sua disposição física e mental</strong>.</p>
+      <p>Se você fatura entre R$50 mil e R$2 milhões por mês, tem pelo menos 3 funcionários, e sente que a empresa trava quando você trava o problema não é falta de esforço. É <strong>problema de arquitetura</strong>.</p>
+      <p>A empresa foi construída em cima de você, não de sistemas. Não é culpa sua é assim que todo negócio começa. Só que esse modelo tem um teto: <strong>seu corpo e sua cabeça</strong>.</p>
     </div>
 
     <div class="body-text anim d2">
-      <p>Existe uma diferença fundamental entre dois tipos de empresários:</p>
-      <p>O <strong>Dono Refém</strong> trabalha dentro do negócio. Resolve problemas, aprova decisões, responde clientes, cobre funcionários. A empresa funciona porque ele está lá. Se ele sair por uma semana, algo quebra.</p>
-      <p>O <strong>Dono Livre</strong> trabalha sobre o negócio. Define estratégia, monitora indicadores, desenvolve liderança. A empresa funciona porque existe uma <em>estrutura</em> que sustenta a operação — independente da presença dele.</p>
-      <p>O que separa esses dois perfis não é inteligência, esforço ou anos de experiência. É a presença ou ausência dos <strong>5 sistemas</strong> que você vai aprender neste manual.</p>
+      <p>Existem dois tipos de dono. Veja qual é você:</p>
+      <p>O <strong>Dono Refém</strong> trabalha dentro do negócio. Apaga incêndio, aprova tudo, atende cliente, cobre funcionário. A empresa anda porque ele está lá. Se ele some por uma semana, alguma coisa quebra.</p>
+      <p>O <strong>Dono Livre</strong> trabalha em cima do negócio. Define estratégia, olha indicadores, desenvolve líder. A empresa anda porque existe uma <em>estrutura</em> que segura a operação esteja ele lá ou não.</p>
+      <p>A diferença entre os dois não é inteligência nem esforço. É ter ou não os <strong>5 sistemas</strong> que você vai conhecer agora.</p>
     </div>
 
-    <h3 class="anim d3">A Equação que Você Precisa Entender</h3>
+    <h3 class="anim d3">A Conta que Ninguém te Mostrou</h3>
     <div class="body-text anim d3">
-      <p>Toda empresa que depende do dono tem uma equação escondida:</p>
-      <p><em>Crescimento sem estrutura = Mais trabalho, não mais liberdade.</em></p>
-      <p>Cada novo cliente que chega, cada funcionário que entra, cada processo novo que surge — tudo vai parar em você se não existir um sistema para receber isso. E quanto mais a empresa cresce sem estrutura, mais refém você fica.</p>
-      <p>Os 5 sistemas deste manual interrompem essa equação. Cada sistema resolve uma camada da dependência — e juntos criam uma empresa que funciona como deveria: <strong>com ou sem você presente</strong>.</p>
+      <p>Toda empresa que depende do dono tem uma conta escondida:</p>
+      <p><em>Crescer sem estrutura = mais trabalho, não mais liberdade.</em></p>
+      <p>Cada cliente novo, cada funcionário novo, cada processo novo tudo cai no seu colo se não tiver um sistema pronto para receber. E quanto mais a empresa cresce assim, mais refém você fica.</p>
+      <p>Os 5 sistemas deste manual quebram essa conta. Cada um resolve uma camada do problema e juntos fazem a empresa rodar do jeito que ela deveria: <strong>com ou sem você lá</strong>.</p>
     </div>
 
     <div class="callout callout-amber anim d4">
       <span class="callout-icon">💡</span>
       <div class="callout-body">
         <div class="callout-title">Como usar este manual</div>
-        <div class="callout-text">Não leia tudo de uma vez. Leia a Introdução, identifique qual dos 5 sistemas está mais quebrado na sua operação <strong>(geralmente você já sabe qual é)</strong>, e implemente esse primeiro. Resultados parciais em 2 semanas. Implementação completa em 4 meses.</div>
+        <div class="callout-text">Não leia tudo de uma vez. Leia a Introdução, descubra qual dos 5 sistemas está mais quebrado na sua empresa <strong>(você já sabe qual é)</strong>, e comece por ele. Resultado parcial em 2 semanas. Operação completa em 4 meses.</div>
       </div>
     </div>
   </section>
@@ -692,12 +668,12 @@ button { font-family:var(--font-display); border:none; cursor:pointer; backgroun
     <div class="chapter-header anim">
       <div class="chapter-label with-num"><span class="chapter-label-num">1</span> Sistema 01 de 05</div>
       <h2>Cargos e Processos</h2>
-      <p class="chapter-deck">O sistema que define quem faz o quê, como faz, e como é medido — sem depender da sua memória ou presença.</p>
+      <p class="chapter-deck">O sistema que define quem faz o quê, como faz, e como é medido sem depender da sua memória nem da sua presença.</p>
     </div>
 
     <div class="body-text anim">
-      <p>A maioria das empresas opera com o que chamamos de <strong>organograma fantasma</strong>: existe no papel (ou na cabeça do dono), mas não reflete a realidade. As pessoas fazem o que conseguem, não o que foi definido. As decisões sobem para o dono porque ninguém sabe até onde vai sua responsabilidade.</p>
-      <p>O Sistema de Cargos e Processos resolve isso em três camadas:</p>
+      <p>A maioria das empresas opera com um <strong>organograma fantasma</strong>: existe no papel (ou na cabeça do dono), mas não reflete a realidade. As pessoas fazem o que dá, não o que foi combinado. Toda decisão sobe pra você porque ninguém sabe até onde vai a responsabilidade de cada um.</p>
+      <p>O Sistema de Cargos e Processos resolve isso em três etapas simples:</p>
     </div>
 
     <div class="steps anim d1">
@@ -705,27 +681,27 @@ button { font-family:var(--font-display); border:none; cursor:pointer; backgroun
         <div class="step-num">1</div>
         <div class="step-body">
           <div class="step-title">Organograma Real com Responsabilidades</div>
-          <p class="step-desc">Não um organograma de RH — um mapa operacional que mostra quem é responsável por cada resultado. Cada posição tem dono, cada resultado tem medida.</p>
+          <p class="step-desc">Não é organograma de RH é um mapa da operação que mostra quem responde por cada resultado. Cada cadeira tem um dono. Cada resultado tem um número.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">2</div>
         <div class="step-body">
           <div class="step-title">Engenharia de Cargos com Metas e Indicadores</div>
-          <p class="step-desc">Cada cargo tem uma descrição funcional clara: o que entrega, como é medido, qual é a meta, e o que caracteriza excelência. Sem isso, você gerencia expectativas — não resultados.</p>
+          <p class="step-desc">Cada cargo tem descrição clara: o que entrega, como é medido, qual a meta, o que é excelência. Sem isso, você cobra expectativa não resultado.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">3</div>
         <div class="step-body">
           <div class="step-title">Processos por Setor com Padrão de Qualidade</div>
-          <p class="step-desc">Os 3-5 processos críticos de cada setor, documentados em linguagem operacional — não manual técnico. O objetivo é que qualquer pessoa entenda e execute sem te perguntar nada.</p>
+          <p class="step-desc">Os 3 a 5 processos críticos de cada setor, escritos em linguagem do dia a dia não em manual técnico. Qualquer pessoa lê e executa sem te perguntar nada.</p>
         </div>
       </div>
     </div>
 
     <h3 class="anim">Template: Descrição de Cargo</h3>
-    <p class="body-text anim" style="margin-bottom:20px">Use este template para documentar cada cargo da sua empresa. Comece pelos 3 mais críticos.</p>
+    <p class="body-text anim" style="margin-bottom:20px">Use esse template para descrever cada cargo da empresa. Comece pelos 3 mais críticos.</p>
 
     <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px">
       <span class="etag">Template de Descrição de Cargo</span>
@@ -735,7 +711,7 @@ button { font-family:var(--font-display); border:none; cursor:pointer; backgroun
 
     <div class="template-block anim d1">
       <div class="template-header">
-        <span class="template-label">Template — Descrição de Cargo</span>
+        <span class="template-label">Template Descrição de Cargo</span>
         <button class="template-copy-btn" onclick="copyTemplate(this)">Copiar</button>
       </div>
       <pre class="template-body">CARGO: <span class="template-placeholder">[Nome do cargo]</span>
@@ -751,9 +727,9 @@ RESPONSABILIDADES PRINCIPAIS:
 3. <span class="template-placeholder">[Responsabilidade 3]</span>
 
 INDICADORES DE PERFORMANCE (KPIs):
-• <span class="template-placeholder">[KPI 1 — ex: Taxa de conversão de vendas > 30%]</span>
-• <span class="template-placeholder">[KPI 2 — ex: NPS > 8.0]</span>
-• <span class="template-placeholder">[KPI 3 — ex: Zero atrasos na entrega]</span>
+• <span class="template-placeholder">[KPI 1 ex: Taxa de conversão de vendas > 30%]</span>
+• <span class="template-placeholder">[KPI 2 ex: NPS > 8.0]</span>
+• <span class="template-placeholder">[KPI 3 ex: Zero atrasos na entrega]</span>
 
 DECISÕES QUE PODE TOMAR SEM CONSULTAR:
 • <span class="template-placeholder">[Decisão 1]</span>
@@ -765,7 +741,7 @@ DECISÕES QUE DEVEM PASSAR PELO SUPERIOR:
     </div>
 
     <div class="checklist anim d2">
-      <div class="checklist-title">Checklist — Sistema 1 implementado quando:</div>
+      <div class="checklist-title">Checklist Sistema 1 implementado quando:</div>
       <div class="check-item-row">
         <div class="check-box" onclick="toggleCheck(this)"></div>
         <div class="check-label">Organograma real está documentado com responsabilidades por posição</div>
@@ -791,17 +767,17 @@ DECISÕES QUE DEVEM PASSAR PELO SUPERIOR:
     <div class="mistake-box anim d3">
       <div class="mistake-title">⚠️ Erros mais comuns neste sistema</div>
       <ul class="mistake-list">
-        <li>Documentar processos "perfeitos" que ninguém usa — documente o que realmente acontece, não o que deveria acontecer</li>
-        <li>Criar descrições de cargo genéricas sem KPIs — se não tem número, não é meta</li>
-        <li>Fazer sozinho — quem executa o processo sabe melhor do que você como funciona</li>
-        <li>Documentar tudo de uma vez — comece pelos 3 processos que mais te sobrecarregam</li>
+        <li>Escrever processo "perfeito" que ninguém usa documente o que acontece de verdade, não o que deveria acontecer</li>
+        <li>Fazer descrição de cargo genérica, sem KPI se não tem número, não é meta</li>
+        <li>Fazer sozinho quem executa sabe mais do processo do que você</li>
+        <li>Querer documentar tudo de uma vez comece pelos 3 processos que mais sugam seu tempo</li>
       </ul>
     </div>
 
     <div class="quick-win anim d4">
-      <div class="quick-win-badge">Quick Win — 48 horas</div>
+      <div class="quick-win-badge">Quick Win 48 horas</div>
       <div class="quick-win-title">Mapeie o processo que mais consome seu tempo essa semana</div>
-      <p class="quick-win-body">Escolha uma coisa que você fez pelo menos 3 vezes nos últimos 30 dias e que poderia ser feita por outra pessoa. Documente em 15 minutos usando o template acima. Peça para um funcionário executar. Corrija. Você acabou de criar seu primeiro processo independente de você. <strong>Repita por 4 semanas.</strong></p>
+      <p class="quick-win-body">Pense numa coisa que você já fez pelo menos 3 vezes nos últimos 30 dias e que outra pessoa poderia fazer. Escreva em 15 minutos usando o template acima. Passa pra um funcionário executar. Ajusta. Pronto: você acabou de criar seu primeiro processo que roda sem você. <strong>Repita por 4 semanas.</strong></p>
     </div>
   </section>
 
@@ -810,13 +786,13 @@ DECISÕES QUE DEVEM PASSAR PELO SUPERIOR:
     <div class="chapter-header anim">
       <div class="chapter-label with-num"><span class="chapter-label-num">2</span> Sistema 02 de 05</div>
       <h2>Contratação Sem Feeling</h2>
-      <p class="chapter-deck">O sistema que elimina contratações por intuição e instala um processo que acerta 4 em cada 5 contratações antes de você assinar qualquer contrato.</p>
+      <p class="chapter-deck">O sistema que tira o "achismo" da contratação e coloca no lugar um processo que acerta 4 em cada 5 contratações antes de você assinar nada.</p>
     </div>
 
     <div class="body-text anim">
-      <p>Uma contratação errada custa, em média, <strong>R$30 mil a R$80 mil</strong> quando você conta salário, encargos, tempo de treinamento, impacto na equipe e custo do desligamento. Isso sem considerar o desgaste emocional.</p>
-      <p>O problema não é que você contrata mal. É que você contrata com base no feeling — e o feeling erra mais do que acerta. Pesquisas mostram que entrevistas tradicionais têm <strong>apenas 14% de capacidade preditiva</strong> de performance futura.</p>
-      <p>O Sistema de Contratação Sem Feeling tem 4 filtros que eliminam candidatos errados antes de chegar em você:</p>
+      <p>Uma contratação errada custa, em média, <strong>R$30 mil a R$80 mil</strong> quando você soma salário, encargos, treinamento, impacto na equipe e desligamento. Isso sem contar o desgaste.</p>
+      <p>O problema não é que você contrata mal. É que você contrata pelo feeling e o feeling erra mais do que acerta. Estudos mostram que entrevista tradicional tem <strong>só 14% de chance</strong> de prever a performance da pessoa.</p>
+      <p>O Sistema de Contratação Sem Feeling tem 4 filtros que cortam o candidato errado antes de ele chegar em você:</p>
     </div>
 
     <div class="steps anim d1">
@@ -824,28 +800,28 @@ DECISÕES QUE DEVEM PASSAR PELO SUPERIOR:
         <div class="step-num">1</div>
         <div class="step-body">
           <div class="step-title">Anúncio de Vaga que Qualifica Antes de Atrair</div>
-          <p class="step-desc">Um anúncio mal escrito atrai 200 candidatos e cria trabalho. Um anúncio bem escrito atrai 40 candidatos certos. A chave: seja específico sobre o que NÃO é o cargo e o que é não-negociável.</p>
+          <p class="step-desc">Anúncio mal escrito atrai 200 candidatos e te dá trabalho. Anúncio bom atrai 40 candidatos certos. O segredo: deixe claro o que NÃO é o cargo e o que é inegociável.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">2</div>
         <div class="step-body">
-          <div class="step-title">Formulário de Filtro com Perguntas de Eliminação</div>
-          <p class="step-desc">Antes de qualquer entrevista, candidates respondem 5-7 perguntas que revelam fit cultural, capacidade de execução e red flags. Elimina 60% dos candidatos errados automaticamente.</p>
+          <div class="step-title">Formulário de Filtro com Perguntas Eliminatórias</div>
+          <p class="step-desc">Antes de qualquer entrevista, o candidato responde 5 a 7 perguntas que mostram fit de cultura, capacidade de execução e red flags. Corta 60% dos errados sozinho.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">3</div>
         <div class="step-body">
           <div class="step-title">Entrevista Estruturada com Rubrica de Avaliação</div>
-          <p class="step-desc">Perguntas predefinidas com rubrica de notas (1-5). Elimina vieses inconscientes e permite comparação objetiva entre candidatos. Pode ser conduzida por um líder de equipe — não precisa ser você.</p>
+          <p class="step-desc">Perguntas fixas com nota de 1 a 5. Tira o viés, permite comparar candidatos lado a lado. Pode ser feita por um líder do time não precisa ser você.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">4</div>
         <div class="step-body">
           <div class="step-title">Teste Prático de Validação</div>
-          <p class="step-desc">Uma tarefa real do cargo, executada antes da contratação. Revela capacidade técnica, atenção a detalhes e como a pessoa trabalha sob pressão. Quem não aceita fazer o teste já se elimina.</p>
+          <p class="step-desc">Uma tarefa real do cargo, feita antes de contratar. Mostra capacidade técnica, atenção aos detalhes e como a pessoa trabalha sob pressão. Quem não topa fazer já se elimina.</p>
         </div>
       </div>
     </div>
@@ -860,14 +836,14 @@ DECISÕES QUE DEVEM PASSAR PELO SUPERIOR:
 
     <div class="template-block anim d1">
       <div class="template-header">
-        <span class="template-label">Template — Formulário de Filtro (adapte para o cargo)</span>
+        <span class="template-label">Template Formulário de Filtro (adapte para o cargo)</span>
         <button class="template-copy-btn" onclick="copyTemplate(this)">Copiar</button>
       </div>
       <pre class="template-body">1. Por que você quer sair do seu emprego atual? (ou: por que está procurando oportunidade agora?)
 
 2. Descreva a última vez que você tomou uma iniciativa sem ter sido pedido. O que aconteceu?
 
-3. Este cargo exige [característica essencial — ex: trabalho autônomo sem supervisão diária]. Como você lida com isso?
+3. Este cargo exige [característica essencial ex: trabalho autônomo sem supervisão diária]. Como você lida com isso?
 
 4. Qual é a maior crítica profissional que você recebeu no último ano? Como você reagiu?
 
@@ -881,7 +857,7 @@ INSTRUÇÕES PARA O AVALIADOR:
     </div>
 
     <div class="checklist anim d2">
-      <div class="checklist-title">Checklist — Sistema 2 implementado quando:</div>
+      <div class="checklist-title">Checklist Sistema 2 implementado quando:</div>
       <div class="check-item-row">
         <div class="check-box" onclick="toggleCheck(this)"></div>
         <div class="check-label">Existe um template de anúncio de vaga para os cargos mais contratados</div>
@@ -905,9 +881,9 @@ INSTRUÇÕES PARA O AVALIADOR:
     </div>
 
     <div class="quick-win anim d3">
-      <div class="quick-win-badge">Quick Win — 48 horas</div>
-      <div class="quick-win-title">Crie o formulário de filtro para o próximo cargo que você vai abrir</div>
-      <p class="quick-win-body">Use as 6 perguntas do template acima como base. Adapte para o cargo. Na próxima seleção, envie o formulário antes de agendar qualquer entrevista. <strong>Você vai eliminar 50-60% dos candidatos errados sem gastar uma hora do seu tempo.</strong></p>
+      <div class="quick-win-badge">Quick Win 48 horas</div>
+      <div class="quick-win-title">Monte o formulário de filtro para a próxima vaga que vai abrir</div>
+      <p class="quick-win-body">Use as 6 perguntas do template acima de base. Ajuste pro cargo. Na próxima seleção, mande o formulário antes de marcar entrevista. <strong>Você corta 50% a 60% dos candidatos errados sem gastar uma hora do seu dia.</strong></p>
     </div>
   </section>
 
@@ -916,15 +892,15 @@ INSTRUÇÕES PARA O AVALIADOR:
     <div class="chapter-header anim">
       <div class="chapter-label with-num"><span class="chapter-label-num">3</span> Sistema 03 de 05</div>
       <h2>Treinamento por Função</h2>
-      <p class="chapter-deck">O sistema que faz o novo colaborador chegar ao nível de performance esperado em 30 dias — sem sugar seu tempo nem depender de outro funcionário-chave.</p>
+      <p class="chapter-deck">O sistema que faz o novo colaborador chegar ao nível esperado em 30 dias sem sugar seu tempo nem depender de outro funcionário-chave.</p>
     </div>
 
     <div class="body-text anim">
-      <p>O treinamento na maioria das empresas funciona assim: o novo colaborador senta ao lado do funcionário mais antigo e aprende "observando". Isso cria três problemas:</p>
-      <p>1) <strong>Replica erros</strong> — o antigo funcionário passou seus hábitos, bons e ruins.</p>
-      <p>2) <strong>Cria dependência</strong> — agora você tem dois funcionários produzindo metade enquanto um treina o outro.</p>
-      <p>3) <strong>Sem padrão</strong> — cada pessoa treinada sai diferente, com uma versão do processo.</p>
-      <p>O Sistema de Treinamento por Função tem 3 trilhas que resolvem isso:</p>
+      <p>Treinamento na maioria das empresas é assim: o novo colaborador senta do lado do funcionário antigo e aprende "olhando". Isso causa três problemas:</p>
+      <p>1) <strong>Replica erro</strong> o funcionário antigo passa hábitos bons e ruins junto.</p>
+      <p>2) <strong>Cria dependência</strong> agora você tem dois produzindo metade, porque um está treinando o outro.</p>
+      <p>3) <strong>Sem padrão</strong> cada pessoa sai treinada de um jeito, com uma versão do processo.</p>
+      <p>O Sistema de Treinamento por Função tem 3 trilhas que resolvem tudo isso:</p>
     </div>
 
     <div class="steps anim d1">
@@ -932,21 +908,21 @@ INSTRUÇÕES PARA O AVALIADOR:
         <div class="step-num">1</div>
         <div class="step-body">
           <div class="step-title">Trilha de Cultura e Valores (Dias 1-3)</div>
-          <p class="step-desc">Não começa pelos processos. Começa pelo porquê. Quem somos, para onde vamos, como trabalhamos, o que não toleramos. Um colaborador alinhado culturalmente aprende o resto mais rápido.</p>
+          <p class="step-desc">Não começa pelo processo. Começa pelo porquê. Quem somos, pra onde a gente vai, como trabalha, o que não tolera. Quem entra alinhado com a cultura aprende o resto mais rápido.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">2</div>
         <div class="step-body">
           <div class="step-title">Trilha Técnica por Cargo (Dias 4-21)</div>
-          <p class="step-desc">Os 10-15 processos essenciais do cargo, organizados em ordem de complexidade crescente. Cada módulo tem instrução, exemplo prático e exercício de validação. O colaborador avança no próprio ritmo.</p>
+          <p class="step-desc">Os 10 a 15 processos essenciais do cargo, do mais simples para o mais complexo. Cada módulo tem instrução, exemplo prático e um exercício pra validar. A pessoa avança no próprio ritmo.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">3</div>
         <div class="step-body">
           <div class="step-title">Checklist Operacional de Liberação (Dias 22-30)</div>
-          <p class="step-desc">Uma bateria de tarefas reais que o colaborador executa sob supervisão. Só é "liberado" para operar autonomamente quando completa 100% do checklist. Sem aprovação subjetiva — é passado ou reprovado.</p>
+          <p class="step-desc">Uma série de tarefas reais que a pessoa executa sob supervisão. Só vai operar sozinha quando bate 100% do checklist. Não tem "achei que ele já dá conta" é passou ou reprovou.</p>
         </div>
       </div>
     </div>
@@ -955,12 +931,12 @@ INSTRUÇÕES PARA O AVALIADOR:
       <span class="callout-icon">📌</span>
       <div class="callout-body">
         <div class="callout-title">Ferramenta recomendada para a trilha técnica</div>
-        <div class="callout-text">Loom (gravação de tela) + Google Docs ou Notion. Grave os processos uma vez, documente o passo a passo, organize em uma pasta por cargo. <strong>Você cria uma vez, funciona para sempre.</strong> Cada novo colaborador acessa sozinho, sem precisar de você ou de alguém do time.</div>
+        <div class="callout-text">Loom (gravação de tela) + Google Docs ou Notion. Grave o processo uma vez, escreva o passo a passo, organize numa pasta por cargo. <strong>Cria uma vez, serve pra sempre.</strong> O novo colaborador acessa sozinho, sem precisar de você nem de alguém do time.</div>
       </div>
     </div>
 
     <div class="checklist anim d3">
-      <div class="checklist-title">Checklist — Sistema 3 implementado quando:</div>
+      <div class="checklist-title">Checklist Sistema 3 implementado quando:</div>
       <div class="check-item-row">
         <div class="check-box" onclick="toggleCheck(this)"></div>
         <div class="check-label">Trilha de cultura existe e pode ser executada independente do dono</div>
@@ -984,9 +960,9 @@ INSTRUÇÕES PARA O AVALIADOR:
     </div>
 
     <div class="quick-win anim d4">
-      <div class="quick-win-badge">Quick Win — 48 horas</div>
+      <div class="quick-win-badge">Quick Win 48 horas</div>
       <div class="quick-win-title">Grave um vídeo de 10 minutos do processo que mais te perguntam</div>
-      <p class="quick-win-body">Pense no processo que mais pessoas te perguntam sobre. Abra o Loom (gratuito), grave a tela fazendo o processo enquanto explica em voz alta. Suba no Google Drive. Envie o link para quem sempre te pergunta. <strong>Você acabou de criar o primeiro módulo da trilha técnica.</strong></p>
+      <p class="quick-win-body">Pense no processo que todo mundo te pergunta. Abra o Loom (é grátis), grave a tela fazendo enquanto explica em voz alta. Sobe no Google Drive. Manda o link pra quem sempre te pergunta. <strong>Pronto: primeiro módulo da trilha técnica entregue.</strong></p>
     </div>
   </section>
 
@@ -995,12 +971,12 @@ INSTRUÇÕES PARA O AVALIADOR:
     <div class="chapter-header anim">
       <div class="chapter-label with-num"><span class="chapter-label-num">4</span> Sistema 04 de 05</div>
       <h2>Indicadores de Performance</h2>
-      <p class="chapter-deck">O sistema que torna visível o que está funcionando, o que está quebrando, e o que exige atenção — sem precisar estar em todo lugar ao mesmo tempo.</p>
+      <p class="chapter-deck">O sistema que mostra o que está funcionando, o que está quebrando e o que pede atenção sem você precisar estar em todo lugar ao mesmo tempo.</p>
     </div>
 
     <div class="body-text anim">
-      <p>Sem indicadores, você gerencia pela percepção. E a percepção é lenta, seletiva e distorcida. Você descobre os problemas quando já viraram crises — não quando ainda são alertas.</p>
-      <p>Com indicadores, você gerencia pela realidade. Você sabe, toda semana, onde a operação está saudável e onde precisa de intervenção. E o melhor: sua equipe pode monitorar isso sem você.</p>
+      <p>Sem indicador, você gerencia pelo "achismo". E achismo é lento, seletivo e enganoso. Você descobre o problema quando ele já virou crise não quando ainda era alerta.</p>
+      <p>Com indicador, você gerencia pela realidade. Toda semana, sabe onde a operação está bem e onde precisa entrar. E o melhor: a equipe acompanha isso sem você precisar puxar.</p>
     </div>
 
     <h3 class="anim">Os 3 Níveis de Indicadores</h3>
@@ -1010,21 +986,21 @@ INSTRUÇÕES PARA O AVALIADOR:
         <div class="step-num">1</div>
         <div class="step-body">
           <div class="step-title">Indicadores de Resultado (lagging)</div>
-          <p class="step-desc">Medem o que já aconteceu. Faturamento, lucro, NPS, churn. Importantes, mas lentos — quando você vê o problema, já aconteceu. Use mensalmente para avaliar tendência.</p>
+          <p class="step-desc">Mostram o que já aconteceu. Faturamento, lucro, NPS, churn. Importantes, mas lentos quando você vê o problema, ele já passou. Use uma vez por mês pra ver a tendência.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">2</div>
         <div class="step-body">
           <div class="step-title">Indicadores de Processo (leading)</div>
-          <p class="step-desc">Medem o que está acontecendo e preveem o resultado. Propostas enviadas, ligações feitas, tempo de resposta, taxa de retrabalho. Se esses indicadores caem, o resultado vai cair em 30-60 dias. Use semanalmente.</p>
+          <p class="step-desc">Mostram o que está acontecendo e antecipam o resultado. Propostas enviadas, ligações feitas, tempo de resposta, taxa de retrabalho. Se eles caem, o resultado cai em 30 a 60 dias. Use toda semana.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">3</div>
         <div class="step-body">
           <div class="step-title">Scorecard Semanal da Equipe</div>
-          <p class="step-desc">Um único dashboard que cada líder preenche toda segunda-feira com os 5 indicadores da sua área. Verde, amarelo ou vermelho. Você lê em 10 minutos e sabe exatamente onde intervir essa semana.</p>
+          <p class="step-desc">Um painel único que cada líder preenche toda segunda com os 5 indicadores da área. Verde, amarelo ou vermelho. Você lê em 10 minutos e já sabe onde precisa entrar nessa semana.</p>
         </div>
       </div>
     </div>
@@ -1039,10 +1015,10 @@ INSTRUÇÕES PARA O AVALIADOR:
 
     <div class="template-block anim d1">
       <div class="template-header">
-        <span class="template-label">Template — Scorecard Semanal por Setor</span>
+        <span class="template-label">Template Scorecard Semanal por Setor</span>
         <button class="template-copy-btn" onclick="copyTemplate(this)">Copiar</button>
       </div>
-      <pre class="template-body">SCORECARD SEMANAL — <span class="template-placeholder">[Nome do Setor]</span>
+      <pre class="template-body">SCORECARD SEMANAL <span class="template-placeholder">[Nome do Setor]</span>
 Responsável: <span class="template-placeholder">[Nome do líder]</span>
 Semana: <span class="template-placeholder">[Data]</span>
 
@@ -1059,19 +1035,19 @@ MAIOR ALERTA DESTA SEMANA:
 
 NECESSITA DECISÃO DO SÓCIO/CEO?
 [ ] Sim → <span class="template-placeholder">[Descreva]</span>
-[x] Não — resolvemos internamente</pre>
+[x] Não resolvemos internamente</pre>
     </div>
 
     <div class="callout callout-green anim d2">
       <span class="callout-icon">✅</span>
       <div class="callout-body">
         <div class="callout-title">Regra das 5 Métricas por Setor</div>
-        <div class="callout-text">Se você tem mais de 5 métricas por setor, você tem informação demais e foco de menos. Force-se a escolher as 5 que, se saudáveis, garantem que o setor está funcionando bem. <strong>O restante é dado — não gestão.</strong></div>
+        <div class="callout-text">Mais de 5 métricas por setor = informação demais e foco de menos. Obrigue-se a escolher as 5 que, estando saudáveis, te dão certeza de que o setor vai bem. <strong>O resto é dado não é gestão.</strong></div>
       </div>
     </div>
 
     <div class="checklist anim d3">
-      <div class="checklist-title">Checklist — Sistema 4 implementado quando:</div>
+      <div class="checklist-title">Checklist Sistema 4 implementado quando:</div>
       <div class="check-item-row">
         <div class="check-box" onclick="toggleCheck(this)"></div>
         <div class="check-label">Cada setor tem no máximo 5 KPIs definidos com metas claras</div>
@@ -1095,9 +1071,9 @@ NECESSITA DECISÃO DO SÓCIO/CEO?
     </div>
 
     <div class="quick-win anim d4">
-      <div class="quick-win-badge">Quick Win — 48 horas</div>
-      <div class="quick-win-title">Defina as 5 métricas mais importantes do seu negócio hoje</div>
-      <p class="quick-win-body">Pegue papel e caneta. Escreva: "Se esses 5 números estiverem saudáveis na semana que vem, minha empresa está bem." Coloque as metas ao lado. Isso é o começo do seu scorecard. <strong>Compartilhe com a equipe amanhã de manhã.</strong></p>
+      <div class="quick-win-badge">Quick Win 48 horas</div>
+      <div class="quick-win-title">Escolha hoje as 5 métricas mais importantes do seu negócio</div>
+      <p class="quick-win-body">Pega papel e caneta. Completa a frase: "Se esses 5 números estiverem bons semana que vem, minha empresa está bem." Põe a meta do lado. Isso já é o começo do seu scorecard. <strong>Mostra pra equipe amanhã de manhã.</strong></p>
     </div>
   </section>
 
@@ -1106,12 +1082,12 @@ NECESSITA DECISÃO DO SÓCIO/CEO?
     <div class="chapter-header anim">
       <div class="chapter-label with-num"><span class="chapter-label-num">5</span> Sistema 05 de 05</div>
       <h2>Financeiro Estruturado</h2>
-      <p class="chapter-deck">O sistema que transforma o financeiro de uma caixa preta em um painel de controle — onde você vê para onde o dinheiro vai antes que suma.</p>
+      <p class="chapter-deck">O sistema que tira o financeiro da caixa preta e coloca num painel de controle onde você vê pra onde o dinheiro está indo antes de ele sumir.</p>
     </div>
 
     <div class="body-text anim">
-      <p>A maioria dos empresários olha o saldo da conta para saber como está o negócio. Isso é como dirigir olhando para o retrovisor: você só vê o que já passou.</p>
-      <p>O financeiro estruturado tem três instrumentos que mudam isso:</p>
+      <p>A maioria dos donos olha o saldo da conta pra saber como o negócio está. É como dirigir olhando pelo retrovisor: você só enxerga o que já passou.</p>
+      <p>O financeiro estruturado tem três ferramentas que mudam isso:</p>
     </div>
 
     <div class="steps anim d1">
@@ -1119,21 +1095,21 @@ NECESSITA DECISÃO DO SÓCIO/CEO?
         <div class="step-num">1</div>
         <div class="step-body">
           <div class="step-title">DRE Gerencial Mensal (Demonstrativo de Resultado)</div>
-          <p class="step-desc">Não o DRE contábil (aquele que o contador envia 3 meses depois). Um DRE gerencial simples que você fecha todo dia 5 do mês seguinte: receita, custo direto, margem, despesas fixas e lucro líquido. Em uma página.</p>
+          <p class="step-desc">Não é o DRE contábil (aquele que chega 3 meses depois). É um DRE gerencial simples, fechado todo dia 5 do mês seguinte: receita, custo direto, margem, despesa fixa e lucro líquido. Numa página só.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">2</div>
         <div class="step-body">
           <div class="step-title">Fluxo de Caixa Projetado (13 semanas)</div>
-          <p class="step-desc">Quais entradas e saídas estão previstas para as próximas 13 semanas. Isso transforma susto em planejamento — você vê a crise de liquidez 60 dias antes de acontecer, quando ainda dá para agir.</p>
+          <p class="step-desc">As entradas e saídas previstas para as próximas 13 semanas. Vira planejamento, não susto você enxerga a crise de caixa 60 dias antes dela bater, quando ainda dá pra fazer alguma coisa.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num">3</div>
         <div class="step-body">
-          <div class="step-title">Custo Real por Produto/Serviço</div>
-          <p class="step-desc">Quanto custa de verdade cada produto ou serviço — incluindo custo direto, rateio de fixos e tempo de equipe. Sem isso, você pode estar vendendo com prejuízo sem saber. É mais comum do que parece.</p>
+          <div class="step-title">Custo Real por Produto ou Serviço</div>
+          <p class="step-desc">Quanto cada produto ou serviço custa de verdade somando custo direto, parcela dos fixos e tempo de equipe. Sem isso, você pode estar vendendo no prejuízo e nem saber. Acontece mais do que parece.</p>
         </div>
       </div>
     </div>
@@ -1141,13 +1117,13 @@ NECESSITA DECISÃO DO SÓCIO/CEO?
     <div class="callout callout-rose anim d2">
       <span class="callout-icon">⚠️</span>
       <div class="callout-body">
-        <div class="callout-title">Sinal de alerta: você está neste risco se...</div>
-        <div class="callout-text">Você olha o saldo e não sabe se ele é lucro ou se é dinheiro de clientes que ainda não virou lucro. Ou se aumentou o faturamento mas o caixa ficou igual. Isso significa que as margens estão invisíveis — e algum produto ou serviço pode estar te dando prejuízo.</div>
+        <div class="callout-title">Sinal de alerta: você está nesse risco se...</div>
+        <div class="callout-text">Você olha o saldo e não sabe se é lucro ou se é dinheiro de cliente que ainda nem virou lucro. Ou se o faturamento subiu mas o caixa ficou igual. Isso quer dizer que a margem está invisível e algum produto ou serviço pode estar te dando prejuízo.</div>
       </div>
     </div>
 
     <div class="checklist anim d3">
-      <div class="checklist-title">Checklist — Sistema 5 implementado quando:</div>
+      <div class="checklist-title">Checklist Sistema 5 implementado quando:</div>
       <div class="check-item-row">
         <div class="check-box" onclick="toggleCheck(this)"></div>
         <div class="check-label">DRE gerencial é fechado todo dia 5 do mês seguinte (em no máximo 2h)</div>
@@ -1171,9 +1147,9 @@ NECESSITA DECISÃO DO SÓCIO/CEO?
     </div>
 
     <div class="quick-win anim d4">
-      <div class="quick-win-badge">Quick Win — 48 horas</div>
+      <div class="quick-win-badge">Quick Win 48 horas</div>
       <div class="quick-win-title">Calcule o custo real do seu serviço mais vendido</div>
-      <p class="quick-win-body">Pegue o serviço que mais representa sua receita. Some: custo direto de entrega + parcela dos fixos + horas de equipe × custo hora. Divida pela receita gerada. Esse número é sua margem real. <strong>Se for abaixo de 30%, você precisa renegociar preços ou cortar custos imediatamente.</strong></p>
+      <p class="quick-win-body">Pega o serviço que mais pesa na sua receita. Soma: custo direto de entrega + parcela dos fixos + horas de equipe × custo da hora. Divide pela receita gerada. Esse número é sua margem real. <strong>Se for menos de 30%, você precisa renegociar preço ou cortar custo agora.</strong></p>
     </div>
   </section>
 
@@ -1182,40 +1158,40 @@ NECESSITA DECISÃO DO SÓCIO/CEO?
     <div class="chapter-header anim">
       <div class="chapter-label">Próximos Passos</div>
       <h2>Seu Plano de 90 Dias para Ser um Dono Livre</h2>
-      <p class="chapter-deck">Os 5 sistemas apresentados neste manual são o mapa. Aqui está a ordem de implementação que funciona para a maioria das empresas.</p>
+      <p class="chapter-deck">Os 5 sistemas deste manual são o mapa. Aqui vai a ordem de implementação que funciona pra maioria das empresas.</p>
     </div>
 
     <div class="body-text anim">
-      <p>Não existe uma ordem universal — depende de qual sistema está mais quebrado na sua operação. Mas para empresas que ainda não têm estrutura nenhuma, esta é a sequência que gera os resultados mais rápidos:</p>
+      <p>Não existe uma ordem única depende de qual sistema está mais quebrado na sua empresa. Mas pra quem ainda não tem nenhuma estrutura, essa sequência é a que dá resultado mais rápido:</p>
     </div>
 
     <div class="steps anim d1">
       <div class="step">
         <div class="step-num" style="background:rgba(245,158,11,.15);border-color:rgba(245,158,11,.3);color:var(--amber)">M1</div>
         <div class="step-body">
-          <div class="step-title">Mês 1 — Fundação: Cargos, Processos e Indicadores</div>
-          <p class="step-desc">Documente o organograma real. Crie as 5 descrições de cargo mais críticas. Implante o scorecard semanal. Com isso, você tem visibilidade sobre o que está quebrando — e uma estrutura inicial de responsabilidades.</p>
+          <div class="step-title">Mês 1 Fundação: Cargos, Processos e Indicadores</div>
+          <p class="step-desc">Desenhe o organograma real. Escreva as 5 descrições de cargo mais críticas. Coloque o scorecard semanal pra rodar. Com isso, você já enxerga o que está quebrando e tem uma estrutura inicial de responsabilidades.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num" style="background:rgba(245,158,11,.15);border-color:rgba(245,158,11,.3);color:var(--amber)">M2</div>
         <div class="step-body">
-          <div class="step-title">Mês 2 — Equipe: Contratação e Treinamento</div>
-          <p class="step-desc">Implante o processo de contratação sem feeling. Crie a trilha de treinamento para os 2 cargos mais contratados. Com isso, novas contratações começam a chegar com mais qualidade e ficam funcionais mais rápido.</p>
+          <div class="step-title">Mês 2 Equipe: Contratação e Treinamento</div>
+          <p class="step-desc">Coloque pra rodar o processo de contratação sem feeling. Monte a trilha de treinamento dos 2 cargos que você mais contrata. Resultado: contratação melhor e gente mais rápida na operação.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num" style="background:rgba(245,158,11,.15);border-color:rgba(245,158,11,.3);color:var(--amber)">M3</div>
         <div class="step-body">
-          <div class="step-title">Mês 3 — Financeiro e Manutenção</div>
-          <p class="step-desc">Estruture o DRE gerencial. Calcule o custo real dos produtos. Projete o fluxo de caixa. E comece a revisar os sistemas anteriores — identificar o que funciona, o que precisa ajuste, e o que está se consolidando.</p>
+          <div class="step-title">Mês 3 Financeiro e Manutenção</div>
+          <p class="step-desc">Monte o DRE gerencial. Calcule o custo real dos produtos. Projete o fluxo de caixa. E comece a revisar os sistemas anteriores ver o que pega, o que precisa de ajuste, o que já firmou.</p>
         </div>
       </div>
       <div class="step">
         <div class="step-num" style="background:rgba(0,247,216,.15);border-color:rgba(0,247,216,.3);color:var(--primary)">M4</div>
         <div class="step-body">
-          <div class="step-title">Mês 4 — Independência</div>
-          <p class="step-desc">Com os 5 sistemas rodando, você começa a sair do operacional gradualmente. Primeiro um dia por semana. Depois uma semana inteira. O objetivo: a empresa funciona sem você por 10 dias seguidos sem nenhuma crise.</p>
+          <div class="step-title">Mês 4 Independência</div>
+          <p class="step-desc">Com os 5 sistemas rodando, você começa a sair do operacional aos poucos. Primeiro um dia por semana. Depois uma semana inteira. Meta: a empresa funcionar sem você por 10 dias seguidos sem nenhuma crise.</p>
         </div>
       </div>
     </div>
@@ -1223,16 +1199,16 @@ NECESSITA DECISÃO DO SÓCIO/CEO?
     <div class="callout callout-green anim d2">
       <span class="callout-icon">🎯</span>
       <div class="callout-body">
-        <div class="callout-title">O critério de "Dono Livre" é simples</div>
-        <div class="callout-text">Você consegue sair de férias por 10 dias consecutivos, desligar o celular, e voltar encontrando a empresa no mesmo nível ou melhor do que deixou. <strong>Se isso acontecer, você é um Dono Livre.</strong> Os 5 sistemas são o caminho para chegar lá.</div>
+        <div class="callout-title">O teste do Dono Livre é simples</div>
+        <div class="callout-text">Você consegue tirar 10 dias de férias, desligar o celular, e voltar com a empresa no mesmo nível (ou melhor) do que deixou. <strong>Se rolar, você é um Dono Livre.</strong> Os 5 sistemas são o caminho pra chegar lá.</div>
       </div>
     </div>
 
     <hr class="chapter-divider">
 
     <div class="body-text anim d3">
-      <p>Este manual revela o método. Mas uma coisa que ele não faz é te dizer <strong>qual dos 5 sistemas está mais quebrado especificamente na SUA empresa</strong> — porque isso depende da realidade de cada operação.</p>
-      <p>Para isso existe a Sessão Diagnóstico. Em 45 minutos avaliamos sua operação, identificamos o gargalo crítico, e você sai com o plano de ação para os primeiros 90 dias. Sem custo. Sem compromisso de compra.</p>
+      <p>Esse manual te entrega o método. O que ele não faz é dizer <strong>qual dos 5 sistemas está mais quebrado na SUA empresa</strong> isso depende da realidade de cada operação.</p>
+      <p>Pra isso existe a Sessão Diagnóstico. Em 45 minutos a gente avalia sua operação, encontra o gargalo crítico, e você sai com o plano de ação dos próximos 90 dias. Sem custo. Sem compromisso de compra.</p>
     </div>
   </section>
 
@@ -1243,9 +1219,9 @@ NECESSITA DECISÃO DO SÓCIO/CEO?
       <div class="final-cta-chip">Próximo passo</div>
       <h2>Descubra Qual dos 5 Sistemas<br>Está <em>Travando a Sua Empresa</em></h2>
       <p class="final-cta-sub">
-        Em 45 minutos mapeamos os 5 sistemas da sua operação, calculamos o custo real
-        do gargalo atual, e você sai com 3 movimentos concretos para implementar essa semana.
-        Valor de mercado: R$1.200. Para leitores do manual: gratuito.
+        Em 45 minutos a gente mapeia os 5 sistemas da sua operação, calcula o custo real
+        do gargalo de hoje, e você sai com 3 ações concretas pra fazer essa semana.
+        Valor de mercado: R$1.200. Pra quem leu o manual: de graça.
       </p>
       <a href="agendar-diagnostico.html" class="final-btn">
         Agendar Meu Diagnóstico Gratuito

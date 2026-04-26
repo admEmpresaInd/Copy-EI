@@ -11,6 +11,13 @@ supabase/
 .cursor/
 .gemini/
 .github/
+Jubiabá/
+Fotos Zanuto/
+Fotos Zanuto-ORIGINAL/
 *.rar
 *.zip
 *.pdf
+*.mp4
+*.mov
+*.avi
+*.mkv

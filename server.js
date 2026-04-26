@@ -14,7 +14,7 @@ const ROOT = __dirname;
 const UPLOADS_DIR = path.join(os.tmpdir(), 'prompt-studio-uploads');
 if (!fs.existsSync(UPLOADS_DIR)) fs.mkdirSync(UPLOADS_DIR, { recursive: true });
 
-const CLAUDE_CLI_JS = 'C:\\Users\\Gabriel\\AppData\\Roaming\\npm\\node_modules\\@anthropic-ai\\claude-code\\cli.js';
+const CLAUDE_CLI_JS = 'C:\\Users\\Gabriel\\AppData\\Roaming\\npm\\node_modules\\@anthropic-ai\\claude-code\\bin\\claude.exe';
 
 // ─── Multer storage ───
 const storage = multer.diskStorage({
@@ -125,7 +125,7 @@ function runClaudeStreaming(fullPrompt, send) {
 
     const args = ['--print', '--output-format', 'text', '--dangerously-skip-permissions'];
 
-    const proc = spawn(process.execPath, [CLAUDE_CLI_JS, ...args], {
+    const proc = spawn(CLAUDE_CLI_JS, args, {
       cwd: ROOT, env: childEnv, stdio: ['pipe', 'pipe', 'pipe'],
     });
 
@@ -219,7 +219,7 @@ app.get('/api/health', async (req, res) => {
     const childEnv = { ...process.env };
     delete childEnv.CLAUDECODE;
     delete childEnv.CLAUDE_CODE;
-    const versionOut = execSync(`"${process.execPath}" "${CLAUDE_CLI_JS}" --version`, {
+    const versionOut = execSync(`"${CLAUDE_CLI_JS}" --version`, {
       timeout: 5000, env: childEnv, encoding: 'utf-8',
     }).trim();
     res.json({ ok: true, version: versionOut, message: 'Claude CLI disponivel' });

@@ -31,6 +31,7 @@
           { "source": "/ancestra", "destination": "/Ancestra/index" },
           { "source": "/manual-dono-livre", "destination": "/EI/Manual do Dono/manual-dono-livre" },
           { "source": "/manual-dono-livre-v2", "destination": "/EI/Manual do Dono/manual-dono-livre-v2" },
+          { "source": "/manual-dono-livre-entregavel", "destination": "/EI/Manual do Dono/manual-dono-livre-entregavel" },
           { "source": "/obrigado", "destination": "/EI/Manual do Dono/obrigado" },
           { "source": "/obrigado1", "destination": "/EI/Manual do Dono/obrigado1" },
           { "source": "/obrigado2", "destination": "/EI/Manual do Dono/obrigado2" },

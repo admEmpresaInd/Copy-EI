@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O Manual do Dono Livre — Empresa Independente</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+
+/* ─── TOKENS ────────────────────────────────────────────────── */
+:root {
+  --bg:           #0d0d0d;
+  --bg-1:         #111111;
+  --bg-2:         #161616;
+  --bg-3:         #1c1c1c;
+  --fg:           #f2f2f0;
+  --fg-2:         #a8a89c;
+  --fg-3:         #5a5a54;
+  --primary:      #34d399;
+  --primary-dim:  rgba(52,211,153,0.10);
+  --primary-glow: rgba(52,211,153,0.22);
+  --border:       rgba(255,255,255,0.07);
+  --border-2:     rgba(255,255,255,0.13);
+  --amber:        #f59e0b;
+  --amber-dim:    rgba(245,158,11,0.10);
+  --violet:       #a78bfa;
+  --violet-dim:   rgba(167,139,250,0.10);
+  --rose:         #fb7185;
+  --rose-dim:     rgba(251,113,133,0.10);
+  --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-body:    'Lora', Georgia, serif;
+  --font-mono:    'JetBrains Mono', monospace;
+  --r-sm: 6px; --r-md: 10px; --r-lg: 16px; --r-xl: 24px;
+  --ease: cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ─── RESET ─────────────────────────────────────────────────── */
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; font-size:16px; }
+body {
+  background:var(--bg); color:var(--fg);
+  font-family:var(--font-display);
+  line-height:1.65; -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+a { color:var(--primary); text-decoration:none; }
+a:hover { text-decoration:underline; }
+::-webkit-scrollbar { width:3px; }
+::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.08); border-radius:2px; }
+
+/* ─── NOISE ──────────────────────────────────────────────────── */
+body::before {
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:9999;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:.026; mix-blend-mode:overlay;
+}
+
+/* ─── ANIMATIONS ─────────────────────────────────────────────── */
+@keyframes fade-up    { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:none} }
+@keyframes glow-pulse { 0%,100%{opacity:.4} 50%{opacity:.8} }
+@keyframes gradient-x { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+.anim { opacity:0; }
+.anim.in { animation:fade-up .7s var(--ease) forwards; }
+.d1{animation-delay:.1s} .d2{animation-delay:.2s}
+.d3{animation-delay:.3s} .d4{animation-delay:.4s}
+
+/* ─── LAYOUT ─────────────────────────────────────────────────── */
+.page { display:grid; grid-template-columns:240px 1fr; min-height:100vh; }
+@media(max-width:900px){ .page{ grid-template-columns:1fr; } }
+
+/* ─── SIDEBAR NAV ────────────────────────────────────────────── */
+.sidebar {
+  position:sticky; top:0; height:100vh; overflow-y:auto;
+  background:var(--bg-1); border-right:1px solid var(--border);
+  padding:28px 0; display:flex; flex-direction:column;
+}
+@media(max-width:900px){ .sidebar{ display:none; } }
+.sidebar-logo {
+  padding:0 20px 24px; border-bottom:1px solid var(--border);
+  margin-bottom:16px;
+}
+.logo-mark {
+  width:32px; height:32px; background:var(--primary); color:#0a2e24;
+  font-size:11px; font-weight:800; border-radius:var(--r-md);
+  display:grid; place-items:center; margin-bottom:8px;
+}
+.sidebar-brand { font-size:12px; font-weight:600; color:var(--fg-2); }
+.sidebar-title {
+  font-size:11px; color:var(--fg-3); margin-top:2px;
+  line-height:1.4;
+}
+.nav-section-label {
+  font-family:var(--font-mono); font-size:10px; color:var(--fg-3);
+  text-transform:uppercase; letter-spacing:.08em;
+  padding:8px 20px 6px; margin-top:8px;
+}
+.nav-link {
+  display:flex; align-items:center; gap:10px;
+  padding:9px 20px; font-size:13px; color:var(--fg-2);
+  cursor:pointer; transition:.15s var(--ease);
+  border-left:2px solid transparent;
+}
+.nav-link:hover { color:var(--fg); background:rgba(255,255,255,.03); }
+.nav-link.active { color:var(--primary); border-left-color:var(--primary); background:var(--primary-dim); }
+.nav-num {
+  font-family:var(--font-mono); font-size:10px; color:var(--fg-3);
+  min-width:18px;
+}
+.sidebar-footer {
+  margin-top:auto; padding:20px 20px 0; border-top:1px solid var(--border);
+  padding-top:16px;
+}
+.sidebar-cta {
+  display:block; text-align:center;
+  background:var(--primary); color:#0a2e24;
+  font-size:12px; font-weight:700; padding:10px 16px;
+  border-radius:var(--r-md); transition:.2s var(--ease);
+  text-decoration:none;
+}
+.sidebar-cta:hover { background:#2bbd8a; text-decoration:none; }
+
+/* ─── MAIN CONTENT ───────────────────────────────────────────── */
+.main { overflow:hidden; }
+
+/* ─── MOBILE HEADER ──────────────────────────────────────────── */
+.mobile-header {
+  display:none; position:sticky; top:0; z-index:100;
+  background:rgba(13,13,13,.95); backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:14px 20px; align-items:center; justify-content:space-between;
+}
+@media(max-width:900px){ .mobile-header{ display:flex; } }
+.mobile-logo { display:flex; align-items:center; gap:8px; }
+.mobile-logo-mark {
+  width:28px; height:28px; background:var(--primary); color:#0a2e24;
+  font-size:10px; font-weight:800; border-radius:var(--r-sm);
+  display:grid; place-items:center;
+}
+.mobile-cta {
+  background:var(--primary); color:#0a2e24;
+  font-size:12px; font-weight:700; padding:8px 16px;
+  border-radius:var(--r-sm); white-space:nowrap;
+  text-decoration:none;
+}
+.mobile-cta:hover { text-decoration:none; background:#2bbd8a; }
+
+/* ─── COVER ──────────────────────────────────────────────────── */
+.cover {
+  min-height:100vh; display:flex; align-items:center;
+  position:relative; overflow:hidden;
+  padding:80px 48px;
+}
+@media(max-width:640px){ .cover{ padding:60px 24px; } }
+.cover-glow {
+  position:absolute; top:0; left:0; right:0; bottom:0; pointer-events:none;
+  background:
+    radial-gradient(ellipse 60% 40% at 20% 30%,rgba(52,211,153,.12) 0%,transparent 60%),
+    radial-gradient(ellipse 40% 60% at 80% 70%,rgba(167,139,250,.06) 0%,transparent 60%);
+  animation:glow-pulse 10s ease-in-out infinite;
+}
+.cover-grid {
+  position:absolute; inset:0; pointer-events:none;
+  background-image:
+    linear-gradient(rgba(52,211,153,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(52,211,153,.025) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:radial-gradient(ellipse 80% 80% at 30% 30%,black,transparent);
+}
+.cover-content { position:relative; z-index:1; max-width:780px; }
+.cover-eyebrow {
+  font-family:var(--font-mono); font-size:12px; color:var(--primary);
+  text-transform:uppercase; letter-spacing:.12em; margin-bottom:24px;
+  display:flex; align-items:center; gap:12px;
+}
+.cover-eyebrow::before { content:''; display:block; width:32px; height:1px; background:var(--primary); }
+.cover h1 {
+  font-size:clamp(44px,7vw,96px);
+  font-weight:800; line-height:.95; letter-spacing:-.05em;
+  color:var(--fg); margin-bottom:8px;
+}
+.cover h1 .accent {
+  background:linear-gradient(135deg,var(--primary) 0%,#6ee7b7 50%,var(--primary) 100%);
+  background-size:200% auto;
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  animation:gradient-x 4s ease infinite;
+}
+.cover-subtitle {
+  font-size:clamp(18px,2.5vw,26px); color:var(--fg-2);
+  font-weight:400; letter-spacing:-.01em; margin-bottom:40px;
+  line-height:1.3;
+}
+.cover-promise {
+  font-family:var(--font-body);
+  font-size:clamp(15px,1.8vw,19px); color:var(--fg-3);
+  line-height:1.7; max-width:600px; margin-bottom:48px;
+  padding-left:20px; border-left:2px solid rgba(52,211,153,.3);
+}
+.cover-meta {
+  display:flex; flex-wrap:wrap; gap:16px;
+}
+.cover-meta-item {
+  display:flex; align-items:center; gap:8px;
+  font-family:var(--font-mono); font-size:12px; color:var(--fg-3);
+}
+.cover-meta-dot { width:5px; height:5px; border-radius:50%; background:var(--primary); opacity:.6; }
+.cover-version {
+  position:absolute; bottom:32px; right:48px;
+  font-family:var(--font-mono); font-size:11px; color:var(--fg-3);
+}
+@media(max-width:640px){ .cover-version{ display:none; } }
+
+/* ─── SECTION BREAK ──────────────────────────────────────────── */
+.section-break {
+  height:1px; background:var(--border); margin:0;
+}
+
+/* ─── CHAPTER ────────────────────────────────────────────────── */
+.chapter {
+  padding:72px 48px;
+  border-bottom:1px solid var(--border);
+  scroll-margin-top:80px;
+}
+@media(max-width:640px){ .chapter{ padding:56px 24px; } }
+.chapter-header { margin-bottom:48px; }
+.chapter-label {
+  display:inline-flex; align-items:center; gap:10px;
+  font-family:var(--font-mono); font-size:11px; font-weight:600;
+  color:var(--primary); text-transform:uppercase; letter-spacing:.1em;
+  margin-bottom:20px;
+}
+.chapter-label-num {
+  width:22px; height:22px; background:var(--primary); color:#0a2e24;
+  border-radius:4px; display:grid; place-items:center;
+  font-size:11px; font-weight:800; flex-shrink:0;
+}
+.chapter h2 {
+  font-size:clamp(28px,4.5vw,52px);
+  font-weight:800; line-height:1.0; letter-spacing:-.04em;
+  color:var(--fg); margin-bottom:16px;
+}
+.chapter-deck {
+  font-family:var(--font-body);
+  font-size:clamp(16px,2vw,20px); color:var(--fg-2);
+  line-height:1.68; max-width:680px;
+}
+
+/* ─── INTRO BOX ──────────────────────────────────────────────── */
+.intro-box {
+  background:var(--bg-2); border:1px solid var(--border-2);
+  border-radius:var(--r-lg); padding:28px 32px;
+  margin-bottom:40px;
+  border-left:3px solid var(--primary);
+}
+.intro-box p {
+  font-family:var(--font-body); font-size:16px; color:var(--fg-2);
+  line-height:1.75; margin-bottom:16px;
+}
+.intro-box p:last-child { margin-bottom:0; }
+.intro-box strong { color:var(--fg); }
+
+/* ─── BODY TEXT ──────────────────────────────────────────────── */
+.body-text {
+  font-family:var(--font-body);
+  font-size:clamp(15px,1.6vw,17px); color:var(--fg-2);
+  line-height:1.8; max-width:720px;
+}
+.body-text p { margin-bottom:20px; }
+.body-text p:last-child { margin-bottom:0; }
+.body-text strong { color:var(--fg); font-weight:600; }
+.body-text em { color:var(--primary); font-style:normal; }
+
+/* ─── H3 INSIDE CHAPTER ──────────────────────────────────────── */
+.chapter h3 {
+  font-size:clamp(18px,2.5vw,26px);
+  font-weight:700; letter-spacing:-.03em; color:var(--fg);
+  margin:40px 0 16px;
+}
+
+/* ─── STEP LIST ──────────────────────────────────────────────── */
+.steps {
+  display:flex; flex-direction:column; gap:20px;
+  margin:28px 0;
+}
+.step {
+  display:flex; gap:16px; align-items:flex-start;
+}
+.step-num {
+  width:32px; height:32px; border-radius:50%;
+  background:var(--primary-dim); border:1px solid rgba(52,211,153,.25);
+  color:var(--primary); font-family:var(--font-mono); font-size:13px; font-weight:700;
+  display:grid; place-items:center; flex-shrink:0; margin-top:2px;
+}
+.step-body {}
+.step-title {
+  font-size:16px; font-weight:700; color:var(--fg);
+  letter-spacing:-.02em; margin-bottom:6px;
+}
+.step-desc {
+  font-family:var(--font-body); font-size:15px; color:var(--fg-2);
+  line-height:1.68;
+}
+
+/* ─── CALLOUT ────────────────────────────────────────────────── */
+.callout {
+  border-radius:var(--r-lg); padding:24px 28px;
+  margin:28px 0; display:flex; gap:16px; align-items:flex-start;
+}
+.callout-green { background:var(--primary-dim); border:1px solid rgba(52,211,153,.18); }
+.callout-amber  { background:var(--amber-dim); border:1px solid rgba(245,158,11,.18); }
+.callout-violet { background:var(--violet-dim); border:1px solid rgba(167,139,250,.18); }
+.callout-rose   { background:var(--rose-dim); border:1px solid rgba(251,113,133,.18); }
+.callout-icon { font-size:20px; flex-shrink:0; margin-top:1px; }
+.callout-body {}
+.callout-title {
+  font-size:14px; font-weight:700; color:var(--fg);
+  margin-bottom:6px; letter-spacing:-.01em;
+}
+.callout-text {
+  font-family:var(--font-body); font-size:14px; color:var(--fg-2);
+  line-height:1.65;
+}
+.callout-text strong { color:var(--fg); }
+
+/* ─── CHECKLIST ──────────────────────────────────────────────── */
+.checklist {
+  background:var(--bg-2); border:1px solid var(--border);
+  border-radius:var(--r-lg); padding:24px 28px;
+  margin:28px 0;
+}
+.checklist-title {
+  font-family:var(--font-mono); font-size:12px; color:var(--fg-3);
+  text-transform:uppercase; letter-spacing:.08em;
+  margin-bottom:16px;
+}
+.check-item-row {
+  display:flex; align-items:flex-start; gap:12px;
+  padding:10px 0;
+  border-bottom:1px solid var(--border);
+}
+.check-item-row:last-child { border-bottom:none; padding-bottom:0; }
+.check-item-row:first-child { padding-top:0; }
+.check-box {
+  width:20px; height:20px; border-radius:4px;
+  border:1.5px solid var(--border-2); flex-shrink:0; margin-top:1px;
+  cursor:pointer; transition:.2s; background:transparent;
+  display:grid; place-items:center;
+}
+.check-box.checked { background:var(--primary); border-color:var(--primary); }
+.check-box.checked::after { content:'✓'; font-size:11px; font-weight:700; color:#0a2e24; }
+.check-label {
+  font-family:var(--font-body); font-size:14px; color:var(--fg-2);
+  line-height:1.5; cursor:pointer;
+}
+.check-label.checked { color:var(--fg-3); text-decoration:line-through; }
+
+/* ─── TEMPLATE BLOCK ─────────────────────────────────────────── */
+.template-block {
+  background:var(--bg-3); border:1px solid var(--border-2);
+  border-radius:var(--r-lg); margin:28px 0; overflow:hidden;
+}
+.template-header {
+  padding:14px 20px; background:rgba(52,211,153,.05);
+  border-bottom:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between;
+}
+.template-label {
+  font-family:var(--font-mono); font-size:11px; color:var(--primary);
+  text-transform:uppercase; letter-spacing:.08em;
+}
+.template-copy-btn {
+  font-family:var(--font-mono); font-size:11px; color:var(--fg-3);
+  cursor:pointer; transition:.15s; padding:4px 10px;
+  border:1px solid var(--border); border-radius:var(--r-sm);
+  background:transparent;
+}
+.template-copy-btn:hover { color:var(--fg); border-color:var(--border-2); }
+.template-body {
+  padding:20px; font-family:var(--font-body); font-size:14px;
+  color:var(--fg-2); line-height:1.75;
+  white-space:pre-wrap;
+}
+.template-placeholder {
+  display:inline-block; background:rgba(245,158,11,.15);
+  border:1px solid rgba(245,158,11,.2); border-radius:3px;
+  padding:0 4px; font-family:var(--font-mono); font-size:12px;
+  color:var(--amber);
+}
+
+/* ─── QUICK WIN BOX ──────────────────────────────────────────── */
+.quick-win {
+  background:linear-gradient(135deg,rgba(52,211,153,.08) 0%,rgba(52,211,153,.03) 100%);
+  border:1px solid rgba(52,211,153,.2);
+  border-radius:var(--r-xl); padding:32px;
+  margin:40px 0; position:relative; overflow:hidden;
+}
+.quick-win::before {
+  content:''; position:absolute; top:-20px; right:-20px;
+  width:120px; height:120px; border-radius:50%;
+  background:radial-gradient(circle,rgba(52,211,153,.15) 0%,transparent 70%);
+  pointer-events:none;
+}
+.quick-win-badge {
+  font-family:var(--font-mono); font-size:11px; font-weight:700;
+  color:var(--primary); text-transform:uppercase; letter-spacing:.1em;
+  margin-bottom:12px; display:flex; align-items:center; gap:8px;
+}
+.quick-win-badge::before { content:'⚡'; }
+.quick-win-title {
+  font-size:20px; font-weight:800; color:var(--fg);
+  letter-spacing:-.03em; margin-bottom:12px;
+}
+.quick-win-body {
+  font-family:var(--font-body); font-size:15px; color:var(--fg-2);
+  line-height:1.7;
+}
+.quick-win-body strong { color:var(--fg); }
+
+/* ─── MISTAKE BOX ────────────────────────────────────────────── */
+.mistake-box {
+  background:var(--rose-dim); border:1px solid rgba(251,113,133,.2);
+  border-radius:var(--r-lg); padding:24px 28px; margin:28px 0;
+}
+.mistake-title {
+  font-size:14px; font-weight:700; color:var(--rose);
+  margin-bottom:12px; display:flex; align-items:center; gap:8px;
+}
+.mistake-list {
+  list-style:none; display:flex; flex-direction:column; gap:10px;
+}
+.mistake-list li {
+  font-family:var(--font-body); font-size:14px; color:var(--fg-2);
+  padding-left:20px; position:relative; line-height:1.5;
+}
+.mistake-list li::before {
+  content:'×'; position:absolute; left:0; color:var(--rose);
+  font-weight:700;
+}
+
+/* ─── DIVIDER ────────────────────────────────────────────────── */
+.chapter-divider {
+  margin:48px 0; border:none;
+  border-top:1px solid var(--border);
+}
+
+/* ─── FINAL CTA ──────────────────────────────────────────────── */
+.final-cta {
+  padding:80px 48px;
+  background:var(--bg-1); text-align:center;
+  position:relative; overflow:hidden;
+}
+@media(max-width:640px){ .final-cta{ padding:60px 24px; } }
+.final-cta-glow {
+  position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(52,211,153,.07) 0%,transparent 65%);
+}
+.final-cta-inner { position:relative; z-index:1; max-width:640px; margin:0 auto; }
+.final-cta h2 {
+  font-size:clamp(28px,4.5vw,52px);
+  font-weight:800; letter-spacing:-.04em; line-height:1.05;
+  color:var(--fg); margin-bottom:16px;
+}
+.final-cta h2 em { font-style:normal; color:var(--primary); }
+.final-cta-sub {
+  font-family:var(--font-body);
+  font-size:clamp(16px,2vw,19px); color:var(--fg-2);
+  line-height:1.65; margin-bottom:40px;
+}
+.final-btn {
+  display:inline-flex; align-items:center; gap:10px;
+  background:var(--primary); color:#0a2e24;
+  font-size:17px; font-weight:800; padding:18px 44px;
+  border-radius:var(--r-md); transition:.25s var(--ease);
+  box-shadow:0 0 48px rgba(52,211,153,.25); text-decoration:none;
+}
+.final-btn:hover { background:#2bbd8a; transform:translateY(-3px); box-shadow:0 16px 48px rgba(52,211,153,.35); text-decoration:none; }
+.final-meta {
+  display:flex; flex-wrap:wrap; gap:16px; justify-content:center;
+  margin-top:20px;
+}
+.final-meta-item {
+  font-family:var(--font-mono); font-size:12px; color:var(--fg-3);
+  display:flex; align-items:center; gap:6px;
+}
+.final-meta-item .ck { color:var(--primary); }
+
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ─── SIDEBAR ───────────────────────────────────────────────── -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-mark">EI</div>
+    <div class="sidebar-brand">Empresa Independente</div>
+    <div class="sidebar-title">Manual do Dono Livre</div>
+  </div>
+  <div class="nav-section-label">Introdução</div>
+  <div class="nav-link active" onclick="scrollTo('intro')"><span class="nav-num">—</span>Por que você está preso</div>
+  <div class="nav-section-label">Os 5 Sistemas</div>
+  <div class="nav-link" onclick="scrollTo('s1')"><span class="nav-num">01</span>Cargos e Processos</div>
+  <div class="nav-link" onclick="scrollTo('s2')"><span class="nav-num">02</span>Contratação Sem Feeling</div>
+  <div class="nav-link" onclick="scrollTo('s3')"><span class="nav-num">03</span>Treinamento por Função</div>
+  <div class="nav-link" onclick="scrollTo('s4')"><span class="nav-num">04</span>Indicadores de Performance</div>
+  <div class="nav-link" onclick="scrollTo('s5')"><span class="nav-num">05</span>Financeiro Estruturado</div>
+  <div class="nav-section-label">Próximos Passos</div>
+  <div class="nav-link" onclick="scrollTo('proximo')"><span class="nav-num">→</span>Seu plano de 90 dias</div>
+  <div class="sidebar-footer">
+    <a href="agendar-diagnostico.html" class="sidebar-cta">
+      Diagnóstico Gratuito →
+    </a>
+  </div>
+</aside>
+
+<!-- ─── MAIN ──────────────────────────────────────────────────── -->
+<main class="main">
+
+  <!-- Mobile Header -->
+  <div class="mobile-header">
+    <div class="mobile-logo">
+      <div class="mobile-logo-mark">EI</div>
+      <span style="font-size:13px;font-weight:600;color:var(--fg-2)">Manual do Dono Livre</span>
+    </div>
+    <a href="agendar-diagnostico.html" class="mobile-cta">Diagnóstico →</a>
+  </div>
+
+  <!-- ─── COVER ──────────────────────────────────────────────── -->
+  <section class="cover" id="cover">
+    <div class="cover-glow"></div>
+    <div class="cover-grid"></div>
+    <div class="cover-content">
+      <div class="cover-eyebrow">Empresa Independente · Engenharia Empresarial</div>
+      <h1>O Manual do<br><span class="accent">Dono Livre</span></h1>
+      <div class="cover-subtitle">Como Construir os 5 Sistemas que Fazem<br>sua Empresa Funcionar Sem Você</div>
+      <p class="cover-promise">
+        Este manual não é teoria. É o mesmo método que aplicamos nas implementações reais da
+        Empresa Independente — os mesmos frameworks, os mesmos templates, os mesmos checklists.
+        Se você implementar, a empresa para de depender de você. É simples assim.
+      </p>
+      <div class="cover-meta">
+        <div class="cover-meta-item"><span class="cover-meta-dot"></span>5 sistemas completos</div>
+        <div class="cover-meta-item"><span class="cover-meta-dot"></span>Templates prontos</div>
+        <div class="cover-meta-item"><span class="cover-meta-dot"></span>Checklists acionáveis</div>
+        <div class="cover-meta-item"><span class="cover-meta-dot"></span>Quick wins em 48h</div>
+      </div>
+    </div>
+    <div class="cover-version">Edição 2025 · v1.0</div>
+  </section>
+
+  <div class="section-break"></div>
+
+  <!-- ─── INTRO ──────────────────────────────────────────────── -->
+  <section class="chapter" id="intro">
+    <div class="chapter-header anim">
+      <div class="chapter-label">Introdução</div>
+      <h2>Por Que Você Está Preso no Operacional (e Não é Culpa Sua)</h2>
+      <p class="chapter-deck">Antes de apresentar os 5 sistemas, você precisa entender por que a maioria dos empresários está presa — mesmo quando trabalha mais do que nunca.</p>
+    </div>
+
+    <div class="intro-box anim d1">
+      <p>Se você fatura entre R$50 mil e R$2 milhões por mês, tem pelo menos 3 funcionários, e ainda sente que a empresa para quando você para — você não tem um problema de esforço. Você tem um <strong>problema de arquitetura</strong>.</p>
+      <p>A empresa foi construída sobre você, não sobre sistemas. E isso não é falha de caráter — é o caminho natural de qualquer negócio que cresce antes de se estruturar. O problema é que esse modelo tem um limite duro: <strong>sua disposição física e mental</strong>.</p>
+    </div>
+
+    <div class="body-text anim d2">
+      <p>Existe uma diferença fundamental entre dois tipos de empresários:</p>
+      <p>O <strong>Dono Refém</strong> trabalha dentro do negócio. Resolve problemas, aprova decisões, responde clientes, cobre funcionários. A empresa funciona porque ele está lá. Se ele sair por uma semana, algo quebra.</p>
+      <p>O <strong>Dono Livre</strong> trabalha sobre o negócio. Define estratégia, monitora indicadores, desenvolve liderança. A empresa funciona porque existe uma <em>estrutura</em> que sustenta a operação — independente da presença dele.</p>
+      <p>O que separa esses dois perfis não é inteligência, esforço ou anos de experiência. É a presença ou ausência dos <strong>5 sistemas</strong> que você vai aprender neste manual.</p>
+    </div>
+
+    <h3 class="anim d3">A Equação que Você Precisa Entender</h3>
+    <div class="body-text anim d3">
+      <p>Toda empresa que depende do dono tem uma equação escondida:</p>
+      <p><em>Crescimento sem estrutura = Mais trabalho, não mais liberdade.</em></p>
+      <p>Cada novo cliente que chega, cada funcionário que entra, cada processo novo que surge — tudo vai parar em você se não existir um sistema para receber isso. E quanto mais a empresa cresce sem estrutura, mais refém você fica.</p>
+      <p>Os 5 sistemas deste manual interrompem essa equação. Cada sistema resolve uma camada da dependência — e juntos criam uma empresa que funciona como deveria: <strong>com ou sem você presente</strong>.</p>
+    </div>
+
+    <div class="callout callout-amber anim d4">
+      <span class="callout-icon">💡</span>
+      <div class="callout-body">
+        <div class="callout-title">Como usar este manual</div>
+        <div class="callout-text">Não leia tudo de uma vez. Leia a Introdução, identifique qual dos 5 sistemas está mais quebrado na sua operação <strong>(geralmente você já sabe qual é)</strong>, e implemente esse primeiro. Resultados parciais em 2 semanas. Implementação completa em 4 meses.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── SISTEMA 1 ────────────────────────────────────────────── -->
+  <section class="chapter" id="s1">
+    <div class="chapter-header anim">
+      <div class="chapter-label"><span class="chapter-label-num">1</span> Sistema 01 de 05</div>
+      <h2>Cargos e Processos</h2>
+      <p class="chapter-deck">O sistema que define quem faz o quê, como faz, e como é medido — sem depender da sua memória ou presença.</p>
+    </div>
+
+    <div class="body-text anim">
+      <p>A maioria das empresas opera com o que chamamos de <strong>organograma fantasma</strong>: existe no papel (ou na cabeça do dono), mas não reflete a realidade. As pessoas fazem o que conseguem, não o que foi definido. As decisões sobem para o dono porque ninguém sabe até onde vai sua responsabilidade.</p>
+      <p>O Sistema de Cargos e Processos resolve isso em três camadas:</p>
+    </div>
+
+    <div class="steps anim d1">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Organograma Real com Responsabilidades</div>
+          <p class="step-desc">Não um organograma de RH — um mapa operacional que mostra quem é responsável por cada resultado. Cada posição tem dono, cada resultado tem medida.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">Engenharia de Cargos com Metas e Indicadores</div>
+          <p class="step-desc">Cada cargo tem uma descrição funcional clara: o que entrega, como é medido, qual é a meta, e o que caracteriza excelência. Sem isso, você gerencia expectativas — não resultados.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Processos por Setor com Padrão de Qualidade</div>
+          <p class="step-desc">Os 3-5 processos críticos de cada setor, documentados em linguagem operacional — não manual técnico. O objetivo é que qualquer pessoa entenda e execute sem te perguntar nada.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="anim">Template: Descrição de Cargo</h3>
+    <p class="body-text anim" style="margin-bottom:20px">Use este template para documentar cada cargo da sua empresa. Comece pelos 3 mais críticos.</p>
+
+    <div class="template-block anim d1">
+      <div class="template-header">
+        <span class="template-label">Template — Descrição de Cargo</span>
+        <button class="template-copy-btn" onclick="copyTemplate(this)">Copiar</button>
+      </div>
+      <pre class="template-body">CARGO: <span class="template-placeholder">[Nome do cargo]</span>
+SETOR: <span class="template-placeholder">[Vendas / Operações / Financeiro / etc.]</span>
+REPORTA PARA: <span class="template-placeholder">[Nome do cargo superior]</span>
+
+MISSÃO DO CARGO (em 1 frase):
+<span class="template-placeholder">[O que este cargo existe para fazer? Qual resultado ele garante?]</span>
+
+RESPONSABILIDADES PRINCIPAIS:
+1. <span class="template-placeholder">[Responsabilidade 1]</span>
+2. <span class="template-placeholder">[Responsabilidade 2]</span>
+3. <span class="template-placeholder">[Responsabilidade 3]</span>
+
+INDICADORES DE PERFORMANCE (KPIs):
+• <span class="template-placeholder">[KPI 1 — ex: Taxa de conversão de vendas > 30%]</span>
+• <span class="template-placeholder">[KPI 2 — ex: NPS > 8.0]</span>
+• <span class="template-placeholder">[KPI 3 — ex: Zero atrasos na entrega]</span>
+
+DECISÕES QUE PODE TOMAR SEM CONSULTAR:
+• <span class="template-placeholder">[Decisão 1]</span>
+• <span class="template-placeholder">[Decisão 2]</span>
+
+DECISÕES QUE DEVEM PASSAR PELO SUPERIOR:
+• <span class="template-placeholder">[Decisão 1]</span>
+• <span class="template-placeholder">[Decisão 2]</span></pre>
+    </div>
+
+    <div class="checklist anim d2">
+      <div class="checklist-title">Checklist — Sistema 1 implementado quando:</div>
+      <div class="check-item-row">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <div class="check-label">Organograma real está documentado com responsabilidades por posição</div>
+      </div>
+      <div class="check-item-row">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <div class="check-label">Cada cargo tem descrição funcional com KPIs definidos</div>
+      </div>
+      <div class="check-item-row">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <div class="check-label">Os 3 processos mais críticos de cada setor estão documentados</div>
+      </div>
+      <div class="check-item-row">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <div class="check-label">Cada processo tem padrão de qualidade e critério de aceite</div>
+      </div>
+      <div class="check-item-row">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <div class="check-label">Funcionário consegue executar os processos sem te perguntar nada</div>
+      </div>
+    </div>
+
+    <div class="mistake-box anim d3">
+      <div class="mistake-title">⚠️ Erros mais comuns neste sistema</div>
+      <ul class="mistake-list">
+        <li>Documentar processos "perfeitos" que ninguém usa — documente o que realmente acontece, não o que deveria acontecer</li>
+        <li>Criar descrições de cargo genéricas sem KPIs — se não tem número, não é meta</li>
+        <li>Fazer sozinho — quem executa o processo sabe melhor do que você como funciona</li>
+        <li>Documentar tudo de uma vez — comece pelos 3 processos que mais te sobrecarregam</li>
+      </ul>
+    </div>
+
+    <div class="quick-win anim d4">
+      <div class="quick-win-badge">Quick Win — 48 horas</div>
+      <div class="quick-win-title">Mapeie o processo que mais consome seu tempo essa semana</div>
+      <p class="quick-win-body">Escolha uma coisa que você fez pelo menos 3 vezes nos últimos 30 dias e que poderia ser feita por outra pessoa. Documente em 15 minutos usando o template acima. Peça para um funcionário executar. Corrija. Você acabou de criar seu primeiro processo independente de você. <strong>Repita por 4 semanas.</strong></p>
+    </div>
+  </section>
+
+  <!-- ─── SISTEMA 2 ────────────────────────────────────────────── -->
+  <section class="chapter" id="s2">
+    <div class="chapter-header anim">
+      <div class="chapter-label"><span class="chapter-label-num">2</span> Sistema 02 de 05</div>
+      <h2>Contratação Sem Feeling</h2>
+      <p class="chapter-deck">O sistema que elimina contratações por intuição e instala um processo que acerta 4 em cada 5 contratações antes de você assinar qualquer contrato.</p>
+    </div>
+
+    <div class="body-text anim">
+      <p>Uma contratação errada custa, em média, <strong>R$30 mil a R$80 mil</strong> quando você conta salário, encargos, tempo de treinamento, impacto na equipe e custo do desligamento. Isso sem considerar o desgaste emocional.</p>
+      <p>O problema não é que você contrata mal. É que você contrata com base no feeling — e o feeling erra mais do que acerta. Pesquisas mostram que entrevistas tradicionais têm <strong>apenas 14% de capacidade preditiva</strong> de performance futura.</p>
+      <p>O Sistema de Contratação Sem Feeling tem 4 filtros que eliminam candidatos errados antes de chegar em você:</p>
+    </div>
+
+    <div class="steps anim d1">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Anúncio de Vaga que Qualifica Antes de Atrair</div>
+          <p class="step-desc">Um anúncio mal escrito atrai 200 candidatos e cria trabalho. Um anúncio bem escrito atrai 40 candidatos certos. A chave: seja específico sobre o que NÃO é o cargo e o que é não-negociável.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">Formulário de Filtro com Perguntas de Eliminação</div>
+          <p class="step-desc">Antes de qualquer entrevista, candidates respondem 5-7 perguntas que revelam fit cultural, capacidade de execução e red flags. Elimina 60% dos candidatos errados automaticamente.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Entrevista Estruturada com Rubrica de Avaliação</div>
+          <p class="step-desc">Perguntas predefinidas com rubrica de notas (1-5). Elimina vieses inconscientes e permite comparação objetiva entre candidatos. Pode ser conduzida por um líder de equipe — não precisa ser você.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title">Teste Prático de Validação</div>
+          <p class="step-desc">Uma tarefa real do cargo, executada antes da contratação. Revela capacidade técnica, atenção a detalhes e como a pessoa trabalha sob pressão. Quem não aceita fazer o teste já se elimina.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="anim">Template: Perguntas de Filtro por Email/Formulário</h3>
+    <div class="template-block anim d1">
+      <div class="template-header">
+        <span class="template-label">Template — Formulário de Filtro (adapte para o cargo)</span>
+        <button class="template-copy-btn" onclick="copyTemplate(this)">Copiar</button>
+      </div>
+      <pre class="template-body">1. Por que você quer sair do seu emprego atual? (ou: por que está procurando oportunidade agora?)
+
+2. Descreva a última vez que você tomou uma iniciativa sem ter sido pedido. O que aconteceu?
+
+3. Este cargo exige [característica essencial — ex: trabalho autônomo sem supervisão diária]. Como você lida com isso?
+
+4. Qual é a maior crítica profissional que você recebeu no último ano? Como você reagiu?
+
+5. Se você fosse contratado amanhã, qual seria sua primeira ação nos primeiros 30 dias?
+
+6. Nosso ambiente é [descreva honestamente: ritmo acelerado, autonomia alta, sem microgerenciamento, etc.]. Isso te estimula ou te incomoda? Por quê?
+
+INSTRUÇÕES PARA O AVALIADOR:
+- Red flags: respostas vagas, culpa nos outros, ausência de exemplos concretos
+- Green flags: autocrítica, exemplos específicos, alinhamento com a cultura descrita</pre>
+    </div>
+
+    <div class="checklist anim d2">
+      <div class="checklist-title">Checklist — Sistema 2 implementado quando:</div>
+      <div class="check-item-row">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <div class="check-label">Existe um template de anúncio de vaga para os cargos mais contratados</div>
+      </div>
+      <div class="check-item-row">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <div class="check-label">Formulário de filtro está criado e ativo antes de qualquer entrevista</div>
+      </div>
+      <div class="check-item-row">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <div class="check-label">Entrevista tem roteiro fixo com rubrica de avaliação (1-5)</div>
+      </div>
+      <div class="check-item-row">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <div class="check-label">Teste prático está definido para cada cargo</div>
+      </div>
+      <div class="check-item-row">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <div class="check-label">Um líder de equipe consegue conduzir o processo sem você</div>
+      </div>
+    </div>
+
+    <div class="quick-win anim d3">
+      <div class="quick-win-badge">Quick Win — 48 horas</div>
+      <div class="quick-win-title">Crie o formulário de filtro para o próximo cargo que você vai abrir</div>
+      <p class="quick-win-body">Use as 6 perguntas do template acima como base. Adapte para o cargo. Na próxima seleção, envie o formulário antes de agendar qualquer entrevista. <strong>Você vai eliminar 50-60% dos candidatos errados sem gastar uma hora do seu tempo.</strong></p>
+    </div>
+  </section>
+
+  <!-- ─── SISTEMA 3 ────────────────────────────────────────────── -->
+  <section class="chapter" id="s3">
+    <div class="chapter-header anim">
+      <div class="chapter-label"><span class="chapter-label-num">3</span> Sistema 03 de 05</div>
+      <h2>Treinamento por Função</h2>
+      <p class="chapter-deck">O sistema que faz o novo colaborador chegar ao nível de performance esperado em 30 dias — sem sugar seu tempo nem depender de outro funcionário-chave.</p>
+    </div>
+
+    <div class="body-text anim">
+      <p>O treinamento na maioria das empresas funciona assim: o novo colaborador senta ao lado do funcionário mais antigo e aprende "observando". Isso cria três problemas:</p>
+      <p>1) <strong>Replica erros</strong> — o antigo funcionário passou seus hábitos, bons e ruins.</p>
+      <p>2) <strong>Cria dependência</strong> — agora você tem dois funcionários produzindo metade enquanto um treina o outro.</p>
+      <p>3) <strong>Sem padrão</strong> — cada pessoa treinada sai diferente, com uma versão do processo.</p>
+      <p>O Sistema de Treinamento por Função tem 3 trilhas que resolvem isso:</p>
+    </div>
+
+    <div class="steps anim d1">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Trilha de Cultura e Valores (Dias 1-3)</div>
+          <p class="step-desc">Não começa pelos processos. Começa pelo porquê. Quem somos, para onde vamos, como trabalhamos, o que não toleramos. Um colaborador alinhado culturalmente aprende o resto mais rápido.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">Trilha Técnica por Cargo (Dias 4-21)</div>
+          <p class="step-desc">Os 10-15 processos essenciais do cargo, organizados em ordem de complexidade crescente. Cada módulo tem instrução, exemplo prático e exercício de validação. O colaborador avança no próprio ritmo.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Checklist Operacional de Liberação (Dias 22-30)</div>
+          <p class="step-desc">Uma bateria de tarefas reais que o colaborador executa sob supervisão. Só é "liberado" para operar autonomamente quando completa 100% do checklist. Sem aprovação subjetiva — é passado ou reprovado.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-violet anim d2">
+      <span class="callout-icon">📌</span>
+      <div class="callout-body">
+        <div class="callout-title">Ferramenta recomendada para a trilha técnica</div>
+        <div class="callout-text">Loom (gravação de tela) + Google Docs ou Notion. Grave os processos uma vez, documente o passo a passo, organize em uma pasta por cargo. <strong>Você cria uma vez, funciona para sempre.</strong> Cada novo colaborador acessa sozinho, sem precisar de você ou de alguém do time.</div>
+      </div>
+    </div>
+
+    <div class="checklist anim d3">
+      <div class="checklist-title">Checklist — Sistema 3 implementado quando:</div>
+      <div class="check-item-row">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <div class="check-label">Trilha de cultura existe e pode ser executada independente do dono</div>
+      </div>
+      <div class="check-item-row">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <div class="check-label">Cada cargo tem trilha técnica com materiais prontos (vídeos ou docs)</div>
+      </div>
+      <div class="check-item-row">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <div class="check-label">Checklist de liberação está definido com critérios objetivos</div>
+      </div>
+      <div class="check-item-row">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <div class="check-label">Um novo colaborador pode iniciar o treinamento no Dia 1 sem orientação sua</div>
+      </div>
+      <div class="check-item-row">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <div class="check-label">O tempo médio para liberação está abaixo de 30 dias</div>
+      </div>
+    </div>
+
+    <div class="quick-win anim d4">
+      <div class="quick-win-badge">Quick Win — 48 horas</div>
+      <div class="quick-win-title">Grave um vídeo de 10 minutos do processo que mais te perguntam</div>
+      <p class="quick-win-body">Pense no processo que mais pessoas te perguntam sobre. Abra o Loom (gratuito), grave a tela fazendo o processo enquanto explica em voz alta. Suba no Google Drive. Envie o link para quem sempre te pergunta. <strong>Você acabou de criar o primeiro módulo da trilha técnica.</strong></p>
+    </div>
+  </section>
+
+  <!-- ─── SISTEMA 4 ────────────────────────────────────────────── -->
+  <section class="chapter" id="s4">
+    <div class="chapter-header anim">
+      <div class="chapter-label"><span class="chapter-label-num">4</span> Sistema 04 de 05</div>
+      <h2>Indicadores de Performance</h2>
+      <p class="chapter-deck">O sistema que torna visível o que está funcionando, o que está quebrando, e o que exige atenção — sem precisar estar em todo lugar ao mesmo tempo.</p>
+    </div>
+
+    <div class="body-text anim">
+      <p>Sem indicadores, você gerencia pela percepção. E a percepção é lenta, seletiva e distorcida. Você descobre os problemas quando já viraram crises — não quando ainda são alertas.</p>
+      <p>Com indicadores, você gerencia pela realidade. Você sabe, toda semana, onde a operação está saudável e onde precisa de intervenção. E o melhor: sua equipe pode monitorar isso sem você.</p>
+    </div>
+
+    <h3 class="anim">Os 3 Níveis de Indicadores</h3>
+
+    <div class="steps anim d1">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Indicadores de Resultado (lagging)</div>
+          <p class="step-desc">Medem o que já aconteceu. Faturamento, lucro, NPS, churn. Importantes, mas lentos — quando você vê o problema, já aconteceu. Use mensalmente para avaliar tendência.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">Indicadores de Processo (leading)</div>
+          <p class="step-desc">Medem o que está acontecendo e preveem o resultado. Propostas enviadas, ligações feitas, tempo de resposta, taxa de retrabalho. Se esses indicadores caem, o resultado vai cair em 30-60 dias. Use semanalmente.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Scorecard Semanal da Equipe</div>
+          <p class="step-desc">Um único dashboard que cada líder preenche toda segunda-feira com os 5 indicadores da sua área. Verde, amarelo ou vermelho. Você lê em 10 minutos e sabe exatamente onde intervir essa semana.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="anim">Template: Scorecard Semanal</h3>
+    <div class="template-block anim d1">
+      <div class="template-header">
+        <span class="template-label">Template — Scorecard Semanal por Setor</span>
+        <button class="template-copy-btn" onclick="copyTemplate(this)">Copiar</button>
+      </div>
+      <pre class="template-body">SCORECARD SEMANAL — <span class="template-placeholder">[Nome do Setor]</span>
+Responsável: <span class="template-placeholder">[Nome do líder]</span>
+Semana: <span class="template-placeholder">[Data]</span>
+
+INDICADOR               META        REALIZADO    STATUS
+────────────────────────────────────────────────────────
+<span class="template-placeholder">[KPI 1]</span>            <span class="template-placeholder">[meta]</span>      <span class="template-placeholder">[resultado]</span>  🟢/🟡/🔴
+<span class="template-placeholder">[KPI 2]</span>            <span class="template-placeholder">[meta]</span>      <span class="template-placeholder">[resultado]</span>  🟢/🟡/🔴
+<span class="template-placeholder">[KPI 3]</span>            <span class="template-placeholder">[meta]</span>      <span class="template-placeholder">[resultado]</span>  🟢/🟡/🔴
+<span class="template-placeholder">[KPI 4]</span>            <span class="template-placeholder">[meta]</span>      <span class="template-placeholder">[resultado]</span>  🟢/🟡/🔴
+<span class="template-placeholder">[KPI 5]</span>            <span class="template-placeholder">[meta]</span>      <span class="template-placeholder">[resultado]</span>  🟢/🟡/🔴
+
+MAIOR ALERTA DESTA SEMANA:
+<span class="template-placeholder">[O que está vermelho e o que vai ser feito?]</span>
+
+NECESSITA DECISÃO DO SÓCIO/CEO?
+[ ] Sim → <span class="template-placeholder">[Descreva]</span>
+[x] Não — resolvemos internamente</pre>
+    </div>
+
+    <div class="callout callout-green anim d2">
+      <span class="callout-icon">✅</span>
+      <div class="callout-body">
+        <div class="callout-title">Regra das 5 Métricas por Setor</div>
+        <div class="callout-text">Se você tem mais de 5 métricas por setor, você tem informação demais e foco de menos. Force-se a escolher as 5 que, se saudáveis, garantem que o setor está funcionando bem. <strong>O restante é dado — não gestão.</strong></div>
+      </div>
+    </div>
+
+    <div class="checklist anim d3">
+      <div class="checklist-title">Checklist — Sistema 4 implementado quando:</div>
+      <div class="check-item-row">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <div class="check-label">Cada setor tem no máximo 5 KPIs definidos com metas claras</div>
+      </div>
+      <div class="check-item-row">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <div class="check-label">Scorecard semanal é preenchido por líderes todo início de semana</div>
+      </div>
+      <div class="check-item-row">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <div class="check-label">Você consegue avaliar a saúde da operação em menos de 15 min/semana</div>
+      </div>
+      <div class="check-item-row">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <div class="check-label">A equipe entende o que cada métrica significa e como influenciá-la</div>
+      </div>
+      <div class="check-item-row">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <div class="check-label">Os scorecards são revisados em reunião semanal de 30 minutos no máximo</div>
+      </div>
+    </div>
+
+    <div class="quick-win anim d4">
+      <div class="quick-win-badge">Quick Win — 48 horas</div>
+      <div class="quick-win-title">Defina as 5 métricas mais importantes do seu negócio hoje</div>
+      <p class="quick-win-body">Pegue papel e caneta. Escreva: "Se esses 5 números estiverem saudáveis na semana que vem, minha empresa está bem." Coloque as metas ao lado. Isso é o começo do seu scorecard. <strong>Compartilhe com a equipe amanhã de manhã.</strong></p>
+    </div>
+  </section>
+
+  <!-- ─── SISTEMA 5 ────────────────────────────────────────────── -->
+  <section class="chapter" id="s5">
+    <div class="chapter-header anim">
+      <div class="chapter-label"><span class="chapter-label-num">5</span> Sistema 05 de 05</div>
+      <h2>Financeiro Estruturado</h2>
+      <p class="chapter-deck">O sistema que transforma o financeiro de uma caixa preta em um painel de controle — onde você vê para onde o dinheiro vai antes que suma.</p>
+    </div>
+
+    <div class="body-text anim">
+      <p>A maioria dos empresários olha o saldo da conta para saber como está o negócio. Isso é como dirigir olhando para o retrovisor: você só vê o que já passou.</p>
+      <p>O financeiro estruturado tem três instrumentos que mudam isso:</p>
+    </div>
+
+    <div class="steps anim d1">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">DRE Gerencial Mensal (Demonstrativo de Resultado)</div>
+          <p class="step-desc">Não o DRE contábil (aquele que o contador envia 3 meses depois). Um DRE gerencial simples que você fecha todo dia 5 do mês seguinte: receita, custo direto, margem, despesas fixas e lucro líquido. Em uma página.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">Fluxo de Caixa Projetado (13 semanas)</div>
+          <p class="step-desc">Quais entradas e saídas estão previstas para as próximas 13 semanas. Isso transforma susto em planejamento — você vê a crise de liquidez 60 dias antes de acontecer, quando ainda dá para agir.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Custo Real por Produto/Serviço</div>
+          <p class="step-desc">Quanto custa de verdade cada produto ou serviço — incluindo custo direto, rateio de fixos e tempo de equipe. Sem isso, você pode estar vendendo com prejuízo sem saber. É mais comum do que parece.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-rose anim d2">
+      <span class="callout-icon">⚠️</span>
+      <div class="callout-body">
+        <div class="callout-title">Sinal de alerta: você está neste risco se...</div>
+        <div class="callout-text">Você olha o saldo e não sabe se ele é lucro ou se é dinheiro de clientes que ainda não virou lucro. Ou se aumentou o faturamento mas o caixa ficou igual. Isso significa que as margens estão invisíveis — e algum produto ou serviço pode estar te dando prejuízo.</div>
+      </div>
+    </div>
+
+    <div class="checklist anim d3">
+      <div class="checklist-title">Checklist — Sistema 5 implementado quando:</div>
+      <div class="check-item-row">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <div class="check-label">DRE gerencial é fechado todo dia 5 do mês seguinte (em no máximo 2h)</div>
+      </div>
+      <div class="check-item-row">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <div class="check-label">Fluxo de caixa projetado para 13 semanas está atualizado toda segunda</div>
+      </div>
+      <div class="check-item-row">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <div class="check-label">Custo real de cada produto/serviço está calculado e revisado trimestralmente</div>
+      </div>
+      <div class="check-item-row">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <div class="check-label">Um responsável financeiro (mesmo que parcial) existe e não é você</div>
+      </div>
+      <div class="check-item-row">
+        <div class="check-box" onclick="toggleCheck(this)"></div>
+        <div class="check-label">Você consegue responder "qual é minha margem líquida este mês?" sem ligar para ninguém</div>
+      </div>
+    </div>
+
+    <div class="quick-win anim d4">
+      <div class="quick-win-badge">Quick Win — 48 horas</div>
+      <div class="quick-win-title">Calcule o custo real do seu serviço mais vendido</div>
+      <p class="quick-win-body">Pegue o serviço que mais representa sua receita. Some: custo direto de entrega + parcela dos fixos + horas de equipe × custo hora. Divida pela receita gerada. Esse número é sua margem real. <strong>Se for abaixo de 30%, você precisa renegociar preços ou cortar custos imediatamente.</strong></p>
+    </div>
+  </section>
+
+  <!-- ─── PRÓXIMOS PASSOS ──────────────────────────────────────── -->
+  <section class="chapter" id="proximo">
+    <div class="chapter-header anim">
+      <div class="chapter-label">Próximos Passos</div>
+      <h2>Seu Plano de 90 Dias para Ser um Dono Livre</h2>
+      <p class="chapter-deck">Os 5 sistemas apresentados neste manual são o mapa. Aqui está a ordem de implementação que funciona para a maioria das empresas.</p>
+    </div>
+
+    <div class="body-text anim">
+      <p>Não existe uma ordem universal — depende de qual sistema está mais quebrado na sua operação. Mas para empresas que ainda não têm estrutura nenhuma, esta é a sequência que gera os resultados mais rápidos:</p>
+    </div>
+
+    <div class="steps anim d1">
+      <div class="step">
+        <div class="step-num" style="background:rgba(245,158,11,.15);border-color:rgba(245,158,11,.3);color:var(--amber)">M1</div>
+        <div class="step-body">
+          <div class="step-title">Mês 1 — Fundação: Cargos, Processos e Indicadores</div>
+          <p class="step-desc">Documente o organograma real. Crie as 5 descrições de cargo mais críticas. Implante o scorecard semanal. Com isso, você tem visibilidade sobre o que está quebrando — e uma estrutura inicial de responsabilidades.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background:rgba(245,158,11,.15);border-color:rgba(245,158,11,.3);color:var(--amber)">M2</div>
+        <div class="step-body">
+          <div class="step-title">Mês 2 — Equipe: Contratação e Treinamento</div>
+          <p class="step-desc">Implante o processo de contratação sem feeling. Crie a trilha de treinamento para os 2 cargos mais contratados. Com isso, novas contratações começam a chegar com mais qualidade e ficam funcionais mais rápido.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background:rgba(245,158,11,.15);border-color:rgba(245,158,11,.3);color:var(--amber)">M3</div>
+        <div class="step-body">
+          <div class="step-title">Mês 3 — Financeiro e Manutenção</div>
+          <p class="step-desc">Estruture o DRE gerencial. Calcule o custo real dos produtos. Projete o fluxo de caixa. E comece a revisar os sistemas anteriores — identificar o que funciona, o que precisa ajuste, e o que está se consolidando.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background:rgba(52,211,153,.15);border-color:rgba(52,211,153,.3);color:var(--primary)">M4</div>
+        <div class="step-body">
+          <div class="step-title">Mês 4 — Independência</div>
+          <p class="step-desc">Com os 5 sistemas rodando, você começa a sair do operacional gradualmente. Primeiro um dia por semana. Depois uma semana inteira. O objetivo: a empresa funciona sem você por 10 dias seguidos sem nenhuma crise.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-green anim d2">
+      <span class="callout-icon">🎯</span>
+      <div class="callout-body">
+        <div class="callout-title">O critério de "Dono Livre" é simples</div>
+        <div class="callout-text">Você consegue sair de férias por 10 dias consecutivos, desligar o celular, e voltar encontrando a empresa no mesmo nível ou melhor do que deixou. <strong>Se isso acontecer, você é um Dono Livre.</strong> Os 5 sistemas são o caminho para chegar lá.</div>
+      </div>
+    </div>
+
+    <hr class="chapter-divider">
+
+    <div class="body-text anim d3">
+      <p>Este manual revela o método. Mas uma coisa que ele não faz é te dizer <strong>qual dos 5 sistemas está mais quebrado especificamente na SUA empresa</strong> — porque isso depende da realidade de cada operação.</p>
+      <p>Para isso existe a Sessão Diagnóstico. Em 45 minutos avaliamos sua operação, identificamos o gargalo crítico, e você sai com o plano de ação para os primeiros 90 dias. Sem custo. Sem compromisso de compra.</p>
+    </div>
+  </section>
+
+  <!-- ─── FINAL CTA ─────────────────────────────────────────────── -->
+  <section class="final-cta">
+    <div class="final-cta-glow"></div>
+    <div class="final-cta-inner anim">
+      <div style="font-family:var(--font-mono);font-size:11px;color:var(--primary);text-transform:uppercase;letter-spacing:.1em;margin-bottom:20px;display:flex;align-items:center;gap:10px;justify-content:center">
+        <span style="display:block;width:20px;height:1px;background:var(--primary)"></span>
+        Próximo passo
+        <span style="display:block;width:20px;height:1px;background:var(--primary)"></span>
+      </div>
+      <h2>Descubra Qual dos 5 Sistemas<br>Está <em>Travando a Sua Empresa</em></h2>
+      <p class="final-cta-sub">
+        Em 45 minutos mapeamos os 5 sistemas da sua operação, calculamos o custo real
+        do gargalo atual, e você sai com 3 movimentos concretos para implementar essa semana.
+        Valor de mercado: R$1.200. Para leitores do manual: gratuito.
+      </p>
+      <a href="agendar-diagnostico.html" class="final-btn">
+        Agendar Meu Diagnóstico Gratuito
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+      </a>
+      <div class="final-meta">
+        <div class="final-meta-item"><span class="ck">✓</span> 100% gratuito</div>
+        <div class="final-meta-item"><span class="ck">✓</span> 45 minutos por videoconferência</div>
+        <div class="final-meta-item"><span class="ck">✓</span> Sem compromisso de compra</div>
+        <div class="final-meta-item"><span class="ck">✓</span> 8 vagas por semana</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<script>
+/* ─── SMOOTH SCROLL NAV ──────────────────────────────────────── */
+function scrollTo(id) {
+  const el = document.getElementById(id);
+  if(el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  event.target.closest('.nav-link').classList.add('active');
+}
+
+/* ─── INTERSECTION OBSERVER ──────────────────────────────────── */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+}, { threshold:.1 });
+document.querySelectorAll('.anim').forEach(el => io.observe(el));
+
+/* ─── ACTIVE NAV ON SCROLL ───────────────────────────────────── */
+const chapterIds = ['intro','s1','s2','s3','s4','s5','proximo'];
+const navLinks = document.querySelectorAll('.nav-link');
+const scrollObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const id = e.target.id;
+      navLinks.forEach(l => {
+        if(l.getAttribute('onclick') && l.getAttribute('onclick').includes("'" + id + "'")) {
+          l.classList.add('active');
+        }
+      });
+    }
+  });
+}, { threshold:.3 });
+chapterIds.forEach(id => {
+  const el = document.getElementById(id);
+  if(el) scrollObserver.observe(el);
+});
+
+/* ─── CHECKLIST TOGGLE ───────────────────────────────────────── */
+function toggleCheck(box) {
+  box.classList.toggle('checked');
+  const label = box.nextElementSibling;
+  if(label) label.classList.toggle('checked');
+  saveChecks();
+}
+function saveChecks() {
+  const states = [];
+  document.querySelectorAll('.check-box').forEach((b,i) => states.push(b.classList.contains('checked')));
+  localStorage.setItem('manual-dono-livre-checks', JSON.stringify(states));
+}
+function loadChecks() {
+  const saved = localStorage.getItem('manual-dono-livre-checks');
+  if(!saved) return;
+  const states = JSON.parse(saved);
+  document.querySelectorAll('.check-box').forEach((b,i) => {
+    if(states[i]) {
+      b.classList.add('checked');
+      const label = b.nextElementSibling;
+      if(label) label.classList.add('checked');
+    }
+  });
+}
+loadChecks();
+
+/* ─── COPY TEMPLATE ──────────────────────────────────────────── */
+function copyTemplate(btn) {
+  const pre = btn.closest('.template-block').querySelector('.template-body');
+  const text = pre.innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copiado!';
+    btn.style.color = 'var(--primary)';
+    setTimeout(() => { btn.textContent = 'Copiar'; btn.style.color = ''; }, 2000);
+  });
+}
+</script>
+</body>
+</html>

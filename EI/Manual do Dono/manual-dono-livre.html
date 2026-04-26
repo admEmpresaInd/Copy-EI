@@ -1237,7 +1237,7 @@ document.querySelectorAll('form#optin-form, form[data-crm-ei]').forEach(form => 
       await submitLeadToCRM({ name, email, phone, tags: CRM_EI_TAGS });
 
       if (btn) {
-        btn.innerHTML = '✓ Manual enviado! Verifique seu WhatsApp e e-mail.';
+        btn.innerHTML = '✓ Manual enviado! Verifique seu WhatsApp.';
         btn.style.background = '#00d4b8';
         btn.style.opacity = '1';
         btn.style.cursor = 'default';

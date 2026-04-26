@@ -10,6 +10,8 @@
 <meta property="og:image" content="/EI/Manual%20do%20Dono/img-ebook.png">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="logo-raio.png">
+<link rel="apple-touch-icon" href="logo-raio.png">
 <script>if(location.protocol!=='file:'){document.write('<base href="/EI/Manual%20do%20Dono/">')}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1244,7 +1246,7 @@ document.querySelectorAll('form#optin-form, form[data-crm-ei]').forEach(form => 
       }
       setFeedback(feedback, 'Recebemos seus dados. O manual chega no seu WhatsApp em até 2 minutos.', 'var(--primary)');
       form.reset();
-      setTimeout(() => { window.location.href = '/obrigado'; }, 1500);
+      setTimeout(() => { window.location.href = 'obrigado1.html'; }, 1500);
     } catch (err) {
       console.error('[CRM EI] submit failed:', err);
       setFeedback(feedback, 'Não foi possível enviar agora. Tente novamente em instantes.', 'var(--rose)');

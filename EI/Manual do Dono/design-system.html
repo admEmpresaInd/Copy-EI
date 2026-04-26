@@ -1,0 +1,1776 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design System — Manual do Dono Livre · Empresa Independente</title>
+<meta name="description" content="Design System completo da página Manual do Dono Livre. Tokens, tipografia, componentes, animacoes e badges.">
+<link rel="icon" href="logo-raio.png">
+<link rel="apple-touch-icon" href="logo-raio.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+
+/* ─── TOKENS (espelho fiel da pagina original) ───────────────── */
+:root {
+  --bg:           #0d0d0d;
+  --bg-1:         #111111;
+  --bg-2:         #161616;
+  --bg-3:         #1c1c1c;
+  --fg:           #f2f2f0;
+  --fg-2:         #a8a89c;
+  --fg-3:         #5a5a54;
+  --primary:      #00F7D8;
+  --primary-dim:  rgba(0,247,216,0.10);
+  --primary-glow: rgba(0,247,216,0.22);
+  --border:       rgba(255,255,255,0.07);
+  --border-2:     rgba(255,255,255,0.13);
+  --amber:        #f59e0b;
+  --amber-dim:    rgba(245,158,11,0.10);
+  --violet:       #a78bfa;
+  --rose:         #fb7185;
+  --rose-dim:     rgba(251,113,133,0.10);
+  --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-body:    'Lora', Georgia, serif;
+  --font-mono:    'JetBrains Mono', monospace;
+  --r-sm: 6px; --r-md: 10px; --r-lg: 16px; --r-xl: 24px;
+  --ease: cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ─── RESET ─────────────────────────────────────────────────── */
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; font-size:16px; color-scheme:dark; }
+@media(prefers-reduced-motion:reduce){ *, *::before, *::after { animation-duration:.01ms !important; transition-duration:.01ms !important; } }
+body {
+  background:var(--bg); color:var(--fg);
+  font-family:var(--font-display);
+  line-height:1.65; -webkit-font-smoothing:antialiased;
+}
+a { color:inherit; text-decoration:none; }
+button { font-family:var(--font-display); border:none; cursor:pointer; background:none; color:inherit; }
+::-webkit-scrollbar { width:6px; }
+::-webkit-scrollbar-track { background:var(--bg-1); }
+::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.12); border-radius:3px; }
+::-webkit-scrollbar-thumb:hover { background:rgba(0,247,216,.2); }
+
+/* ─── NOISE (mesma textura sutil) ───────────────────────────── */
+body::before {
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:9999;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:.026; mix-blend-mode:overlay;
+}
+
+/* ─── ANIMATIONS (espelho da pagina) ────────────────────────── */
+@keyframes fade-up    { from{opacity:0;transform:translateY(32px)} to{opacity:1;transform:none} }
+@keyframes glow-pulse { 0%,100%{opacity:.4} 50%{opacity:.8} }
+@keyframes gradient-x { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+@keyframes blink      { 0%,100%{opacity:1} 50%{opacity:0} }
+
+.anim-demo-fade-up { animation:fade-up 1.6s var(--ease) infinite alternate; }
+.anim-demo-glow    { animation:glow-pulse 2s infinite; }
+.anim-demo-grad    {
+  background:linear-gradient(135deg,var(--primary) 0%,#7ffff0 50%,var(--primary) 100%);
+  background-size:200% auto;
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  animation:gradient-x 4s ease infinite;
+}
+.anim-demo-blink { animation:blink 1s infinite; }
+
+/* ─── LAYOUT (sidebar + conteudo) ───────────────────────────── */
+.shell {
+  display:grid;
+  grid-template-columns: 260px 1fr;
+  min-height:100vh;
+}
+@media(max-width:900px){ .shell { grid-template-columns:1fr; } }
+
+aside.nav {
+  position:sticky; top:0; align-self:start;
+  height:100vh; overflow-y:auto;
+  border-right:1px solid var(--border);
+  background:rgba(13,13,13,.85); backdrop-filter:blur(14px);
+  padding:28px 22px;
+}
+@media(max-width:900px){
+  aside.nav {
+    position:sticky; top:0; height:auto; max-height:none;
+    border-right:none; border-bottom:1px solid var(--border);
+    padding:16px 22px;
+  }
+}
+
+.nav-logo {
+  display:flex; align-items:center; gap:10px; margin-bottom:24px;
+}
+.nav-logo-mark {
+  width:34px; height:34px; background:var(--primary); color:#001c1a;
+  font-size:12px; font-weight:800; border-radius:var(--r-md);
+  display:grid; place-items:center; flex-shrink:0;
+}
+.nav-logo-text {
+  font-family:var(--font-display);
+  font-weight:700; letter-spacing:-.02em;
+  font-size:14px; color:var(--fg); line-height:1.15;
+}
+.nav-logo-text small {
+  display:block; font-family:var(--font-mono); font-weight:400;
+  font-size:10px; color:var(--fg-3); letter-spacing:.08em;
+  text-transform:uppercase; margin-top:3px;
+}
+
+.nav-version {
+  font-family:var(--font-mono); font-size:10px;
+  color:var(--primary); background:var(--primary-dim);
+  border:1px solid rgba(0,247,216,.18);
+  padding:5px 10px; border-radius:var(--r-sm);
+  display:inline-flex; align-items:center; gap:6px;
+  margin-bottom:24px;
+}
+.nav-version-dot { width:5px; height:5px; border-radius:50%; background:var(--primary); animation:glow-pulse 2s infinite; }
+
+.nav-section-title {
+  font-family:var(--font-mono); font-size:10px; font-weight:600;
+  color:var(--fg-3); text-transform:uppercase; letter-spacing:.12em;
+  margin:18px 0 8px;
+}
+.nav ul { list-style:none; display:flex; flex-direction:column; gap:1px; }
+.nav a {
+  display:block; padding:9px 12px;
+  font-size:13px; color:var(--fg-2);
+  border-radius:var(--r-sm); border:1px solid transparent;
+  transition:.2s var(--ease);
+}
+.nav a:hover { color:var(--fg); background:var(--bg-2); border-color:var(--border); }
+.nav a.active { color:var(--primary); background:var(--primary-dim); border-color:rgba(0,247,216,.18); }
+
+main {
+  padding:48px 56px 96px;
+  max-width:1100px;
+}
+@media(max-width:900px){ main { padding:32px 22px 64px; } }
+
+/* ─── HEADINGS DE SECAO ─────────────────────────────────────── */
+.section + .section { margin-top:88px; }
+.section-head { margin-bottom:32px; }
+.section-chip {
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:var(--font-mono); font-size:11px; font-weight:500;
+  color:var(--primary); text-transform:uppercase; letter-spacing:.1em;
+  margin-bottom:14px;
+}
+.section-chip::before { content:''; display:block; width:20px; height:1px; background:var(--primary); }
+.section-title {
+  font-size:clamp(28px,3.8vw,42px);
+  font-weight:800; letter-spacing:-.04em; line-height:1.06;
+  color:var(--fg); margin-bottom:12px; text-wrap:balance;
+}
+.section-desc {
+  font-family:var(--font-body);
+  font-size:16px; color:var(--fg-2); line-height:1.65;
+  max-width:640px;
+}
+
+/* ─── HERO DE TOPO DA PAGINA ─────────────────────────────────── */
+.hero-ds {
+  position:relative; padding:32px 0 56px; margin-bottom:32px;
+  border-bottom:1px solid var(--border);
+}
+.hero-ds-glow {
+  position:absolute; top:-80px; left:0;
+  width:600px; height:400px;
+  background:radial-gradient(ellipse at 30% 50%,rgba(0,247,216,.08) 0%,transparent 65%);
+  pointer-events:none;
+}
+.hero-ds h1 {
+  position:relative;
+  font-size:clamp(34px,5vw,52px);
+  font-weight:800; line-height:1.06; letter-spacing:-.04em;
+  color:var(--fg); margin-bottom:18px;
+}
+.hero-ds h1 em {
+  font-style:normal;
+  background:linear-gradient(135deg,var(--primary) 0%,#7ffff0 50%,var(--primary) 100%);
+  background-size:200% auto;
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  animation:gradient-x 4s ease infinite;
+}
+.hero-ds p {
+  position:relative;
+  font-family:var(--font-body); font-size:17px; color:var(--fg-2);
+  max-width:620px; line-height:1.7;
+}
+
+/* ─── CARD GENERICO DE DEMO ─────────────────────────────────── */
+.demo {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:20px;
+  border:1px solid var(--border);
+  border-radius:var(--r-lg);
+  background:var(--bg-1);
+  overflow:hidden;
+  margin-bottom:18px;
+}
+@media(max-width:900px){ .demo { grid-template-columns:1fr; } }
+.demo-stage {
+  padding:32px;
+  background:
+    linear-gradient(rgba(0,247,216,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,247,216,.025) 1px,transparent 1px),
+    var(--bg-1);
+  background-size:32px 32px;
+  display:flex; align-items:center; justify-content:center; min-height:160px;
+  border-right:1px solid var(--border);
+}
+@media(max-width:900px){ .demo-stage { border-right:none; border-bottom:1px solid var(--border); } }
+.demo-stage.col { flex-direction:column; gap:14px; }
+.demo-stage.start { justify-content:flex-start; align-items:flex-start; }
+.demo-code {
+  background:var(--bg);
+  padding:24px;
+  font-family:var(--font-mono);
+  font-size:12px; line-height:1.65;
+  color:var(--fg-2);
+  overflow:auto;
+  max-height:340px;
+}
+.demo-code .tag    { color:#a78bfa; }
+.demo-code .attr   { color:#7dd3fc; }
+.demo-code .str    { color:#86efac; }
+.demo-code .com    { color:var(--fg-3); font-style:italic; }
+.demo-code pre { white-space:pre-wrap; }
+
+.demo-label {
+  display:block;
+  font-family:var(--font-mono); font-size:10px;
+  color:var(--fg-3); text-transform:uppercase; letter-spacing:.12em;
+  margin-bottom:10px;
+}
+
+/* ─── SWATCHES DE CORES ─────────────────────────────────────── */
+.swatch-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:14px;
+}
+.swatch {
+  background:var(--bg-1);
+  border:1px solid var(--border);
+  border-radius:var(--r-md);
+  overflow:hidden;
+  transition:.25s var(--ease);
+}
+.swatch:hover { border-color:var(--border-2); transform:translateY(-2px); }
+.swatch-color {
+  height:90px; position:relative;
+  background-image:
+    linear-gradient(45deg,rgba(255,255,255,.025) 25%,transparent 25%),
+    linear-gradient(-45deg,rgba(255,255,255,.025) 25%,transparent 25%),
+    linear-gradient(45deg,transparent 75%,rgba(255,255,255,.025) 75%),
+    linear-gradient(-45deg,transparent 75%,rgba(255,255,255,.025) 75%);
+  background-size:14px 14px;
+  background-position:0 0,0 7px,7px -7px,-7px 0;
+}
+.swatch-color::after {
+  content:''; position:absolute; inset:0;
+  background:var(--swatch);
+}
+.swatch-meta { padding:14px 16px; }
+.swatch-name { font-size:13px; font-weight:700; color:var(--fg); margin-bottom:2px; letter-spacing:-.01em; }
+.swatch-token { font-family:var(--font-mono); font-size:11px; color:var(--primary); margin-bottom:6px; }
+.swatch-hex { font-family:var(--font-mono); font-size:11px; color:var(--fg-3); }
+
+/* ─── ESCALA TIPOGRAFICA ────────────────────────────────────── */
+.type-row {
+  display:grid;
+  grid-template-columns: 180px 1fr;
+  gap:24px;
+  padding:22px 0;
+  border-top:1px solid var(--border);
+  align-items:baseline;
+}
+.type-row:first-child { border-top:none; }
+@media(max-width:700px){ .type-row { grid-template-columns:1fr; gap:8px; } }
+.type-meta {
+  font-family:var(--font-mono); font-size:11px; color:var(--fg-3);
+  display:flex; flex-direction:column; gap:2px;
+}
+.type-meta strong { color:var(--primary); font-weight:600; font-size:12px; }
+.type-sample { color:var(--fg); letter-spacing:-.03em; line-height:1.1; }
+.t-display-1 { font-size:64px; font-weight:800; }
+.t-display-2 { font-size:48px; font-weight:800; }
+.t-h1 { font-size:38px; font-weight:800; }
+.t-h2 { font-size:30px; font-weight:700; }
+.t-h3 { font-size:24px; font-weight:700; }
+.t-h4 { font-size:18px; font-weight:700; }
+.t-body-lg { font-size:18px; font-weight:400; line-height:1.7; font-family:var(--font-body); color:var(--fg-2); letter-spacing:0; }
+.t-body { font-size:16px; font-weight:400; line-height:1.65; font-family:var(--font-body); color:var(--fg-2); letter-spacing:0; }
+.t-body-sm { font-size:14px; font-weight:400; line-height:1.6; font-family:var(--font-body); color:var(--fg-2); letter-spacing:0; }
+.t-mono { font-family:var(--font-mono); font-size:13px; color:var(--primary); letter-spacing:.02em; }
+.t-mono-sm { font-family:var(--font-mono); font-size:11px; color:var(--fg-3); text-transform:uppercase; letter-spacing:.12em; }
+
+.fontfaces {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:14px; margin-bottom:32px;
+}
+.fontface {
+  background:var(--bg-1); border:1px solid var(--border);
+  border-radius:var(--r-md); padding:22px 24px;
+}
+.fontface-name {
+  font-family:var(--font-mono); font-size:11px;
+  color:var(--primary); letter-spacing:.08em; text-transform:uppercase;
+  margin-bottom:14px;
+}
+.fontface-sample-display { font-family:var(--font-display); font-size:32px; font-weight:800; color:var(--fg); letter-spacing:-.03em; line-height:1; }
+.fontface-sample-body    { font-family:var(--font-body);    font-size:24px; color:var(--fg); font-style:italic; line-height:1.2; }
+.fontface-sample-mono    { font-family:var(--font-mono);    font-size:22px; color:var(--primary); letter-spacing:.04em; }
+.fontface-meta { font-family:var(--font-mono); font-size:11px; color:var(--fg-3); margin-top:14px; line-height:1.6; }
+
+/* ─── ESCALA DE RAIO ────────────────────────────────────────── */
+.radius-grid {
+  display:grid; gap:14px;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+}
+.radius-item {
+  background:var(--bg-1); border:1px solid var(--border);
+  padding:18px; text-align:center;
+}
+.radius-box {
+  width:100%; aspect-ratio:1.4/1;
+  background:var(--primary-dim);
+  border:1px solid rgba(0,247,216,.2);
+  margin-bottom:14px;
+}
+.radius-box.r-sm { border-radius:var(--r-sm); }
+.radius-box.r-md { border-radius:var(--r-md); }
+.radius-box.r-lg { border-radius:var(--r-lg); }
+.radius-box.r-xl { border-radius:var(--r-xl); }
+.radius-box.r-pill { border-radius:999px; }
+.radius-name { font-size:13px; font-weight:700; color:var(--fg); }
+.radius-token { font-family:var(--font-mono); font-size:11px; color:var(--primary); margin-top:2px; }
+.radius-val { font-family:var(--font-mono); font-size:11px; color:var(--fg-3); margin-top:2px; }
+
+.radius-grid > .radius-item:nth-child(1) { border-radius:var(--r-md); }
+.radius-grid > .radius-item:nth-child(2) { border-radius:var(--r-md); }
+.radius-grid > .radius-item:nth-child(3) { border-radius:var(--r-md); }
+.radius-grid > .radius-item:nth-child(4) { border-radius:var(--r-md); }
+.radius-grid > .radius-item:nth-child(5) { border-radius:var(--r-md); }
+
+/* ─── ESCALA DE ESPACAMENTO ─────────────────────────────────── */
+.space-row {
+  display:flex; align-items:center; gap:18px;
+  padding:14px 0; border-top:1px solid var(--border);
+}
+.space-row:first-child { border-top:none; }
+.space-meta {
+  width:160px; flex-shrink:0;
+  display:flex; flex-direction:column; gap:2px;
+}
+.space-name  { font-size:13px; font-weight:700; color:var(--fg); }
+.space-token { font-family:var(--font-mono); font-size:11px; color:var(--primary); }
+.space-val   { font-family:var(--font-mono); font-size:11px; color:var(--fg-3); }
+.space-bar { height:14px; background:var(--primary); border-radius:3px; box-shadow:0 0 24px rgba(0,247,216,.2); }
+.s-1 { width:8px; }
+.s-2 { width:16px; }
+.s-3 { width:24px; }
+.s-4 { width:32px; }
+.s-5 { width:48px; }
+.s-6 { width:64px; }
+.s-7 { width:96px; }
+.s-8 { width:128px; }
+
+/* ─── COMPONENTES (espelho fiel da pagina) ──────────────────── */
+
+/* logo */
+.logo { display:flex; align-items:center; gap:10px; }
+.logo-mark {
+  width:34px; height:34px; background:var(--primary); color:#001c1a;
+  font-size:12px; font-weight:800; border-radius:var(--r-md);
+  display:grid; place-items:center; flex-shrink:0;
+}
+
+/* Header CTA */
+.hdr-cta {
+  background:var(--primary); color:#001c1a;
+  font-size:13px; font-weight:700;
+  padding:9px 20px; border-radius:var(--r-md);
+  transition:.25s var(--ease); white-space:nowrap; flex-shrink:0;
+  display:inline-block;
+}
+.hdr-cta:hover{ background:#00d4b8; transform:translateY(-1px); box-shadow:0 8px 24px var(--primary-glow); }
+
+/* CTA primario */
+.btn {
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  background:var(--primary); color:#001c1a;
+  font-size:17px; font-weight:800; letter-spacing:-.01em;
+  padding:18px 40px; border-radius:var(--r-md);
+  transition:background .25s var(--ease), transform .25s var(--ease), box-shadow .25s var(--ease);
+  cursor:pointer; touch-action:manipulation;
+  box-shadow:0 0 48px rgba(0,247,216,.25);
+  border:none;
+}
+.btn:hover { background:#00d4b8; transform:translateY(-3px); box-shadow:0 16px 48px rgba(0,247,216,.35); }
+.btn svg   { transition:transform .2s; }
+.btn:hover svg { transform:translateX(4px); }
+
+/* CTA secundario */
+.btn-outline {
+  display:inline-flex; align-items:center; gap:8px;
+  color:var(--fg-2); font-size:15px; font-weight:500;
+  padding:16px 24px; border:1px solid var(--border-2);
+  border-radius:var(--r-md); transition:.25s var(--ease);
+}
+.btn-outline:hover { color:var(--fg); border-color:rgba(255,255,255,.2); background:rgba(255,255,255,.03); }
+
+/* Chip */
+.chip {
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:var(--font-mono); font-size:11px; font-weight:500;
+  color:var(--primary); text-transform:uppercase; letter-spacing:.1em;
+}
+.chip::before { content:''; display:block; width:20px; height:1px; background:var(--primary); }
+.chip.center  { justify-content:center; }
+.chip.center::before { display:none; }
+
+/* Badge */
+.badge {
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:var(--font-mono); font-size:12px; font-weight:500;
+  color:var(--primary); background:var(--primary-dim);
+  border:1px solid rgba(0,247,216,.18);
+  padding:7px 16px; border-radius:var(--r-sm);
+}
+.badge-dot { width:6px; height:6px; border-radius:50%; background:var(--primary); animation:glow-pulse 2s infinite; }
+
+/* Etag (tag colorida) */
+.etag {
+  font-family:var(--font-mono); font-size:10px; font-weight:500;
+  padding:2px 8px; border-radius:4px;
+  background:var(--primary-dim); color:var(--primary);
+  border:1px solid rgba(0,247,216,.15);
+}
+.etag.amber  { background:var(--amber-dim); color:var(--amber); border-color:rgba(245,158,11,.15); }
+.etag.violet { background:rgba(167,139,250,.08); color:var(--violet); border-color:rgba(167,139,250,.15); }
+.etag.rose   { background:var(--rose-dim); color:var(--rose); border-color:rgba(251,113,133,.15); }
+
+/* Proof strip */
+.proof-strip {
+  display:grid; gap:2px; background:var(--border);
+  border:1px solid var(--border); border-radius:var(--r-xl); overflow:hidden;
+  grid-template-columns:repeat(2,1fr); width:100%;
+}
+@media(min-width:768px){ .proof-strip{ grid-template-columns:repeat(4,1fr); } }
+.proof-metric {
+  background:var(--bg-1); padding:32px 24px; text-align:center;
+  transition:.25s var(--ease); position:relative; overflow:hidden;
+}
+.proof-metric:hover{ background:var(--bg-2); }
+.proof-metric::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg,transparent,var(--primary),transparent);
+  opacity:0; transition:.25s var(--ease);
+}
+.proof-metric:hover::after { opacity:.5; }
+.proof-val {
+  font-family:var(--font-mono); font-size:clamp(28px,4vw,40px);
+  font-weight:600; color:var(--primary); letter-spacing:-.04em;
+  display:block; line-height:1;
+}
+.proof-lbl { font-size:13px; color:var(--fg-2); margin-top:8px; display:block; line-height:1.45; }
+
+/* Pilar card */
+.pilar-card {
+  background:var(--bg-2); border:1px solid var(--border);
+  border-radius:var(--r-xl); padding:36px 32px;
+  position:relative; overflow:hidden; transition:.25s var(--ease);
+  width:100%; max-width:380px;
+}
+.pilar-card:hover { border-color:rgba(0,247,216,.2); transform:translateY(-3px); box-shadow:0 24px 60px rgba(0,0,0,.4); }
+.pilar-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg,transparent,var(--primary),transparent);
+  opacity:0; transition:.25s var(--ease);
+}
+.pilar-card:hover::before { opacity:.6; }
+.pilar-num {
+  font-family:var(--font-mono); font-size:11px; color:var(--fg-3);
+  text-transform:uppercase; letter-spacing:.1em; margin-bottom:16px;
+  display:flex; align-items:center; gap:8px;
+}
+.pilar-num::before { content:''; display:block; width:16px; height:1px; background:var(--fg-3); }
+.pilar-icon-placeholder {
+  width:60px; height:60px; flex-shrink:0;
+  background:var(--primary-dim); border:1px solid rgba(0,247,216,.2);
+  border-radius:var(--r-md);
+  display:grid; place-items:center;
+  color:var(--primary); font-size:24px;
+}
+.pilar-header { display:flex; align-items:center; gap:16px; margin-bottom:14px; }
+.pilar-title { font-size:17px; font-weight:700; letter-spacing:-.03em; color:var(--fg); margin-bottom:0; line-height:1.25; }
+.pilar-desc { font-family:var(--font-body); font-size:15px; color:var(--fg-2); line-height:1.65; }
+
+/* Entregavel item */
+.entregavel-item {
+  display:flex; align-items:flex-start; gap:16px;
+  background:var(--bg-2); border:1px solid var(--border);
+  border-radius:var(--r-md); padding:20px 22px;
+  transition:.25s var(--ease); cursor:default;
+  width:100%; max-width:520px;
+}
+.entregavel-item:hover { border-color:rgba(0,247,216,.18); background:var(--bg-3); }
+.entregavel-num {
+  font-family:var(--font-mono); font-size:22px; font-weight:600;
+  color:var(--primary); opacity:.25; line-height:1; flex-shrink:0;
+  min-width:32px;
+}
+.entregavel-title { font-size:16px; font-weight:700; color:var(--fg); margin-bottom:4px; }
+.entregavel-desc  { font-family:var(--font-body); font-size:14px; color:var(--fg-2); line-height:1.6; }
+.entregavel-tags  { display:flex; gap:6px; flex-wrap:wrap; margin-top:10px; }
+
+/* Guia mockup (sticky) */
+.guia-mockup {
+  background:var(--bg-2); border:1px solid var(--border-2);
+  border-radius:var(--r-xl); padding:36px;
+  position:relative; overflow:hidden;
+  width:100%; max-width:380px;
+}
+.guia-mockup::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg,transparent,var(--primary),transparent); opacity:.6;
+}
+.mockup-label {
+  font-family:var(--font-mono); font-size:11px; color:var(--primary);
+  text-transform:uppercase; letter-spacing:.1em; margin-bottom:24px;
+  display:flex; align-items:center; gap:8px;
+}
+.mockup-label::after { content:'●'; font-size:8px; opacity:.6; }
+.mockup-cover {
+  width:100%; aspect-ratio:3/4; max-height:240px;
+  background:linear-gradient(160deg,var(--bg-3) 0%,rgba(0,247,216,.08) 100%);
+  border:1px solid rgba(0,247,216,.12); border-radius:var(--r-lg);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:16px; margin-bottom:28px; position:relative; overflow:hidden;
+}
+.mockup-cover::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 30%, rgba(0,247,216,.08), transparent);
+}
+.mockup-gear-icon { font-size:48px; position:relative; z-index:1; color:var(--primary); }
+.mockup-cover-sub {
+  font-family:var(--font-mono); font-size:11px; color:var(--primary);
+  position:relative; z-index:1;
+}
+.mockup-row {
+  display:flex; align-items:center; gap:10px;
+  font-size:13px; color:var(--fg-2); margin-bottom:10px;
+}
+.mockup-check {
+  width:20px; height:20px; flex-shrink:0;
+  background:var(--primary-dim); border:1px solid rgba(0,247,216,.2);
+  border-radius:50%; display:grid; place-items:center;
+  color:var(--primary); font-size:11px;
+}
+
+/* hero-book */
+.hero-book-demo {
+  width:100%; max-width:240px; aspect-ratio:3/4;
+  background:linear-gradient(160deg,var(--bg-2) 0%,rgba(0,247,216,.12) 100%);
+  border-radius:16px;
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.06) inset,
+    0 48px 100px rgba(0,0,0,.75),
+    0 24px 48px rgba(0,0,0,.5),
+    0 0 0 1px rgba(255,255,255,.06),
+    0 0 80px rgba(0,247,216,.12);
+  transform:perspective(1200px) rotateY(-6deg) rotateX(2deg) translateY(-4px);
+  transition:transform .5s var(--ease), box-shadow .5s var(--ease);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:14px; padding:32px;
+}
+.hero-book-demo:hover {
+  transform:perspective(1200px) rotateY(-2deg) rotateX(0deg) translateY(-12px);
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.06) inset,
+    0 64px 120px rgba(0,0,0,.7),
+    0 0 0 1px rgba(255,255,255,.08),
+    0 0 120px rgba(0,247,216,.2);
+}
+.hero-book-demo-title {
+  font-size:20px; font-weight:800; letter-spacing:-.04em;
+  color:var(--fg); text-align:center; line-height:1.15;
+}
+.hero-book-demo-sub {
+  font-family:var(--font-mono); font-size:10px;
+  color:var(--primary); letter-spacing:.08em;
+}
+
+/* form */
+.form-group { display:flex; flex-direction:column; gap:8px; width:100%; max-width:380px; }
+.form-label { font-size:13px; font-weight:600; color:var(--fg-2); }
+.form-input {
+  width:100%; background:var(--bg-3); border:1px solid var(--border-2);
+  border-radius:var(--r-md); color:var(--fg);
+  font-family:var(--font-display); font-size:15px;
+  padding:14px 16px; transition:.25s var(--ease);
+}
+.form-input:focus { outline:none; border-color:rgba(0,247,216,.45); box-shadow:0 0 0 3px rgba(0,247,216,.08); }
+.form-input::placeholder { color:var(--fg-3); }
+
+/* faq item */
+.faq-item-demo {
+  background:var(--bg-1); border:1px solid var(--border);
+  border-radius:var(--r-md); overflow:hidden; transition:.25s var(--ease);
+  width:100%; max-width:520px;
+}
+.faq-item-demo:hover { border-color:var(--border-2); }
+.faq-q-demo {
+  width:100%; text-align:left; padding:22px 24px;
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  font-size:15px; font-weight:600; color:var(--fg); cursor:pointer; transition:.2s var(--ease);
+}
+.faq-icon-demo {
+  width:28px; height:28px; flex-shrink:0;
+  background:var(--primary-dim); border-radius:50%;
+  display:grid; place-items:center;
+  color:var(--primary); font-size:18px; font-weight:300;
+}
+
+/* prova card demo */
+.prova-card-demo {
+  background:var(--bg-2); border:1px solid var(--border);
+  border-radius:var(--r-lg); padding:28px;
+  position:relative; width:100%; max-width:340px;
+}
+.prova-card-demo::after {
+  content:'"'; position:absolute; top:18px; right:22px;
+  font-family:var(--font-body); font-size:60px;
+  color:var(--primary); opacity:.1; line-height:1; pointer-events:none;
+}
+.prova-stars-demo { display:flex; gap:3px; margin-bottom:14px; }
+.prova-star-demo { color:var(--amber); font-size:14px; }
+.prova-quote-demo {
+  font-family:var(--font-body); font-style:italic;
+  font-size:14px; color:var(--fg-2); line-height:1.68; margin-bottom:18px;
+}
+.prova-author-demo { display:flex; align-items:center; gap:12px; }
+.prova-avatar-demo {
+  width:36px; height:36px; border-radius:50%;
+  background:var(--primary-dim); border:1px solid rgba(0,247,216,.2);
+  display:grid; place-items:center;
+  font-weight:700; font-size:13px; color:var(--primary); flex-shrink:0;
+}
+.prova-name-demo { font-size:13px; font-weight:700; color:var(--fg); }
+.prova-role-demo { font-family:var(--font-mono); font-size:10px; color:var(--fg-3); margin-top:2px; }
+
+/* number item demo */
+.number-item-demo {
+  display:flex; flex-direction:column; align-items:center; text-align:center;
+  background:var(--bg-2); border:1px solid var(--border);
+  border-radius:var(--r-md); padding:28px 22px;
+  transition:.25s var(--ease); width:170px;
+}
+.number-item-demo:hover { border-color:rgba(0,247,216,.2); transform:translateY(-2px); }
+.number-val-demo {
+  font-family:var(--font-mono); font-size:32px; font-weight:600;
+  color:var(--primary); letter-spacing:-.04em; line-height:1;
+}
+.number-desc-demo { font-size:12px; color:var(--fg-2); margin-top:10px; line-height:1.4; }
+.number-desc-demo strong { color:var(--fg); display:block; font-size:13px; font-weight:700; margin-bottom:4px; }
+
+/* ─── DELAYS DE ANIMACAO (showcase visual) ──────────────────── */
+.delay-grid {
+  display:grid; gap:8px;
+  grid-template-columns:repeat(auto-fit,minmax(110px,1fr));
+}
+.delay-cell {
+  background:var(--bg-1); border:1px solid var(--border);
+  border-radius:var(--r-sm); padding:18px;
+  text-align:center; opacity:0;
+  animation:fade-up 1s var(--ease) forwards;
+}
+.delay-cell.d1 { animation-delay:.1s; }
+.delay-cell.d2 { animation-delay:.2s; }
+.delay-cell.d3 { animation-delay:.3s; }
+.delay-cell.d4 { animation-delay:.4s; }
+.delay-cell.d5 { animation-delay:.5s; }
+.delay-cell.d6 { animation-delay:.6s; }
+.delay-name { font-family:var(--font-mono); font-size:11px; color:var(--primary); }
+.delay-meta { font-family:var(--font-mono); font-size:10px; color:var(--fg-3); margin-top:4px; }
+
+.replay-btn {
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:var(--font-mono); font-size:11px;
+  color:var(--primary); background:var(--primary-dim);
+  border:1px solid rgba(0,247,216,.2);
+  border-radius:var(--r-sm);
+  padding:8px 14px; margin-bottom:14px;
+  cursor:pointer; transition:.2s var(--ease);
+}
+.replay-btn:hover { background:rgba(0,247,216,.16); }
+
+/* ─── FOOTER ────────────────────────────────────────────────── */
+.ds-footer {
+  margin-top:96px; padding-top:32px;
+  border-top:1px solid var(--border);
+  font-family:var(--font-mono); font-size:11px; color:var(--fg-3);
+  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;
+}
+.ds-footer a { color:var(--primary); }
+
+/* ─── HELPERS ───────────────────────────────────────────────── */
+.row { display:flex; flex-wrap:wrap; gap:12px; align-items:center; }
+.col-stack { display:flex; flex-direction:column; gap:14px; align-items:flex-start; }
+.muted { color:var(--fg-3); font-family:var(--font-mono); font-size:11px; }
+hr.div { border:none; border-top:1px solid var(--border); margin:24px 0; }
+
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ─── SIDEBAR DE NAVEGACAO ───────────────────────────────── -->
+  <aside class="nav">
+    <div class="nav-logo">
+      <div class="nav-logo-mark">EI</div>
+      <div class="nav-logo-text">
+        Design System
+        <small>Manual do Dono Livre</small>
+      </div>
+    </div>
+
+    <span class="nav-version">
+      <span class="nav-version-dot"></span>
+      v1.0 · ABRIL 2026
+    </span>
+
+    <div class="nav-section-title">Fundacao</div>
+    <ul>
+      <li><a href="#cores">Cores</a></li>
+      <li><a href="#tipografia">Tipografia</a></li>
+      <li><a href="#espacamento">Espacamento</a></li>
+      <li><a href="#raios">Border Radius</a></li>
+      <li><a href="#sombras">Sombras e Glow</a></li>
+    </ul>
+
+    <div class="nav-section-title">Componentes</div>
+    <ul>
+      <li><a href="#botoes">Botoes</a></li>
+      <li><a href="#chips-badges">Chips e Badges</a></li>
+      <li><a href="#etags">Etags (tags coloridas)</a></li>
+      <li><a href="#proof">Proof Strip</a></li>
+      <li><a href="#pilares">Pilar Cards</a></li>
+      <li><a href="#entregaveis">Entregaveis</a></li>
+      <li><a href="#mockup">Guia Mockup</a></li>
+      <li><a href="#hero-book">Hero Book 3D</a></li>
+      <li><a href="#form">Formulario</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#prova">Prova Social</a></li>
+      <li><a href="#numbers">Number Stats</a></li>
+    </ul>
+
+    <div class="nav-section-title">Movimento</div>
+    <ul>
+      <li><a href="#animacoes">Animacoes</a></li>
+      <li><a href="#delays">Delays</a></li>
+    </ul>
+  </aside>
+
+  <!-- ─── CONTEUDO PRINCIPAL ─────────────────────────────────── -->
+  <main>
+
+    <!-- HERO -->
+    <header class="hero-ds">
+      <div class="hero-ds-glow"></div>
+      <span class="section-chip">Design System</span>
+      <h1>O sistema visual da<br><em>Empresa Independente</em></h1>
+      <p>Tokens, tipografia, componentes e animacoes da pagina <strong style="color:var(--fg)">Manual do Dono Livre</strong>. Use este documento como referencia unica para garantir consistencia em qualquer pagina nova ou variacao da marca.</p>
+    </header>
+
+    <!-- ============ CORES ============ -->
+    <section class="section" id="cores">
+      <div class="section-head">
+        <span class="section-chip">01 · Cores</span>
+        <h2 class="section-title">Paleta de cores</h2>
+        <p class="section-desc">Visual <strong style="color:var(--fg)">dark first</strong>. A paleta gira em torno de 4 tons de fundo, 3 tons de texto, uma cor primaria neon (ciano-verde) e 3 acentos para sinalizar variedade tematica.</p>
+      </div>
+
+      <span class="demo-label">Backgrounds</span>
+      <div class="swatch-grid" style="margin-bottom:32px">
+        <div class="swatch" style="--swatch:#0d0d0d">
+          <div class="swatch-color"></div>
+          <div class="swatch-meta">
+            <div class="swatch-name">Background base</div>
+            <div class="swatch-token">--bg</div>
+            <div class="swatch-hex">#0d0d0d</div>
+          </div>
+        </div>
+        <div class="swatch" style="--swatch:#111111">
+          <div class="swatch-color"></div>
+          <div class="swatch-meta">
+            <div class="swatch-name">Background 1</div>
+            <div class="swatch-token">--bg-1</div>
+            <div class="swatch-hex">#111111</div>
+          </div>
+        </div>
+        <div class="swatch" style="--swatch:#161616">
+          <div class="swatch-color"></div>
+          <div class="swatch-meta">
+            <div class="swatch-name">Background 2</div>
+            <div class="swatch-token">--bg-2</div>
+            <div class="swatch-hex">#161616</div>
+          </div>
+        </div>
+        <div class="swatch" style="--swatch:#1c1c1c">
+          <div class="swatch-color"></div>
+          <div class="swatch-meta">
+            <div class="swatch-name">Background 3</div>
+            <div class="swatch-token">--bg-3</div>
+            <div class="swatch-hex">#1c1c1c</div>
+          </div>
+        </div>
+      </div>
+
+      <span class="demo-label">Foregrounds (texto)</span>
+      <div class="swatch-grid" style="margin-bottom:32px">
+        <div class="swatch" style="--swatch:#f2f2f0">
+          <div class="swatch-color"></div>
+          <div class="swatch-meta">
+            <div class="swatch-name">Foreground primario</div>
+            <div class="swatch-token">--fg</div>
+            <div class="swatch-hex">#f2f2f0</div>
+          </div>
+        </div>
+        <div class="swatch" style="--swatch:#a8a89c">
+          <div class="swatch-color"></div>
+          <div class="swatch-meta">
+            <div class="swatch-name">Foreground secundario</div>
+            <div class="swatch-token">--fg-2</div>
+            <div class="swatch-hex">#a8a89c</div>
+          </div>
+        </div>
+        <div class="swatch" style="--swatch:#5a5a54">
+          <div class="swatch-color"></div>
+          <div class="swatch-meta">
+            <div class="swatch-name">Foreground terciario</div>
+            <div class="swatch-token">--fg-3</div>
+            <div class="swatch-hex">#5a5a54</div>
+          </div>
+        </div>
+      </div>
+
+      <span class="demo-label">Marca</span>
+      <div class="swatch-grid" style="margin-bottom:32px">
+        <div class="swatch" style="--swatch:#00F7D8">
+          <div class="swatch-color"></div>
+          <div class="swatch-meta">
+            <div class="swatch-name">Primary (neon)</div>
+            <div class="swatch-token">--primary</div>
+            <div class="swatch-hex">#00F7D8</div>
+          </div>
+        </div>
+        <div class="swatch" style="--swatch:rgba(0,247,216,0.10)">
+          <div class="swatch-color"></div>
+          <div class="swatch-meta">
+            <div class="swatch-name">Primary dim (10%)</div>
+            <div class="swatch-token">--primary-dim</div>
+            <div class="swatch-hex">rgba(0,247,216,.10)</div>
+          </div>
+        </div>
+        <div class="swatch" style="--swatch:rgba(0,247,216,0.22)">
+          <div class="swatch-color"></div>
+          <div class="swatch-meta">
+            <div class="swatch-name">Primary glow (22%)</div>
+            <div class="swatch-token">--primary-glow</div>
+            <div class="swatch-hex">rgba(0,247,216,.22)</div>
+          </div>
+        </div>
+      </div>
+
+      <span class="demo-label">Acentos</span>
+      <div class="swatch-grid" style="margin-bottom:32px">
+        <div class="swatch" style="--swatch:#f59e0b">
+          <div class="swatch-color"></div>
+          <div class="swatch-meta">
+            <div class="swatch-name">Amber</div>
+            <div class="swatch-token">--amber</div>
+            <div class="swatch-hex">#f59e0b</div>
+          </div>
+        </div>
+        <div class="swatch" style="--swatch:rgba(245,158,11,0.10)">
+          <div class="swatch-color"></div>
+          <div class="swatch-meta">
+            <div class="swatch-name">Amber dim</div>
+            <div class="swatch-token">--amber-dim</div>
+            <div class="swatch-hex">rgba(245,158,11,.10)</div>
+          </div>
+        </div>
+        <div class="swatch" style="--swatch:#a78bfa">
+          <div class="swatch-color"></div>
+          <div class="swatch-meta">
+            <div class="swatch-name">Violet</div>
+            <div class="swatch-token">--violet</div>
+            <div class="swatch-hex">#a78bfa</div>
+          </div>
+        </div>
+        <div class="swatch" style="--swatch:#fb7185">
+          <div class="swatch-color"></div>
+          <div class="swatch-meta">
+            <div class="swatch-name">Rose</div>
+            <div class="swatch-token">--rose</div>
+            <div class="swatch-hex">#fb7185</div>
+          </div>
+        </div>
+        <div class="swatch" style="--swatch:rgba(251,113,133,0.10)">
+          <div class="swatch-color"></div>
+          <div class="swatch-meta">
+            <div class="swatch-name">Rose dim</div>
+            <div class="swatch-token">--rose-dim</div>
+            <div class="swatch-hex">rgba(251,113,133,.10)</div>
+          </div>
+        </div>
+      </div>
+
+      <span class="demo-label">Borders</span>
+      <div class="swatch-grid">
+        <div class="swatch" style="--swatch:rgba(255,255,255,0.07)">
+          <div class="swatch-color"></div>
+          <div class="swatch-meta">
+            <div class="swatch-name">Border padrao</div>
+            <div class="swatch-token">--border</div>
+            <div class="swatch-hex">rgba(255,255,255,.07)</div>
+          </div>
+        </div>
+        <div class="swatch" style="--swatch:rgba(255,255,255,0.13)">
+          <div class="swatch-color"></div>
+          <div class="swatch-meta">
+            <div class="swatch-name">Border destaque</div>
+            <div class="swatch-token">--border-2</div>
+            <div class="swatch-hex">rgba(255,255,255,.13)</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TIPOGRAFIA ============ -->
+    <section class="section" id="tipografia">
+      <div class="section-head">
+        <span class="section-chip">02 · Tipografia</span>
+        <h2 class="section-title">Tipografia</h2>
+        <p class="section-desc">Sistema de tres fontes: <strong style="color:var(--fg)">Bricolage Grotesque</strong> para tudo que estrutura (display, ui, hierarquia), <strong style="color:var(--fg)">Lora</strong> para narrativa em corpo de texto e <strong style="color:var(--fg)">JetBrains Mono</strong> para metricas, labels e numerais.</p>
+      </div>
+
+      <div class="fontfaces">
+        <div class="fontface">
+          <div class="fontface-name">--font-display</div>
+          <div class="fontface-sample-display">Bricolage Grotesque</div>
+          <div class="fontface-meta">300 · 400 · 500 · 600 · 700 · 800<br>Display, headings, ui, botoes</div>
+        </div>
+        <div class="fontface">
+          <div class="fontface-name">--font-body</div>
+          <div class="fontface-sample-body">Lora <em>italica</em></div>
+          <div class="fontface-meta">400 · 500 · italic 400 · italic 500<br>Paragrafos longos, depoimentos</div>
+        </div>
+        <div class="fontface">
+          <div class="fontface-name">--font-mono</div>
+          <div class="fontface-sample-mono">JetBrains Mono</div>
+          <div class="fontface-meta">400 · 500 · 600 · italic 400<br>Labels, metricas, numerais</div>
+        </div>
+      </div>
+
+      <span class="demo-label">Escala tipografica</span>
+      <div style="background:var(--bg-1);border:1px solid var(--border);border-radius:var(--r-lg);padding:24px 32px">
+        <div class="type-row">
+          <div class="type-meta"><strong>Display 1</strong><span>72px · 800 · -.045em</span><span>clamp 36-72</span></div>
+          <div class="type-sample t-display-1">Independente.</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><strong>Display 2 / H1 hero</strong><span>54px · 800 · -.04em</span><span>clamp 30-54</span></div>
+          <div class="type-sample t-display-2">5 sistemas instalados</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><strong>H1 secao</strong><span>48px · 800 · -.04em</span><span>clamp 28-48</span></div>
+          <div class="type-sample t-h1">Uma empresa que funciona</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><strong>H2</strong><span>30px · 700 · -.03em</span></div>
+          <div class="type-sample t-h2">Cargos e Processos</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><strong>H3</strong><span>24px · 700 · -.03em</span></div>
+          <div class="type-sample t-h3">Manual do Dono Livre</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><strong>H4</strong><span>18px · 700 · -.02em</span></div>
+          <div class="type-sample t-h4">Empresa independente do dono</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><strong>Body L (Lora)</strong><span>18px · 400 · 1.7</span></div>
+          <div class="type-sample t-body-lg">O Manual do Dono Livre mostra como mais de 300 empresas instalaram os 5 sistemas.</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><strong>Body (Lora)</strong><span>16px · 400 · 1.65</span></div>
+          <div class="type-sample t-body">Processos claros, funcoes definidas, indicadores visiveis. Cada pessoa sabe o que faz, como faz e como e medida.</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><strong>Body S (Lora)</strong><span>14px · 400 · 1.6</span></div>
+          <div class="type-sample t-body-sm">Sub-descricoes, ajudas inline, microcopy de cards menores.</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><strong>Mono UI</strong><span>13px · 500 · .02em</span></div>
+          <div class="type-sample t-mono">300+ EMPRESAS · R$430Mi · 8 ANOS</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><strong>Mono micro</strong><span>11px · 500 · .12em uppercase</span></div>
+          <div class="type-sample t-mono-sm">O QUE O METODO ENTREGA</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ESPACAMENTO ============ -->
+    <section class="section" id="espacamento">
+      <div class="section-head">
+        <span class="section-chip">03 · Espacamento</span>
+        <h2 class="section-title">Escala de espacamento</h2>
+        <p class="section-desc">Sistema baseado em multiplos de 8. Usado em padding, gap, margin e ritmo vertical entre secoes (96-128px).</p>
+      </div>
+
+      <div style="background:var(--bg-1);border:1px solid var(--border);border-radius:var(--r-lg);padding:24px 32px">
+        <div class="space-row">
+          <div class="space-meta"><div class="space-name">Space 1</div><div class="space-token">--space-1</div><div class="space-val">8px</div></div>
+          <div class="space-bar s-1"></div>
+        </div>
+        <div class="space-row">
+          <div class="space-meta"><div class="space-name">Space 2</div><div class="space-token">--space-2</div><div class="space-val">16px</div></div>
+          <div class="space-bar s-2"></div>
+        </div>
+        <div class="space-row">
+          <div class="space-meta"><div class="space-name">Space 3</div><div class="space-token">--space-3</div><div class="space-val">24px</div></div>
+          <div class="space-bar s-3"></div>
+        </div>
+        <div class="space-row">
+          <div class="space-meta"><div class="space-name">Space 4</div><div class="space-token">--space-4</div><div class="space-val">32px</div></div>
+          <div class="space-bar s-4"></div>
+        </div>
+        <div class="space-row">
+          <div class="space-meta"><div class="space-name">Space 5</div><div class="space-token">--space-5</div><div class="space-val">48px</div></div>
+          <div class="space-bar s-5"></div>
+        </div>
+        <div class="space-row">
+          <div class="space-meta"><div class="space-name">Space 6</div><div class="space-token">--space-6</div><div class="space-val">64px</div></div>
+          <div class="space-bar s-6"></div>
+        </div>
+        <div class="space-row">
+          <div class="space-meta"><div class="space-name">Space 7 · Section</div><div class="space-token">--space-7</div><div class="space-val">96px</div></div>
+          <div class="space-bar s-7"></div>
+        </div>
+        <div class="space-row">
+          <div class="space-meta"><div class="space-name">Space 8 · Section ≥768</div><div class="space-token">--space-8</div><div class="space-val">128px</div></div>
+          <div class="space-bar s-8"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ RADIUS ============ -->
+    <section class="section" id="raios">
+      <div class="section-head">
+        <span class="section-chip">04 · Border Radius</span>
+        <h2 class="section-title">Raios de borda</h2>
+        <p class="section-desc">Quatro raios padronizados para todos os elementos. Botoes, inputs e cards usam <code style="font-family:var(--font-mono);font-size:13px;color:var(--primary)">--r-md</code> como default.</p>
+      </div>
+
+      <div class="radius-grid">
+        <div class="radius-item">
+          <div class="radius-box r-sm"></div>
+          <div class="radius-name">Small</div>
+          <div class="radius-token">--r-sm</div>
+          <div class="radius-val">6px</div>
+        </div>
+        <div class="radius-item">
+          <div class="radius-box r-md"></div>
+          <div class="radius-name">Medium <span style="color:var(--primary);font-size:10px">· default</span></div>
+          <div class="radius-token">--r-md</div>
+          <div class="radius-val">10px</div>
+        </div>
+        <div class="radius-item">
+          <div class="radius-box r-lg"></div>
+          <div class="radius-name">Large</div>
+          <div class="radius-token">--r-lg</div>
+          <div class="radius-val">16px</div>
+        </div>
+        <div class="radius-item">
+          <div class="radius-box r-xl"></div>
+          <div class="radius-name">XLarge</div>
+          <div class="radius-token">--r-xl</div>
+          <div class="radius-val">24px</div>
+        </div>
+        <div class="radius-item">
+          <div class="radius-box r-pill"></div>
+          <div class="radius-name">Pill</div>
+          <div class="radius-token">999px</div>
+          <div class="radius-val">badges, chips</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SOMBRAS ============ -->
+    <section class="section" id="sombras">
+      <div class="section-head">
+        <span class="section-chip">05 · Sombras e Glow</span>
+        <h2 class="section-title">Elevacao e luminosidade</h2>
+        <p class="section-desc">Em fundo escuro a hierarquia vem do <strong style="color:var(--fg)">glow ciano</strong> antes da sombra preta. Use sombras para profundidade e glow para chamar atencao em CTAs.</p>
+      </div>
+
+      <div class="swatch-grid">
+        <div class="swatch" style="background:var(--bg-1);padding:24px;border-radius:var(--r-md);box-shadow:0 0 48px rgba(0,247,216,.25)">
+          <div style="height:60px;background:var(--primary);border-radius:var(--r-md);margin-bottom:14px"></div>
+          <div class="swatch-name">Glow primario</div>
+          <div class="swatch-token">box-shadow: 0 0 48px rgba(0,247,216,.25)</div>
+        </div>
+        <div class="swatch" style="background:var(--bg-1);padding:24px;border-radius:var(--r-md);box-shadow:0 16px 48px rgba(0,247,216,.35)">
+          <div style="height:60px;background:var(--primary);border-radius:var(--r-md);margin-bottom:14px"></div>
+          <div class="swatch-name">Glow hover</div>
+          <div class="swatch-token">0 16px 48px rgba(0,247,216,.35)</div>
+        </div>
+        <div class="swatch" style="background:var(--bg-1);padding:24px;border-radius:var(--r-md);box-shadow:0 24px 60px rgba(0,0,0,.4)">
+          <div style="height:60px;background:var(--bg-3);border:1px solid var(--border);border-radius:var(--r-md);margin-bottom:14px"></div>
+          <div class="swatch-name">Card hover</div>
+          <div class="swatch-token">0 24px 60px rgba(0,0,0,.4)</div>
+        </div>
+        <div class="swatch" style="background:var(--bg-1);padding:24px;border-radius:var(--r-md);box-shadow:0 32px 80px rgba(0,0,0,.6)">
+          <div style="height:60px;background:var(--bg-3);border:1px solid var(--border);border-radius:var(--r-md);margin-bottom:14px"></div>
+          <div class="swatch-name">Hero photo</div>
+          <div class="swatch-token">0 32px 80px rgba(0,0,0,.6)</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ BOTOES ============ -->
+    <section class="section" id="botoes">
+      <div class="section-head">
+        <span class="section-chip">06 · Botoes</span>
+        <h2 class="section-title">Botoes e CTAs</h2>
+        <p class="section-desc">Tres variacoes: <strong style="color:var(--fg)">.btn</strong> (CTA principal), <strong style="color:var(--fg)">.btn-outline</strong> (secundario) e <strong style="color:var(--fg)">.hdr-cta</strong> (compacto para header).</p>
+      </div>
+
+      <div class="demo">
+        <div class="demo-stage">
+          <a href="#botoes" class="btn">
+            Quero o Manual Gratuito
+            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+          </a>
+        </div>
+        <div class="demo-code"><pre><span class="com">&lt;!-- CTA Primario --&gt;</span>
+<span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="str">"#optin"</span> <span class="attr">class</span>=<span class="str">"btn"</span><span class="tag">&gt;</span>
+  Quero o Manual Gratuito
+  <span class="tag">&lt;svg</span> <span class="attr">width</span>=<span class="str">"16"</span> <span class="attr">height</span>=<span class="str">"16"</span> ...<span class="tag">/&gt;</span>
+<span class="tag">&lt;/a&gt;</span></pre></div>
+      </div>
+
+      <div class="demo">
+        <div class="demo-stage">
+          <a href="#botoes" class="btn-outline">Ver os 5 Sistemas</a>
+        </div>
+        <div class="demo-code"><pre><span class="com">&lt;!-- CTA Secundario --&gt;</span>
+<span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="str">"#sistemas"</span> <span class="attr">class</span>=<span class="str">"btn-outline"</span><span class="tag">&gt;</span>
+  Ver os 5 Sistemas
+<span class="tag">&lt;/a&gt;</span></pre></div>
+      </div>
+
+      <div class="demo">
+        <div class="demo-stage">
+          <a href="#botoes" class="hdr-cta">Quero o Manual →</a>
+        </div>
+        <div class="demo-code"><pre><span class="com">&lt;!-- CTA Header (compacto) --&gt;</span>
+<span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="str">"#optin"</span> <span class="attr">class</span>=<span class="str">"hdr-cta"</span><span class="tag">&gt;</span>
+  Quero o Manual →
+<span class="tag">&lt;/a&gt;</span></pre></div>
+      </div>
+    </section>
+
+    <!-- ============ CHIPS / BADGES ============ -->
+    <section class="section" id="chips-badges">
+      <div class="section-head">
+        <span class="section-chip">07 · Chips e Badges</span>
+        <h2 class="section-title">Labels de secao</h2>
+        <p class="section-desc"><strong style="color:var(--fg)">.chip</strong> abre cabecalhos de secao com tracinho lateral. <strong style="color:var(--fg)">.badge</strong> e a versao "pill" preenchida com ponto pulsante.</p>
+      </div>
+
+      <div class="demo">
+        <div class="demo-stage col">
+          <span class="chip">O que o metodo entrega</span>
+          <span class="chip center" style="display:inline-flex">Acesso gratuito</span>
+        </div>
+        <div class="demo-code"><pre><span class="com">&lt;!-- Chip default (com tracinho) --&gt;</span>
+<span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="str">"chip"</span><span class="tag">&gt;</span>O que o metodo entrega<span class="tag">&lt;/span&gt;</span>
+
+<span class="com">&lt;!-- Chip centralizado (sem tracinho) --&gt;</span>
+<span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="str">"chip center"</span><span class="tag">&gt;</span>Acesso gratuito<span class="tag">&lt;/span&gt;</span></pre></div>
+      </div>
+
+      <div class="demo">
+        <div class="demo-stage">
+          <span class="badge"><span class="badge-dot"></span>Atualizado abril/2026</span>
+        </div>
+        <div class="demo-code"><pre><span class="com">&lt;!-- Badge com ponto pulsante --&gt;</span>
+<span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="str">"badge"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="str">"badge-dot"</span><span class="tag">&gt;&lt;/span&gt;</span>
+  Atualizado abril/2026
+<span class="tag">&lt;/span&gt;</span></pre></div>
+      </div>
+    </section>
+
+    <!-- ============ ETAGS ============ -->
+    <section class="section" id="etags">
+      <div class="section-head">
+        <span class="section-chip">08 · Etags</span>
+        <h2 class="section-title">Tags coloridas (entregaveis)</h2>
+        <p class="section-desc">Quatro variacoes que sinalizam tipos diferentes de conteudo: <strong style="color:var(--primary)">primary</strong> (template), <strong style="color:var(--amber)">amber</strong> (checklist), <strong style="color:var(--violet)">violet</strong> (metodo/avaliacao) e <strong style="color:var(--rose)">rose</strong> (alerta).</p>
+      </div>
+
+      <div class="demo">
+        <div class="demo-stage">
+          <div class="row">
+            <span class="etag">Template de DRE</span>
+            <span class="etag amber">Checklist de Qualidade</span>
+            <span class="etag violet">Rubrica 1-5</span>
+            <span class="etag rose">Atencao</span>
+          </div>
+        </div>
+        <div class="demo-code"><pre><span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="str">"etag"</span><span class="tag">&gt;</span>Template de DRE<span class="tag">&lt;/span&gt;</span>
+<span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="str">"etag amber"</span><span class="tag">&gt;</span>Checklist de Qualidade<span class="tag">&lt;/span&gt;</span>
+<span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="str">"etag violet"</span><span class="tag">&gt;</span>Rubrica 1-5<span class="tag">&lt;/span&gt;</span>
+<span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="str">"etag rose"</span><span class="tag">&gt;</span>Atencao<span class="tag">&lt;/span&gt;</span></pre></div>
+      </div>
+    </section>
+
+    <!-- ============ PROOF STRIP ============ -->
+    <section class="section" id="proof">
+      <div class="section-head">
+        <span class="section-chip">09 · Proof Strip</span>
+        <h2 class="section-title">Faixa de prova social</h2>
+        <p class="section-desc">Grade de 4 metricas com numeros grandes em mono. Em mobile vira 2x2. Hover acende a barra inferior.</p>
+      </div>
+
+      <div class="demo">
+        <div class="demo-stage" style="padding:0">
+          <div class="proof-strip">
+            <div class="proof-metric">
+              <span class="proof-val">300+</span>
+              <span class="proof-lbl">empresas saíram do operacional com este metodo</span>
+            </div>
+            <div class="proof-metric">
+              <span class="proof-val">R$430Mi</span>
+              <span class="proof-lbl">de faturamento gerado por donos que usaram os 5 sistemas</span>
+            </div>
+            <div class="proof-metric">
+              <span class="proof-val">8 anos</span>
+              <span class="proof-lbl">de aplicacao real nao teoria de livro</span>
+            </div>
+            <div class="proof-metric">
+              <span class="proof-val">R$0</span>
+              <span class="proof-lbl">para acessar o Manual com todos os templates</span>
+            </div>
+          </div>
+        </div>
+        <div class="demo-code"><pre><span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="str">"proof-strip"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="str">"proof-metric"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="str">"proof-val"</span><span class="tag">&gt;</span>300+<span class="tag">&lt;/span&gt;</span>
+    <span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="str">"proof-lbl"</span><span class="tag">&gt;</span>empresas...<span class="tag">&lt;/span&gt;</span>
+  <span class="tag">&lt;/div&gt;</span>
+  ...
+<span class="tag">&lt;/div&gt;</span></pre></div>
+      </div>
+    </section>
+
+    <!-- ============ PILAR CARDS ============ -->
+    <section class="section" id="pilares">
+      <div class="section-head">
+        <span class="section-chip">10 · Pilar Cards</span>
+        <h2 class="section-title">Card de pilar</h2>
+        <p class="section-desc">Card alto de conteudo com numero, icone, titulo e descricao em Lora. Hover desliza 3px e acende a borda superior em gradiente.</p>
+      </div>
+
+      <div class="demo">
+        <div class="demo-stage">
+          <div class="pilar-card">
+            <div class="pilar-num">Pilar 01</div>
+            <div class="pilar-header">
+              <div class="pilar-icon-placeholder">⚙</div>
+              <div class="pilar-title">Empresa independente do dono</div>
+            </div>
+            <p class="pilar-desc">
+              Sua empresa continua funcionando quando voce sai de ferias. A operacao nao trava porque existe estrutura, nao heroismo.
+            </p>
+          </div>
+        </div>
+        <div class="demo-code"><pre><span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="str">"pilar-card"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="str">"pilar-num"</span><span class="tag">&gt;</span>Pilar 01<span class="tag">&lt;/div&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="str">"pilar-header"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;img</span> <span class="attr">src</span>=<span class="str">"icon-1.png"</span> <span class="attr">class</span>=<span class="str">"pilar-icon"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="str">"pilar-title"</span><span class="tag">&gt;</span>...<span class="tag">&lt;/div&gt;</span>
+  <span class="tag">&lt;/div&gt;</span>
+  <span class="tag">&lt;p</span> <span class="attr">class</span>=<span class="str">"pilar-desc"</span><span class="tag">&gt;</span>...<span class="tag">&lt;/p&gt;</span>
+<span class="tag">&lt;/div&gt;</span></pre></div>
+      </div>
+    </section>
+
+    <!-- ============ ENTREGAVEIS ============ -->
+    <section class="section" id="entregaveis">
+      <div class="section-head">
+        <span class="section-chip">11 · Entregaveis</span>
+        <h2 class="section-title">Lista de entregaveis</h2>
+        <p class="section-desc">Item compacto com numerador grande, titulo, descricao e tags coloridas (.etag) para sinalizar tipo de material.</p>
+      </div>
+
+      <div class="demo">
+        <div class="demo-stage">
+          <div class="entregavel-item">
+            <div class="entregavel-num">01</div>
+            <div class="entregavel-body">
+              <div class="entregavel-title">Cargos e Processos</div>
+              <p class="entregavel-desc">Como construir organograma real com responsabilidades por resultado, engenharia de cargos com metas e indicadores.</p>
+              <div class="entregavel-tags">
+                <span class="etag">Template de Descricao de Cargo</span>
+                <span class="etag amber">Checklist de Qualidade</span>
+                <span class="etag violet">Rubrica</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="demo-code"><pre><span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="str">"entregavel-item"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="str">"entregavel-num"</span><span class="tag">&gt;</span>01<span class="tag">&lt;/div&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="str">"entregavel-body"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="str">"entregavel-title"</span><span class="tag">&gt;</span>...<span class="tag">&lt;/div&gt;</span>
+    <span class="tag">&lt;p</span> <span class="attr">class</span>=<span class="str">"entregavel-desc"</span><span class="tag">&gt;</span>...<span class="tag">&lt;/p&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="str">"entregavel-tags"</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="str">"etag"</span><span class="tag">&gt;</span>...<span class="tag">&lt;/span&gt;</span>
+      <span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="str">"etag amber"</span><span class="tag">&gt;</span>...<span class="tag">&lt;/span&gt;</span>
+    <span class="tag">&lt;/div&gt;</span>
+  <span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;/div&gt;</span></pre></div>
+      </div>
+    </section>
+
+    <!-- ============ MOCKUP ============ -->
+    <section class="section" id="mockup">
+      <div class="section-head">
+        <span class="section-chip">12 · Guia Mockup</span>
+        <h2 class="section-title">Mockup lateral sticky</h2>
+        <p class="section-desc">Card alto com capa do guia, lista de checks e CTA. Quando dentro de coluna lateral, sticky em <code style="font-family:var(--font-mono);font-size:13px;color:var(--primary)">top:100px</code>.</p>
+      </div>
+
+      <div class="demo">
+        <div class="demo-stage">
+          <div class="guia-mockup">
+            <div class="mockup-label">Manual do Dono Livre</div>
+            <div class="mockup-cover">
+              <div class="mockup-gear-icon">⚙</div>
+              <div class="mockup-cover-sub">Manual Gratuito · Empresa Independente</div>
+            </div>
+            <div class="mockup-row"><div class="mockup-check">✓</div>47 paginas de passo a passo</div>
+            <div class="mockup-row"><div class="mockup-check">✓</div>12 templates prontos</div>
+            <div class="mockup-row"><div class="mockup-check">✓</div>8 checklists de implementacao</div>
+            <div class="mockup-row"><div class="mockup-check">✓</div>3 planilhas: DRE, fluxo, KPIs</div>
+          </div>
+        </div>
+        <div class="demo-code"><pre><span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="str">"guia-mockup"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="str">"mockup-label"</span><span class="tag">&gt;</span>Manual...<span class="tag">&lt;/div&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="str">"mockup-cover"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;img</span> <span class="attr">class</span>=<span class="str">"mockup-gear-icon"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="str">"mockup-cover-sub"</span><span class="tag">&gt;</span>...<span class="tag">&lt;/div&gt;</span>
+  <span class="tag">&lt;/div&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="str">"mockup-row"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="str">"mockup-check"</span><span class="tag">&gt;</span>✓<span class="tag">&lt;/div&gt;</span>...
+  <span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;/div&gt;</span></pre></div>
+      </div>
+    </section>
+
+    <!-- ============ HERO BOOK ============ -->
+    <section class="section" id="hero-book">
+      <div class="section-head">
+        <span class="section-chip">13 · Hero Book 3D</span>
+        <h2 class="section-title">Imagem com perspectiva</h2>
+        <p class="section-desc">Imagem de capa com transformacao 3D em <code style="font-family:var(--font-mono);font-size:13px;color:var(--primary)">perspective(1200px) rotateY(-6deg) rotateX(2deg)</code>. Hover suaviza a rotacao e amplifica o glow.</p>
+      </div>
+
+      <div class="demo">
+        <div class="demo-stage" style="padding:48px;background:radial-gradient(ellipse at center,rgba(0,247,216,.04),transparent 70%),var(--bg-1)">
+          <div class="hero-book-demo">
+            <div class="hero-book-demo-title">Manual do<br>Dono Livre</div>
+            <div class="hero-book-demo-sub">EI · 2026</div>
+          </div>
+        </div>
+        <div class="demo-code"><pre><span class="tag">&lt;img</span>
+  <span class="attr">src</span>=<span class="str">"img-ebook.png"</span>
+  <span class="attr">class</span>=<span class="str">"hero-book"</span>
+  <span class="attr">alt</span>=<span class="str">"Manual do Dono Livre"</span><span class="tag">&gt;</span>
+
+<span class="com">/* CSS chave */</span>
+.hero-book {
+  border-radius: 16px;
+  transform: perspective(1200px)
+             rotateY(-6deg)
+             rotateX(2deg);
+  box-shadow: 0 0 80px rgba(0,247,216,.12),
+              0 48px 100px rgba(0,0,0,.75);
+  transition: transform .5s var(--ease);
+}</pre></div>
+      </div>
+    </section>
+
+    <!-- ============ FORM ============ -->
+    <section class="section" id="form">
+      <div class="section-head">
+        <span class="section-chip">14 · Formulario</span>
+        <h2 class="section-title">Inputs do opt-in</h2>
+        <p class="section-desc">Inputs em <code style="font-family:var(--font-mono);font-size:13px;color:var(--primary)">--bg-3</code>, foco em borda primary com halo de 3px. Submit grande copia o estilo do <strong style="color:var(--fg)">.btn</strong> mas full-width.</p>
+      </div>
+
+      <div class="demo">
+        <div class="demo-stage col">
+          <div class="form-group">
+            <label class="form-label" for="ds-name">Seu nome</label>
+            <input id="ds-name" class="form-input" type="text" placeholder="Como prefere ser chamado?">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="ds-email">E-mail</label>
+            <input id="ds-email" class="form-input" type="email" placeholder="seu@email.com.br">
+          </div>
+        </div>
+        <div class="demo-code"><pre><span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="str">"form-group"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;label</span> <span class="attr">class</span>=<span class="str">"form-label"</span> <span class="attr">for</span>=<span class="str">"name"</span><span class="tag">&gt;</span>
+    Seu nome
+  <span class="tag">&lt;/label&gt;</span>
+  <span class="tag">&lt;input</span>
+    <span class="attr">id</span>=<span class="str">"name"</span>
+    <span class="attr">class</span>=<span class="str">"form-input"</span>
+    <span class="attr">type</span>=<span class="str">"text"</span>
+    <span class="attr">placeholder</span>=<span class="str">"Como prefere..."</span><span class="tag">&gt;</span>
+<span class="tag">&lt;/div&gt;</span></pre></div>
+      </div>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="section" id="faq">
+      <div class="section-head">
+        <span class="section-chip">15 · FAQ</span>
+        <h2 class="section-title">Item de FAQ</h2>
+        <p class="section-desc">Accordion com icone "+" que rotaciona 45 graus quando aberto e troca para fundo solid <code style="font-family:var(--font-mono);font-size:13px;color:var(--primary)">--primary</code>.</p>
+      </div>
+
+      <div class="demo">
+        <div class="demo-stage col">
+          <div class="faq-item-demo">
+            <div class="faq-q-demo">
+              O manual e realmente gratuito?
+              <span class="faq-icon-demo">+</span>
+            </div>
+          </div>
+        </div>
+        <div class="demo-code"><pre><span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="str">"faq-item"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;button</span> <span class="attr">class</span>=<span class="str">"faq-q"</span> <span class="attr">onclick</span>=<span class="str">"toggleFaq(this)"</span><span class="tag">&gt;</span>
+    O manual e realmente gratuito?
+    <span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="str">"faq-icon"</span><span class="tag">&gt;</span>+<span class="tag">&lt;/span&gt;</span>
+  <span class="tag">&lt;/button&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="str">"faq-a"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="str">"faq-a-inner"</span><span class="tag">&gt;</span>
+      Sim. 100% gratuito...
+    <span class="tag">&lt;/div&gt;</span>
+  <span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;/div&gt;</span></pre></div>
+      </div>
+    </section>
+
+    <!-- ============ PROVA SOCIAL ============ -->
+    <section class="section" id="prova">
+      <div class="section-head">
+        <span class="section-chip">16 · Prova Social</span>
+        <h2 class="section-title">Card de depoimento</h2>
+        <p class="section-desc">Quote em italico (Lora), 5 estrelas amber, avatar com inicial e role em mono. Aspas decorativas grandes no canto sup. dir.</p>
+      </div>
+
+      <div class="demo">
+        <div class="demo-stage">
+          <div class="prova-card-demo">
+            <div class="prova-stars-demo">
+              <span class="prova-star-demo">★</span>
+              <span class="prova-star-demo">★</span>
+              <span class="prova-star-demo">★</span>
+              <span class="prova-star-demo">★</span>
+              <span class="prova-star-demo">★</span>
+            </div>
+            <p class="prova-quote-demo">"Em 4 meses sai do operacional diario. A empresa cresceu 40% sem eu estar dentro todos os dias."</p>
+            <div class="prova-author-demo">
+              <div class="prova-avatar-demo">M</div>
+              <div>
+                <div class="prova-name-demo">Mauro Silva</div>
+                <div class="prova-role-demo">CEO · INDUSTRIA · R$8Mi/ano</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="demo-code"><pre><span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="str">"prova-card"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="str">"prova-stars"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="str">"prova-star"</span><span class="tag">&gt;</span>★<span class="tag">&lt;/span&gt;</span>
+    ...
+  <span class="tag">&lt;/div&gt;</span>
+  <span class="tag">&lt;p</span> <span class="attr">class</span>=<span class="str">"prova-quote"</span><span class="tag">&gt;</span>"Em 4 meses..."<span class="tag">&lt;/p&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="str">"prova-author"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="str">"prova-avatar"</span><span class="tag">&gt;</span>M<span class="tag">&lt;/div&gt;</span>
+    <span class="tag">&lt;div&gt;</span>
+      <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="str">"prova-name"</span><span class="tag">&gt;</span>...<span class="tag">&lt;/div&gt;</span>
+      <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="str">"prova-role"</span><span class="tag">&gt;</span>...<span class="tag">&lt;/div&gt;</span>
+    <span class="tag">&lt;/div&gt;</span>
+  <span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;/div&gt;</span></pre></div>
+      </div>
+    </section>
+
+    <!-- ============ NUMBER STATS ============ -->
+    <section class="section" id="numbers">
+      <div class="section-head">
+        <span class="section-chip">17 · Number Stats</span>
+        <h2 class="section-title">Card de numero</h2>
+        <p class="section-desc">Item de lista numerica usada em "Autoridade". Numero grande em mono primary + titulo bold + descricao secundaria.</p>
+      </div>
+
+      <div class="demo">
+        <div class="demo-stage">
+          <div class="row">
+            <div class="number-item-demo">
+              <div class="number-val-demo">12+</div>
+              <div class="number-desc-demo">
+                <strong>Segmentos</strong>
+                Industria, varejo, saude, construcao
+              </div>
+            </div>
+            <div class="number-item-demo">
+              <div class="number-val-demo">9 em 10</div>
+              <div class="number-desc-demo">
+                <strong>Donos saem do operacional</strong>
+                Em 180 dias de implementacao
+              </div>
+            </div>
+            <div class="number-item-demo">
+              <div class="number-val-demo">8 anos</div>
+              <div class="number-desc-demo">
+                <strong>Aplicacao real</strong>
+                Mais de 300 empresas
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="demo-code"><pre><span class="tag">&lt;li</span> <span class="attr">class</span>=<span class="str">"number-item"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="str">"number-val"</span><span class="tag">&gt;</span>9 em 10<span class="tag">&lt;/div&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="str">"number-desc"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;strong&gt;</span>Donos saem do operacional<span class="tag">&lt;/strong&gt;</span>
+    Em 180 dias de implementacao
+  <span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;/li&gt;</span></pre></div>
+      </div>
+    </section>
+
+    <!-- ============ ANIMACOES ============ -->
+    <section class="section" id="animacoes">
+      <div class="section-head">
+        <span class="section-chip">18 · Animacoes</span>
+        <h2 class="section-title">Animacoes do sistema</h2>
+        <p class="section-desc">Quatro keyframes globais usados na pagina. Todos respeitam <code style="font-family:var(--font-mono);font-size:13px;color:var(--primary)">prefers-reduced-motion</code> e duram menos de 1ms quando o usuario pediu.</p>
+      </div>
+
+      <!-- fade-up -->
+      <div class="demo">
+        <div class="demo-stage" style="position:relative;overflow:hidden">
+          <div id="fade-up-stage" style="display:flex;flex-direction:column;gap:10px;align-items:center">
+            <div class="anim-demo-fade-up" style="font-size:24px;font-weight:800;letter-spacing:-.03em;color:var(--fg)">fade-up</div>
+            <span class="muted">.7s · cubic-bezier(0.4,0,0.2,1)</span>
+          </div>
+        </div>
+        <div class="demo-code"><pre><span class="com">/* keyframe */</span>
+@keyframes fade-up {
+  from { opacity:0; transform:translateY(32px); }
+  to   { opacity:1; transform:none; }
+}
+
+<span class="com">/* uso */</span>
+.anim     { opacity:0; }
+.anim.in  { animation: fade-up .7s var(--ease) forwards; }</pre></div>
+      </div>
+
+      <!-- glow-pulse -->
+      <div class="demo">
+        <div class="demo-stage">
+          <div style="display:flex;align-items:center;gap:14px">
+            <div class="anim-demo-glow" style="width:60px;height:60px;border-radius:50%;background:var(--primary);box-shadow:0 0 40px var(--primary-glow)"></div>
+            <div>
+              <div style="font-size:18px;font-weight:700;color:var(--fg)">glow-pulse</div>
+              <span class="muted">2s · infinite</span>
+            </div>
+          </div>
+        </div>
+        <div class="demo-code"><pre><span class="com">/* keyframe */</span>
+@keyframes glow-pulse {
+  0%, 100% { opacity: .4; }
+  50%      { opacity: .8; }
+}
+
+<span class="com">/* uso (badge dot) */</span>
+.badge-dot {
+  animation: glow-pulse 2s infinite;
+}</pre></div>
+      </div>
+
+      <!-- gradient-x -->
+      <div class="demo">
+        <div class="demo-stage">
+          <div style="font-size:42px;font-weight:800;letter-spacing:-.04em" class="anim-demo-grad">5 sistemas</div>
+        </div>
+        <div class="demo-code"><pre><span class="com">/* keyframe */</span>
+@keyframes gradient-x {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+<span class="com">/* uso (texto neon animado) */</span>
+.hero h1 em {
+  background: linear-gradient(135deg,
+              var(--primary) 0%,
+              #7ffff0 50%,
+              var(--primary) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-x 4s ease infinite;
+}</pre></div>
+      </div>
+
+      <!-- blink -->
+      <div class="demo">
+        <div class="demo-stage">
+          <div style="display:flex;align-items:center;gap:6px">
+            <span class="anim-demo-blink" style="display:inline-block;width:10px;height:18px;background:var(--primary)"></span>
+            <span style="font-family:var(--font-mono);color:var(--primary);font-size:18px">blink</span>
+          </div>
+        </div>
+        <div class="demo-code"><pre><span class="com">/* keyframe */</span>
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0; }
+}
+
+<span class="com">/* uso (cursor de input animado) */</span>
+.cursor { animation: blink 1s infinite; }</pre></div>
+      </div>
+    </section>
+
+    <!-- ============ DELAYS ============ -->
+    <section class="section" id="delays">
+      <div class="section-head">
+        <span class="section-chip">19 · Delays</span>
+        <h2 class="section-title">Stagger de animacoes</h2>
+        <p class="section-desc">Classes <code style="font-family:var(--font-mono);font-size:13px;color:var(--primary)">.d1</code> ate <code style="font-family:var(--font-mono);font-size:13px;color:var(--primary)">.d6</code> aplicam delay incremental de 0.1s. Use combinada com <code style="font-family:var(--font-mono);font-size:13px;color:var(--primary)">.anim</code> e o IntersectionObserver para revelar items em cascata.</p>
+      </div>
+
+      <button class="replay-btn" onclick="replayDelays()">↻ Reexecutar animacao</button>
+
+      <div class="demo">
+        <div class="demo-stage" style="padding:24px">
+          <div class="delay-grid" id="delay-grid">
+            <div class="delay-cell d1"><div class="delay-name">.d1</div><div class="delay-meta">100ms</div></div>
+            <div class="delay-cell d2"><div class="delay-name">.d2</div><div class="delay-meta">200ms</div></div>
+            <div class="delay-cell d3"><div class="delay-name">.d3</div><div class="delay-meta">300ms</div></div>
+            <div class="delay-cell d4"><div class="delay-name">.d4</div><div class="delay-meta">400ms</div></div>
+            <div class="delay-cell d5"><div class="delay-name">.d5</div><div class="delay-meta">500ms</div></div>
+            <div class="delay-cell d6"><div class="delay-name">.d6</div><div class="delay-meta">600ms</div></div>
+          </div>
+        </div>
+        <div class="demo-code"><pre><span class="com">/* CSS */</span>
+.anim   { opacity: 0; }
+.anim.in { animation: fade-up .7s var(--ease) forwards; }
+
+.d1 { animation-delay: .1s }
+.d2 { animation-delay: .2s }
+.d3 { animation-delay: .3s }
+.d4 { animation-delay: .4s }
+.d5 { animation-delay: .5s }
+.d6 { animation-delay: .6s }
+
+<span class="com">/* JS — IntersectionObserver */</span>
+const io = new IntersectionObserver(entries =&gt; {
+  entries.forEach(e =&gt; {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.anim').forEach(el =&gt; io.observe(el));
+
+<span class="com">/* HTML */</span>
+<span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="str">"anim d1"</span><span class="tag">&gt;</span>...<span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="str">"anim d2"</span><span class="tag">&gt;</span>...<span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="str">"anim d3"</span><span class="tag">&gt;</span>...<span class="tag">&lt;/div&gt;</span></pre></div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="ds-footer">
+      <span>Empresa Independente · Manual do Dono Livre · Design System v1.0</span>
+      <span><a href="manual-dono-livre.html">← Voltar para a pagina</a></span>
+    </footer>
+
+  </main>
+</div>
+
+<script>
+/* Sidebar active link tracking */
+const links = document.querySelectorAll('aside.nav a[href^="#"]');
+const sections = Array.from(links)
+  .map(a => document.querySelector(a.getAttribute('href')))
+  .filter(Boolean);
+
+const setActive = id => {
+  links.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+  });
+};
+
+const ioActive = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) setActive(e.target.id);
+  });
+}, { rootMargin: '-30% 0px -60% 0px' });
+
+sections.forEach(s => ioActive.observe(s));
+
+/* Replay dos delays */
+function replayDelays() {
+  const grid = document.getElementById('delay-grid');
+  const cells = grid.querySelectorAll('.delay-cell');
+  cells.forEach(c => {
+    c.style.animation = 'none';
+    void c.offsetWidth; // forca reflow
+    c.style.animation = '';
+  });
+}
+
+/* Smooth scroll suave nos links da sidebar */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior:'smooth', block:'start' });
+    }
+  });
+});
+</script>
+
+</body>
+</html>

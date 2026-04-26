@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagnóstico dos 5 Sistemas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;500;600&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+  <style>
+
+    /* ─── TOKENS ────────────────────────────────────────────────── */
+    :root {
+      --bg:           #0d0d0d;
+      --bg-1:         #111111;
+      --bg-2:         #161616;
+      --bg-3:         #1c1c1c;
+      --fg:           #f2f2f0;
+      --fg-2:         #a8a89c;
+      --fg-3:         #5a5a54;
+      --primary:      #00F7D8;
+      --primary-dim:  rgba(0,247,216,0.10);
+      --primary-glow: rgba(0,247,216,0.22);
+      --border:       rgba(255,255,255,0.07);
+      --border-2:     rgba(255,255,255,0.13);
+      --amber:        #f59e0b;
+      --rose:         #fb7185;
+      --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
+      --font-body:    'Lora', Georgia, serif;
+      --font-mono:    'JetBrains Mono', monospace;
+      --r-sm: 6px; --r-md: 10px; --r-lg: 16px; --r-xl: 24px;
+      --ease: cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* ─── RESET ─────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { color-scheme: dark; font-size: 16px; }
+    @media(prefers-reduced-motion:reduce){
+      *, *::before, *::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
+    }
+    body {
+      background: transparent;
+      color: var(--fg);
+      font-family: var(--font-display);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    button { font-family: var(--font-display); border: none; cursor: pointer; background: none; color: inherit; }
+    input[type="radio"] { display: none; }
+
+    /* ─── ANIMATIONS ─────────────────────────────────────────────── */
+    @keyframes glow-pulse { 0%,100%{opacity:.4} 50%{opacity:.8} }
+    @keyframes gradient-x { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+    @keyframes fade-up    { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:none} }
+    @keyframes fade-in    { from{opacity:0} to{opacity:1} }
+
+    /* ─── CARD (espelho .optin-card) ────────────────────────────── */
+    .quiz-card {
+      background: var(--bg-2);
+      border: 1px solid var(--border-2);
+      border-radius: var(--r-xl);
+      padding: 28px 24px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .quiz-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+      opacity: .6;
+    }
+
+    /* ─── PROGRESS ───────────────────────────────────────────────── */
+    .progress-track {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      margin-bottom: 28px;
+    }
+    .progress-line-bg {
+      position: absolute;
+      top: 50%; left: 15px; right: 15px;
+      height: 2px;
+      background: var(--border);
+      transform: translateY(-50%);
+      border-radius: 2px;
+      z-index: 0;
+    }
+    .progress-line-fill {
+      position: absolute;
+      top: 0; left: 0;
+      height: 100%;
+      background: var(--primary);
+      box-shadow: 0 0 8px var(--primary-glow);
+      border-radius: 2px;
+      transition: width .55s var(--ease);
+    }
+    /* step dot — espelho dos steps da landing */
+    .step-dot {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      display: grid; place-items: center;
+      font-family: var(--font-mono);
+      font-size: 11px; font-weight: 600;
+      position: relative; z-index: 1;
+      flex-shrink: 0;
+      transition: all .3s var(--ease);
+      background: var(--bg-2);
+      border: 2px solid var(--border);
+      color: var(--fg-3);
+    }
+    .step-dot.active {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: var(--primary-dim);
+      box-shadow: 0 0 14px var(--primary-glow);
+    }
+    .step-dot.done {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: #001c1a;
+      font-size: 13px;
+    }
+
+    /* ─── BADGE (espelho .badge da landing) ─────────────────────── */
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-mono); font-size: 11px; font-weight: 500;
+      color: var(--primary); background: var(--primary-dim);
+      border: 1px solid rgba(0,247,216,.18);
+      padding: 6px 14px; border-radius: var(--r-sm);
+      margin-bottom: 14px;
+    }
+    .badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--primary);
+      animation: glow-pulse 2s infinite;
+    }
+
+    /* ─── QUESTION ───────────────────────────────────────────────── */
+    .question-text {
+      font-size: clamp(15px, 2.2vw, 18px);
+      font-weight: 700;
+      letter-spacing: -.025em;
+      line-height: 1.35;
+      color: var(--fg);
+      text-align: center;
+      margin-bottom: 20px;
+      padding: 0 2px;
+    }
+
+    /* ─── OPTION (espelho .entregavel-item / .pilar-card) ────────── */
+    .opt-label {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: 14px 16px;
+      cursor: pointer;
+      transition: border-color .2s var(--ease), background .2s var(--ease), transform .15s var(--ease);
+      position: relative;
+      overflow: hidden;
+    }
+    .opt-label::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+      opacity: 0;
+      transition: opacity .2s var(--ease);
+    }
+    .opt-label:hover {
+      border-color: var(--border-2);
+      background: var(--bg-2);
+    }
+    .opt-label:hover::before { opacity: .35; }
+    .opt-label.selected {
+      border-color: rgba(0,247,216,.4);
+      background: var(--primary-dim);
+    }
+    .opt-label.selected::before { opacity: .5; }
+
+    /* radio circle — espelho da landing */
+    .opt-radio {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      border: 2px solid var(--fg-3);
+      flex-shrink: 0;
+      position: relative;
+      transition: all .2s var(--ease);
+    }
+    .opt-label.selected .opt-radio {
+      border-color: var(--primary);
+      background: var(--primary);
+    }
+    .opt-label.selected .opt-radio::after {
+      content: '';
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #001c1a;
+    }
+
+    .opt-text {
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: 14px;
+      color: var(--fg-2);
+      line-height: 1.45;
+      transition: color .2s;
+    }
+    .opt-label.selected .opt-text {
+      color: var(--fg);
+    }
+
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+
+    /* ─── BTN (espelho .btn da landing) ─────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      background: var(--primary); color: #001c1a;
+      font-family: var(--font-display);
+      font-size: 16px; font-weight: 800; letter-spacing: -.01em;
+      padding: 16px 32px; border-radius: var(--r-md);
+      border: none; cursor: pointer; width: 100%;
+      transition: background .25s var(--ease), transform .25s var(--ease), box-shadow .25s var(--ease);
+      box-shadow: 0 0 40px rgba(0,247,216,.22);
+      touch-action: manipulation;
+    }
+    .btn:hover { background: #00d4b8; transform: translateY(-2px); box-shadow: 0 12px 40px rgba(0,247,216,.32); }
+    .btn svg { transition: transform .2s; }
+    .btn:hover svg { transform: translateX(4px); }
+
+    /* ─── BACK BUTTON ────────────────────────────────────────────── */
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 12px; font-weight: 500;
+      color: var(--fg-3);
+      padding: 8px 4px;
+      transition: color .2s;
+    }
+    .back-btn:hover { color: var(--fg-2); }
+    .back-btn[disabled] { opacity: 0; pointer-events: none; }
+
+    /* ─── RESULT ─────────────────────────────────────────────────── */
+    .result-wrap {
+      display: none;
+      text-align: center;
+    }
+    .result-icon {
+      font-size: 38px; line-height: 1; margin-bottom: 14px;
+    }
+    .result-title {
+      font-size: clamp(17px, 2.5vw, 21px);
+      font-weight: 800; letter-spacing: -.03em;
+      line-height: 1.25; color: var(--fg);
+      margin-bottom: 10px;
+    }
+    .result-title em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--primary) 0%, #7ffff0 50%, var(--primary) 100%);
+      background-size: 200% auto;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      animation: gradient-x 4s ease infinite;
+    }
+    .result-desc {
+      font-family: var(--font-body);
+      font-size: 14px; color: var(--fg-2); line-height: 1.65;
+      margin-bottom: 22px; padding: 0 2px;
+    }
+    .result-desc strong { color: var(--fg); font-family: var(--font-display); }
+
+    /* chip do resultado — espelho .chip */
+    .chip {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font-mono); font-size: 10px; font-weight: 500;
+      color: var(--primary); text-transform: uppercase; letter-spacing: .1em;
+      margin-bottom: 12px; justify-content: center;
+    }
+    .chip::before { content: ''; display: block; width: 16px; height: 1px; background: var(--primary); }
+    .chip::after  { content: ''; display: block; width: 16px; height: 1px; background: var(--primary); }
+
+    /* ─── FADE ───────────────────────────────────────────────────── */
+    .fade-in { animation: fade-up .3s var(--ease) both; }
+
+  </style>
+</head>
+<body>
+
+<div class="quiz-card" id="quiz-card">
+
+  <!-- ── Progress Bar ── -->
+  <div class="progress-track" id="progress-track">
+    <div class="progress-line-bg">
+      <div class="progress-line-fill" id="progress-fill" style="width:0%"></div>
+    </div>
+    <div class="step-dot active" id="dot-1">1</div>
+    <div class="step-dot"        id="dot-2">2</div>
+    <div class="step-dot"        id="dot-3">3</div>
+    <div class="step-dot"        id="dot-4">4</div>
+    <div class="step-dot"        id="dot-5">5</div>
+  </div>
+
+  <!-- ── Question Area ── -->
+  <div id="question-area">
+    <div style="display:flex;justify-content:center">
+      <div class="badge">
+        <span class="badge-dot"></span>
+        <span id="badge-label">Sistema 1 de 5</span>
+      </div>
+    </div>
+    <p class="question-text" id="question-text"></p>
+    <div class="options-list" id="options-list"></div>
+  </div>
+
+  <!-- ── Result Area ── -->
+  <div class="result-wrap" id="result-area"></div>
+
+  <!-- ── Back ── -->
+  <div style="margin-top:14px">
+    <button class="back-btn" id="back-btn" disabled onclick="goBack()">← Voltar</button>
+  </div>
+
+</div>
+
+<script>
+  const QUESTIONS = [
+    {
+      badge: 'Sistema 1 · Independência',
+      text: 'Quando você fica fora da empresa um dia inteiro, o que acontece?',
+      system: 'Cargos e Processos',
+      options: [
+        { text: 'A operação segue normal. A equipe sabe exatamente o que fazer.', score: 4 },
+        { text: 'Aparecem problemas pequenos, mas a equipe resolve sozinha.', score: 3 },
+        { text: 'Me chamam para resolver coisas que já deveriam saber.', score: 2 },
+        { text: 'Prefiro não arriscar. A empresa precisa da minha presença.', score: 1 }
+      ]
+    },
+    {
+      badge: 'Sistema 2 · Processos',
+      text: 'Como estão os cargos e processos documentados na sua empresa hoje?',
+      system: 'Cargos e Processos',
+      options: [
+        { text: 'Temos organograma, job descriptions, fluxos por setor e KPIs de cada cargo.', score: 4 },
+        { text: 'Existe algo documentado, mas está desatualizado ou incompleto.', score: 3 },
+        { text: 'O time sabe o que fazer, só que está tudo na cabeça das pessoas, nada escrito.', score: 2 },
+        { text: 'Não temos nada formal. Vai funcionando no dia a dia.', score: 1 }
+      ]
+    },
+    {
+      badge: 'Sistema 3 · Contratação',
+      text: 'Quando você contrata alguém, como toma a decisão?',
+      system: 'Contratação Sem Feeling',
+      options: [
+        { text: 'Tenho processo estruturado: anúncio, filtro, entrevista com rubrica e teste prático.', score: 4 },
+        { text: 'Faço entrevistas, mas a decisão final ainda depende muito do feeling.', score: 3 },
+        { text: 'Contrato principalmente por indicação de pessoas próximas.', score: 2 },
+        { text: 'Contrato rápido quando aparece alguém. Sempre estamos precisando de gente.', score: 1 }
+      ]
+    },
+    {
+      badge: 'Sistema 4 · Indicadores',
+      text: 'Como você acompanha se a empresa está no caminho certo essa semana?',
+      system: 'Indicadores de Performance',
+      options: [
+        { text: 'Tenho scorecard semanal com KPIs de processo e resultado por função.', score: 4 },
+        { text: 'Tenho alguns números mas não acompanho com regularidade fixa.', score: 3 },
+        { text: 'Sei quando tem problema porque alguém me avisa. Não tenho painel.', score: 2 },
+        { text: 'Vou no feeling. Conheço bem o negócio e percebo quando algo vai errado.', score: 1 }
+      ]
+    },
+    {
+      badge: 'Sistema 5 · Financeiro',
+      text: 'Como é a sua visão do financeiro hoje?',
+      system: 'Financeiro Estruturado',
+      options: [
+        { text: 'Tenho DRE gerencial, fluxo de caixa projetado e sei o custo real por produto e serviço.', score: 4 },
+        { text: 'Olho o saldo da conta e o faturamento do mês. Por enquanto é suficiente.', score: 3 },
+        { text: 'Espero o contador fechar o mês para saber como foi.', score: 2 },
+        { text: 'Ainda misturo caixa pessoal e da empresa. Está difícil enxergar o real.', score: 1 }
+      ]
+    }
+  ];
+
+  const RESULTS = {
+    'Cargos e Processos': {
+      icon: '⚙️',
+      chip: 'Diagnóstico concluído',
+      title: 'Sua empresa ainda depende da sua <em>presença</em> para funcionar',
+      desc: 'A sua empresa ainda gira em torno de você. Não é culpa sua, é arquitetura. Quando tudo fica na cabeça do dono, nenhum processo sobrevive à sua ausência. O Manual começa exatamente por isso: organograma real, descrição de cargos com metas e fluxos por setor que funcionam mesmo quando você não está.'
+    },
+    'Contratação Sem Feeling': {
+      icon: '🎯',
+      chip: 'Diagnóstico concluído',
+      title: 'Você está contratando no <em>feeling</em> — e isso tem um custo alto',
+      desc: 'Contratar pela intuição parece mais rápido, mas sai caro. Uma admissão errada consome em média R$50 mil em retrabalho, treinamento desperdiçado e tempo do dono tentando consertar o que não funcionou. O Manual traz o processo completo: anúncio de atração, formulário de eliminação, entrevista estruturada e rubrica de avaliação de 1 a 5 para você parar de adivinhar.'
+    },
+    'Indicadores de Performance': {
+      icon: '📊',
+      chip: 'Diagnóstico concluído',
+      title: 'Você está gerenciando no <em>retrovisor</em>',
+      desc: 'Sem números semanais, você só descobre que algo deu errado depois que já virou problema. Aí é tarde para corrigir, só para apagar incêndio. O Manual mostra os três níveis de indicador que fazem o dono pilotar a empresa em tempo real: indicadores de resultado, de processo e um scorecard por função que cabe em uma página.'
+    },
+    'Financeiro Estruturado': {
+      icon: '💰',
+      chip: 'Diagnóstico concluído',
+      title: 'O financeiro ainda é uma <em>caixa-preta</em>',
+      desc: 'Quando o financeiro depende do contador para fechar, você toma decisões de contratação, investimento e precificação sem saber de verdade o que está acontecendo. O Manual traz os modelos que colocam o financeiro na sua mão: DRE gerencial mensal, fluxo de caixa projetado para 13 semanas e custo real por produto ou serviço.'
+    }
+  };
+
+  let current = 0;
+  const answers = new Array(5).fill(null);
+
+  function getWeakestSystem() {
+    const map = {};
+    QUESTIONS.forEach((q, i) => {
+      if (!map[q.system]) map[q.system] = { total: 0, count: 0 };
+      if (answers[i] !== null) {
+        map[q.system].total  += q.options[answers[i]].score;
+        map[q.system].count++;
+      }
+    });
+    let weakest = 'Cargos e Processos', minAvg = 999;
+    for (const [sys, d] of Object.entries(map)) {
+      if (!d.count) continue;
+      const avg = d.total / d.count;
+      if (avg < minAvg) { minAvg = avg; weakest = sys; }
+    }
+    return weakest;
+  }
+
+  function updateProgress() {
+    const pct = current === 0 ? 0 : (current / (QUESTIONS.length - 1)) * 100;
+    document.getElementById('progress-fill').style.width = pct + '%';
+    for (let i = 1; i <= 5; i++) {
+      const dot = document.getElementById('dot-' + i);
+      dot.className = 'step-dot';
+      if (i - 1 < current)       { dot.classList.add('done');   dot.textContent = '✓'; }
+      else if (i - 1 === current) { dot.classList.add('active'); dot.textContent = i; }
+      else                        { dot.textContent = i; }
+    }
+  }
+
+  function renderQuestion() {
+    const q = QUESTIONS[current];
+    document.getElementById('badge-label').textContent = q.badge;
+    document.getElementById('question-text').textContent = q.text;
+
+    const list = document.getElementById('options-list');
+    list.innerHTML = '';
+    q.options.forEach((opt, i) => {
+      const lbl = document.createElement('label');
+      lbl.className = 'opt-label' + (answers[current] === i ? ' selected' : '');
+      lbl.innerHTML = `
+        <input type="radio" name="q${current}" ${answers[current] === i ? 'checked' : ''}>
+        <div class="opt-radio"></div>
+        <span class="opt-text">${opt.text}</span>
+      `;
+      lbl.addEventListener('click', () => selectOption(i));
+      list.appendChild(lbl);
+    });
+
+    updateProgress();
+    document.getElementById('back-btn').disabled = current === 0;
+
+    // animate in
+    const area = document.getElementById('question-area');
+    area.classList.remove('fade-in');
+    void area.offsetWidth;
+    area.classList.add('fade-in');
+  }
+
+  function selectOption(idx) {
+    answers[current] = idx;
+    renderQuestion();
+    setTimeout(() => {
+      if (current < QUESTIONS.length - 1) { current++; renderQuestion(); }
+      else { showResult(); }
+    }, 400);
+  }
+
+  function goBack() {
+    if (current > 0) { current--; renderQuestion(); }
+  }
+
+  function showResult() {
+    const r = RESULTS[getWeakestSystem()];
+
+    // fill all dots
+    document.getElementById('progress-fill').style.width = '100%';
+    for (let i = 1; i <= 5; i++) {
+      const dot = document.getElementById('dot-' + i);
+      dot.className = 'step-dot done';
+      dot.textContent = '✓';
+    }
+    document.getElementById('back-btn').disabled = true;
+    document.getElementById('question-area').style.display = 'none';
+
+    const ra = document.getElementById('result-area');
+    ra.innerHTML = `
+      <div class="result-icon">${r.icon}</div>
+      <div class="chip">${r.chip}</div>
+      <h2 class="result-title">${r.title}</h2>
+      <p class="result-desc">${r.desc}</p>
+      <button class="btn" onclick="window.top.location.href='obrigado2.html'">
+        Quero meu diagnóstico gratuito
+        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+        </svg>
+      </button>
+    `;
+    ra.style.display = 'block';
+    ra.classList.add('fade-in');
+
+    try { window.parent.postMessage({ type: 'quiz-result', system: getWeakestSystem() }, '*'); } catch(e) {}
+  }
+
+  function scrollParentToSection() {
+    try {
+      const el = window.parent.document.querySelector('#agendar');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    } catch(e) {}
+  }
+
+  renderQuestion();
+</script>
+
+</body>
+</html>

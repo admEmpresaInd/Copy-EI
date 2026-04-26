@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Passo 2 de 4 · Diagnóstico Empresarial · Empresa Independente</title>
+<meta name="description" content="Passo 2 de 4: descubra o gargalo da sua empresa em 30 segundos antes de receber o Manual.">
+<meta name="robots" content="noindex,nofollow">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Passo 2 de 4 · Diagnóstico Empresarial">
+<meta property="og:description" content="Descubra o gargalo da sua empresa em 30 segundos antes de receber o Manual.">
+<meta property="og:site_name" content="Empresa Independente">
+
+<link rel="icon" href="logo-raio.png">
+<link rel="apple-touch-icon" href="logo-raio.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+
+<!-- Robbu WhatsApp button stylesheet (preservado) -->
+<link rel="stylesheet" href="https://cdn.positus.global/production/resources/robbu/whatsapp-button/whatsapp-button.css">
+
+<style>
+
+/* ─── TOKENS (espelho fiel do Design System) ─────────────────── */
+:root {
+  --bg:           #0d0d0d;
+  --bg-1:         #111111;
+  --bg-2:         #161616;
+  --bg-3:         #1c1c1c;
+  --fg:           #f2f2f0;
+  --fg-2:         #a8a89c;
+  --fg-3:         #5a5a54;
+  --primary:      #00F7D8;
+  --primary-dim:  rgba(0,247,216,0.10);
+  --primary-glow: rgba(0,247,216,0.22);
+  --border:       rgba(255,255,255,0.07);
+  --border-2:     rgba(255,255,255,0.13);
+  --amber:        #f59e0b;
+  --amber-dim:    rgba(245,158,11,0.10);
+  --violet:       #a78bfa;
+  --rose:         #fb7185;
+  --rose-dim:     rgba(251,113,133,0.10);
+  --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-body:    'Lora', Georgia, serif;
+  --font-mono:    'JetBrains Mono', monospace;
+  --r-sm: 6px; --r-md: 10px; --r-lg: 16px; --r-xl: 24px;
+  --ease: cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ─── RESET ─────────────────────────────────────────────────── */
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; font-size:16px; color-scheme:dark; }
+body {
+  background:var(--bg); color:var(--fg);
+  font-family:var(--font-display);
+  line-height:1.65; -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+a { color:inherit; text-decoration:none; }
+button { font-family:var(--font-display); border:none; cursor:pointer; background:none; color:inherit; }
+::-webkit-scrollbar { width:6px; }
+::-webkit-scrollbar-track { background:var(--bg-1); }
+::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.12); border-radius:3px; }
+::-webkit-scrollbar-thumb:hover { background:rgba(0,247,216,.2); }
+
+/* ─── LAYOUT ─────────────────────────────────────────────────── */
+.wrap    { max-width:1100px; margin:0 auto; padding:0 24px; }
+.wrap-md { max-width: 820px; margin:0 auto; padding:0 24px; }
+.wrap-sm { max-width: 640px; margin:0 auto; padding:0 24px; }
+section  { padding:64px 0; }
+@media(min-width:768px){ section{ padding:96px 0; } }
+
+/* ─── ANIMATIONS ─────────────────────────────────────────────── */
+@keyframes fade-up    { from{opacity:0;transform:translateY(32px)} to{opacity:1;transform:none} }
+@keyframes glow-pulse { 0%,100%{opacity:.4} 50%{opacity:.8} }
+@keyframes gradient-x { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+@keyframes pop-in     { 0%{transform:scale(.6);opacity:0} 60%{transform:scale(1.08);opacity:1} 100%{transform:scale(1);opacity:1} }
+@keyframes pulse-dot  { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.4);opacity:.6} }
+
+.anim { opacity:0; }
+.anim.in { animation:fade-up .7s var(--ease) forwards; }
+.d1{animation-delay:.1s} .d2{animation-delay:.2s}
+.d3{animation-delay:.3s} .d4{animation-delay:.4s}
+.d5{animation-delay:.5s} .d6{animation-delay:.6s}
+
+/* ─── NOISE ──────────────────────────────────────────────────── */
+body::before {
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:9999;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:.026; mix-blend-mode:overlay;
+}
+
+/* ─── HEADER ─────────────────────────────────────────────────── */
+header.site-header {
+  position:sticky; top:0; z-index:200;
+  background:rgba(13,13,13,.9); backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border); padding:14px 24px;
+}
+.hdr { max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.logo { display:flex; align-items:center; gap:10px; }
+.logo-raio     { height:28px; width:auto; }
+.logo-wordmark { height:22px; width:auto; }
+.hdr-step {
+  font-family:var(--font-mono); font-size:11px; color:var(--primary);
+  background:var(--primary-dim); border:1px solid rgba(0,247,216,.2);
+  padding:5px 12px; border-radius:var(--r-sm); white-space:nowrap;
+  display:none;
+}
+@media(min-width:600px){ .hdr-step{ display:flex; align-items:center; gap:8px; } }
+.hdr-step .dot { width:6px; height:6px; border-radius:50%; background:var(--primary); animation:glow-pulse 2s infinite; }
+
+/* ─── PROGRESS STRIP ─────────────────────────────────────────── */
+.progress-strip {
+  background:var(--bg-1);
+  border-bottom:1px solid var(--border);
+  padding:18px 24px;
+}
+.progress-inner {
+  max-width:1100px; margin:0 auto;
+  display:flex; align-items:center; gap:16px;
+  flex-wrap:wrap; justify-content:center;
+}
+.progress-label {
+  font-family:var(--font-mono); font-size:11px; color:var(--fg-3);
+  text-transform:uppercase; letter-spacing:.12em;
+}
+.progress-steps { display:flex; align-items:center; gap:10px; }
+.progress-step {
+  display:flex; align-items:center; gap:8px;
+  font-family:var(--font-mono); font-size:11px;
+  color:var(--fg-3); letter-spacing:.05em;
+}
+.progress-step .num {
+  width:22px; height:22px; border-radius:50%;
+  display:grid; place-items:center;
+  border:1px solid var(--border-2); background:var(--bg-2);
+  font-weight:600; font-size:10px;
+}
+.progress-step.done { color:var(--fg-2); }
+.progress-step.done .num {
+  background:var(--primary-dim); border-color:rgba(0,247,216,.3);
+  color:var(--primary);
+}
+.progress-step.current { color:var(--primary); }
+.progress-step.current .num {
+  background:var(--primary); border-color:var(--primary);
+  color:#001c1a; box-shadow:0 0 0 4px rgba(0,247,216,.15);
+}
+.progress-bar { width:24px; height:1px; background:var(--border-2); }
+.progress-bar.done { background:var(--primary); opacity:.5; }
+
+/* ─── HERO COM FUNDO ─────────────────────────────────────────── */
+.hero {
+  position:relative;
+  padding:0;
+  overflow:hidden;
+  background-color:#0a0e18;
+  background-image:
+    linear-gradient(180deg, rgba(13,13,13,.55) 0%, rgba(13,13,13,.85) 60%, var(--bg) 100%),
+    url('fundo-obrigado1.png');
+  background-size:cover;
+  background-position:50% 30%;
+  background-repeat:no-repeat;
+  background-attachment:scroll;
+  border-bottom:1px solid var(--border);
+}
+.hero-glow {
+  position:absolute; top:-100px; left:50%; transform:translateX(-50%);
+  width:1100px; height:600px;
+  background:radial-gradient(ellipse at 50% 50%,rgba(0,247,216,.12) 0%,transparent 65%);
+  pointer-events:none;
+}
+.hero-grid {
+  position:absolute; inset:0; pointer-events:none;
+  background-image:
+    linear-gradient(rgba(0,247,216,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,247,216,.025) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:radial-gradient(ellipse 90% 60% at 50% 0%,black,transparent);
+}
+.hero-inner {
+  position:relative; z-index:1;
+}
+
+/* ─── CHIP / BADGE ───────────────────────────────────────────── */
+.chip {
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:var(--font-mono); font-size:11px; font-weight:500;
+  color:var(--primary); text-transform:uppercase; letter-spacing:.1em;
+  margin-bottom:18px;
+}
+.chip::before { content:''; display:block; width:20px; height:1px; background:var(--primary); }
+.chip.center  { justify-content:center; }
+.chip.center::before { display:none; }
+
+.badge {
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:var(--font-mono); font-size:12px; font-weight:500;
+  color:var(--primary); background:var(--primary-dim);
+  border:1px solid rgba(0,247,216,.18);
+  padding:7px 16px; border-radius:var(--r-sm);
+  margin-bottom:24px;
+}
+.badge-dot { width:6px; height:6px; border-radius:50%; background:var(--primary); animation:pulse-dot 1.6s infinite; }
+
+/* ─── SPLIT LAYOUT (texto + quiz) ────────────────────────────── */
+.split {
+  display:grid;
+  grid-template-columns:1fr;
+  gap:40px;
+  align-items:center;
+  padding:48px 0;
+}
+.split-text { text-align:center; }
+.split-quiz { width:100%; }
+@media(min-width:768px){
+  .split {
+    grid-template-columns:1.05fr 1fr;
+    gap:56px;
+    padding:72px 0;
+  }
+  .split-text { text-align:left; }
+  .split-text .hero h1,
+  .split-text .hero-sub { margin-left:0; margin-right:0; }
+  .split-text .badge { align-self:flex-start; }
+}
+
+/* ─── HERO HEADLINE ──────────────────────────────────────────── */
+.hero h1 {
+  font-size:clamp(28px,4.4vw,52px);
+  font-weight:800; line-height:1.06; letter-spacing:-.04em;
+  color:var(--fg); margin:0 auto 20px; max-width:820px;
+  animation:fade-up .7s .15s var(--ease) both;
+  text-wrap:balance;
+}
+.hero h1 em {
+  font-style:normal;
+  background:linear-gradient(135deg,var(--primary) 0%,#7ffff0 50%,var(--primary) 100%);
+  background-size:200% auto;
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  animation:gradient-x 4s ease infinite;
+}
+.hero-sub {
+  font-family:var(--font-body);
+  font-size:clamp(15px,1.6vw,18px); color:var(--fg-2); line-height:1.72;
+  max-width:640px; margin:0 auto 28px;
+  animation:fade-up .7s .25s var(--ease) both;
+}
+.hero-sub strong { color:var(--fg); font-weight:600; }
+.hero-sub em.accent {
+  font-style:normal; color:var(--primary); font-weight:600;
+}
+
+.hero-meta {
+  display:inline-flex; flex-wrap:wrap; align-items:center; justify-content:center;
+  gap:12px;
+  background:rgba(22,22,22,.7); backdrop-filter:blur(8px);
+  border:1px solid var(--border-2);
+  border-radius:var(--r-md); padding:10px 18px;
+  font-family:var(--font-mono); font-size:11px; color:var(--fg-2);
+  animation:fade-up .7s .35s var(--ease) both;
+}
+.hero-meta strong { color:var(--primary); font-weight:600; }
+.hero-meta .sep { width:4px; height:4px; border-radius:50%; background:var(--fg-3); }
+
+/* ─── QUIZ SECTION ───────────────────────────────────────────── */
+.quiz-section-glow {
+  position:absolute; top:0; left:50%; transform:translateX(-50%);
+  width:900px; height:500px;
+  background:radial-gradient(ellipse at 50% 0%,rgba(0,247,216,.08) 0%,transparent 60%);
+  pointer-events:none;
+}
+.quiz-frame {
+  position:relative;
+  max-width:360px; margin:0 auto;
+  background:var(--bg-1);
+  border:1px solid var(--border-2);
+  border-radius:var(--r-xl);
+  padding:18px;
+  overflow:hidden;
+  box-shadow:
+    0 24px 60px rgba(0,0,0,.45),
+    0 0 0 1px rgba(255,255,255,.03),
+    0 0 80px rgba(0,247,216,.08);
+}
+.quiz-frame::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg,transparent,var(--primary),transparent);
+  opacity:.6;
+}
+.quiz-frame-label {
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px; margin-bottom:14px;
+  font-family:var(--font-mono); font-size:11px;
+  color:var(--fg-3); text-transform:uppercase; letter-spacing:.12em;
+  padding:0 6px;
+}
+.quiz-frame-label .left { display:flex; align-items:center; gap:8px; }
+.quiz-frame-label .ind {
+  width:7px; height:7px; border-radius:50%; background:var(--primary);
+  animation:glow-pulse 2s infinite;
+}
+.quiz-frame-label .right { color:var(--primary); }
+
+#quiz-container {
+  width:100%;
+  min-height:520px;
+  display:block;
+  border-radius:var(--r-lg);
+  overflow:hidden;
+  background:transparent;
+}
+#quiz-iframe {
+  width:100%;
+  max-width:360px;
+  height:602px;
+  display:block;
+  margin:0 auto;
+  border:none;
+  overflow:hidden;
+  background:transparent;
+}
+
+/* ─── HELP STRIP (abaixo do quiz) ────────────────────────────── */
+.help-strip {
+  margin-top:36px;
+  display:flex; flex-direction:column; align-items:center; gap:14px;
+  text-align:center;
+}
+.help-strip-label {
+  font-family:var(--font-mono); font-size:11px;
+  color:var(--fg-3); text-transform:uppercase; letter-spacing:.12em;
+}
+.help-points {
+  display:flex; flex-wrap:wrap; align-items:center; justify-content:center;
+  gap:18px;
+  font-family:var(--font-mono); font-size:11px; color:var(--fg-3);
+}
+.help-point { display:flex; align-items:center; gap:6px; }
+.help-dot { width:5px; height:5px; border-radius:50%; background:var(--primary); opacity:.55; }
+
+/* ─── ROBBU WHATSAPP BUTTON OVERRIDE (sutil, mantém funcionalidade) ── */
+#robbu-whatsapp-button {
+  z-index:9000;
+}
+
+</style>
+
+<!-- ─── FACEBOOK PIXEL ─────────────────────────────────────────── -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','288404690470754');
+fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=288404690470754&ev=PageView&noscript=1"/></noscript>
+
+</head>
+<body>
+
+<!-- ─── HEADER ────────────────────────────────────────────────── -->
+<header class="site-header">
+  <div class="hdr">
+    <a href="#" class="logo">
+      <img src="logo-raio.png" alt="" class="logo-raio">
+      <img src="logo-wordmark.png" alt="Empresa Independente" class="logo-wordmark">
+    </a>
+    <span class="hdr-step">
+      <span class="dot"></span>
+      Passo 2 de 4 · Diagnóstico Empresarial
+    </span>
+  </div>
+</header>
+
+<!-- ─── PROGRESS STRIP ────────────────────────────────────────── -->
+
+
+<!-- ─── HERO + QUIZ · LAYOUT LADO A LADO ──────────────────────── -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-grid"></div>
+  <div class="quiz-section-glow"></div>
+  <div class="wrap">
+    <div class="hero-inner">
+      <div class="split">
+
+        <!-- Coluna esquerda: texto -->
+        <div class="split-text">
+
+          <h1>
+            Parabéns por ter garantido<br>o <em>Manual do Dono Livre</em>
+          </h1>
+
+          <p class="hero-sub">
+            Mas antes de receber o Manual, descubra o
+            <strong>gargalo da sua empresa</strong>
+            em 30 segundos através do teste:
+          </p>
+
+        </div>
+
+        <!-- Coluna direita: quiz -->
+        <div class="split-quiz">
+          <div>
+            
+
+            <div id="quiz-container">
+              <iframe
+                id="quiz-iframe"
+                src="obrigado1_quiz_iframe.html"
+                title="Diagnóstico Empresarial"
+                allowtransparency="true"
+                scrolling="no">
+              </iframe>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ROBBU WHATSAPP BUTTON (preservado) ────────────────────── -->
+<a id="robbu-whatsapp-button" target="_blank" href="https://api.whatsapp.com/send?phone=5548988448734&text=Acabei%20de%20me%20cadastrar%20no%20Manual%20do%20Dono%C3%A7%C3%A3o%20Livre%20e%20gostaria%20de%20agendar%20meu%20Diagn%C3%B3stico,%20pode%20me%20ajudar?">
+  <div class="rwb-tooltip">Quero pular fila</div>
+  <img src="https://cdn.positus.global/production/resources/robbu/whatsapp-button/whatsapp-icon.svg" alt="WhatsApp">
+</a>
+
+<!-- ─── INTERSECTION OBSERVER (animacoes) ─────────────────────── -->
+<script>
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.anim').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>

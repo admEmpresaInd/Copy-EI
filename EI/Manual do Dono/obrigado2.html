@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<style id="suppress-cookie-banner">
+/* Suppress runtime-injected cookie/consent/LGPD/GDPR banners */
+[id*="cookie" i],[class*="cookie" i],
+[id*="lgpd" i],[class*="lgpd" i],
+[id*="consent" i],[class*="consent" i],
+[id*="gdpr" i],[class*="gdpr" i],
+[id*="cookie-banner" i],[class*="cookie-banner" i],
+[id*="cookie-consent" i],[class*="cookie-consent" i],
+.mc-cookie,.mc-cookie-banner,
+[aria-label*="cookie" i],[aria-label*="consent" i],
+[role="dialog"][aria-describedby*="cookie" i] { display:none !important; visibility:hidden !important; opacity:0 !important; pointer-events:none !important; height:0 !important; width:0 !important; overflow:hidden !important; }
+</style>
+<script id="suppress-cookie-banner-js">
+(function(){
+  var KEYWORDS = ['usamos cookies','politica de cookies','política de cookies','utilizamos cookies','este site usa cookies','este site utiliza cookies','aceitar cookies','accept cookies','cookie policy'];
+  function isCookieEl(el){
+    if(!el || el.nodeType !== 1) return false;
+    var txt = (el.innerText || el.textContent || '').toLowerCase();
+    if(txt.length > 600) return false;
+    for(var i=0;i<KEYWORDS.length;i++){ if(txt.indexOf(KEYWORDS[i]) !== -1) return true; }
+    return false;
+  }
+  function nukeBanners(root){
+    try {
+      var nodes = (root || document).querySelectorAll('div,section,aside,footer,header,dialog,[role="dialog"],[role="alertdialog"],[role="region"]');
+      for(var i=0;i<nodes.length;i++){
+        var el = nodes[i];
+        if(isCookieEl(el)){
+          el.style.setProperty('display','none','important');
+          el.setAttribute('aria-hidden','true');
+        }
+      }
+    } catch(e){}
+  }
+  function start(){
+    nukeBanners(document);
+    var obs = new MutationObserver(function(muts){
+      for(var i=0;i<muts.length;i++){
+        var m = muts[i];
+        if(m.addedNodes && m.addedNodes.length){
+          for(var j=0;j<m.addedNodes.length;j++){
+            var n = m.addedNodes[j];
+            if(n.nodeType === 1){
+              if(isCookieEl(n)) n.style.setProperty('display','none','important');
+              nukeBanners(n);
+            }
+          }
+        }
+      }
+    });
+    obs.observe(document.documentElement, { childList:true, subtree:true });
+    var ticks = 0;
+    var iv = setInterval(function(){
+      nukeBanners(document);
+      if(++ticks > 20) clearInterval(iv);
+    }, 500);
+  }
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', start);
+  } else {
+    start();
+  }
+})();
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parabéns por se cadastrar no Diagnóstico de Estruturação Empresareial · Empresa Independente</title>
+<meta name="description" content="Parabéns por se cadastrar no Diagnóstico de Estruturação Empresarial">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<link rel="canonical" href="https://fss.fullsalessystem.com/obrigado2-playbook"/>
+<meta name="robots" content="all" />
+<meta property="og:locale" content="pt_BR">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Parabéns Diagnóstico Empresarial">
+<meta property="og:description" content="Parabéns por se cadastrar no Diagnóstico de Estruturação Empresarial">
+<meta property="og:site_name" content="Full Sales System">
+<meta property="og:url" content="https://fss.fullsalessystem.com/obrigado2-playbook">
+<meta property="og:image" content="https://pages.greatpages.com.br/fss.fullsalessystem.com-obrigado2-playbook/1775078590/imagens/desktop/23581-b2a10430fc7780853212d4d35a0428e8.png">
+<meta property="og:image:secure_url" content="https://pages.greatpages.com.br/fss.fullsalessystem.com-obrigado2-playbook/1775078590/imagens/desktop/23581-b2a10430fc7780853212d4d35a0428e8.png">
+<link rel="icon" href="logo-raio.png">
+<link rel="apple-touch-icon" href="logo-raio.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+
+<style>
+/* ─── TOKENS (do design-system Empresa Independente) ─────── */
+:root {
+  --bg:           #0d0d0d;
+  --bg-1:         #111111;
+  --bg-2:         #161616;
+  --bg-3:         #1c1c1c;
+  --fg:           #f2f2f0;
+  --fg-2:         #a8a89c;
+  --fg-3:         #5a5a54;
+  --primary:      #00F7D8;
+  --primary-dim:  rgba(0,247,216,0.10);
+  --primary-glow: rgba(0,247,216,0.22);
+  --border:       rgba(255,255,255,0.07);
+  --border-2:     rgba(255,255,255,0.13);
+  --amber:        #f59e0b;
+  --amber-dim:    rgba(245,158,11,0.10);
+  --violet:       #a78bfa;
+  --rose:         #fb7185;
+  --rose-dim:     rgba(251,113,133,0.10);
+  --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-body:    'Lora', Georgia, serif;
+  --font-mono:    'JetBrains Mono', monospace;
+  --r-sm: 6px; --r-md: 10px; --r-lg: 16px; --r-xl: 24px;
+  --ease: cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ─── RESET ─────────────────────────────────────────────── */
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; font-size:16px; color-scheme:dark; }
+@media(prefers-reduced-motion:reduce){ *, *::before, *::after { animation-duration:.01ms !important; transition-duration:.01ms !important; } }
+body {
+  background:var(--bg); color:var(--fg);
+  font-family:var(--font-display);
+  line-height:1.65; -webkit-font-smoothing:antialiased;
+  min-height:100vh; overflow-x:hidden;
+}
+a { color:inherit; text-decoration:none; }
+button { font-family:var(--font-display); border:none; cursor:pointer; background:none; color:inherit; }
+img { max-width:100%; display:block; }
+::-webkit-scrollbar { width:6px; }
+::-webkit-scrollbar-track { background:var(--bg-1); }
+::-webkit-scrollbar-thumb { background:rgba(255,255,255,0.12); border-radius:3px; }
+::-webkit-scrollbar-thumb:hover { background:rgba(0,247,216,.2); }
+
+/* noise sutil */
+body::before {
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:9999;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:.026; mix-blend-mode:overlay;
+}
+
+/* ─── ANIMACOES ─────────────────────────────────────────── */
+@keyframes fade-up    { from{opacity:0;transform:translateY(32px)} to{opacity:1;transform:none} }
+@keyframes glow-pulse { 0%,100%{opacity:.4} 50%{opacity:.8} }
+@keyframes gradient-x { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+@keyframes blink      { 0%,100%{opacity:1} 50%{opacity:0} }
+
+.fade-up { opacity:0; animation:fade-up 1s var(--ease) forwards; }
+.fade-up.d1 { animation-delay:.1s; }
+.fade-up.d2 { animation-delay:.2s; }
+.fade-up.d3 { animation-delay:.3s; }
+.fade-up.d4 { animation-delay:.4s; }
+.fade-up.d5 { animation-delay:.5s; }
+.fade-up.d6 { animation-delay:.6s; }
+
+/* ─── LAYOUT ─────────────────────────────────────────────── */
+.container { width:100%; max-width:1100px; margin:0 auto; padding:0 32px; }
+@media(max-width:768px){ .container { padding:0 22px; } }
+
+.section { padding:80px 0; }
+@media(max-width:768px){ .section { padding:56px 0; } }
+
+/* ─── HEADER ─────────────────────────────────────────────── */
+.site-header {
+  position:sticky; top:0; z-index:50;
+  background:rgba(13,13,13,.85); backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+}
+.header-inner {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:18px 32px; max-width:1100px; margin:0 auto; gap:16px;
+}
+@media(max-width:768px){ .header-inner { padding:14px 22px; } }
+.logo { display:flex; align-items:center; gap:10px; }
+.logo-mark {
+  width:34px; height:34px; background:var(--primary); color:#001c1a;
+  font-size:12px; font-weight:800; border-radius:var(--r-md);
+  display:grid; place-items:center; flex-shrink:0;
+}
+.logo-text {
+  font-family:var(--font-display);
+  font-weight:700; letter-spacing:-.02em;
+  font-size:14px; color:var(--fg); line-height:1.15;
+}
+.logo-text small {
+  display:block; font-family:var(--font-mono); font-weight:400;
+  font-size:10px; color:var(--fg-3); letter-spacing:.08em;
+  text-transform:uppercase; margin-top:3px;
+}
+.hdr-cta {
+  background:var(--primary); color:#001c1a;
+  font-size:13px; font-weight:700;
+  padding:9px 20px; border-radius:var(--r-md);
+  transition:.25s var(--ease); white-space:nowrap; flex-shrink:0;
+  display:inline-block;
+}
+.hdr-cta:hover { background:#00d4b8; transform:translateY(-1px); box-shadow:0 8px 24px var(--primary-glow); }
+@media(max-width:520px){ .hdr-cta { display:none; } }
+
+/* ─── HERO / PASSO 3 ─────────────────────────────────────── */
+.hero {
+  position:relative; padding:64px 0 32px;
+  border-bottom:1px solid var(--border);
+  overflow:hidden;
+}
+.hero-glow {
+  position:absolute; top:-120px; left:50%; transform:translateX(-50%);
+  width:900px; height:500px;
+  background:radial-gradient(ellipse at 50% 50%,rgba(0,247,216,.08) 0%,transparent 65%);
+  pointer-events:none;
+}
+.hero-inner { position:relative; text-align:center; }
+.hero .badge { margin:0 auto 24px; }
+.hero h1 {
+  font-size:clamp(34px,5vw,56px);
+  font-weight:800; line-height:1.06; letter-spacing:-.04em;
+  color:var(--fg); margin-bottom:20px; text-wrap:balance;
+}
+.hero h1 em {
+  font-style:normal;
+  background:linear-gradient(135deg,var(--primary) 0%,#7ffff0 50%,var(--primary) 100%);
+  background-size:200% auto;
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  animation:gradient-x 4s ease infinite;
+}
+.hero p {
+  font-family:var(--font-body); font-size:clamp(16px,1.4vw,18px);
+  color:var(--fg-2); max-width:680px; margin:0 auto; line-height:1.7;
+}
+
+/* ─── BADGE / CHIP ───────────────────────────────────────── */
+.badge {
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:var(--font-mono); font-size:12px; font-weight:500;
+  color:var(--primary); background:var(--primary-dim);
+  border:1px solid rgba(0,247,216,.18);
+  padding:7px 16px; border-radius:var(--r-sm);
+}
+.badge-dot { width:6px; height:6px; border-radius:50%; background:var(--primary); animation:glow-pulse 2s infinite; }
+.section-chip {
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:var(--font-mono); font-size:11px; font-weight:500;
+  color:var(--primary); text-transform:uppercase; letter-spacing:.1em;
+  margin-bottom:14px;
+}
+.section-chip::before { content:''; display:block; width:20px; height:1px; background:var(--primary); }
+.section-chip.center { justify-content:center; }
+.section-chip.center::before { display:none; }
+
+.section-head { margin-bottom:48px; text-align:center; }
+.section-head .section-chip { margin:0 auto 14px; }
+.section-title {
+  font-size:clamp(28px,3.8vw,42px);
+  font-weight:800; letter-spacing:-.04em; line-height:1.06;
+  color:var(--fg); margin-bottom:14px; text-wrap:balance;
+}
+.section-title em {
+  font-style:normal;
+  background:linear-gradient(135deg,var(--primary) 0%,#7ffff0 50%,var(--primary) 100%);
+  background-size:200% auto;
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  animation:gradient-x 4s ease infinite;
+}
+.section-desc {
+  font-family:var(--font-body);
+  font-size:16px; color:var(--fg-2); line-height:1.65;
+  max-width:640px; margin:0 auto;
+}
+
+/* ─── BOTOES ─────────────────────────────────────────────── */
+.btn {
+  display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  background:var(--primary); color:#001c1a;
+  font-size:17px; font-weight:800; letter-spacing:-.01em;
+  padding:18px 40px; border-radius:var(--r-md);
+  transition:background .25s var(--ease), transform .25s var(--ease), box-shadow .25s var(--ease);
+  cursor:pointer; touch-action:manipulation;
+  box-shadow:0 0 48px rgba(0,247,216,.25);
+  border:none; text-decoration:none;
+}
+.btn:hover { background:#00d4b8; transform:translateY(-3px); box-shadow:0 16px 48px rgba(0,247,216,.35); text-decoration:none; }
+.btn svg   { transition:transform .2s; }
+.btn:hover svg { transform:translateX(4px); }
+.btn-wrap { display:flex; justify-content:center; margin-top:24px; }
+
+/* ─── BLOCO DE AGENDAMENTO ───────────────────────────────── */
+.booking-section {
+  padding:64px 0;
+  border-bottom:1px solid var(--border);
+}
+.booking-card {
+  background:var(--bg-1); border:1px solid var(--border);
+  border-radius:var(--r-xl);
+  padding:48px 32px;
+  position:relative; overflow:hidden;
+}
+.booking-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg,transparent,var(--primary),transparent);
+  opacity:.6;
+}
+.booking-card-head { text-align:center; margin-bottom:36px; }
+.booking-card-head h2 {
+  font-size:clamp(22px,2.6vw,32px);
+  font-weight:800; letter-spacing:-.03em; line-height:1.15;
+  color:var(--fg); margin-bottom:12px; text-wrap:balance;
+}
+.booking-card-head h2 strong { color:var(--primary); font-weight:800; }
+.booking-card-head p {
+  font-family:var(--font-body); font-size:16px; color:var(--fg-2);
+  max-width:640px; margin:0 auto; line-height:1.65;
+}
+.booking-iframe-wrap {
+  background:var(--bg); border:1px solid var(--border-2);
+  border-radius:var(--r-lg);
+  overflow:hidden;
+  min-height:760px;
+}
+.booking-iframe-wrap iframe {
+  width:100%; min-height:890px; border:none; display:block;
+  background:#fff;
+  border-radius:var(--r-lg);
+}
+
+/* alerta */
+.alert {
+  margin:32px auto 0; max-width:760px;
+  display:flex; align-items:flex-start; gap:14px;
+  background:var(--amber-dim);
+  border:1px solid rgba(245,158,11,.22);
+  border-radius:var(--r-md);
+  padding:18px 22px;
+  text-align:left;
+}
+.alert-icon {
+  width:32px; height:32px; flex-shrink:0;
+  background:rgba(245,158,11,.16);
+  border-radius:50%;
+  display:grid; place-items:center;
+  color:var(--amber); font-weight:800; font-size:16px;
+}
+.alert-text {
+  font-family:var(--font-body); font-size:15px;
+  color:var(--fg-2); line-height:1.6;
+}
+.alert-text strong { color:var(--fg); font-weight:700; }
+.alert-text u { color:var(--amber); text-decoration:underline; text-decoration-thickness:1px; }
+
+/* ─── BLOCO DE VIDEO ─────────────────────────────────────── */
+.video-section { padding:88px 0; }
+.video-wrap {
+  max-width:880px; margin:0 auto;
+  border-radius:var(--r-xl);
+  overflow:hidden;
+  background:var(--bg-1);
+  border:1px solid var(--border);
+  box-shadow:
+    0 2px 0 rgba(255,255,255,.06) inset,
+    0 32px 80px rgba(0,0,0,.55),
+    0 0 0 1px rgba(255,255,255,.04),
+    0 0 80px rgba(0,247,216,.10);
+}
+.video-wrap vturb-smartplayer { display:block; width:100%; }
+
+/* ─── PILAR GRID ─────────────────────────────────────────── */
+.pilar-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:18px;
+  margin-top:8px;
+}
+.pilar-card {
+  background:var(--bg-2); border:1px solid var(--border);
+  border-radius:var(--r-xl); padding:32px 28px;
+  position:relative; overflow:hidden; transition:.25s var(--ease);
+}
+.pilar-card:hover { border-color:rgba(0,247,216,.2); transform:translateY(-3px); box-shadow:0 24px 60px rgba(0,0,0,.4); }
+.pilar-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg,transparent,var(--primary),transparent);
+  opacity:0; transition:.25s var(--ease);
+}
+.pilar-card:hover::before { opacity:.6; }
+.pilar-num {
+  font-family:var(--font-mono); font-size:11px; color:var(--fg-3);
+  text-transform:uppercase; letter-spacing:.1em; margin-bottom:16px;
+  display:flex; align-items:center; gap:8px;
+}
+.pilar-num::before { content:''; display:block; width:16px; height:1px; background:var(--fg-3); }
+.pilar-icon {
+  width:60px; height:60px; flex-shrink:0;
+  background:var(--primary-dim); border:1px solid rgba(0,247,216,.2);
+  border-radius:var(--r-md);
+  display:grid; place-items:center;
+  color:var(--primary); font-size:24px;
+  margin-bottom:20px;
+}
+.pilar-title { font-size:18px; font-weight:700; letter-spacing:-.03em; color:var(--fg); margin-bottom:10px; line-height:1.25; }
+.pilar-desc { font-family:var(--font-body); font-size:15px; color:var(--fg-2); line-height:1.65; }
+
+/* ─── DEPOIMENTOS / SLIDER ───────────────────────────────── */
+.testi-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:18px;
+  margin-top:8px;
+}
+.testi-card {
+  background:var(--bg-2); border:1px solid var(--border);
+  border-radius:var(--r-lg); overflow:hidden;
+  transition:.25s var(--ease);
+}
+.testi-card:hover { border-color:var(--border-2); transform:translateY(-2px); box-shadow:0 18px 48px rgba(0,0,0,.45); }
+.testi-card img {
+  width:100%; height:auto; display:block;
+  background:var(--bg-3);
+}
+
+/* ─── PROVA SOCIAL ───────────────────────────────────────── */
+.prova { padding:80px 0; }
+.prova-grid {
+  display:grid; gap:16px; margin-top:48px;
+  grid-template-columns:1fr;
+}
+@media(min-width:640px) { .prova-grid { grid-template-columns:repeat(3,1fr); } }
+.depoimento-img {
+  width:100%; border-radius:var(--r-lg);
+  border:1px solid var(--border);
+  box-shadow:0 16px 48px rgba(0,0,0,.5);
+  display:block;
+  transition:.25s var(--ease);
+}
+.depoimento-img:hover { transform:translateY(-3px); box-shadow:0 24px 64px rgba(0,0,0,.6); border-color:rgba(0,247,216,.15); }
+
+/* ─── FOOTER / SOBRE ─────────────────────────────────────── */
+.about-section {
+  padding:80px 0 32px;
+  border-top:1px solid var(--border);
+}
+.about-card {
+  max-width:760px; margin:0 auto;
+  background:var(--bg-1); border:1px solid var(--border);
+  border-radius:var(--r-lg);
+  padding:40px;
+}
+@media(max-width:768px){ .about-card { padding:28px 24px; } }
+.about-card h3 {
+  font-size:20px; font-weight:700; letter-spacing:-.02em;
+  color:var(--fg); margin-bottom:20px;
+}
+.about-card h3 strong { color:var(--primary); font-weight:700; }
+.about-card p {
+  font-family:var(--font-body); font-size:15px;
+  color:var(--fg-2); line-height:1.7; margin-bottom:14px;
+}
+.about-card p:last-child { margin-bottom:0; }
+.about-card p strong { color:var(--fg); }
+
+.site-footer {
+  padding:32px 0 48px;
+  font-family:var(--font-mono); font-size:11px; color:var(--fg-3);
+  text-align:center;
+  line-height:1.8;
+}
+.site-footer a { color:var(--primary); transition:.25s var(--ease); }
+.site-footer a:hover { color:#7ffff0; }
+.site-footer .sep { color:var(--fg-3); margin:0 6px; }
+.site-footer-copy { margin-top:12px; color:var(--fg-2); font-weight:500; }
+
+/* off-screen para subscribe links exigidos por integracao */
+.sr-only {
+  position:absolute; width:1px; height:1px;
+  padding:0; margin:-1px; overflow:hidden;
+  clip:rect(0,0,0,0); white-space:nowrap; border:0;
+}
+
+</style>
+</head>
+<body>
+
+<!-- ─── HEADER ─────────────────────────────────────────────── -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="#" class="logo" aria-label="Empresa Independente">
+      <img src="logo-raio.png" alt="" style="height:28px;width:auto;">
+      <img src="logo-wordmark.png" alt="Empresa Independente" style="height:22px;width:auto;">
+    </a>
+    <span class="badge fade-up d1">
+      <span class="badge-dot"></span>
+      PASSO 3 DE 4 · QUASE LA
+    </span>
+  </div>
+</header>
+
+<!-- ─── BLOCO PRINCIPAL: VIDEO + AGENDAMENTO ───────────────── -->
+<section class="booking-section" id="agendar">
+  <div class="container">
+
+    <div class="section-head">
+      <span class="section-chip center">Acabamos de enviar o Manual no seu WhatsApp</span>
+      <h2 class="section-title">
+        Voce quer receber um <em>plano personalizado</em><br>
+        em minutos, para estruturar o processo<br>
+        Empresarial da sua empresa?
+      </h2>
+      <p class="section-desc">
+        Agende um horario abaixo para realizar o seu plano personalizado
+        com um consultor do nosso time.
+      </p>
+    </div>
+
+    <div class="booking-card">
+      <div class="booking-card-head">
+        <span class="badge" style="margin-bottom:18px">
+          <span class="badge-dot"></span>
+          AGENDAMENTO ONLINE
+        </span>
+        <h2>Escolha o melhor horario para a sua <strong>reuniao de diagnostico</strong></h2>
+        <p>Selecione abaixo um dia e horario disponivel. A reuniao acontece online com um consultor especialista do nosso time.</p>
+      </div>
+
+      <div class="booking-iframe-wrap">
+        <iframe
+          src="https://calendly.com/adm-empresaind/diagnostico"
+          style="width:100%;border:none;overflow:hidden;"
+          scrolling="no"
+          ></iframe>
+      </div>
+
+      <div class="alert">
+        <div class="alert-icon">!</div>
+        <div class="alert-text">
+          <strong>Atencao!</strong> Em breve nosso time entrara em contato pelo telefone cadastrado
+          <u>para confirmar a sua presenca na reuniao de diagnostico</u>.
+          Seu horario so estara <u>valido apos essa ligacao de confirmacao e efetivacao</u>.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── VIDEO ──────────────────────────────────────────────── -->
+<!--
+<section class="video-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-chip center">Veja em video</span>
+      <h2 class="section-title">Como o seu <em>diagnostico</em> vai funcionar</h2>
+      <p class="section-desc">Assista este video curto antes da reuniao para chegar preparado e tirar o maximo do diagnostico com o nosso consultor.</p>
+    </div>
+
+    <div class="video-wrap">
+      <vturb-smartplayer id="vid-69690910162f3aa708c9f6f3" style="display:block;margin:0 auto;width:100%;"></vturb-smartplayer>
+      <script type="text/javascript">
+        var s=document.createElement("script");
+        s.src="https://scripts.converteai.net/c678e70b-13db-47d3-b046-f3e247d16ff7/players/69690910162f3aa708c9f6f3/v4/player.js";
+        s.async=!0;
+        document.head.appendChild(s);
+      </script>
+    </div>
+
+    <div class="btn-wrap">
+      <a href="#agendar" class="btn">
+        Quero Agendar Agora
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+-->
+<!-- ─── O QUE ESSE DIAGNOSTICO FORNECE ─────────────────────── -->
+<section class="section" style="border-top:1px solid var(--border)">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-chip center">O diagnostico</span>
+      <h2 class="section-title">O que esse <em>diagnostico</em> fornece?</h2>
+      <p class="section-desc">Seis pilares que tiram o seu negocio da operacao manual e colocam o processo Empresarial pra rodar com previsibilidade.</p>
+    </div>
+
+    <div class="pilar-grid">
+      <article class="pilar-card fade-up d1">
+        <div class="pilar-num">Pilar 01</div>
+        <div class="pilar-icon">01</div>
+        <h3 class="pilar-title">Previsibilidade</h3>
+        <p class="pilar-desc">Times e processos comerciais bem estruturados garantem numeros previsiveis.</p>
+      </article>
+
+      <article class="pilar-card fade-up d2">
+        <div class="pilar-num">Pilar 02</div>
+        <div class="pilar-icon">02</div>
+        <h3 class="pilar-title">Alta Lucratividade</h3>
+        <p class="pilar-desc">Um negocio que passa a operar com alta margem te trazendo tranquilidade.</p>
+      </article>
+
+      <article class="pilar-card fade-up d3">
+        <div class="pilar-num">Pilar 03</div>
+        <div class="pilar-icon">03</div>
+        <h3 class="pilar-title">Escala sem entraves</h3>
+        <p class="pilar-desc">Facilidade para duplicar sua operacao e faturamento por ter um processo definido e baseado em indicadores.</p>
+      </article>
+
+      <article class="pilar-card fade-up d4">
+        <div class="pilar-num">Pilar 04</div>
+        <div class="pilar-icon">04</div>
+        <h3 class="pilar-title">Equilibrio Profissional X Pessoal</h3>
+        <p class="pilar-desc">Mais tempo e tranquilidade mental para focar em outras areas tambem importantes da sua vida.</p>
+      </article>
+
+      <article class="pilar-card fade-up d5">
+        <div class="pilar-num">Pilar 05</div>
+        <div class="pilar-icon">05</div>
+        <h3 class="pilar-title">Independencia do dono</h3>
+        <p class="pilar-desc">Um negocio cujas vendas acontecem sem a presenca dos fundadores.</p>
+      </article>
+
+      <article class="pilar-card fade-up d6">
+        <div class="pilar-num">Pilar 06</div>
+        <div class="pilar-icon">06</div>
+        <h3 class="pilar-title">Valor de Mercado</h3>
+        <p class="pilar-desc">Um negocio que passa a ter equity, pois para de depender do dono para faturar.</p>
+      </article>
+    </div>
+
+    <div class="btn-wrap">
+      <a href="#agendar" class="btn">
+        Quero Agendar Agora
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROVA SOCIAL ─────────────────────────────────────── -->
+<section class="prova">
+  <div class="container">
+    <div class="anim" style="text-align:center;margin-bottom:0">
+      <h2 style="font-size:clamp(28px,4.5vw,48px);font-weight:800;letter-spacing:-.04em;line-height:1.06;color:var(--fg)">
+        Eles instalaram os <em style="font-style:normal;
+        background:linear-gradient(135deg, var(--primary) 0%, #7ffff0 50%, var(--primary) 100%);
+        background-size:200% auto;
+        -webkit-background-clip:text;
+        -webkit-text-fill-color:transparent;
+        background-clip:text;
+        animation:gradient-x 4s ease infinite;">5 sistemas</em> <br>e escalaram seus resultados
+      </h2>
+    </div>
+    <div class="prova-grid">
+      <img src="depoimento-1.png" class="depoimento-img anim d1" alt="Depoimento 1">
+      <img src="depoimento-2.png" class="depoimento-img anim d2" alt="Depoimento 2">
+      <img src="depoimento-3.png" class="depoimento-img anim d3" alt="Depoimento 3">
+    </div>
+  </div>
+</section>
+<!-- ─── SOBRE A EI ─────────────────────────────────────────── -->
+<section class="about-section">
+  <div class="container">
+    <div class="about-card">
+      <h3>Sobre a <strong>Empresa Independente</strong></h3>
+      <p>A Empresa Independente é um método criado para tirar o dono do operacional e transformar o negócio em um sistema que funciona sem depender da sua presença constante.</p>
+      <p>Por meio da <strong>Engenharia Empresarial</strong>, ajudamos empresários a estruturar os 5 sistemas operacionais essenciais para que a empresa cresça de forma previsível e o dono retome o controle do seu tempo.</p>
+      <p>Mais de 300 empresários já aplicaram o método e saíram do operacional em 90 dias.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─────────────────────────────────────────────── -->
+<footer class="site-footer">
+  <div class="container">
+    <div>CNPJ 45.807.920/0001-54</div>
+    <div>
+      <a href="https://empresaind.com/termos-de-uso" class="link_externo" target="_blank" rel="noopener">Termos de Uso</a>
+      <span class="sep">|</span>
+      <a href="https://empresaind.com/politicas-de-privacidade" class="link_externo" target="_blank" rel="noopener">Política de privacidade</a>
+    </div>
+    <div class="site-footer-copy">&copy; 2026 empresaind.com &middot; Todos os direitos reservados</div>
+  </div>
+</footer>
+
+<!-- Subscribe links exigidos por integracao MonsterCampaigns (preservados, ocultos visualmente) -->
+<a href="https://app.monstercampaigns.com/c/ymka1tpnnwnijekqpv1t/" target="_blank" rel="noopener noreferrer" class="sr-only">Subscribe Now!</a>
+<a href="https://app.monstercampaigns.com/c/ymka1tpnnwnijekqpv1t/" target="_blank" rel="noopener noreferrer" class="sr-only">Subscribe Now!</a>
+
+<!-- GTM noscript (preservado) -->
+<noscript>
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TC64NTMJ" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+
+<!-- Facebook Pixel noscript (preservado) -->
+<noscript>
+  <img height="1" width="1" style="display:none"
+       src="https://www.facebook.com/tr?id=288404690470754&amp;ev=PageView&amp;noscript=1"/>
+</noscript>
+
+<!-- Redireciona para obrigado3.html ao confirmar agendamento no Calendly -->
+<script>
+window.addEventListener('message', function(e) {
+  try {
+    var data = e.data;
+    if (typeof data === 'string') {
+      try { data = JSON.parse(data); } catch(err) { return; }
+    }
+    if (data && data.event === 'calendly.event_scheduled') {
+      window.location.href = 'obrigado3.html';
+    }
+  } catch(err) {}
+});
+</script>
+
+</body>
+</html>

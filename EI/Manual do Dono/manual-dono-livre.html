@@ -1170,8 +1170,8 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 });
 
 /* ─── CRM EI INTEGRATION ─────────────────────────────────────── */
-const CRM_EI_API_KEY = 'crm_live_REPLACE_ME';
-const CRM_EI_ENDPOINT = 'https://crm-ei.vercel.app/api/leads/inbound';
+const CRM_EI_API_KEY = '';
+const CRM_EI_ENDPOINT = '/api/lead';
 const CRM_EI_TAGS = ['isca-mdl'];
 
 function sanitizePhone(raw) {
@@ -1188,8 +1188,7 @@ async function submitLeadToCRM(payload) {
   const response = await fetch(CRM_EI_ENDPOINT, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': CRM_EI_API_KEY
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify(payload)
   });

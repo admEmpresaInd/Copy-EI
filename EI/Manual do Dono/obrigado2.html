@@ -709,7 +709,7 @@ window.addEventListener('message', function(e) {
       try { data = JSON.parse(data); } catch(err) { return; }
     }
     if (data && data.event === 'calendly.event_scheduled') {
-      window.location.href = 'obrigado3.html';
+      window.location.href = '/obrigado3';
     }
   } catch(err) {}
 });

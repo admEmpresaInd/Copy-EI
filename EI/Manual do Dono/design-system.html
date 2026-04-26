@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Design System — Manual do Dono Livre · Empresa Independente</title>
-<meta name="description" content="Design System completo da página Manual do Dono Livre. Tokens, tipografia, componentes, animacoes e badges.">
+<meta name="description" content="Design System completo da página Manual do Dono Livre. Tokens, tipografia, componentes, animações e badges.">
 <link rel="icon" href="logo-raio.png">
 <link rel="apple-touch-icon" href="logo-raio.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,7 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
 <style>
 
-/* ─── TOKENS (espelho fiel da pagina original) ───────────────── */
+/* ─── TOKENS (espelho fiel da página original) ───────────────── */
 :root {
   --bg:           #0d0d0d;
   --bg-1:         #111111;
@@ -55,7 +55,7 @@ button { font-family:var(--font-display); border:none; cursor:pointer; backgroun
 ::-webkit-scrollbar-thumb:hover { background:rgba(0,247,216,.2); }
 
 
-/* ─── ANIMATIONS (espelho da pagina) ────────────────────────── */
+/* ─── ANIMATIONS (espelho da página) ────────────────────────── */
 @keyframes fade-up    { from{opacity:0;transform:translateY(32px)} to{opacity:1;transform:none} }
 @keyframes glow-pulse { 0%,100%{opacity:.4} 50%{opacity:.8} }
 @keyframes gradient-x { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
@@ -752,15 +752,15 @@ hr.div { border:none; border-top:1px solid var(--border); margin:24px 0; }
 
     <div class="nav-section-title">Componentes</div>
     <ul>
-      <li><a href="#botoes">Botoes</a></li>
+      <li><a href="#botoes">Botões</a></li>
       <li><a href="#chips-badges">Chips e Badges</a></li>
       <li><a href="#etags">Etags (tags coloridas)</a></li>
       <li><a href="#proof">Proof Strip</a></li>
       <li><a href="#pilares">Pilar Cards</a></li>
-      <li><a href="#entregaveis">Entregaveis</a></li>
+      <li><a href="#entregaveis">Entregáveis</a></li>
       <li><a href="#mockup">Guia Mockup</a></li>
       <li><a href="#hero-book">Hero Book 3D</a></li>
-      <li><a href="#form">Formulario</a></li>
+      <li><a href="#form">Formulário</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#prova">Prova Social</a></li>
       <li><a href="#numbers">Number Stats</a></li>
@@ -768,7 +768,7 @@ hr.div { border:none; border-top:1px solid var(--border); margin:24px 0; }
 
     <div class="nav-section-title">Movimento</div>
     <ul>
-      <li><a href="#animacoes">Animacoes</a></li>
+      <li><a href="#animacoes">Animações</a></li>
       <li><a href="#delays">Delays</a></li>
     </ul>
   </aside>
@@ -781,7 +781,7 @@ hr.div { border:none; border-top:1px solid var(--border); margin:24px 0; }
       <div class="hero-ds-glow"></div>
       <span class="section-chip">Design System</span>
       <h1>O sistema visual da<br><em>Empresa Independente</em></h1>
-      <p>Tokens, tipografia, componentes e animacoes da pagina <strong style="color:var(--fg)">Manual do Dono Livre</strong>. Use este documento como referencia unica para garantir consistencia em qualquer pagina nova ou variacao da marca.</p>
+      <p>Tokens, tipografia, componentes e animações da página <strong style="color:var(--fg)">Manual do Dono Livre</strong>. Use este documento como referência única para garantir consistência em qualquer página nova ou variação da marca.</p>
     </header>
 
     <!-- ============ CORES ============ -->
@@ -789,7 +789,7 @@ hr.div { border:none; border-top:1px solid var(--border); margin:24px 0; }
       <div class="section-head">
         <span class="section-chip">01 · Cores</span>
         <h2 class="section-title">Paleta de cores</h2>
-        <p class="section-desc">Visual <strong style="color:var(--fg)">dark first</strong>. A paleta gira em torno de 4 tons de fundo, 3 tons de texto, uma cor primaria neon (ciano-verde) e 3 acentos para sinalizar variedade tematica.</p>
+        <p class="section-desc">Visual <strong style="color:var(--fg)">dark first</strong>. A paleta gira em torno de 4 tons de fundo, 3 tons de texto, uma cor primária neon (ciano-verde) e 3 acentos para sinalizar variedade temática.</p>
       </div>
 
       <span class="demo-label">Backgrounds</span>
@@ -833,7 +833,7 @@ hr.div { border:none; border-top:1px solid var(--border); margin:24px 0; }
         <div class="swatch" style="--swatch:#f2f2f0">
           <div class="swatch-color"></div>
           <div class="swatch-meta">
-            <div class="swatch-name">Foreground primario</div>
+            <div class="swatch-name">Foreground primário</div>
             <div class="swatch-token">--fg</div>
             <div class="swatch-hex">#f2f2f0</div>
           </div>
@@ -954,14 +954,14 @@ hr.div { border:none; border-top:1px solid var(--border); margin:24px 0; }
       <div class="section-head">
         <span class="section-chip">02 · Tipografia</span>
         <h2 class="section-title">Tipografia</h2>
-        <p class="section-desc">Sistema de tres fontes: <strong style="color:var(--fg)">Bricolage Grotesque</strong> para tudo que estrutura (display, ui, hierarquia), <strong style="color:var(--fg)">Lora</strong> para narrativa em corpo de texto e <strong style="color:var(--fg)">JetBrains Mono</strong> para metricas, labels e numerais.</p>
+        <p class="section-desc">Sistema de três fontes: <strong style="color:var(--fg)">Bricolage Grotesque</strong> para tudo que estrutura (display, ui, hierarquia), <strong style="color:var(--fg)">Lora</strong> para narrativa em corpo de texto e <strong style="color:var(--fg)">JetBrains Mono</strong> para métricas, labels e numerais.</p>
       </div>
 
       <div class="fontfaces">
         <div class="fontface">
           <div class="fontface-name">--font-display</div>
           <div class="fontface-sample-display">Bricolage Grotesque</div>
-          <div class="fontface-meta">300 · 400 · 500 · 600 · 700 · 800<br>Display, headings, ui, botoes</div>
+          <div class="fontface-meta">300 · 400 · 500 · 600 · 700 · 800<br>Display, headings, ui, botões</div>
         </div>
         <div class="fontface">
           <div class="fontface-name">--font-body</div>
@@ -971,7 +971,7 @@ hr.div { border:none; border-top:1px solid var(--border); margin:24px 0; }
         <div class="fontface">
           <div class="fontface-name">--font-mono</div>
           <div class="fontface-sample-mono">JetBrains Mono</div>
-          <div class="fontface-meta">400 · 500 · 600 · italic 400<br>Labels, metricas, numerais</div>
+          <div class="fontface-meta">400 · 500 · 600 · italic 400<br>Labels, métricas, numerais</div>
         </div>
       </div>
 
@@ -986,7 +986,7 @@ hr.div { border:none; border-top:1px solid var(--border); margin:24px 0; }
           <div class="type-sample t-display-2">5 sistemas instalados</div>
         </div>
         <div class="type-row">
-          <div class="type-meta"><strong>H1 secao</strong><span>48px · 800 · -.04em</span><span>clamp 28-48</span></div>
+          <div class="type-meta"><strong>H1 seção</strong><span>48px · 800 · -.04em</span><span>clamp 28-48</span></div>
           <div class="type-sample t-h1">Uma empresa que funciona</div>
         </div>
         <div class="type-row">
@@ -1114,14 +1114,14 @@ hr.div { border:none; border-top:1px solid var(--border); margin:24px 0; }
     <section class="section" id="sombras">
       <div class="section-head">
         <span class="section-chip">05 · Sombras e Glow</span>
-        <h2 class="section-title">Elevacao e luminosidade</h2>
-        <p class="section-desc">Em fundo escuro a hierarquia vem do <strong style="color:var(--fg)">glow ciano</strong> antes da sombra preta. Use sombras para profundidade e glow para chamar atencao em CTAs.</p>
+        <h2 class="section-title">Elevação e luminosidade</h2>
+        <p class="section-desc">Em fundo escuro a hierarquia vem do <strong style="color:var(--fg)">glow ciano</strong> antes da sombra preta. Use sombras para profundidade e glow para chamar atenção em CTAs.</p>
       </div>
 
       <div class="swatch-grid">
         <div class="swatch" style="background:var(--bg-1);padding:24px;border-radius:var(--r-md);box-shadow:0 0 48px rgba(0,247,216,.25)">
           <div style="height:60px;background:var(--primary);border-radius:var(--r-md);margin-bottom:14px"></div>
-          <div class="swatch-name">Glow primario</div>
+          <div class="swatch-name">Glow primário</div>
           <div class="swatch-token">box-shadow: 0 0 48px rgba(0,247,216,.25)</div>
         </div>
         <div class="swatch" style="background:var(--bg-1);padding:24px;border-radius:var(--r-md);box-shadow:0 16px 48px rgba(0,247,216,.35)">
@@ -1145,9 +1145,9 @@ hr.div { border:none; border-top:1px solid var(--border); margin:24px 0; }
     <!-- ============ BOTOES ============ -->
     <section class="section" id="botoes">
       <div class="section-head">
-        <span class="section-chip">06 · Botoes</span>
-        <h2 class="section-title">Botoes e CTAs</h2>
-        <p class="section-desc">Tres variacoes: <strong style="color:var(--fg)">.btn</strong> (CTA principal), <strong style="color:var(--fg)">.btn-outline</strong> (secundario) e <strong style="color:var(--fg)">.hdr-cta</strong> (compacto para header).</p>
+        <span class="section-chip">06 · Botões</span>
+        <h2 class="section-title">Botões e CTAs</h2>
+        <p class="section-desc">Três variações: <strong style="color:var(--fg)">.btn</strong> (CTA principal), <strong style="color:var(--fg)">.btn-outline</strong> (secundário) e <strong style="color:var(--fg)">.hdr-cta</strong> (compacto para header).</p>
       </div>
 
       <div class="demo">
@@ -1189,17 +1189,17 @@ hr.div { border:none; border-top:1px solid var(--border); margin:24px 0; }
     <section class="section" id="chips-badges">
       <div class="section-head">
         <span class="section-chip">07 · Chips e Badges</span>
-        <h2 class="section-title">Labels de secao</h2>
-        <p class="section-desc"><strong style="color:var(--fg)">.chip</strong> abre cabecalhos de secao com tracinho lateral. <strong style="color:var(--fg)">.badge</strong> e a versao "pill" preenchida com ponto pulsante.</p>
+        <h2 class="section-title">Labels de seção</h2>
+        <p class="section-desc"><strong style="color:var(--fg)">.chip</strong> abre cabeçalhos de seção com tracinho lateral. <strong style="color:var(--fg)">.badge</strong> é a versão "pill" preenchida com ponto pulsante.</p>
       </div>
 
       <div class="demo">
         <div class="demo-stage col">
-          <span class="chip">O que o metodo entrega</span>
+          <span class="chip">O que o método entrega</span>
           <span class="chip center" style="display:inline-flex">Acesso gratuito</span>
         </div>
         <div class="demo-code"><pre><span class="com">&lt;!-- Chip default (com tracinho) --&gt;</span>
-<span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="str">"chip"</span><span class="tag">&gt;</span>O que o metodo entrega<span class="tag">&lt;/span&gt;</span>
+<span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="str">"chip"</span><span class="tag">&gt;</span>O que o método entrega<span class="tag">&lt;/span&gt;</span>
 
 <span class="com">&lt;!-- Chip centralizado (sem tracinho) --&gt;</span>
 <span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="str">"chip center"</span><span class="tag">&gt;</span>Acesso gratuito<span class="tag">&lt;/span&gt;</span></pre></div>
@@ -1221,8 +1221,8 @@ hr.div { border:none; border-top:1px solid var(--border); margin:24px 0; }
     <section class="section" id="etags">
       <div class="section-head">
         <span class="section-chip">08 · Etags</span>
-        <h2 class="section-title">Tags coloridas (entregaveis)</h2>
-        <p class="section-desc">Quatro variacoes que sinalizam tipos diferentes de conteudo: <strong style="color:var(--primary)">primary</strong> (template), <strong style="color:var(--amber)">amber</strong> (checklist), <strong style="color:var(--violet)">violet</strong> (metodo/avaliacao) e <strong style="color:var(--rose)">rose</strong> (alerta).</p>
+        <h2 class="section-title">Tags coloridas (entregáveis)</h2>
+        <p class="section-desc">Quatro variações que sinalizam tipos diferentes de conteúdo: <strong style="color:var(--primary)">primary</strong> (template), <strong style="color:var(--amber)">amber</strong> (checklist), <strong style="color:var(--violet)">violet</strong> (método/avaliação) e <strong style="color:var(--rose)">rose</strong> (alerta).</p>
       </div>
 
       <div class="demo">
@@ -1231,13 +1231,13 @@ hr.div { border:none; border-top:1px solid var(--border); margin:24px 0; }
             <span class="etag">Template de DRE</span>
             <span class="etag amber">Checklist de Qualidade</span>
             <span class="etag violet">Rubrica 1-5</span>
-            <span class="etag rose">Atencao</span>
+            <span class="etag rose">Atenção</span>
           </div>
         </div>
         <div class="demo-code"><pre><span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="str">"etag"</span><span class="tag">&gt;</span>Template de DRE<span class="tag">&lt;/span&gt;</span>
 <span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="str">"etag amber"</span><span class="tag">&gt;</span>Checklist de Qualidade<span class="tag">&lt;/span&gt;</span>
 <span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="str">"etag violet"</span><span class="tag">&gt;</span>Rubrica 1-5<span class="tag">&lt;/span&gt;</span>
-<span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="str">"etag rose"</span><span class="tag">&gt;</span>Atencao<span class="tag">&lt;/span&gt;</span></pre></div>
+<span class="tag">&lt;span</span> <span class="attr">class</span>=<span class="str">"etag rose"</span><span class="tag">&gt;</span>Atenção<span class="tag">&lt;/span&gt;</span></pre></div>
       </div>
     </section>
 
@@ -1246,7 +1246,7 @@ hr.div { border:none; border-top:1px solid var(--border); margin:24px 0; }
       <div class="section-head">
         <span class="section-chip">09 · Proof Strip</span>
         <h2 class="section-title">Faixa de prova social</h2>
-        <p class="section-desc">Grade de 4 metricas com numeros grandes em mono. Em mobile vira 2x2. Hover acende a barra inferior.</p>
+        <p class="section-desc">Grade de 4 métricas com números grandes em mono. Em mobile vira 2x2. Hover acende a barra inferior.</p>
       </div>
 
       <div class="demo">
@@ -1254,7 +1254,7 @@ hr.div { border:none; border-top:1px solid var(--border); margin:24px 0; }
           <div class="proof-strip">
             <div class="proof-metric">
               <span class="proof-val">300+</span>
-              <span class="proof-lbl">empresas saíram do operacional com este metodo</span>
+              <span class="proof-lbl">empresas saíram do operacional com este método</span>
             </div>
             <div class="proof-metric">
               <span class="proof-val">R$430Mi</span>
@@ -1262,7 +1262,7 @@ hr.div { border:none; border-top:1px solid var(--border); margin:24px 0; }
             </div>
             <div class="proof-metric">
               <span class="proof-val">8 anos</span>
-              <span class="proof-lbl">de aplicacao real nao teoria de livro</span>
+              <span class="proof-lbl">de aplicação real — não teoria de livro</span>
             </div>
             <div class="proof-metric">
               <span class="proof-val">R$0</span>
@@ -1285,7 +1285,7 @@ hr.div { border:none; border-top:1px solid var(--border); margin:24px 0; }
       <div class="section-head">
         <span class="section-chip">10 · Pilar Cards</span>
         <h2 class="section-title">Card de pilar</h2>
-        <p class="section-desc">Card alto de conteudo com numero, icone, titulo e descricao em Lora. Hover desliza 3px e acende a borda superior em gradiente.</p>
+        <p class="section-desc">Card alto de conteúdo com número, ícone, título e descrição em Lora. Hover desliza 3px e acende a borda superior em gradiente.</p>
       </div>
 
       <div class="demo">
@@ -1297,7 +1297,7 @@ hr.div { border:none; border-top:1px solid var(--border); margin:24px 0; }
               <div class="pilar-title">Empresa independente do dono</div>
             </div>
             <p class="pilar-desc">
-              Sua empresa continua funcionando quando voce sai de ferias. A operacao nao trava porque existe estrutura, nao heroismo.
+              Sua empresa continua funcionando quando você sai de férias. A operação não trava porque existe estrutura, não heroísmo.
             </p>
           </div>
         </div>
@@ -1315,9 +1315,9 @@ hr.div { border:none; border-top:1px solid var(--border); margin:24px 0; }
     <!-- ============ ENTREGAVEIS ============ -->
     <section class="section" id="entregaveis">
       <div class="section-head">
-        <span class="section-chip">11 · Entregaveis</span>
-        <h2 class="section-title">Lista de entregaveis</h2>
-        <p class="section-desc">Item compacto com numerador grande, titulo, descricao e tags coloridas (.etag) para sinalizar tipo de material.</p>
+        <span class="section-chip">11 · Entregáveis</span>
+        <h2 class="section-title">Lista de entregáveis</h2>
+        <p class="section-desc">Item compacto com numerador grande, título, descrição e tags coloridas (.etag) para sinalizar tipo de material.</p>
       </div>
 
       <div class="demo">
@@ -1328,7 +1328,7 @@ hr.div { border:none; border-top:1px solid var(--border); margin:24px 0; }
               <div class="entregavel-title">Cargos e Processos</div>
               <p class="entregavel-desc">Como construir organograma real com responsabilidades por resultado, engenharia de cargos com metas e indicadores.</p>
               <div class="entregavel-tags">
-                <span class="etag">Template de Descricao de Cargo</span>
+                <span class="etag">Template de Descrição de Cargo</span>
                 <span class="etag amber">Checklist de Qualidade</span>
                 <span class="etag violet">Rubrica</span>
               </div>
@@ -1365,9 +1365,9 @@ hr.div { border:none; border-top:1px solid var(--border); margin:24px 0; }
               <div class="mockup-gear-icon">⚙</div>
               <div class="mockup-cover-sub">Manual Gratuito · Empresa Independente</div>
             </div>
-            <div class="mockup-row"><div class="mockup-check">✓</div>47 paginas de passo a passo</div>
+            <div class="mockup-row"><div class="mockup-check">✓</div>47 páginas de passo a passo</div>
             <div class="mockup-row"><div class="mockup-check">✓</div>12 templates prontos</div>
-            <div class="mockup-row"><div class="mockup-check">✓</div>8 checklists de implementacao</div>
+            <div class="mockup-row"><div class="mockup-check">✓</div>8 checklists de implementação</div>
             <div class="mockup-row"><div class="mockup-check">✓</div>3 planilhas: DRE, fluxo, KPIs</div>
           </div>
         </div>
@@ -1389,7 +1389,7 @@ hr.div { border:none; border-top:1px solid var(--border); margin:24px 0; }
       <div class="section-head">
         <span class="section-chip">13 · Hero Book 3D</span>
         <h2 class="section-title">Imagem com perspectiva</h2>
-        <p class="section-desc">Imagem de capa com transformacao 3D em <code style="font-family:var(--font-mono);font-size:13px;color:var(--primary)">perspective(1200px) rotateY(-6deg) rotateX(2deg)</code>. Hover suaviza a rotacao e amplifica o glow.</p>
+        <p class="section-desc">Imagem de capa com transformação 3D em <code style="font-family:var(--font-mono);font-size:13px;color:var(--primary)">perspective(1200px) rotateY(-6deg) rotateX(2deg)</code>. Hover suaviza a rotação e amplifica o glow.</p>
       </div>
 
       <div class="demo">
@@ -1420,7 +1420,7 @@ hr.div { border:none; border-top:1px solid var(--border); margin:24px 0; }
     <!-- ============ FORM ============ -->
     <section class="section" id="form">
       <div class="section-head">
-        <span class="section-chip">14 · Formulario</span>
+        <span class="section-chip">14 · Formulário</span>
         <h2 class="section-title">Inputs do opt-in</h2>
         <p class="section-desc">Inputs em <code style="font-family:var(--font-mono);font-size:13px;color:var(--primary)">--bg-3</code>, foco em borda primary com halo de 3px. Submit grande copia o estilo do <strong style="color:var(--fg)">.btn</strong> mas full-width.</p>
       </div>
@@ -1454,14 +1454,14 @@ hr.div { border:none; border-top:1px solid var(--border); margin:24px 0; }
       <div class="section-head">
         <span class="section-chip">15 · FAQ</span>
         <h2 class="section-title">Item de FAQ</h2>
-        <p class="section-desc">Accordion com icone "+" que rotaciona 45 graus quando aberto e troca para fundo solid <code style="font-family:var(--font-mono);font-size:13px;color:var(--primary)">--primary</code>.</p>
+        <p class="section-desc">Accordion com ícone "+" que rotaciona 45 graus quando aberto e troca para fundo solid <code style="font-family:var(--font-mono);font-size:13px;color:var(--primary)">--primary</code>.</p>
       </div>
 
       <div class="demo">
         <div class="demo-stage col">
           <div class="faq-item-demo">
             <div class="faq-q-demo">
-              O manual e realmente gratuito?
+              O manual é realmente gratuito?
               <span class="faq-icon-demo">+</span>
             </div>
           </div>
@@ -1485,7 +1485,7 @@ hr.div { border:none; border-top:1px solid var(--border); margin:24px 0; }
       <div class="section-head">
         <span class="section-chip">16 · Prova Social</span>
         <h2 class="section-title">Card de depoimento</h2>
-        <p class="section-desc">Quote em italico (Lora), 5 estrelas amber, avatar com inicial e role em mono. Aspas decorativas grandes no canto sup. dir.</p>
+        <p class="section-desc">Quote em itálico (Lora), 5 estrelas amber, avatar com inicial e role em mono. Aspas decorativas grandes no canto sup. dir.</p>
       </div>
 
       <div class="demo">
@@ -1498,7 +1498,7 @@ hr.div { border:none; border-top:1px solid var(--border); margin:24px 0; }
               <span class="prova-star-demo">★</span>
               <span class="prova-star-demo">★</span>
             </div>
-            <p class="prova-quote-demo">"Em 4 meses sai do operacional diario. A empresa cresceu 40% sem eu estar dentro todos os dias."</p>
+            <p class="prova-quote-demo">"Em 4 meses saí do operacional diário. A empresa cresceu 40% sem eu estar dentro todos os dias."</p>
             <div class="prova-author-demo">
               <div class="prova-avatar-demo">M</div>
               <div>
@@ -1529,8 +1529,8 @@ hr.div { border:none; border-top:1px solid var(--border); margin:24px 0; }
     <section class="section" id="numbers">
       <div class="section-head">
         <span class="section-chip">17 · Number Stats</span>
-        <h2 class="section-title">Card de numero</h2>
-        <p class="section-desc">Item de lista numerica usada em "Autoridade". Numero grande em mono primary + titulo bold + descricao secundaria.</p>
+        <h2 class="section-title">Card de número</h2>
+        <p class="section-desc">Item de lista numérica usada em "Autoridade". Número grande em mono primary + título bold + descrição secundária.</p>
       </div>
 
       <div class="demo">
@@ -1540,20 +1540,20 @@ hr.div { border:none; border-top:1px solid var(--border); margin:24px 0; }
               <div class="number-val-demo">12+</div>
               <div class="number-desc-demo">
                 <strong>Segmentos</strong>
-                Industria, varejo, saude, construcao
+                Indústria, varejo, saúde, construção
               </div>
             </div>
             <div class="number-item-demo">
               <div class="number-val-demo">9 em 10</div>
               <div class="number-desc-demo">
                 <strong>Donos saem do operacional</strong>
-                Em 180 dias de implementacao
+                Em 180 dias de implementação
               </div>
             </div>
             <div class="number-item-demo">
               <div class="number-val-demo">8 anos</div>
               <div class="number-desc-demo">
-                <strong>Aplicacao real</strong>
+                <strong>Aplicação real</strong>
                 Mais de 300 empresas
               </div>
             </div>
@@ -1569,12 +1569,12 @@ hr.div { border:none; border-top:1px solid var(--border); margin:24px 0; }
       </div>
     </section>
 
-    <!-- ============ ANIMACOES ============ -->
+    <!-- ============ ANIMAÇÕES ============ -->
     <section class="section" id="animacoes">
       <div class="section-head">
-        <span class="section-chip">18 · Animacoes</span>
-        <h2 class="section-title">Animacoes do sistema</h2>
-        <p class="section-desc">Quatro keyframes globais usados na pagina. Todos respeitam <code style="font-family:var(--font-mono);font-size:13px;color:var(--primary)">prefers-reduced-motion</code> e duram menos de 1ms quando o usuario pediu.</p>
+        <span class="section-chip">18 · Animações</span>
+        <h2 class="section-title">Animações do sistema</h2>
+        <p class="section-desc">Quatro keyframes globais usados na página. Todos respeitam <code style="font-family:var(--font-mono);font-size:13px;color:var(--primary)">prefers-reduced-motion</code> e duram menos de 1ms quando o usuário pediu.</p>
       </div>
 
       <!-- fade-up -->
@@ -1666,11 +1666,11 @@ hr.div { border:none; border-top:1px solid var(--border); margin:24px 0; }
     <section class="section" id="delays">
       <div class="section-head">
         <span class="section-chip">19 · Delays</span>
-        <h2 class="section-title">Stagger de animacoes</h2>
-        <p class="section-desc">Classes <code style="font-family:var(--font-mono);font-size:13px;color:var(--primary)">.d1</code> ate <code style="font-family:var(--font-mono);font-size:13px;color:var(--primary)">.d6</code> aplicam delay incremental de 0.1s. Use combinada com <code style="font-family:var(--font-mono);font-size:13px;color:var(--primary)">.anim</code> e o IntersectionObserver para revelar items em cascata.</p>
+        <h2 class="section-title">Stagger de animações</h2>
+        <p class="section-desc">Classes <code style="font-family:var(--font-mono);font-size:13px;color:var(--primary)">.d1</code> até <code style="font-family:var(--font-mono);font-size:13px;color:var(--primary)">.d6</code> aplicam delay incremental de 0.1s. Use combinada com <code style="font-family:var(--font-mono);font-size:13px;color:var(--primary)">.anim</code> e o IntersectionObserver para revelar itens em cascata.</p>
       </div>
 
-      <button class="replay-btn" onclick="replayDelays()">↻ Reexecutar animacao</button>
+      <button class="replay-btn" onclick="replayDelays()">↻ Reexecutar animação</button>
 
       <div class="demo">
         <div class="demo-stage" style="padding:24px">
@@ -1716,7 +1716,7 @@ document.querySelectorAll('.anim').forEach(el =&gt; io.observe(el));
     <!-- FOOTER -->
     <footer class="ds-footer">
       <span>Empresa Independente · Manual do Dono Livre · Design System v1.0</span>
-      <span><a href="manual-dono-livre.html">← Voltar para a pagina</a></span>
+      <span><a href="manual-dono-livre.html">← Voltar para a página</a></span>
     </footer>
 
   </main>

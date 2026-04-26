@@ -703,20 +703,18 @@ body::before {
 <!-- Redireciona para /obrigado3 ao confirmar agendamento no Calendly -->
 <script>
 window.addEventListener('message', function(e) {
+  /* debug: loga TUDO que chegar, sem filtro de origem */
+  console.log('[postMessage]', 'origin:', e.origin, 'data:', e.data);
   try {
     var data = e.data;
     if (typeof data === 'string') {
       try { data = JSON.parse(data); } catch(err) { return; }
     }
     if (!data) return;
-    /* debug temporario — remove apos confirmar */
-    if (e.origin && e.origin.indexOf('calendly') !== -1) {
-      console.log('[Calendly postMessage]', JSON.stringify(data));
-    }
     if (data.event === 'calendly.event_scheduled') {
       window.location.href = '/obrigado3';
     }
-  } catch(err) {}
+  } catch(err) { console.error('[postMessage err]', err); }
 });
 </script>
 

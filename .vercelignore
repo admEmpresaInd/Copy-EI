@@ -17,6 +17,7 @@ Fotos Zanuto-ORIGINAL/
 *.zip
 *.pdf
 *.mp4
+!Fotos Zanuto/videos/*.mp4
 *.mov
 *.avi
 *.mkv

@@ -1,9 +1,25 @@
-Livros.rar
+# =============================================================================
+# .vercelignore — Vercel Deploy Exclusions
+# =============================================================================
+# IMPORTANT: Folders served via vercel.json rewrites/redirects MUST NOT be
+# listed here. Adding a served folder will cause 404 in production.
+#
+# Currently served folders (DO NOT IGNORE):
+#   - EI/                 (root: gswp.com.br)
+#   - reserva-jp/         (subdomain: reservajp.gswp.com.br)
+#   - jubiaba/            (route: /jubiaba)
+#   - Ancestra/           (route: /ancestra)
+#   - Fotos Zanuto/       (assets for reserva-jp)
+# =============================================================================
+
+# Build artifacts
 node_modules/
 electron/
 build/
 dist/
 supabase/
+
+# Dev tooling / framework
 .aiox-core/
 .antigravity/
 .claude/
@@ -11,13 +27,30 @@ supabase/
 .cursor/
 .gemini/
 .github/
-jubiaba/
+
+# Original/backup folders (NOT served)
 Fotos Zanuto-ORIGINAL/
+
+# Archives
+Livros.rar
 *.rar
 *.zip
+
+# Heavy media — block by default, then re-allow served folders
 *.pdf
+!jubiaba/**/*.pdf
+!EI/**/*.pdf
+!Fotos Zanuto/**/*.pdf
+!reserva-jp/**/*.pdf
+!Ancestra/**/*.pdf
+
 *.mp4
 !Fotos Zanuto/videos/*.mp4
+!jubiaba/**/*.mp4
+!EI/**/*.mp4
+!reserva-jp/**/*.mp4
+!Ancestra/**/*.mp4
+
 *.mov
 *.avi
 *.mkv

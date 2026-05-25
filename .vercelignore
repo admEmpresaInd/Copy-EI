@@ -36,21 +36,23 @@ Livros.rar
 *.rar
 *.zip
 
-# Heavy media — block by default, then re-allow served folders
+# Heavy media — block ALL por padrão
 *.pdf
-!jubiaba/**/*.pdf
-!EI/**/*.pdf
-!Fotos Zanuto/**/*.pdf
-!reserva-jp/**/*.pdf
-!Ancestra/**/*.pdf
-
 *.mp4
-!Fotos Zanuto/videos/*.mp4
-!jubiaba/**/*.mp4
-!EI/**/*.mp4
-!reserva-jp/**/*.mp4
-!Ancestra/**/*.mp4
-
 *.mov
 *.avi
 *.mkv
+
+# Re-incluir apenas PDFs pequenos que são realmente servidos
+!Fotos Zanuto/Masterplan - KV.pdf
+!jubiaba/masterplan-kv-deck.pdf
+!jubiaba/masterplan-kv-v2.pdf
+!jubiaba/Investidores SERGIPE/**/*.pdf
+!Ancestra/**/*.pdf
+!reserva-jp/**/*.pdf
+
+# Re-incluir vídeos servidos (todos são pequenos, < 100MB)
+!Fotos Zanuto/videos/*.mp4
+!jubiaba/**/*.mp4
+!reserva-jp/**/*.mp4
+!Ancestra/**/*.mp4

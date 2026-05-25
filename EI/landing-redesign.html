@@ -424,6 +424,144 @@ header {
 .feature-card h3 { font-weight: 600; font-size: 1.125rem; margin-bottom: 8px; }
 .feature-card p { font-size: 14px; color: var(--muted-fg); line-height: 1.6; }
 
+/* ─── RESEARCH / RESOURCES ───────────────────────────────── */
+.research-grid {
+  display: grid; grid-template-columns: 1fr;
+  gap: 20px;
+}
+@media(min-width:768px) { .research-grid { grid-template-columns: 1.4fr 1fr; gap: 24px; } }
+
+.research-card-featured {
+  position: relative;
+  background: linear-gradient(135deg, rgba(52,211,153,0.06), rgba(52,211,153,0.01));
+  border: 1px solid rgba(52,211,153,0.25);
+  border-radius: var(--r-xl);
+  padding: 32px;
+  overflow: hidden;
+  transition: all 0.3s;
+  display: flex; flex-direction: column;
+}
+.research-card-featured:hover {
+  border-color: rgba(52,211,153,0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(52,211,153,0.08);
+}
+.research-card-featured::before {
+  content: '';
+  position: absolute;
+  top: -80px; right: -80px;
+  width: 240px; height: 240px;
+  background: radial-gradient(circle, rgba(52,211,153,0.2), transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+.research-card-featured > * { position: relative; z-index: 1; }
+.research-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: var(--mono);
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--primary);
+  background: rgba(52,211,153,0.08);
+  border: 1px solid rgba(52,211,153,0.2);
+  padding: 4px 12px; border-radius: var(--r-full);
+  margin-bottom: 16px;
+  align-self: flex-start;
+}
+.research-tag svg { width: 12px; height: 12px; }
+.research-title {
+  font-size: clamp(1.3rem, 2vw, 1.6rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  margin-bottom: 12px;
+  color: var(--foreground);
+}
+.research-desc {
+  font-size: 14px;
+  color: var(--muted-fg);
+  line-height: 1.65;
+  margin-bottom: 20px;
+  flex: 1;
+}
+.research-meta {
+  display: flex; gap: 16px; flex-wrap: wrap;
+  margin-bottom: 24px;
+  padding: 16px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.research-meta-item { display: flex; flex-direction: column; }
+.research-meta-num {
+  font-size: 1.25rem; font-weight: 800;
+  color: var(--primary);
+  line-height: 1;
+}
+.research-meta-lab {
+  font-size: 11px;
+  color: var(--muted-fg);
+  font-family: var(--mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+.research-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--primary);
+  color: var(--primary-fg);
+  padding: 12px 22px;
+  border-radius: var(--r-md);
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.2s;
+  align-self: flex-start;
+}
+.research-cta:hover {
+  background: #6ee7b7;
+  transform: translateX(2px);
+  box-shadow: 0 4px 14px rgba(52,211,153,0.25);
+}
+.research-cta svg { width: 14px; height: 14px; transition: transform 0.2s; }
+.research-cta:hover svg { transform: translateX(2px); }
+
+.research-side {
+  background: rgba(31,31,31,0.5);
+  border: 1px solid var(--border);
+  border-radius: var(--r-xl);
+  padding: 28px;
+  display: flex; flex-direction: column;
+  justify-content: center;
+}
+.research-side-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--foreground);
+  margin-bottom: 16px;
+}
+.research-chapter-list {
+  list-style: none;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.research-chapter-list li {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 13px;
+  color: var(--muted-fg);
+  padding-left: 0;
+}
+.research-chapter-list li::before { content: none; }
+.research-chapter-list li .num {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--primary);
+  background: rgba(52,211,153,0.08);
+  border-radius: var(--r-sm);
+  padding: 3px 6px;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+
 /* ─── VERTICALS ──────────────────────────────────────────── */
 .verticals-grid {
   display: grid; grid-template-columns: repeat(2,1fr);
@@ -620,7 +758,7 @@ footer {
       <li><a href="#framework">Método</a></li>
       <li><a href="#comparacao">Comparação</a></li>
       <li><a href="#precos">Preços</a></li>
-      <li><a href="#blog">Blog</a></li>
+      <li><a href="#pesquisas">Pesquisas</a></li>
       <li><a href="#sobre">Sobre</a></li>
     </ul>
     <div class="nav-ctas">
@@ -1252,6 +1390,71 @@ footer {
   </div>
 </section>
 
+<!-- ═══ RESEARCH / RESOURCES ═════════════════════════════════ -->
+<section id="pesquisas">
+  <div class="container-md">
+    <div class="section-header sr">
+      <span class="badge-section">Pesquisa &amp; Inteligência de Mercado</span>
+      <h2 style="margin-top:16px">Estudos de oportunidade SaaS</h2>
+      <p>Análises completas de mercados verticais, com TAM/SAM/SOM, competidores, modelos de precificação e roadmaps de go-to-market.</p>
+    </div>
+
+    <div class="research-grid">
+      <a href="otb-franquias-market-research.html" class="research-card-featured sr stagger-1">
+        <span class="research-tag">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          Novo · Maio 2026
+        </span>
+        <h3 class="research-title">OTB para Franquias no Brasil — Análise de Oportunidade SaaS</h3>
+        <p class="research-desc">
+          Pesquisa completa sobre o mercado de software <strong style="color:var(--foreground)">Open-To-Buy</strong> especializado em redes de franquias. 13 capítulos cobrindo dimensionamento de mercado, PESTLE, Porter's Five Forces, SWOT, ICP, precificação recomendada e roadmap de 36 meses.
+        </p>
+        <div class="research-meta">
+          <div class="research-meta-item">
+            <span class="research-meta-num">R$ 1,4Bi</span>
+            <span class="research-meta-lab">TAM</span>
+          </div>
+          <div class="research-meta-item">
+            <span class="research-meta-num">3.297</span>
+            <span class="research-meta-lab">Redes Analisadas</span>
+          </div>
+          <div class="research-meta-item">
+            <span class="research-meta-num">0</span>
+            <span class="research-meta-lab">Concorrentes Diretos</span>
+          </div>
+          <div class="research-meta-item">
+            <span class="research-meta-num">13</span>
+            <span class="research-meta-lab">Capítulos</span>
+          </div>
+        </div>
+        <span class="research-cta">
+          Ler relatório completo
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
+      </a>
+
+      <div class="research-side sr stagger-2">
+        <div class="research-side-title">O que você vai encontrar:</div>
+        <ul class="research-chapter-list">
+          <li><span class="num">01</span> Sumário Executivo &amp; tese de investimento</li>
+          <li><span class="num">02</span> Mercado de franchising no Brasil</li>
+          <li><span class="num">03</span> Metodologia OTB explicada</li>
+          <li><span class="num">04</span> Dimensionamento TAM · SAM · SOM</li>
+          <li><span class="num">05</span> Análise PESTLE completa</li>
+          <li><span class="num">06</span> 6 competidores mapeados</li>
+          <li><span class="num">07</span> ICP — perfil de cliente ideal</li>
+          <li><span class="num">08</span> Porter's Five Forces</li>
+          <li><span class="num">09</span> SWOT estratégica</li>
+          <li><span class="num">10</span> Mapa de riscos &amp; mitigação</li>
+          <li><span class="num">11</span> Modelo de precificação por unidade</li>
+          <li><span class="num">12</span> Roadmap GTM 36 meses</li>
+          <li><span class="num">13</span> 6 recomendações finais</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ FAQ ═══════════════════════════════════════════════════ -->
 <section>
   <div class="container-xs">
@@ -1378,7 +1581,7 @@ footer {
       <div class="footer-col-title">Recursos</div>
       <div class="footer-links">
         <a href="#">Diagnóstico gratuito</a>
-        <a href="#">Blog</a>
+        <a href="otb-franquias-market-research.html">Pesquisa OTB Franquias</a>
         <a href="#">FAQ</a>
         <a href="#">contato@empresaind.com</a>
       </div>

@@ -27,6 +27,7 @@
           { "source": "/gswp-site", "destination": "/EI/gswp" },
           { "source": "/gswp-instagram", "destination": "/EI/gswp-instagram" },
           { "source": "/brand-identity", "destination": "/EI/brand-identity" },
+          { "source": "/otb", "destination": "/EI/otb-franquias-market-research" },
           { "source": "/jubiaba", "destination": "/jubiaba/apresentacao-jubiaba" },
           { "source": "/ancestra", "destination": "/Ancestra/index" },
           { "source": "/manual-dono-livre", "destination": "/EI/Manual do Dono/manual-dono-livre" },

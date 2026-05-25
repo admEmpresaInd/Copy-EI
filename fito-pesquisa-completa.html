@@ -1,0 +1,1581 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fitō — Pesquisa de Marca Completa 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --background: #111111;
+      --bg-card: #1c1c1c;
+      --bg-card-hover: #222222;
+      --foreground: #f5f5f0;
+      --muted: #2a2a2a;
+      --muted-fg: #888880;
+      --border: rgba(255,255,255,0.08);
+      --border-hover: rgba(255,255,255,0.18);
+      --primary: #34d399;
+      --primary-dim: rgba(52,211,153,0.12);
+      --primary-border: rgba(52,211,153,0.25);
+      --cyan: #22d3ee;
+      --cyan-dim: rgba(34,211,238,0.12);
+      --amber: #fbbf24;
+      --amber-dim: rgba(251,191,36,0.12);
+      --rose: #fb7185;
+      --rose-dim: rgba(251,113,133,0.12);
+      --violet: #a78bfa;
+      --violet-dim: rgba(167,139,250,0.12);
+      --orange: #fb923c;
+      --orange-dim: rgba(251,146,60,0.12);
+      --font: 'Inter', system-ui, sans-serif;
+      --mono: 'JetBrains Mono', monospace;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --radius-xl: 20px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--background);
+      color: var(--foreground);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── TYPOGRAPHY ──────────────────────────────── */
+    h1 { font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
+    h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; }
+    h3 { font-size: 1.1rem; font-weight: 600; line-height: 1.3; }
+    p { color: var(--muted-fg); line-height: 1.75; }
+
+    /* ─── LAYOUT ───────────────────────────────────── */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .container-wide { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 80px 0; }
+    section + section { border-top: 1px solid var(--border); }
+
+    /* ─── HEADER ───────────────────────────────────── */
+    header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(17,17,17,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+    }
+    .header-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: 1100px; margin: 0 auto; padding: 0 24px;
+    }
+    .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-mark {
+      width: 34px; height: 34px; border-radius: 8px;
+      background: linear-gradient(135deg, #34d399, #22d3ee);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 800; color: #0a2e24; letter-spacing: -0.5px;
+    }
+    .logo-text { font-size: 15px; font-weight: 700; color: var(--foreground); }
+    .logo-sub { font-size: 11px; font-weight: 400; color: var(--muted-fg); display: block; line-height: 1; }
+    .header-badge {
+      background: var(--primary-dim); border: 1px solid var(--primary-border);
+      color: var(--primary); font-size: 11px; font-weight: 600;
+      padding: 4px 10px; border-radius: 99px; font-family: var(--mono);
+    }
+    nav { display: flex; gap: 6px; flex-wrap: wrap; }
+    nav a {
+      color: var(--muted-fg); font-size: 12px; font-weight: 500;
+      text-decoration: none; padding: 5px 10px; border-radius: var(--radius-sm);
+      transition: all 0.2s; white-space: nowrap;
+    }
+    nav a:hover { color: var(--foreground); background: var(--muted); }
+
+    /* ─── BADGE ────────────────────────────────────── */
+    .badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      border-radius: 99px; padding: 5px 14px;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .badge-green { background: var(--primary-dim); border: 1px solid var(--primary-border); color: var(--primary); }
+    .badge-cyan  { background: var(--cyan-dim); border: 1px solid rgba(34,211,238,0.25); color: var(--cyan); }
+    .badge-amber { background: var(--amber-dim); border: 1px solid rgba(251,191,36,0.25); color: var(--amber); }
+    .badge-rose  { background: var(--rose-dim); border: 1px solid rgba(251,113,133,0.25); color: var(--rose); }
+    .badge-violet{ background: var(--violet-dim); border: 1px solid rgba(167,139,250,0.25); color: var(--violet); }
+    .badge-orange{ background: var(--orange-dim); border: 1px solid rgba(251,146,60,0.25); color: var(--orange); }
+
+    /* ─── HERO ─────────────────────────────────────── */
+    .hero {
+      padding: 100px 0 80px;
+      position: relative; overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute; top: -120px; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 400px;
+      background: radial-gradient(ellipse, rgba(52,211,153,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-meta {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 28px; flex-wrap: wrap;
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--cyan) 50%, var(--primary) 100%);
+      background-size: 200% 200%;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: grad 6s ease infinite;
+    }
+    @keyframes grad { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+    .hero-subtitle { font-size: 1.15rem; max-width: 640px; margin: 20px 0 40px; color: var(--muted-fg); }
+    .hero-date { font-family: var(--mono); font-size: 11px; color: var(--muted-fg); margin-top: 12px; }
+    .hero-sources {
+      display: flex; gap: 8px; flex-wrap: wrap; margin-top: 32px;
+    }
+    .source-pill {
+      display: flex; align-items: center; gap: 5px;
+      background: var(--muted); border: 1px solid var(--border);
+      border-radius: 99px; padding: 4px 12px; font-size: 11px; color: var(--muted-fg);
+    }
+    .source-pill .dot { width: 6px; height: 6px; border-radius: 50%; }
+    .dot-green { background: var(--primary); }
+    .dot-cyan { background: var(--cyan); }
+    .dot-amber { background: var(--amber); }
+
+    /* ─── STAT GRID ────────────────────────────────── */
+    .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    @media(min-width:640px){ .stats-grid { grid-template-columns: repeat(4, 1fr); } }
+    .stat-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 24px;
+      text-align: center; transition: all 0.25s;
+    }
+    .stat-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+    .stat-number {
+      font-size: 2rem; font-weight: 800; color: var(--primary);
+      display: block; letter-spacing: -0.03em; line-height: 1;
+    }
+    .stat-label { font-size: 12px; color: var(--muted-fg); margin-top: 6px; display: block; }
+
+    /* ─── CARDS ────────────────────────────────────── */
+    .card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 28px;
+      transition: all 0.25s;
+    }
+    .card:hover { border-color: var(--border-hover); }
+    .card-grid-2 { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    .card-grid-3 { display: grid; grid-template-columns: 1fr; gap: 16px; }
+    @media(min-width:640px){ .card-grid-2 { grid-template-columns: 1fr 1fr; } }
+    @media(min-width:768px){ .card-grid-3 { grid-template-columns: repeat(3, 1fr); } }
+
+    /* ─── SECTION HEADER ───────────────────────────── */
+    .section-header { margin-bottom: 48px; }
+    .section-header h2 { margin: 12px 0 10px; }
+    .section-header p { max-width: 600px; }
+
+    /* ─── DIVIDER ──────────────────────────────────── */
+    .divider { height: 1px; background: var(--border); margin: 32px 0; }
+
+    /* ─── ENGAGEMENT TABLE ─────────────────────────── */
+    .eng-table { width: 100%; border-collapse: collapse; }
+    .eng-table th {
+      text-align: left; font-size: 11px; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.06em; color: var(--muted-fg); padding: 10px 16px;
+      border-bottom: 1px solid var(--border); white-space: nowrap;
+    }
+    .eng-table td { padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.04); vertical-align: middle; }
+    .eng-table tr:last-child td { border-bottom: none; }
+    .eng-table tr:hover td { background: rgba(255,255,255,0.02); }
+    .rank { font-family: var(--mono); font-size: 11px; color: var(--muted-fg); }
+    .post-caption { font-size: 13px; font-weight: 500; color: var(--foreground); max-width: 340px; }
+    .post-caption small { display: block; font-size: 11px; color: var(--muted-fg); font-weight: 400; margin-top: 2px; }
+    .likes-val { font-weight: 700; color: var(--primary); font-size: 15px; font-family: var(--mono); }
+    .comments-val { font-size: 13px; color: var(--muted-fg); font-family: var(--mono); }
+    .eng-bar { height: 6px; border-radius: 99px; background: var(--muted); overflow: hidden; min-width: 80px; }
+    .eng-bar-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--primary), var(--cyan)); }
+    .viral-tag {
+      display: inline-block; background: linear-gradient(135deg, var(--amber-dim), var(--orange-dim));
+      border: 1px solid var(--amber); color: var(--amber); font-size: 10px; font-weight: 700;
+      padding: 2px 8px; border-radius: 99px; letter-spacing: 0.05em; text-transform: uppercase;
+    }
+    .hot-tag {
+      display: inline-block; background: var(--primary-dim); border: 1px solid var(--primary-border);
+      color: var(--primary); font-size: 10px; font-weight: 700;
+      padding: 2px 8px; border-radius: 99px; letter-spacing: 0.05em; text-transform: uppercase;
+    }
+
+    /* ─── COMPARISON ────────────────────────────────── */
+    .comp-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+      padding: 16px 0; border-bottom: 1px solid var(--border);
+    }
+    .comp-row:last-child { border-bottom: none; }
+    .comp-item {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 14px; line-height: 1.5;
+    }
+    .comp-icon { width: 20px; height: 20px; flex-shrink: 0; margin-top: 1px; }
+    .check { color: var(--primary); }
+    .cross { color: var(--rose); }
+
+    /* ─── CHART CONTAINER ───────────────────────────── */
+    .chart-wrap { position: relative; height: 320px; margin-top: 24px; }
+
+    /* ─── INSIGHT BOX ──────────────────────────────── */
+    .insight {
+      background: linear-gradient(135deg, rgba(52,211,153,0.06), rgba(34,211,238,0.04));
+      border: 1px solid var(--primary-border);
+      border-radius: var(--radius-lg); padding: 24px;
+      margin: 24px 0;
+    }
+    .insight-title { font-size: 13px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; }
+    .insight p { color: var(--foreground); font-size: 14px; }
+
+    .alert {
+      background: linear-gradient(135deg, rgba(251,191,36,0.06), rgba(251,146,60,0.04));
+      border: 1px solid rgba(251,191,36,0.3);
+      border-radius: var(--radius-lg); padding: 20px 24px;
+      margin: 20px 0;
+    }
+    .alert-title { font-size: 12px; font-weight: 700; color: var(--amber); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+    .alert p { color: var(--foreground); font-size: 13px; }
+
+    /* ─── COMPETITOR CARD ──────────────────────────── */
+    .comp-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 22px; transition: all 0.25s;
+    }
+    .comp-card:hover { border-color: var(--border-hover); }
+    .comp-card h4 { font-size: 15px; font-weight: 700; color: var(--foreground); margin-bottom: 6px; }
+    .comp-card .comp-desc { font-size: 13px; color: var(--muted-fg); margin-bottom: 14px; line-height: 1.6; }
+    .comp-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+    .comp-tag {
+      font-size: 10px; font-weight: 600; padding: 3px 8px; border-radius: 99px;
+      background: var(--muted); color: var(--muted-fg); text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .comp-metric { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
+    .comp-metric-label { font-size: 11px; color: var(--muted-fg); }
+    .comp-metric-val { font-size: 13px; font-weight: 700; font-family: var(--mono); }
+    .threat-high { color: var(--rose); }
+    .threat-med { color: var(--amber); }
+    .threat-low { color: var(--primary); }
+
+    /* ─── AD FORMAT CARD ───────────────────────────── */
+    .ad-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 28px; transition: all 0.25s;
+      position: relative; overflow: hidden;
+    }
+    .ad-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    }
+    .ad-card.primary-ad::before { background: linear-gradient(90deg, var(--primary), var(--cyan)); }
+    .ad-card.secondary-ad::before { background: linear-gradient(90deg, var(--violet), var(--cyan)); }
+    .ad-card.tertiary-ad::before { background: linear-gradient(90deg, var(--amber), var(--orange)); }
+    .ad-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 28px; height: 28px; border-radius: 8px;
+      font-family: var(--mono); font-size: 12px; font-weight: 700;
+      background: var(--primary-dim); color: var(--primary); margin-bottom: 14px;
+    }
+    .ad-roas { font-family: var(--mono); font-size: 12px; color: var(--primary); font-weight: 700; }
+    .ad-script { background: var(--muted); border-radius: var(--radius-md); padding: 16px; margin-top: 16px; }
+    .ad-script p { font-size: 13px; color: var(--foreground); line-height: 1.7; font-style: italic; }
+    .ad-script .timestamp { font-family: var(--mono); font-size: 10px; color: var(--primary); font-weight: 600; display: block; margin-bottom: 6px; }
+    .ad-copy { background: var(--bg-card-hover); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 16px; margin-top: 12px; }
+    .ad-copy p { font-size: 12px; color: var(--foreground); line-height: 1.8; }
+    .ad-copy .copy-label { font-size: 10px; color: var(--muted-fg); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; display: block; }
+
+    /* ─── ROADMAP ──────────────────────────────────── */
+    .roadmap { position: relative; }
+    .roadmap-item {
+      display: flex; gap: 20px; padding-bottom: 32px; position: relative;
+    }
+    .roadmap-item:last-child { padding-bottom: 0; }
+    .roadmap-line {
+      position: absolute; left: 15px; top: 32px; bottom: 0;
+      width: 1px; background: linear-gradient(180deg, var(--primary-border), transparent);
+    }
+    .roadmap-item:last-child .roadmap-line { display: none; }
+    .roadmap-dot {
+      width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--mono); font-size: 12px; font-weight: 700; z-index: 1;
+    }
+    .dot-q1 { background: var(--primary-dim); color: var(--primary); border: 1px solid var(--primary-border); }
+    .dot-q2 { background: var(--cyan-dim); color: var(--cyan); border: 1px solid rgba(34,211,238,0.25); }
+    .dot-q3 { background: var(--violet-dim); color: var(--violet); border: 1px solid rgba(167,139,250,0.25); }
+    .roadmap-content { flex: 1; }
+    .roadmap-content h4 { font-size: 15px; font-weight: 700; color: var(--foreground); margin-bottom: 6px; }
+    .roadmap-content p { font-size: 13px; color: var(--muted-fg); line-height: 1.65; }
+    .roadmap-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+    .roadmap-tag { font-size: 11px; font-weight: 500; color: var(--muted-fg); background: var(--muted); padding: 3px 10px; border-radius: 99px; }
+
+    /* ─── MARKET BAR ────────────────────────────────── */
+    .market-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    .market-label { width: 160px; font-size: 12px; color: var(--muted-fg); flex-shrink: 0; }
+    .market-track { flex: 1; height: 8px; background: var(--muted); border-radius: 99px; overflow: hidden; }
+    .market-fill { height: 100%; border-radius: 99px; }
+    .market-val { font-family: var(--mono); font-size: 12px; color: var(--foreground); font-weight: 600; width: 70px; text-align: right; flex-shrink: 0; }
+
+    /* ─── SWOT ──────────────────────────────────────── */
+    .swot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--border); }
+    .swot-cell { padding: 24px; }
+    .swot-cell h4 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 14px; }
+    .swot-cell ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .swot-cell li { font-size: 13px; color: var(--muted-fg); display: flex; gap: 8px; line-height: 1.5; }
+    .swot-cell li::before { content: '→'; flex-shrink: 0; }
+    .swot-s { background: rgba(52,211,153,0.06); }
+    .swot-s h4 { color: var(--primary); }
+    .swot-w { background: rgba(251,113,133,0.06); }
+    .swot-w h4 { color: var(--rose); }
+    .swot-o { background: rgba(251,191,36,0.06); }
+    .swot-o h4 { color: var(--amber); }
+    .swot-t { background: rgba(167,139,250,0.06); }
+    .swot-t h4 { color: var(--violet); }
+
+    /* ─── KPI PILLS ─────────────────────────────────── */
+    .kpi-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+    .kpi-pill {
+      background: var(--muted); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: 10px 16px;
+      display: flex; flex-direction: column; gap: 2px;
+    }
+    .kpi-val { font-family: var(--mono); font-size: 16px; font-weight: 700; color: var(--foreground); }
+    .kpi-desc { font-size: 10px; color: var(--muted-fg); text-transform: uppercase; letter-spacing: 0.05em; }
+
+    /* ─── FOOTER ────────────────────────────────────── */
+    footer {
+      background: var(--bg-card); border-top: 1px solid var(--border);
+      padding: 40px 0; text-align: center;
+    }
+    footer p { font-size: 12px; color: var(--muted-fg); }
+    footer strong { color: var(--primary); }
+
+    /* ─── ANIMATIONS ────────────────────────────────── */
+    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .stagger-1 { transition-delay: 0.05s; }
+    .stagger-2 { transition-delay: 0.1s; }
+    .stagger-3 { transition-delay: 0.15s; }
+    .stagger-4 { transition-delay: 0.2s; }
+    .stagger-5 { transition-delay: 0.25s; }
+    .stagger-6 { transition-delay: 0.3s; }
+
+    /* ─── HIGHLIGHT STRIP ───────────────────────────── */
+    .highlight-strip {
+      background: linear-gradient(135deg, rgba(52,211,153,0.08), rgba(34,211,238,0.05));
+      border: 1px solid var(--primary-border);
+      border-radius: var(--radius-xl); padding: 40px;
+      text-align: center;
+    }
+    .highlight-strip h2 { margin: 12px 0; }
+    .highlight-strip p { max-width: 560px; margin: 0 auto 28px; }
+
+    /* ─── RESPONSIVE ────────────────────────────────── */
+    @media(max-width:640px) {
+      section { padding: 56px 0; }
+      .hero { padding: 64px 0 56px; }
+      .swot-grid { grid-template-columns: 1fr; }
+      .comp-row { grid-template-columns: 1fr; }
+      nav { display: none; }
+    }
+    .table-wrap { overflow-x: auto; border-radius: var(--radius-lg); }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .tag {
+      background: var(--muted); font-size: 11px; color: var(--muted-fg);
+      padding: 3px 10px; border-radius: 99px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════ HEADER ═══════════════════════════════ -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <div class="logo-mark">FT</div>
+      <div>
+        <span class="logo-text">Fitō — Pesquisa de Marca</span>
+        <span class="logo-sub">Relatório Estratégico Completo · 2026</span>
+      </div>
+    </a>
+    <nav>
+      <a href="#marca">Marca</a>
+      <a href="#instagram">Instagram</a>
+      <a href="#mercado">Mercado</a>
+      <a href="#concorrentes">Concorrentes</a>
+      <a href="#ads">Ads</a>
+      <a href="#proximos-passos">Próximos Passos</a>
+    </nav>
+    <div class="header-badge">Dados reais · Abr 2026</div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════ HERO ══════════════════════════════════ -->
+<section class="hero" id="top">
+  <div class="hero-glow"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-meta">
+        <span class="badge badge-green">Pesquisa Completa</span>
+        <span class="badge badge-cyan">Apify · Instagram Scraping</span>
+        <span class="badge badge-amber">19 posts analisados</span>
+      </div>
+      <h1>Fitō Cosméticos<br><span class="gradient-text">Botânicos</span></h1>
+      <p class="hero-subtitle">
+        Análise estratégica completa da marca — DNA, performance de conteúdo no Instagram com dados reais, inteligência de mercado, mapeamento competitivo e roadmap de próximos passos.
+      </p>
+      <div class="hero-date">Gerado em 01 de maio de 2026 · Dados coletados via Apify Instagram Scraper</div>
+      <div class="hero-sources">
+        <div class="source-pill"><span class="dot dot-green"></span>usefito.com</div>
+        <div class="source-pill"><span class="dot dot-cyan"></span>@fito.cosmetica (Instagram)</div>
+        <div class="source-pill"><span class="dot dot-amber"></span>Apify Instagram Post Scraper</div>
+        <div class="source-pill"><span class="dot dot-green"></span>Mordor Intelligence</div>
+        <div class="source-pill"><span class="dot dot-cyan"></span>CicloVivo · Beleza na Web</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ STATS RÁPIDOS ════════════════════════ -->
+<section style="padding: 0 0 60px;">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-card fade-up stagger-1">
+        <span class="stat-number">45K</span>
+        <span class="stat-label">Seguidores Instagram</span>
+      </div>
+      <div class="stat-card fade-up stagger-2">
+        <span class="stat-number">5 anos</span>
+        <span class="stat-label">Marca no mercado</span>
+      </div>
+      <div class="stat-card fade-up stagger-3">
+        <span class="stat-number">99%</span>
+        <span class="stat-label">Ingredientes vegetais</span>
+      </div>
+      <div class="stat-card fade-up stagger-4">
+        <span class="stat-number">R$60–180</span>
+        <span class="stat-label">Faixa de preço</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ DNA DA MARCA ═════════════════════════ -->
+<section id="marca">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-green">DNA da Marca</span>
+      <h2>Quem é a Fitō</h2>
+      <p>Cosmética botânica brasileira fundada durante a pandemia por uma publicitária apaixonada por plantas medicinais.</p>
+    </div>
+
+    <div class="card-grid-2 fade-up">
+      <div class="card">
+        <span class="badge badge-cyan" style="margin-bottom:18px">Origem</span>
+        <h3 style="color:var(--foreground);margin-bottom:12px">A história por trás da marca</h3>
+        <p style="font-size:14px;line-height:1.8">
+          Marcella Boneder, publicitária de formação, fundou a Fitō em 2021 durante a pandemia. Tudo começou quando ela montou um jardim de ervas medicinais em casa para desenvolver cosméticos para uso próprio e para seu filho, que sofria de dermatite. Ela própria colhia, desidratava e extraía plantas — misturando-as com óleos e manteigas vegetais em casa.
+        </p>
+        <p style="font-size:14px;line-height:1.8;margin-top:14px">
+          O produto que deu origem à marca foi um óleo íntimo, criado a partir de relatos sobre o potencial da cannabis para produtos íntimos. A visão era clara: <em style="color:var(--foreground)">"um caminho mais simples, verdadeiro e conectado com a natureza."</em>
+        </p>
+      </div>
+      <div class="card">
+        <span class="badge badge-violet" style="margin-bottom:18px">Filosofia</span>
+        <h3 style="color:var(--foreground);margin-bottom:16px">Minimalismo no ritual.<br>Maximalismo na fórmula.</h3>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:12px;font-size:14px">
+          <li style="display:flex;gap:10px;align-items:flex-start">
+            <span style="color:var(--primary);margin-top:2px">✓</span>
+            <span style="color:var(--muted-fg)">Fórmulas 99% vegetais com ativos botânicos densos</span>
+          </li>
+          <li style="display:flex;gap:10px;align-items:flex-start">
+            <span style="color:var(--primary);margin-top:2px">✓</span>
+            <span style="color:var(--muted-fg)">Vegana e cruelty-free — sem testes em animais</span>
+          </li>
+          <li style="display:flex;gap:10px;align-items:flex-start">
+            <span style="color:var(--primary);margin-top:2px">✓</span>
+            <span style="color:var(--muted-fg)">Biodiversidade brasileira nativa: copaíba, andiroba, calêndula, comfrey</span>
+          </li>
+          <li style="display:flex;gap:10px;align-items:flex-start">
+            <span style="color:var(--primary);margin-top:2px">✓</span>
+            <span style="color:var(--muted-fg)">Zero plástico desnecessário nas embalagens</span>
+          </li>
+          <li style="display:flex;gap:10px;align-items:flex-start">
+            <span style="color:var(--primary);margin-top:2px">✓</span>
+            <span style="color:var(--muted-fg)">Entrega same-day em São Paulo (pedidos até 11h)</span>
+          </li>
+          <li style="display:flex;gap:10px;align-items:flex-start">
+            <span style="color:var(--primary);margin-top:2px">✓</span>
+            <span style="color:var(--muted-fg)">Frete grátis em compras acima de R$400</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top:16px" class="fade-up">
+      <div class="card">
+        <span class="badge badge-amber" style="margin-bottom:18px">Portfólio de Produtos</span>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:8px">
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">Facial</div>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--muted-fg)">
+              <li>Óleo Facial — R$160 ⭐ 27 avaliações</li>
+              <li>Sérum Facial</li>
+              <li>Área dos Olhos</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--cyan);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">Corporal</div>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--muted-fg)">
+              <li>Óleo Corporal</li>
+              <li>Desodorante — R$60 (entry)</li>
+              <li>Sabonete (barra)</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--violet);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">Terapêutico</div>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--muted-fg)">
+              <li>Lub (Óleo Íntimo) — R$120 ⭐ 30 avaliações</li>
+              <li>Balm para pele — R$110</li>
+              <li>Óleo MassageaDOR</li>
+              <li>Óleo Feminino ⚡ Esgotado</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-size:12px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">Cabelos</div>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--muted-fg)">
+              <li>Xampu sólido ⚡ Esgotado</li>
+              <li>Condicionador sólido</li>
+              <li>Óleo capilar ⚡ Esgotado</li>
+            </ul>
+          </div>
+        </div>
+        <div class="alert" style="margin-top:20px">
+          <div class="alert-title">⚡ Sinal de demanda</div>
+          <p>3 produtos apareceram como esgotados nos comentários coletados pelo Apify: Óleo Capilar, Óleo Feminino e Xampu Sólido. Isso é <strong>prova social de escassez real</strong> — oportunidade de usar nas campanhas como social proof e criar lista de espera.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SWOT -->
+    <div style="margin-top:40px" class="fade-up">
+      <div class="section-header" style="margin-bottom:28px">
+        <span class="badge badge-rose">Análise SWOT</span>
+        <h2 style="margin-top:12px">Posicionamento estratégico</h2>
+      </div>
+      <div class="swot-grid">
+        <div class="swot-cell swot-s">
+          <h4>Forças</h4>
+          <ul>
+            <li>Ingredientes 100% rastreáveis e fórmulas transparentes</li>
+            <li>Posicionamento único: terapêutico + cosmético</li>
+            <li>Fundadora com história autêntica e apaixonante</li>
+            <li>Comunidade engajada e produto com demanda > oferta</li>
+            <li>Distribuição na Beleza na Web (março 2026)</li>
+            <li>Biodiversidade nativa como diferencial real</li>
+          </ul>
+        </div>
+        <div class="swot-cell swot-w">
+          <h4>Fraquezas</h4>
+          <ul>
+            <li>Estoque recorrentemente esgotado (3 produtos)</li>
+            <li>Produção artesanal limita escala</li>
+            <li>Ticket médio alto para público amplo</li>
+            <li>Presença digital com baixa cadência de posts</li>
+            <li>Ausência de conteúdo ads estruturado</li>
+          </ul>
+        </div>
+        <div class="swot-cell swot-o">
+          <h4>Oportunidades</h4>
+          <ul>
+            <li>Menopausa: nicho com 1.183 likes (10x mais que média)</li>
+            <li>Saúde feminina integrativa — crescimento explosivo</li>
+            <li>Mercado natural cresce 20%/ano — R$3B</li>
+            <li>49% dos consumidores pagam premium por eco-friendly</li>
+            <li>Beleza na Web: expansão de canal e awareness</li>
+            <li>Algoritmo Meta favorece UGC autêntico (Andromeda 2025)</li>
+          </ul>
+        </div>
+        <div class="swot-cell swot-t">
+          <h4>Ameaças</h4>
+          <ul>
+            <li>Grandes marcas adotando posicionamento "natural"</li>
+            <li>Greenwashing dilui proposta de valor genuína</li>
+            <li>Custo de aquisição crescente no Meta Ads</li>
+            <li>Concorrentes com mais capital para escalar</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ INSTAGRAM ════════════════════════════ -->
+<section id="instagram">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-cyan">Análise de Instagram</span>
+      <h2>Performance real de conteúdo</h2>
+      <p>Dados coletados via Apify Instagram Post Scraper — 19 posts analisados, de fev a abr 2026.</p>
+    </div>
+
+    <!-- Key metrics -->
+    <div class="kpi-row fade-up" style="margin-bottom:32px">
+      <div class="kpi-pill">
+        <span class="kpi-val">1.183</span>
+        <span class="kpi-desc">Maior post (likes)</span>
+      </div>
+      <div class="kpi-pill">
+        <span class="kpi-val">~147</span>
+        <span class="kpi-desc">Média de likes</span>
+      </div>
+      <div class="kpi-pill">
+        <span class="kpi-val">~19</span>
+        <span class="kpi-desc">Média sem viral</span>
+      </div>
+      <div class="kpi-pill">
+        <span class="kpi-val">81</span>
+        <span class="kpi-desc">Mais comentários</span>
+      </div>
+      <div class="kpi-pill">
+        <span class="kpi-val">65</span>
+        <span class="kpi-desc">Coments viral</span>
+      </div>
+      <div class="kpi-pill">
+        <span class="kpi-val">8x</span>
+        <span class="kpi-desc">Viral vs. média</span>
+      </div>
+    </div>
+
+    <!-- Chart -->
+    <div class="card fade-up" style="margin-bottom:24px">
+      <h3 style="color:var(--foreground);margin-bottom:4px">Engajamento por post (likes)</h3>
+      <p style="font-size:12px;margin-bottom:0">Março–Abril 2026 · Dados reais via Apify</p>
+      <div class="chart-wrap">
+        <canvas id="engChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div class="card fade-up">
+      <h3 style="color:var(--foreground);margin-bottom:4px">Ranking de posts por engajamento</h3>
+      <p style="font-size:12px;margin-bottom:20px">Top 12 posts ordenados por likes</p>
+      <div class="table-wrap">
+        <table class="eng-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Post</th>
+              <th>Likes</th>
+              <th>Comments</th>
+              <th>Engajamento</th>
+              <th>Tag</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="rank">01</td>
+              <td><div class="post-caption">4 fórmulas pra te acolher na menopausa ✨<small>5 mar 2026</small></div></td>
+              <td class="likes-val">1.183</td>
+              <td class="comments-val">65</td>
+              <td><div class="eng-bar"><div class="eng-bar-fill" style="width:100%"></div></div></td>
+              <td><span class="viral-tag">VIRAL</span></td>
+            </tr>
+            <tr>
+              <td class="rank">02</td>
+              <td><div class="post-caption">Estamos na Beleza na Web! 🎉<small>18 mar 2026</small></div></td>
+              <td class="likes-val">227</td>
+              <td class="comments-val">81</td>
+              <td><div class="eng-bar"><div class="eng-bar-fill" style="width:19%"></div></div></td>
+              <td><span class="hot-tag">TOP</span></td>
+            </tr>
+            <tr>
+              <td class="rank">03</td>
+              <td><div class="post-caption">Promo relâmpago (sexta a domingo) 💫<small>23 abr 2026</small></div></td>
+              <td class="likes-val">215</td>
+              <td class="comments-val">25</td>
+              <td><div class="eng-bar"><div class="eng-bar-fill" style="width:18%"></div></div></td>
+              <td><span class="hot-tag">TOP</span></td>
+            </tr>
+            <tr>
+              <td class="rank">04</td>
+              <td><div class="post-caption">Da semente à calêndula — nosso ciclo de carinho 🌼<small>21 abr 2026</small></div></td>
+              <td class="likes-val">150</td>
+              <td class="comments-val">20</td>
+              <td><div class="eng-bar"><div class="eng-bar-fill" style="width:12.5%"></div></div></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td class="rank">05</td>
+              <td><div class="post-caption">Capim-limão: como você chama essa planta? 🌿<small>14 fev 2026</small></div></td>
+              <td class="likes-val">149</td>
+              <td class="comments-val">0</td>
+              <td><div class="eng-bar"><div class="eng-bar-fill" style="width:12.4%"></div></div></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td class="rank">06</td>
+              <td><div class="post-caption">Esqueça o mito: óleo no rosto dá espinhas 🌿<small>20 abr 2026</small></div></td>
+              <td class="likes-val">131</td>
+              <td class="comments-val">33</td>
+              <td><div class="eng-bar"><div class="eng-bar-fill" style="width:11%"></div></div></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td class="rank">07</td>
+              <td><div class="post-caption">Treinar o olhar pra reconhecer espécies 💚<small>26 fev 2026</small></div></td>
+              <td class="likes-val">121</td>
+              <td class="comments-val">3</td>
+              <td><div class="eng-bar"><div class="eng-bar-fill" style="width:10%"></div></div></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td class="rank">08</td>
+              <td><div class="post-caption">Outono: ritual secular para pele seca 🍂<small>24 mar 2026</small></div></td>
+              <td class="likes-val">93</td>
+              <td class="comments-val">8</td>
+              <td><div class="eng-bar"><div class="eng-bar-fill" style="width:7.8%"></div></div></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td class="rank">09</td>
+              <td><div class="post-caption">Rótulos transparentes: sem dicionário necessário 🤎<small>11 mar 2026</small></div></td>
+              <td class="likes-val">66</td>
+              <td class="comments-val">4</td>
+              <td><div class="eng-bar"><div class="eng-bar-fill" style="width:5.5%"></div></div></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td class="rank">10</td>
+              <td><div class="post-caption">Patchouli: equilíbrio da pele e emoções 🍃<small>31 mar 2026</small></div></td>
+              <td class="likes-val">59</td>
+              <td class="comments-val">5</td>
+              <td><div class="eng-bar"><div class="eng-bar-fill" style="width:4.9%"></div></div></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td class="rank">11</td>
+              <td><div class="post-caption">É daqui que brotam nossas fórmulas 💚<small>28 abr 2026</small></div></td>
+              <td class="likes-val">20</td>
+              <td class="comments-val">0</td>
+              <td><div class="eng-bar"><div class="eng-bar-fill" style="width:1.6%"></div></div></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td class="rank">12</td>
+              <td><div class="post-caption">Me conta: como anda sua relação com o tempo?<small>30 abr 2026</small></div></td>
+              <td class="likes-val">11</td>
+              <td class="comments-val">0</td>
+              <td><div class="eng-bar"><div class="eng-bar-fill" style="width:0.9%"></div></div></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Content pattern analysis -->
+    <div style="margin-top:24px" class="card-grid-2 fade-up">
+      <div class="card">
+        <span class="badge badge-green" style="margin-bottom:16px">O que FUNCIONA</span>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div style="padding:14px;background:rgba(52,211,153,0.06);border-radius:var(--radius-md);border-left:3px solid var(--primary)">
+            <div style="font-size:13px;font-weight:700;color:var(--foreground);margin-bottom:4px">🔥 Problema específico de saúde feminina</div>
+            <div style="font-size:12px;color:var(--muted-fg)">Post menopausa: 1.183 likes. Dermatite, saúde íntima, hormônios → 10x mais engajamento que posts genéricos</div>
+          </div>
+          <div style="padding:14px;background:rgba(52,211,153,0.06);border-radius:var(--radius-md);border-left:3px solid var(--primary)">
+            <div style="font-size:13px;font-weight:700;color:var(--foreground);margin-bottom:4px">📢 Marcos de distribuição</div>
+            <div style="font-size:12px;color:var(--muted-fg)">Beleza na Web: 227 likes + 81 comentários. Novidades de canal geram comunidade</div>
+          </div>
+          <div style="padding:14px;background:rgba(52,211,153,0.06);border-radius:var(--radius-md);border-left:3px solid var(--primary)">
+            <div style="font-size:13px;font-weight:700;color:var(--foreground);margin-bottom:4px">💰 Promoções com urgência</div>
+            <div style="font-size:12px;color:var(--muted-fg)">Promo relâmpago (48h): 215 likes + 25 comentários. Gatilho de escassez funciona</div>
+          </div>
+          <div style="padding:14px;background:rgba(52,211,153,0.06);border-radius:var(--radius-md);border-left:3px solid var(--primary)">
+            <div style="font-size:13px;font-weight:700;color:var(--foreground);margin-bottom:4px">🌱 Educação botânica autêntica</div>
+            <div style="font-size:12px;color:var(--muted-fg)">Posts sobre plantas específicas (calêndula, capim-limão, patchouli): 59–150 likes. Diferencia de concorrentes</div>
+          </div>
+          <div style="padding:14px;background:rgba(52,211,153,0.06);border-radius:var(--radius-md);border-left:3px solid var(--primary)">
+            <div style="font-size:13px;font-weight:700;color:var(--foreground);margin-bottom:4px">🚫 Quebra de mito</div>
+            <div style="font-size:12px;color:var(--muted-fg)">"Óleo dá espinhas" — 131 likes + 33 comentários. Conteúdo contraintuitivo gera debate</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <span class="badge badge-rose" style="margin-bottom:16px">O que NÃO funciona</span>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div style="padding:14px;background:rgba(251,113,133,0.05);border-radius:var(--radius-md);border-left:3px solid var(--rose)">
+            <div style="font-size:13px;font-weight:700;color:var(--foreground);margin-bottom:4px">❌ Posts genéricos sobre a marca</div>
+            <div style="font-size:12px;color:var(--muted-fg)">"É daqui que brotam nossas fórmulas" — 20 likes. Mensagens de branding sem ancoragem em problema real = baixo engajamento</div>
+          </div>
+          <div style="padding:14px;background:rgba(251,113,133,0.05);border-radius:var(--radius-md);border-left:3px solid var(--rose)">
+            <div style="font-size:13px;font-weight:700;color:var(--foreground);margin-bottom:4px">❌ CTAs filosóficos sem contexto</div>
+            <div style="font-size:12px;color:var(--muted-fg)">"Me conta: como anda sua relação com o tempo?" — 11 likes. Pergunta abstrata desconectada do produto = sem retorno</div>
+          </div>
+          <div style="padding:14px;background:rgba(251,113,133,0.05);border-radius:var(--radius-md);border-left:3px solid var(--rose)">
+            <div style="font-size:13px;font-weight:700;color:var(--foreground);margin-bottom:4px">❌ Conteúdo sem persona definida</div>
+            <div style="font-size:12px;color:var(--muted-fg)">Posts sobre aromas, embalagens e processo sem problema-âncora: 29-34 likes. Falta um "por que isso importa para VOCÊ"</div>
+          </div>
+          <div style="padding:14px;background:rgba(251,113,133,0.05);border-radius:var(--radius-md);border-left:3px solid var(--rose)">
+            <div style="font-size:13px;font-weight:700;color:var(--foreground);margin-bottom:4px">❌ Lançamento vago</div>
+            <div style="font-size:12px;color:var(--muted-fg)">"Um lançamento que vai te acompanhar por aí 🧡" — 44 likes. Sem revelar o produto, sem ganchos emocionais</div>
+          </div>
+          <div class="insight" style="margin-top:4px">
+            <div class="insight-title">Padrão central</div>
+            <p>Posts que ancaram em um <strong>problema real de saúde feminina</strong> performam 8–60x mais que posts de branding genérico. A audiência da Fitō não quer saber o que a marca é — quer saber como a marca resolve o que ela sente.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Signal: stock outs -->
+    <div class="alert fade-up" style="margin-top:8px">
+      <div class="alert-title">🔍 Sinal dos comentários: produtos esgotados = lista de espera quente</div>
+      <p>Em múltiplos posts, seguidores perguntaram sobre previsão de reposição do <strong>Óleo Capilar</strong>, <strong>Óleo Feminino</strong> e <strong>Xampu Sólido</strong>. Isso representa demanda reprimida ativa — use em campanhas como "Voltou ao estoque!", crie lista de espera por WhatsApp e meça a conversão.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ MERCADO ══════════════════════════════ -->
+<section id="mercado">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-amber">Inteligência de Mercado</span>
+      <h2>O mercado onde a Fitō joga</h2>
+      <p>Brasil é o 3º maior mercado de beleza do mundo e o de cosméticos naturais cresce 20%/ano.</p>
+    </div>
+
+    <div class="card-grid-2 fade-up">
+      <div class="card">
+        <h3 style="color:var(--foreground);margin-bottom:20px">Tamanho do mercado</h3>
+        <div class="market-row">
+          <div class="market-label">Mercado Brasil Total</div>
+          <div class="market-track"><div class="market-fill" style="width:100%;background:linear-gradient(90deg,var(--primary),var(--cyan))"></div></div>
+          <div class="market-val">R$242B</div>
+        </div>
+        <div class="market-row">
+          <div class="market-label">Beleza &amp; Cuidados</div>
+          <div class="market-track"><div class="market-fill" style="width:65%;background:linear-gradient(90deg,var(--cyan),var(--violet))"></div></div>
+          <div class="market-val">$39,6B</div>
+        </div>
+        <div class="market-row">
+          <div class="market-label">Cosméticos Naturais</div>
+          <div class="market-track"><div class="market-fill" style="width:35%;background:linear-gradient(90deg,var(--violet),var(--amber))"></div></div>
+          <div class="market-val">R$3B</div>
+        </div>
+        <div class="market-row">
+          <div class="market-label">SAM Fitō (Premium)</div>
+          <div class="market-track"><div class="market-fill" style="width:15%;background:linear-gradient(90deg,var(--amber),var(--rose))"></div></div>
+          <div class="market-val">~R$450M</div>
+        </div>
+        <div class="divider"></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <div style="text-align:center">
+            <div style="font-size:1.5rem;font-weight:800;color:var(--primary);font-family:var(--mono)">7,2%</div>
+            <div style="font-size:11px;color:var(--muted-fg)">CAGR até 2031</div>
+          </div>
+          <div style="text-align:center">
+            <div style="font-size:1.5rem;font-weight:800;color:var(--cyan);font-family:var(--mono)">20%</div>
+            <div style="font-size:11px;color:var(--muted-fg)">CAGR naturais/ano</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="color:var(--foreground);margin-bottom:20px">Tendências críticas 2026</h3>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <span class="badge badge-green" style="flex-shrink:0;font-size:10px">HOT</span>
+            <div>
+              <div style="font-size:13px;font-weight:600;color:var(--foreground)">Beleza Metabólica</div>
+              <div style="font-size:12px;color:var(--muted-fg)">Cosméticos que agem via saúde holística e longevidade — alinhado com posicionamento da Fitō</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <span class="badge badge-cyan" style="flex-shrink:0;font-size:10px">↑↑</span>
+            <div>
+              <div style="font-size:13px;font-weight:600;color:var(--foreground)">Saúde Feminina Integrativa</div>
+              <div style="font-size:12px;color:var(--muted-fg)">Menopausa, ciclo hormonal, saúde íntima — segmento de maior crescimento em wellness</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <span class="badge badge-violet" style="flex-shrink:0;font-size:10px">↑</span>
+            <div>
+              <div style="font-size:13px;font-weight:600;color:var(--foreground)">Biodiversidade Brasileira</div>
+              <div style="font-size:12px;color:var(--muted-fg)">Ativos como açaí, buriti, copaíba e andiroba ganham reconhecimento global</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <span class="badge badge-amber" style="flex-shrink:0;font-size:10px">FORTE</span>
+            <div>
+              <div style="font-size:13px;font-weight:600;color:var(--foreground)">Consumidor consciente premium</div>
+              <div style="font-size:12px;color:var(--muted-fg)">49% dispostos a pagar mais por eco-friendly — público já sensibilizado para valor da Fitō</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <span class="badge badge-rose" style="flex-shrink:0;font-size:10px">RISCO</span>
+            <div>
+              <div style="font-size:13px;font-weight:600;color:var(--foreground)">Greenwashing dos grandes players</div>
+              <div style="font-size:12px;color:var(--muted-fg)">Grandes marcas adotam claims de "natural" — diferenciar pela transparência de fórmula é urgente</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Digital ads benchmarks -->
+    <div class="card fade-up" style="margin-top:16px">
+      <span class="badge badge-violet" style="margin-bottom:16px">Benchmarks Meta Ads — Skincare Premium 2026</span>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px">
+        <div style="text-align:center;padding:16px;background:var(--muted);border-radius:var(--radius-md)">
+          <div style="font-size:1.4rem;font-weight:800;color:var(--primary);font-family:var(--mono)">2,5–3,5x</div>
+          <div style="font-size:11px;color:var(--muted-fg);margin-top:4px">ROAS blended Meta Ads</div>
+        </div>
+        <div style="text-align:center;padding:16px;background:var(--muted);border-radius:var(--radius-md)">
+          <div style="font-size:1.4rem;font-weight:800;color:var(--cyan);font-family:var(--mono)">4–6x</div>
+          <div style="font-size:11px;color:var(--muted-fg);margin-top:4px">ROAS com UGC + retargeting</div>
+        </div>
+        <div style="text-align:center;padding:16px;background:var(--muted);border-radius:var(--radius-md)">
+          <div style="font-size:1.4rem;font-weight:800;color:var(--violet);font-family:var(--mono)">-60%</div>
+          <div style="font-size:11px;color:var(--muted-fg);margin-top:4px">Redução de CAC com UGC</div>
+        </div>
+        <div style="text-align:center;padding:16px;background:var(--muted);border-radius:var(--radius-md)">
+          <div style="font-size:1.4rem;font-weight:800;color:var(--amber);font-family:var(--mono)">+12%</div>
+          <div style="font-size:11px;color:var(--muted-fg);margin-top:4px">ROAS lift com Meta UGC (2026)</div>
+        </div>
+        <div style="text-align:center;padding:16px;background:var(--muted);border-radius:var(--radius-md)">
+          <div style="font-size:1.4rem;font-weight:800;color:var(--rose);font-family:var(--mono)">R$45–75</div>
+          <div style="font-size:11px;color:var(--muted-fg);margin-top:4px">CAC estimado 1ª compra</div>
+        </div>
+      </div>
+      <div class="insight" style="margin-top:16px">
+        <div class="insight-title">Contexto algorítmico</div>
+        <p>O <strong>algoritmo Andromeda (Meta, 2025)</strong> prioriza criativos que mantêm usuários mais tempo na tela e aprende a partir de dados de conteúdo, não de audiência. Isso significa que UGC autêntico, conteúdo educativo e vídeos com problema-solução superam criativos produzidos — ideal para o posicionamento da Fitō.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ CONCORRENTES ══════════════════════════ -->
+<section id="concorrentes">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-rose">Landscape Competitivo</span>
+      <h2>Quem disputa o mesmo espaço</h2>
+      <p>Mapeamento de concorrentes diretos e adjacentes no mercado de cosméticos naturais no Brasil.</p>
+    </div>
+
+    <div class="card-grid-3 fade-up">
+      <div class="comp-card">
+        <div class="comp-tags"><span class="comp-tag">Direto</span><span class="comp-tag">Nacional</span></div>
+        <h4>Bioart Biocosmetics</h4>
+        <p class="comp-desc">Pioneira em maquiagem e cosméticos ecológicos 100% naturais e veganos. Usa argilas medicinais e ingredientes orgânicos. Portfólio amplo (makeup + skincare).</p>
+        <div class="tag-list">
+          <span class="tag">100% natural</span>
+          <span class="tag">Makeup</span>
+          <span class="tag">Vegano</span>
+        </div>
+        <div class="comp-metric">
+          <span class="comp-metric-label">Ameaça competitiva</span>
+          <span class="comp-metric-val threat-med">Média</span>
+        </div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-tags"><span class="comp-tag">Direto</span><span class="comp-tag">Nacional</span></div>
+        <h4>Surya Brasil</h4>
+        <p class="comp-desc">20+ anos de mercado. Especializada em tintura capilar vegan e sem amônia. Certificação orgânica governamental. Forte presença internacional. Combina plantas brasileiras e indianas.</p>
+        <div class="tag-list">
+          <span class="tag">Cabelos</span>
+          <span class="tag">Internacional</span>
+          <span class="tag">Orgânico</span>
+        </div>
+        <div class="comp-metric">
+          <span class="comp-metric-label">Ameaça competitiva</span>
+          <span class="comp-metric-val threat-high">Alta (cabelos)</span>
+        </div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-tags"><span class="comp-tag">Indireto</span><span class="comp-tag">Internacional</span></div>
+        <h4>L'Occitane en Provence</h4>
+        <p class="comp-desc">Premium internacional com botânicos como proposta. Distribuição massiva no Brasil. Ticket alto mas sem foco em biodiversidade nativa brasileira ou saúde terapêutica.</p>
+        <div class="tag-list">
+          <span class="tag">Premium</span>
+          <span class="tag">Botânico</span>
+          <span class="tag">Varejo</span>
+        </div>
+        <div class="comp-metric">
+          <span class="comp-metric-label">Ameaça competitiva</span>
+          <span class="comp-metric-val threat-high">Alta (percepção)</span>
+        </div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-tags"><span class="comp-tag">Adjacente</span><span class="comp-tag">Nacional</span></div>
+        <h4>Souvie</h4>
+        <p class="comp-desc">Marca de saúde íntima feminina com produtos para vulva, lubrificação e bem-estar sexual. Posicionamento consciente e educativo. Segmento saúde íntima é adjacente ao Lub da Fitō.</p>
+        <div class="tag-list">
+          <span class="tag">Saúde íntima</span>
+          <span class="tag">Feminino</span>
+          <span class="tag">D2C</span>
+        </div>
+        <div class="comp-metric">
+          <span class="comp-metric-label">Ameaça competitiva</span>
+          <span class="comp-metric-val threat-med">Média (íntimo)</span>
+        </div>
+      </div>
+      <div class="comp-card">
+        <div class="comp-tags"><span class="comp-tag">Indireto</span><span class="comp-tag">Nacional</span></div>
+        <h4>Skala Cosméticos</h4>
+        <p class="comp-desc">Acessível, vegan e com portfólio completo para cabelo e corpo. Volume e distribuição massiva. Concorre no segmento entry (não premium). Não tem DNA terapêutico nem botânico denso.</p>
+        <div class="tag-list">
+          <span class="tag">Acessível</span>
+          <span class="tag">Vegan</span>
+          <span class="tag">Massivo</span>
+        </div>
+        <div class="comp-metric">
+          <span class="comp-metric-label">Ameaça competitiva</span>
+          <span class="comp-metric-val threat-low">Baixa</span>
+        </div>
+      </div>
+      <div class="comp-card" style="border-color:var(--primary-border);background:linear-gradient(135deg,rgba(52,211,153,0.06),var(--bg-card))">
+        <div class="comp-tags"><span class="badge badge-green" style="font-size:10px">VOCÊ</span></div>
+        <h4 style="color:var(--primary)">Fitō Cosméticos Botânicos</h4>
+        <p class="comp-desc">Única marca que une cosmética densa, plantas medicinais infusionadas (copaíba, andiroba, calêndula), saúde terapêutica e zero plástico. DNA 100% biodiversidade nativa brasileira.</p>
+        <div class="tag-list">
+          <span class="badge badge-green" style="font-size:10px">Terapêutico</span>
+          <span class="badge badge-cyan" style="font-size:10px">99% vegetal</span>
+          <span class="badge badge-violet" style="font-size:10px">Medicinal</span>
+        </div>
+        <div class="comp-metric">
+          <span class="comp-metric-label">Diferencial único</span>
+          <span class="comp-metric-val" style="color:var(--primary)">Inimitável</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Positioning table -->
+    <div class="card fade-up" style="margin-top:24px">
+      <h3 style="color:var(--foreground);margin-bottom:20px">Mapa de posicionamento</h3>
+      <div class="comp-row" style="font-weight:700;font-size:12px;color:var(--muted-fg)">
+        <div style="color:var(--muted-fg);text-transform:uppercase;letter-spacing:.06em;">Dimensão</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center;font-size:10px">
+          <div>FITŌ</div><div>Bioart</div><div>Surya</div><div>L'Occitane</div>
+        </div>
+      </div>
+      <div class="divider" style="margin:12px 0"></div>
+      <div style="display:flex;flex-direction:column;gap:0">
+        <!-- rows -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.04)">
+          <div style="font-size:13px;color:var(--muted-fg)">Fórmula 100% vegetal</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center">
+            <div style="color:var(--primary);font-weight:700">✓</div>
+            <div style="color:var(--primary);font-weight:700">✓</div>
+            <div style="color:var(--primary);font-weight:700">✓</div>
+            <div style="color:var(--muted-fg)">Parcial</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.04)">
+          <div style="font-size:13px;color:var(--muted-fg)">Plantas medicinais infusionadas</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center">
+            <div style="color:var(--primary);font-weight:700">✓ ★</div>
+            <div style="color:var(--muted-fg)">—</div>
+            <div style="color:var(--muted-fg)">Parcial</div>
+            <div style="color:var(--muted-fg)">—</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.04)">
+          <div style="font-size:13px;color:var(--muted-fg)">Biodiversidade brasileira nativa</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center">
+            <div style="color:var(--primary);font-weight:700">✓ ★</div>
+            <div style="color:var(--muted-fg)">Parcial</div>
+            <div style="color:var(--muted-fg)">Parcial</div>
+            <div style="color:var(--rose)">✗</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,0.04)">
+          <div style="font-size:13px;color:var(--muted-fg)">Foco terapêutico (dor, menopausa, íntimo)</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center">
+            <div style="color:var(--primary);font-weight:700">✓ ★</div>
+            <div style="color:var(--rose)">✗</div>
+            <div style="color:var(--rose)">✗</div>
+            <div style="color:var(--rose)">✗</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:12px 0">
+          <div style="font-size:13px;color:var(--muted-fg)">Zero plástico nas embalagens</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center">
+            <div style="color:var(--primary);font-weight:700">✓ ★</div>
+            <div style="color:var(--muted-fg)">Parcial</div>
+            <div style="color:var(--muted-fg)">—</div>
+            <div style="color:var(--rose)">✗</div>
+          </div>
+        </div>
+      </div>
+      <div class="insight" style="margin-top:20px">
+        <div class="insight-title">Vantagem competitiva única</div>
+        <p>A Fitō é a <strong>única marca</strong> que combina plantas medicinais infusionadas artesanalmente + biodiversidade nativa brasileira + abordagem terapêutica (menopausa, dor, saúde íntima) + zero plástico. Esse combo é um fosso competitivo real e extremamente difícil de replicar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ ADS ══════════════════════════════════ -->
+<section id="ads">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-violet">Estratégia de Anúncios</span>
+      <h2>3 formatos de alta performance</h2>
+      <p>Baseado nos dados reais do Instagram, benchmarks de mercado 2026 e performance do algoritmo Andromeda.</p>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:24px">
+
+      <!-- AD 1 -->
+      <div class="ad-card primary-ad fade-up">
+        <div class="ad-num">01</div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:16px">
+          <div>
+            <h3 style="color:var(--foreground);font-size:17px">Reel 45s — Problema de Saúde Feminina → Solução</h3>
+            <p style="font-size:13px;margin-top:4px">Produto: Linha Menopausa + Óleo Feminino · Temperatura: Fria → Morna</p>
+          </div>
+          <div style="text-align:right">
+            <div class="ad-roas">ROAS estimado: 4–6x</div>
+            <div style="font-size:11px;color:var(--muted-fg);margin-top:2px">UGC autêntico + problema específico</div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;flex-wrap:wrap">
+          <div>
+            <div style="font-size:11px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">Por que funciona</div>
+            <p style="font-size:13px">O post de menopausa gerou <strong style="color:var(--primary)">1.183 likes</strong> — 8x a média da conta. A audiência da Fitō tem forte afinidade com saúde feminina hormonal. Esse é o ângulo de maior ROI.</p>
+          </div>
+          <div>
+            <div style="font-size:11px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">Segmentação</div>
+            <p style="font-size:13px">Mulheres 38–55 · Interesses: menopausa, saúde hormonal, fitoterapia, autocuidado, saúde integrativa · Excluir: compradores recentes</p>
+          </div>
+        </div>
+
+        <div class="ad-script">
+          <span class="timestamp">[0:00–0:03] HOOK</span>
+          <p>"Fiz 3 anos de terapia hormonal. Esqueci de cuidar da pele nesse meio tempo. Aí uma amiga me mandou isso."</p>
+        </div>
+        <div class="ad-script" style="margin-top:8px">
+          <span class="timestamp">[0:03–0:35] CORPO</span>
+          <p>"Na menopausa, minha pele virou um papel de lixa. Ressecada, sem brilho, com irritações do nada. Tentei de tudo. Cremes importados, sérum coreano… Nada funcionava por mais de 2 semanas.<br><br>[mostra produto na mão]<br><br>A Fitō usa plantas medicinais infusionadas em óleos vegetais puros. Sem água para inflar fórmula. Sem conservantes agressivos. Calêndula, copaíba e andiroba — os mesmos ativos que curandeiras usavam há gerações para restaurar a pele.<br><br>[close-up na textura do óleo]<br><br>Minha pele em 30 dias ficou assim. Hidratada. Viva. Sem reação."</p>
+        </div>
+        <div class="ad-script" style="margin-top:8px">
+          <span class="timestamp">[0:35–0:45] CTA</span>
+          <p>"Link na bio. Primeira compra: 10% OFF com o código MENOPAUSA10."</p>
+        </div>
+
+        <div class="ad-copy" style="margin-top:16px">
+          <span class="copy-label">Copy do anúncio (feed/story)</span>
+          <p>A menopausa muda a pele. A Fitō respeita isso.<br><br>
+Plantas medicinais brasileiras infusionadas em óleos vegetais puros — para restaurar o que o tempo transforma.<br><br>
+✓ Calêndula para regeneração<br>
+✓ Copaíba anti-inflamatória<br>
+✓ Andiroba para firmeza<br>
+✓ 99% vegetal. Zero plástico.<br><br>
+→ Use MENOPAUSA10 e ganhe 10% na primeira compra.</p>
+        </div>
+      </div>
+
+      <!-- AD 2 -->
+      <div class="ad-card secondary-ad fade-up">
+        <div class="ad-num" style="background:var(--violet-dim);color:var(--violet)">02</div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:16px">
+          <div>
+            <h3 style="color:var(--foreground);font-size:17px">Reel 30s — Quebra de Mito Educativo</h3>
+            <p style="font-size:13px;margin-top:4px">Produto: Óleo Facial (R$160) · Temperatura: Fria · Objetivo: Topo de funil</p>
+          </div>
+          <div style="text-align:right">
+            <div class="ad-roas" style="color:var(--violet)">ROAS estimado: 3–4x</div>
+            <div style="font-size:11px;color:var(--muted-fg);margin-top:2px">Educação gera confiança → reduz objeção de preço</div>
+          </div>
+        </div>
+
+        <div class="insight">
+          <div class="insight-title">Base de dados</div>
+          <p>O post "Esqueça o mito: óleo no rosto dá espinhas" gerou <strong>131 likes + 33 comentários</strong> — muito acima da média para posts sem saúde feminina específica. Quebra de crença é um formato de alta conversão para produto premium.</p>
+        </div>
+
+        <div class="ad-script" style="margin-top:16px">
+          <span class="timestamp">[0:00–0:03] HOOK</span>
+          <p>"Você ainda acha que óleo no rosto vai entupir seu poro? Me deixa te mostrar o contrário."</p>
+        </div>
+        <div class="ad-script" style="margin-top:8px">
+          <span class="timestamp">[0:03–0:25] CORPO</span>
+          <p>"Seu rosto produz óleo sebáceo porque ele precisa de proteção. Quando você usa produtos que removem tudo, ele produz mais. É um ciclo vicioso.<br><br>O Óleo Facial Fitō é formulado com calêndula infusionada + copaíba. Eles regulam, não obstruem. Sua pele para de produzir sebo em excesso porque recebe o que precisa.<br><br>[antes e depois ou close-up de pele radiante]<br><br>27 avaliações com 5 estrelas. Clientes com dermatite, oleosidade, manchas — relatando resultado em dias."</p>
+        </div>
+        <div class="ad-script" style="margin-top:8px">
+          <span class="timestamp">[0:25–0:30] CTA</span>
+          <p>"Link na bio. Código OA10 para sua primeira compra."</p>
+        </div>
+
+        <div class="ad-copy" style="margin-top:16px">
+          <span class="copy-label">Copy do anúncio</span>
+          <p>Óleo no rosto não entope poro. Ele regula.<br><br>
+O problema não é o óleo — é o tipo errado de óleo.<br><br>
+O Óleo Facial Fitō usa calêndula infusionada artesanalmente em óleo vegetal puro. Resultado: pele equilibrada, firme e sem inflamação.<br><br>
+⭐⭐⭐⭐⭐ 27 avaliações verificadas<br>
+"Minha pele com dermatite nunca esteve assim."<br><br>
+🌿 99% vegetal | Feito no Brasil | Sem crueldade<br><br>
+→ Código OA10: 10% OFF na primeira compra.</p>
+        </div>
+      </div>
+
+      <!-- AD 3 -->
+      <div class="ad-card tertiary-ad fade-up">
+        <div class="ad-num" style="background:var(--amber-dim);color:var(--amber)">03</div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:16px">
+          <div>
+            <h3 style="color:var(--foreground);font-size:17px">Story 15s — Retargeting com Escassez Real</h3>
+            <p style="font-size:13px;margin-top:4px">Produto: Óleo Feminino / Capilar (reestoque) · Temperatura: Quente (visitantes)</p>
+          </div>
+          <div style="text-align:right">
+            <div class="ad-roas" style="color:var(--amber)">ROAS estimado: 5–8x</div>
+            <div style="font-size:11px;color:var(--muted-fg);margin-top:2px">Retargeting = audiência mais quente</div>
+          </div>
+        </div>
+
+        <div class="alert">
+          <div class="alert-title">Sinal do Apify</div>
+          <p>Múltiplos comentários perguntando sobre reposição de produtos esgotados. Isso é uma lista de espera orgânica — capture por WhatsApp/email e dispare o retargeting com esse criativo no momento do reestoque.</p>
+        </div>
+
+        <div class="ad-script" style="margin-top:16px">
+          <p><strong style="color:var(--amber)">[Texto na tela — fonte grande]</strong><br>
+          "Você tentou comprar o Óleo Feminino.<br>
+          Ele estava esgotado.<br>
+          <span style="color:var(--primary)">Voltou.</span>"</p>
+        </div>
+        <div class="ad-script" style="margin-top:8px">
+          <p>[Close-up do produto + plantas]<br><br>
+          Óleo Feminino Fitō — plantas medicinais para equilíbrio hormonal e bem-estar íntimo.<br>
+          Produção artesanal limitada.<br>
+          <strong style="color:var(--primary)">[Comprar antes que esgote →]</strong></p>
+        </div>
+
+        <div class="ad-copy" style="margin-top:16px">
+          <span class="copy-label">Copy do anúncio</span>
+          <p>O Óleo Feminino voltou. Por quanto tempo? Não sabemos.<br><br>
+Produção artesanal com plantas colhidas em ciclo natural — não dá pra fazer em escala infinita.<br><br>
+Plantas: erva-doce, capim-limão, camomila, lavanda — equilíbrio hormonal de dentro pra fora.<br><br>
+⚡ Estoque limitado.<br>
+→ Garanta o seu antes que esgote de novo.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Content calendar recommendation -->
+    <div class="card fade-up" style="margin-top:24px">
+      <span class="badge badge-green" style="margin-bottom:16px">Calendário de conteúdo recomendado</span>
+      <div style="overflow-x:auto">
+        <table style="width:100%;border-collapse:collapse">
+          <thead>
+            <tr>
+              <th style="text-align:left;font-size:11px;color:var(--muted-fg);text-transform:uppercase;letter-spacing:.06em;padding:10px 12px;border-bottom:1px solid var(--border);white-space:nowrap">Dia</th>
+              <th style="text-align:left;font-size:11px;color:var(--muted-fg);text-transform:uppercase;letter-spacing:.06em;padding:10px 12px;border-bottom:1px solid var(--border)">Formato</th>
+              <th style="text-align:left;font-size:11px;color:var(--muted-fg);text-transform:uppercase;letter-spacing:.06em;padding:10px 12px;border-bottom:1px solid var(--border)">Tipo de conteúdo</th>
+              <th style="text-align:left;font-size:11px;color:var(--muted-fg);text-transform:uppercase;letter-spacing:.06em;padding:10px 12px;border-bottom:1px solid var(--border)">Objetivo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding:12px;font-family:var(--mono);font-size:12px;color:var(--primary);border-bottom:1px solid rgba(255,255,255,0.04)">Seg</td>
+              <td style="padding:12px;font-size:13px;border-bottom:1px solid rgba(255,255,255,0.04)">Reel 30–45s</td>
+              <td style="padding:12px;font-size:13px;color:var(--muted-fg);border-bottom:1px solid rgba(255,255,255,0.04)">Problema de saúde feminina → solução botânica</td>
+              <td style="padding:12px;border-bottom:1px solid rgba(255,255,255,0.04)"><span class="badge badge-green" style="font-size:10px">CONVERSÃO</span></td>
+            </tr>
+            <tr>
+              <td style="padding:12px;font-family:var(--mono);font-size:12px;color:var(--cyan);border-bottom:1px solid rgba(255,255,255,0.04)">Qua</td>
+              <td style="padding:12px;font-size:13px;border-bottom:1px solid rgba(255,255,255,0.04)">Carrossel</td>
+              <td style="padding:12px;font-size:13px;color:var(--muted-fg);border-bottom:1px solid rgba(255,255,255,0.04)">Enciclopédia botânica — planta do mês + como usar</td>
+              <td style="padding:12px;border-bottom:1px solid rgba(255,255,255,0.04)"><span class="badge badge-cyan" style="font-size:10px">EDUCAÇÃO</span></td>
+            </tr>
+            <tr>
+              <td style="padding:12px;font-family:var(--mono);font-size:12px;color:var(--violet);border-bottom:1px solid rgba(255,255,255,0.04)">Sex</td>
+              <td style="padding:12px;font-size:13px;border-bottom:1px solid rgba(255,255,255,0.04)">Reel / Story</td>
+              <td style="padding:12px;font-size:13px;color:var(--muted-fg);border-bottom:1px solid rgba(255,255,255,0.04)">Behind the scenes — colheita, extração, fórmula</td>
+              <td style="padding:12px;border-bottom:1px solid rgba(255,255,255,0.04)"><span class="badge badge-violet" style="font-size:10px">CONFIANÇA</span></td>
+            </tr>
+            <tr>
+              <td style="padding:12px;font-family:var(--mono);font-size:12px;color:var(--amber)">Qui (quinzenal)</td>
+              <td style="padding:12px;font-size:13px">Story</td>
+              <td style="padding:12px;font-size:13px;color:var(--muted-fg)">Depoimento de cliente + resposta de comentários</td>
+              <td style="padding:12px"><span class="badge badge-amber" style="font-size:10px">SOCIAL PROOF</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ PRÓXIMOS PASSOS ═══════════════════════ -->
+<section id="proximos-passos">
+  <div class="container">
+    <div class="section-header">
+      <span class="badge badge-amber">Próximos Passos</span>
+      <h2>Roadmap estratégico 90 dias</h2>
+      <p>Priorizados por impacto e facilidade de implementação com base nos dados coletados.</p>
+    </div>
+
+    <div class="roadmap fade-up">
+
+      <!-- Step 1 -->
+      <div class="roadmap-item">
+        <div class="roadmap-line"></div>
+        <div class="roadmap-dot dot-q1">1</div>
+        <div class="roadmap-content">
+          <h4>Capitalizar o pico de menopausa — criar série de conteúdo</h4>
+          <p>O post de menopausa gerou 1.183 likes (8x a média). Isso não é acidente — é um sinal de mercado. Crie uma série mensal de 4 posts "Menopausa &amp; Plantas": um por semana sobre um sintoma diferente (pele seca, ressecamento vaginal, dores articulares, insônia). Em cada post, ancore em 1–2 produtos Fitō com ativo específico. Esse é o funil de conteúdo orgânico mais eficiente que a marca tem agora.</p>
+          <div class="roadmap-tags">
+            <span class="roadmap-tag">⏱ Prazo: 2 semanas</span>
+            <span class="roadmap-tag">📊 Impacto: Alto</span>
+            <span class="roadmap-tag">💰 Custo: Zero</span>
+            <span class="roadmap-tag">Instagram · Reels</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="roadmap-item">
+        <div class="roadmap-line"></div>
+        <div class="roadmap-dot dot-q1">2</div>
+        <div class="roadmap-content">
+          <h4>Lista de espera WhatsApp para produtos esgotados</h4>
+          <p>Óleo Capilar, Óleo Feminino e Xampu Sólido aparecem como esgotados nos comentários de múltiplos posts. Essa é demanda reprimida real e quente. Crie um link de WhatsApp com mensagem automática "Me avise quando voltar" e coloque em destaque no bio do Instagram, no site e no Story fixado. No momento do reestoque, esse é o criativo de retargeting com maior ROAS possível.</p>
+          <div class="roadmap-tags">
+            <span class="roadmap-tag">⏱ Prazo: 3 dias</span>
+            <span class="roadmap-tag">📊 Impacto: Alto</span>
+            <span class="roadmap-tag">💰 Custo: Zero</span>
+            <span class="roadmap-tag">WhatsApp · Bio · Story</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="roadmap-item">
+        <div class="roadmap-line"></div>
+        <div class="roadmap-dot dot-q1">3</div>
+        <div class="roadmap-content">
+          <h4>Primeiro teste de Meta Ads — R$500/semana</h4>
+          <p>Com os 3 criativos acima (menopausa, quebra de mito, retargeting escassez), configure uma campanha de conversão no Meta Ads com orçamento de R$500/semana. Use os públicos descritos nos ads. Priorize o Ad 1 (menopausa) — é o que tem mais base de dados para sustentar a hipótese. Após 14 dias, analise o ROAS e o CAC. Meta: ROAS ≥ 2,5x para continuar escalando.</p>
+          <div class="roadmap-tags">
+            <span class="roadmap-tag">⏱ Prazo: 7 dias</span>
+            <span class="roadmap-tag">📊 Impacto: Alto</span>
+            <span class="roadmap-tag">💰 Investimento: R$500/sem</span>
+            <span class="roadmap-tag">Meta Ads</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="roadmap-item">
+        <div class="roadmap-line"></div>
+        <div class="roadmap-dot dot-q2">4</div>
+        <div class="roadmap-content">
+          <h4>Parceria de micro-influenciadoras em saúde feminina</h4>
+          <p>Identifique 5–8 micro-influenciadoras (10K–80K) no nicho de menopausa, fitoterapia e saúde integrativa feminina. Ofereça produtos em troca de 1 Reel + 3 Stories autênticos. Micro-influenciadoras nesse nicho têm taxas de engajamento 5–8x maiores que macro e o custo é praticamente zero (produto). O conteúdo gerado serve como UGC para seus ads pagos — matando dois coelhos com uma pedrada.</p>
+          <div class="roadmap-tags">
+            <span class="roadmap-tag">⏱ Prazo: 30 dias</span>
+            <span class="roadmap-tag">📊 Impacto: Muito Alto</span>
+            <span class="roadmap-tag">💰 Custo: Produto (R$150–300)</span>
+            <span class="roadmap-tag">Influencer · UGC · Ads</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="roadmap-item">
+        <div class="roadmap-line"></div>
+        <div class="roadmap-dot dot-q2">5</div>
+        <div class="roadmap-content">
+          <h4>Capitalizar Beleza na Web — campanha de lançamento</h4>
+          <p>A entrada na Beleza na Web (março 2026) gerou o segundo post mais engajado da análise. Esse canal amplia massivamente o awareness. Crie um criativo de ad específico para esse novo canal: "Agora na Beleza na Web — conheça a marca que está esgotando toda semana". Inclua o logo da BNW como social proof de credibilidade. Isso funciona tanto para aquisição quanto para reconversão de leads que visitaram o site mas não compraram.</p>
+          <div class="roadmap-tags">
+            <span class="roadmap-tag">⏱ Prazo: 14 dias</span>
+            <span class="roadmap-tag">📊 Impacto: Médio-Alto</span>
+            <span class="roadmap-tag">💰 Investimento: R$300–500</span>
+            <span class="roadmap-tag">Meta Ads · Beleza na Web</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 6 -->
+      <div class="roadmap-item">
+        <div class="roadmap-line"></div>
+        <div class="roadmap-dot dot-q2">6</div>
+        <div class="roadmap-content">
+          <h4>SEO: ranquear para "cosmético para menopausa" e termos terapêuticos</h4>
+          <p>Com o menopausa como ângulo central, o SEO é um canal de crescimento orgânico de longo prazo. Crie uma landing page ou blog post com título "Cuidados com a pele na menopausa: o guia com plantas medicinais" linkando para os produtos. Os termos "cosmético para menopausa", "óleo para pele seca menopausa" e "cosmético botânico para menopausa" têm baixa concorrência e alta intenção de compra.</p>
+          <div class="roadmap-tags">
+            <span class="roadmap-tag">⏱ Prazo: 30–45 dias</span>
+            <span class="roadmap-tag">📊 Impacto: Alto (longo prazo)</span>
+            <span class="roadmap-tag">💰 Custo: Copywriting</span>
+            <span class="roadmap-tag">SEO · Blog · Landing Page</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 7 -->
+      <div class="roadmap-item">
+        <div class="roadmap-dot dot-q3">7</div>
+        <div class="roadmap-content">
+          <h4>Linha "Fitō Menopausa" — posicionamento de linha especializada</h4>
+          <p>Se os ads de menopausa performarem (e os dados indicam fortemente que vão), o próximo passo é formalizar uma linha com branding próprio. Não são produtos novos necessariamente — é reposicionamento e curadoria dos existentes (Óleo Facial, Lub, Óleo Feminino, Balm) sob um guarda-chuva de "Fitō Menopausa". Kits de rituais, embalagem especial, copy dedicada. Esse é o passo de maior potencial de receita nos próximos 6 meses.</p>
+          <div class="roadmap-tags">
+            <span class="roadmap-tag">⏱ Prazo: 60–90 dias</span>
+            <span class="roadmap-tag">📊 Impacto: Transformador</span>
+            <span class="roadmap-tag">💰 Investimento: Médio</span>
+            <span class="roadmap-tag">Produto · Branding · Mercado</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Priority matrix -->
+    <div class="card fade-up" style="margin-top:40px">
+      <span class="badge badge-green" style="margin-bottom:16px">Matriz de prioridade</span>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border)">
+        <div style="padding:24px;background:rgba(52,211,153,0.06)">
+          <div style="font-size:11px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px">Fazer AGORA (alto impacto, fácil)</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--muted-fg)">
+            <li>→ Lista de espera WhatsApp (3 dias)</li>
+            <li>→ Série Menopausa no Instagram (2 semanas)</li>
+            <li>→ Primeiro teste Meta Ads (R$500)</li>
+          </ul>
+        </div>
+        <div style="padding:24px;background:rgba(251,191,36,0.05)">
+          <div style="font-size:11px;font-weight:700;color:var(--amber);text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px">Planejar (alto impacto, mais esforço)</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--muted-fg)">
+            <li>→ Micro-influenciadoras saúde feminina</li>
+            <li>→ SEO para menopausa</li>
+            <li>→ Linha Fitō Menopausa (kits)</li>
+          </ul>
+        </div>
+        <div style="padding:24px;background:rgba(34,211,238,0.04)">
+          <div style="font-size:11px;font-weight:700;color:var(--cyan);text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px">Testar (menor prioridade)</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--muted-fg)">
+            <li>→ TikTok Shop para cosméticos</li>
+            <li>→ Programa de afiliados</li>
+            <li>→ Newsletter de bem-estar botânico</li>
+          </ul>
+        </div>
+        <div style="padding:24px;background:rgba(251,113,133,0.04)">
+          <div style="font-size:11px;font-weight:700;color:var(--rose);text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px">Evitar por agora</div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--muted-fg)">
+            <li>→ Posts de branding genérico (11 likes)</li>
+            <li>→ Macro influenciadoras (ROI baixo)</li>
+            <li>→ Diversificar posicionamento — foco na menopausa</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ CTA FINAL ═════════════════════════════ -->
+<section style="padding:80px 0">
+  <div class="container">
+    <div class="highlight-strip fade-up">
+      <span class="badge badge-green" style="margin-bottom:16px">Síntese Estratégica</span>
+      <h2>A Fitō tem um ativo que a maioria das marcas pagaria caro para ter</h2>
+      <p style="margin-top:12px">Uma fundadora com história real, ingredientes rastreáveis de biodiversidade nativa, produtos que esgotam antes de serem promovidos e uma audiência com fortíssima afinidade com saúde feminina integrativa. O próximo passo não é inventar nada — é amplificar o que já está funcionando.</p>
+      <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:28px">
+        <div style="background:var(--primary);color:#0a2e24;font-weight:700;font-size:13px;padding:12px 28px;border-radius:var(--radius-md)">Menopausa é o produto-chave</div>
+        <div style="background:var(--muted);color:var(--foreground);font-weight:600;font-size:13px;padding:12px 28px;border-radius:var(--radius-md);border:1px solid var(--border)">UGC + problema = ROAS 4–6x</div>
+        <div style="background:var(--muted);color:var(--foreground);font-weight:600;font-size:13px;padding:12px 28px;border-radius:var(--radius-md);border:1px solid var(--border)">Escassez real é social proof</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════ FOOTER ════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <p>Pesquisa gerada em <strong>01 de maio de 2026</strong> · Dados coletados via <strong>Apify Instagram Post Scraper</strong></p>
+    <p style="margin-top:8px">Sources: usefito.com · @fito.cosmetica · CicloVivo · Beleza na Web · Mordor Intelligence · Santosflora · Meta Ads Benchmarks 2026</p>
+    <p style="margin-top:8px;color:rgba(255,255,255,0.2)">Design system baseado em EI/design-system-homepage.md</p>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════ JS ════════════════════════════════════ -->
+<script>
+  // ── Scroll reveal
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+  // ── Engagement chart
+  const ctx = document.getElementById('engChart').getContext('2d');
+  const labels = [
+    'Menopausa','Beleza na Web','Promo Relâmpago','Calêndula','Capim-limão',
+    'Óleo no rosto','Reconexão natureza','Outono ritual','Rótulos transp.','Patchouli',
+    'MassageaDOR','Couro cabeludo','Técnica milenar','Saúde íntima','Lançamento',
+    'Trio sólidos','Aromas Fitō','Fórmulas brotam','Relação c/ tempo'
+  ];
+  const data = [1183,227,215,150,149,131,121,93,66,59,71,54,52,48,44,44,29,20,11];
+  const colors = data.map(v =>
+    v >= 200 ? 'rgba(52,211,153,0.9)' :
+    v >= 100 ? 'rgba(34,211,238,0.8)' :
+    v >= 50  ? 'rgba(167,139,250,0.7)' :
+               'rgba(136,136,128,0.5)'
+  );
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Likes',
+        data,
+        backgroundColor: colors,
+        borderRadius: 6,
+        borderSkipped: false,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#1c1c1c',
+          borderColor: 'rgba(255,255,255,0.1)',
+          borderWidth: 1,
+          titleColor: '#f5f5f0',
+          bodyColor: '#888880',
+          callbacks: {
+            label: (ctx) => ` ${ctx.parsed.y} likes`
+          }
+        }
+      },
+      scales: {
+        x: {
+          ticks: { color: '#888880', font: { size: 10 }, maxRotation: 45 },
+          grid: { color: 'rgba(255,255,255,0.04)' }
+        },
+        y: {
+          ticks: { color: '#888880', font: { size: 11 } },
+          grid: { color: 'rgba(255,255,255,0.06)' }
+        }
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

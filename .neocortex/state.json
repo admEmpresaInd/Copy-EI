@@ -1,0 +1,21 @@
+{
+  "config": {
+    "project_name": "unknown",
+    "default_branch": "main",
+    "language": "pt-BR"
+  },
+  "stories": {},
+  "epics": {},
+  "scope": {
+    "kind": "full",
+    "trigger": "*status",
+    "targetEpicId": null,
+    "targetStoryId": null,
+    "includedStoryCount": 0,
+    "omittedStoryCount": 0,
+    "omittedEpicCount": 0,
+    "reason": "full-state"
+  },
+  "schema_version": 1,
+  "last_updated": "2026-05-22T20:34:54.672Z"
+}

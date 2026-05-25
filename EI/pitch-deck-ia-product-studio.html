@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IA Product Studio: Crie, Lance e Venda Seu Primeiro Produto de IA em 56 Dias</title>
+<meta name="description" content="Consultoria Degrau 02 da Empresa Independente. Em 56 dias você cria, lança e vende seu primeiro produto de IA, gerando entre R$30k e R$100k em receita nova ainda este ano.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --background: #141414;
+    --foreground: #fafafa;
+    --primary: #34d399;
+    --primary-fg: #0a2e24;
+    --muted: #333333;
+    --muted-fg: #a3a3a3;
+    --card: #1e1e1e;
+    --border: rgba(255,255,255,0.09);
+    --destructive: #ef4444;
+    --emerald: #34d399;
+    --violet: #a78bfa;
+    --amber: #fbbf24;
+    --blue: #60a5fa;
+    --rose: #fb7185;
+    --cyan: #22d3ee;
+    --orange: #fb923c;
+    --font: 'Space Grotesk', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --radius: 10px;
+    --radius-lg: 14px;
+    --radius-xl: 18px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ── GLOW ── */
+  .glow-emerald { box-shadow: 0 0 20px rgba(52,211,153,0.15), 0 0 60px rgba(52,211,153,0.05); }
+  .glow-emerald-strong { box-shadow: 0 0 30px rgba(52,211,153,0.25), 0 0 80px rgba(52,211,153,0.1); }
+  .glow-violet { box-shadow: 0 0 20px rgba(167,139,250,0.15), 0 0 60px rgba(167,139,250,0.05); }
+  .glow-violet-strong { box-shadow: 0 0 30px rgba(167,139,250,0.25), 0 0 80px rgba(167,139,250,0.1); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeInLeft {
+    from { opacity: 0; transform: translateX(-30px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes gradientShift {
+    0%,100% { background-position: 0% 50%; }
+    50%      { background-position: 100% 50%; }
+  }
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(-8px); }
+  }
+  @keyframes pulse-glow {
+    0%,100% { box-shadow: 0 0 20px rgba(167,139,250,0.15); }
+    50%      { box-shadow: 0 0 40px rgba(167,139,250,0.35); }
+  }
+  @keyframes pulse-dot {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: 0.6; transform: scale(1.15); }
+  }
+
+  .animate-fade-in-up { animation: fadeInUp 0.7s ease-out forwards; }
+  .d1 { animation-delay: 0.1s; }
+  .d2 { animation-delay: 0.2s; }
+  .d3 { animation-delay: 0.3s; }
+  .d4 { animation-delay: 0.4s; }
+  .d5 { animation-delay: 0.5s; }
+  .d6 { animation-delay: 0.6s; }
+  .opacity-0 { opacity: 0; }
+  .float-soft { animation: float 4s ease-in-out infinite; }
+
+  .scroll-hidden { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease-out, transform 0.7s ease-out; }
+  .scroll-visible { opacity: 1; transform: translateY(0); }
+  .stagger-1 { transition-delay: 0.1s; }
+  .stagger-2 { transition-delay: 0.2s; }
+  .stagger-3 { transition-delay: 0.3s; }
+  .stagger-4 { transition-delay: 0.4s; }
+
+  /* ── GRADIENT TEXT (violet) ── */
+  .text-gradient {
+    background: linear-gradient(135deg, #a78bfa, #c4b5fd, #818cf8);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 6s ease infinite;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(20,20,20,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-icon {
+    width: 32px; height: 32px;
+    background: var(--primary);
+    color: var(--primary-fg);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 13px;
+  }
+  .logo-text { font-weight: 700; font-size: 15px; color: var(--foreground); }
+  .header-badge {
+    font-size: 11px; font-family: var(--mono);
+    color: var(--violet);
+    background: rgba(167,139,250,0.07);
+    border: 1px solid rgba(167,139,250,0.18);
+    padding: 4px 12px; border-radius: 99px;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 80px 24px; }
+  section.compact { padding: 48px 24px; }
+  .container-sm  { max-width: 720px;  margin: 0 auto; }
+  .container-md  { max-width: 900px;  margin: 0 auto; }
+  .container-lg  { max-width: 1100px; margin: 0 auto; }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 100px 24px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-glow {
+    position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(167,139,250,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 16px; border-radius: 99px;
+    border: 1px solid rgba(167,139,250,0.25);
+    background: rgba(167,139,250,0.06);
+    font-size: 12px; color: var(--violet);
+    margin-bottom: 24px;
+    animation: pulse-glow 3s ease-in-out infinite;
+  }
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+  }
+  .hero p {
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    color: var(--muted-fg);
+    max-width: 620px;
+    margin: 0 auto 36px;
+    line-height: 1.8;
+  }
+  .hero-meta {
+    display: flex; align-items: center; justify-content: center; gap: 24px;
+    flex-wrap: wrap;
+  }
+  .hero-meta span {
+    font-size: 12px; color: var(--muted-fg);
+    font-family: var(--mono);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .hero-meta span::before { content: '▸'; color: var(--violet); }
+
+  /* ── SECTION LABEL (violet for this deck) ── */
+  .section-label {
+    display: inline-block;
+    padding: 4px 12px; border-radius: 99px;
+    background: rgba(167,139,250,0.1);
+    font-size: 11px; font-weight: 600;
+    color: var(--violet);
+    letter-spacing: 0.05em; text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  h2 {
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .section-desc {
+    font-size: 1rem;
+    color: var(--muted-fg);
+    max-width: 600px;
+    margin: 0 auto 48px;
+    line-height: 1.8;
+  }
+  .text-center { text-align: center; }
+
+  /* ── VERDICT CARD (violet) ── */
+  .verdict-card {
+    background: linear-gradient(135deg, rgba(167,139,250,0.08) 0%, rgba(96,165,250,0.04) 100%);
+    border: 1px solid rgba(167,139,250,0.25);
+    border-radius: var(--radius-xl);
+    padding: 40px;
+    margin-bottom: 48px;
+    animation: pulse-glow 4s ease-in-out infinite;
+  }
+  .verdict-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 11px; font-weight: 500;
+    color: var(--violet); letter-spacing: 0.08em;
+    text-transform: uppercase; margin-bottom: 16px;
+  }
+  .verdict-tag::before {
+    content: '';
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--violet);
+    animation: pulse-dot 2s infinite;
+  }
+  .verdict-card h3 {
+    font-size: 1.4rem; font-weight: 700;
+    margin-bottom: 16px; color: var(--foreground);
+  }
+  .verdict-card p { color: var(--muted-fg); line-height: 1.8; }
+  .verdict-card strong { color: var(--violet); }
+
+  /* ── ICP TABLE ── */
+  .icp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 48px; }
+  @media (max-width: 768px) { .icp-grid { grid-template-columns: 1fr; } }
+  .icp-card {
+    background: var(--card);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .icp-header {
+    padding: 20px 24px 16px;
+    font-weight: 700; font-size: 0.95rem;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .icp-header.fit { background: linear-gradient(90deg, rgba(52,211,153,0.1) 0%, transparent 100%); border-bottom: 1px solid rgba(52,211,153,0.15); }
+  .icp-header.nofit { background: linear-gradient(90deg, rgba(239,68,68,0.08) 0%, transparent 100%); border-bottom: 1px solid rgba(239,68,68,0.15); }
+  .icp-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .icp-dot.fit { background: var(--primary); }
+  .icp-dot.nofit { background: var(--destructive); }
+  .icp-rows { padding: 8px 0; }
+  .icp-row {
+    padding: 12px 24px;
+    display: flex; gap: 12px;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.88rem;
+    align-items: flex-start;
+  }
+  .icp-row:last-child { border-bottom: none; }
+  .icp-row-icon { min-width: 18px; padding-top: 3px; font-size: 0.8rem; }
+  .icp-row-icon.fit { color: var(--primary); }
+  .icp-row-icon.nofit { color: var(--destructive); }
+  .icp-row-val { color: var(--foreground); line-height: 1.6; }
+
+  /* ── PHASES (timeline) ── */
+  .phases-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 32px; }
+  @media (max-width: 900px) { .phases-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 540px) { .phases-grid { grid-template-columns: 1fr; } }
+  .phase-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 28px 22px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .phase-card:hover { border-color: rgba(167,139,250,0.3); transform: translateY(-3px); }
+  .phase-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--violet), transparent);
+  }
+  .phase-num {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: rgba(167,139,250,0.12);
+    color: var(--violet);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 14px; font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .phase-range {
+    font-size: 10px; font-family: var(--mono); letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--muted-fg);
+    margin-bottom: 6px;
+  }
+  .phase-card h4 { font-size: 1.05rem; font-weight: 700; margin-bottom: 10px; color: var(--foreground); }
+  .phase-card p { font-size: 0.85rem; color: var(--muted-fg); line-height: 1.7; }
+
+  /* ── OPPORTUNITY BLOCKS ── */
+  .opp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-bottom: 32px; }
+  @media (max-width: 900px) { .opp-grid { grid-template-columns: 1fr; } }
+  .opp-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 30px 26px;
+    transition: border-color 0.3s;
+  }
+  .opp-card:hover { border-color: rgba(167,139,250,0.3); }
+  .opp-icon {
+    font-size: 1.8rem;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .opp-card h4 {
+    font-size: 1.05rem; font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--violet);
+  }
+  .opp-card p { font-size: 0.88rem; color: var(--muted-fg); line-height: 1.7; }
+
+  /* ── LADDER ── */
+  .ladder { display: flex; flex-direction: column; gap: 4px; margin-bottom: 48px; max-width: 620px; margin-left: auto; margin-right: auto; }
+  .ladder-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 28px 32px;
+    position: relative;
+    transition: border-color 0.3s;
+  }
+  .ladder-item:hover { border-color: rgba(167,139,250,0.2); }
+  .ladder-item.previous {
+    border-color: rgba(52,211,153,0.18);
+    background: linear-gradient(135deg, rgba(52,211,153,0.04) 0%, var(--card) 100%);
+    opacity: 0.85;
+  }
+  .ladder-item.current {
+    border-color: rgba(167,139,250,0.45);
+    background: linear-gradient(135deg, rgba(167,139,250,0.1) 0%, var(--card) 100%);
+    box-shadow: 0 0 30px rgba(167,139,250,0.12);
+  }
+  .ladder-item.future {
+    border-color: rgba(255,255,255,0.06);
+    background: linear-gradient(135deg, rgba(251,191,36,0.03) 0%, var(--card) 100%);
+    opacity: 0.65;
+  }
+  .you-are-here {
+    position: absolute;
+    top: -10px; right: 24px;
+    background: var(--violet);
+    color: #0a0a14;
+    font-size: 10px; font-weight: 700;
+    font-family: var(--mono);
+    padding: 4px 12px; border-radius: 99px;
+    letter-spacing: 0.05em; text-transform: uppercase;
+  }
+  .ladder-connector {
+    display: flex; align-items: center; justify-content: center;
+    color: var(--violet); font-size: 1.2rem; padding: 2px 0;
+  }
+  .ladder-num {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em;
+    text-transform: uppercase; margin-bottom: 8px;
+  }
+  .ladder-num.a { color: var(--primary); }
+  .ladder-num.b { color: var(--violet); }
+  .ladder-num.c { color: var(--amber); }
+  .ladder-item h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+  .ladder-item p { font-size: 0.88rem; color: var(--muted-fg); margin-bottom: 12px; }
+  .ladder-meta { display: flex; gap: 10px; flex-wrap: wrap; }
+  .ladder-tag {
+    font-size: 11px; font-family: var(--mono);
+    padding: 3px 10px; border-radius: 99px;
+  }
+  .ladder-tag.price { background: rgba(52,211,153,0.1); color: var(--primary); }
+  .ladder-tag.price-v { background: rgba(167,139,250,0.12); color: var(--violet); }
+  .ladder-tag.price-o { background: rgba(251,191,36,0.1); color: var(--amber); }
+  .ladder-tag.time { background: rgba(96,165,250,0.1); color: var(--blue); }
+  .ladder-tag.icp { background: rgba(255,255,255,0.05); color: var(--muted-fg); }
+
+  /* ── OFFER CARD (violet) ── */
+  .offer-card {
+    border-radius: var(--radius-xl);
+    padding: 40px;
+    border: 1px solid;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 32px;
+  }
+  .offer-card.violet {
+    background: linear-gradient(135deg, rgba(167,139,250,0.08) 0%, var(--card) 60%);
+    border-color: rgba(167,139,250,0.28);
+  }
+  .offer-step {
+    font-size: 10px; font-family: var(--mono); letter-spacing: 0.1em;
+    text-transform: uppercase; margin-bottom: 12px;
+    color: var(--violet);
+  }
+  .offer-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 8px; line-height: 1.3; }
+  .offer-subtitle { font-size: 0.92rem; color: var(--muted-fg); margin-bottom: 28px; line-height: 1.7; }
+  .offer-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+  .offer-table th {
+    font-size: 10px; font-family: var(--mono); letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--muted-fg);
+    padding: 10px 0; border-bottom: 1px solid var(--border);
+    text-align: left;
+  }
+  .offer-table td {
+    font-size: 0.88rem; padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .offer-table td:first-child { color: var(--muted-fg); width: 65%; padding-right: 16px; }
+  .offer-table td:last-child { color: var(--violet); font-family: var(--mono); font-size: 0.82rem; text-align: right; white-space: nowrap; }
+  .offer-table tr:last-child td { border-bottom: none; font-weight: 700; padding-top: 16px; }
+  .offer-table tr:last-child td:first-child { color: var(--foreground); }
+  .offer-table tr:last-child td:last-child { color: var(--violet); font-size: 1rem; }
+
+  /* ── PRICE BLOCK ── */
+  .price-wrapper {
+    background: linear-gradient(135deg, rgba(167,139,250,0.06) 0%, var(--card) 100%);
+    border: 1px solid rgba(167,139,250,0.28);
+    border-radius: var(--radius-xl);
+    padding: 0;
+    overflow: hidden;
+    margin-bottom: 32px;
+  }
+  .price-header {
+    padding: 28px 32px;
+    background: rgba(167,139,250,0.05);
+    border-bottom: 1px solid rgba(167,139,250,0.12);
+    text-align: center;
+  }
+  .price-header .declared {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--muted-fg);
+    margin-bottom: 4px;
+  }
+  .price-header .declared s { color: var(--muted-fg); opacity: 0.7; }
+  .price-header .discount {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 0.78rem;
+    font-family: var(--mono);
+    color: var(--violet);
+    background: rgba(167,139,250,0.1);
+    padding: 3px 10px;
+    border-radius: 99px;
+  }
+  .price-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+  @media (max-width: 720px) { .price-options { grid-template-columns: 1fr; } }
+  .price-option {
+    padding: 32px;
+    position: relative;
+  }
+  .price-option.featured {
+    background: linear-gradient(135deg, rgba(167,139,250,0.07) 0%, transparent 100%);
+    border-right: 1px solid rgba(167,139,250,0.15);
+  }
+  @media (max-width: 720px) {
+    .price-option.featured { border-right: none; border-bottom: 1px solid rgba(167,139,250,0.15); }
+  }
+  .price-option-label {
+    font-size: 10px; font-family: var(--mono);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted-fg);
+    margin-bottom: 12px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .price-option.featured .price-option-label { color: var(--violet); }
+  .price-badge {
+    background: var(--violet);
+    color: #0a0a14;
+    font-size: 9px; font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 99px;
+    letter-spacing: 0.04em;
+  }
+  .price-value {
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .price-option.featured .price-value { color: var(--violet); }
+  .price-option:not(.featured) .price-value { color: var(--foreground); }
+  .price-installments {
+    font-size: 0.85rem;
+    color: var(--muted-fg);
+    font-family: var(--mono);
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+  .price-installments strong { color: var(--foreground); font-weight: 600; }
+  .price-note {
+    font-size: 0.78rem;
+    color: var(--muted-fg);
+    line-height: 1.6;
+  }
+
+  /* ── GUARANTEE ── */
+  .offer-guarantee {
+    margin-top: 0;
+    padding: 24px 28px;
+    border-radius: var(--radius-lg);
+    font-size: 0.92rem;
+    line-height: 1.8;
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+  }
+  .offer-guarantee.violet { background: rgba(167,139,250,0.06); border: 1px solid rgba(167,139,250,0.18); color: var(--muted-fg); }
+  .offer-guarantee strong { color: var(--foreground); }
+  .guarantee-icon {
+    font-size: 1.8rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .guarantee-content h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--violet);
+    margin-bottom: 8px;
+  }
+
+  /* ── QUOTE ── */
+  .quote-block {
+    background: var(--card);
+    border-left: 3px solid var(--violet);
+    border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+    padding: 24px 28px;
+    margin-bottom: 24px;
+  }
+  .quote-block p { font-size: 0.95rem; color: var(--muted-fg); font-style: italic; line-height: 1.8; margin-bottom: 12px; }
+  .quote-block strong { color: var(--violet); font-style: normal; }
+
+  /* ── CTA SECTION ── */
+  .cta-section {
+    padding: 100px 24px;
+    text-align: center;
+    background: radial-gradient(ellipse at center top, rgba(167,139,250,0.06) 0%, transparent 60%);
+  }
+  .cta-section h2 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    margin-bottom: 16px;
+  }
+  .cta-section p { color: var(--muted-fg); margin-bottom: 36px; max-width: 540px; margin-left: auto; margin-right: auto; }
+  .cta-button {
+    display: inline-block;
+    background: var(--violet);
+    color: #0a0a14;
+    font-family: var(--font);
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding: 18px 42px;
+    border-radius: 99px;
+    border: none;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 30px rgba(167,139,250,0.25);
+    cursor: pointer;
+    letter-spacing: -0.01em;
+  }
+  .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 50px rgba(167,139,250,0.45);
+    background: #c4b5fd;
+  }
+  .cta-scarcity {
+    margin-top: 24px;
+    font-size: 0.82rem;
+    font-family: var(--mono);
+    color: var(--muted-fg);
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .cta-scarcity::before {
+    content: '';
+    width: 8px; height: 8px;
+    background: var(--violet);
+    border-radius: 50%;
+    animation: pulse-dot 2s infinite;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: rgba(255,255,255,0.02);
+    border-top: 1px solid var(--border);
+    padding: 32px 24px;
+    text-align: center;
+  }
+  footer .logo { justify-content: center; margin-bottom: 8px; }
+  footer p { font-size: 12px; color: var(--muted-fg); font-family: var(--mono); }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 0 24px;
+  }
+
+  /* ── MISC ── */
+  .mb-8 { margin-bottom: 32px; }
+  .mb-6 { margin-bottom: 24px; }
+  .mt-4 { margin-top: 16px; }
+  .check { color: var(--primary); margin-right: 6px; }
+  .cross { color: var(--destructive); margin-right: 6px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="#" class="logo">
+    <div class="logo-icon">EI</div>
+    <span class="logo-text">Empresa Independente</span>
+  </a>
+  <span class="header-badge">Degrau 02 · IA Product Studio</span>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="container-sm">
+    <div class="badge animate-fade-in-up opacity-0 d1">
+      🚀 Consultoria de Produto
+    </div>
+    <h1 class="animate-fade-in-up opacity-0 d2">
+      Crie, Lance e Venda Seu Primeiro <span class="text-gradient">Produto de IA</span>
+    </h1>
+    <p class="animate-fade-in-up opacity-0 d3">
+      Em 56 dias. Sem saber programar. Com receita nova de <strong style="color:var(--foreground);">R$30k a R$100k</strong> ainda este ano, mesmo que você nunca tenha lançado um produto digital antes.
+    </p>
+    <div class="hero-meta animate-fade-in-up opacity-0 d4">
+      <span>56 dias</span>
+      <span>Sem programar</span>
+      <span>R$30k a R$100k de receita</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PARA QUEM É -->
+<section>
+  <div class="container-lg">
+    <div class="text-center scroll-hidden stagger-1">
+      <span class="section-label">Perfil Ideal</span>
+      <h2>Essa consultoria foi feita para você se...</h2>
+      <p class="section-desc">A IA Product Studio não é para todo mundo. Veja se você se encaixa.</p>
+    </div>
+
+    <div class="icp-grid">
+      <!-- Se encaixa -->
+      <div class="icp-card scroll-hidden stagger-2">
+        <div class="icp-header fit">
+          <div class="icp-dot fit"></div>
+          Você SE ENCAIXA se...
+        </div>
+        <div class="icp-rows">
+          <div class="icp-row">
+            <span class="icp-row-icon fit">✓</span>
+            <span class="icp-row-val">É consultor, agência ou empresário e precisa de uma nova fonte de receita escalável</span>
+          </div>
+          <div class="icp-row">
+            <span class="icp-row-icon fit">✓</span>
+            <span class="icp-row-val">Tem ideias de produto digital de IA, mas trava na hora de tirar do papel porque não sabe desenvolver</span>
+          </div>
+          <div class="icp-row">
+            <span class="icp-row-icon fit">✓</span>
+            <span class="icp-row-val">Sente que está perdendo a janela de oportunidade da IA enquanto outros estão lançando todo mês</span>
+          </div>
+          <div class="icp-row">
+            <span class="icp-row-icon fit">✓</span>
+            <span class="icp-row-val">Quer um sonho claro: produto no ar gerando R$30k a R$100k em receita nova ainda este ano</span>
+          </div>
+          <div class="icp-row">
+            <span class="icp-row-icon fit">✓</span>
+            <span class="icp-row-val">Está disposto a se comprometer com 56 dias de execução intensa para sair do zero ao primeiro cliente pagante</span>
+          </div>
+          <div class="icp-row">
+            <span class="icp-row-icon fit">✓</span>
+            <span class="icp-row-val">Tem perfil empreendedor, toma decisão rápida quando enxerga o ROI</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Não se encaixa -->
+      <div class="icp-card scroll-hidden stagger-3">
+        <div class="icp-header nofit">
+          <div class="icp-dot nofit"></div>
+          Você NÃO se encaixa se...
+        </div>
+        <div class="icp-rows">
+          <div class="icp-row">
+            <span class="icp-row-icon nofit">✗</span>
+            <span class="icp-row-val">Está procurando uma "fórmula mágica" para enriquecer em 30 dias sem trabalhar</span>
+          </div>
+          <div class="icp-row">
+            <span class="icp-row-icon nofit">✗</span>
+            <span class="icp-row-val">Quer só automatizar a própria empresa (nesse caso, comece pelo Degrau 01: IA Operating System)</span>
+          </div>
+          <div class="icp-row">
+            <span class="icp-row-icon nofit">✗</span>
+            <span class="icp-row-val">Não tem nenhuma noção do mercado em que quer atuar nem está disposto a fazer pesquisa</span>
+          </div>
+          <div class="icp-row">
+            <span class="icp-row-icon nofit">✗</span>
+            <span class="icp-row-val">Não consegue dedicar pelo menos 8h/semana de execução real durante a consultoria</span>
+          </div>
+          <div class="icp-row">
+            <span class="icp-row-icon nofit">✗</span>
+            <span class="icp-row-val">Acha que só programador "raiz" consegue criar produto digital e não está aberto a mudar essa crença</span>
+          </div>
+          <div class="icp-row">
+            <span class="icp-row-icon nofit">✗</span>
+            <span class="icp-row-val">Precisa de 6 reuniões internas para aprovar qualquer decisão (perde a janela de oportunidade)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- O QUE ESTÁ INCLUÍDO (VALUE STACK) -->
+<section>
+  <div class="container-md">
+    <div class="text-center scroll-hidden stagger-1">
+      <span class="section-label">O que está incluído</span>
+      <h2>Tudo que você precisa para sair do zero ao produto lançado</h2>
+      <p class="section-desc">Cada entregável foi desenhado para eliminar uma trava específica que impede consultores e agências de lançar produtos de IA.</p>
+    </div>
+
+    <div class="offer-card violet scroll-hidden stagger-2">
+      <div class="offer-step">Value Stack Completo</div>
+      <h3>IA Product Studio: 8 entregáveis e 2 bônus</h3>
+      <p class="offer-subtitle">Estratégia, construção, lançamento e comercial. Tudo construído com você, ao vivo, usando as mesmas ferramentas que vão sustentar o seu produto depois.</p>
+
+      <table class="offer-table">
+        <thead>
+          <tr><th>O que está incluído</th><th>Valor declarado</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Definição estratégica do produto (nicho, avatar, oferta)</td><td>R$8.000</td></tr>
+          <tr><td>Construção técnica do produto (stack completa)</td><td>R$12.000</td></tr>
+          <tr><td>Página de vendas + copy usando as próprias ferramentas</td><td>R$5.000</td></tr>
+          <tr><td>Estratégia de precificação e posicionamento</td><td>R$4.000</td></tr>
+          <tr><td>Validação beta com 3 a 5 clientes reais</td><td>R$6.000</td></tr>
+          <tr><td>Script de apresentação comercial do produto</td><td>R$3.000</td></tr>
+          <tr><td>🎁 <strong>Bônus:</strong> Sessão de estratégia de lançamento</td><td>R$5.000</td></tr>
+          <tr><td><strong>Total de valor declarado</strong></td><td><strong>R$60.000</strong></td></tr>
+        </tbody>
+      </table>
+
+      <div class="offer-guarantee violet">
+        <span class="guarantee-icon">💡</span>
+        <div class="guarantee-content">
+          <h4>Cada item resolve uma trava específica</h4>
+          <span>A maioria dos consultores que tentam lançar um produto de IA travam em <strong>uma</strong> dessas etapas, geralmente na definição estratégica ou na construção técnica. A IA Product Studio cobre as 8 etapas + bônus para garantir que você não para no meio do caminho.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COMO FUNCIONA -->
+<section>
+  <div class="container-lg">
+    <div class="text-center scroll-hidden stagger-1">
+      <span class="section-label">Metodologia</span>
+      <h2>56 dias em 4 fases</h2>
+      <p class="section-desc">Da ideia ao primeiro cliente pagando. Cada fase com entregáveis claros e milestones medíveis.</p>
+    </div>
+
+    <div class="phases-grid">
+      <!-- Fase 1 -->
+      <div class="phase-card scroll-hidden stagger-1">
+        <div class="phase-num">01</div>
+        <div class="phase-range">Dias 1 a 14</div>
+        <h4>Estratégia</h4>
+        <p>Nicho, avatar, oferta e validação da ideia. Antes de uma linha de código, garantimos que existe mercado disposto a pagar pelo produto que você quer construir.</p>
+      </div>
+
+      <!-- Fase 2 -->
+      <div class="phase-card scroll-hidden stagger-2">
+        <div class="phase-num">02</div>
+        <div class="phase-range">Dias 15 a 35</div>
+        <h4>Construção</h4>
+        <p>Stack técnica completa. O produto é edificado ao vivo, com você, usando IA. Ao final desta fase, você tem um MVP funcional pronto para mostrar.</p>
+      </div>
+
+      <!-- Fase 3 -->
+      <div class="phase-card scroll-hidden stagger-3">
+        <div class="phase-num">03</div>
+        <div class="phase-range">Dias 36 a 49</div>
+        <h4>Lançamento</h4>
+        <p>Página de vendas, copy e validação beta com 3 a 5 clientes reais. Aqui é onde o produto deixa de ser ideia e vira receita.</p>
+      </div>
+
+      <!-- Fase 4 -->
+      <div class="phase-card scroll-hidden stagger-4">
+        <div class="phase-num">04</div>
+        <div class="phase-range">Dias 50 a 56</div>
+        <h4>Comercial</h4>
+        <p>Script de venda, estratégia de lançamento e primeira venda real. Você termina o programa com produto no ar, processo de venda definido e cliente pagando.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- A OPORTUNIDADE -->
+<section>
+  <div class="container-lg">
+    <div class="text-center scroll-hidden stagger-1">
+      <span class="section-label">Por que agora</span>
+      <h2>A janela de IA está aberta. <span class="text-gradient">Por quanto tempo mais?</span></h2>
+      <p class="section-desc">Toda revolução tecnológica tem uma janela curta de oportunidade. Quem entra cedo, captura o mercado. Quem entra tarde, compete contra quem já está consolidado.</p>
+    </div>
+
+    <div class="opp-grid">
+      <div class="opp-card scroll-hidden stagger-1">
+        <span class="opp-icon">⏱️</span>
+        <h4>A barreira técnica está caindo</h4>
+        <p>O que custava 6 meses e R$200k para construir há 2 anos hoje sai em semanas com IA. Mas essa vantagem é temporária: quando todos puderem fazer, o diferencial vai para quem tem nicho, marca e cases.</p>
+      </div>
+      <div class="opp-card scroll-hidden stagger-2">
+        <span class="opp-icon">📈</span>
+        <h4>O mercado está faminto por solução</h4>
+        <p>Pequenas e médias empresas querem usar IA, mas não sabem por onde começar. Quem entrega um produto pronto, focado e fácil de usar, cobra prêmio. A demanda hoje é maior que a oferta qualificada.</p>
+      </div>
+      <div class="opp-card scroll-hidden stagger-3">
+        <span class="opp-icon">🏁</span>
+        <h4>Quem lança primeiro define o padrão</h4>
+        <p>No seu nicho, alguém vai sair na frente. Vai ser o primeiro nome que vem à cabeça quando o cliente pesquisar. Você prefere ser esse nome ou competir contra ele nos próximos 5 anos?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<div class="divider"></div>
+
+<!-- INVESTIMENTO -->
+<section>
+  <div class="container-md">
+    <div class="text-center scroll-hidden stagger-1">
+      <span class="section-label">Investimento</span>
+      <h2><span style="color:var(--muted-fg);text-decoration:line-through;font-weight:400;">R$60.000</span> em valor.<br>Seu investimento: <span class="text-gradient">R$32.500</span></h2>
+      <p class="section-desc">Duas formas de pagamento. Escolha a que faz mais sentido para o caixa do seu negócio.</p>
+    </div>
+
+    <div class="price-wrapper scroll-hidden stagger-2">
+      <div class="price-header">
+        <div class="declared">Valor total declarado: <s>R$60.000</s></div>
+        <span class="discount">46% abaixo do valor declarado · à vista</span>
+      </div>
+
+      <div class="price-options">
+        <!-- À vista -->
+        <div class="price-option featured">
+          <div class="price-option-label">
+            À VISTA
+            <span class="price-badge">RECOMENDADO</span>
+          </div>
+          <div class="price-value">R$ 32.500</div>
+          <div class="price-installments">Pagamento único · <strong>Economize R$ 8.058,04</strong> vs parcelado</div>
+          <div class="price-note">PIX, transferência ou cartão (à vista). Liberação imediata do programa.</div>
+        </div>
+
+        <!-- Parcelado -->
+        <div class="price-option">
+          <div class="price-option-label">PARCELADO</div>
+          <div class="price-value">R$ 8.000<span style="font-size:1rem;color:var(--muted-fg);font-weight:400;"> + 12x</span></div>
+          <div class="price-installments">12 parcelas de <strong>R$ 2.713,17</strong><br>Total parcelado: R$ 40.558,04</div>
+          <div class="price-note">Entrada à vista + parcelamento no cartão. Liberação imediata do programa.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="offer-guarantee violet scroll-hidden stagger-3">
+      <span class="guarantee-icon">📊</span>
+      <div class="guarantee-content">
+        <h4>O cálculo do retorno</h4>
+        <span>Seu primeiro cliente pago do produto que vamos construir juntos paga uma fração da consultoria. A meta realista é entre <strong style="color:var(--violet);">R$30.000 e R$100.000</strong> de receita nova nos primeiros meses após o lançamento; o investimento se paga com 1 a 3 clientes do seu próprio produto.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- GARANTIA -->
+<section>
+  <div class="container-md">
+    <div class="text-center scroll-hidden stagger-1">
+      <span class="section-label">Garantia</span>
+      <h2>Risco zero. <span class="text-gradient">Resultado garantido.</span></h2>
+      <p class="section-desc">Se o programa termina e o seu produto não está no ar com pelo menos 1 venda real, nós continuamos trabalhando com você gratuitamente.</p>
+    </div>
+
+    <div class="verdict-card scroll-hidden stagger-2">
+      <div class="verdict-tag">Garantia de Resultado · 56 + 30 dias</div>
+      <h3>Você sai com produto vendendo ou nós continuamos até que isso aconteça.</h3>
+      <p>
+        Se ao final dos <strong>56 dias do programa</strong> você não tiver seu produto de IA <strong>no ar</strong> e com <strong>pelo menos 1 venda</strong> para um cliente real, nós continuamos trabalhando com você <strong>gratuitamente por mais 30 dias</strong>, até que isso aconteça.
+      </p>
+      <p style="margin-top:14px;">
+        Essa garantia só é possível porque a metodologia é executada lado a lado com você. Nossa pele está no jogo: <strong>se você não vender, nós não terminamos.</strong>
+      </p>
+      <p style="margin-top:14px;font-size:0.88rem;color:var(--muted-fg);">
+        <em>Única condição: você precisa executar os entregáveis combinados em cada fase. Não fazemos mágica para quem não aparece nas sessões, mas para quem aparece e executa, o resultado é garantido.</em>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="logo">
+    <div class="logo-icon">EI</div>
+    <span class="logo-text">Empresa Independente</span>
+  </a>
+  <p>IA Product Studio · Degrau 02 · Pitch Deck · 2026</p>
+</footer>
+
+<script>
+  // Scroll Reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(el => {
+      if (el.isIntersecting) {
+        el.target.classList.add('scroll-visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.scroll-hidden').forEach(el => observer.observe(el));
+
+  // Smooth scroll para CTA
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      const href = this.getAttribute('href');
+      if (href === '#' || href.length < 2) return;
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+</body>
+</html>

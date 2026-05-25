@@ -14,7 +14,7 @@ const ROOT = __dirname;
 const UPLOADS_DIR = path.join(os.tmpdir(), 'prompt-studio-uploads');
 if (!fs.existsSync(UPLOADS_DIR)) fs.mkdirSync(UPLOADS_DIR, { recursive: true });
 
-const CLAUDE_CLI_JS = 'C:\\Users\\Gabriel\\AppData\\Roaming\\npm\\node_modules\\@anthropic-ai\\claude-code\\bin\\claude.exe';
+const CLAUDE_CLI_JS = 'C:\\Users\\Gabriel\\.local\\bin\\claude.exe';
 
 // ─── Multer storage ───
 const storage = multer.diskStorage({

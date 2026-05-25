@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no">
+<title>Playbook Interno de Estruturação Comercial</title>
+<meta name="description" content="Estruture seu Departamento Comercial com o Método que Levou a FSS de 0 a R$ 30 Milhões em 1 ano de Operação.">
+<link rel="icon" href="https://pages.greatpages.com.br/fss.fullsalessystem.com-playbook-comercial/1776358226/imagens/desktop/23581-34a145b04f686cd1a3feece778cb3c48.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://pages.greatpages.com.br">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined">
+<style>
+  /* =========================================================
+     RESET
+     ========================================================= */
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+    color: #242424;
+    background: #ffffff;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  img { max-width: 100%; height: auto; display: block; }
+  a { text-decoration: none; color: inherit; }
+  h1, h2, h3, h4, p { margin: 0; }
+  button { font: inherit; cursor: pointer; }
+
+  /* =========================================================
+     TOKENS
+     ========================================================= */
+  :root {
+    --red-primary: #cf0707;
+    --red-hover:   #ad0000;
+    --black:       #000000;
+    --dark-gray:   #242424;
+    --gray-bg:     #e6e6e6;
+    --offwhite:    #f4f4f4;
+    --text-muted:  #656565;
+    --shadow-card: 0 6px 20px rgba(0,0,0,0.08);
+    --shadow-btn:  0 6px 18px rgba(207,7,7,0.35);
+  }
+
+  .container {
+    width: 100%;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  section { padding: 80px 0; }
+  @media (max-width: 800px) { section { padding: 56px 0; } }
+
+  /* =========================================================
+     CTA BUTTON
+     ========================================================= */
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 18px 44px;
+    background: var(--red-primary);
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 8px;
+    box-shadow: var(--shadow-btn);
+    transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+  }
+  .cta:hover {
+    background: var(--red-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(207,7,7,0.45);
+  }
+  .cta-caption {
+    margin-top: 14px;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: #ffffff;
+    text-align: center;
+  }
+
+  /* =========================================================
+     HERO  (DARK + BIG ARTWORK + BOOK + MOCKUP)
+     Estrutura recriada do GreatPages original:
+       - left: logo pequeno + h1 + texto + cta
+       - right: composição com livro 3D + celular + arte de fundo "PLAYBOOK COMERCIAL"
+     ========================================================= */
+  .hero {
+    position: relative;
+    background: #000000;
+    color: #ffffff;
+    padding: 32px 0 48px;
+    overflow: hidden;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    align-items: start;
+    gap: 32px;
+  }
+  .hero-logo {
+    width: 136px;
+    height: auto;
+    margin: 0 0 24px;
+  }
+  .hero h1 {
+    font-size: clamp(26px, 3vw, 38px);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 22px;
+    letter-spacing: -0.2px;
+  }
+  .hero h1 .highlight {
+    color: var(--red-primary);
+    font-weight: 800;
+  }
+  .hero p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #d8d8d8;
+    margin-bottom: 14px;
+    max-width: 540px;
+  }
+  .hero p strong { color: #ffffff; font-weight: 700; }
+  .hero p em { font-style: italic; color: #ffffff; }
+  .hero-cta-wrap { margin-top: 28px; }
+
+  /* HERO RIGHT (composition) */
+  .hero-art {
+    position: relative;
+    min-height: 560px;
+    width: 100%;
+  }
+  .hero-art .art-bg {
+    position: absolute;
+    top: 0;
+    right: -40px;
+    width: 593px;
+    max-width: 110%;
+    height: auto;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .hero-art .art-book {
+    position: absolute;
+    top: 240px;
+    left: 80px;
+    width: 210px;
+    height: auto;
+    z-index: 2;
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.6));
+  }
+  .hero-art .art-mockup {
+    position: absolute;
+    top: 200px;
+    right: 30px;
+    width: 230px;
+    height: auto;
+    z-index: 3;
+    filter: drop-shadow(0 25px 45px rgba(0,0,0,0.7));
+  }
+
+  .hero-arrow {
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin: 24px auto 0;
+    opacity: 0.7;
+    animation: bounce 2.2s ease-in-out infinite;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+
+  @media (max-width: 900px) {
+    .hero { padding: 32px 0 56px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 32px; text-align: left; }
+    .hero-logo { margin: 0 0 20px; }
+    .hero-art { min-height: 460px; }
+    .hero-art .art-bg { right: -10%; width: 100%; }
+    .hero-art .art-book { left: 8%; width: 30%; top: 38%; }
+    .hero-art .art-mockup { right: 8%; width: 34%; top: 32%; }
+  }
+
+  /* =========================================================
+     RESULTADOS (DARK)
+     ========================================================= */
+  .resultados {
+    background: var(--dark-gray);
+    color: #ffffff;
+    text-align: center;
+  }
+  .resultados h2 {
+    font-size: clamp(20px, 2.2vw, 28px);
+    font-weight: 600;
+    line-height: 1.4;
+    max-width: 820px;
+    margin: 0 auto 8px;
+    color: #ffffff;
+  }
+  .resultados h2 .red {
+    color: var(--red-primary);
+    display: block;
+    font-size: 1.25em;
+    font-weight: 800;
+    margin-top: 10px;
+    line-height: 1.2;
+  }
+  .resultados-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin: 56px auto 48px;
+    max-width: 1080px;
+  }
+  .stat {
+    text-align: center;
+    padding: 0 12px;
+  }
+  .stat-icon {
+    width: 56px;
+    height: 56px;
+    margin: 0 auto 18px;
+    background: var(--red-primary);
+    color: #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .stat-icon .material-icons-outlined,
+  .stat-icon .material-icons { font-size: 28px; }
+  .stat h3 {
+    font-size: 16px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    color: #ffffff;
+    line-height: 1.3;
+  }
+  .stat p {
+    font-size: 13px;
+    color: #c8c8c8;
+    line-height: 1.5;
+    max-width: 260px;
+    margin: 0 auto;
+  }
+  @media (max-width: 700px) {
+    .resultados-stats { grid-template-columns: 1fr; gap: 32px; }
+  }
+
+  /* =========================================================
+     EMPRESÁRIOS / SLIDER
+     ========================================================= */
+  .empresarios {
+    background: var(--gray-bg);
+    text-align: center;
+  }
+  .empresarios h2 {
+    font-size: clamp(20px, 2.2vw, 28px);
+    font-weight: 700;
+    color: var(--dark-gray);
+    max-width: 920px;
+    margin: 0 auto 40px;
+    line-height: 1.4;
+  }
+  .empresarios h2 .red { color: var(--red-primary); font-weight: 800; }
+  .slider {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    max-width: 980px;
+    margin: 0 auto 44px;
+  }
+  .slider .photo {
+    aspect-ratio: 4 / 3;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    background: #ddd;
+  }
+  .slider .photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  @media (max-width: 800px) {
+    .slider { grid-template-columns: 1fr; gap: 18px; }
+  }
+
+  /* =========================================================
+     PILARES
+     ========================================================= */
+  .pilares {
+    background:
+      linear-gradient(rgba(244,244,244,0.92), rgba(244,244,244,0.95)),
+      url('https://pages.greatpages.com.br/fss.fullsalessystem.com-playbook-comercial/1776358226/imagens/desktop/3380901_1_176115732168f920c972f3e.png') center/cover no-repeat;
+    text-align: center;
+  }
+  .pilares h2 {
+    font-size: clamp(22px, 2.4vw, 30px);
+    font-weight: 800;
+    color: var(--dark-gray);
+    margin-bottom: 60px;
+  }
+  .pilar-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    max-width: 1020px;
+    margin: 0 auto 48px;
+  }
+  .pilar-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 40px 24px 28px;
+    box-shadow: var(--shadow-card);
+    text-align: center;
+    position: relative;
+  }
+  .pilar-num {
+    position: absolute;
+    top: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--red-primary);
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pilar-icon {
+    color: var(--red-primary);
+    margin: 4px 0 16px;
+  }
+  .pilar-icon .material-icons-outlined { font-size: 44px; }
+  .pilar-card h3 {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--dark-gray);
+    line-height: 1.35;
+  }
+  @media (max-width: 800px) {
+    .pilar-grid { grid-template-columns: 1fr; gap: 40px; }
+  }
+
+  /* =========================================================
+     ENTREGAS
+     ========================================================= */
+  .entregas {
+    background: #ffffff;
+    text-align: center;
+  }
+  .entregas h2 {
+    font-size: clamp(22px, 2.4vw, 30px);
+    font-weight: 800;
+    color: var(--dark-gray);
+    max-width: 940px;
+    margin: 0 auto 14px;
+    line-height: 1.3;
+  }
+  .entregas h2 .red { color: var(--red-primary); }
+  .entregas-intro {
+    color: var(--text-muted);
+    max-width: 720px;
+    margin: 0 auto 44px;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .entregas-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    max-width: 980px;
+    margin: 0 auto 48px;
+  }
+  .entregas-grid .entrega-card.wide {
+    grid-column: span 1;
+  }
+  .entrega-card {
+    background: #1a1a1a;
+    border-radius: 12px;
+    padding: 26px 22px;
+    text-align: center;
+    color: #ffffff;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease;
+  }
+  .entrega-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.85;
+  }
+  .entrega-card:hover { transform: translateY(-4px); }
+  .entrega-card .label {
+    position: relative;
+    z-index: 2;
+    background: rgba(0,0,0,0.65);
+    backdrop-filter: blur(6px);
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1.35;
+    width: 100%;
+  }
+  /* Each card uses its own bg via inline style */
+  @media (max-width: 800px) {
+    .entregas-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 500px) {
+    .entregas-grid { grid-template-columns: 1fr; }
+  }
+
+  /* =========================================================
+     AUTORIDADE / QUEM ESTÁ POR TRÁS
+     ========================================================= */
+  .autoridade {
+    background: #ffffff;
+    text-align: center;
+  }
+  .autoridade h2 {
+    font-size: clamp(22px, 2.4vw, 30px);
+    font-weight: 800;
+    color: var(--dark-gray);
+    margin-bottom: 28px;
+  }
+  .autoridade-img {
+    max-width: 720px;
+    margin: 0 auto 28px;
+    border-radius: 12px;
+  }
+  .autoridade p {
+    font-size: 15px;
+    color: #444646;
+    max-width: 880px;
+    margin: 0 auto 36px;
+    line-height: 1.65;
+  }
+  .autoridade p strong { color: var(--dark-gray); }
+
+  /* =========================================================
+     CASES (TESTIMONIALS - dark cards)
+     ========================================================= */
+  .cases {
+    background: var(--gray-bg);
+    text-align: center;
+  }
+  .cases h2 {
+    font-size: clamp(22px, 2.4vw, 30px);
+    font-weight: 800;
+    color: var(--dark-gray);
+    margin-bottom: 48px;
+  }
+  .cases-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  .cases-grid .case {
+    aspect-ratio: 4 / 5;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    background: #1a1a1a;
+  }
+  .cases-grid .case img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  @media (max-width: 800px) {
+    .cases-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 500px) {
+    .cases-grid { grid-template-columns: 1fr; }
+  }
+
+  /* =========================================================
+     CTA FINAL
+     ========================================================= */
+  .cta-final {
+    background:
+      linear-gradient(rgba(244,244,244,0.92), rgba(244,244,244,0.95)),
+      url('https://pages.greatpages.com.br/fss.fullsalessystem.com-playbook-comercial/1776358226/imagens/desktop/3380901_1_176115732168f920c972f3e.png') center/cover no-repeat;
+    text-align: center;
+  }
+  .cta-final-grid {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 48px;
+    align-items: center;
+    max-width: 1020px;
+    margin: 0 auto;
+  }
+  .cta-final-mockup {
+    text-align: center;
+  }
+  .cta-final-mockup img {
+    max-width: 220px;
+    margin: 0 auto;
+    filter: drop-shadow(0 18px 38px rgba(0,0,0,0.25));
+  }
+  .cta-final h2 {
+    font-size: clamp(22px, 2.6vw, 32px);
+    font-weight: 800;
+    color: var(--dark-gray);
+    line-height: 1.25;
+    margin-bottom: 26px;
+    text-align: left;
+  }
+  .cta-final h2 .red { color: var(--red-primary); }
+  @media (max-width: 800px) {
+    .cta-final-grid { grid-template-columns: 1fr; }
+    .cta-final h2 { text-align: center; }
+    .cta-final-mockup img { max-width: 180px; }
+  }
+
+  /* =========================================================
+     FAQ
+     ========================================================= */
+  .faq {
+    background: #ffffff;
+  }
+  .faq h2 {
+    font-size: clamp(22px, 2.4vw, 30px);
+    font-weight: 800;
+    color: var(--dark-gray);
+    text-align: center;
+    margin-bottom: 44px;
+  }
+  .faq-list {
+    max-width: 820px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .faq-item {
+    background: #f5f5f5;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #ececec;
+  }
+  .faq-item summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 20px 24px;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--dark-gray);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after {
+    content: '+';
+    font-size: 24px;
+    color: var(--red-primary);
+    font-weight: 700;
+  }
+  .faq-item[open] summary::after { content: '−'; }
+  .faq-content {
+    padding: 0 24px 20px;
+    color: #444646;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .faq-content p { margin: 0 0 8px; }
+  .faq-content p:last-child { margin-bottom: 0; }
+  .faq-content strong { color: var(--dark-gray); }
+
+  /* =========================================================
+     FOOTER
+     ========================================================= */
+  footer {
+    background: var(--black);
+    color: #c8c8c8;
+    padding: 40px 0 32px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.8;
+  }
+  footer .footer-logo {
+    width: 110px;
+    margin: 0 auto 14px;
+    opacity: 0.95;
+  }
+  footer a {
+    color: #c8c8c8;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  footer a:hover { color: #ffffff; }
+  .footer-links { margin-bottom: 6px; }
+  .footer-copyright { color: #ffffff; font-weight: 700; margin-top: 6px; }
+
+  /* =========================================================
+     POPUP MODAL
+     ========================================================= */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 20px;
+  }
+  .modal-overlay.active { display: flex; }
+  .modal {
+    background: #ffffff;
+    border-radius: 16px;
+    max-width: 460px;
+    width: 100%;
+    padding: 40px 32px 32px;
+    position: relative;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+    text-align: center;
+  }
+  .modal-close {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #888;
+    line-height: 1;
+  }
+  .modal h3 {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--dark-gray);
+    margin-bottom: 8px;
+  }
+  .modal p {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 22px;
+  }
+  .modal form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .modal input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #d6d6d6;
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: inherit;
+    color: var(--dark-gray);
+    transition: border-color 0.2s ease;
+  }
+  .modal input:focus {
+    outline: none;
+    border-color: var(--red-primary);
+  }
+  .modal .cta { width: 100%; margin-top: 6px; }
+</style>
+</head>
+<body>
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <img class="hero-logo" src="https://pages.greatpages.com.br/fss.fullsalessystem.com-playbook-comercial/1776358226/imagens/desktop/3380901_1_176115732168f920c9736ae418060053.png" alt="FSS - Full Sales System">
+        <h1>
+          Estruture seu Departamento Comercial com o Método que Levou a FSS de
+          <span class="highlight">0 a R$ 30 Milhões em 1 ano de Operação.</span>
+        </h1>
+        <p><strong>Há alguns anos, montar um time comercial eficiente era um luxo das grandes empresas.</strong></p>
+        <p><strong>Hoje, a empresa que não tem um comercial estruturado está ficando para trás.</strong></p>
+        <p><em>O Playbook Interno de Estruturação Comercial</em> da Full Sales System revela passo a passo o mesmo modelo que transformou operações reais em <strong>máquinas de vendas previsíveis e lucrativas.</strong></p>
+        <div class="hero-cta-wrap">
+          <button type="button" class="cta" data-modal-open>Acessar Playbook</button>
+          <div class="cta-caption">BAIXE AGORA GRATUITAMENTE</div>
+        </div>
+      </div>
+
+      <div class="hero-art" aria-hidden="true">
+        <img class="art-bg" src="https://pages.greatpages.com.br/fss.fullsalessystem.com-playbook-comercial/1776358226/imagens/desktop/3380901_1_99463.png" alt="">
+        <img class="art-book" src="https://pages.greatpages.com.br/fss.fullsalessystem.com-playbook-comercial/1776358226/imagens/desktop/3380901_1_40218.png" alt="Capa do Playbook FSS">
+        <img class="art-mockup" src="https://pages.greatpages.com.br/fss.fullsalessystem.com-playbook-comercial/1776358226/imagens/desktop/3380901_1_67973.png" alt="Mockup do Playbook FSS">
+      </div>
+    </div>
+
+    <img class="hero-arrow" src="https://pages.greatpages.com.br/fss.fullsalessystem.com-playbook-comercial/1776358226/imagens/desktop/3380901_1_176312142913413203.svg" alt="Scroll">
+  </div>
+</section>
+
+<!-- =========================================================
+     RESULTADOS
+========================================================= -->
+<section class="resultados">
+  <div class="container">
+    <h2>
+      O Playbook da FSS revela a estruturação comercial aplicada em operações que superaram
+      <span class="red">R$87 milhões em faturamento.</span>
+    </h2>
+
+    <div class="resultados-stats">
+      <div class="stat">
+        <div class="stat-icon"><span class="material-icons-outlined">groups</span></div>
+        <h3>Ativação de times comerciais</h3>
+        <p>Monte um time com rotinas, metas e resultados previsíveis.</p>
+      </div>
+      <div class="stat">
+        <div class="stat-icon"><span class="material-icons-outlined">inventory_2</span></div>
+        <h3>Produtos e ofertas ajustados</h3>
+        <p>Crie soluções com alta conversão.</p>
+      </div>
+      <div class="stat">
+        <div class="stat-icon"><span class="material-icons-outlined">filter_alt</span></div>
+        <h3>Funis de vendas ativos e eficazes</h3>
+        <p>Atraia, qualifique e venda todos os dias.</p>
+      </div>
+    </div>
+
+    <button type="button" class="cta" data-modal-open>Acessar Playbook</button>
+  </div>
+</section>
+
+<!-- =========================================================
+     EMPRESÁRIOS / SLIDER
+========================================================= -->
+<section class="empresarios">
+  <div class="container">
+    <h2>
+      <strong>Empresários</strong> de <strong>diferentes segmentos</strong> já estruturaram seus times com o
+      <span class="red">Playbook Comercial da FSS</span>.
+    </h2>
+
+    <div class="slider">
+      <div class="photo"><img src="https://pages.greatpages.com.br/fss.fullsalessystem.com-playbook-comercial/1776358226/imagens/desktop/3380901_1_176122639786206074.png" alt="Empresário aplicando o Playbook FSS"></div>
+      <div class="photo"><img src="https://pages.greatpages.com.br/fss.fullsalessystem.com-playbook-comercial/1776358226/imagens/desktop/3380901_1_75911.png" alt="Equipe comercial estruturada com o Playbook"></div>
+      <div class="photo"><img src="https://pages.greatpages.com.br/fss.fullsalessystem.com-playbook-comercial/1776358226/imagens/desktop/3380901_1_27207.webp" alt="Operação comercial em diferentes segmentos"></div>
+    </div>
+
+    <button type="button" class="cta" data-modal-open>Acessar Playbook</button>
+  </div>
+</section>
+
+<!-- =========================================================
+     PILARES
+========================================================= -->
+<section class="pilares">
+  <div class="container">
+    <h2>Os pilares do sistema Full Sales System</h2>
+
+    <div class="pilar-grid">
+      <div class="pilar-card">
+        <div class="pilar-num">1</div>
+        <div class="pilar-icon"><span class="material-icons-outlined">trending_up</span></div>
+        <h3>Lucro com previsibilidade</h3>
+      </div>
+      <div class="pilar-card">
+        <div class="pilar-num">2</div>
+        <div class="pilar-icon"><span class="material-icons-outlined">verified</span></div>
+        <h3>Processo comercial validado</h3>
+      </div>
+      <div class="pilar-card">
+        <div class="pilar-num">3</div>
+        <div class="pilar-icon"><span class="material-icons-outlined">apartment</span></div>
+        <h3>Modelo aplicável em qualquer empresa</h3>
+      </div>
+    </div>
+
+    <div style="text-align:center;">
+      <button type="button" class="cta" data-modal-open>Acessar Playbook</button>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     O QUE VOCÊ VAI RECEBER
+========================================================= -->
+<section class="entregas">
+  <div class="container">
+    <h2>
+      Você vai receber <span class="red">modelos, scripts e processos prontos</span>
+      para você estruturar um comercial que vende todos os dias.
+    </h2>
+
+    <div class="entregas-grid">
+      <div class="entrega-card" style="background-image:linear-gradient(180deg,rgba(0,0,0,0.35),rgba(0,0,0,0.85)),url('https://pages.greatpages.com.br/fss.fullsalessystem.com-playbook-comercial/1776358226/imagens/desktop/3380901_1_176116282511334631.webp');background-size:cover;background-position:center;">
+        <div class="label">Estruturação de produtos e ofertas</div>
+      </div>
+      <div class="entrega-card" style="background-image:linear-gradient(180deg,rgba(0,0,0,0.35),rgba(0,0,0,0.85)),url('https://pages.greatpages.com.br/fss.fullsalessystem.com-playbook-comercial/1776358226/imagens/desktop/3380901_1_38248.webp');background-size:cover;background-position:center;">
+        <div class="label">Construção de funis de marketing e comerciais</div>
+      </div>
+      <div class="entrega-card" style="background-image:linear-gradient(180deg,rgba(0,0,0,0.35),rgba(0,0,0,0.85)),url('https://pages.greatpages.com.br/fss.fullsalessystem.com-playbook-comercial/1776358226/imagens/desktop/3380901_1_74708.webp');background-size:cover;background-position:center;">
+        <div class="label">Formação de times de pré-vendas e closers</div>
+      </div>
+      <div class="entrega-card" style="background-image:linear-gradient(180deg,rgba(0,0,0,0.35),rgba(0,0,0,0.85)),url('https://pages.greatpages.com.br/fss.fullsalessystem.com-playbook-comercial/1776358226/imagens/desktop/3380901_1_31768.webp');background-size:cover;background-position:center;">
+        <div class="label">Estruturação de CRM e automações</div>
+      </div>
+      <div class="entrega-card" style="background-image:linear-gradient(180deg,rgba(0,0,0,0.35),rgba(0,0,0,0.85)),url('https://pages.greatpages.com.br/fss.fullsalessystem.com-playbook-comercial/1776358226/imagens/desktop/3380901_1_97365.webp');background-size:cover;background-position:center;">
+        <div class="label">Gestão de métricas e expansão com IA</div>
+      </div>
+    </div>
+
+    <div style="text-align:center;">
+      <button type="button" class="cta" data-modal-open>Acessar Playbook</button>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     QUEM ESTÁ POR TRÁS
+========================================================= -->
+<section class="autoridade">
+  <div class="container">
+    <h2>Quem está por trás do método?</h2>
+    <img class="autoridade-img" src="https://pages.greatpages.com.br/fss.fullsalessystem.com-playbook-comercial/1776358226/imagens/desktop/3380901_1_176124350944242537.webp" alt="Sócios da Full Sales System">
+    <p>
+      A Full Sales System é referência em estruturação comercial no Brasil, liderada por
+      <strong>Vinícius de Sá, Yuri Barbosa e Matheus Garcia</strong> — especialistas em vendas, marketing e processos
+      que transformaram negócios em operações multimilionárias.
+    </p>
+    <button type="button" class="cta" data-modal-open>Acessar Playbook</button>
+  </div>
+</section>
+
+<!-- =========================================================
+     CASES
+========================================================= -->
+<section class="cases">
+  <div class="container">
+    <h2>Eles aplicaram os métodos FSS e escalaram suas vendas</h2>
+    <div class="cases-grid">
+      <div class="case"><img src="https://pages.greatpages.com.br/fss.fullsalessystem.com-playbook-comercial/1776358226/imagens/desktop/3380901_1_176116562969952482.webp" alt="Case de cliente FSS 1"></div>
+      <div class="case"><img src="https://pages.greatpages.com.br/fss.fullsalessystem.com-playbook-comercial/1776358226/imagens/desktop/3380901_1_98302.webp" alt="Case de cliente FSS 2"></div>
+      <div class="case"><img src="https://pages.greatpages.com.br/fss.fullsalessystem.com-playbook-comercial/1776358226/imagens/desktop/3380901_1_35423.webp" alt="Case de cliente FSS 3"></div>
+      <div class="case"><img src="https://pages.greatpages.com.br/fss.fullsalessystem.com-playbook-comercial/1776358226/imagens/desktop/3380901_1_36185.webp" alt="Case de cliente FSS 4"></div>
+      <div class="case"><img src="https://pages.greatpages.com.br/fss.fullsalessystem.com-playbook-comercial/1776358226/imagens/desktop/3380901_1_50487.webp" alt="Case de cliente FSS 5"></div>
+      <div class="case"><img src="https://pages.greatpages.com.br/fss.fullsalessystem.com-playbook-comercial/1776358226/imagens/desktop/3380901_1_78064.webp" alt="Case de cliente FSS 6"></div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     CTA FINAL
+========================================================= -->
+<section class="cta-final">
+  <div class="container cta-final-grid">
+    <div class="cta-final-mockup">
+      <img src="https://pages.greatpages.com.br/fss.fullsalessystem.com-playbook-comercial/1776358226/imagens/desktop/3380901_1_68196.png" alt="Mockup final do Playbook">
+    </div>
+    <div>
+      <h2>
+        <strong>Baixe agora</strong> o Playbook Interno de Estruturação Comercial e comece a construir um
+        <span class="red">comercial previsível e lucrativo</span>.
+      </h2>
+      <button type="button" class="cta" data-modal-open>Acessar Playbook</button>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     FAQ
+========================================================= -->
+<section class="faq">
+  <div class="container">
+    <h2>Dúvidas frequentes</h2>
+    <div class="faq-list">
+
+      <details class="faq-item">
+        <summary>É realmente gratuito?</summary>
+        <div class="faq-content">
+          <p>Sim. O Playbook Interno de Estruturação Comercial é 100% gratuito.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>O Playbook serve para qualquer tipo de empresa?</summary>
+        <div class="faq-content">
+          <p>Sim. O conteúdo foi desenvolvido para ser <strong>aplicável em qualquer operação comercial</strong>, independentemente do porte ou segmento.</p>
+          <p>Empresas de serviços, infoprodutos, saúde, educação, tecnologia e até indústrias já aplicaram esse modelo com sucesso.</p>
+          <p>O método se adapta à realidade e à fase de crescimento de cada negócio.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>O Playbook é teórico ou mostra como aplicar na prática?</summary>
+        <div class="faq-content">
+          <p>O material é <strong>100% prático e orientado à ação.</strong></p>
+          <p>Você encontrará <strong>modelos, planilhas, scripts e fluxos</strong> usados no dia a dia da FSS e de nossos clientes.</p>
+          <p>A ideia é que você consiga <strong>aplicar o método imediatamente</strong>.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Quanto tempo leva para ver resultados aplicando o Playbook?</summary>
+        <div class="faq-content">
+          <p>Depende da maturidade atual do seu negócio, mas <strong>em poucas semanas</strong> já é possível sentir ganhos de clareza, organização e previsibilidade nas vendas.</p>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+<footer>
+  <div class="container">
+    <img class="footer-logo" src="https://pages.greatpages.com.br/fss.fullsalessystem.com-playbook-comercial/1776358226/imagens/desktop/3380901_1_176904561601706814.png" alt="FSS - Full Sales System">
+    <div>CNPJ 51.843.626/0001-09</div>
+    <div class="footer-links">
+      <a href="https://fss.fullsalessystem.com/termos-de-uso" target="_blank" rel="noopener">Termos de Uso</a>
+      &nbsp;|&nbsp;
+      <a href="https://fss.fullsalessystem.com/politicas-de-privacidade" target="_blank" rel="noopener">Política de privacidade</a>
+    </div>
+    <div class="footer-copyright">© 2026 fullsalessystem.com | Todos os direitos reservados</div>
+  </div>
+</footer>
+
+<!-- =========================================================
+     POPUP MODAL
+========================================================= -->
+<div class="modal-overlay" id="leadModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <button class="modal-close" type="button" aria-label="Fechar" data-modal-close>&times;</button>
+    <h3 id="modalTitle">Receba o Playbook gratuitamente</h3>
+    <p>Preencha seus dados para baixar agora.</p>
+    <form>
+      <input type="text" name="nome" placeholder="Seu nome completo" required>
+      <input type="email" name="email" placeholder="Seu melhor e-mail" required>
+      <input type="tel" name="telefone" placeholder="Seu WhatsApp" required>
+      <button type="submit" class="cta">Baixar agora</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  const overlay = document.getElementById('leadModal');
+  document.querySelectorAll('[data-modal-open]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+  document.querySelectorAll('[data-modal-close]').forEach(btn => {
+    btn.addEventListener('click', closeModal);
+  });
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && overlay.classList.contains('active')) closeModal();
+  });
+  function closeModal() {
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+</script>
+
+</body>
+</html>

@@ -2,6 +2,7 @@
   "dependencies": {
     "@anthropic-ai/sdk": "^0.78.0",
     "axios": "^1.13.6",
+    "busboy": "^1.6.0",
     "express": "^5.2.1",
     "marked": "^17.0.4",
     "multer": "^2.1.1",

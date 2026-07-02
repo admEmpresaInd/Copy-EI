@@ -2352,8 +2352,22 @@ Ex: escreva 5 variações de headline para o Raio-X, usando os frameworks de cop
       });
       const data = await res.json();
       if (data.saved) {
+        // Ambiente local (node server.js): gravado direto no projeto.
         document.getElementById('saveModal')?.remove();
         showToast(`Salvo em ${data.saved}`);
+      } else if (data.download && data.content) {
+        // Producao (Vercel): filesystem read-only, dispara download no navegador.
+        const blob = new Blob([data.content], { type: (data.mime || 'text/plain') + ';charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = data.filename || 'output';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+        document.getElementById('saveModal')?.remove();
+        showToast(`Baixado: ${data.filename || 'arquivo'}`);
       } else {
         showToast('Erro ao salvar: ' + (data.error || 'desconhecido'));
       }

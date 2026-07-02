@@ -22,9 +22,7 @@ supabase/
 # Dev tooling / framework
 .aiox-core/
 .antigravity/
-# .claude/ ignorado, EXCETO skills (necessarias pelo prompt-builder /api/generate)
-.claude/*
-!.claude/skills/
+.claude/
 .codex/
 .cursor/
 .gemini/

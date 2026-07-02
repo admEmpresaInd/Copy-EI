@@ -1,11 +1,5 @@
 {
     "cleanUrls": true,
-    "functions": {
-          "api/generate.js": {
-                  "maxDuration": 60,
-                  "includeFiles": "{.claude/skills/**,EI/**}"
-          }
-    },
     "redirects": [],
     "rewrites": [
           {

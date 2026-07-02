@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sócio Estratégico</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --background: #1a1a1a;
+    --foreground: #fafafa;
+    --primary: #34d399;
+    --primary-fg: #0a2e24;
+    --muted: #333333;
+    --muted-fg: #a3a3a3;
+    --card: #262626;
+    --border: rgba(255,255,255,0.1);
+    --destructive: #ef4444;
+    --cyan: #22d3ee;
+    --font: 'Space Grotesk', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --radius: 10px;
+    --radius-lg: 14px;
+    --radius-xl: 18px;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  .glow-emerald { box-shadow: 0 0 20px rgba(52,211,153,0.15), 0 0 60px rgba(52,211,153,0.05); }
+  .glow-emerald-strong { box-shadow: 0 0 30px rgba(52,211,153,0.25), 0 0 80px rgba(52,211,153,0.1); }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(-8px); }
+  }
+  @keyframes pulseGlow {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: 0.5; transform: scale(0.85); }
+  }
+  .animate-fade-in-up { animation: fadeInUp 0.7s ease-out forwards; }
+  .d1 { animation-delay: 0.1s; }
+  .d2 { animation-delay: 0.2s; }
+  .d3 { animation-delay: 0.3s; }
+  .d4 { animation-delay: 0.4s; }
+  .opacity-0 { opacity: 0; }
+
+  .scroll-hidden { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease-out, transform 0.7s ease-out; }
+  .scroll-visible { opacity: 1; transform: translateY(0); }
+  .stagger-1 { transition-delay: 0.1s; }
+  .stagger-2 { transition-delay: 0.2s; }
+  .stagger-3 { transition-delay: 0.3s; }
+  .stagger-4 { transition-delay: 0.4s; }
+
+  /* ── HEADER ── */
+  header {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(26,26,26,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-icon {
+    width: 32px; height: 32px;
+    background: var(--primary);
+    color: var(--primary-fg);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 13px;
+  }
+  .logo-text { font-weight: 700; font-size: 15px; color: var(--foreground); }
+  .header-badge {
+    font-size: 11px; font-family: var(--mono);
+    color: var(--muted-fg);
+    background: rgba(52,211,153,0.07);
+    border: 1px solid rgba(52,211,153,0.15);
+    padding: 5px 14px; border-radius: 99px;
+  }
+
+  section { padding: 80px 24px; position: relative; z-index: 1; }
+  section.compact { padding: 48px 24px; }
+  .container-sm { max-width: 640px; margin: 0 auto; }
+  .container-md { max-width: 880px; margin: 0 auto; }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 96px 24px 72px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-glow {
+    position: absolute; top: -60px; left: 50%; transform: translateX(-50%);
+    width: 520px; height: 520px;
+    background: radial-gradient(circle, rgba(52,211,153,0.14) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 16px; border-radius: 99px;
+    border: 1px solid rgba(52,211,153,0.2);
+    background: rgba(52,211,153,0.05);
+    font-size: 12px; color: var(--primary);
+    margin-bottom: 24px;
+  }
+  h1 {
+    font-size: clamp(2.1rem, 5vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+  }
+  h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, var(--primary), var(--cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero p.lead {
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    color: var(--muted-fg);
+    max-width: 560px;
+    margin: 0 auto 36px;
+    line-height: 1.8;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    height: 48px; padding: 0 28px;
+    border-radius: var(--radius);
+    font-family: var(--font); font-size: 14px; font-weight: 600;
+    text-decoration: none; cursor: pointer; border: none;
+    transition: all 0.2s;
+  }
+  .btn-primary { background: var(--primary); color: var(--primary-fg); }
+  .btn-primary:hover { background: #6ee7b7; }
+  .btn-outline { background: transparent; color: var(--foreground); border: 1px solid var(--border); }
+  .btn-outline:hover { background: rgba(255,255,255,0.05); }
+  .hero-cta { display: flex; align-items: center; justify-content: center; gap: 14px; flex-wrap: wrap; margin-bottom: 28px; }
+  .hero-meta {
+    display: flex; align-items: center; justify-content: center; gap: 20px;
+    flex-wrap: wrap;
+  }
+  .hero-meta span {
+    font-size: 12px; color: var(--muted-fg);
+    font-family: var(--mono);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .hero-meta span::before { content: '▸'; color: var(--primary); }
+
+  /* ── STATS ── */
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  @media (max-width: 768px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } }
+  .stat-card {
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.02);
+    padding: 24px; text-align: center;
+  }
+  .stat-num { font-size: 1.8rem; font-weight: 700; color: var(--primary); font-family: var(--mono); }
+  .stat-label { font-size: 12px; color: var(--muted-fg); margin-top: 6px; }
+
+  /* ── SECTION LABEL / HEADER ── */
+  .section-label {
+    display: inline-block;
+    padding: 4px 12px; border-radius: 99px;
+    background: rgba(52,211,153,0.1);
+    font-size: 11px; font-weight: 600;
+    color: var(--primary);
+    letter-spacing: 0.05em; text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  h2 {
+    font-size: clamp(1.6rem, 3vw, 2.3rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .section-desc {
+    font-size: 1rem;
+    color: var(--muted-fg);
+    max-width: 560px;
+    margin: 0 auto 44px;
+    line-height: 1.8;
+  }
+  .text-center { text-align: center; }
+
+  /* ── OFERTA GRID ── */
+  .oferta-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  @media (max-width: 700px) { .oferta-grid { grid-template-columns: 1fr; } }
+  .oferta-card {
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    background: var(--card);
+    padding: 28px;
+    transition: border-color 0.3s;
+  }
+  .oferta-card:hover { border-color: rgba(52,211,153,0.25); }
+  .oferta-num { font-family: var(--mono); font-size: 12px; color: var(--muted-fg); margin-bottom: 10px; }
+  .oferta-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+  .oferta-card p { font-size: 0.88rem; color: var(--muted-fg); line-height: 1.7; }
+
+  /* ── GARANTIA ── */
+  .garantia-card {
+    border-radius: var(--radius-xl);
+    border: 1px solid rgba(52,211,153,0.25);
+    background: linear-gradient(135deg, rgba(52,211,153,0.08) 0%, rgba(34,211,238,0.04) 100%);
+    padding: 40px;
+    display: flex;
+    gap: 28px;
+    align-items: flex-start;
+  }
+  @media (max-width: 640px) { .garantia-card { flex-direction: column; padding: 28px; } }
+  .garantia-seal {
+    flex-shrink: 0;
+    width: 88px; height: 88px;
+    border-radius: 50%;
+    border: 1px solid rgba(52,211,153,0.4);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-family: var(--mono);
+  }
+  .garantia-seal .n { font-size: 1.6rem; font-weight: 700; color: var(--primary); line-height: 1; }
+  .garantia-seal .u { font-size: 9px; color: var(--muted-fg); letter-spacing: 0.1em; margin-top: 2px; }
+  .garantia-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; }
+  .garantia-card p { color: var(--muted-fg); font-size: 0.92rem; line-height: 1.8; }
+  .garantia-card strong { color: var(--foreground); }
+
+  /* ── FIT ── */
+  .fit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 700px) { .fit-grid { grid-template-columns: 1fr; } }
+  .fit-card { border-radius: var(--radius-lg); border: 1px solid var(--border); padding: 28px; background: rgba(255,255,255,0.02); }
+  .fit-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 16px; }
+  .fit-card.yes h4 { color: var(--primary); }
+  .fit-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .fit-list li { font-size: 0.86rem; color: var(--muted-fg); display: flex; gap: 10px; line-height: 1.5; }
+  .fit-icon { flex-shrink: 0; margin-top: 2px; }
+  .fit-card.yes .fit-icon { color: var(--primary); }
+  .fit-card.no .fit-icon { color: var(--destructive); }
+
+  /* ── PRICING ── */
+  .price-card {
+    max-width: 440px; margin: 0 auto;
+    border-radius: var(--radius-xl);
+    border: 1px solid rgba(52,211,153,0.3);
+    background: linear-gradient(135deg, rgba(52,211,153,0.06) 0%, var(--card) 100%);
+    padding: 40px;
+    text-align: center;
+  }
+  .price-card .plabel { font-size: 12px; color: var(--muted-fg); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
+  .price-card .pamount { font-size: 3rem; font-weight: 700; font-family: var(--mono); }
+  .price-card .pperiod { font-size: 13px; color: var(--muted-fg); margin-top: 4px; margin-bottom: 28px; }
+  .price-features { list-style: none; text-align: left; display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+  .price-features li { font-size: 0.88rem; display: flex; gap: 10px; align-items: flex-start; }
+  .price-features li .check { color: var(--primary); flex-shrink: 0; margin-top: 2px; }
+
+  /* ── ESCASSEZ ── */
+  .urgency-strip {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 10px 22px; border-radius: 99px;
+    border: 1px solid rgba(52,211,153,0.3);
+    font-size: 12px; letter-spacing: 0.05em; color: var(--primary);
+    font-family: var(--mono);
+  }
+  .urgency-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--primary); animation: pulseGlow 1.6s ease-in-out infinite; }
+
+  footer {
+    background: rgba(255,255,255,0.02);
+    border-top: 1px solid var(--border);
+    padding: 40px 24px;
+    text-align: center;
+  }
+  footer .logo { justify-content: center; margin-bottom: 10px; }
+  footer p { font-size: 12px; color: var(--muted-fg); }
+</style>
+</head>
+<body>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <span class="badge animate-fade-in-up">Sócio Estratégico</span>
+  <h1 class="animate-fade-in-up d1">Você não precisa mais decidir tudo <em>sozinho</em><br>para crescer com direção clara.</h1>
+  <p class="lead animate-fade-in-up d2">Toda semana, alguém de fora analisa sua empresa como um todo e entrega os caminhos que você deve executar. Clareza em vez de tentativa e erro.</p>
+  <div class="hero-meta animate-fade-in-up d4">
+    <span>Garantia de 30 dias</span>
+    <span>Sem fidelidade obrigatória</span>
+    <span>Máximo 6 empresas atendidas</span>
+  </div>
+</section>
+
+<!-- ══ STATS ══ -->
+<section class="compact">
+  <div class="container-md stats-grid scroll-hidden">
+    <div class="stat-card"><div class="stat-num">4</div><div class="stat-label">Encontros por mês</div></div>
+    <div class="stat-card"><div class="stat-num">60min</div><div class="stat-label">Por encontro</div></div>
+    <div class="stat-card"><div class="stat-num">6</div><div class="stat-label">Empresas no máximo</div></div>
+    <div class="stat-card"><div class="stat-num">30d</div><div class="stat-label">Garantia total</div></div>
+  </div>
+</section>
+
+<!-- ══ PARA QUEM É ══ -->
+<section>
+  <div class="container-md text-center scroll-hidden">
+    <span class="section-label">Para quem é</span>
+    <h2>Feito para donos de empresa que decidem sozinhos</h2>
+    <p class="section-desc">Não é para todo mundo. É para quem já sente o peso de decidir tudo sem ter com quem validar no nível certo.</p>
+  </div>
+  <div class="container-md fit-grid scroll-hidden">
+    <div class="fit-card yes">
+      <h4>É para você se</h4>
+      <ul class="fit-list">
+        <li><span class="fit-icon">✓</span> Sua empresa já fatura o suficiente para uma decisão errada custar caro</li>
+        <li><span class="fit-icon">✓</span> Você não tem sócio ou conselho para validar decisões estratégicas</li>
+        <li><span class="fit-icon">✓</span> Você quer direção semanal, não um relatório trimestral</li>
+        <li><span class="fit-icon">✓</span> Você consegue dedicar 60 minutos por semana ao próprio negócio</li>
+      </ul>
+    </div>
+    <div class="fit-card no">
+      <h4>Não é para você se</h4>
+      <ul class="fit-list">
+        <li><span class="fit-icon">×</span> Você busca alguém para executar tarefas operacionais</li>
+        <li><span class="fit-icon">×</span> Sua empresa ainda não tem operação validada</li>
+        <li><span class="fit-icon">×</span> Você quer resultado sem participar de nenhuma decisão</li>
+        <li><span class="fit-icon">×</span> Você procura o menor preço, não a maior clareza</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ══ OFERTA ══ -->
+<section id="oferta">
+  <div class="container-md text-center scroll-hidden">
+    <span class="section-label">O que você recebe</span>
+    <h2>Tudo que compõe o Sócio Estratégico</h2>
+    <p class="section-desc">Cada componente existe para eliminar um ponto de falha na sua tomada de decisão.</p>
+  </div>
+  <div class="container-md oferta-grid scroll-hidden">
+    <div class="oferta-card">
+      <div class="oferta-num">01</div>
+      <h3>Encontro Estratégico Semanal</h3>
+      <p>Quatro encontros de 60 minutos por mês, focados na empresa como um todo, e não apenas em marketing ou em vendas isoladamente.</p>
+    </div>
+    <div class="oferta-card">
+      <div class="oferta-num">02</div>
+      <h3>Canal Direto</h3>
+      <p>Acesso por WhatsApp entre os encontros para decisões urgentes, sem precisar esperar a próxima semana.</p>
+    </div>
+    <div class="oferta-card">
+      <div class="oferta-num">03</div>
+      <h3>Plano de Ação por Escrito</h3>
+      <p>Resumo executivo com as prioridades definidas, entregue após cada encontro, para que a execução não dependa de memória.</p>
+    </div>
+    <div class="oferta-card">
+      <div class="oferta-num">04</div>
+      <h3>Diagnóstico Inicial</h3>
+      <p>Mapeamento completo dos gargalos e das oportunidades da empresa, realizado no primeiro encontro, sem custo adicional.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ GARANTIA ══ -->
+<section class="compact">
+  <div class="container-md scroll-hidden">
+    <div class="garantia-card glow-emerald">
+      <div class="garantia-seal">
+        <span class="n">30</span>
+        <span class="u">DIAS</span>
+      </div>
+      <div>
+        <h3>Garantia de 30 dias</h3>
+        <p>Os primeiros 30 dias são de teste. Se, depois do segundo encontro, você sentir que o serviço não vale o investimento realizado, <strong>devolvo 100% do valor pago</strong> e encerramos o acompanhamento sem custo algum.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ INVESTIMENTO ══ -->
+<section id="investimento">
+  <div class="container-md text-center scroll-hidden">
+    <span class="section-label">Resumo</span>
+    <h2>Tudo em um só lugar, sem letras miúdas</h2>
+  </div>
+  <div class="scroll-hidden">
+    <div class="price-card glow-emerald-strong">
+      <div class="plabel">Sócio Estratégico</div>
+      <ul class="price-features">
+        <li><span class="check">✓</span> 4 encontros estratégicos de 60 minutos por mês</li>
+        <li><span class="check">✓</span> Canal direto por WhatsApp entre os encontros</li>
+        <li><span class="check">✓</span> Plano de ação por escrito após cada encontro</li>
+        <li><span class="check">✓</span> Diagnóstico inicial incluso, sem custo adicional</li>
+        <li><span class="check">✓</span> Garantia total nos primeiros 30 dias</li>
+        <li><span class="check">✓</span> Sem fidelidade obrigatória</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ESCASSEZ ══ -->
+<section class="compact text-center">
+  <div class="container-sm scroll-hidden">
+    <p style="color: var(--muted-fg); font-size: 0.92rem; margin-bottom: 20px; line-height: 1.8;">
+      Atendo, no máximo, <strong style="color: var(--foreground);">seis empresas simultaneamente</strong>. É um acompanhamento semanal individual, por isso não é possível ampliar esse número sem perda de qualidade.
+    </p>
+    <div class="urgency-strip">
+      <span class="urgency-dot"></span>
+      Vagas limitadas neste ciclo
+    </div>
+  </div>
+</section>
+
+<!-- ══ CUSTO DE FICAR PARADO ══ -->
+<section class="compact text-center">
+  <div class="container-sm scroll-hidden">
+    <p style="font-size: 1.05rem; color: var(--foreground); font-style: italic; line-height: 1.8;">
+      Continuar decidindo tudo sozinho também tem um custo. Ele só não aparece no extrato no mesmo dia.
+    </p>
+  </div>
+</section>
+
+<footer>
+  <p>Sócio Estratégico · Direção semanal para quem decide sozinho</p>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.scroll-hidden');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('scroll-visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

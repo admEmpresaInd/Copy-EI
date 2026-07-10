@@ -35,6 +35,7 @@
           { "source": "/brand-identity", "destination": "/EI/brand-identity" },
           { "source": "/otb", "destination": "/EI/otb-franquias-market-research" },
           { "source": "/socio-estrategico", "destination": "/socio-estrategico-one-pager" },
+          { "source": "/figado", "destination": "/swipe-file-nutraceutico-figado" },
           { "source": "/jubiaba", "destination": "/jubiaba/apresentacao-jubiaba" },
           { "source": "/ancestra", "destination": "/Ancestra/index" },
           { "source": "/manual-dono-livre", "destination": "/EI/Manual do Dono/manual-dono-livre" },

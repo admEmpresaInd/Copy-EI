@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swipe File — Nutracêutico de Fígado | Empresa Independente</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap');
+
+  :root {
+    --background: #1a1a1a;
+    --foreground: #fafafa;
+    --primary: #34d399;
+    --primary-foreground: #0a2e24;
+    --muted: #333333;
+    --muted-foreground: #a3a3a3;
+    --card: #262626;
+    --border: rgba(255,255,255,0.1);
+    --destructive: #ef4444;
+
+    --emerald: #10b981;
+    --violet: #8b5cf6;
+    --amber: #f59e0b;
+    --blue: #3b82f6;
+    --rose: #f43f5e;
+    --cyan: #22d3ee;
+
+    --font-sans: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    --font-mono: 'Geist Mono', ui-monospace, 'SF Mono', 'Cascadia Code', Consolas, monospace;
+
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 10px;
+    --radius-xl: 14px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+
+  .container-narrow { max-width: 896px; margin: 0 auto; padding: 0 16px; }
+  .container-default { max-width: 1024px; margin: 0 auto; padding: 0 16px; }
+  .container-wide { max-width: 1152px; margin: 0 auto; padding: 0 16px; }
+
+  /* ===== Header ===== */
+  header.site {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(26,26,26,0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .header-inner {
+    max-width: 1152px;
+    margin: 0 auto;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-icon {
+    width: 32px; height: 32px;
+    background: var(--primary);
+    color: var(--primary-foreground);
+    border-radius: var(--radius-md);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 13px;
+    flex-shrink: 0;
+  }
+  .logo-text { font-weight: 700; font-size: 15px; color: var(--foreground); white-space: nowrap; }
+  .header-badge {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--primary);
+    background: rgba(52,211,153,0.08);
+    border: 1px solid rgba(52,211,153,0.2);
+    border-radius: 9999px;
+    padding: 5px 12px;
+    white-space: nowrap;
+  }
+
+  /* ===== Hero ===== */
+  section.hero {
+    position: relative;
+    padding: 80px 16px 48px;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-glow {
+    position: absolute;
+    width: 480px; height: 480px;
+    background: rgba(52,211,153,0.18);
+    border-radius: 9999px;
+    filter: blur(90px);
+    top: -180px;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+  }
+  .hero-content { position: relative; max-width: 896px; margin: 0 auto; }
+  .badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgba(52,211,153,0.2);
+    background: rgba(52,211,153,0.05);
+    color: var(--primary);
+    padding: 6px 16px;
+    border-radius: 9999px;
+    font-size: 13px;
+    font-family: var(--font-mono);
+    letter-spacing: 0.02em;
+  }
+  h1.title {
+    font-size: clamp(32px, 5.5vw, 56px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+    margin: 20px 0 16px;
+  }
+  .title-accent {
+    background: linear-gradient(90deg, var(--primary), #6ee7b7, var(--primary));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradient-shift 6s ease infinite;
+  }
+  @keyframes gradient-shift {
+    0% { background-position: 0% center; }
+    50% { background-position: 100% center; }
+    100% { background-position: 0% center; }
+  }
+  p.dek {
+    font-size: 18px;
+    color: var(--muted-foreground);
+    max-width: 62ch;
+    margin: 0;
+  }
+
+  /* ===== Stats bar ===== */
+  .stats-bar {
+    max-width: 896px;
+    margin: 40px auto 0;
+    padding: 0 16px 80px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  @media (min-width: 768px) { .stats-bar { grid-template-columns: repeat(4, 1fr); gap: 24px; } }
+  .stat-card {
+    border: 1px solid var(--border);
+    background: rgba(38,38,38,0.5);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    text-align: center;
+  }
+  .stat-num { font-size: 28px; font-weight: 700; color: var(--primary); font-family: var(--font-mono); }
+  .stat-label { font-size: 13px; color: var(--muted-foreground); margin-top: 4px; }
+
+  /* ===== Section shell ===== */
+  section.block { padding: 64px 16px 80px; }
+  section.block.divider { background: linear-gradient(to bottom, var(--background), rgba(52,211,153,0.03), var(--background)); }
+  .section-label {
+    display: inline-block;
+    border-radius: 9999px;
+    background: rgba(52,211,153,0.1);
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 500;
+    font-family: var(--font-mono);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+  }
+  h2.section-title {
+    font-size: clamp(24px, 3.4vw, 36px);
+    font-weight: 700;
+    margin: 14px 0 8px;
+    letter-spacing: -0.01em;
+  }
+  p.section-sub {
+    color: var(--muted-foreground);
+    font-size: 15px;
+    max-width: 72ch;
+    margin: 0 0 40px;
+  }
+
+  /* ===== Insight grid (framework-style cards) ===== */
+  .insight-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  @media (min-width: 768px) { .insight-grid { grid-template-columns: repeat(2, 1fr); } }
+  .insight-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: 24px;
+    background: linear-gradient(135deg, var(--tint) 0%, transparent 65%);
+    transition: border-color 0.2s ease;
+  }
+  .insight-card:hover { border-color: rgba(255,255,255,0.2); }
+  .insight-num {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--tint-solid);
+    letter-spacing: 0.06em;
+  }
+  .insight-card h3 {
+    font-size: 19px;
+    font-weight: 600;
+    margin: 10px 0 8px;
+    letter-spacing: -0.005em;
+  }
+  .insight-card p { margin: 0; font-size: 14.5px; color: var(--muted-foreground); }
+
+  .c1 { --tint: rgba(16,185,129,0.16); --tint-solid: #34d399; }
+  .c2 { --tint: rgba(139,92,246,0.16); --tint-solid: #a78bfa; }
+  .c3 { --tint: rgba(245,158,11,0.16); --tint-solid: #fbbf24; }
+  .c4 { --tint: rgba(59,130,246,0.16); --tint-solid: #60a5fa; }
+  .c5 { --tint: rgba(244,63,94,0.16); --tint-solid: #fb7185; }
+  .c6 { --tint: rgba(34,211,238,0.16); --tint-solid: #22d3ee; }
+
+  /* ===== Swipe quotes ===== */
+  .swipe-list { margin-top: 40px; display: flex; flex-direction: column; gap: 16px; }
+  blockquote.swipe {
+    border-left: 3px solid var(--primary);
+    margin: 0;
+    padding: 4px 0 4px 22px;
+    font-size: 16.5px;
+    font-style: italic;
+    color: var(--foreground);
+  }
+  blockquote.swipe cite {
+    display: block;
+    font-family: var(--font-mono);
+    font-style: normal;
+    font-size: 12px;
+    color: var(--muted-foreground);
+    margin-top: 10px;
+    letter-spacing: 0.01em;
+  }
+
+  /* ===== Offer cards ===== */
+  .offer {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: rgba(38,38,38,0.5);
+    padding: 22px 24px 24px;
+    margin-bottom: 16px;
+    transition: border-color 0.2s ease;
+  }
+  .offer:hover { border-color: rgba(52,211,153,0.2); }
+  .offer-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .offer-name { font-size: 18px; font-weight: 600; margin: 0; }
+  .offer-domain {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    color: var(--muted-foreground);
+    display: block;
+    margin-top: 3px;
+  }
+  .offer-tag {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 4px 10px;
+    border-radius: 9999px;
+    white-space: nowrap;
+    height: fit-content;
+  }
+  .offer-tag.primary-tag { color: var(--primary); background: rgba(52,211,153,0.1); }
+  .offer-tag.muted-tag { color: var(--muted-foreground); background: rgba(255,255,255,0.05); }
+  .offer-angle {
+    font-size: 14px;
+    color: var(--muted-foreground);
+    margin: 10px 0 16px;
+    max-width: 72ch;
+  }
+  .persona-row { display: flex; flex-wrap: wrap; gap: 7px 8px; align-items: center; margin-top: 4px; }
+  .persona-label {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--muted-foreground);
+    width: 100%;
+    margin: 10px 0 2px;
+  }
+  .persona-label:first-child { margin-top: 0; }
+  a.chip {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    background: rgba(52,211,153,0.08);
+    color: var(--primary);
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(52,211,153,0.15);
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  a.chip:hover { background: var(--primary); color: var(--primary-foreground); }
+
+  /* ===== Caveat / callout ===== */
+  .caveat {
+    background: rgba(38,38,38,0.6);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--amber);
+    border-radius: var(--radius-md);
+    padding: 18px 22px;
+    font-size: 14.5px;
+    color: var(--muted-foreground);
+    margin: 4px 0 28px;
+  }
+  .caveat strong { color: var(--foreground); }
+
+  /* ===== Table ===== */
+  .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  table.tt { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 480px; }
+  table.tt th {
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted-foreground);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 16px;
+    background: rgba(255,255,255,0.02);
+  }
+  table.tt td {
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  table.tt tr:last-child td { border-bottom: none; }
+  table.tt a { color: var(--primary); text-decoration: none; font-family: var(--font-mono); font-size: 12.5px; }
+  table.tt a:hover { text-decoration: underline; }
+
+  /* ===== Footer ===== */
+  footer.site {
+    background: rgba(38,38,38,0.5);
+    border-top: 1px solid var(--border);
+    padding: 32px 16px;
+    margin-top: 24px;
+  }
+  .footer-inner {
+    max-width: 1152px;
+    margin: 0 auto;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--muted-foreground);
+    line-height: 1.7;
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <span class="logo-icon">EI</span>
+      <span class="logo-text">Empresa Independente</span>
+    </a>
+    <span class="header-badge">copy-senior · dossiê</span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <span class="badge-pill">📋 Dossiê de pesquisa · copy-senior</span>
+    <h1 class="title">Anúncios de <span class="title-accent">nutracêutico de fígado</span></h1>
+    <p class="dek">Levantamento global (Meta + TikTok) de criativos ativos vendendo suplementos, protocolos e "cleanses" para saúde do fígado — foco em peças estáticas 1:1 e no gancho de venda direta.</p>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stat-card">
+    <div class="stat-num">90</div>
+    <div class="stat-label">Anúncios Meta (imagem, ativos)</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num">18</div>
+    <div class="stat-label">Ofertas distintas</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num">Global</div>
+    <div class="stat-label">Alcance — sem filtro de país</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-num">Apify</div>
+    <div class="stat-label">Meta Ad Library + TikTok Ads Library</div>
+  </div>
+</div>
+
+<section class="block divider">
+  <div class="container-wide">
+    <span class="section-label">Análise</span>
+    <h2 class="section-title">Padrões de copy identificados</h2>
+    <p class="section-sub">Lidos na íntegra 4 anúncios de longa-forma (advertorial) das ofertas mais escaladas para mapear o gancho, a estrutura e o mecanismo de venda.</p>
+
+    <div class="insight-grid">
+      <div class="insight-card c1">
+        <div class="insight-num">01</div>
+        <h3>O número do exame como prova</h3>
+        <p>Quase todo lead abre com um valor de ALT/AST ("meu ALT estava em 187") e fecha mostrando a queda ("ALT: 28"). O exame de sangue vira o dispositivo de prova central — mais crível que antes/depois de foto.</p>
+      </div>
+      <div class="insight-card c2">
+        <div class="insight-num">02</div>
+        <h3>Contra-posicionamento à abstinência</h3>
+        <p>O gancho mais forte não é "beba menos" — é "parar de beber não vai salvar seu fígado". A copy ataca a solução óbvia (abstinência) como insuficiente e ineficaz, criando espaço para o suplemento como resposta real.</p>
+      </div>
+      <div class="insight-card c3">
+        <div class="insight-num">03</div>
+        <h3>Tríade de ingrediente-mecanismo</h3>
+        <p>NAC (precursor de glutationa, "mesma dose do IV hospitalar") + silimarina ("europeia, farmacêutica" vs. "americana oxidada de prateleira") + colina (exportação de gordura do fígado). Sempre as três, sempre com dose "clínica" vs. "sub-clínica".</p>
+      </div>
+      <div class="insight-card c4">
+        <div class="insight-num">04</div>
+        <h3>Advertorial em primeira pessoa, personas recicladas</h3>
+        <p>Textos longos (2.000+ palavras) narrados por um personagem (legista aposentado, filha que perdeu a mãe, homem de 58 anos). O mesmo nome de persona ("Laura J. Mitchell, PhD") aparece vendendo ofertas de marcas diferentes — sinal de rede/agência operando várias contas.</p>
+      </div>
+      <div class="insight-card c5">
+        <div class="insight-num">05</div>
+        <h3>Cruzamento com "limpeza de parasitas"</h3>
+        <p>Boa parte do inventário de "liver cleanse" hoje é na verdade oferta de desparasitação (wormwood, cravo, óleo de rícino) que usa dano hepático como consequência do parasita — mesmo público, gancho adjacente.</p>
+      </div>
+      <div class="insight-card c6">
+        <div class="insight-num">06</div>
+        <h3>Garantia atrelada ao exame, CTA suave</h3>
+        <p>Garantia de 60–90 dias "com base nos seus exames reais" (não satisfação genérica) e CTA quase sempre "Learn more" — o clique vai para uma advertorial/landing page, não direto pro checkout.</p>
+      </div>
+    </div>
+
+    <div class="swipe-list">
+      <blockquote class="swipe">
+        "The drinking isn't killing your liver. The empty tank is. Refill the tank and the bourbon stops being a death sentence."
+        <cite>Ritual Labs — Happy Liver · persona "Danny" · rituallabs.shop/products/happy-liver</cite>
+      </blockquote>
+      <blockquote class="swipe">
+        "She gave up everything she loved to stop the bleeding from a wound that was already inside her. [...] Quitting drinking stops the damage. It doesn't refill what's been depleted."
+        <cite>Ritual Labs — Happy Liver · persona "Jessica Davis, 55, Chicago" · rituallabs.shop/products/happy-liver</cite>
+      </blockquote>
+      <blockquote class="swipe">
+        "Almost every body I opened in 31 years had the same thing inside it [...] Enlarged livers [...] And every certificate I signed said the same thing. Organ failure. Natural causes."
+        <cite>Wild Harvest — Gutcleanse 2-Step · persona "Rachel Henderson, retired coroner" · trywildharvest.com</cite>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<section class="block">
+  <div class="container-wide">
+    <span class="section-label">Inventário</span>
+    <h2 class="section-title">Meta / Instagram</h2>
+    <p class="section-sub">89 links · formato imagem, status ativo. Buscas por <em>liver detox supplement, liver support supplement, fatty liver supplement, milk thistle liver, liver cleanse pills, liver health capsules</em> — país = todos, mídia = imagem. Agrupado por oferta (landing page); cada chip abre o anúncio direto na Ad Library.</p>
+
+    <div class="offer">
+      <div class="offer-head">
+        <div>
+          <p class="offer-name">Ritual Labs — Happy Liver</p>
+          <span class="offer-domain">rituallabs.shop/products/happy-liver(13)</span>
+        </div>
+        <span class="offer-tag primary-tag">Oferta dominante · 41 criativos</span>
+      </div>
+      <p class="offer-angle">NAC + silimarina europeia + colina. Advertorial longo, mecanismo de glutationa, ataque à "abstinência como padrão-ouro". De longe a oferta mais testada da categoria — vale estudar como caso principal.</p>
+      <div class="persona-row">
+        <span class="persona-label">Jessica Smith (32)</span>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1421929109780788" target="_blank" rel="noopener">01</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1540986394393155" target="_blank" rel="noopener">02</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=4081002552051589" target="_blank" rel="noopener">03</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=27134510552890992" target="_blank" rel="noopener">04</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=27350236714633330" target="_blank" rel="noopener">05</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1051698681147262" target="_blank" rel="noopener">06</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1408934244397709" target="_blank" rel="noopener">07</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1481880867038521" target="_blank" rel="noopener">08</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1330381482586855" target="_blank" rel="noopener">09</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=2561404794279939" target="_blank" rel="noopener">10</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1671252873926759" target="_blank" rel="noopener">11</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1532396741963755" target="_blank" rel="noopener">12</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=2940921172909357" target="_blank" rel="noopener">13</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=4551392851774488" target="_blank" rel="noopener">14</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1003798019221194" target="_blank" rel="noopener">15</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1678676099910959" target="_blank" rel="noopener">16</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=793133107143263" target="_blank" rel="noopener">17</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1559549822207441" target="_blank" rel="noopener">18</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1467203051879262" target="_blank" rel="noopener">19</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=759836510526356" target="_blank" rel="noopener">20</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1060920183167960" target="_blank" rel="noopener">21</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=2901815716827622" target="_blank" rel="noopener">22</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1493066646198510" target="_blank" rel="noopener">23</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1697740337992198" target="_blank" rel="noopener">24</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1055045064149902" target="_blank" rel="noopener">25</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1733927724692496" target="_blank" rel="noopener">26</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=36759995620282607" target="_blank" rel="noopener">27</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=4451740988373499" target="_blank" rel="noopener">28</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1744474296691538" target="_blank" rel="noopener">29</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=2555177111596619" target="_blank" rel="noopener">30</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1300149295633180" target="_blank" rel="noopener">31</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1656041875680844" target="_blank" rel="noopener">32</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=4049594452005247" target="_blank" rel="noopener">33</a>
+        <span class="persona-label">Dr. Arthur Grant / Dr. Greg D Raymond</span>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1346415357421135" target="_blank" rel="noopener">34</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1008760465384622" target="_blank" rel="noopener">35</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=2899556367045748" target="_blank" rel="noopener">36</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1502015224996708" target="_blank" rel="noopener">37</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=27811807315127070" target="_blank" rel="noopener">38</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=2196784874507189" target="_blank" rel="noopener">39</a>
+        <span class="persona-label">Jeanie Carolyn / Vivienne Ashcombe / Laura J. Mitchell PhD</span>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1555869482909025" target="_blank" rel="noopener">40</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1479076764262018" target="_blank" rel="noopener">41</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=4507257229550860" target="_blank" rel="noopener">42</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1340909894862486" target="_blank" rel="noopener">43</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1343762324383087" target="_blank" rel="noopener">44</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1512864730337593" target="_blank" rel="noopener">45</a>
+      </div>
+    </div>
+
+    <div class="offer">
+      <div class="offer-head">
+        <div>
+          <p class="offer-name">Purelia — Liver Support</p>
+          <span class="offer-domain">try.officialpurelia.com/liver-support-pdp1</span>
+        </div>
+        <span class="offer-tag muted-tag">4 criativos</span>
+      </div>
+      <p class="offer-angle">Mesma persona "Laura J. Mitchell, PhD" usada na Ritual Labs — indício de rede de afiliados/media buyer compartilhado entre ofertas concorrentes.</p>
+      <div class="persona-row">
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1524837789151357" target="_blank" rel="noopener">01</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1680221603003367" target="_blank" rel="noopener">02</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1299919478386280" target="_blank" rel="noopener">03</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1730503288112621" target="_blank" rel="noopener">04</a>
+      </div>
+    </div>
+
+    <div class="offer">
+      <div class="offer-head">
+        <div>
+          <p class="offer-name">Rosabella Beetroot</p>
+          <span class="offer-domain">track.tryrosabella.com</span>
+        </div>
+        <span class="offer-tag muted-tag">6 criativos · cruzamento coração/fígado</span>
+      </div>
+      <p class="offer-angle">Suplemento de beterraba posicionado para saúde cardiovascular que também reivindica suporte hepático — mesma landing, múltiplas páginas-fachada ("The Health Haven", "The Heart Health Project").</p>
+      <div class="persona-row">
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1056080700264319" target="_blank" rel="noopener">01</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=931894329887354" target="_blank" rel="noopener">02</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1525562311760014" target="_blank" rel="noopener">03</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1313019517597767" target="_blank" rel="noopener">04</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=2190028801781256" target="_blank" rel="noopener">05</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1547988846750273" target="_blank" rel="noopener">06</a>
+      </div>
+    </div>
+
+    <div class="offer">
+      <div class="offer-head">
+        <div>
+          <p class="offer-name">Heart &amp; Soil — Beef Organs</p>
+          <span class="offer-domain">shop.heartandsoil.co/products/beef-organs</span>
+        </div>
+        <span class="offer-tag muted-tag">2 criativos · ângulo "food-based"</span>
+      </div>
+      <p class="offer-angle">Fígado dessecado de vaca em cápsula — ângulo ancestral/paleo em vez de bioquímico, contraste útil frente ao ângulo "clínico" das outras ofertas.</p>
+      <div class="persona-row">
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1738221594044749" target="_blank" rel="noopener">01</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=2061732204553867" target="_blank" rel="noopener">02</a>
+      </div>
+    </div>
+
+    <div class="offer">
+      <div class="offer-head">
+        <div>
+          <p class="offer-name">Tavio — Parasite Cleanse</p>
+          <span class="offer-domain">buytavio.com</span>
+        </div>
+        <span class="offer-tag muted-tag">5 criativos · adjacente</span>
+      </div>
+      <p class="offer-angle">"Hidden gut parasites" / "parasite infestation discovery" — dano hepático é apresentado como sintoma do parasita, não o produto principal.</p>
+      <div class="persona-row">
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1573175397497637" target="_blank" rel="noopener">01</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=3186733068383455" target="_blank" rel="noopener">02</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1005577568740342" target="_blank" rel="noopener">03</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=2141530819753686" target="_blank" rel="noopener">04</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=959054833702554" target="_blank" rel="noopener">05</a>
+      </div>
+    </div>
+
+    <div class="offer">
+      <div class="offer-head">
+        <div>
+          <p class="offer-name">Wild Harvest — Avaro Gutcleanse 2-Step</p>
+          <span class="offer-domain">trywildharvest.com</span>
+        </div>
+        <span class="offer-tag muted-tag">1 criativo · lido na íntegra</span>
+      </div>
+      <p class="offer-angle">Advertorial do "legista aposentado" citado acima — protocolo de duas etapas (matar + drenar), wormwood/cravo + ácido fúlvico.</p>
+      <div class="persona-row">
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1045468504472006" target="_blank" rel="noopener">01</a>
+      </div>
+    </div>
+
+    <div class="offer">
+      <div class="offer-head">
+        <div>
+          <p class="offer-name">Eden Labs — Castor Oil Pack Bundle</p>
+          <span class="offer-domain">try-edenlabs.com</span>
+        </div>
+        <span class="offer-tag muted-tag">6 criativos · formato físico, não cápsula</span>
+      </div>
+      <p class="offer-angle">Compressa de óleo de rícino — único formato não-ingerível da lista, ângulo "cura natural" via "Dr. Rachel Evans, ND" / "Dawn Miller".</p>
+      <div class="persona-row">
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1351301426957413" target="_blank" rel="noopener">01</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1294256858897721" target="_blank" rel="noopener">02</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=2522778274806056" target="_blank" rel="noopener">03</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=950563044411222" target="_blank" rel="noopener">04</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=25733885269643133" target="_blank" rel="noopener">05</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1417182367107459" target="_blank" rel="noopener">06</a>
+      </div>
+    </div>
+
+    <div class="offer">
+      <div class="offer-head">
+        <div>
+          <p class="offer-name">Lumvelle — Wormwood Drops</p>
+          <span class="offer-domain">lumvelle.com/products/lumvelle-wormwood-drops</span>
+        </div>
+        <span class="offer-tag muted-tag">2 criativos</span>
+      </div>
+      <p class="offer-angle">Formato gotas (não cápsula) — página "Finally Feeling Like Me", ângulo de identidade recuperada.</p>
+      <div class="persona-row">
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1418724026943927" target="_blank" rel="noopener">01</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1017141341211714" target="_blank" rel="noopener">02</a>
+      </div>
+    </div>
+
+    <div class="offer">
+      <div class="offer-head">
+        <div>
+          <p class="offer-name">Alevia — Amla</p>
+          <span class="offer-domain">alevia.com/products/amla-88</span>
+        </div>
+        <span class="offer-tag muted-tag">5 criativos · cruzamento colesterol</span>
+      </div>
+      <p class="offer-angle">Amla (groselha indiana) via "Cholesterol Support Group" — entra no leilão de fígado por afinidade de público metabólico, não por claim direto de fígado.</p>
+      <div class="persona-row">
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1338981521057645" target="_blank" rel="noopener">01</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=2380992692427395" target="_blank" rel="noopener">02</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=26613934588269229" target="_blank" rel="noopener">03</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1648549313084479" target="_blank" rel="noopener">04</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1622467072383657" target="_blank" rel="noopener">05</a>
+      </div>
+    </div>
+
+    <div class="offer">
+      <div class="offer-head">
+        <div>
+          <p class="offer-name">Metabolae — Blood Pressure / Ceylon Cinnamon</p>
+          <span class="offer-domain">metabolae.com</span>
+        </div>
+        <span class="offer-tag muted-tag">2 criativos · adjacente</span>
+      </div>
+      <p class="offer-angle">Foco metabólico geral (pressão, insulina) com menção lateral a fígado — "Dr. Cornelius Carter", "Dr. Matthew Walker".</p>
+      <div class="persona-row">
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=949424881457467" target="_blank" rel="noopener">01</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1399873565369291" target="_blank" rel="noopener">02</a>
+      </div>
+    </div>
+
+    <div class="offer">
+      <div class="offer-head">
+        <div>
+          <p class="offer-name">Outras ofertas (1 criativo cada)</p>
+          <span class="offer-domain">variados</span>
+        </div>
+        <span class="offer-tag muted-tag">10 marcas menores</span>
+      </div>
+      <p class="offer-angle">Ofertas com um único criativo capturado na amostra — teste inicial ou orçamento pequeno. Úteis como radar de novos entrantes.</p>
+      <div class="persona-row">
+        <span class="persona-label">Trynivora (broc-adv) · Florenix (cocoa) · Trygoodgrove (tart cherry, 2x) · Naturvahealth (COPD) · Trymaia (plaque) · Pipitea (colesterol) · Getamalahealth · Savaya Botanicals (skin detox) · Pureveen (tireoide) · Cloud9 tracking</span>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1327441312534657" target="_blank" rel="noopener">Trynivora</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1014888434615725" target="_blank" rel="noopener">Florenix</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1237679545143619" target="_blank" rel="noopener">Goodgrove 01</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1447546560102443" target="_blank" rel="noopener">Goodgrove 02</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1327899032573473" target="_blank" rel="noopener">Naturvahealth</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=810942235305872" target="_blank" rel="noopener">Trymaia</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=2391069611361947" target="_blank" rel="noopener">Pipitea</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1738290167202681" target="_blank" rel="noopener">Getamalahealth</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1480664756746777" target="_blank" rel="noopener">Savaya</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1307833371489267" target="_blank" rel="noopener">Pureveen</a>
+        <a class="chip" href="https://www.facebook.com/ads/library/?id=1412345400648437" target="_blank" rel="noopener">Cloud9</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block divider">
+  <div class="container-wide">
+    <span class="section-label">Cobertura secundária</span>
+    <h2 class="section-title">TikTok</h2>
+
+    <div class="caveat">
+      <strong>Cobertura fraca nesta categoria.</strong> O TikTok Creative Center (Top Ads) devolveu principalmente anúncios genéricos de skincare/beleza sem relação real com fígado — a busca por palavra-chave ali é solta e prioriza engajamento, não relevância temática. Trocamos para o <strong>TikTok Ads Library</strong> (dados oficiais de transparência da UE) com correspondência exata de palavra-chave e o volume de anunciantes genuinamente ligados a suplemento hepático caiu para poucas dezenas globalmente — a categoria de "dietary supplement" tem forte restrição de veiculação de anúncios pagos no TikTok. Os candidatos abaixo são os que passaram no filtro manual; vale confirmar cada um antes de usar como referência.
+    </div>
+
+    <div class="table-wrap">
+      <table class="tt">
+        <thead>
+          <tr><th>Anunciante</th><th>Termo de busca</th><th>Link do anúncio</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Vinco Supplements</td><td>liver detox / liver support</td><td><a href="https://library.tiktok.com/ads/detail/?ad_id=1801029348292658" target="_blank" rel="noopener">ad_id 1801029348292658</a></td></tr>
+          <tr><td>Insentials</td><td>liver detox</td><td><a href="https://library.tiktok.com/ads/detail/?ad_id=1863406210441425" target="_blank" rel="noopener">ad_id 1863406210441425</a></td></tr>
+          <tr><td>Insentials</td><td>liver detox</td><td><a href="https://library.tiktok.com/ads/detail/?ad_id=1863394870425633" target="_blank" rel="noopener">ad_id 1863394870425633</a></td></tr>
+          <tr><td>Insentials</td><td>liver detox</td><td><a href="https://library.tiktok.com/ads/detail/?ad_id=1863950737730722" target="_blank" rel="noopener">ad_id 1863950737730722</a></td></tr>
+          <tr><td>liverm0</td><td>liver support</td><td><a href="https://library.tiktok.com/ads/detail/?ad_id=1864618918937809" target="_blank" rel="noopener">ad_id 1864618918937809</a></td></tr>
+          <tr><td>trlolliver</td><td>liver support</td><td><a href="https://library.tiktok.com/ads/detail/?ad_id=1864213706109202" target="_blank" rel="noopener">ad_id 1864213706109202</a></td></tr>
+          <tr><td>meccoliver</td><td>liver support</td><td><a href="https://library.tiktok.com/ads/detail/?ad_id=1864150443314514" target="_blank" rel="noopener">ad_id 1864150443314514</a></td></tr>
+          <tr><td>delfinliver</td><td>liver support</td><td><a href="https://library.tiktok.com/ads/detail/?ad_id=1863523910224146" target="_blank" rel="noopener">ad_id 1863523910224146</a></td></tr>
+          <tr><td>studiosliver</td><td>liver support</td><td><a href="https://library.tiktok.com/ads/detail/?ad_id=1863171107466369" target="_blank" rel="noopener">ad_id 1863171107466369</a></td></tr>
+          <tr><td>schfroliver</td><td>liver support</td><td><a href="https://library.tiktok.com/ads/detail/?ad_id=1863107209405441" target="_blank" rel="noopener">ad_id 1863107209405441</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="footer-inner">
+    Coletado via Apify (apify/facebook-ads-scraper + data_xplorer/tiktok-ads-scraper) · Meta Ad Library, formato imagem, status ativo, país = todos · TikTok Ads Library, região = todas · Compilado para pesquisa de copy — Empresa Independente.
+  </div>
+</footer>
+
+</body>
+</html>

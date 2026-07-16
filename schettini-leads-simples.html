@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estratégia de Leads — Schettini · Carreteiro</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #141414;
+  --fg:       #fafafa;
+  --primary:  #34d399;
+  --muted:    #292929;
+  --muted-fg: #a3a3a3;
+  --card:     #1f1f1f;
+  --border:   rgba(255,255,255,0.09);
+  --amber:    #f59e0b;
+  --blue:     #3b82f6;
+  --rose:     #f43f5e;
+  --cyan:     #06b6d4;
+  --violet:   #8b5cf6;
+  --red:      #ef4444;
+  --font: 'Inter', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+a{color:var(--primary);text-decoration:none;}
+
+/* layout */
+.wrap{max-width:860px;margin:0 auto;padding:0 20px;}
+section{padding:56px 20px;}
+.divider{height:1px;background:var(--border);max-width:860px;margin:0 auto;}
+
+/* header */
+header{background:rgba(20,20,20,0.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:10;}
+.logo{width:30px;height:30px;background:var(--primary);border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;color:#0a2e24;flex-shrink:0;}
+.header-title{font-weight:700;font-size:14px;}
+.header-sub{font-size:12px;color:var(--muted-fg);}
+
+/* labels */
+.label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--primary);background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.2);padding:3px 10px;border-radius:999px;margin-bottom:14px;}
+
+/* titles */
+h2{font-size:clamp(20px,3vw,28px);font-weight:800;letter-spacing:-0.02em;margin-bottom:8px;}
+h3{font-size:16px;font-weight:700;margin-bottom:6px;}
+.sub{font-size:14px;color:var(--muted-fg);margin-bottom:28px;}
+
+/* cards */
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;}
+.card-grid{display:grid;gap:14px;}
+.card-grid.col2{grid-template-columns:1fr 1fr;}
+.card-grid.col3{grid-template-columns:repeat(3,1fr);}
+@media(max-width:640px){.card-grid.col2,.card-grid.col3{grid-template-columns:1fr;}}
+
+/* video card */
+.vid-card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.vid-thumb{height:120px;display:flex;align-items:center;justify-content:center;position:relative;font-size:28px;}
+.vid-rank{position:absolute;top:8px;right:8px;width:22px;height:22px;background:var(--primary);color:#0a2e24;border-radius:50%;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;}
+.vid-badge{position:absolute;top:8px;left:8px;font-size:9px;font-weight:700;padding:2px 7px;border-radius:999px;text-transform:uppercase;letter-spacing:0.06em;}
+.vid-badge.reel{background:rgba(244,63,94,0.8);color:#fff;}
+.vid-badge.post{background:rgba(59,130,246,0.8);color:#fff;}
+.vid-body{padding:14px;}
+.vid-title{font-size:13px;font-weight:700;margin-bottom:5px;line-height:1.4;}
+.vid-desc{font-size:12px;color:var(--muted-fg);margin-bottom:10px;line-height:1.5;}
+.vid-tags{display:flex;flex-wrap:wrap;gap:5px;}
+
+/* tags */
+.tag{font-size:10px;font-weight:600;padding:2px 8px;border-radius:999px;}
+.tag.green{background:rgba(52,211,153,0.12);color:#34d399;}
+.tag.blue{background:rgba(59,130,246,0.12);color:#3b82f6;}
+.tag.amber{background:rgba(245,158,11,0.12);color:#f59e0b;}
+.tag.violet{background:rgba(139,92,246,0.12);color:#8b5cf6;}
+.tag.red{background:rgba(239,68,68,0.12);color:#ef4444;}
+.tag.cyan{background:rgba(6,182,212,0.12);color:#06b6d4;}
+.tag.rose{background:rgba(244,63,94,0.12);color:#f43f5e;}
+
+/* stat boxes */
+.stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px 20px;text-align:center;}
+.stat-num{font-size:30px;font-weight:800;color:var(--primary);line-height:1;}
+.stat-label{font-size:12px;color:var(--muted-fg);margin-top:4px;}
+.stat-meta{font-size:11px;color:var(--muted-fg);margin-top:6px;padding-top:6px;border-top:1px solid var(--border);}
+
+/* alert */
+.alert{border-radius:10px;padding:14px 16px;font-size:13px;line-height:1.6;display:flex;gap:10px;}
+.alert.info{background:rgba(52,211,153,0.07);border:1px solid rgba(52,211,153,0.2);}
+.alert.warn{background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.2);}
+.alert.danger{background:rgba(239,68,68,0.07);border:1px solid rgba(239,68,68,0.2);}
+.alert-icon{flex-shrink:0;}
+
+/* objetivo box */
+.obj-box{background:linear-gradient(135deg,rgba(52,211,153,0.08),rgba(6,182,212,0.05));border:1px solid rgba(52,211,153,0.25);border-radius:14px;padding:28px;text-align:center;}
+.obj-big{font-size:36px;font-weight:800;color:var(--primary);letter-spacing:-0.02em;margin-bottom:6px;}
+.obj-sub{font-size:14px;color:var(--muted-fg);}
+
+/* form questions */
+.q-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px 18px;display:flex;gap:14px;align-items:flex-start;}
+.q-num{width:28px;height:28px;border-radius:50%;background:rgba(52,211,153,0.15);color:var(--primary);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.q-title{font-size:14px;font-weight:700;margin-bottom:3px;}
+.q-desc{font-size:12px;color:var(--muted-fg);}
+.q-options{margin-top:8px;display:flex;flex-wrap:wrap;gap:5px;}
+
+/* math box */
+.math-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:14px;}
+.math-row:last-child{border-bottom:none;}
+.math-label{color:var(--muted-fg);}
+.math-val{font-weight:700;}
+.math-val.green{color:var(--primary);}
+.math-val.amber{color:var(--amber);}
+
+/* phase */
+.phase{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;position:relative;overflow:hidden;}
+.phase::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.phase.p1::before{background:linear-gradient(90deg,var(--primary),var(--cyan));}
+.phase.p2::before{background:linear-gradient(90deg,var(--violet),var(--rose));}
+.phase.p3::before{background:linear-gradient(90deg,var(--amber),#f97316);}
+.phase-week{font-family:var(--mono);font-size:10px;color:var(--muted-fg);margin-bottom:6px;}
+.phase-title{font-size:16px;font-weight:700;margin-bottom:6px;}
+.phase-items{list-style:none;font-size:13px;color:var(--muted-fg);display:flex;flex-direction:column;gap:4px;margin-top:10px;}
+.phase-items li::before{content:'→ ';}
+.phase-kpi{margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:13px;}
+.phase-kpi span{color:var(--primary);font-weight:700;}
+
+/* interest chip */
+.chip{display:inline-block;background:var(--muted);border:1px solid var(--border);border-radius:999px;padding:4px 12px;font-size:12px;margin:3px;}
+
+/* footer */
+footer{padding:32px 20px;text-align:center;border-top:1px solid var(--border);}
+footer p{font-size:12px;color:var(--muted-fg);}
+
+/* highlight */
+strong{color:var(--fg);}
+.green{color:var(--primary);}
+.amber{color:var(--amber);}
+.red{color:var(--red);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">DS</div>
+  <div>
+    <div class="header-title">Advocacia Schettini — Estratégia de Leads</div>
+    <div class="header-sub">Carreteiro · Aposentadoria Especial · R$50–100/dia · CPL meta R$5</div>
+  </div>
+</header>
+
+<!-- ── NÚMEROS DA OPERAÇÃO ── -->
+<section>
+  <div class="wrap">
+    <span class="label">Visão Geral</span>
+    <h2>A conta perdida. Começamos do zero.<br>O CPM ajuda — e o formulário fecha.</h2>
+    <p class="sub">Com CPM de R$4,20 e meta de CPL R$5, o formulário instantâneo do Meta é o caminho certo. Sem precisar de pixel com histórico.</p>
+
+    <div class="card-grid col3" style="margin-bottom:20px;">
+      <div class="stat">
+        <div class="stat-num">R$4,20</div>
+        <div class="stat-label">CPM médio do nicho</div>
+        <div class="stat-meta">Custo por 1.000 impressões</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num green">R$5</div>
+        <div class="stat-label">Meta de CPL</div>
+        <div class="stat-meta">Custo por lead qualificado</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" style="color:var(--amber);">R$50–100</div>
+        <div class="stat-label">Budget diário</div>
+        <div class="stat-meta">10–20 leads/dia na meta</div>
+      </div>
+    </div>
+
+    <div class="alert info">
+      <span class="alert-icon">📐</span>
+      <span>Com CPM R$4,20 e CPL meta R$5 → você precisa que <strong>1 em cada 1.190 impressões</strong> vire lead (0,084% de conversão). Com formulário instantâneo do Meta, isso é totalmente factível — o algoritmo já entrega para quem tende a preencher.</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── OBJETIVO NO META ── -->
+<section>
+  <div class="wrap">
+    <span class="label">Objetivo da Campanha</span>
+    <h2>Qual objetivo usar partindo do zero?</h2>
+    <p class="sub">Sem pixel, sem audiência, sem histórico — o objetivo certo elimina a dependência de dados anteriores.</p>
+
+    <div class="obj-box" style="margin-bottom:20px;">
+      <div style="font-size:13px;color:var(--muted-fg);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.08em;font-weight:600;">Objetivo no Meta Ads</div>
+      <div class="obj-big">Geração de Leads</div>
+      <div class="obj-sub">Formulário Instantâneo (dentro do próprio Meta) · Sem precisar de site ou pixel ativo</div>
+    </div>
+
+    <div class="card-grid col2">
+      <div class="card">
+        <div style="color:var(--primary);font-size:20px;margin-bottom:10px;">✅</div>
+        <h3>Por que Geração de Leads?</h3>
+        <ul style="font-size:13px;color:var(--muted-fg);list-style:none;display:flex;flex-direction:column;gap:6px;margin-top:8px;">
+          <li>→ O Meta otimiza para quem preenche formulários — não precisa de pixel com histórico</li>
+          <li>→ Formulário abre dentro do Instagram/Facebook — zero atrito</li>
+          <li>→ Com perguntas qualificatórias, o lead já chega filtrado</li>
+          <li>→ CPL tende a ser mais baixo que tráfego para site</li>
+          <li>→ O algoritmo aprende rápido quem converte nesse nicho</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div style="color:var(--red);font-size:20px;margin-bottom:10px;">✗</div>
+        <h3>Não use esses objetivos agora</h3>
+        <ul style="font-size:13px;color:var(--muted-fg);list-style:none;display:flex;flex-direction:column;gap:6px;margin-top:8px;">
+          <li>→ <strong>Conversões</strong> — precisa de pixel com 50+ eventos/semana</li>
+          <li>→ <strong>Tráfego</strong> — manda pra site, CPL alto, sem pixel ativo</li>
+          <li>→ <strong>Alcance</strong> — não otimiza pra quem vai virar lead</li>
+          <li>→ <strong>Mensagens</strong> — alto volume, qualidade de lead ruim no frio</li>
+          <li>→ <strong>Engajamento</strong> — vira curtida, não lead</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── VÍDEOS SELECIONADOS ── -->
+<section>
+  <div class="wrap">
+    <span class="label">🚛 Vídeos — Carreteiro</span>
+    <h2>Top 3 criativos para impulsionar</h2>
+    <p class="sub">Dos vídeos disponíveis no @advocaciaschettini, estes têm o maior potencial de parar o scroll e gerar lead qualificado no nicho carreteiro.</p>
+
+    <div class="card-grid col3" style="margin-bottom:28px;">
+
+      <div class="vid-card">
+        <div class="vid-thumb" style="background:linear-gradient(135deg,#0d1a10,#152516);">
+          🚛
+          <div class="vid-badge reel">Reel</div>
+          <div class="vid-rank">1</div>
+        </div>
+        <div class="vid-body">
+          <div class="vid-title">Principal — Maior alcance pago</div>
+          <div class="vid-desc">Reel curto sobre direito do carreteiro. Formato que o Meta escala melhor em campanha de lead gen. Use como criativo A.</div>
+          <div class="vid-tags">
+            <span class="tag green">Criativo A</span>
+            <span class="tag amber">Frio</span>
+          </div>
+          <a href="https://www.instagram.com/reel/DYktjSPRtvt/" target="_blank" style="font-size:11px;display:block;margin-top:10px;color:var(--primary);">Ver reel ↗</a>
+        </div>
+      </div>
+
+      <div class="vid-card">
+        <div class="vid-thumb" style="background:linear-gradient(135deg,#0d1420,#12202e);">
+          ⚖️
+          <div class="vid-badge reel">Reel</div>
+          <div class="vid-rank">2</div>
+        </div>
+        <div class="vid-body">
+          <div class="vid-title">Segundo — Alta identificação</div>
+          <div class="vid-desc">Aborda direito específico do motorista. Quem para para assistir já se qualifica. Use como criativo B em teste paralelo.</div>
+          <div class="vid-tags">
+            <span class="tag blue">Criativo B</span>
+            <span class="tag amber">Frio</span>
+          </div>
+          <a href="https://www.instagram.com/reel/DYScJD8BG5J/" target="_blank" style="font-size:11px;display:block;margin-top:10px;color:var(--primary);">Ver reel ↗</a>
+        </div>
+      </div>
+
+      <div class="vid-card">
+        <div class="vid-thumb" style="background:linear-gradient(135deg,#1a140d,#241e10);">
+          📋
+          <div class="vid-badge post">Post</div>
+          <div class="vid-rank">3</div>
+        </div>
+        <div class="vid-body">
+          <div class="vid-title">Backup — Teste A/B de formato</div>
+          <div class="vid-desc">Post/carousel informativo. Use quando os reels atingirem fadiga de audiência ou para testar se o formato estático performa melhor.</div>
+          <div class="vid-tags">
+            <span class="tag violet">Criativo C</span>
+            <span class="tag cyan">Backup</span>
+          </div>
+          <a href="https://www.instagram.com/p/DYXkHjpESyG/" target="_blank" style="font-size:11px;display:block;margin-top:10px;color:var(--primary);">Ver post ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <span class="label">🏛️ Vídeos — Aposentadoria Especial</span>
+    <h2 style="margin-top:8px;">Top 3 conteúdos para criar/impulsionar</h2>
+    <p class="sub">A aposentadoria especial é o maior gatilho de intenção do carreteiro. Estes 3 ângulos convertem mais no formulário.</p>
+
+    <div class="card-grid col3">
+      <div class="card" style="border-color:rgba(139,92,246,0.2);">
+        <div style="font-size:24px;margin-bottom:10px;">⏰</div>
+        <h3>"25 anos, não 35"</h3>
+        <p style="font-size:13px;color:var(--muted-fg);margin-top:6px;">O número 25 anos é o maior hook. O carreteiro não sabe que tem esse benefício. Esse vídeo para o scroll.</p>
+        <div class="vid-tags" style="margin-top:10px;">
+          <span class="tag violet">Alto alcance</span>
+          <span class="tag green">Hook numérico</span>
+        </div>
+      </div>
+      <div class="card" style="border-color:rgba(6,182,212,0.2);">
+        <div style="font-size:24px;margin-bottom:10px;">📄</div>
+        <h3>"INSS negou? Normal."</h3>
+        <p style="font-size:13px;color:var(--muted-fg);margin-top:6px;">73% dos pedidos são indeferidos. Esse vídeo captura quem já tentou e desistiu — público com altíssima intenção.</p>
+        <div class="vid-tags" style="margin-top:10px;">
+          <span class="tag cyan">Alta conversão</span>
+          <span class="tag amber">Intenção alta</span>
+        </div>
+      </div>
+      <div class="card" style="border-color:rgba(244,63,94,0.2);">
+        <div style="font-size:24px;margin-bottom:10px;">🚨</div>
+        <h3>"Os 3 documentos"</h3>
+        <p style="font-size:13px;color:var(--muted-fg);margin-top:6px;">PPP, LTCAT e holerites. Conteúdo prático que faz o motorista sentir que "está quase lá" e pede ajuda para concluir.</p>
+        <div class="vid-tags" style="margin-top:10px;">
+          <span class="tag rose">Autoridade</span>
+          <span class="tag blue">Educação</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── SEGMENTAÇÃO ── -->
+<section>
+  <div class="wrap">
+    <span class="label">🎯 Segmentação</span>
+    <h2>Como chegar no carreteiro sem audiência salva</h2>
+    <p class="sub">Interesse + comportamento + geolocalização. Empilhe todos juntos em um único conjunto de anúncio.</p>
+
+    <div class="card-grid col2" style="margin-bottom:16px;">
+      <div class="card">
+        <h3 style="margin-bottom:12px;">Interesses no Meta</h3>
+        <div>
+          <div class="chip">Caminhoneiro</div>
+          <div class="chip">Motorista de caminhão</div>
+          <div class="chip">Transporte de carga</div>
+          <div class="chip">CLT / Carteira assinada</div>
+          <div class="chip">INSS</div>
+          <div class="chip">Aposentadoria</div>
+          <div class="chip">Direitos trabalhistas</div>
+          <div class="chip">Abastecimento diesel</div>
+          <div class="chip">Scania Brasil</div>
+          <div class="chip">Volvo Trucks</div>
+          <div class="chip">Mercedes-Benz Caminhões</div>
+          <div class="chip">Sindicato caminhoneiros</div>
+        </div>
+      </div>
+      <div class="card">
+        <h3 style="margin-bottom:12px;">Configuração da campanha</h3>
+        <div class="math-row"><span class="math-label">Localização</span><span class="math-val">Brasil inteiro</span></div>
+        <div class="math-row"><span class="math-label">Idade</span><span class="math-val">35–60 anos</span></div>
+        <div class="math-row"><span class="math-label">Gênero</span><span class="math-val">Masculino (maioria)</span></div>
+        <div class="math-row"><span class="math-label">Dispositivo</span><span class="math-val">Mobile only</span></div>
+        <div class="math-row"><span class="math-label">Posicionamento</span><span class="math-val">Feed + Reels (manual)</span></div>
+        <div class="math-row"><span class="math-label">Advantage+</span><span class="math-val amber">Desligado no início</span></div>
+      </div>
+    </div>
+
+    <div class="alert warn">
+      <span class="alert-icon">⚠️</span>
+      <span><strong>Não ligue o Advantage+ Audience agora.</strong> Sem histórico, o Meta vai expandir para públicos fora do nicho para "aprender". Só ative depois de 50+ leads no formulário.</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── FORMULÁRIO ── -->
+<section>
+  <div class="wrap">
+    <span class="label">📋 Formulário Instantâneo</span>
+    <h2>Perguntas qualificatórias</h2>
+    <p class="sub">3 perguntas de múltipla escolha. Quem não se qualifica desiste — e isso mantém o CPL baixo porque o Meta aprende a parar de entregar para quem não preenche até o fim.</p>
+
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px;">
+
+      <div class="q-card">
+        <div class="q-num">1</div>
+        <div>
+          <div class="q-title">Há quanto tempo você trabalha como motorista de caminhão?</div>
+          <div class="q-desc">Filtra quem tem tempo de serviço mínimo para aposentadoria especial.</div>
+          <div class="q-options">
+            <span class="tag amber">Menos de 10 anos</span>
+            <span class="tag green">Entre 10 e 20 anos</span>
+            <span class="tag green">Entre 20 e 25 anos</span>
+            <span class="tag green">Mais de 25 anos ✅</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-num">2</div>
+        <div>
+          <div class="q-title">Você trabalha (ou trabalhou) com carteira assinada?</div>
+          <div class="q-desc">Identifica se tem histórico contributivo no INSS ou se é PJ (outra estratégia).</div>
+          <div class="q-options">
+            <span class="tag green">Sim, tenho/tive CLT ✅</span>
+            <span class="tag blue">Trabalho como autônomo/PJ</span>
+            <span class="tag amber">Misto (CLT e PJ)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="q-card">
+        <div class="q-num">3</div>
+        <div>
+          <div class="q-title">Você já tentou pedir aposentadoria especial ou foi negado pelo INSS?</div>
+          <div class="q-desc">Leads que foram negados têm altíssima intenção — são o perfil mais fácil de converter em consulta.</div>
+          <div class="q-options">
+            <span class="tag rose">Sim, fui negado ✅✅</span>
+            <span class="tag green">Não tentei ainda ✅</span>
+            <span class="tag cyan">Estou no processo</span>
+            <span class="tag amber">Não sei o que é isso</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="card" style="border-color:rgba(52,211,153,0.2);">
+      <h3 style="margin-bottom:12px;">📄 Estrutura completa do formulário</h3>
+      <div class="math-row"><span class="math-label">Tipo</span><span class="math-val">Formulário instantâneo — Alta intenção</span></div>
+      <div class="math-row"><span class="math-label">Campos obrigatórios</span><span class="math-val">Nome completo + WhatsApp</span></div>
+      <div class="math-row"><span class="math-label">Perguntas qualificatórias</span><span class="math-val green">3 perguntas acima</span></div>
+      <div class="math-row"><span class="math-label">Tela de confirmação</span><span class="math-val">"Em até 24h o Dr. Danilo entra em contato"</span></div>
+      <div class="math-row"><span class="math-label">Política de privacidade</span><span class="math-val amber">Obrigatório — adicionar link</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── PROJEÇÃO ── -->
+<section>
+  <div class="wrap">
+    <span class="label">📊 Projeção</span>
+    <h2>O que esperar com R$50–100/dia</h2>
+
+    <div class="card-grid col2" style="margin-bottom:20px;">
+      <div class="card">
+        <h3 style="margin-bottom:14px;">R$50/dia</h3>
+        <div class="math-row"><span class="math-label">Impressões/dia</span><span class="math-val">~11.900</span></div>
+        <div class="math-row"><span class="math-label">CPL meta</span><span class="math-val green">R$5</span></div>
+        <div class="math-row"><span class="math-label">Leads/dia</span><span class="math-val green">~10</span></div>
+        <div class="math-row"><span class="math-label">Leads/mês</span><span class="math-val green">~300</span></div>
+        <div class="math-row"><span class="math-label">Consultas (35% conv)</span><span class="math-val amber">~105/mês</span></div>
+      </div>
+      <div class="card">
+        <h3 style="margin-bottom:14px;">R$100/dia</h3>
+        <div class="math-row"><span class="math-label">Impressões/dia</span><span class="math-val">~23.800</span></div>
+        <div class="math-row"><span class="math-label">CPL meta</span><span class="math-val green">R$5</span></div>
+        <div class="math-row"><span class="math-label">Leads/dia</span><span class="math-val green">~20</span></div>
+        <div class="math-row"><span class="math-label">Leads/mês</span><span class="math-val green">~600</span></div>
+        <div class="math-row"><span class="math-label">Consultas (35% conv)</span><span class="math-val amber">~210/mês</span></div>
+      </div>
+    </div>
+
+    <div class="alert info">
+      <span class="alert-icon">💡</span>
+      <span><strong>Na prática, o CPL real dos primeiros 7 dias vai ser mais alto</strong> (R$15–25) enquanto o algoritmo aprende. O CPL R$5 é o alvo depois de 50–100 leads coletados e o Meta otimizando para o perfil certo.</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── FASES ── -->
+<section>
+  <div class="wrap">
+    <span class="label">📅 Execução</span>
+    <h2>3 fases simples</h2>
+
+    <div class="card-grid col3">
+      <div class="phase p1">
+        <div class="phase-week">SEMANA 1–2</div>
+        <div class="phase-title">🌱 Aprendizado</div>
+        <ul class="phase-items">
+          <li>Criar Business Manager nova</li>
+          <li>Subir criativos A e B</li>
+          <li>Budget: R$50/dia fixo</li>
+          <li>Deixar rodar sem mexer</li>
+        </ul>
+        <div class="phase-kpi">Meta: <span>50 leads · CPL &lt; R$25</span></div>
+      </div>
+      <div class="phase p2">
+        <div class="phase-week">SEMANA 3–4</div>
+        <div class="phase-title">🔥 Otimização</div>
+        <ul class="phase-items">
+          <li>Pausar criativo de pior CPL</li>
+          <li>Duplicar conjunto vencedor</li>
+          <li>Testar criativo C</li>
+          <li>Subir budget 20% se CPL caiu</li>
+        </ul>
+        <div class="phase-kpi">Meta: <span>CPL &lt; R$10 · 100 leads</span></div>
+      </div>
+      <div class="phase p3">
+        <div class="phase-week">MÊS 2+</div>
+        <div class="phase-title">🚀 Escale</div>
+        <ul class="phase-items">
+          <li>Lookalike 1% da lista de leads</li>
+          <li>Budget R$100/dia</li>
+          <li>Ativar Advantage+ Audience</li>
+          <li>Rodar vídeos de aposentadoria</li>
+        </ul>
+        <div class="phase-kpi">Meta: <span>CPL R$5 · 20 leads/dia</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ── AÇÃO IMEDIATA ── -->
+<section>
+  <div class="wrap">
+    <div class="card" style="border-color:rgba(52,211,153,0.25);background:rgba(52,211,153,0.04);">
+      <span class="label" style="margin-bottom:12px;">🚀 Hoje</span>
+      <h2 style="margin-bottom:16px;">Lista de ação — próximas 48h</h2>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:10px;">
+        <li style="display:flex;gap:10px;font-size:14px;align-items:flex-start;">
+          <span style="color:var(--primary);font-weight:800;flex-shrink:0;">01</span>
+          <span>Criar nova Business Manager no Meta com email diferente da conta perdida</span>
+        </li>
+        <li style="display:flex;gap:10px;font-size:14px;align-items:flex-start;">
+          <span style="color:var(--primary);font-weight:800;flex-shrink:0;">02</span>
+          <span>Criar o formulário instantâneo com as 3 perguntas qualificatórias + campo WhatsApp</span>
+        </li>
+        <li style="display:flex;gap:10px;font-size:14px;align-items:flex-start;">
+          <span style="color:var(--primary);font-weight:800;flex-shrink:0;">03</span>
+          <span>Subir campanha: Objetivo = <strong>Geração de Leads</strong> · Criativo A (reel DYktjSPRtvt) · R$50/dia · Interesse carreteiro + INSS</span>
+        </li>
+        <li style="display:flex;gap:10px;font-size:14px;align-items:flex-start;">
+          <span style="color:var(--primary);font-weight:800;flex-shrink:0;">04</span>
+          <span>Configurar resposta automática no WhatsApp Business: <em>"Olá [nome]! Vi suas respostas. Você tem [X anos] de caminhão — isso é muito importante. O Dr. Danilo vai te ligar em até 24h para a sua consulta gratuita."</em></span>
+        </li>
+        <li style="display:flex;gap:10px;font-size:14px;align-items:flex-start;">
+          <span style="color:var(--primary);font-weight:800;flex-shrink:0;">05</span>
+          <span><strong>Não mexa na campanha por 7 dias.</strong> O algoritmo precisa de tempo para aprender. Interferir antes de 50 eventos prejudica o aprendizado.</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Advocacia Schettini · Estratégia de Leads · Maio 2026</p>
+  <p style="margin-top:4px;">Desenvolvido pela Empresa Independente · <a href="https://ai.empresaind.com">ai.empresaind.com</a></p>
+</footer>
+
+</body>
+</html>

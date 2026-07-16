@@ -1,0 +1,131 @@
+/* ============================================================================
+   DESIGN TOKENS — Imersão Empresa Independente (evento presencial)
+   Página de referência: https://lps.empresaindependente.com.br/ev
+   Campanha: Imersão EI, 25 e 26 de Julho | Florianópolis
+   ----------------------------------------------------------------------------
+   NÃO confundir com o projeto imobiliário "Évora Charm Village".
+   Importe este arquivo em novas páginas da MESMA campanha para herdar o tema.
+   Uso: <link rel="stylesheet" href="design-tokens-imersao-ev.css">
+   ============================================================================ */
+
+:root {
+  /* ---------- CORES: SUPERFÍCIES / FUNDOS ---------- */
+  --color-body:            #0a0806;  /* fundo global do <body> */
+  --color-dark:            #0a0a0a;  /* fundo de seção padrão (tailwind: bg-dark) */
+  --color-darker:          #090909;  /* fundo mais profundo / base de gradientes */
+  --color-card:            #121212;  /* fundo de card e cápsula de ícone em CTA (bg-card) */
+  --color-hero-top:        #171717;  /* topo do gradiente do hero */
+  --color-surface-light:   #ffffff;  /* seções invertidas (FAQ, CTA final, footer) */
+
+  /* ---------- CORES: MARCA / ACCENT (teal / verde-água) ---------- */
+  --color-accent:          #02b9a9;  /* accent principal — CTAs, dots, destaques */
+  --color-accent-light:    #6edcd2;  /* accent claro — texto sobre fundo escuro, hover */
+  --color-accent-dark:     #074b45;  /* accent escuro — bordas de gradiente, sombras */
+  --color-accent-glow:     #18f1de;  /* ciano vibrante — inset glow em cards premium */
+  --color-accent-bright:   #b8fff9;  /* ciano quase branco — topo do glow radial */
+  --color-accent-deepest:  #001917;  /* fim do glow radial (quase preto esverdeado) */
+  --color-accent-mid:      #0c7b71;  /* teal médio — base do gradiente dos cards premium */
+
+  /* ---------- CORES: TEXTO ---------- */
+  --color-text:            #f5f5f5;  /* texto padrão sobre fundo escuro */
+  --color-text-strong:     #f7f7f7;  /* títulos / ênfase sobre escuro */
+  --color-text-on-light:   #141414;  /* texto sobre fundo branco (dark) */
+  --color-text-cta-dark:   #1f2937;  /* texto de CTA branco (tailwind gray-800) */
+
+  /* ---------- CORES: SEMÂNTICAS (comparativo certo/errado) ---------- */
+  --color-negative:        #ff5f56;  /* "lado errado" — base do fundo do ícone X (15% opac) */
+  --color-negative-stroke: #ff8a8a;  /* stroke do ícone X (vermelho claro) */
+  --color-positive:        var(--color-accent); /* "lado certo" — check verde-água */
+
+  /* ---------- CORES: UTILITÁRIAS ---------- */
+  --color-faq-icon-bg:     #c4c4c4;  /* fundo do "+" no accordion FAQ */
+  --color-faq-icon-stroke: #191d24;  /* stroke do "+" no accordion FAQ */
+  --color-whatsapp:        #25D366;  /* verde do FAB de WhatsApp */
+  --color-sticky-mobile:   rgba(20,20,20,0.85); /* barra sticky mobile (#141414/85%) */
+
+  /* ---------- GRADIENTES ---------- */
+  --gradient-text:      linear-gradient(135deg, #6edcd2, #02b9a9);
+  --gradient-countdown: linear-gradient(90deg, #074b45, #02b9a9 50%, #074b45);
+  --gradient-keywords:  linear-gradient(270deg, #6edcd2, #02b9a9 49%, #074b45);
+  --gradient-hero:      linear-gradient(#171717, #090909);
+  --gradient-card-premium: linear-gradient(#000, #0c7b71);
+  --gradient-cta-glow:  radial-gradient(100% 180% at 89.2% 10.7%,
+                          #b8fff9, #6edcd2 24%, #02b9a9 52%, #074b45 77%, #001917);
+  --gradient-image-overlay: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+
+  /* ---------- SOMBRAS / GLOWS ---------- */
+  /* Glow interno dos cards premium (ingresso Experience, card comparativo positivo) */
+  --shadow-card-premium: 0 4.5px 100px rgba(1,185,168,0.1),
+                         inset 0 -28px 59px -18px #18f1de,
+                         inset 0 44px 37px -54px rgba(23,241,221,0.6);
+  /* Glow externo multicamada do card de CTA final */
+  --shadow-cta-glow: 0 18px 39px rgba(3,73,68,0.21),
+                     0 71px 71px rgba(3,73,68,0.18),
+                     0 159px 95px rgba(3,73,68,0.11);
+  --shadow-avatar: 0 10px 15px -3px rgba(0,0,0,0.1); /* shadow-lg dos avatares */
+
+  /* ---------- TIPOGRAFIA ---------- */
+  --font-sans:    'Neue Montreal', 'Inter', system-ui, sans-serif; /* corpo/UI */
+  --font-display: 'Thunder', 'Neue Montreal', sans-serif;          /* números/headline display */
+
+  --fw-regular: 400;
+  --fw-medium:  500;
+  --fw-bold:    700;
+  --fw-display: 600; /* peso único disponível da Thunder */
+
+  /* Escala tipográfica (contexto de uso ao lado) */
+  --fs-xs:      0.75rem;   /* 12px — legendas, selos "40% OFF", microcopy */
+  --fs-sm:      0.875rem;  /* 14px — corpo de UI, labels, itens de lista */
+  --fs-base:    1rem;      /* 16px — parágrafos secundários */
+  --fs-lg:      1.125rem;  /* 18px — subtítulos, corpo de destaque */
+  --fs-xl:      1.25rem;   /* 20px — títulos de card */
+  --fs-2xl:     1.5rem;    /* 24px — H2 mobile */
+  --fs-3xl:     1.875rem;  /* 30px — H1 hero mobile */
+  --fs-card-h:  1.75rem;   /* 28px — nomes de palestrante, títulos de bloco */
+  --fs-section: 2.5rem;    /* 40px — H2 de seção desktop */
+  --fs-5xl:     3rem;      /* 48px — H1 hero desktop */
+  --fs-price:   3.75rem;   /* 60px — preço grande (md:text-6xl) */
+  --fs-ghost:   10rem;     /* 160px — rótulo fantasma "PRIMEIRO DIA" (lg) */
+  --fs-hour:    12.5rem;   /* 200px — número de horário gigante (Thunder) */
+
+  /* ---------- ESPAÇAMENTO ---------- */
+  --space-section-y:       4rem;   /* py-16 — vertical de seção mobile */
+  --space-section-y-md:    6rem;   /* py-24 — vertical de seção médio */
+  --space-section-y-lg:    9rem;   /* py-36 — vertical de seção amplo */
+  --space-px:              1.5rem; /* px-6 — padding horizontal mobile */
+  --space-px-md:           4rem;   /* px-16 — padding horizontal desktop */
+  --container-max:         1216px; /* largura máx. do container central */
+
+  /* ---------- BORDER-RADIUS ---------- */
+  --radius-sm:   0.5rem;   /* rounded-lg — inputs, badges pequenos, thumbs */
+  --radius-md:   0.75rem;  /* rounded-xl — cards de conteúdo */
+  --radius-lg:   1rem;     /* rounded-2xl — cards grandes (palestrantes, wrapper preços) */
+  --radius-xl:   1.5rem;   /* rounded-3xl — card de CTA final */
+  --radius-full: 9999px;   /* pills, avatares, botões, dots */
+
+  /* ---------- BORDAS SUTIS (sobre fundo escuro) ---------- */
+  --border-faint:  rgba(255,255,255,0.05);  /* border-white/5  — separação discreta */
+  --border-subtle: rgba(255,255,255,0.10);  /* border-white/10 — padrão de card */
+  --border-strong: rgba(255,255,255,0.20);  /* border-white/20 — card destacado */
+  --border-accent: rgba(2,185,169,0.40);    /* border-accent/40 — pill de urgência */
+
+  /* ---------- ANIMAÇÃO ---------- */
+  --ease-reveal:      cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-reveal:  0.8s;   /* fade-up on scroll */
+  --duration-hover:   0.3s;   /* hover / accordion */
+  --speed-ticker:        30s; /* marquee genérico */
+  --speed-ticker-photos: 25s; /* marquee de fotos no hero mobile */
+  --speed-ticker-confirm: 45s;/* marquee de presenças confirmadas */
+  --speed-ticker-keywords:20s;/* faixa de palavras-chave */
+  --speed-orbit:         60s; /* órbita de imagens do hero */
+
+  /* ---------- BREAKPOINTS (referência — Tailwind default) ---------- */
+  /* sm: 640px | md: 768px | lg: 1024px | xl: 1280px */
+  /* Corte principal do layout: md (768px) e lg (1024px) */
+
+  /* ---------- LAYOUT FIXO ---------- */
+  --countdown-height: 40px; /* barra de contagem fixa no topo (body padding-top) */
+  --z-countdown: 100;
+  --z-sticky-cta: 50;
+  --z-whatsapp: 40;
+}

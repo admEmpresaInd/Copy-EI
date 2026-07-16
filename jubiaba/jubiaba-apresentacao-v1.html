@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JUBIABÁ — Apresentação para Investidores</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --void:#0A0A0A;--charcoal:#141414;--stone:#222220;
+  --gold:#C9A84C;--gold-light:#D9BC72;--gold-pale:#E8D49A;
+  --white:#F5F5F0;--muted:#9A9A92;--border:rgba(201,168,76,.2);
+  --serif:'Cormorant Garamond',serif;--sans:'Inter',sans-serif;
+}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--void);color:var(--white)}
+.deck{width:100%;height:100%;position:relative}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:5vw 8vw;opacity:0;pointer-events:none;transition:opacity .5s ease;text-align:center}
+.slide.active{opacity:1;pointer-events:auto}
+.slide-inner{width:100%;max-width:1100px;margin:0 auto}
+.chapter{font-family:var(--sans);font-size:.65rem;font-weight:500;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-bottom:2rem}
+.overline{font-family:var(--sans);font-size:.6rem;font-weight:400;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin-bottom:1.2rem}
+h1{font-family:var(--serif);font-weight:300;font-size:clamp(2.4rem,5vw,4.5rem);line-height:1.1;color:var(--white)}
+h2{font-family:var(--serif);font-weight:300;font-size:clamp(1.8rem,3.5vw,3.2rem);line-height:1.15;color:var(--white)}
+h3{font-family:var(--serif);font-weight:400;font-size:clamp(1.2rem,2.2vw,2rem);line-height:1.3;color:var(--gold)}
+.gold{color:var(--gold)}.gold-light{color:var(--gold-light)}
+p.body{font-family:var(--sans);font-size:clamp(.8rem,1.3vw,1rem);font-weight:300;line-height:1.8;color:rgba(245,245,240,.75);max-width:720px;margin:0 auto}
+p.lead{font-family:var(--serif);font-style:italic;font-size:clamp(1rem,1.8vw,1.4rem);line-height:1.6;color:rgba(245,245,240,.85);max-width:800px;margin:0 auto}
+.divider{width:60px;height:1px;background:var(--gold);margin:1.6rem auto;opacity:.6}
+.stat-grid{display:flex;gap:3vw;justify-content:center;flex-wrap:wrap;margin-top:2rem}
+.stat{text-align:center;min-width:120px}
+.stat-num{font-family:var(--serif);font-size:clamp(2rem,4vw,3.5rem);font-weight:300;color:var(--gold);line-height:1}
+.stat-label{font-family:var(--sans);font-size:.65rem;font-weight:400;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:.4rem}
+ul.bullets{list-style:none;text-align:left;max-width:680px;margin:1.2rem auto 0}
+ul.bullets li{font-family:var(--sans);font-size:clamp(.8rem,1.2vw,.95rem);font-weight:300;color:rgba(245,245,240,.8);line-height:1.7;padding:.3rem 0 .3rem 1.4rem;border-bottom:1px solid rgba(255,255,255,.04);position:relative}
+ul.bullets li::before{content:'◆';position:absolute;left:0;color:var(--gold);font-size:.45rem;top:.55rem}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:1rem 3rem;text-align:left;max-width:860px;margin:1.2rem auto 0}
+.data-table{width:100%;max-width:760px;margin:1.5rem auto 0;border-collapse:collapse;font-family:var(--sans)}
+.data-table th{font-size:.6rem;font-weight:500;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid var(--border);padding:.6rem 1rem;text-align:left}
+.data-table td{font-size:.82rem;font-weight:300;color:rgba(245,245,240,.8);padding:.65rem 1rem;border-bottom:1px solid rgba(255,255,255,.05)}
+.data-table tr:last-child td{border-bottom:none}
+.data-table .hl td{color:var(--gold-light);font-weight:400}
+.cards{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;margin-top:2rem}
+.card{background:var(--charcoal);border:1px solid var(--border);padding:1.6rem 1.4rem;border-radius:2px;flex:1;min-width:200px;max-width:280px;text-align:left}
+.card-num{font-family:var(--serif);font-size:1.8rem;color:var(--gold);font-weight:300;margin-bottom:.4rem}
+.card-title{font-family:var(--sans);font-size:.6rem;font-weight:500;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);margin-bottom:.8rem}
+.card-body{font-family:var(--sans);font-size:.78rem;font-weight:300;color:rgba(245,245,240,.7);line-height:1.6}
+.ba{display:flex;gap:1px;max-width:720px;margin:2rem auto 0}
+.ba-col{flex:1;padding:1.8rem 2rem;background:var(--charcoal);text-align:center}
+.ba-label{font-family:var(--sans);font-size:.6rem;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);margin-bottom:.8rem}
+.ba-time{font-family:var(--serif);font-size:2.4rem;color:var(--gold);font-weight:300}
+.ba-desc{font-family:var(--sans);font-size:.78rem;font-weight:300;color:rgba(245,245,240,.7);margin-top:.5rem;line-height:1.5}
+.tl{display:flex;max-width:900px;margin:2rem auto 0}
+.tl-item{flex:1;padding:1.4rem 1rem;border-left:1px solid var(--border);text-align:left}
+.tl-period{font-family:var(--sans);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem}
+.tl-desc{font-family:var(--sans);font-size:.78rem;font-weight:300;color:rgba(245,245,240,.75);line-height:1.5}
+.tiers{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2rem}
+.tier{background:var(--charcoal);border:1px solid var(--border);padding:2rem 1.6rem;border-radius:2px;flex:1;min-width:200px;max-width:260px;text-align:center;position:relative}
+.tier.feat{border-color:var(--gold);background:var(--stone)}
+.tier.feat::before{content:'★ RECOMENDADO';position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--gold);color:var(--void);font-family:var(--sans);font-size:.55rem;font-weight:600;letter-spacing:.2em;padding:.2rem .8rem;white-space:nowrap}
+.tier-name{font-family:var(--sans);font-size:.6rem;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem}
+.tier-price{font-family:var(--serif);font-size:2rem;color:var(--gold);font-weight:300}
+.tier-area{font-family:var(--sans);font-size:.72rem;font-weight:300;color:rgba(245,245,240,.7);margin:.3rem 0}
+.tier-psm{font-family:var(--sans);font-size:.65rem;font-weight:400;color:var(--gold-light)}
+.tier-return{font-family:var(--serif);font-size:1.4rem;color:var(--white);margin-top:1rem}
+.tier-rlabel{font-family:var(--sans);font-size:.58rem;color:var(--muted);letter-spacing:.15em;text-transform:uppercase}
+.steps{display:flex;max-width:900px;margin:2rem auto 0;flex-wrap:wrap}
+.step{flex:1;min-width:120px;padding:1.4rem .8rem;border-left:2px solid var(--border);text-align:left}
+.step-num{font-family:var(--serif);font-size:2rem;color:var(--gold);font-weight:300;line-height:1}
+.step-title{font-family:var(--sans);font-size:.65rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--white);margin:.4rem 0 .3rem}
+.step-desc{font-family:var(--sans);font-size:.72rem;font-weight:300;color:var(--muted);line-height:1.5}
+.comp-row{display:flex;align-items:center;gap:1.5rem;max-width:800px;margin:1.8rem auto 0}
+.comp-item{text-align:center;flex:1}
+.comp-label{font-family:var(--sans);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem}
+.comp-val{font-family:var(--serif);font-size:clamp(1.2rem,2.5vw,2.2rem);font-weight:300;color:var(--white)}
+.comp-arrow{color:var(--gold);font-size:1.4rem}
+.comp-hl .comp-val{color:var(--gold);font-size:clamp(1.6rem,3vw,2.8rem)}
+.tags{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;margin-top:1.4rem}
+.tag{font-family:var(--sans);font-size:.62rem;font-weight:400;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);border:1px solid var(--border);padding:.35rem .9rem}
+.source{font-family:var(--sans);font-size:.58rem;font-weight:400;letter-spacing:.1em;color:var(--muted);border:1px solid rgba(201,168,76,.15);padding:.2rem .7rem;display:inline-block;margin-top:.8rem}
+.hbox{background:var(--charcoal);border:1px solid var(--border);padding:1.4rem 2rem;max-width:700px;margin:1.5rem auto 0}
+.hbox p{font-family:var(--serif);font-size:clamp(.95rem,1.6vw,1.3rem);font-weight:300;color:var(--white);line-height:1.6}
+.pillars{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;max-width:800px;margin:1.5rem auto 0;background:var(--border)}
+.pillar{background:var(--charcoal);padding:1.4rem;text-align:left}
+.pillar-title{font-family:var(--sans);font-size:.62rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem}
+.pillar-body{font-family:var(--sans);font-size:.75rem;font-weight:300;color:rgba(245,245,240,.7);line-height:1.6}
+.rrow{display:flex;align-items:center;gap:1rem;padding:.8rem 1rem;border-bottom:1px solid rgba(255,255,255,.04);max-width:760px;margin:0 auto;text-align:left}
+.rrow-label{font-family:var(--sans);font-size:.72rem;font-weight:400;color:var(--white);flex:1}
+.rrow-status{font-family:var(--sans);font-size:.6rem;font-weight:500;letter-spacing:.15em;color:var(--gold);background:rgba(201,168,76,.1);padding:.25rem .7rem;text-transform:uppercase;white-space:nowrap}
+.rrow-desc{font-family:var(--sans);font-size:.7rem;font-weight:300;color:var(--muted);flex:2}
+blockquote{font-family:var(--serif);font-style:italic;font-size:clamp(1.2rem,2.5vw,2rem);font-weight:300;line-height:1.5;color:var(--white);max-width:800px;margin:0 auto;border-left:2px solid var(--gold);padding-left:2rem;text-align:left}
+.slide-cover{background:radial-gradient(ellipse at 50% 120%,rgba(201,168,76,.08) 0%,transparent 60%)}
+.slide-chapter{background:linear-gradient(135deg,var(--void) 60%,var(--charcoal) 100%)}
+.cover-brand{font-family:var(--sans);font-size:.58rem;font-weight:400;letter-spacing:.35em;text-transform:uppercase;color:var(--muted);margin-top:2.5rem}
+.cover-loc{font-family:var(--sans);font-size:.62rem;font-weight:300;letter-spacing:.3em;text-transform:uppercase;color:rgba(154,154,146,.6);margin-top:.6rem}
+.slide-footer{position:absolute;bottom:1.6rem;left:0;right:0;font-family:var(--sans);font-size:.5rem;font-weight:400;letter-spacing:.25em;text-transform:uppercase;color:rgba(154,154,146,.4);text-align:center}
+#nav{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:1.5rem;z-index:100}
+.nav-btn{background:none;border:1px solid var(--border);color:var(--muted);width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;font-size:.9rem}
+.nav-btn:hover{border-color:var(--gold);color:var(--gold)}
+#progress{font-family:var(--sans);font-size:.58rem;letter-spacing:.2em;color:var(--muted);min-width:60px;text-align:center}
+#pbar-wrap{position:fixed;top:0;left:0;right:0;height:2px;background:rgba(255,255,255,.05);z-index:200}
+#pbar{height:100%;background:var(--gold);transition:width .4s ease;width:2%}
+@media(max-width:768px){
+  .slide{padding:5vw 6vw}
+  .cards,.tiers{flex-direction:column;align-items:center}
+  .card,.tier{max-width:100%;width:100%}
+  .two-col{grid-template-columns:1fr}
+  .ba,.tl,.steps{flex-direction:column}
+  .comp-row{flex-direction:column}
+  .pillars{grid-template-columns:1fr}
+  blockquote{font-size:1rem;padding-left:1rem}
+}
+</style>
+</head>
+<body>
+<div id="pbar-wrap"><div id="pbar"></div></div>
+<div class="deck" id="deck">
+
+<!-- 01 CAPA -->
+<section class="slide slide-cover active">
+<div class="slide-inner">
+  <div class="overline">Apresentação Confidencial para Investidores · 2025</div>
+  <h1>JUBIABÁ</h1>
+  <div class="divider"></div>
+  <h3 style="font-size:clamp(1rem,2vw,1.6rem);color:var(--white);font-weight:300">A Próxima Fronteira do Luxo no Nordeste</h3>
+  <p class="lead" style="margin-top:1rem">Um território raro no momento exato da transformação do litoral brasileiro.</p>
+  <div class="cover-brand">GSWP &nbsp;×&nbsp; Konigsberger Vannucchi &nbsp;×&nbsp; Hamam Global</div>
+  <div class="cover-loc">Praia dos Abais · Estância · Sergipe · Brasil</div>
+  <div class="stat-grid" style="margin-top:3rem">
+    <div class="stat"><div class="stat-num">250<span style="font-size:1.2rem">ha</span></div><div class="stat-label">Área Total</div></div>
+    <div class="stat"><div class="stat-num">1.070<span style="font-size:1.2rem">m</span></div><div class="stat-label">Frente de Praia</div></div>
+    <div class="stat"><div class="stat-num">R$2<span style="font-size:1.2rem">bi</span></div><div class="stat-label">VGV Projetado</div></div>
+  </div>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 02 O MUNDO ESTÁ MUDANDO -->
+<section class="slide">
+<div class="slide-inner">
+  <div class="chapter">Capítulo 1 — O Contexto</div>
+  <h2>O mundo está mudando.<br><span class="gold">O capital e o luxo estão migrando.</span></h2>
+  <div class="divider"></div>
+  <ul class="bullets">
+    <li>Grandes centros urbanos perderam qualidade de vida</li>
+    <li>O trabalho tornou-se distribuído e remoto</li>
+    <li>O luxo passou a valorizar espaço, natureza e tempo</li>
+    <li>O capital migra para territórios ainda não saturados</li>
+  </ul>
+  <div class="hbox" style="margin-top:1.8rem"><p>"O novo desejo global: qualidade de vida integrada à segurança, natureza e bem-estar."</p></div>
+  <div class="source">Financial Times — Londres perde população qualificada para novas cidades</div>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 03 O NOVO LUXO GLOBAL -->
+<section class="slide">
+<div class="slide-inner">
+  <div class="overline">O Novo Luxo Global</div>
+  <h2>O luxo do futuro não será densidade.<br><span class="gold">Será qualidade de vida.</span></h2>
+  <div class="divider"></div>
+  <div class="tags">
+    <span class="tag">Quiet Luxury</span><span class="tag">Low Density Living</span>
+    <span class="tag">Wellness Real Estate</span><span class="tag">Second-Home Economy</span>
+    <span class="tag">Longevity Living</span><span class="tag">Regenerative Destinations</span>
+  </div>
+  <p class="body" style="margin-top:1.8rem">O mercado global de alto padrão passa por uma transição: menos ostentação. Mais experiência, privacidade e bem-estar. Destinos antes periféricos tornam-se os mais desejados do mundo.</p>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 04 BRASIL NO RADAR -->
+<section class="slide">
+<div class="slide-inner">
+  <div class="overline">Macroeconomia Global</div>
+  <h2>O capital internacional voltou<br>a enxergar valor no Brasil.</h2>
+  <div class="divider"></div>
+  <div class="cards">
+    <div class="card"><div class="card-title">BofA Bullish BR</div><div class="card-body">Bank of America eleva projeção para o Ibovespa. Brasil como "novo ouro" para capital internacional.</div></div>
+    <div class="card"><div class="card-title">Fluxo Estrangeiro</div><div class="card-body">Imigrantes investiram R$ 283 milhões em imóveis no Brasil. Capital residencial internacional em aceleração.</div></div>
+    <div class="card"><div class="card-title">Ativos Reais</div><div class="card-body">Ativos descontados em relação ao cenário global oferecem proteção patrimonial e arbitragem cambial.</div></div>
+  </div>
+  <div class="source">BofA / The Rio Times — "Brazil: The New Gold" · Ministério da Justiça</div>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 05 NORDESTE -->
+<section class="slide">
+<div class="slide-inner">
+  <div class="overline">Nordeste</div>
+  <h2>O Nordeste deixou de ser apenas turismo.<br><span class="gold">Tornou-se plataforma patrimonial.</span></h2>
+  <div class="divider"></div>
+  <div class="stat-grid">
+    <div class="stat"><div class="stat-num">+85%</div><div class="stat-label">Mercado de Luxo no NE em 2 anos · CBIC</div></div>
+    <div class="stat"><div class="stat-num">+20,5%</div><div class="stat-label">Crescimento lançamentos premium</div></div>
+    <div class="stat"><div class="stat-num">+80,3%</div><div class="stat-label">Crescimento VGV em Sergipe</div></div>
+    <div class="stat"><div class="stat-num">3 / 5</div><div class="stat-label">Capitais NE entre top 5 mais valorizadas</div></div>
+  </div>
+  <div class="source">CBIC · FipeZAP Mai/2025 · Salvador +20,85% valorização</div>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 06 MERCADO VALIDOU -->
+<section class="slide">
+<div class="slide-inner">
+  <div class="overline">Benchmark de Preços</div>
+  <h2>Bahia e Alagoas já explodiram.<br><span class="gold">Sergipe está convergindo agora.</span></h2>
+  <div class="divider"></div>
+  <table class="data-table">
+    <thead><tr><th>Mercado</th><th>Alto Padrão — Novos</th><th>Superluxo Frente-Mar</th></tr></thead>
+    <tbody>
+      <tr><td>Salvador (BA)</td><td>R$ 18–22k / m²</td><td>R$ 30–35k / m²</td></tr>
+      <tr><td>Maceió (AL)</td><td>R$ 18–22k / m²</td><td>R$ 30–35k / m²</td></tr>
+      <tr><td>Praia do Forte (BA)</td><td>R$ 20–25k / m²</td><td>R$ 30–40k / m²</td></tr>
+      <tr><td>Aracaju — 2024</td><td colspan="2">R$ 10–12k / m²</td></tr>
+      <tr class="hl"><td><strong>Aracaju — 2026 Premium</strong></td><td colspan="2"><strong>R$ 17–19k / m² — convergindo</strong></td></tr>
+    </tbody>
+  </table>
+  <p class="body" style="margin-top:1rem">A próxima grande assimetria ainda não plenamente precificada está em <span class="gold">Sergipe</span>.</p>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 07 SERGIPE -->
+<section class="slide">
+<div class="slide-inner">
+  <div class="overline">Sergipe</div>
+  <h2>O mercado já validou o Nordeste.<br><span class="gold">O que ainda não precificou é Sergipe.</span></h2>
+  <div class="divider"></div>
+  <div class="two-col">
+    <ul class="bullets">
+      <li>Segurança acima da média regional</li>
+      <li>Qualidade de vida elevada</li>
+      <li>Litoral preservado e de baixa densidade</li>
+    </ul>
+    <ul class="bullets">
+      <li>Infraestrutura em expansão acelerada</li>
+      <li>Preços ainda inferiores aos estados vizinhos</li>
+      <li>Janela de entrada antecipada única</li>
+    </ul>
+  </div>
+  <div class="hbox" style="margin-top:1.5rem"><p>Isso cria uma rara janela de entrada antecipada — antes da plena convergência de preços.</p></div>
+  <div class="source">Desenvolve-SE — Turismo como nova fronteira de investimentos</div>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 08 ESTÂNCIA -->
+<section class="slide">
+<div class="slide-inner">
+  <div class="overline">Estância — Motor Econômico do Sul</div>
+  <h2>Turismo, indústria, energia e infraestrutura<br><span class="gold">convergem no mesmo território.</span></h2>
+  <div class="divider"></div>
+  <div class="stat-grid">
+    <div class="stat"><div class="stat-num">45%</div><div class="stat-label">Das exportações de Sergipe vêm de Estância</div></div>
+    <div class="stat"><div class="stat-num">315%</div><div class="stat-label">Crescimento no mercado livre de gás</div></div>
+    <div class="stat"><div class="stat-num">Águas<br><span style="font-size:1.2rem">Profundas</span></div><div class="stat-label">Projeto Petrobras — polo energético estratégico</div></div>
+  </div>
+  <div class="hbox" style="margin-top:1.5rem"><p>"Sergipe entra no mapa estratégico da energia brasileira."</p></div>
+  <div class="source">Reuters / Petrobras · Prefeitura de Estância · Poder360</div>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 09 A PONTE -->
+<section class="slide">
+<div class="slide-inner">
+  <div class="overline">Infraestrutura</div>
+  <h2>Quando o deslocamento muda,<br><span class="gold">o comportamento urbano muda.</span></h2>
+  <div class="divider"></div>
+  <div class="ba">
+    <div class="ba-col"><div class="ba-label">Antes da ponte</div><div class="ba-time">45 min</div><div class="ba-desc">Destino de<br>final de semana</div></div>
+    <div class="ba-col"><div class="ba-label">Depois da ponte</div><div class="ba-time" style="color:var(--gold)">15 min</div><div class="ba-desc">Potencial de<br><strong style="color:var(--white)">primeira residência premium</strong></div></div>
+  </div>
+  <p class="body" style="margin-top:1.8rem">A nova conexão viária acelera urbanização, demanda residencial, frequência de uso e valorização territorial — transformando litoral em lifestyle permanente.</p>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 10 NOVO EIXO -->
+<section class="slide">
+<div class="slide-inner">
+  <div class="overline">Expansão Territorial</div>
+  <h2>Os grandes ciclos imobiliários<br><span class="gold">começam nas bordas urbanas.</span></h2>
+  <div class="divider"></div>
+  <div class="tl">
+    <div class="tl-item"><div class="tl-period">Consolidado</div><div class="tl-desc">Atalaia<br>Bairro nobre de Aracaju</div></div>
+    <div class="tl-item"><div class="tl-period">Valorizado</div><div class="tl-desc">Aruana<br>Expansão urbana premium</div></div>
+    <div class="tl-item"><div class="tl-period">Em expansão</div><div class="tl-desc">Mosqueiro<br>Novo vetor costeiro</div></div>
+    <div class="tl-item"><div class="tl-period">Emergente</div><div class="tl-desc">Estância<br>Motor econômico sul</div></div>
+    <div class="tl-item" style="border-left:2px solid var(--gold)"><div class="tl-period" style="color:var(--gold-light)">Próximo</div><div class="tl-desc" style="color:var(--white)"><strong>Jubiabá</strong><br>A próxima fronteira</div></div>
+  </div>
+  <p class="body" style="margin-top:1.5rem">Infraestrutura → mobilidade → qualidade de vida → expansão da demanda premium. A lógica histórica dos grandes ciclos costeiros brasileiros.</p>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 11 ÚLTIMO ESTOQUE -->
+<section class="slide">
+<div class="slide-inner">
+  <div class="overline">Escassez Territorial Absoluta</div>
+  <h2>O último grande estoque<br><span class="gold">frente-mar do Nordeste.</span></h2>
+  <div class="divider"></div>
+  <p class="lead">Territórios contínuos frente-mar praticamente não existem mais no Nordeste em escala compatível com masterplan integrado, hospitality, branded living e urbanismo de baixa densidade.</p>
+  <div class="hbox" style="margin-top:1.5rem"><p><strong>Jubiabá representa uma rara exceção.</strong> 250 ha com frente-mar contínua de 1.070m — escala comparável a Jurerê Internacional, ainda antes da plena precificação.</p></div>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 12 JUBIABÁ É UM TERRITÓRIO -->
+<section class="slide">
+<div class="slide-inner">
+  <div class="overline">Visão do Projeto</div>
+  <h2>Jubiabá não é um empreendimento.</h2>
+  <h3 style="margin-top:.6rem">Jubiabá é um território.</h3>
+  <div class="divider"></div>
+  <div class="tags" style="margin-top:1.4rem">
+    <span class="tag">Plataforma Territorial</span><span class="tag">Distrito Costeiro</span>
+    <span class="tag">Ecossistema de Hospitalidade</span><span class="tag">Polo de Longevidade</span>
+    <span class="tag">Vetor de Transformação Urbana</span>
+  </div>
+  <p class="body" style="margin-top:1.5rem">Mais do que um projeto imobiliário, Jubiabá nasce como plataforma de transformação do litoral sul sergipano — com visão de múltiplas décadas e impacto regional definitivo.</p>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 13 QUIET LUXURY -->
+<section class="slide">
+<div class="slide-inner">
+  <div class="overline">Posicionamento Internacional</div>
+  <h2>Quiet Luxury Tropical.</h2>
+  <div class="divider"></div>
+  <p class="lead">Jubiabá nasce no encontro entre natureza, baixa densidade, arquitetura biofílica, wellness, hospitalidade e regeneração ambiental.</p>
+  <div class="two-col" style="margin-top:1.5rem">
+    <ul class="bullets">
+      <li>Cura física — ar puro, mar, natureza</li>
+      <li>Cura emocional — privacidade, silêncio</li>
+    </ul>
+    <ul class="bullets">
+      <li>Cura intelectual — slow living, cultura</li>
+      <li>Cura financeira — patrimônio real</li>
+    </ul>
+  </div>
+  <div class="tags" style="margin-top:1.4rem">
+    <span class="tag">Comporta</span><span class="tag">Costa Smeralda</span>
+    <span class="tag">Punta Mita</span><span class="tag">Trancoso</span><span class="tag">Tulum original</span>
+  </div>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 14 MAIOR ASSIMETRIA -->
+<section class="slide">
+<div class="slide-inner">
+  <div class="overline">A Tese de Investimento</div>
+  <h2>A maior assimetria territorial<br><span class="gold">do Nordeste.</span></h2>
+  <div class="divider"></div>
+  <div class="ba">
+    <div class="ba-col">
+      <div class="ba-label">O mercado já validou</div>
+      <div class="ba-desc" style="font-size:1rem;line-height:2;color:var(--white);margin-top:.8rem">✓ O Nordeste<br>✓ O luxo costeiro<br>✓ O lifestyle de baixa densidade</div>
+    </div>
+    <div class="ba-col">
+      <div class="ba-label" style="color:var(--gold-light)">Ainda não precificou completamente</div>
+      <div class="ba-desc" style="font-size:1rem;line-height:2;color:var(--gold-light);margin-top:.8rem">→ Sergipe<br>→ O litoral sul<br>→ A expansão territorial premium</div>
+    </div>
+  </div>
+  <p class="body" style="margin-top:1.5rem">Gatilho financeiro principal: entrar antes da precificação. A maior captura de valor acontece antes do consenso.</p>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 15 ENCERRAMENTO BLOCO 1 -->
+<section class="slide slide-chapter">
+<div class="slide-inner">
+  <div class="overline">Encerramento — Capítulo 1</div>
+  <blockquote>"Os maiores patrimônios territoriais do mundo nasceram antes do consenso."</blockquote>
+  <div class="divider" style="margin-top:2rem"></div>
+  <p class="body">Jubiabá representa a convergência entre transformação global de comportamento, expansão territorial, qualidade de vida, infraestrutura e entrada antecipada em um dos últimos litorais premium ainda não plenamente precificados do Nordeste brasileiro.</p>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 16 CAP 2 -->
+<section class="slide slide-chapter">
+<div class="slide-inner">
+  <div class="chapter">Capítulo 2</div>
+  <h2>O Território<br><span class="gold">Jubiabá</span></h2>
+  <div class="divider"></div>
+  <p class="lead">Escala, natureza, arquitetura e hospitalidade integradas desde o zero.</p>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 17 LOCALIZAÇÃO -->
+<section class="slide">
+<div class="slide-inner">
+  <div class="overline">Localização Estratégica</div>
+  <h2>No encontro entre turismo,<br><span class="gold">infraestrutura e expansão territorial.</span></h2>
+  <div class="divider"></div>
+  <div class="cards">
+    <div class="card"><div class="card-num">50 min</div><div class="card-title">Aeroporto de Aracaju</div><div class="card-body">Voos diretos SP · BSB · RJ. Recorde de passageiros em 2024. Conectividade aérea acelerada.</div></div>
+    <div class="card"><div class="card-num">10 km</div><div class="card-title">Praia do Saco</div><div class="card-body">Top 100 mundial. Acesso direto pela SE-100 (Linha Verde). 12km de Mangue Seco.</div></div>
+    <div class="card"><div class="card-num">10 km</div><div class="card-title">Divisa com a Bahia</div><div class="card-body">Posicionamento estratégico no corredor turístico Sergipe–Bahia. Linha Verde premium.</div></div>
+  </div>
+  <div class="source">Governo de Sergipe — Aeroporto de Aracaju bate recorde de passageiros</div>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 18 TERRITÓRIO RARO -->
+<section class="slide">
+<div class="slide-inner">
+  <div class="overline">A Terra</div>
+  <h2>Os números de uma reserva irrepetível.</h2>
+  <div class="divider"></div>
+  <div class="stat-grid">
+    <div class="stat"><div class="stat-num">250<span style="font-size:1.2rem">ha</span></div><div class="stat-label">Área total · Fase 1: 129ha + pot. +70ha</div></div>
+    <div class="stat"><div class="stat-num">1.070<span style="font-size:1.2rem">m</span></div><div class="stat-label">Faixa de areia exclusiva pé-na-areia</div></div>
+    <div class="stat"><div class="stat-num">2.500<span style="font-size:1.2rem">m</span></div><div class="stat-label">Profundidade até a Linha Verde SE-100</div></div>
+  </div>
+  <ul class="bullets" style="margin-top:1.5rem">
+    <li>Mar + Rio + Lagoa dos Tambaquis — único no litoral nordestino</li>
+    <li>28–35% de APP como Parque Natural de Dunas &amp; Restinga</li>
+    <li>Produção local: mangaba, caju, coco, acerola — autenticidade territorial</li>
+    <li>Praia do Saco (top 100 mundial · 10 km) · Mangue Seco (12 km)</li>
+  </ul>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 19 ESCALA -->
+<section class="slide">
+<div class="slide-inner">
+  <div class="overline">Escala Comparável</div>
+  <h2>Comparável a Jurerê Internacional.<br><span class="gold">Jubiabá nasce antes da plena precificação.</span></h2>
+  <div class="divider"></div>
+  <div class="comp-row">
+    <div class="comp-item"><div class="comp-label">Jurerê Int. — SC</div><div class="comp-val">R$ 28–35k / m²</div><div style="font-family:var(--sans);font-size:.65rem;color:var(--muted);margin-top:.3rem">Superluxo consolidado</div></div>
+    <div class="comp-arrow">vs.</div>
+    <div class="comp-item comp-hl"><div class="comp-label">Jubiabá Fase 1</div><div class="comp-val">R$ 4–5,5k / m²</div><div style="font-family:var(--sans);font-size:.65rem;color:var(--gold);margin-top:.3rem">Entrada antecipada</div></div>
+  </div>
+  <div class="hbox" style="margin-top:1.5rem"><p>Em Jurerê, o metro quadrado supera R$ 20.000. Em Jubiabá, ainda partimos de R$ 4.000 a R$ 5.500/m². <strong>A janela de entrada é o próprio ativo.</strong></p></div>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 20 MASTERPLAN KV -->
+<section class="slide">
+<div class="slide-inner">
+  <div class="overline">Masterplan — Konigsberger Vannucchi</div>
+  <h2>Um ecossistema costeiro completo.</h2>
+  <div class="divider"></div>
+  <table class="data-table">
+    <thead><tr><th>Zona</th><th>Uso</th><th>% Área</th></tr></thead>
+    <tbody>
+      <tr><td>A</td><td>Parque Natural de Dunas &amp; Restinga (ZPA/ZMAR)</td><td>28–35%</td></tr>
+      <tr><td>B</td><td>Beach Club + Hotel / Condo-Hotel (ZUR)</td><td>6–9%</td></tr>
+      <tr><td>C</td><td>Residencial premium + Beach Villas</td><td>25–30%</td></tr>
+      <tr><td>D</td><td>Wellness · Hospitalidade · Lifestyle</td><td>15–20%</td></tr>
+      <tr class="hl"><td colspan="3">Zoneamento ZEEC / Estância · Lei 8.980/2022 — compliance-first desde a concepção</td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 21 DUAS ETAPAS -->
+<section class="slide">
+<div class="slide-inner">
+  <div class="overline">Fases de Desenvolvimento</div>
+  <h2>Seaside e Hinterland —<br><span class="gold">da praia ao interior do terreno.</span></h2>
+  <div class="divider"></div>
+  <div class="ba">
+    <div class="ba-col">
+      <div class="ba-label">Etapa 01 — JUBIABÁ SEASIDE</div>
+      <div class="ba-desc" style="text-align:left;margin-top:.8rem;line-height:2;color:rgba(245,245,240,.85)">• Lotes premium frente-mar<br>• Beach Villas exclusivas<br>• Beach Club âncora<br>• Baixíssima densidade planejada</div>
+    </div>
+    <div class="ba-col">
+      <div class="ba-label" style="color:var(--gold-light)">Etapa 02 — JUBIABÁ HINTERLAND</div>
+      <div class="ba-desc" style="text-align:left;margin-top:.8rem;line-height:2;color:rgba(245,245,240,.85)">• Resort frente-mar (60–80 chaves)<br>• Hotel boutique<br>• Hotel Linha Verde<br>• Wellness · Condo-hotel</div>
+    </div>
+  </div>
+  <p class="body" style="margin-top:1rem">Villas Suspensas: arquitetura elevada que toca o solo pontualmente — preserva vegetação, vistas panorâmicas, zero movimentação de terra.</p>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 22 PILARES -->
+<section class="slide">
+<div class="slide-inner">
+  <div class="overline">Os Pilares do Complexo</div>
+  <h2>Quatro frentes de geração de valor.</h2>
+  <div class="divider"></div>
+  <div class="pillars">
+    <div class="pillar"><div class="pillar-title">Residencial</div><div class="pillar-body">Beach Villas frente-mar + Condo Village · 100–140m² · Sistema GSWP — qualidade superior, até 3× mais rápido que método convencional</div></div>
+    <div class="pillar"><div class="pillar-title">Hotelaria</div><div class="pillar-body">Resort frente-mar 60–80 chaves + Boutique · Hamam Global · Pool de marcas: Marriott · Hilton · Accor · IHG · Oetker</div></div>
+    <div class="pillar"><div class="pillar-title">Lifestyle &amp; Wellness</div><div class="pillar-body">Beach Club · Spa · Centro Esportivo · Beach Tennis · Alta gastronomia farm-to-table · Jardins sensoriais · Trilhas ecológicas</div></div>
+    <div class="pillar"><div class="pillar-title">Sustentabilidade</div><div class="pillar-body">APP como Parque Natural · Dark-sky (tartarugas) · Energia solar · SUDS · Gestão de efluentes · Zero poluição visual</div></div>
+  </div>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 23 SMART CITY -->
+<section class="slide">
+<div class="slide-inner">
+  <div class="overline">Smart City</div>
+  <h2>Não é retrofit.<br><span class="gold">É uma smart city de planta nova.</span></h2>
+  <div class="divider"></div>
+  <div class="cards">
+    <div class="card"><div class="card-num">01</div><div class="card-title">Energia Limpa</div><div class="card-body">Solar + eólica · matriz 100% renovável · zero emissão na orla</div></div>
+    <div class="card"><div class="card-num">02</div><div class="card-title">Infra Enterrada</div><div class="card-body">Cabeamento 100% subterrâneo · zero poluição visual · paisagem pura</div></div>
+    <div class="card"><div class="card-num">03</div><div class="card-title">Conectividade</div><div class="card-body">Fibra óptica · automação residencial · trabalho remoto premium</div></div>
+  </div>
+  <div class="cards" style="margin-top:1rem">
+    <div class="card"><div class="card-num">04</div><div class="card-title">Mobilidade Inteligente</div><div class="card-body">EV chargers · shuttle elétrico · ciclofaixas · mobilidade suave</div></div>
+    <div class="card"><div class="card-num">05</div><div class="card-title">Dark-Sky</div><div class="card-body">Proteção a tartarugas marinhas · diferencial ambiental e de marketing premium</div></div>
+    <div class="card"><div class="card-num">06</div><div class="card-title">App Próprio</div><div class="card-body">Gestão integrada · monitoramento ambiental · eficiência operacional</div></div>
+  </div>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 24 A TRÍADE -->
+<section class="slide">
+<div class="slide-inner">
+  <div class="overline">A Tríade Executora</div>
+  <h2>Três operações de classe mundial.<br><span class="gold">Uma única visão.</span></h2>
+  <div class="divider"></div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-title">01 · GSWP</div>
+      <div class="card-body">Incorporação · estruturação · governança. Sistema construtivo proprietário. S.A. com patrimônio de afetação. Validada por fundos institucionais. Execução end-to-end auditada.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">02 · Konigsberger Vannucchi</div>
+      <div class="card-body"><span class="gold-light">53 anos · 893 projetos · R$18Bi VGV</span><br>107 arquitetos em 4 países. MIPIM 2026 Cannes. Prêmio Master Imobiliário. 14ª Bienal de Arquitetura.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">03 · Hamam Global</div>
+      <div class="card-body"><span class="gold-light">26 anos · +250 hotéis · +70 marcas · +43.000 chaves</span><br>Hubs SP, Miami e Dubai. 6× melhor empresa FF&amp;E/OS&amp;E da América Latina.</div>
+    </div>
+  </div>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 25 CAP 3 -->
+<section class="slide slide-chapter">
+<div class="slide-inner">
+  <div class="chapter">Capítulo 3</div>
+  <h2>A Tese<br><span class="gold">Financeira</span></h2>
+  <div class="divider"></div>
+  <p class="lead">Escassez territorial absoluta + timing de entrada + execução de classe mundial.</p>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 26 TRÊS CATALISADORES -->
+<section class="slide">
+<div class="slide-inner">
+  <div class="overline">O Que Destravou Estância</div>
+  <h2>Três catalisadores simultâneos.<br><span class="gold">Uma janela única.</span></h2>
+  <div class="divider"></div>
+  <div class="cards">
+    <div class="card"><div class="card-num">01</div><div class="card-title">Judicial</div><div class="card-body">Acordo homologado pela Justiça Federal. Impasse de 10 anos encerrado. MPF + Gov. SE + Ibama + Adema + Prefeitura.</div></div>
+    <div class="card"><div class="card-num">02</div><div class="card-title">Regulatório</div><div class="card-body">Novo Plano Diretor aprovado. De zona rural (lote mínimo 20.000m²) para desenvolvimento urbano com gabarito de até 7 pavimentos.</div></div>
+    <div class="card"><div class="card-num">03</div><div class="card-title">Mercado</div><div class="card-body">Aracaju beira-mar a R$14–16k/m². A correção chegou à capital. O litoral sul ainda não foi precificado.</div></div>
+  </div>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 27 CONVERGÊNCIA DE PREÇO -->
+<section class="slide">
+<div class="slide-inner">
+  <div class="overline">Arbitragem de Preço</div>
+  <h2>O custo de conversão versus<br><span class="gold">o mercado precificado.</span></h2>
+  <div class="divider"></div>
+  <table class="data-table">
+    <thead><tr><th>Referência</th><th>Preço de Mercado</th></tr></thead>
+    <tbody>
+      <tr><td>Jurerê / Trancoso</td><td>R$ 35.000 / m²</td></tr>
+      <tr><td>Salvador / Maceió — Superluxo</td><td>R$ 31.500 / m²</td></tr>
+      <tr><td>Aracaju Beira-Mar (novos)</td><td>R$ 15.000 / m²</td></tr>
+      <tr><td>Projeção Lançamento Jubiabá Fase 3</td><td>R$ 14.000 – 16.000 / m²</td></tr>
+      <tr class="hl"><td><strong>JUBIABÁ — Entrada Fase 1</strong></td><td><strong>R$ 4.750 / m²</strong></td></tr>
+    </tbody>
+  </table>
+  <p class="body" style="margin-top:1rem">Custo de conversão da cota ≠ preço de venda do imóvel. Você entra como sócio fundador — captura integral da margem do incorporador.</p>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 28 O QUE VOCÊ ESTÁ COMPRANDO -->
+<section class="slide">
+<div class="slide-inner">
+  <div class="overline">Clareza Conceitual</div>
+  <h2>O que você está comprando.</h2>
+  <div class="divider"></div>
+  <div class="steps">
+    <div class="step"><div class="step-num">01</div><div class="step-title">Não é um imóvel</div><div class="step-desc">É uma participação no desenvolvimento que converte em m² com deságio</div></div>
+    <div class="step"><div class="step-num">02</div><div class="step-title">Sócio Fundador</div><div class="step-desc">Fase de máximo potencial — antes da precificação pública. Captura integral da margem</div></div>
+    <div class="step"><div class="step-num">03</div><div class="step-title">Via Registro</div><div class="step-desc">O RI formaliza a conversão da cota em m² escriturado em cartório</div></div>
+    <div class="step"><div class="step-num">04</div><div class="step-title">3 Saídas</div><div class="step-desc">Venda da cota · Recebimento do imóvel · Pool de locação hoteleira Hamam</div></div>
+  </div>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 29 GARANTIA REAL -->
+<section class="slide">
+<div class="slide-inner">
+  <div class="overline">Segurança Jurídica</div>
+  <h2>A blindagem mais sólida do mercado.</h2>
+  <div class="divider"></div>
+  <div class="rrow"><div class="rrow-label">S.A. com Patrimônio de Afetação</div><div class="rrow-status">✓ Ativo</div><div class="rrow-desc">100% dedicado ao projeto · blindado contra terceiros</div></div>
+  <div class="rrow"><div class="rrow-label">Garantia Real</div><div class="rrow-status">✓ Registrada</div><div class="rrow-desc">Investimento garantido pela matrícula do terreno até o RI</div></div>
+  <div class="rrow"><div class="rrow-label">Seguro Garantia de Obras</div><div class="rrow-status">✓ Independente</div><div class="rrow-desc">Garante que a obra começa e termina</div></div>
+  <div class="rrow"><div class="rrow-label">Governança Auditada Externamente</div><div class="rrow-status">✓ Trimestral</div><div class="rrow-desc">Relatórios trimestrais · due diligence permanente</div></div>
+  <div class="rrow"><div class="rrow-label">Registros Formais em Cartório</div><div class="rrow-status">✓ Integral</div><div class="rrow-desc">Cada etapa registrada · zero ambiguidade jurídica</div></div>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 30 TAM -->
+<section class="slide">
+<div class="slide-inner">
+  <div class="overline">Mercado Endereçável</div>
+  <h2>Quatro quadrantes de demanda convergem.</h2>
+  <div class="divider"></div>
+  <div class="cards">
+    <div class="card"><div class="card-title">Local · Raio 150km</div><div class="card-body"><span style="color:var(--gold);font-size:1.2rem;font-family:var(--serif)">~115.000</span> potenciais compradores · primeira e segunda residência</div></div>
+    <div class="card"><div class="card-title">Regional · Nordeste</div><div class="card-body">Salvador · Recife · Maceió · Destino premium fins de semana · mercado de segunda residência nordestina</div></div>
+    <div class="card"><div class="card-title">Nacional · SP/MG/DF</div><div class="card-body">HNWIs · second homes de inverno · investidores de rentabilidade · alocação de capital</div></div>
+  </div>
+  <div class="hbox" style="margin-top:1.2rem"><p>"Ecossistema contínuo — atrai o comprador e o investidor — gerando ciclo virtuoso de demanda."</p></div>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 31 BENCHMARKING -->
+<section class="slide">
+<div class="slide-inner">
+  <div class="overline">Efeito First Mover</div>
+  <h2>Os grandes patrimônios costeiros<br><span class="gold">começaram como territórios subprecificados.</span></h2>
+  <div class="divider"></div>
+  <table class="data-table">
+    <thead><tr><th>Destino</th><th>Status</th><th>Valorização</th></tr></thead>
+    <tbody>
+      <tr><td>Jurerê Internacional (SC)</td><td>Consolidado</td><td>4×–5× / 10 anos</td></tr>
+      <tr><td>Trancoso (BA)</td><td>Consolidado Premium</td><td>3×–4× / 15 anos</td></tr>
+      <tr><td>Jericoacoara (CE)</td><td>Premium ascendente</td><td>3×–4× / 12 anos</td></tr>
+      <tr><td>Comporta (Portugal)</td><td>Internacional</td><td>5×–8× / 15 anos</td></tr>
+      <tr class="hl"><td><strong>Jubiabá</strong></td><td><strong>Fase Seed — Agora</strong></td><td><strong>Entrada antes da descoberta</strong></td></tr>
+    </tbody>
+  </table>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 32 SENSIBILIDADE -->
+<section class="slide">
+<div class="slide-inner">
+  <div class="overline">Análise de Sensibilidade</div>
+  <h2>Três cenários. Três testes de estresse.</h2>
+  <div class="divider"></div>
+  <div class="cards">
+    <div class="card"><div class="card-title">Conservador</div><div class="card-num">R$ 12k / m²</div><div class="card-body">Sem prêmio de marca. <span class="gold-light"><strong>2,18× mínimo garantido.</strong></span></div></div>
+    <div class="card" style="border-color:var(--gold)"><div class="card-title" style="color:var(--gold-light)">Realista (Base)</div><div class="card-num">R$ 17,3k / m²</div><div class="card-body">Prêmio de desenvolvimento + padrão resort de luxo. <span class="gold-light"><strong>~3× retorno.</strong></span></div></div>
+    <div class="card"><div class="card-title">Otimista</div><div class="card-num">R$ 20k / m²</div><div class="card-body">Alta demanda — Efeito Jurerê/Trancoso consolidado. <span class="gold-light"><strong>+3,5× retorno.</strong></span></div></div>
+  </div>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 33 TICKETS -->
+<section class="slide">
+<div class="slide-inner">
+  <div class="overline">Tickets de Investimento — Round 02</div>
+  <h2>Três tickets. Maximizando poder de compra.</h2>
+  <div class="divider"></div>
+  <div class="tiers">
+    <div class="tier">
+      <div class="tier-name">Explorer · 1 Cota</div>
+      <div class="tier-price">R$ 300k</div>
+      <div class="tier-area">54,57 m² equivalentes</div>
+      <div class="tier-psm">R$ 5.497 / m²</div>
+      <div class="tier-return">2,18×</div>
+      <div class="tier-rlabel">conservador</div>
+    </div>
+    <div class="tier feat">
+      <div class="tier-name">Founder · 4 Cotas</div>
+      <div class="tier-price">R$ 1,2M</div>
+      <div class="tier-area">266,80 m² equivalentes</div>
+      <div class="tier-psm">R$ 4.497 / m² — melhor custo</div>
+      <div class="tier-return">2,67×</div>
+      <div class="tier-rlabel">conservador</div>
+    </div>
+    <div class="tier">
+      <div class="tier-name">Legacy · 7+ Cotas</div>
+      <div class="tier-price">R$ 2,1M+</div>
+      <div class="tier-area">525 m²+ equivalentes</div>
+      <div class="tier-psm">R$ 4.000 / m² — family office</div>
+      <div class="tier-return">3,00×</div>
+      <div class="tier-rlabel">conservador</div>
+    </div>
+  </div>
+  <p class="body" style="margin-top:1rem">Capital 100% equity · zero alavancagem · o tempo joga a favor do ativo.</p>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 34 PAYBACK -->
+<section class="slide">
+<div class="slide-inner">
+  <div class="overline">Ciclo do Investidor</div>
+  <h2>Da assinatura ao lucro puro.</h2>
+  <div class="divider"></div>
+  <div class="tl">
+    <div class="tl-item"><div class="tl-period">M0</div><div class="tl-desc"><strong>Aporte</strong><br>Capital aportado · Garantia Real imediata</div></div>
+    <div class="tl-item"><div class="tl-period">M36–42</div><div class="tl-desc"><strong>1ª Receita</strong><br>Início vendas Etapa 01 · Primeiras distribuições</div></div>
+    <div class="tl-item"><div class="tl-period">M48–56</div><div class="tl-desc"><strong>Payback</strong><br>Retorno integral do capital · Risco zerado</div></div>
+    <div class="tl-item" style="border-left:2px solid var(--gold)"><div class="tl-period" style="color:var(--gold)">M56+</div><div class="tl-desc" style="color:var(--white)"><strong>Lucro Puro</strong><br>Distribuição dos lucros + Receita hoteleira recorrente Hamam Global</div></div>
+  </div>
+  <div class="hbox" style="margin-top:1.5rem"><p>Exemplo — Cota Founder (R$1,2M): <span class="gold">R$ 3.201.600 conservador · 2,67× · payback ~M52</span></p></div>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 35 VS ALTERNATIVAS -->
+<section class="slide">
+<div class="slide-inner">
+  <div class="overline">Comparativo</div>
+  <h2>Jubiabá versus as alternativas.</h2>
+  <div class="divider"></div>
+  <table class="data-table">
+    <thead><tr><th>Alternativa</th><th>Retorno Médio</th><th>Risco</th><th>Liquidez</th></tr></thead>
+    <tbody>
+      <tr><td>Renda Fixa</td><td>10–12% a.a.</td><td>Baixo</td><td>Alta</td></tr>
+      <tr><td>Bolsa de Valores</td><td>Variável</td><td>Alto</td><td>Alta</td></tr>
+      <tr><td>Imóvel Urbano</td><td>0,5–1% a.m.</td><td>Médio</td><td>Baixa</td></tr>
+      <tr><td>FII Premium</td><td>8–12% a.a.</td><td>Médio</td><td>Média</td></tr>
+      <tr class="hl"><td><strong>Jubiabá — Fase 1</strong></td><td><strong>60–120%+ total</strong></td><td>Mapeado</td><td>3 opções de saída</td></tr>
+    </tbody>
+  </table>
+  <p class="body" style="margin-top:1rem">Real estate + localização inexplorada + timing = assimetria de retorno que não existe em nenhum outro ativo disponível hoje.</p>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 36 USO DOS RECURSOS -->
+<section class="slide">
+<div class="slide-inner">
+  <div class="overline">Round 02 — Destinação Carimbada</div>
+  <h2>R$ 10 milhões. Alocação transparente.</h2>
+  <div class="divider"></div>
+  <div class="stat-grid">
+    <div class="stat"><div class="stat-num">35%</div><div class="stat-label">Infra &amp; Acesso<br><small style="font-size:.6rem">Terraplenagem · pavimentação · redes primárias</small></div></div>
+    <div class="stat"><div class="stat-num">30%</div><div class="stat-label">Estruturação &amp; Aprovações<br><small style="font-size:.6rem">Projetos KV · licenças · taxas · SPE</small></div></div>
+    <div class="stat"><div class="stat-num">25%</div><div class="stat-label">Construção Etapa 01<br><small style="font-size:.6rem">Fundações · primeiras unidades Seaside</small></div></div>
+    <div class="stat"><div class="stat-num">10%</div><div class="stat-label">Fundo de Contingência<br><small style="font-size:.6rem">Reserva para variações e imprevistos</small></div></div>
+  </div>
+  <p class="body" style="margin-top:1.5rem">Distribuição proporcional via cotas da S.A. · Registro em cartório · Demonstrações periódicas · Auditoria independente.</p>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 37 ESG -->
+<section class="slide">
+<div class="slide-inner">
+  <div class="overline">ESG &amp; Impacto Regional</div>
+  <h2>Sustentabilidade não como narrativa.<br><span class="gold">Como concepção.</span></h2>
+  <div class="divider"></div>
+  <div class="stat-grid">
+    <div class="stat"><div class="stat-num">28–35%</div><div class="stat-label">APP como Parque Natural integrado</div></div>
+    <div class="stat"><div class="stat-num">Dark<br><span style="font-size:1.2rem">Sky</span></div><div class="stat-label">Proteção a tartarugas marinhas</div></div>
+    <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Energia limpa · Solar + eólica + SUDS</div></div>
+    <div class="stat"><div class="stat-num">Local</div><div class="stat-label">Emprego e renda regional fortalecidos</div></div>
+  </div>
+  <p class="body" style="margin-top:1.5rem">Cordão dunar preservado em sua integridade. Zero emissão na orla. Cadeia produtiva regional fortalecida. Ciclofaixas e mobilidade suave integradas ao masterplan.</p>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 38 RISCOS MAPEADOS -->
+<section class="slide">
+<div class="slide-inner">
+  <div class="overline">Matriz de Riscos</div>
+  <h2>Cinco riscos. Todos mapeados<br><span class="gold">antes da captação.</span></h2>
+  <div class="divider"></div>
+  <div class="rrow"><div class="rrow-label">Risco de Mercado</div><div class="rrow-status">Mitigado</div><div class="rrow-desc">Demanda comprovada (9×) · escassez de produtos premium · TAM validado</div></div>
+  <div class="rrow"><div class="rrow-label">Risco de Execução</div><div class="rrow-status">Mitigado</div><div class="rrow-desc">Sistema GSWP · parcerias KV e Hamam · cronograma estruturado</div></div>
+  <div class="rrow"><div class="rrow-label">Risco Ambiental</div><div class="rrow-status">Mitigado</div><div class="rrow-desc">ZEEC aprovado · compliance-first desde a concepção</div></div>
+  <div class="rrow"><div class="rrow-label">Risco Regulatório</div><div class="rrow-status">Mitigado</div><div class="rrow-desc">Novo Plano Diretor aprovado · aprovações municipais regularizadas</div></div>
+  <div class="rrow"><div class="rrow-label">Risco Financeiro</div><div class="rrow-status">Mitigado</div><div class="rrow-desc">Capital 100% equity · patrimônio de afetação · seguro garantia de obras</div></div>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 39 PRÓXIMOS PASSOS -->
+<section class="slide">
+<div class="slide-inner">
+  <div class="overline">Processo de Adesão</div>
+  <h2>Próximos passos.</h2>
+  <div class="divider"></div>
+  <div class="steps">
+    <div class="step"><div class="step-num">01</div><div class="step-title">Interesse</div><div class="step-desc">Contato direto com a equipe GSWP</div></div>
+    <div class="step"><div class="step-num">02</div><div class="step-title">NDA + Data Room</div><div class="step-desc">Material completo confidencial disponibilizado</div></div>
+    <div class="step"><div class="step-num">03</div><div class="step-title">Due Diligence</div><div class="step-desc">Acesso ao projeto executivo, jurídico e financeiro</div></div>
+    <div class="step"><div class="step-num">04</div><div class="step-title">Contrato</div><div class="step-desc">Contrato de Investimento estruturado e registrado</div></div>
+    <div class="step"><div class="step-num">05</div><div class="step-title">Aporte</div><div class="step-desc">Capital aportado · Garantia Real ativada imediatamente</div></div>
+  </div>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 40 REFERÊNCIAS -->
+<section class="slide">
+<div class="slide-inner">
+  <div class="overline">Fontes e Referências</div>
+  <h2>Dados verificados. Narrativa sustentada.</h2>
+  <div class="divider"></div>
+  <ul class="bullets" style="max-width:860px">
+    <li><strong>BofA / The Rio Times</strong> — "Brazil: The New Gold" · Capital internacional retorna ao Brasil</li>
+    <li><strong>Reuters / Petrobras</strong> — Sergipe Águas Profundas · Polo energético estratégico nacional</li>
+    <li><strong>CBIC / Movimento Econômico</strong> — Mercado de luxo cresce 85% no Nordeste em 2 anos</li>
+    <li><strong>Prefeitura de Estância</strong> — 45% das exportações de Sergipe · Polo industrial sul</li>
+    <li><strong>Ministério da Justiça (BR)</strong> — Imigrantes investiram R$ 283 milhões em imóveis</li>
+    <li><strong>Folha de S.Paulo</strong> — Imigração russa para Florianópolis · segurança como ativo</li>
+    <li><strong>Poder360</strong> — Sergipe cresce 315% no mercado livre de gás</li>
+    <li><strong>Desenvolve-SE</strong> — Turismo como nova fronteira de investimentos em Sergipe</li>
+    <li><strong>Governo de Sergipe</strong> — Aeroporto de Aracaju bate recorde de passageiros</li>
+    <li><strong>Financial Times</strong> — Londres perde população qualificada para novas cidades</li>
+    <li><strong>FipeZAP Mai/2025</strong> — Salvador +20,85% · maior valorização entre capitais brasileiras</li>
+  </ul>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+<!-- 41 ENCERRAMENTO -->
+<section class="slide slide-cover">
+<div class="slide-inner">
+  <div class="overline">Jubiabá · Estância · Sergipe · Brasil</div>
+  <h1 class="gold">JUBIABÁ</h1>
+  <div class="divider"></div>
+  <p class="lead">A próxima fronteira do luxo no Nordeste começa agora.</p>
+  <div class="stat-grid" style="margin-top:2.5rem">
+    <div class="stat"><div class="stat-num">250<span style="font-size:1.2rem">ha</span></div><div class="stat-label">Território</div></div>
+    <div class="stat"><div class="stat-num">R$2<span style="font-size:1.2rem">bi</span></div><div class="stat-label">VGV Projetado</div></div>
+    <div class="stat"><div class="stat-num">3×</div><div class="stat-label">Retorno conservador</div></div>
+  </div>
+  <div class="hbox" style="margin-top:2rem;max-width:600px">
+    <p style="font-size:.9rem"><strong>Contato · Round 02</strong><br><span class="gold">investimento@gswp.com.br</span> · www.gswp.com.br<br>Bruno Zanuto · CEO · GSWP</p>
+  </div>
+  <p style="font-family:var(--sans);font-size:.52rem;color:var(--muted);margin-top:1.5rem;max-width:700px;text-align:center;line-height:1.6">Material informativo confidencial. Projeções baseadas em análise de mercado e histórico de valorização. Retornos passados não garantem resultados futuros. Consulte o prospecto completo.</p>
+</div>
+<div class="slide-footer">GSWP × KV × HAMAM GLOBAL · Material Confidencial</div>
+</section>
+
+</div><!-- /deck -->
+
+<div id="nav">
+  <button class="nav-btn" onclick="go(-1)">&#8592;</button>
+  <div id="progress">1 / 41</div>
+  <button class="nav-btn" onclick="go(1)">&#8594;</button>
+</div>
+
+<script>
+const slides=document.querySelectorAll('.slide');
+let cur=0;const total=slides.length;
+document.getElementById('progress').textContent='1 / '+total;
+function show(n){slides[cur].classList.remove('active');cur=(n+total)%total;slides[cur].classList.add('active');document.getElementById('progress').textContent=(cur+1)+' / '+total;document.getElementById('pbar').style.width=((cur+1)/total*100)+'%'}
+function go(d){show(cur+d)}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' ')go(1);if(e.key==='ArrowLeft')go(-1)});
+let tx=0;
+document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX});
+document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50)go(dx<0?1:-1)});
+document.getElementById('deck').addEventListener('click',e=>{if(!e.target.closest('#nav'))go(1)});
+</script>
+</body>
+</html>

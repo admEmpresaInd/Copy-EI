@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano de Leads — Advocacia Schettini</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #141414;
+  --fg:      #fafafa;
+  --primary: #34d399;
+  --muted:   #292929;
+  --mfg:     #a3a3a3;
+  --card:    #1f1f1f;
+  --border:  rgba(255,255,255,0.08);
+  --amber:   #f59e0b;
+  --blue:    #3b82f6;
+  --violet:  #8b5cf6;
+  --cyan:    #06b6d4;
+  --red:     #ef4444;
+  --rose:    #f43f5e;
+  --orange:  #f97316;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--fg);font-family:'Inter',sans-serif;font-size:15px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+a{color:var(--primary);text-decoration:none;}
+strong{color:var(--fg);}
+
+.wrap{max-width:820px;margin:0 auto;padding:0 20px;}
+section{padding:52px 20px;}
+hr{border:none;border-top:1px solid var(--border);max-width:820px;margin:0 auto;}
+
+/* header */
+header{background:rgba(20,20,20,0.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;}
+.logo{display:flex;align-items:center;gap:10px;}
+.logo-icon{width:30px;height:30px;background:var(--primary);border-radius:7px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;color:#0a2e24;}
+.logo-text{font-weight:700;font-size:14px;}
+.header-tag{font-size:11px;background:rgba(52,211,153,0.1);color:var(--primary);border:1px solid rgba(52,211,153,0.2);padding:3px 10px;border-radius:999px;}
+
+/* label */
+.label{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--primary);background:rgba(52,211,153,0.1);border:1px solid rgba(52,211,153,0.2);padding:3px 10px;border-radius:999px;margin-bottom:14px;}
+
+/* titles */
+h2{font-size:clamp(20px,3vw,28px);font-weight:800;letter-spacing:-0.02em;margin-bottom:8px;}
+h3{font-size:16px;font-weight:700;margin-bottom:6px;}
+.sub{font-size:14px;color:var(--mfg);margin-bottom:28px;line-height:1.7;}
+
+/* card */
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px 22px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+@media(max-width:640px){.grid2,.grid3,.grid4{grid-template-columns:1fr;}}
+@media(max-width:900px) and (min-width:641px){.grid4{grid-template-columns:repeat(2,1fr);}}
+
+/* status banner */
+.status-banner{border-radius:12px;padding:18px 20px;display:flex;flex-direction:column;gap:10px;}
+.status-banner.ok{background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.2);}
+.status-banner.warn{background:rgba(245,158,11,0.06);border:1px solid rgba(245,158,11,0.25);}
+.status-row{display:flex;align-items:flex-start;gap:10px;font-size:13px;line-height:1.5;}
+.status-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+.dot-green{background:var(--primary);}
+.dot-amber{background:var(--amber);}
+.dot-red{background:var(--red);}
+
+/* niche cards */
+.niche{border-radius:14px;padding:22px;position:relative;overflow:hidden;}
+.niche::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;}
+.niche.n1::before{background:linear-gradient(90deg,var(--violet),var(--rose));}
+.niche.n2::before{background:linear-gradient(90deg,var(--blue),var(--cyan));}
+.niche.n3::before{background:linear-gradient(90deg,var(--primary),var(--amber));}
+.niche.n1{background:rgba(139,92,246,0.06);border:1px solid rgba(139,92,246,0.2);}
+.niche.n2{background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.2);}
+.niche.n3{background:rgba(52,211,153,0.06);border:1px solid rgba(52,211,153,0.25);}
+.niche-icon{font-size:26px;margin-bottom:10px;}
+.niche-tag{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--mfg);margin-bottom:4px;}
+.niche-title{font-size:17px;font-weight:800;margin-bottom:8px;line-height:1.3;}
+.niche-desc{font-size:13px;color:var(--mfg);line-height:1.6;margin-bottom:16px;}
+.niche-value{font-size:30px;font-weight:800;line-height:1;}
+.niche-value-label{font-size:11px;color:var(--mfg);margin-top:3px;}
+.niche-footer{font-size:12px;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.06);color:var(--mfg);}
+
+/* big num */
+.big-num{font-size:36px;font-weight:800;line-height:1;color:var(--primary);}
+.big-label{font-size:12px;color:var(--mfg);margin-top:5px;}
+
+/* stat row */
+.stat-row{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px;}
+.stat-row:last-child{border-bottom:none;}
+.stat-key{color:var(--mfg);}
+.stat-val{font-weight:700;}
+.green{color:var(--primary);}
+.amber{color:var(--amber);}
+.red{color:var(--red);}
+.blue{color:var(--blue);}
+.violet{color:var(--violet);}
+.cyan{color:var(--cyan);}
+
+/* steps */
+.steps{display:flex;flex-direction:column;gap:12px;}
+.step{display:flex;gap:14px;align-items:flex-start;}
+.step-num{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0;margin-top:2px;}
+.step-title{font-size:14px;font-weight:700;margin-bottom:2px;}
+.step-desc{font-size:13px;color:var(--mfg);line-height:1.6;}
+
+/* progressão */
+.prog-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);}
+.prog-row:last-child{border-bottom:none;}
+.prog-week{font-size:12px;font-weight:700;width:90px;flex-shrink:0;color:var(--mfg);}
+.prog-bar-wrap{flex:1;background:rgba(255,255,255,0.05);border-radius:999px;height:7px;overflow:hidden;}
+.prog-bar{height:100%;border-radius:999px;}
+.prog-budget{font-size:13px;font-weight:700;width:72px;text-align:right;flex-shrink:0;}
+.prog-cpl{font-size:12px;color:var(--mfg);width:86px;text-align:right;flex-shrink:0;}
+
+/* alert */
+.alert{border-radius:10px;padding:13px 15px;font-size:13px;line-height:1.6;display:flex;gap:10px;}
+.alert.info{background:rgba(52,211,153,0.07);border:1px solid rgba(52,211,153,0.2);}
+.alert.warn{background:rgba(245,158,11,0.07);border:1px solid rgba(245,158,11,0.25);}
+.alert.tip{background:rgba(59,130,246,0.07);border:1px solid rgba(59,130,246,0.2);}
+.alert.red{background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2);}
+.alert-icon{flex-shrink:0;margin-top:1px;}
+
+/* video card */
+.vid{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color 0.2s;}
+.vid:hover{border-color:rgba(52,211,153,0.3);}
+.vid-thumb{height:110px;display:flex;align-items:center;justify-content:center;position:relative;font-size:26px;}
+.vid-rank{position:absolute;top:8px;right:8px;width:22px;height:22px;background:var(--primary);color:#0a2e24;border-radius:50%;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;}
+.vid-type{position:absolute;top:8px;left:8px;font-size:9px;font-weight:700;padding:2px 7px;border-radius:999px;text-transform:uppercase;letter-spacing:0.06em;}
+.vid-type.reel{background:rgba(244,63,94,0.85);color:#fff;}
+.vid-type.post{background:rgba(59,130,246,0.85);color:#fff;}
+.vid-body{padding:13px 14px;}
+.vid-title{font-size:12px;font-weight:700;margin-bottom:4px;line-height:1.4;}
+.vid-desc{font-size:11px;color:var(--mfg);margin-bottom:8px;line-height:1.5;}
+.vid-link{font-size:11px;color:var(--primary);font-weight:600;}
+
+/* sugestão de vídeo */
+.sug{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:16px;}
+.sug-icon{font-size:22px;margin-bottom:8px;}
+.sug-title{font-size:13px;font-weight:700;margin-bottom:4px;line-height:1.4;}
+.sug-desc{font-size:12px;color:var(--mfg);line-height:1.5;}
+.sug-tag{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:999px;margin-top:8px;}
+
+/* extra action */
+.extra{border-radius:14px;padding:22px;border:1px solid var(--border);}
+.extra.e1{background:linear-gradient(135deg,rgba(244,63,94,0.06),rgba(236,72,153,0.03));}
+.extra.e2{background:linear-gradient(135deg,rgba(59,130,246,0.07),rgba(6,182,212,0.03));}
+.extra-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:2px 8px;border-radius:999px;margin-bottom:10px;}
+.extra-badge.ig{background:rgba(244,63,94,0.15);color:#fb7185;}
+.extra-badge.gg{background:rgba(59,130,246,0.15);color:#60a5fa;}
+.extra-items{list-style:none;font-size:13px;color:var(--mfg);display:flex;flex-direction:column;gap:5px;margin-top:10px;}
+.extra-items li{display:flex;gap:8px;}
+.extra-items li::before{content:'→';color:var(--primary);flex-shrink:0;}
+
+/* budget table */
+.btable{width:100%;border-collapse:collapse;}
+.btable th{text-align:left;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--mfg);padding:9px 13px;border-bottom:1px solid var(--border);}
+.btable td{padding:11px 13px;font-size:14px;border-bottom:1px solid rgba(255,255,255,0.03);}
+.btable tr:last-child td{border-bottom:none;}
+.btable td:first-child{font-weight:600;}
+.btable .total td{border-top:1px solid var(--border);border-bottom:none;padding-top:14px;font-weight:700;}
+.btable .total td:last-child{color:var(--primary);}
+
+/* check */
+.check-list{list-style:none;display:flex;flex-direction:column;gap:9px;}
+.check-list li{display:flex;gap:10px;font-size:13px;align-items:flex-start;line-height:1.5;}
+.ck{flex-shrink:0;width:20px;height:20px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px;margin-top:1px;}
+.ck.ok{background:rgba(52,211,153,0.15);color:var(--primary);}
+.ck.warn{background:rgba(245,158,11,0.15);color:var(--amber);}
+.ck.pend{background:rgba(239,68,68,0.15);color:var(--red);}
+
+/* pill */
+.pill{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:999px;}
+.pill.green{background:rgba(52,211,153,0.12);color:#34d399;}
+.pill.amber{background:rgba(245,158,11,0.12);color:#f59e0b;}
+.pill.blue{background:rgba(59,130,246,0.12);color:#3b82f6;}
+.pill.violet{background:rgba(139,92,246,0.12);color:#8b5cf6;}
+.pill.rose{background:rgba(244,63,94,0.12);color:#fb7185;}
+
+footer{padding:28px 20px;border-top:1px solid var(--border);text-align:center;}
+footer p{font-size:12px;color:var(--mfg);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">DS</div>
+    <span class="logo-text">Advocacia Schettini · Plano de Leads</span>
+  </div>
+  <span class="header-tag">Maio 2026</span>
+</header>
+
+<!-- ══════════ STATUS INTERNO ══════════ -->
+<section style="padding-bottom:0;">
+  <div class="wrap">
+    <span class="label">🔒 Uso Interno · Gerência</span>
+    <h2>Status atual da operação</h2>
+    <p class="sub">Atualização para a equipe e gerente responsável pela área.</p>
+
+    <div class="status-banner ok" style="margin-bottom:12px;">
+      <div class="status-row">
+        <div class="status-dot dot-green"></div>
+        <span><strong>Conta recuperada e ativa.</strong> A conta principal caiu, mas já está operando normalmente. As campanhas estão rodando sem instabilidade.</span>
+      </div>
+      <div class="status-row">
+        <div class="status-dot dot-green"></div>
+        <span><strong>Integrações finalizadas.</strong> Os ajustes da API do sistema e do WhatsApp Business foram concluídos. O fluxo de recebimento de leads está funcionando — os contatos chegam automaticamente ao WhatsApp após o preenchimento do formulário.</span>
+      </div>
+    </div>
+
+    <div class="status-banner warn">
+      <div class="status-row">
+        <div class="status-dot dot-amber"></div>
+        <span><strong>Pendência: troca de domínio no site.</strong> É necessário atualizar o domínio vinculado à BM (Business Manager) no site. Sem isso, o pixel pode não registrar os eventos corretamente. <strong>Ação necessária antes de escalar o budget.</strong></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:32px;">
+  <div class="wrap">
+    <div class="alert info">
+      <span class="alert-icon">💡</span>
+      <span><strong>O que é um lead?</strong> É uma pessoa que viu o anúncio, se interessou e deixou o nome e WhatsApp. Ela ainda não é cliente — mas já pediu contato. O objetivo é pagar o mínimo possível por cada lead qualificado.</span>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- ══════════ COMO FUNCIONA ══════════ -->
+<section>
+  <div class="wrap">
+    <span class="label">Como Funciona</span>
+    <h2>Do anúncio à consulta — 4 passos</h2>
+    <p class="sub">Sem complicação. O anúncio aparece, a pessoa preenche um formulário dentro do próprio Instagram, o contato chega no WhatsApp e a equipe agenda a consulta.</p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num" style="background:rgba(52,211,153,0.15);color:var(--primary);">1</div>
+        <div>
+          <div class="step-title">📱 O vídeo aparece para o público certo</div>
+          <div class="step-desc">O anúncio é exibido para pessoas que se encaixam no perfil de cada nicho (carreteiro, PCD, trabalhador em 12×36) no Instagram e Facebook.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background:rgba(6,182,212,0.15);color:var(--cyan);">2</div>
+        <div>
+          <div class="step-title">👆 Ela clica e responde 3 perguntas</div>
+          <div class="step-desc">Um formulário abre dentro do próprio Instagram — sem sair do app. São 3 perguntas rápidas que filtram quem realmente tem caso para o escritório.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background:rgba(139,92,246,0.15);color:var(--violet);">3</div>
+        <div>
+          <div class="step-title">📲 Lead chega automaticamente no WhatsApp</div>
+          <div class="step-desc">Nome, WhatsApp e respostas chegam direto para a equipe via API do WhatsApp Business. A equipe já sabe o perfil antes de entrar em contato.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num" style="background:rgba(245,158,11,0.15);color:var(--amber);">4</div>
+        <div>
+          <div class="step-title">📅 Consulta gratuita agendada</div>
+          <div class="step-desc">Meta: converter 35% dos leads em consulta. De cada 10 leads, ~3 a 4 viram clientes potenciais.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- ══════════ OS 3 NICHOS ══════════ -->
+<section>
+  <div class="wrap">
+    <span class="label">Os 3 Nichos</span>
+    <h2>Onde vamos anunciar e quanto investir</h2>
+    <p class="sub">Cada nicho tem um público, um vídeo e um valor diário definido. Meta de CPL: R$5 para todos.</p>
+
+    <div class="grid3" style="margin-bottom:20px;">
+
+      <div class="niche n1">
+        <div class="niche-icon">⚖️</div>
+        <div class="niche-tag">Nicho 1</div>
+        <div class="niche-title">Nulidade da Jornada 12×36</div>
+        <div class="niche-desc">Trabalhadores que fazem 12h de trabalho e têm o descanso violado. Muitos têm direito a cobrar na Justiça sem saber.</div>
+        <div class="niche-value" style="color:var(--violet);">R$50 <span style="font-size:15px;font-weight:500;color:var(--mfg);">/dia</span></div>
+        <div class="niche-value-label">= R$1.500/mês</div>
+        <div class="niche-footer">Meta: <strong style="color:var(--violet);">~10 leads/dia</strong> · CPL R$5</div>
+      </div>
+
+      <div class="niche n2">
+        <div class="niche-icon">♿</div>
+        <div class="niche-tag">Nicho 2</div>
+        <div class="niche-title">PCD — Pessoas com Deficiência</div>
+        <div class="niche-desc">Trabalhadores com deficiência têm direitos específicos que a maioria das empresas descumpre: cotas, benefícios, aposentadoria.</div>
+        <div class="niche-value" style="color:var(--blue);">R$75 <span style="font-size:15px;font-weight:500;color:var(--mfg);">/dia</span></div>
+        <div class="niche-value-label">= R$2.250/mês</div>
+        <div class="niche-footer">Meta: <strong style="color:var(--blue);">~15 leads/dia</strong> · CPL R$5</div>
+      </div>
+
+      <div class="niche n3">
+        <div class="niche-icon">🚛</div>
+        <div class="niche-tag">Nicho 3</div>
+        <div class="niche-title">Carreteiro — Aposentadoria Especial</div>
+        <div class="niche-desc">Motoristas de caminhão podem se aposentar com 25 anos (não 35) por exposição ao ruído e vibração do motor. Poucos sabem disso.</div>
+        <div class="niche-value" style="color:var(--primary);">R$70 <span style="font-size:15px;font-weight:500;color:var(--mfg);">/dia</span></div>
+        <div class="niche-value-label">↑ Começa em R$10 e sobe</div>
+        <div class="niche-footer">Meta: <strong style="color:var(--primary);">CPL R$5 antes do fim do mês</strong></div>
+      </div>
+    </div>
+
+    <div class="alert warn">
+      <span class="alert-icon">⚠️</span>
+      <span><strong>Por que o carreteiro começa com R$10?</strong> É um nicho sendo testado do zero — sem dados anteriores. Começamos pequeno para validar antes de escalar. O valor só sobe quando o custo por lead estiver abaixo de R$5.</span>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- ══════════ PROGRESSÃO CARRETEIRO ══════════ -->
+<section>
+  <div class="wrap">
+    <span class="label">🚛 Progressão — Carreteiro</span>
+    <h2>Como o investimento cresce<br>conforme o resultado aparece</h2>
+    <p class="sub">Regra simples: só aumenta o valor quando o custo por lead estiver caindo. Nunca se joga dinheiro no escuro.</p>
+
+    <div class="card" style="margin-bottom:16px;">
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--mfg);font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding-bottom:10px;border-bottom:1px solid var(--border);">
+        <span>Semana</span>
+        <div style="display:flex;gap:60px;"><span>Budget/dia</span><span>CPL estimado</span></div>
+      </div>
+      <div class="prog-row">
+        <div class="prog-week">Semana 1</div>
+        <div class="prog-bar-wrap"><div class="prog-bar" style="width:14%;background:var(--primary);opacity:0.5;"></div></div>
+        <div class="prog-budget green">R$10</div>
+        <div class="prog-cpl amber">Aprendendo</div>
+      </div>
+      <div class="prog-row">
+        <div class="prog-week">Semana 2</div>
+        <div class="prog-bar-wrap"><div class="prog-bar" style="width:29%;background:var(--primary);opacity:0.65;"></div></div>
+        <div class="prog-budget green">R$20</div>
+        <div class="prog-cpl amber">~R$15</div>
+      </div>
+      <div class="prog-row">
+        <div class="prog-week">Semana 3</div>
+        <div class="prog-bar-wrap"><div class="prog-bar" style="width:57%;background:linear-gradient(90deg,var(--primary),var(--cyan));opacity:0.8;"></div></div>
+        <div class="prog-budget green">R$40</div>
+        <div class="prog-cpl amber">~R$8</div>
+      </div>
+      <div class="prog-row">
+        <div class="prog-week">Semana 4</div>
+        <div class="prog-bar-wrap"><div class="prog-bar" style="width:79%;background:linear-gradient(90deg,var(--cyan),var(--primary));"></div></div>
+        <div class="prog-budget green">R$55</div>
+        <div class="prog-cpl" style="color:var(--primary);">~R$6</div>
+      </div>
+      <div class="prog-row">
+        <div class="prog-week" style="color:var(--primary);font-weight:800;">Fim do mês</div>
+        <div class="prog-bar-wrap"><div class="prog-bar" style="width:100%;background:linear-gradient(90deg,var(--primary),var(--amber));"></div></div>
+        <div class="prog-budget amber">R$70</div>
+        <div class="prog-cpl" style="color:var(--primary);font-weight:700;">✅ R$5</div>
+      </div>
+    </div>
+
+    <div class="alert info">
+      <span class="alert-icon">📐</span>
+      <span><strong>Regra de ouro:</strong> Se na semana 2 o CPL ainda estiver acima de R$20, não aumenta. Corrige o anúncio ou a segmentação primeiro. Mais dinheiro em anúncio ruim = mais desperdício.</span>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- ══════════ VÍDEOS CARRETEIRO ══════════ -->
+<section>
+  <div class="wrap">
+    <span class="label">🎬 Vídeos — Carreteiro</span>
+    <h2>Os 4 criativos disponíveis</h2>
+    <p class="sub">Estes são os vídeos do @advocaciaschettini que vamos usar nas campanhas de carreteiro. Os 2 reels entram primeiro — formato que o Meta escala melhor.</p>
+
+    <div class="grid4" style="margin-bottom:20px;">
+
+      <div class="vid">
+        <div class="vid-thumb" style="background:linear-gradient(135deg,#0d1a10,#152516);">
+          🚛
+          <div class="vid-type reel">Reel</div>
+          <div class="vid-rank">1</div>
+        </div>
+        <div class="vid-body">
+          <div class="vid-title">Criativo A — Principal</div>
+          <div class="vid-desc">Primeiro a subir. Maior potencial de alcance em campanha de lead gen.</div>
+          <a href="https://www.instagram.com/reel/DYktjSPRtvt/" target="_blank" class="vid-link">Ver reel ↗</a>
+        </div>
+      </div>
+
+      <div class="vid">
+        <div class="vid-thumb" style="background:linear-gradient(135deg,#0d1520,#12202e);">
+          ⚖️
+          <div class="vid-type reel">Reel</div>
+          <div class="vid-rank">2</div>
+        </div>
+        <div class="vid-body">
+          <div class="vid-title">Criativo B — Paralelo</div>
+          <div class="vid-desc">Roda junto com o A para descobrir qual converte mais barato.</div>
+          <a href="https://www.instagram.com/reel/DYScJD8BG5J/" target="_blank" class="vid-link">Ver reel ↗</a>
+        </div>
+      </div>
+
+      <div class="vid">
+        <div class="vid-thumb" style="background:linear-gradient(135deg,#1a140d,#241e10);">
+          📋
+          <div class="vid-type post">Post</div>
+          <div class="vid-rank">3</div>
+        </div>
+        <div class="vid-body">
+          <div class="vid-title">Criativo C — Semana 2</div>
+          <div class="vid-desc">Entra quando um dos reels perder força. Testa se o formato estático converte.</div>
+          <a href="https://www.instagram.com/p/DYXkHjpESyG/" target="_blank" class="vid-link">Ver post ↗</a>
+        </div>
+      </div>
+
+      <div class="vid">
+        <div class="vid-thumb" style="background:linear-gradient(135deg,#1a1010,#241414);">
+          🎯
+          <div class="vid-type post">Post</div>
+          <div class="vid-rank">4</div>
+        </div>
+        <div class="vid-body">
+          <div class="vid-title">Criativo D — Reserva</div>
+          <div class="vid-desc">Backup. Entra se os 3 anteriores atingirem fadiga de audiência.</div>
+          <a href="https://www.instagram.com/p/DX90Wrax4ws/" target="_blank" class="vid-link">Ver post ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUGESTÕES DE VÍDEOS PARA CRIAR -->
+    <div style="margin-top:8px;">
+      <span class="label" style="background:rgba(245,158,11,0.1);border-color:rgba(245,158,11,0.2);color:var(--amber);">💡 Sugestões de vídeos para produzir</span>
+      <h3 style="margin-top:10px;margin-bottom:6px;">Novos conteúdos para distribuição</h3>
+      <p class="sub" style="margin-bottom:16px;">Esses vídeos ainda não existem no perfil mas têm alto potencial de conversão em anúncio. Sugestões baseadas nos temas que mais geram lead nesse nicho.</p>
+
+      <div class="grid3">
+        <div class="sug">
+          <div class="sug-icon">⏰</div>
+          <div class="sug-title">"Carreteiro pode se aposentar em 25 anos — não 35"</div>
+          <div class="sug-desc">O número 25 é o maior hook para esse público. Explica em 60 segundos por que o motorista de caminhão tem aposentadoria especial por exposição ao ruído e vibração.</div>
+          <span class="sug-tag" style="background:rgba(52,211,153,0.12);color:#34d399;">🔥 Alto alcance</span>
+        </div>
+        <div class="sug">
+          <div class="sug-icon">🚨</div>
+          <div class="sug-title">"O INSS negou? A maioria dos motoristas desiste cedo demais"</div>
+          <div class="sug-desc">73% dos pedidos de aposentadoria especial são negados na primeira tentativa. O vídeo explica que negativa do INSS não é o fim — e que existe recurso judicial.</div>
+          <span class="sug-tag" style="background:rgba(244,63,94,0.12);color:#fb7185;">💰 Alta conversão</span>
+        </div>
+        <div class="sug">
+          <div class="sug-icon">📄</div>
+          <div class="sug-title">"3 documentos que todo carreteiro precisa guardar agora"</div>
+          <div class="sug-desc">PPP, LTCAT e holerites. Conteúdo prático que faz o motorista sentir que "está quase lá" e busca ajuda para concluir o processo. Ótimo para retarget.</div>
+          <span class="sug-tag" style="background:rgba(6,182,212,0.12);color:#06b6d4;">🎯 Retarget</span>
+        </div>
+        <div class="sug">
+          <div class="sug-icon">💸</div>
+          <div class="sug-title">"Empresa não pagou hora extra de espera na balança? Você pode cobrar"</div>
+          <div class="sug-desc">O tempo de espera para carga e descarga conta como hora extra por lei. Muitas transportadoras não pagam. Abre um segundo nicho dentro do público carreteiro.</div>
+          <span class="sug-tag" style="background:rgba(245,158,11,0.12);color:#f59e0b;">⚡ Novo público</span>
+        </div>
+        <div class="sug">
+          <div class="sug-icon">⚠️</div>
+          <div class="sug-title">"Você é motorista PJ mas trabalha só pra uma empresa? Isso pode ser ilegal"</div>
+          <div class="sug-desc">Pejotização ilegal. O motorista PJ com horário fixo e exclusividade tem direitos CLT. FGTS, 13º e férias podem ser cobrados retroativamente.</div>
+          <span class="sug-tag" style="background:rgba(139,92,246,0.12);color:#8b5cf6;">📊 Nicho paralelo</span>
+        </div>
+        <div class="sug">
+          <div class="sug-icon">🏆</div>
+          <div class="sug-title">Case real: "Seu João teve a aposentadoria negada — e revertemos em 8 meses"</div>
+          <div class="sug-desc">Depoimento ou reconstituição de caso real (com autorização). Prova social é o criativo que mais converte no fundo do funil. Ideal para retarget de quem já assistiu outros vídeos.</div>
+          <span class="sug-tag" style="background:rgba(52,211,153,0.12);color:#34d399;">🥇 Melhor conversão</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- ══════════ AÇÕES EXTRAS ══════════ -->
+<section>
+  <div class="wrap">
+    <span class="label">💡 Ações Extras</span>
+    <h2>2 estratégias complementares</h2>
+    <p class="sub">Além dos anúncios diretos, essas duas ações sustentam o crescimento e abrem novos canais de leads qualificados.</span>
+
+    <div class="grid2">
+      <div class="extra e1">
+        <div class="extra-badge ig">Instagram · R$15/dia</div>
+        <h3 style="margin-bottom:8px;">📸 Impulsionar o perfil<br>@advocaciaschettini</h3>
+        <p style="font-size:13px;color:var(--mfg);line-height:1.6;">R$15/dia nos melhores posts do perfil para:</p>
+        <ul class="extra-items">
+          <li>Trazer novos seguidores do público-alvo</li>
+          <li>Reativar o alcance orgânico dos posts</li>
+          <li>Criar autoridade — perfil com engajamento passa mais confiança</li>
+          <li>Construir base para retarget futuro</li>
+        </ul>
+        <div style="margin-top:14px;font-size:13px;font-weight:700;color:var(--primary);">R$15/dia = R$450/mês</div>
+        <div style="font-size:12px;color:var(--mfg);margin-top:4px;">Impulsionar os vídeos com mais visualizações orgânicas — eles já provaram que funcionam.</div>
+      </div>
+
+      <div class="extra e2">
+        <div class="extra-badge gg">Google Display · Mês 2</div>
+        <h3 style="margin-bottom:8px;">🔍 Campanha no Google<br>com Quiz Qualificatório</h3>
+        <p style="font-size:13px;color:var(--mfg);line-height:1.6;">Anúncios em sites parceiros do Google com um quiz como isca:</p>
+        <ul class="extra-items">
+          <li><em>"Descubra em 1 minuto se você tem direito à aposentadoria especial"</em></li>
+          <li>A pessoa responde e no final pede a consulta gratuita</li>
+          <li>Alcança quem pesquisa no Google mas não vê o Instagram</li>
+          <li>Lead mais qualificado — a pessoa foi ativa, pesquisou</li>
+        </ul>
+        <div style="margin-top:14px;font-size:13px;font-weight:700;color:var(--blue);">Budget definido no mês 2</div>
+        <div style="font-size:12px;color:var(--mfg);margin-top:4px;">Inicia depois que o Meta estiver estável e com resultados validados.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- ══════════ RESUMO DE GASTOS ══════════ -->
+<section>
+  <div class="wrap">
+    <span class="label">💰 Resumo do Investimento</span>
+    <h2>Quanto vai custar por mês</h2>
+    <p class="sub">Carreteiro começa em R$10/dia e sobe progressivamente até R$70/dia ao final do mês.</p>
+
+    <div class="card" style="margin-bottom:16px;overflow:auto;">
+      <table class="btable">
+        <thead>
+          <tr>
+            <th>Ação</th>
+            <th>Por dia</th>
+            <th>Por mês (est.)</th>
+            <th>Leads/mês (meta)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>⚖️ Nulidade 12×36</td>
+            <td class="violet">R$50</td>
+            <td>R$1.500</td>
+            <td class="green">~300</td>
+          </tr>
+          <tr>
+            <td>♿ PCD</td>
+            <td class="blue">R$75</td>
+            <td>R$2.250</td>
+            <td class="green">~450</td>
+          </tr>
+          <tr>
+            <td>🚛 Carreteiro (progressivo)</td>
+            <td class="amber">R$10 → R$70</td>
+            <td>~R$1.200</td>
+            <td class="amber">~150</td>
+          </tr>
+          <tr>
+            <td>📸 Instagram boost</td>
+            <td style="color:var(--rose);">R$15</td>
+            <td>R$450</td>
+            <td style="color:var(--mfg);">Alcance + seguidores</td>
+          </tr>
+          <tr class="total">
+            <td>Total — Mês 1</td>
+            <td class="green">~R$210/dia*</td>
+            <td>~R$5.400</td>
+            <td class="green">~900 leads</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="font-size:11px;color:var(--mfg);margin-top:10px;">* Média considerando a progressão do carreteiro (R$10 → R$70 ao longo do mês).</p>
+    </div>
+
+    <div class="grid2">
+      <div class="card" style="border-color:rgba(52,211,153,0.2);text-align:center;padding:24px;">
+        <div class="big-num">~900</div>
+        <div class="big-label">Leads/mês estimados no mês 1</div>
+      </div>
+      <div class="card" style="text-align:center;padding:24px;">
+        <div class="big-num" style="color:var(--amber);">~315</div>
+        <div class="big-label">Consultas agendadas<br>(35% dos leads)</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- ══════════ PRÓXIMOS PASSOS ══════════ -->
+<section>
+  <div class="wrap">
+    <span class="label">✅ Próximos Passos</span>
+    <h2>O que fazer agora</h2>
+
+    <div class="card">
+      <ul class="check-list">
+        <li>
+          <div class="ck ok">✓</div>
+          <span><strong>Conta recuperada e rodando.</strong> Sem ação necessária aqui.</span>
+        </li>
+        <li>
+          <div class="ck ok">✓</div>
+          <span><strong>API do sistema e WhatsApp Business finalizadas.</strong> Leads chegam automaticamente ao WhatsApp após o formulário ser preenchido.</span>
+        </li>
+        <li>
+          <div class="ck pend">!</div>
+          <span><strong>Trocar o domínio no site junto à BM.</strong> Pendência crítica — sem isso o pixel pode não registrar eventos corretamente. Resolver antes de aumentar qualquer budget.</span>
+        </li>
+        <li>
+          <div class="ck warn">2</div>
+          <span><strong>Subir campanhas de Nulidade 12×36 (R$50/dia) e PCD (R$75/dia)</strong> com os formulários qualificatórios configurados. Deixar rodar 7 dias sem mexer.</span>
+        </li>
+        <li>
+          <div class="ck warn">3</div>
+          <span><strong>Subir campanha de Carreteiro a R$10/dia</strong> com os criativos A e B (reels). Acompanhar CPL semanalmente e seguir a progressão de budget.</span>
+        </li>
+        <li>
+          <div class="ck warn">4</div>
+          <span><strong>Ativar impulsionamento do perfil a R$15/dia</strong> nos 2 posts com maior engajamento orgânico.</span>
+        </li>
+        <li>
+          <div class="ck warn">5</div>
+          <span><strong>Produzir os novos vídeos sugeridos</strong> — especialmente o "25 anos, não 35" e o case real. São os criativos com maior potencial de conversão que ainda não existem no perfil.</span>
+        </li>
+        <li>
+          <div class="ck ok">→</div>
+          <span><strong>Google Display + Quiz:</strong> planejar e ativar no mês 2, após validação dos resultados no Meta.</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ RESUMO FINAL ══════════ -->
+<section style="padding-top:0;">
+  <div class="wrap">
+    <div style="background:linear-gradient(135deg,rgba(52,211,153,0.07),rgba(6,182,212,0.04));border:1px solid rgba(52,211,153,0.2);border-radius:16px;padding:28px;text-align:center;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--mfg);margin-bottom:10px;">O plano em uma frase</div>
+      <p style="font-size:clamp(15px,2.5vw,20px);font-weight:700;line-height:1.5;max-width:580px;margin:0 auto 18px;">Anúncio → Formulário com 3 perguntas → Lead no WhatsApp → Consulta → Cliente.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;">
+        <span class="pill green">Meta: R$5/lead</span>
+        <span class="pill violet">⚖️ Nulidade R$50/dia</span>
+        <span class="pill blue">♿ PCD R$75/dia</span>
+        <span class="pill amber">🚛 Carreteiro R$10→R$70</span>
+        <span class="pill rose">📸 Instagram R$15/dia</span>
+        <span class="pill blue">🔍 Google Quiz no mês 2</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Advocacia Schettini · Plano Estratégico de Leads · Maio 2026 · Uso interno</p>
+  <p style="margin-top:4px;">Empresa Independente · <a href="https://ai.empresaind.com">ai.empresaind.com</a></p>
+</footer>
+
+</body>
+</html>

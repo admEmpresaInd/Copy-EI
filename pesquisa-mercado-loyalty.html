@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pesquisa de Mercado — Loyalty & Clubes de Vantagens White Label no Brasil | Junho 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --background:#141414; --foreground:#fafafa;
+    --primary:#34d399; --primary-foreground:#0a2e24;
+    --muted:#262626; --muted-foreground:#a3a3a3;
+    --card:#1e1e1e; --card-50:rgba(38,38,38,.5);
+    --border:rgba(255,255,255,.1);
+    --destructive:#ef4444;
+    --emerald:#34d399; --violet:#a78bfa; --amber:#fbbf24;
+    --blue:#60a5fa; --rose:#fb7185; --cyan:#22d3ee;
+    --orange:#fb923c; --pink:#f472b6; --yellow:#facc15;
+    --radius-lg:10px; --radius-xl:14px;
+    --font-sans:'Inter',system-ui,-apple-system,sans-serif;
+    --font-mono:'JetBrains Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--background); color:var(--foreground);
+    font-family:var(--font-sans); line-height:1.6;
+    -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  }
+  a{color:var(--primary);text-decoration:none}
+  .container{max-width:1152px;margin:0 auto;padding:0 24px}
+  .narrow{max-width:896px}
+  .default{max-width:1024px}
+  section{padding:72px 0;position:relative}
+  @media(max-width:768px){section{padding:48px 0}}
+
+  /* ---------- Header ---------- */
+  header.site{
+    position:sticky;top:0;z-index:50;
+    background:rgba(20,20,20,.8);backdrop-blur:12px;
+    -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--border);
+  }
+  header.site .bar{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;max-width:1152px;margin:0 auto}
+  .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px}
+  .logo .mark{width:32px;height:32px;border-radius:8px;background:var(--primary);color:var(--primary-foreground);display:grid;place-items:center;font-weight:800;font-size:14px}
+  header.site nav{display:flex;gap:22px}
+  header.site nav a{font-size:14px;color:var(--muted-foreground);transition:color .2s}
+  header.site nav a:hover{color:var(--primary)}
+  @media(max-width:860px){header.site nav{display:none}}
+
+  /* ---------- Badges & headings ---------- */
+  .badge{display:inline-block;border-radius:999px;background:rgba(52,211,153,.1);color:var(--primary);font-size:12px;font-weight:600;padding:5px 14px;letter-spacing:.03em;text-transform:uppercase}
+  .badge-outline{border:1px solid rgba(52,211,153,.25);background:rgba(52,211,153,.05);padding:6px 16px;border-radius:999px;color:var(--primary);font-size:14px;display:inline-flex;align-items:center;gap:8px}
+  h1{font-size:clamp(36px,6vw,68px);font-weight:800;letter-spacing:-.025em;line-height:1.05}
+  h2{font-size:clamp(28px,4vw,46px);font-weight:800;letter-spacing:-.02em;line-height:1.1}
+  h3{font-size:20px;font-weight:600}
+  .grad{background:linear-gradient(90deg,var(--primary),#6ee7b7,var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lead{color:var(--muted-foreground);font-size:clamp(16px,2vw,19px);max-width:680px}
+  .sec-head{text-align:center;margin-bottom:56px}
+  .sec-head h2{margin:16px auto 14px}
+  .sec-head .lead{margin:0 auto}
+
+  /* ---------- Hero ---------- */
+  .hero{padding:96px 0 80px;text-align:center;position:relative;overflow:hidden}
+  .hero .glow{position:absolute;width:560px;height:560px;background:rgba(52,211,153,.16);border-radius:50%;filter:blur(120px);top:-120px;left:50%;transform:translateX(-50%);z-index:0}
+  .hero .glow2{position:absolute;width:380px;height:380px;background:rgba(34,211,238,.12);border-radius:50%;filter:blur(120px);bottom:-160px;right:-80px;z-index:0}
+  .hero .container{position:relative;z-index:1}
+  .hero p.sub{margin:26px auto 0;}
+  .hero .meta{margin-top:30px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;font-size:13px;color:var(--muted-foreground)}
+  .hero .meta span{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border);padding:8px 14px;border-radius:999px;background:var(--card-50)}
+
+  /* ---------- Cards & grids ---------- */
+  .grid{display:grid;gap:20px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  @media(max-width:900px){.g3,.g4{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:620px){.g2,.g3,.g4{grid-template-columns:1fr}}
+  .card{background:var(--card-50);border:1px solid var(--border);border-radius:var(--radius-xl);padding:26px;transition:border-color .25s,transform .25s}
+  .card:hover{border-color:rgba(52,211,153,.3);transform:translateY(-3px)}
+  .card .ico{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;margin-bottom:16px}
+  .card h3{margin-bottom:8px}
+  .card p{color:var(--muted-foreground);font-size:14px}
+  .num-mono{font-family:var(--font-mono);font-size:12px;color:var(--muted-foreground)}
+
+  /* ---------- Stat cards ---------- */
+  .stat{background:var(--card-50);border:1px solid var(--border);border-radius:var(--radius-xl);padding:26px;text-align:center}
+  .stat .v{font-size:34px;font-weight:800;color:var(--primary);line-height:1.1}
+  .stat .l{font-size:13px;color:var(--muted-foreground);margin-top:6px}
+  .stat .sub{font-size:11px;color:var(--muted-foreground);opacity:.7;margin-top:4px}
+
+  /* ---------- Market funnel (TAM/SAM/SOM) ---------- */
+  .funnel{display:flex;flex-direction:column;gap:14px;align-items:center;margin-top:10px}
+  .funnel .lvl{border:1px solid var(--border);border-radius:14px;padding:22px 26px;text-align:center;background:linear-gradient(180deg,rgba(52,211,153,.10),rgba(52,211,153,.02))}
+  .funnel .lvl.tam{width:100%}
+  .funnel .lvl.sam{width:74%}
+  .funnel .lvl.som{width:50%;background:linear-gradient(180deg,rgba(34,211,238,.12),rgba(34,211,238,.02));border-color:rgba(34,211,238,.3)}
+  .funnel .tag{font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;color:var(--primary);text-transform:uppercase}
+  .funnel .big{font-size:30px;font-weight:800;margin:4px 0}
+  .funnel .desc{font-size:13px;color:var(--muted-foreground)}
+  @media(max-width:620px){.funnel .lvl.sam,.funnel .lvl.som{width:100%}}
+
+  /* ---------- Bar chart (CSS) ---------- */
+  .bars{display:flex;flex-direction:column;gap:16px;margin-top:8px}
+  .bar-row{display:grid;grid-template-columns:150px 1fr 60px;align-items:center;gap:14px}
+  .bar-row .name{font-size:14px;color:var(--foreground)}
+  .bar-track{height:14px;border-radius:999px;background:var(--muted);overflow:hidden}
+  .bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--primary),var(--cyan))}
+  .bar-row .val{font-size:13px;font-weight:600;color:var(--primary);text-align:right}
+  @media(max-width:620px){.bar-row{grid-template-columns:110px 1fr 50px;gap:8px}.bar-row .name{font-size:12px}}
+
+  /* ---------- Donut (CSS conic) ---------- */
+  .donut-wrap{display:flex;gap:32px;align-items:center;flex-wrap:wrap;justify-content:center}
+  .donut{width:200px;height:200px;border-radius:50%;position:relative;flex-shrink:0}
+  .donut::after{content:"";position:absolute;inset:30px;border-radius:50%;background:var(--background)}
+  .donut .center{position:absolute;inset:0;display:grid;place-content:center;text-align:center;z-index:2}
+  .donut .center .v{font-size:26px;font-weight:800;color:var(--foreground)}
+  .donut .center .l{font-size:11px;color:var(--muted-foreground)}
+  .legend{display:flex;flex-direction:column;gap:12px}
+  .legend .item{display:flex;align-items:center;gap:10px;font-size:14px}
+  .legend .dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+
+  /* ---------- Company analysis ---------- */
+  .rp-hero{background:linear-gradient(135deg,rgba(52,211,153,.08),rgba(34,211,238,.04));border:1px solid rgba(52,211,153,.2);border-radius:18px;padding:34px}
+  .rp-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:24px}
+  @media(max-width:720px){.rp-stats{grid-template-columns:repeat(2,1fr)}}
+  .rp-stat .v{font-size:28px;font-weight:800;color:var(--primary)}
+  .rp-stat .l{font-size:12px;color:var(--muted-foreground)}
+  .pill-list{list-style:none;display:flex;flex-direction:column;gap:12px}
+  .pill-list li{display:flex;gap:12px;align-items:flex-start;font-size:15px;color:var(--muted-foreground)}
+  .pill-list li svg{flex-shrink:0;margin-top:3px}
+
+  /* ---------- Pricing tiers ---------- */
+  .tier{background:var(--card-50);border:1px solid var(--border);border-radius:16px;padding:24px;position:relative}
+  .tier.reco{border-color:var(--primary);box-shadow:0 0 30px rgba(52,211,153,.18)}
+  .tier .reco-tag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--primary);color:var(--primary-foreground);font-size:11px;font-weight:700;padding:4px 14px;border-radius:999px}
+  .tier .pname{font-size:15px;font-weight:600;color:var(--muted-foreground)}
+  .tier .price{font-size:28px;font-weight:800;margin:6px 0}
+  .tier .price small{font-size:13px;color:var(--muted-foreground);font-weight:400}
+  .tier .cap{font-size:13px;color:var(--primary);font-family:var(--font-mono);margin-bottom:6px}
+
+  /* ---------- Comparison table ---------- */
+  .tbl-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:14px}
+  table{width:100%;border-collapse:collapse;min-width:880px}
+  thead th{background:rgba(52,211,153,.06);text-align:left;padding:16px;font-size:13px;font-weight:600;color:var(--primary);border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:.03em}
+  tbody td{padding:16px;font-size:14px;border-bottom:1px solid var(--border);vertical-align:top;color:var(--muted-foreground)}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:hover{background:rgba(255,255,255,.02)}
+  tbody td.co{color:var(--foreground);font-weight:600}
+  .chip{display:inline-block;font-size:11px;padding:3px 9px;border-radius:999px;font-weight:600;white-space:nowrap}
+  .chip.wl{background:rgba(52,211,153,.12);color:var(--primary)}
+  .chip.b2c{background:rgba(96,165,250,.12);color:var(--blue)}
+  .chip.b2b{background:rgba(167,139,250,.12);color:var(--violet)}
+  .chip.hib{background:rgba(251,191,36,.12);color:var(--amber)}
+  .star{color:var(--primary);font-weight:700}
+
+  /* ---------- SWOT ---------- */
+  .swot{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:720px){.swot{grid-template-columns:1fr}}
+  .swot .q{border:1px solid var(--border);border-radius:16px;padding:24px}
+  .swot .q h3{display:flex;align-items:center;gap:10px;margin-bottom:14px;font-size:18px}
+  .swot .q ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+  .swot .q li{font-size:14px;color:var(--muted-foreground);padding-left:18px;position:relative}
+  .swot .q li::before{content:"";position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%}
+  .swot .s{background:linear-gradient(135deg,rgba(52,211,153,.08),transparent)}
+  .swot .s h3{color:var(--emerald)} .swot .s li::before{background:var(--emerald)}
+  .swot .w{background:linear-gradient(135deg,rgba(239,68,68,.07),transparent)}
+  .swot .w h3{color:var(--destructive)} .swot .w li::before{background:var(--destructive)}
+  .swot .o{background:linear-gradient(135deg,rgba(96,165,250,.08),transparent)}
+  .swot .o h3{color:var(--blue)} .swot .o li::before{background:var(--blue)}
+  .swot .t{background:linear-gradient(135deg,rgba(251,146,60,.08),transparent)}
+  .swot .t h3{color:var(--orange)} .swot .t li::before{background:var(--orange)}
+
+  /* ---------- Exec summary ---------- */
+  .es-list{display:flex;flex-direction:column;gap:16px}
+  .es-item{display:flex;gap:16px;align-items:flex-start;background:var(--card-50);border:1px solid var(--border);border-radius:14px;padding:20px}
+  .es-item .n{font-family:var(--font-mono);font-size:14px;color:var(--primary);background:rgba(52,211,153,.1);width:34px;height:34px;border-radius:9px;display:grid;place-items:center;flex-shrink:0;font-weight:600}
+  .es-item p{font-size:15px}
+  .es-item strong{color:var(--foreground)}
+
+  /* ---------- Recommendations ---------- */
+  .reco-card{background:var(--card-50);border:1px solid var(--border);border-radius:14px;padding:24px;border-left:3px solid var(--primary)}
+  .reco-card .tag{font-family:var(--font-mono);font-size:11px;color:var(--primary);text-transform:uppercase;letter-spacing:.05em}
+  .reco-card h3{margin:8px 0 8px;font-size:17px}
+  .reco-card p{font-size:14px;color:var(--muted-foreground)}
+
+  /* ---------- Section divider glow ---------- */
+  .div-glow{height:1px;background:linear-gradient(90deg,transparent,rgba(52,211,153,.4),transparent);margin:0 auto;max-width:600px}
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--card-50);border-top:1px solid var(--border);padding:48px 0 32px}
+  footer .top{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:32px}
+  footer p{color:var(--muted-foreground);font-size:14px;max-width:340px}
+  footer .src h4{font-size:13px;color:var(--foreground);margin-bottom:12px}
+  footer .src ul{list-style:none;font-size:13px;color:var(--muted-foreground);display:flex;flex-direction:column;gap:7px}
+  footer .copy{border-top:1px solid var(--border);padding-top:24px;font-size:12px;color:var(--muted-foreground)}
+  .disclaimer{font-size:12px;color:var(--muted-foreground);opacity:.75;margin-top:14px;line-height:1.5}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease-out,transform .7s ease-out}
+  .reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="bar">
+    <div class="logo"><span class="mark">EI</span><span>Empresa Independente</span></div>
+    <nav>
+      <a href="#mercado">Mercado</a>
+      <a href="#rede">Rede Parcerias</a>
+      <a href="#competitivo">Competitivo</a>
+      <a href="#swot">SWOT</a>
+      <a href="#conclusao">Conclusão</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="glow"></div><div class="glow2"></div>
+  <div class="container">
+    <span class="badge-outline">📊 Inteligência de Mercado · Edição Junho 2026</span>
+    <h1 style="margin-top:26px">Loyalty &amp; Clubes de Vantagens<br><span class="grad">White Label no Brasil</span></h1>
+    <p class="sub lead" style="text-align:center">Dimensionamento de mercado, análise competitiva e benchmarking estratégico do segmento de clubes de benefícios white label — com a <strong style="color:var(--foreground)">Rede Parcerias</strong> como empresa de referência.</p>
+    <div class="meta">
+      <span>🗓️ Junho de 2026</span>
+      <span>🏢 9 players mapeados</span>
+      <span>📈 TAM / SAM / SOM</span>
+      <span>⚙️ Foco: B2B2C White Label</span>
+    </div>
+  </div>
+</section>
+
+<div class="div-glow"></div>
+
+<!-- ===== EXECUTIVE SUMMARY ===== -->
+<section id="resumo">
+  <div class="container default">
+    <div class="sec-head reveal">
+      <span class="badge">Executive Summary</span>
+      <h2>Principais Insights</h2>
+      <p class="lead">Os 7 achados que sintetizam a oportunidade do segmento.</p>
+    </div>
+    <div class="es-list">
+      <div class="es-item reveal"><span class="n">01</span><p><strong>Mercado de fidelização em expansão acelerada.</strong> O setor brasileiro de programas de fidelidade movimenta na casa das dezenas de bilhões de reais em pontos emitidos por ano (ABEMF), com o mercado global de loyalty crescendo a um CAGR estimado de ~10–14% até 2030.</p></div>
+      <div class="es-item reveal"><span class="n">02</span><p><strong>O white label é a camada de menor fricção.</strong> Em vez de pontos próprios, a Rede Parcerias vende um clube de vantagens "pronto para rodar" sob a marca do cliente — eliminando desenvolvimento interno e reduzindo o time-to-market para <strong>7 dias</strong>.</p></div>
+      <div class="es-item reveal"><span class="n">03</span><p><strong>Escala como barreira de entrada.</strong> Rede Parcerias declara <strong>+10 milhões de usuários</strong> e <strong>+40 mil estabelecimentos parceiros</strong> — uma rede de descontos que um entrante teria que reconstruir do zero.</p></div>
+      <div class="es-item reveal"><span class="n">04</span><p><strong>Mercado fragmentado por proposta de valor.</strong> Convivem programas de pontos B2C (Livelo, Dotz), fidelização/CRM (Dito), benefícios corporativos (Alelo, Wellhub, TotalPass) e clubes de vantagens white label puros — onde a Rede Parcerias é líder de notoriedade.</p></div>
+      <div class="es-item reveal"><span class="n">05</span><p><strong>Pricing por mensalidade recorrente, não por transação.</strong> Planos de <strong>R$ 1.370 a R$ 3.670/mês</strong> (a partir de ~R$ 0,37/usuário/mês), sem taxa de implantação e sem fidelidade — modelo SaaS B2B2C de receita previsível.</p></div>
+      <div class="es-item reveal"><span class="n">06</span><p><strong>Demanda multi-vertical.</strong> Associações, sindicatos, RH (retenção de colaboradores), planos de saúde, provedores e assinaturas usam o clube como ferramenta de engajamento e redução de churn.</p></div>
+      <div class="es-item reveal"><span class="n">07</span><p><strong>Vetores de diferenciação para 2026:</strong> gamificação (sorteios/jogos), cashback, personalização com IA, app próprio e integrações via API/token — recursos que estão migrando de "premium" para "padrão esperado".</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MARKET OVERVIEW ===== -->
+<section id="mercado" style="background:linear-gradient(180deg,var(--background),rgba(52,211,153,.03),var(--background))">
+  <div class="container default">
+    <div class="sec-head reveal">
+      <span class="badge">Visão Geral do Mercado</span>
+      <h2>Tamanho &amp; Crescimento</h2>
+      <p class="lead">Dimensionamento do mercado endereçável de loyalty e clubes de vantagens no Brasil.</p>
+    </div>
+
+    <div class="grid g4" style="margin-bottom:48px">
+      <div class="stat reveal"><div class="v">~14%</div><div class="l">CAGR global loyalty</div><div class="sub">2024 → 2030 (est.)</div></div>
+      <div class="stat reveal"><div class="v">+40 mil</div><div class="l">Parceiros na maior rede</div><div class="sub">Rede Parcerias</div></div>
+      <div class="stat reveal"><div class="v">+10 mi</div><div class="l">Usuários de clube WL</div><div class="sub">Base líder declarada</div></div>
+      <div class="stat reveal"><div class="v">R$ 0,37</div><div class="l">Custo/usuário/mês</div><div class="sub">Piso de mercado WL</div></div>
+    </div>
+
+    <!-- TAM SAM SOM -->
+    <div class="card reveal" style="padding:34px">
+      <h3 style="text-align:center;margin-bottom:6px">Mercado Endereçável — Clubes de Vantagens White Label (Brasil)</h3>
+      <p style="text-align:center;color:var(--muted-foreground);font-size:13px;margin-bottom:26px">Estimativa estratégica. Valores em receita anual recorrente potencial do segmento white label de benefícios.</p>
+      <div class="funnel">
+        <div class="lvl tam">
+          <div class="tag">TAM · Total Addressable Market</div>
+          <div class="big" style="color:var(--primary)">R$ 8–12 bi/ano</div>
+          <div class="desc">Mercado total de fidelização &amp; engajamento no Brasil (pontos, benefícios corporativos, clubes e cashback combinados).</div>
+        </div>
+        <div class="lvl sam">
+          <div class="tag">SAM · Serviceable Available Market</div>
+          <div class="big" style="color:#6ee7b7">R$ 1,2–2,0 bi/ano</div>
+          <div class="desc">Empresas, associações, sindicatos e operadoras que poderiam contratar um clube de vantagens white label como ferramenta de retenção.</div>
+        </div>
+        <div class="lvl som">
+          <div class="tag">SOM · Serviceable Obtainable Market</div>
+          <div class="big" style="color:var(--cyan)">R$ 150–300 mi/ano</div>
+          <div class="desc">Fatia realisticamente capturável em 3–5 anos por um player white label posicionado (referência: Rede Parcerias e similares).</div>
+        </div>
+      </div>
+      <p class="disclaimer">Faixas estimadas a partir de dados públicos da ABEMF (mercado de fidelização), tamanho declarado dos líderes do segmento e benchmarks de penetração SaaS B2B no Brasil. Não substitui due diligence financeira.</p>
+    </div>
+
+    <!-- Growth bars -->
+    <div class="grid g2" style="margin-top:40px">
+      <div class="card reveal">
+        <h3 style="margin-bottom:18px">Vetores de Crescimento do Setor</h3>
+        <div class="bars">
+          <div class="bar-row"><span class="name">Cashback</span><div class="bar-track"><div class="bar-fill" style="width:92%"></div></div><span class="val">Alto</span></div>
+          <div class="bar-row"><span class="name">Benefícios RH</span><div class="bar-track"><div class="bar-fill" style="width:84%"></div></div><span class="val">Alto</span></div>
+          <div class="bar-row"><span class="name">Clubes WL</span><div class="bar-track"><div class="bar-fill" style="width:76%"></div></div><span class="val">Alto</span></div>
+          <div class="bar-row"><span class="name">Gamificação</span><div class="bar-track"><div class="bar-fill" style="width:64%"></div></div><span class="val">Médio</span></div>
+          <div class="bar-row"><span class="name">Pontos B2C</span><div class="bar-track"><div class="bar-fill" style="width:48%"></div></div><span class="val">Maduro</span></div>
+        </div>
+      </div>
+      <div class="card reveal">
+        <h3 style="margin-bottom:18px;text-align:center">Composição da Demanda por Clube WL</h3>
+        <div class="donut-wrap">
+          <div class="donut" style="background:conic-gradient(var(--emerald) 0 34%,var(--blue) 34% 60%,var(--violet) 60% 80%,var(--amber) 80% 100%)">
+            <div class="center"><div class="v">4</div><div class="l">verticais-chave</div></div>
+          </div>
+          <div class="legend">
+            <div class="item"><span class="dot" style="background:var(--emerald)"></span>Negócios B2C (retenção) · 34%</div>
+            <div class="item"><span class="dot" style="background:var(--blue)"></span>Associações &amp; sindicatos · 26%</div>
+            <div class="item"><span class="dot" style="background:var(--violet)"></span>RH / colaboradores · 20%</div>
+            <div class="item"><span class="dot" style="background:var(--amber)"></span>Saúde / provedores / SaaS · 20%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div-glow"></div>
+
+<!-- ===== REDE PARCERIAS ===== -->
+<section id="rede">
+  <div class="container default">
+    <div class="sec-head reveal">
+      <span class="badge">Empresa Analisada</span>
+      <h2>Rede Parcerias</h2>
+      <p class="lead">"Sua marca na vitrine. Nossa tecnologia nos bastidores." — O benchmark de clube de vantagens white label no Brasil.</p>
+    </div>
+
+    <div class="rp-hero reveal">
+      <h3 style="font-size:22px">Proposta de Valor</h3>
+      <p style="color:var(--muted-foreground);margin-top:10px;font-size:16px">Um clube de vantagens completo, personalizado com a marca do cliente, <strong style="color:var(--foreground)">pronto para rodar em 7 dias</strong> — sem desenvolvimento interno, sem taxa de implantação e sem fidelidade. O cliente cuida da estratégia; a Rede Parcerias cuida de toda a estrutura tecnológica e da rede de parceiros.</p>
+      <div class="rp-stats">
+        <div class="rp-stat"><div class="v">+10 mi</div><div class="l">Usuários na plataforma</div></div>
+        <div class="rp-stat"><div class="v">+40 mil</div><div class="l">Estabelecimentos parceiros</div></div>
+        <div class="rp-stat"><div class="v">7 dias</div><div class="l">Para ativar o clube</div></div>
+        <div class="rp-stat"><div class="v">Brasil</div><div class="l">Cobertura nacional</div></div>
+      </div>
+    </div>
+
+    <div class="grid g2" style="margin-top:24px">
+      <div class="card reveal">
+        <h3 style="margin-bottom:14px">Como funciona o White Label</h3>
+        <ul class="pill-list">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg><span><strong style="color:var(--foreground)">1. Contratação &amp; análise</strong> — consultoria personalizada para definir a estratégia de lançamento.</span></li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg><span><strong style="color:var(--foreground)">2. Plataforma white label</strong> — o usuário vê a marca, o logo e a identidade do cliente; a tecnologia fica nos bastidores.</span></li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg><span><strong style="color:var(--foreground)">3. Acompanhamento</strong> — suporte humano e personalizado para potencializar o clube.</span></li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg><span><strong style="color:var(--foreground)">4. Resultados imediatos</strong> — colaboradores, clientes ou associados acessam benefícios de forma simples e segura.</span></li>
+        </ul>
+      </div>
+      <div class="card reveal">
+        <h3 style="margin-bottom:14px">Diferenciais Declarados</h3>
+        <ul class="pill-list">
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Sem fidelidade, sem taxa de implantação, sem multa de cancelamento (30 dias de aviso).</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Rede massiva de +40 mil parceiros nacionais já integrada.</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Recursos de engajamento: sorteios, jogos premiados, cashback e conteúdos gratuitos.</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>App próprio, domínio próprio, integração via API/token e e-mail marketing nos planos superiores.</li>
+          <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22d3ee" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg>Infraestrutura e manutenção inclusas — modelo "tudo-incluído".</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Pricing -->
+    <h3 style="text-align:center;margin:48px 0 8px">Estrutura de Planos (mensalidade recorrente)</h3>
+    <p style="text-align:center;color:var(--muted-foreground);font-size:13px;margin-bottom:26px">Modelo SaaS B2B2C — escalonado por nº de beneficiários e recursos. A partir de ~R$ 0,37/usuário/mês.</p>
+    <div class="grid g4 reveal">
+      <div class="tier">
+        <div class="pname">Inicial</div>
+        <div class="price">R$ 1.370<small>/mês</small></div>
+        <div class="cap">até 1.000 benef.</div>
+        <p style="font-size:13px;color:var(--muted-foreground)">Clube com a marca, +300 parcerias nacionais, campanhas padronizadas, infra inclusa.</p>
+      </div>
+      <div class="tier reco">
+        <div class="reco-tag">RECOMENDADO</div>
+        <div class="pname">Padrão</div>
+        <div class="price">R$ 2.270<small>/mês</small></div>
+        <div class="cap">até 3.000 benef.</div>
+        <p style="font-size:13px;color:var(--muted-foreground)">Domínio próprio, campanhas personalizadas, sorteios, jogos e ativações premiadas.</p>
+      </div>
+      <div class="tier">
+        <div class="pname">Avançado</div>
+        <div class="price">R$ 3.670<small>/mês</small></div>
+        <div class="cap">até 10.000 benef.</div>
+        <p style="font-size:13px;color:var(--muted-foreground)">App próprio, integração de sistemas, validação via token/API, push e e-mail mkt.</p>
+      </div>
+      <div class="tier">
+        <div class="pname">Pro</div>
+        <div class="price" style="font-size:22px">Sob consulta</div>
+        <div class="cap">alto volume</div>
+        <p style="font-size:13px;color:var(--muted-foreground)">Cartão-presente sazonal, bolões exclusivos, prospecção dedicada e integrações sob medida.</p>
+      </div>
+    </div>
+
+    <div class="card reveal" style="margin-top:32px;background:rgba(34,211,238,.04);border-color:rgba(34,211,238,.2)">
+      <h3 style="margin-bottom:10px;color:var(--cyan)">Posicionamento</h3>
+      <p style="color:var(--muted-foreground);font-size:15px">A Rede Parcerias se posiciona como <strong style="color:var(--foreground)">infraestrutura "invisível" de fidelização</strong>: não compete pela marca, e sim a habilita. Seu fosso competitivo é a rede de parceiros já construída e a operação tudo-incluído. Escritórios no Rio de Janeiro e São Paulo; foco em públicos recorrentes (negócios, associações, sindicatos, RH, planos de saúde e assinaturas).</p>
+    </div>
+  </div>
+</section>
+
+<div class="div-glow"></div>
+
+<!-- ===== COMPETITIVE MAP ===== -->
+<section id="competitivo">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="badge">Mapa Competitivo</span>
+      <h2>Players do Mercado</h2>
+      <p class="lead">9 empresas mapeadas. A linha destacada (★) é a empresa de referência deste estudo.</p>
+    </div>
+    <div class="tbl-wrap reveal">
+      <table>
+        <thead>
+          <tr><th>Empresa</th><th>Modelo</th><th>Categoria</th><th>Diferenciais</th><th>Público-alvo</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="co"><span class="star">★</span> Rede Parcerias</td>
+            <td><span class="chip wl">White Label B2B2C</span></td>
+            <td>Clube de vantagens WL</td>
+            <td>+40 mil parceiros, +10 mi usuários, ativo em 7 dias, sorteios/jogos/cashback, sem fidelidade</td>
+            <td>Empresas, associações, sindicatos, RH, planos de saúde</td>
+          </tr>
+          <tr>
+            <td class="co">Dito</td>
+            <td><span class="chip b2b">B2B SaaS</span></td>
+            <td>CRM / CDP fidelização</td>
+            <td>Unifica dados de loja física + e-commerce, CRM com WhatsApp, IA e PDV</td>
+            <td>Varejo omnichannel de médio/grande porte</td>
+          </tr>
+          <tr>
+            <td class="co">Dotz</td>
+            <td><span class="chip b2c">B2C + Coalizão</span></td>
+            <td>Programa de pontos / cashback</td>
+            <td>Moeda Dotz, app financeiro, cashback, rede de varejistas parceiros</td>
+            <td>Consumidor final + varejistas</td>
+          </tr>
+          <tr>
+            <td class="co">Livelo</td>
+            <td><span class="chip b2c">B2C Coalizão</span></td>
+            <td>Programa de pontos</td>
+            <td>JV Bradesco + Banco do Brasil, troca por viagens/produtos, grande base de parceiros</td>
+            <td>Clientes bancários e consumidores</td>
+          </tr>
+          <tr>
+            <td class="co">Alelo</td>
+            <td><span class="chip hib">B2B → B2C</span></td>
+            <td>Benefícios corporativos</td>
+            <td>Vale-alimentação/refeição, mobilidade, multibenefícios, rede de aceitação ampla</td>
+            <td>Empresas (benefícios a colaboradores)</td>
+          </tr>
+          <tr>
+            <td class="co">iFood Benefícios</td>
+            <td><span class="chip hib">B2B → B2C</span></td>
+            <td>Multibenefícios</td>
+            <td>+11 mi de estabelecimentos de aceitação, ecossistema iFood</td>
+            <td>Empresas (vale multibenefícios)</td>
+          </tr>
+          <tr>
+            <td class="co">Wellhub (Gympass)</td>
+            <td><span class="chip hib">B2B2C</span></td>
+            <td>Bem-estar corporativo</td>
+            <td>Rede de academias, mindfulness, nutrição, sono — benefício de bem-estar</td>
+            <td>Empresas (qualidade de vida do time)</td>
+          </tr>
+          <tr>
+            <td class="co">TotalPass</td>
+            <td><span class="chip hib">B2B2C</span></td>
+            <td>Bem-estar corporativo</td>
+            <td>Acesso a academias/estúdios + saúde mental, concorrente direto do Wellhub</td>
+            <td>Empresas (benefício fitness)</td>
+          </tr>
+          <tr>
+            <td class="co">LTM / Multiplus-LATAM Pass</td>
+            <td><span class="chip b2c">B2C Coalizão</span></td>
+            <td>Milhas / pontos de viagem</td>
+            <td>Programas de milhagem aérea, parcerias bancárias, resgate em passagens</td>
+            <td>Viajantes frequentes, clientes premium</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="disclaimer">Categorização e diferenciais com base em comunicação pública das empresas (sites institucionais, jun/2026). "Concorrência direta" no segmento white label de clubes de vantagens é representada por Rede Parcerias e plataformas equivalentes; os demais players competem por orçamento de fidelização/benefícios em modelos adjacentes.</p>
+  </div>
+</section>
+
+<div class="div-glow"></div>
+
+<!-- ===== SWOT ===== -->
+<section id="swot" style="background:linear-gradient(180deg,var(--background),rgba(34,211,238,.03),var(--background))">
+  <div class="container default">
+    <div class="sec-head reveal">
+      <span class="badge">Análise SWOT</span>
+      <h2>Segmento White Label</h2>
+      <p class="lead">Forças, fraquezas, oportunidades e ameaças do modelo de clube de vantagens white label.</p>
+    </div>
+    <div class="swot">
+      <div class="q s reveal">
+        <h3>💪 Forças</h3>
+        <ul>
+          <li>Time-to-market mínimo (7 dias) vs. desenvolvimento próprio.</li>
+          <li>Rede de parceiros já construída como fosso competitivo (+40 mil).</li>
+          <li>Receita recorrente previsível (SaaS), sem dependência transacional.</li>
+          <li>Marca do cliente preservada — venda "invisível" e não-canibalizadora.</li>
+          <li>Ataca múltiplas verticais com o mesmo produto-base.</li>
+        </ul>
+      </div>
+      <div class="q w reveal">
+        <h3>⚠️ Fraquezas</h3>
+        <ul>
+          <li>Produto-base comoditizável — diferenciação migra para serviço e rede.</li>
+          <li>Valor percebido depende do uso real do benefício pelo usuário final.</li>
+          <li>Sem fidelidade contratual → churn mais sensível à entrega de resultado.</li>
+          <li>Dependência da relevância contínua dos parceiros de desconto.</li>
+          <li>Dificuldade de provar ROI direto de retenção ao contratante.</li>
+        </ul>
+      </div>
+      <div class="q o reveal">
+        <h3>🚀 Oportunidades</h3>
+        <ul>
+          <li>Personalização de ofertas com IA e dados de uso.</li>
+          <li>Cashback e gamificação como camadas premium adicionais.</li>
+          <li>Expansão em RH (retenção/turnover) e em planos de saúde/assinaturas.</li>
+          <li>Integrações via API com ERPs, apps e plataformas de RH.</li>
+          <li>Open finance e cartões-presente como novas linhas de receita.</li>
+        </ul>
+      </div>
+      <div class="q t reveal">
+        <h3>🛡️ Ameaças</h3>
+        <ul>
+          <li>Gigantes adjacentes (iFood, Alelo, Wellhub) entrando em benefícios amplos.</li>
+          <li>Marketplaces e bancos digitais embutindo clubes nativos próprios.</li>
+          <li>Comoditização de preço pressionando margens (piso R$ 0,37/usuário).</li>
+          <li>Fadiga de "clubes de desconto" se o benefício não for percebido.</li>
+          <li>Regulação de dados (LGPD) sobre comportamento de consumo.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div-glow"></div>
+
+<!-- ===== TRENDS ===== -->
+<section id="tendencias">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="badge">Tendências &amp; Oportunidades</span>
+      <h2>O que move o setor em 2026</h2>
+      <p class="lead">Seis vetores que estão redefinindo loyalty e clubes de vantagens.</p>
+    </div>
+    <div class="grid g3">
+      <div class="card reveal">
+        <div class="ico" style="background:rgba(52,211,153,.12)">🤖</div>
+        <h3>Personalização com IA</h3>
+        <p>Ofertas e benefícios recomendados por comportamento de uso. A IA passa de diferencial a expectativa, elevando engajamento e relevância percebida.</p>
+      </div>
+      <div class="card reveal">
+        <div class="ico" style="background:rgba(34,211,238,.12)">💸</div>
+        <h3>Cashback como moeda</h3>
+        <p>O cashback supera o desconto pontual em percepção de valor. Tende a virar a camada central de recompensa em clubes white label.</p>
+      </div>
+      <div class="card reveal">
+        <div class="ico" style="background:rgba(167,139,250,.12)">🎮</div>
+        <h3>Gamificação</h3>
+        <p>Sorteios, jogos premiados, bolões e missões aumentam frequência de acesso e tempo de permanência — recursos já oferecidos pela Rede Parcerias.</p>
+      </div>
+      <div class="card reveal">
+        <div class="ico" style="background:rgba(251,191,36,.12)">🏢</div>
+        <h3>Benefício como retenção de RH</h3>
+        <p>Clubes de vantagens viram ferramenta de people/turnover. O orçamento migra de "perk" para estratégia de retenção mensurável.</p>
+      </div>
+      <div class="card reveal">
+        <div class="ico" style="background:rgba(96,165,250,.12)">🔌</div>
+        <h3>Embedded &amp; API-first</h3>
+        <p>Integração via API/token, push e app próprio permitem embutir o clube em qualquer produto (SaaS, banco, plano de saúde) sem fricção.</p>
+      </div>
+      <div class="card reveal">
+        <div class="ico" style="background:rgba(244,114,182,.12)">📊</div>
+        <h3>Loyalty orientado a dados</h3>
+        <p>O 1st-party data do clube vira ativo estratégico para o contratante — mensurando uso, churn e LTV sob conformidade LGPD.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div-glow"></div>
+
+<!-- ===== CONCLUSION ===== -->
+<section id="conclusao" style="background:linear-gradient(180deg,var(--background),rgba(52,211,153,.04),var(--background))">
+  <div class="container default">
+    <div class="sec-head reveal">
+      <span class="badge">Conclusão</span>
+      <h2>Recomendações Estratégicas</h2>
+      <p class="lead">Síntese acionável para quem avalia entrar, competir ou contratar no segmento.</p>
+    </div>
+
+    <div class="card reveal" style="margin-bottom:32px;padding:30px">
+      <p style="font-size:17px;color:var(--foreground)">O segmento de clubes de vantagens <strong class="grad">white label</strong> é um nicho atraente dentro do mercado bilionário de fidelização: receita recorrente, baixo CAC relativo via canais B2B e fosso defensável pela rede de parceiros. A <strong style="color:var(--primary)">Rede Parcerias</strong> domina a notoriedade com escala (+10 mi usuários, +40 mil parceiros) e operação tudo-incluído. A disputa real não é por marca — é por <strong style="color:var(--foreground)">profundidade de rede, prova de ROI e camadas de engajamento</strong> (cashback, IA, gamificação).</p>
+    </div>
+
+    <div class="grid g2">
+      <div class="reco-card reveal"><span class="tag">Para entrantes</span><h3>Não compita em rede — diferencie em vertical</h3><p>Replicar +40 mil parceiros é inviável no curto prazo. Vença escolhendo uma vertical (ex.: saúde, sindicatos, SaaS) e entregando integração e ROI superiores naquele nicho.</p></div>
+      <div class="reco-card reveal"><span class="tag">Para o líder</span><h3>Blinde o fosso com dados e IA</h3><p>Transforme o 1st-party data do clube em motor de personalização e prova de retenção. Quem provar redução de churn ao contratante reduz a sensibilidade a preço.</p></div>
+      <div class="reco-card reveal"><span class="tag">Para contratantes</span><h3>White label &gt; construir do zero</h3><p>Para a maioria das empresas, contratar um clube WL é mais barato e rápido que desenvolver. Avalie pela rede de parceiros relevante ao seu público e pelo nível de integração.</p></div>
+      <div class="reco-card reveal"><span class="tag">Para investidores</span><h3>Consolidação à vista</h3><p>Fragmentação + comoditização de preço favorecem M&amp;A. Players com rede proprietária, receita recorrente e baixo churn são alvos naturais de consolidação.</p></div>
+    </div>
+
+    <div class="card reveal" style="margin-top:32px;text-align:center;background:linear-gradient(135deg,rgba(52,211,153,.08),rgba(34,211,238,.05));border-color:rgba(52,211,153,.25);padding:34px">
+      <h3 style="font-size:22px;margin-bottom:10px">Veredicto</h3>
+      <p style="font-size:16px;color:var(--muted-foreground);max-width:680px;margin:0 auto">Mercado <strong style="color:var(--primary)">atraente e em crescimento</strong>, com líder consolidado mas espaço para especialistas verticais. A janela de oportunidade está nas camadas de <strong style="color:var(--foreground)">cashback, IA e prova de ROI</strong> — não na corrida de descontos.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container">
+    <div class="top">
+      <div>
+        <div class="logo" style="margin-bottom:12px"><span class="mark">EI</span><span>Empresa Independente</span></div>
+        <p>Relatório de inteligência de mercado — Loyalty &amp; Clubes de Vantagens White Label no Brasil. Documento estratégico interno.</p>
+      </div>
+      <div class="src">
+        <h4>Fontes &amp; Metodologia</h4>
+        <ul>
+          <li>Rede Parcerias — site institucional (jun/2026)</li>
+          <li>Sites públicos: Dito, Dotz, Livelo, Alelo, iFood Benefícios, Wellhub, TotalPass</li>
+          <li>ABEMF — mercado brasileiro de fidelização</li>
+          <li>Benchmarks de loyalty global (CAGR estimado)</li>
+          <li>Análise e estimativas Empresa Independente</li>
+        </ul>
+      </div>
+    </div>
+    <div class="copy">
+      © 2026 Empresa Independente. Relatório elaborado em Junho de 2026. Estimativas de TAM/SAM/SOM são projeções estratégicas baseadas em dados públicos e não constituem aconselhamento financeiro. Feito com dedicação para decisões de negócio no Brasil. 🇧🇷
+    </div>
+  </div>
+</footer>
+
+<script>
+  const obs=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}})},{threshold:.1,rootMargin:'0px 0px -50px 0px'});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%6*0.06)+'s';obs.observe(el);});
+</script>
+</body>
+</html>

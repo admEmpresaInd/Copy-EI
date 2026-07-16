@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>FAQ de Ferramentas de IA: Consultoria Empresa Independente</title>
+<link rel="stylesheet" href="design-tokens-imersao-ev.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     FAQ interno: reaproveita os tokens de design-tokens-imersao-ev.css
+     Uso: referência rápida para consultores. Sem elementos de landing.
+     ============================================================ */
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--color-body);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-weight: var(--fw-regular);
+    font-size: var(--fs-base);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  ::selection { background: var(--color-accent); color: #041413; }
+
+  /* ---------- LAYOUT ---------- */
+  .layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    max-width: 1440px;
+    margin: 0 auto;
+    align-items: start;
+  }
+
+  /* ---------- SIDEBAR / NAV ---------- */
+  .sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 2.5rem 1.5rem 3rem 2rem;
+    background: linear-gradient(var(--color-hero-top), var(--color-darker));
+    border-right: 1px solid var(--border-subtle);
+  }
+  .sidebar__brand {
+    display: flex;
+    flex-direction: column;
+    gap: .35rem;
+    margin-bottom: 2rem;
+  }
+  .sidebar__logo {
+    font-family: var(--font-display);
+    font-weight: var(--fw-display);
+    font-size: 1.6rem;
+    letter-spacing: .02em;
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    line-height: 1;
+  }
+  .sidebar__tag {
+    font-size: var(--fs-xs);
+    text-transform: uppercase;
+    letter-spacing: .18em;
+    color: var(--color-accent-light);
+    opacity: .75;
+  }
+  .nav-title {
+    font-size: var(--fs-xs);
+    text-transform: uppercase;
+    letter-spacing: .18em;
+    color: #8a8a8a;
+    margin: 0 0 .75rem;
+  }
+  .nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    counter-reset: navcount;
+  }
+  .nav li { margin: 0; }
+  .nav a {
+    display: flex;
+    gap: .6rem;
+    align-items: baseline;
+    padding: .5rem .6rem;
+    border-radius: var(--radius-sm);
+    font-size: var(--fs-sm);
+    color: #cfcfcf;
+    border-left: 2px solid transparent;
+    transition: background var(--duration-hover) var(--ease-reveal),
+                color var(--duration-hover) var(--ease-reveal),
+                border-color var(--duration-hover) var(--ease-reveal);
+  }
+  .nav a::before {
+    counter-increment: navcount;
+    content: counter(navcount);
+    font-family: var(--font-display);
+    font-weight: var(--fw-display);
+    font-size: .8rem;
+    color: var(--color-accent);
+    min-width: 1.4em;
+    text-align: right;
+  }
+  .nav a:hover { background: rgba(2,185,169,0.08); color: var(--color-text-strong); }
+  .nav a.is-active {
+    background: rgba(2,185,169,0.12);
+    color: var(--color-accent-light);
+    border-left-color: var(--color-accent);
+  }
+
+  /* ---------- MAIN ---------- */
+  .main {
+    padding: 3.5rem clamp(1.5rem, 4vw, 4rem) 6rem;
+    min-width: 0;
+  }
+
+  .page-header { margin-bottom: 3.5rem; max-width: 820px; }
+  .page-header h1 {
+    font-family: var(--font-display);
+    font-weight: var(--fw-display);
+    font-size: clamp(2.2rem, 5vw, var(--fs-5xl));
+    line-height: 1.02;
+    margin: 0 0 1rem;
+    letter-spacing: .01em;
+  }
+  .page-header h1 .hl {
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .page-header p {
+    font-size: var(--fs-lg);
+    color: #c7c7c7;
+    margin: 0 0 1.5rem;
+  }
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem 1.5rem;
+    padding: 1rem 1.25rem;
+    background: var(--color-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    font-size: var(--fs-sm);
+  }
+  .legend span { display: inline-flex; align-items: center; gap: .5rem; color: #bdbdbd; }
+  .dot { width: .7rem; height: .7rem; border-radius: var(--radius-full); display: inline-block; }
+  .dot--yes { background: var(--color-accent); box-shadow: 0 0 10px rgba(2,185,169,.6); }
+  .dot--no  { background: var(--color-negative); }
+  .dot--src { background: #6a6a6a; }
+
+  /* ---------- SEARCH BAR ---------- */
+  .search-bar {
+    position: relative;
+    max-width: 560px;
+    margin: 0 0 3rem;
+  }
+  .search-icon {
+    position: absolute;
+    left: 1.1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    line-height: 1;
+    opacity: .55;
+    pointer-events: none;
+  }
+  .search-input {
+    width: 100%;
+    background: var(--color-card);
+    color: var(--color-text);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: .9rem 1.1rem .9rem 2.9rem;
+    font-family: var(--font-sans);
+    font-size: var(--fs-base);
+    line-height: 1.4;
+    transition: border-color var(--duration-hover) var(--ease-reveal),
+                box-shadow var(--duration-hover) var(--ease-reveal);
+  }
+  .search-input::placeholder { color: var(--color-text-dim, #8a8a8a); }
+  .search-input:focus {
+    outline: none;
+    border-color: var(--border-accent);
+    box-shadow: 0 0 0 3px rgba(2,185,169,0.12);
+  }
+  .search-empty {
+    display: none;
+    margin: 0 0 3rem;
+    padding: 1rem 1.25rem;
+    background: var(--color-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    font-size: var(--fs-sm);
+    color: #9a9a9a;
+  }
+  .search-empty.is-visible { display: block; }
+
+  /* ---------- SECTION ---------- */
+  .section { margin-bottom: 3.25rem; scroll-margin-top: 1.5rem; }
+  .section__head {
+    display: flex;
+    align-items: baseline;
+    gap: .9rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: .9rem;
+    border-bottom: 1px solid var(--border-faint);
+  }
+  .section__num {
+    font-family: var(--font-display);
+    font-weight: var(--fw-display);
+    font-size: 2.4rem;
+    line-height: 1;
+    color: var(--color-accent-dark);
+    -webkit-text-stroke: 1px var(--color-accent);
+  }
+  .section__title {
+    font-family: var(--font-display);
+    font-weight: var(--fw-display);
+    font-size: clamp(1.4rem, 3vw, var(--fs-section));
+    line-height: 1.05;
+    margin: 0;
+  }
+  .section__sub {
+    margin: .35rem 0 0;
+    font-size: var(--fs-sm);
+    color: #9a9a9a;
+    max-width: 70ch;
+  }
+
+  /* ---------- ACCORDION (usa tokens de FAQ) ---------- */
+  .faq { display: flex; flex-direction: column; gap: .75rem; }
+  details.qa {
+    background: var(--color-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: border-color var(--duration-hover) var(--ease-reveal);
+  }
+  details.qa[open] { border-color: var(--border-accent); }
+  details.qa summary {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.1rem 1.35rem;
+    cursor: pointer;
+    list-style: none;
+    font-weight: var(--fw-medium);
+    font-size: var(--fs-lg);
+    color: var(--color-text-strong);
+  }
+  details.qa summary::-webkit-details-marker { display: none; }
+  .qa__icon {
+    flex: 0 0 auto;
+    width: 1.6rem;
+    height: 1.6rem;
+    border-radius: var(--radius-sm);
+    background: var(--color-faq-icon-bg);
+    position: relative;
+    transition: transform var(--duration-hover) var(--ease-reveal),
+                background var(--duration-hover) var(--ease-reveal);
+  }
+  .qa__icon::before,
+  .qa__icon::after {
+    content: "";
+    position: absolute;
+    background: var(--color-faq-icon-stroke);
+    border-radius: 2px;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .qa__icon::before { width: .8rem; height: 2px; }
+  .qa__icon::after  { width: 2px; height: .8rem; transition: opacity var(--duration-hover) var(--ease-reveal); }
+  details.qa[open] .qa__icon { background: var(--color-accent); transform: rotate(180deg); }
+  details.qa[open] .qa__icon::after { opacity: 0; }
+  .qa__q { flex: 1; }
+  .qa__body {
+    padding: 0 1.35rem 1.3rem 3.95rem;
+    color: #d0d0d0;
+    font-size: var(--fs-base);
+  }
+  .qa__body p { margin: 0 0 .75rem; }
+  .qa__body p:last-child { margin-bottom: 0; }
+  .qa__body strong { color: var(--color-accent-light); font-weight: var(--fw-medium); }
+  .qa__body .warn { color: var(--color-negative-stroke); font-weight: var(--fw-medium); }
+  .qa__src {
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    margin-top: .9rem;
+    font-size: var(--fs-xs);
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: #7c7c7c;
+  }
+  .qa__src::before {
+    content: "";
+    width: .55rem; height: .55rem; border-radius: var(--radius-full);
+    background: #6a6a6a;
+  }
+
+  /* ---------- FOOTER ---------- */
+  .foot {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-faint);
+    font-size: var(--fs-sm);
+    color: #777;
+  }
+  .totop {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--color-accent-light);
+    font-size: var(--fs-sm);
+  }
+
+  /* ---------- MOBILE ---------- */
+  .mobile-bar { display: none; }
+  @media (max-width: 900px) {
+    .layout { grid-template-columns: 1fr; }
+    .sidebar { display: none; }
+    .mobile-bar {
+      display: block;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(10,8,6,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: .75rem 1.25rem;
+    }
+    .mobile-bar select {
+      width: 100%;
+      background: var(--color-card);
+      color: var(--color-text);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: .7rem .9rem;
+      font-family: var(--font-sans);
+      font-size: var(--fs-sm);
+    }
+    .main { padding: 2rem 1.25rem 4rem; }
+    .qa__body { padding-left: 1.35rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="mobile-bar">
+  <select id="mobileNav" aria-label="Ir para seção">
+    <option value="">Ir para seção…</option>
+  </select>
+</div>
+
+<div class="layout">
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar">
+    <div class="sidebar__brand">
+      <span class="sidebar__logo">Empresa Independente</span>
+      <span class="sidebar__tag">FAQ Interno · Ferramentas de IA</span>
+    </div>
+    <p class="nav-title">Índice</p>
+    <ul class="nav" id="nav">
+      <li><a href="#s1">Fundações: onde rodar IA</a></li>
+      <li><a href="#s2">Skills, Agentes e Hermes</a></li>
+      <li><a href="#s3">Processo mapeado + dados</a></li>
+      <li><a href="#s4">Pesquisa e copy com Apify</a></li>
+      <li><a href="#s5">Geração de imagem</a></li>
+      <li><a href="#s6">Geração de vídeo e avatar</a></li>
+      <li><a href="#s7">Páginas, sites e design</a></li>
+      <li><a href="#s8">Gestão de demandas de copy</a></li>
+      <li><a href="#s9">Facebook e tráfego</a></li>
+      <li><a href="#s10">Hospedagem e deploy</a></li>
+      <li><a href="#s11">Execução autônoma</a></li>
+      <li><a href="#s12">MCP vs API</a></li>
+      <li><a href="#s13">Automação ponta a ponta</a></li>
+      <li><a href="#s14">Conselhos de negócio</a></li>
+    </ul>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main class="main">
+
+    <header class="page-header">
+      <h1>FAQ de <span class="hl">Ferramentas de IA</span><br>para consultores</h1>
+      <p>Referência rápida do que o Gabriel recomenda em cada situação de cliente, extraída das calls reais de consultoria. Use para responder na hora "qual ferramenta indicar aqui" sem precisar reassistir a gravação.</p>
+      <div class="legend">
+        <span><i class="dot dot--yes"></i> Recomendado pelo Gabriel</span>
+        <span><i class="dot dot--no"></i> Desaconselhado</span>
+        <span><i class="dot dot--src"></i> Fonte = call de origem (rastreabilidade)</span>
+      </div>
+    </header>
+
+    <!-- ===== BUSCA ===== -->
+    <div class="search-bar">
+      <span class="search-icon">🔍</span>
+      <input class="search-input" id="searchInput" type="text" autocomplete="off"
+             placeholder="Buscar por pergunta, ferramenta ou palavra-chave...">
+    </div>
+    <p class="search-empty" id="searchEmpty">Nenhuma pergunta encontrada para essa busca. Tente outro termo.</p>
+
+    <!-- ===== SEÇÃO 1 ===== -->
+    <section class="section" id="s1">
+      <div class="section__head">
+        <span class="section__num">01</span>
+        <div>
+          <h2 class="section__title">Fundações: onde o Gabriel roda IA</h2>
+          <p class="section__sub">Qual ambiente indicar ao cliente (neocortex, Claude puro ou os editores) e como estruturar o projeto para não quebrar.</p>
+        </div>
+      </div>
+      <div class="faq">
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">O cliente deve usar Claude Code puro ou o neocortex?</span></summary>
+          <div class="qa__body">
+            <p>Recomende o <strong>neocortex</strong> sempre que possível. É um framework de terceiros criado por <strong>Luan Detoni</strong> (<a href="https://neocortex.sh/" target="_blank" rel="noopener">neocortex.sh</a>) que roda por cima do Claude Code e "se perde menos", porque lê o projeto em pequenos pedaços e executa parte deles em paralelo. Claude puro funciona, mas o neocortex entrega mais velocidade e confiabilidade de execução.</p>
+            <span class="qa__src">Fonte: LOOL Call 1 e 2 · Roberto Call 5</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Por que o neocortex é mais rápido e gasta menos token que o Claude puro?</span></summary>
+          <div class="qa__body">
+            <p>Porque ele separa o projeto em <strong>micro-documentos</strong> referenciados dentro de um único <strong>CLAUDE.md</strong>. Quando vai executar algo, lê só o que é necessário para aquela tarefa, em vez de reler tudo, gastando menos token e sendo mais rápido.</p>
+            <p>Além disso, essa arquitetura funciona como um "guardião": mantém o projeto nos trilhos e evita que a IA alucine ou saia do escopo definido no PRD.</p>
+            <span class="qa__src">Fonte: Roberto Call 5 · Jönck Reunião 4</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Cursor, Claude desktop, Open Code ou Codex: qual recomendar?</span></summary>
+          <div class="qa__body">
+            <p>Gabriel prefere o <strong>Cursor</strong> ao app desktop do Claude: mais recursos e mais rápido (o desktop é lento). <strong>Open Code</strong> também é uma boa opção, rápido e lida bem com várias linguagens. O importante é ter tudo centralizado num lugar só.</p>
+            <span class="qa__src">Fonte: Lucas Fazendeiro · Jönck Reunião 5</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Quando usar Codex em vez de Claude?</span></summary>
+          <div class="qa__body">
+            <p>Divida por função: <strong>Codex para a parte estrutural/back-end</strong> (consome bem menos token para tarefas de código) e <strong>Claude para marketing e front-end</strong>. O Codex "come" token rápido em fluxo, então reserve-o para o trabalho pesado de estrutura.</p>
+            <span class="qa__src">Fonte: Jönck Reunião 5</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">O neocortex é por projeto ou por máquina?</span></summary>
+          <div class="qa__body">
+            <p>É <strong>por máquina</strong>. Depois de instalado, ele se aplica a todos os projetos daquela máquina e tem visão do computador inteiro, não precisando reinstalar a cada projeto novo.</p>
+            <span class="qa__src">Fonte: Roberto Call 5</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Por que separar back-end de front-end e deixar o back só leitura?</span></summary>
+          <div class="qa__body">
+            <p>Oriente o cliente a pedir para a IA <strong>separar back-end e front-end</strong>, com o back apenas lendo (sem escrever). Quando front e back ficam acoplados, mexer numa coisinha faz a IA alterar o código do sistema inteiro e aumenta muito a chance de quebrar.</p>
+            <span class="qa__src">Fonte: Jönck Reunião 4</span>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- ===== SEÇÃO 2 ===== -->
+    <section class="section" id="s2">
+      <div class="section__head">
+        <span class="section__num">02</span>
+        <div>
+          <h2 class="section__title">Skills, Agentes e Hermes</h2>
+          <p class="section__sub">Os três conceitos que mais confundem cliente. O que é cada um e quando construir cada coisa.</p>
+        </div>
+      </div>
+      <div class="faq">
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Qual a diferença entre uma Skill e um Agente?</span></summary>
+          <div class="qa__body">
+            <p>Um <strong>agente</strong> não pega o contexto anterior: ele recebe só o prompt que você mandou e executa. Uma <strong>Skill</strong> é uma habilidade salva dentro do projeto que você "ativa" quando precisa, como ativar a habilidade de jiu-jitsu antes da aula e a de compras antes do mercado. A Skill fica isolada no projeto e pode ser levada para outros lugares.</p>
+            <span class="qa__src">Fonte: LOOL Call 2</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Quando criar uma Skill nova e quando só jogar a instrução no prompt?</span></summary>
+          <div class="qa__body">
+            <p>Regra do Gabriel: se o processo é <strong>repetitivo</strong> e vai rodar por muito tempo, crie uma <strong>Skill</strong> (para não ficar redigitando toda hora). Se é algo <strong>isolado/pontual</strong>, resolva pelo prompt. Ambos funcionam; a Skill só poupa esforço no que se repete.</p>
+            <span class="qa__src">Fonte: LOOL Call 1 e 2</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Devo criar uma Skill por nicho ou uma Skill-mãe genérica?</span></summary>
+          <div class="qa__body">
+            <p>Recomende manter a <strong>Skill-mãe genérica</strong> (ex: um copywriter de anúncios) e passar o nicho por fora, via prompt ou via pasta de ICP. Se colocar regra de nicho dentro da Skill, ela fica presa àquele produto e perde reutilização.</p>
+            <span class="qa__src">Fonte: LOOL Call 1 e 2 · P&S Digital</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">O que é uma micro-skill que usa outras skills (power-ups)?</span></summary>
+          <div class="qa__body">
+            <p>É uma Skill que chama outras Skills como "power-ups". Exemplo: a Skill de criativo estático usa a Skill de copy como base e depois chama a Skill de geração de imagem. Você vai criando <strong>micro-skills especializadas</strong> (analista de tráfego, analista de copy, pesquisador de copy) e as orquestra conforme a necessidade.</p>
+            <span class="qa__src">Fonte: LOOL Call 1</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">O que é o Hermes e quando vale a pena em vez de uma Skill comum?</span></summary>
+          <div class="qa__body">
+            <p>O <strong>Hermes</strong> é uma ferramenta externa (não faz parte do neocortex) de memória que <strong>aprende e se autodesenvolve</strong> com o tempo, como contratar um júnior que vira sênior. Vale quando você quer um analista que evolui sozinho (ex: um Hermes de copy). Para processo repetitivo simples, a Skill comum já resolve; o Hermes é o caminho mais complexo, para quem quer evolução contínua.</p>
+            <span class="qa__src">Fonte: LOOL Call 2 · P&S Digital Call 1</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">A memória ativa nativa do Claude ajuda ou atrapalha?</span></summary>
+          <div class="qa__body">
+            <p>Na opinião do Gabriel, a memória ativa nativa <span class="warn">mais atrapalha do que ajuda</span>: carrega coisa demais e fica bagunçada. Se o cliente quer memória de verdade, o caminho é o <strong>Hermes</strong>, que tem arquitetura feita para se desenvolver ao longo do tempo.</p>
+            <span class="qa__src">Fonte: P&S Digital Call 1</span>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- ===== SEÇÃO 3 ===== -->
+    <section class="section" id="s3">
+      <div class="section__head">
+        <span class="section__num">03</span>
+        <div>
+          <h2 class="section__title">O pré-requisito inegociável: processo mapeado + dados</h2>
+          <p class="section__sub">A regra que o Gabriel repete em quase toda call. Sem isso, nenhuma ferramenta entrega.</p>
+        </div>
+      </div>
+      <div class="faq">
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Por que sem processo mapeado "não adianta nada"?</span></summary>
+          <div class="qa__body">
+            <p>Porque sem processo a IA não sabe o que pedir nem o que entregar. Com <strong>processo mapeado e dados</strong>, o resultado é excelente; sem eles, "serve para nada". Antes de qualquer automação, extraia da cabeça do cliente o passo a passo que ele já executa.</p>
+            <span class="qa__src">Fonte: LOOL Call 2 · P&S Digital · Lucas Fazendeiro</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Por que definir as regras do cliente (o que é "anúncio bom") antes de automatizar?</span></summary>
+          <div class="qa__body">
+            <p>Porque a versão de "está bom" do cliente e a da IA são diferentes. Traduza os critérios do cliente em regras concretas, por exemplo: quantos criativos novos por dia, qual ROI mínimo, o que é "vencedor" e "perdedor". Sem esses conceitos definidos, a IA vai gerar o conceito dela e dar resultado errado.</p>
+            <span class="qa__src">Fonte: LOOL Call 2</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">O cliente se adapta à IA ou a IA se adapta ao processo dele?</span></summary>
+          <div class="qa__body">
+            <p>Deixe claro: <strong>o sistema se adapta ao cliente</strong>, não o contrário. O cliente define exatamente o que quer e a ferramenta obedece. Quando o cliente começa a se moldar ao que a IA faz por padrão, o processo desanda.</p>
+            <span class="qa__src">Fonte: LOOL Call 2</span>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- ===== SEÇÃO 4 ===== -->
+    <section class="section" id="s4">
+      <div class="section__head">
+        <span class="section__num">04</span>
+        <div>
+          <h2 class="section__title">Pesquisa de público e copy com Apify</h2>
+          <p class="section__sub">Como embasar a copy em anúncios que estão realmente performando, por centavos.</p>
+        </div>
+      </div>
+      <div class="faq">
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Qual ferramenta usar para pesquisar anúncios que estão performando?</span></summary>
+          <div class="qa__body">
+            <p>Use o <strong>Apify</strong>. Para o Gabriel é um divisor de águas: conecta com Instagram, TikTok, Facebook e outros, e busca a nuvem de palavras e os melhores anúncios ativos do público antes de escrever a copy.</p>
+            <span class="qa__src">Fonte: Lucas Fazendeiro · LOOL Call 1 · P&S Digital</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Quanto custa usar o Apify na prática?</span></summary>
+          <div class="qa__body">
+            <p><strong>Baixíssimo custo.</strong> Gabriel colocou poucos dólares de crédito há muito tempo e praticamente não consegue consumir, porque o gasto é de centavos e há crédito diário. É a razão principal de ele preferir o Apify para pesquisa.</p>
+            <span class="qa__src">Fonte: Lucas Fazendeiro · P&S Digital</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Como conectar o Apify dentro de uma Skill de copy?</span></summary>
+          <div class="qa__body">
+            <p>Configure o token do Apify e conecte-o dentro da Skill. Quando a Skill for executar, ela <strong>busca automaticamente</strong> a nuvem de palavras e os melhores anúncios do público (via ICP). Basta dizer para a IA "vai lá e executa"; não é MCP, é configuração de token.</p>
+            <span class="qa__src">Fonte: Lucas Fazendeiro · P&S Digital</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Um Apify por tarefa (copy, VSL, imagem, influência)?</span></summary>
+          <div class="qa__body">
+            <p>Sim. Gabriel usa uma configuração de busca específica para cada finalidade: uma para escrever anúncios, uma para VSL, uma para pesquisar influência. Cada Skill dispara a busca do Apify adequada ao que vai produzir.</p>
+            <span class="qa__src">Fonte: Lucas Fazendeiro</span>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- ===== SEÇÃO 5 ===== -->
+    <section class="section" id="s5">
+      <div class="section__head">
+        <span class="section__num">05</span>
+        <div>
+          <h2 class="section__title">Geração de imagem</h2>
+          <p class="section__sub">Qual modelo recomendar hoje e por que o Higgsfield decepciona via MCP.</p>
+        </div>
+      </div>
+      <div class="faq">
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Qual a melhor ferramenta de imagem hoje?</span></summary>
+          <div class="qa__body">
+            <p><strong>A geração de imagem do GPT</strong> é a melhor hoje, sem exceção. Tem profundidade de qualidade e nível de texto altíssimo (ótima quando há texto e pouca imagem). Se o cliente já tem assinatura do GPT, sai praticamente de graça.</p>
+            <span class="qa__src">Fonte: Lucas Fazendeiro · Jönck Reunião 4</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Quando usar o nano banana pro?</span></summary>
+          <div class="qa__body">
+            <p>O <strong>nano banana pro</strong> é uma alternativa barata e gasta pouco, mas hoje o GPT ganha em qualidade. Gabriel migrou do nano banana para o GPT nas imagens; use o nano banana quando custo for prioridade acima de qualidade.</p>
+            <span class="qa__src">Fonte: Lucas Fazendeiro · Jönck Reunião 4</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Vale a pena o Higgsfield para imagem?</span></summary>
+          <div class="qa__body">
+            <p>Via MCP, o Higgsfield é <span class="warn">muito limitado</span> em relação à plataforma. Para <strong>imagem</strong> ainda dá para usar (ele tem nano banana, Flux, GPT image, Seedream), mas para vídeo com lip sync não serve. Se o cliente já pagou o Higgsfield, aproveite para imagem; senão, prefira o GPT.</p>
+            <span class="qa__src">Fonte: LOOL Call 2 · Lucas Fazendeiro</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Magnific vs Higgsfield: qual recomendar e por quê?</span></summary>
+          <div class="qa__body">
+            <p>Gabriel prefere o <strong>Magnific</strong>: é bem mais barato (com várias gerações de imagem inclusas) e tem conexão de API/MCP com o Claude muito mais simples, por ser pensado para isso. O Higgsfield é mais caro e trava por modelo de assinatura anual que "não fecha a conta".</p>
+            <span class="qa__src">Fonte: LOOL Call 1 e 2 · Lucas Fazendeiro</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Devo criar uma Skill separada só para criativo de imagem?</span></summary>
+          <div class="qa__body">
+            <p>Sim. Não reaproveite a Skill de criativo de vídeo (ela está toda configurada em hooks/estrutura de vídeo). Crie uma <strong>Skill "copy de imagem" à parte</strong>, mudando as regras para o fluxo de imagem: no criativo de imagem você quer só o hook conectado a uma imagem.</p>
+            <span class="qa__src">Fonte: LOOL Call 1 e 2</span>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- ===== SEÇÃO 6 ===== -->
+    <section class="section" id="s6">
+      <div class="section__head">
+        <span class="section__num">06</span>
+        <div>
+          <h2 class="section__title">Geração de vídeo e avatar</h2>
+          <p class="section__sub">Kling, Seedream, VEO 3, HeyGen e o truque do avatar 360° antes de gerar o vídeo.</p>
+        </div>
+      </div>
+      <div class="faq">
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Qual modelo usar para vídeo com avatar?</span></summary>
+          <div class="qa__body">
+            <p>Para vídeo, os grandes nomes são <strong>Kling, Seedream e VEO 3</strong>. Gabriel gera vídeos de 15 segundos e concatena; quando há um avatar consistente (antes/depois, mesmo ambiente), os cortes de 15s se mantêm sem parecer picotados.</p>
+            <span class="qa__src">Fonte: Lucas Fazendeiro · Jönck Reunião 4</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">E para lip sync / fala em português?</span></summary>
+          <div class="qa__body">
+            <p>A melhor opção para lip sync é o <strong>HeyGen</strong>, e ele permite ajustar a entonação de cada palavra. A ressalva: exige autorização da pessoa que aparece falando. Qualquer coisa em português ainda deixa a entonação um pouco a desejar em todos os modelos.</p>
+            <span class="qa__src">Fonte: Lucas Fazendeiro</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Qual o truque do avatar 360° antes de gerar o vídeo?</span></summary>
+          <div class="qa__body">
+            <p>Antes de gerar o vídeo, peça ao <strong>GPT</strong> para criar vários ângulos (um giro 360°) do personagem principal. Use essas imagens como base no modelo de vídeo (Kling/Seedream) para criar o avatar. Com isso o vídeo sai muito mais realista; sem isso, a qualidade cai.</p>
+            <span class="qa__src">Fonte: Lucas Fazendeiro</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Por que o MCP do Higgsfield não serve para vídeo com lip sync?</span></summary>
+          <div class="qa__body">
+            <p>Porque o MCP do Higgsfield expõe pouquíssimos modelos (dois de vídeo, contra mais de 30 na plataforma) e os de lip sync são ruins. <span class="warn">Para vídeo com lip sync via MCP, o resultado é fraco.</span> O caminho é gerar o vídeo na plataforma e usar a IA só para edição.</p>
+            <span class="qa__src">Fonte: LOOL Call 2</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Como fazer antes/depois (ex: acne) de forma realista?</span></summary>
+          <div class="qa__body">
+            <p>Gere dois avatares, um "antes" e um "depois", a partir de uma pessoa parecida com a real (mudando o rosto para não ser igual), construídos no <strong>GPT</strong> por causa do zoom no rosto. Depois passe a copy nesses avatares no modelo de vídeo. Faça artesanal primeiro, anote os passos e só então sistematize.</p>
+            <span class="qa__src">Fonte: Lucas Fazendeiro</span>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- ===== SEÇÃO 7 ===== -->
+    <section class="section" id="s7">
+      <div class="section__head">
+        <span class="section__num">07</span>
+        <div>
+          <h2 class="section__title">Criação de páginas, sites e design system</h2>
+          <p class="section__sub">O stack de site do Gabriel e o que evitar para o site não ter "cara de IA".</p>
+        </div>
+      </div>
+      <div class="faq">
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Qual o stack do Gabriel para criar sites?</span></summary>
+          <div class="qa__body">
+            <p><strong>Google Stitch + GPT + 21st.dev</strong> para layout e componentes, mais o copywriter próprio dele para os textos, dentro do Cursor/Claude. Esse conjunto é o que dá o resultado sem "cara de IA".</p>
+            <span class="qa__src">Fonte: Lucas Fazendeiro · Jönck Reunião 4</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Onde pegar animações profissionais para o site?</span></summary>
+          <div class="qa__body">
+            <p>No <strong>21st.dev</strong> (acessando pelo Chrome, não pelo terminal). É excelente para animações e componentes; o cliente escolhe o componente, traz para o projeto e instala. É uma das grandes viradas de chave para o site parecer profissional.</p>
+            <span class="qa__src">Fonte: Lucas Fazendeiro · Jönck Reunião 4</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Por que criar um design system antes de qualquer página?</span></summary>
+          <div class="qa__body">
+            <p>Porque o design system garante que tudo dali em diante saia com o <strong>mesmo estilo de layout</strong>. Sem ele, cada entrega fica de um jeito e a IA "delira". É a base para construir qualquer coisa depois, inclusive dá para extrair as cores de um site de referência.</p>
+            <span class="qa__src">Fonte: Lucas Fazendeiro</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">O Claude Design presta?</span></summary>
+          <div class="qa__body">
+            <p><span class="warn">Não recomende.</span> Gabriel achou uma das piores opções: tentaram ser generalistas demais e o resultado ficou ruim. Prefira o stack de imagem/layout (GPT, Google Stitch, 21st.dev).</p>
+            <span class="qa__src">Fonte: Lucas Fazendeiro</span>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- ===== SEÇÃO 8 ===== -->
+    <section class="section" id="s8">
+      <div class="section__head">
+        <span class="section__num">08</span>
+        <div>
+          <h2 class="section__title">Gestão de demandas de copy</h2>
+          <p class="section__sub">Trello, ClickUp, Google Drive e por que tudo precisa estar em <code>.md</code>.</p>
+        </div>
+      </div>
+      <div class="faq">
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Qual ferramenta para organizar demandas de copy?</span></summary>
+          <div class="qa__body">
+            <p>Para quem está saindo de um documento único, o <strong>Trello</strong> é a indicação: simples, gratuito e resolve. Operações mais avançadas usam <strong>ClickUp</strong> (integrável à Skill via CLI). Visualmente já melhora "mil por cento" tirar as demandas do documento e jogar no board.</p>
+            <span class="qa__src">Fonte: LOOL Call 2 · P&S Digital</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Como estruturar o quadro (colunas)?</span></summary>
+          <div class="qa__body">
+            <p>Gabriel simplifica o template padrão: <strong>Backlog · A fazer · Em andamento · Concluído</strong> (ele corta as etapas de "revisão" e "teste"). Cada card leva o link da copy e o responsável.</p>
+            <span class="qa__src">Fonte: LOOL Call 2</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Como conectar o Google Drive ao projeto?</span></summary>
+          <div class="qa__body">
+            <p>Hoje é preciso o <strong>conector/MCP de Google Drive</strong>, com as pastas ficando acessíveis como pasta local. Use uma pasta fixa e pública do Drive (com permissão de editor) para o cliente guardar anúncios validados, ICP e VSL, e a IA lê de lá.</p>
+            <span class="qa__src">Fonte: LOOL Call 2 · P&S Digital · Jönck Reunião 5</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Por que salvar tudo em <code>.md</code> e não PDF/DOCX/TXT?</span></summary>
+          <div class="qa__body">
+            <p>Porque <strong>Markdown é a linguagem nativa da IA</strong>: lê mais fácil, gasta menos token e é mais rápido. PDF, DOCX e TXT custam mais tokens para ler. Oriente o cliente a sempre salvar bases de conhecimento em <code>.md</code>.</p>
+            <span class="qa__src">Fonte: LOOL Call 1 · Lucas Fazendeiro · P&S Digital</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Exceção: quando salvar em DOCX?</span></summary>
+          <div class="qa__body">
+            <p>Quando o output vai para o <strong>editor humano</strong>. Se a IA salvar a entrega final em Markdown, atrapalha o editor. Nesse caso, gere o output em DOCX no modelo interno de anúncios; o <code>.md</code> fica para as bases que a IA consome.</p>
+            <span class="qa__src">Fonte: LOOL Call 2</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Como funciona a pasta ICP com um <code>.md</code> por nicho?</span></summary>
+          <div class="qa__body">
+            <p>Crie uma pasta <strong>ICP</strong> com um arquivo <code>{nicho}.md</code> para cada público (diabetes.md, emagrecimento.md etc). A Skill é instruída a puxar o ICP do nicho quando for escrever: o cliente só diz "escreva para diabetes" e ela já sabe qual perfil buscar.</p>
+            <span class="qa__src">Fonte: LOOL Call 2 · P&S Digital</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Por que sempre passar o caminho específico do arquivo?</span></summary>
+          <div class="qa__body">
+            <p>Porque, sem o caminho exato, a IA vai buscar um arquivo aleatório (já aconteceu de ela puxar algo da pasta de downloads). Sempre forneça o <strong>caminho completo</strong> do documento no prompt ou deixe fixo na Skill.</p>
+            <span class="qa__src">Fonte: LOOL Call 2 · P&S Digital</span>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- ===== SEÇÃO 9 ===== -->
+    <section class="section" id="s9">
+      <div class="section__head">
+        <span class="section__num">09</span>
+        <div>
+          <h2 class="section__title">Não ser bloqueado pelo Facebook / tráfego</h2>
+          <p class="section__sub">Como usar a IA para blindar a conta, e as jogadas de colab e afiliado.</p>
+        </div>
+      </div>
+      <div class="faq">
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">O Facebook ainda derruba conta mesmo com a integração?</span></summary>
+          <div class="qa__body">
+            <p>Só derruba quem sobe copy pesada <strong>sem seguir processo</strong>, ou seja, quem tentou implementar sem estudar. Com os cuidados certos, não derruba. A galera que tomava bloqueio simplesmente não sabia como respeitar as políticas.</p>
+            <span class="qa__src">Fonte: LOOL Call 1</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Como usar a IA para não tomar bloqueio?</span></summary>
+          <div class="qa__body">
+            <p>Baixe <strong>todas as políticas do Facebook em <code>.md</code></strong> e, antes de subir cada criativo, pergunte à IA se ele respeita as políticas e o que mudar. Ela lê os dados do MCP do Facebook e avisa antes do bloqueio qual palavra trocar; aí é só ajustar e não há rejeição.</p>
+            <span class="qa__src">Fonte: LOOL Call 1</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">A palavra "gratuito" derruba anúncio?</span></summary>
+          <div class="qa__body">
+            <p>Na experiência do Gabriel, <strong>não</strong>: ele usa "gratuito" em todos os anúncios com isca e nunca teve problema. No máximo o Facebook rejeita o anúncio específico (não bloqueia a conta). Teste no hook e observe.</p>
+            <span class="qa__src">Fonte: Lucas Fazendeiro (Giovanna)</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Por que colab com influência rende tanto?</span></summary>
+          <div class="qa__body">
+            <p>Porque, no <strong>colab</strong>, o Facebook anuncia para o público da influenciadora mesmo sem ela ter clicado em compartilhar. Esse acesso ao público dela costuma ser o maior ganho de resultado. Sem colab, o valor da influência cai muito.</p>
+            <span class="qa__src">Fonte: Lucas Fazendeiro</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Que cláusula colocar em contrato de influência?</span></summary>
+          <div class="qa__body">
+            <p>Inclua uma <strong>cláusula de afiliado</strong>: a marca tem afiliados e não se responsabiliza por eles. Assim, ao acabar o contrato, você segue rodando o criativo como afiliado. Gabriel usou isso com todo mundo, inclusive nomes grandes, sem nenhum problema.</p>
+            <span class="qa__src">Fonte: Lucas Fazendeiro</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Como conectar tracking para a IA saber quando gerar mais criativo?</span></summary>
+          <div class="qa__body">
+            <p>Conecte o tracking (ex: <strong>Everflow</strong> via webhook, ou o <strong>Easy Tracking</strong>, que tem integração nativa com o Claude), desde que os dados batam certinho. Com a regra definida (quantos criativos novos por dia, ROI de corte), a IA identifica quem está performando e gera as variações necessárias sozinha.</p>
+            <span class="qa__src">Fonte: LOOL Call 1 e 2</span>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- ===== SEÇÃO 10 ===== -->
+    <section class="section" id="s10">
+      <div class="section__head">
+        <span class="section__num">10</span>
+        <div>
+          <h2 class="section__title">Hospedagem e deploy</h2>
+          <p class="section__sub">Onde colocar sistema, banco e páginas HTML no ar, e as ferramentas favoritas do Gabriel.</p>
+        </div>
+      </div>
+      <div class="faq">
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Onde hospedar um sistema com front + banco?</span></summary>
+          <div class="qa__body">
+            <p>Para começar, <strong>Vercel + Supabase</strong> é a configuração mais fácil (front no Vercel, banco no Supabase). Postgres gratuito é a alternativa quando quiser escalar a quantidade de projetos, mas no início não complique.</p>
+            <span class="qa__src">Fonte: P&S Digital · Roberto Call 5</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Como está o Vercel hoje?</span></summary>
+          <div class="qa__body">
+            <p>Está <span class="warn">instável e lento</span> depois do vazamento de dados deles. Funciona, mas avise o cliente que anda "capenga": pode dar lentidão e falha de deploy sem ser culpa do projeto.</p>
+            <span class="qa__src">Fonte: Jönck Reunião 4 e 5</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Onde hospedar páginas HTML?</span></summary>
+          <div class="qa__body">
+            <p><strong>Cloudflare Pages</strong> ou <strong>Atomicat</strong>. Ambos permitem subir HTML direto; a Atomicat inclusive tem servidor escalável e replicado. Basta jogar o HTML e publicar.</p>
+            <span class="qa__src">Fonte: Jönck Reunião 4</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">O que é a Atomicat e por que o Gabriel gosta?</span></summary>
+          <div class="qa__body">
+            <p>É a plataforma de páginas/hospedagem preferida dele: suporte excelente (o próprio dono responde rápido), servidor escalável, e criaram um <strong>MCP para Claude Code</strong>, permitindo hospedar HTML direto. Gabriel a usou em operação de grande volume sem nenhum bloqueio.</p>
+            <span class="qa__src">Fonte: Jönck Reunião 4 e 5</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Cliente sem loja de app: usar PWA?</span></summary>
+          <div class="qa__body">
+            <p>Quando o cliente quer um "app" mas não quer passar pela aprovação da App/Play Store (que demora meses), indique um <strong>PWA</strong>, aplicativo instalável a partir de um site, direto no celular. Não é o mundo ideal, mas funciona e evita a burocracia das lojas.</p>
+            <span class="qa__src">Fonte: LOOL Call 2</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Como compartilhar o projeto entre a equipe?</span></summary>
+          <div class="qa__body">
+            <p>Suba o projeto para o <strong>GitHub</strong> e cada pessoa baixa na máquina dela. Lembre o cliente: quando duas pessoas trabalham no mesmo projeto, é preciso dar <em>pull</em> para trazer as atualizações antes de usar. Para quem só vai usar a Skill no dia a dia, sem alterar, basta puxar uma vez.</p>
+            <span class="qa__src">Fonte: P&S Digital · Roberto Call 5</span>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- ===== SEÇÃO 11 ===== -->
+    <section class="section" id="s11">
+      <div class="section__head">
+        <span class="section__num">11</span>
+        <div>
+          <h2 class="section__title">Execução autônoma e produtividade</h2>
+          <p class="section__sub">yolo loop, background, planejar antes e o que fazer quando a IA "se perde".</p>
+        </div>
+      </div>
+      <div class="faq">
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">O que é o yolo loop e quando usar?</span></summary>
+          <div class="qa__body">
+            <p>O <strong>yolo loop</strong> é o modo autônomo do neocortex: ele roda em looping implementando tudo, útil quando há uma épica com muita coisa para construir. Deixa trabalhando na madrugada e já faz o commit automático. Indique para grandes blocos de implementação em que o cliente confia no escopo.</p>
+            <span class="qa__src">Fonte: Roberto Call 5</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Preciso ficar esperando o Claude terminar?</span></summary>
+          <div class="qa__body">
+            <p>Não. Quando ele roda em <strong>background</strong>, libera o terminal e você continua trabalhando em paralelo, podendo abrir várias telas/terminais. Quando finaliza, ele avisa. Oriente o cliente a não ficar parado esperando.</p>
+            <span class="qa__src">Fonte: LOOL Call 1 e 2 · P&S Digital</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Quando ele demora demais, o que significa?</span></summary>
+          <div class="qa__body">
+            <p>Significa que <strong>se perdeu</strong>. Se uma tarefa está levando muito tempo, algo deu errado: pergunte o que está acontecendo e, se travar, quebre em várias etapas menores. Ele para de se perder e volta a acertar.</p>
+            <span class="qa__src">Fonte: Roberto Call 5</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Devo deixar o Claude fazer algo sozinho sem planejar?</span></summary>
+          <div class="qa__body">
+            <p>Não. Faça sempre o <strong>planejamento primeiro</strong>: peça um wireframe, valide, e só então desenvolva em cima dele. Não deixe a IA fazer nada por conta própria, pois é o que evita retrabalho e alucinação.</p>
+            <span class="qa__src">Fonte: Jönck Reunião 4</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Como debugar loop de erro?</span></summary>
+          <div class="qa__body">
+            <p>Tire um <strong>print do erro</strong> (inspecionar) e jogue na IA. No Mac dá para colar com Control+V; no Windows, arraste a imagem para o terminal. Ver o erro real quebra o ciclo de a IA repetir a mesma correção sem resolver.</p>
+            <span class="qa__src">Fonte: Jönck Reunião 4</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Qual plano de token recomendar?</span></summary>
+          <div class="qa__body">
+            <p>Para uso profissional intenso, indique um plano <strong>a partir do intermediário</strong>: o Claude liberou várias vezes mais token para os planos superiores, o que já supre o dia a dia. O Codex consome token rápido, então reserve-o para tarefas estruturais. (Valores exatos: confirmar direto com o cliente, pois mudam.)</p>
+            <span class="qa__src">Fonte: Roberto Call 5 · Jönck Reunião 5 · P&S Digital</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Como fazer o Claude parar de pedir permissão a toda hora?</span></summary>
+          <div class="qa__body">
+            <p>Use o comando de inicialização com a <strong>flag que pula as permissões</strong> (o "modo automático"). Assim ele para de fazer perguntas desnecessárias e executa direto. É o comando que o Gabriel entrega no onboarding para o cliente colar ao abrir o terminal.</p>
+            <span class="qa__src">Fonte: LOOL Call 1 · P&S Digital</span>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- ===== SEÇÃO 12 ===== -->
+    <section class="section" id="s12">
+      <div class="section__head">
+        <span class="section__num">12</span>
+        <div>
+          <h2 class="section__title">MCP vs API</h2>
+          <p class="section__sub">Por que o Gabriel está fugindo de MCP neste momento.</p>
+        </div>
+      </div>
+      <div class="faq">
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Devo usar MCP ou API para conectar Facebook/plataformas?</span></summary>
+          <div class="qa__body">
+            <p>Prefira <strong>API</strong>. O MCP é novo e está dando muito problema: "todo mundo se ferrou" e a galera está voltando para sistemas baseados em API. Um sistema já feito por API tende a funcionar; refazer agora por MCP tende a dar erro.</p>
+            <span class="qa__src">Fonte: Jönck Reunião 5</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Por que "faça você" em vez de mandar colar no dashboard?</span></summary>
+          <div class="qa__body">
+            <p>Porque o Claude sempre tenta "empurrar" o trabalho, dizer "vá no dashboard e cole isso". Ele consegue executar por trás sozinho. Ensine o cliente a sempre responder <strong>"vá lá e execute você"</strong>: aí ele faz. Nunca deixe a IA passar a tarefa de volta.</p>
+            <span class="qa__src">Fonte: P&S Digital</span>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- ===== SEÇÃO 13 ===== -->
+    <section class="section" id="s13">
+      <div class="section__head">
+        <span class="section__num">13</span>
+        <div>
+          <h2 class="section__title">O "grande game": automação de ponta a ponta</h2>
+          <p class="section__sub">Onde tudo isso chega: sistema que lê dados, gera copy e cria a demanda sozinho.</p>
+        </div>
+      </div>
+      <div class="faq">
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Qual é o objetivo final de tudo isso?</span></summary>
+          <div class="qa__body">
+            <p>Um sistema que <strong>lê os dados das plataformas, decide o que precisa, gera a copy e já cria a demanda para o editor</strong>, sem o cliente encostar a mão. A IA identifica quem não está performando, gera a quantidade de criativos que faz sentido pelas regras e entrega pronto. É onde o processo deixa de depender de pessoa.</p>
+            <span class="qa__src">Fonte: LOOL Call 1 e 2 · P&S Digital</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Como extrair a psicologia da copy validada, não só copiar o texto?</span></summary>
+          <div class="qa__body">
+            <p>Instrua a Skill a separar três coisas: <strong>psicologia, elementos da VSL e comunicação</strong>. A IA deve extrair a <em>psicologia</em> por trás (mecanismo do problema, medo, etc.), pegar os elementos no briefing e ter liberdade na escrita, em vez de copiar literalmente o que está escrito.</p>
+            <span class="qa__src">Fonte: P&S Digital Call 1</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">O cargo de copywriter vai ser eliminado?</span></summary>
+          <div class="qa__body">
+            <p>Para anúncios, o processo fica quase 100% automático (a máquina lê os dados e gera). Para <strong>VSL, ainda não</strong>: escrever VSL do zero continua sendo trabalho mais delicado, onde o copywriter ainda é útil. Posicione a IA como quem elimina o repetitivo, não a estratégia.</p>
+            <span class="qa__src">Fonte: P&S Digital · Jönck Reunião 5</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">O que é o "Revival" de VSL?</span></summary>
+          <div class="qa__body">
+            <p>É o processo de <strong>reviver uma VSL</strong>: puxar a API do YouTube, analisar a minutagem e reescrever a VSL inteira. Para <em>reescrever</em> funciona bem; para escrever uma VSL do zero, ainda não fica tão bom.</p>
+            <span class="qa__src">Fonte: P&S Digital</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Exemplo de automação completa: o pipeline de podcast</span></summary>
+          <div class="qa__body">
+            <p>A Skill verifica o link do Drive <strong>duas vezes por dia</strong>; quando há vídeo novo, ela lê o vídeo inteiro, gera thumbnails e de 13 a 15 cortes, e deixa tudo pronto para o editor. Com Magnific conectado, dá até para automatizar a edição e agendar as postagens.</p>
+            <span class="qa__src">Fonte: LOOL Call 1</span>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- ===== SEÇÃO 14 ===== -->
+    <section class="section" id="s14">
+      <div class="section__head">
+        <span class="section__num">14</span>
+        <div>
+          <h2 class="section__title">Conselhos de negócio (mentalidade, cultura, metas)</h2>
+          <p class="section__sub">O que o Gabriel repete além da ferramenta, porque IA sem cabeça de dono não escala.</p>
+        </div>
+      </div>
+      <div class="faq">
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Por que o Gabriel insiste em "cabeça de dono"?</span></summary>
+          <div class="qa__body">
+            <p>Porque sem visão de <strong>para onde a empresa vai e para quem ela pode ser vendida</strong>, o cliente faz toda e qualquer coisa que aparece e pula de galho em galho. Ter clareza do destino (onde estar em 4–5 anos) é o que elimina a dispersão.</p>
+            <span class="qa__src">Fonte: Jönck Reunião 5</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">O que fazer quando o cliente abre muitas frentes e não fecha nenhuma?</span></summary>
+          <div class="qa__body">
+            <p>Alerte: com Claude Code é comum ter o "tesão do começo" e não finalizar. <strong>Fechar antes de abrir a próxima frente.</strong> Não fechar é o problema, porque nada funciona e tudo fica pendurado. Deixar em stand-by tudo bem, desde que consciente.</p>
+            <span class="qa__src">Fonte: Jönck Reunião 5</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Como ajudar o cliente a definir metas de forma realista?</span></summary>
+          <div class="qa__body">
+            <p>Parta dos <strong>números atuais</strong> (leads/dia, taxa de conversão, quantos contratos a equipe já aguenta) e cresça de forma gradativa (ex: 20 → 30 → 40 contratos), contabilizando ferramentas e caixa. Meta tirada "do teto" sem métrica base não se sustenta.</p>
+            <span class="qa__src">Fonte: Jönck Reunião 5</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Escalar assusta o cliente: como lidar?</span></summary>
+          <div class="qa__body">
+            <p>Explique que o corpo entra em <strong>modo de segurança</strong> diante do abismo da escala, e isso vira procrastinação. Dinheiro raramente é o gargalo (dá para captar); o gargalo real é <strong>estrutura e mentalidade</strong>. Um sistema pronto resolve boa parte da estrutura; falta o cliente querer escalar.</p>
+            <span class="qa__src">Fonte: Jönck Reunião 5</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">O que é a mentalidade de "firewall"?</span></summary>
+          <div class="qa__body">
+            <p>É acordar e perguntar <strong>"o que pode quebrar minha empresa hoje?"</strong> e construir "paredes de fogo" para que isso não aconteça. Ex: se você depende de um único canal de captação, o firewall é criar um segundo canal antes que o primeiro falhe.</p>
+            <span class="qa__src">Fonte: Jönck Reunião 5</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Vale a pena reter colaborador a qualquer custo?</span></summary>
+          <div class="qa__body">
+            <p>Não. <strong>Todo mundo tem um ciclo</strong>: a maioria aceita uma proposta melhor e vai embora, e "eu te formei" não segura ninguém. É sobre lucratividade, não sobre dívida moral. Cultura forte e liderança bem formada seguram a operação melhor do que qualquer indivíduo.</p>
+            <span class="qa__src">Fonte: Jönck Reunião 5</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Saúde do dono conta como estratégia de negócio?</span></summary>
+          <div class="qa__body">
+            <p>Sim. Os empresários mais fortes que o Gabriel conhece têm <strong>rotina rígida de saúde</strong> (físico e mental) antes de começar a trabalhar. Provocação que ele faz ao cliente: você sabe os KPIs da empresa de cor, mas sabe seu colesterol e sua glicemia? Controlar a saúde como se controla métrica.</p>
+            <span class="qa__src">Fonte: Jönck Reunião 5</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Distanciar-se da operação enfraquece a cultura?</span></summary>
+          <div class="qa__body">
+            <p>Não necessariamente. O exemplo do Gabriel é o de uma executiva que levou um grupo de R$30 mi/ano a bilhões e fez o maior exit do setor <strong>continuando a visitar 20 lojas por semana</strong>, mesmo depois de vender. Ter cabeça de dono e visão de futuro não é o mesmo que se distanciar da operação.</p>
+            <span class="qa__src">Fonte: Jönck Reunião 5</span>
+          </div>
+        </details>
+
+      </div>
+    </section>
+
+    <footer class="foot">
+      <p>Documento de referência interna · Empresa Independente. Conteúdo extraído de 8 calls de consultoria reais (LOOL Marketing, Lucas Fazendeiro, Roberto, Jönck e P&S Digital). Fontes indicadas em cada resposta para rastreabilidade.</p>
+      <a class="totop" href="#">↑ Voltar ao topo</a>
+    </footer>
+
+  </main>
+</div>
+
+<script>
+  // Preenche o seletor mobile a partir do índice
+  (function () {
+    var nav = document.querySelectorAll('#nav a');
+    var sel = document.getElementById('mobileNav');
+    nav.forEach(function (a) {
+      var o = document.createElement('option');
+      o.value = a.getAttribute('href');
+      o.textContent = a.textContent;
+      sel.appendChild(o);
+    });
+    sel.addEventListener('change', function () {
+      if (this.value) {
+        document.querySelector(this.value).scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+
+    // Destaque da seção ativa no menu lateral
+    var sections = document.querySelectorAll('.section');
+    var map = {};
+    nav.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          nav.forEach(function (a) { a.classList.remove('is-active'); });
+          if (map[e.target.id]) map[e.target.id].classList.add('is-active');
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+    sections.forEach(function (s) { obs.observe(s); });
+
+    // ---------- BUSCA / FILTRO ----------
+    var input = document.getElementById('searchInput');
+    var empty = document.getElementById('searchEmpty');
+    var items = document.querySelectorAll('details.qa');
+    // Pré-computa o texto de cada item uma vez (pergunta + resposta, lowercase)
+    items.forEach(function (qa) {
+      qa.dataset.search = (qa.textContent || '').toLowerCase().replace(/\s+/g, ' ').trim();
+    });
+
+    input.addEventListener('input', function () {
+      var q = this.value.toLowerCase().trim();
+      var anyGlobal = false;
+
+      if (!q) {
+        // Campo vazio: restaura tudo (visível e fechado)
+        items.forEach(function (qa) { qa.style.display = ''; qa.open = false; });
+        sections.forEach(function (s) { s.style.display = ''; });
+        empty.classList.remove('is-visible');
+        return;
+      }
+
+      sections.forEach(function (s) {
+        var anyInSection = false;
+        s.querySelectorAll('details.qa').forEach(function (qa) {
+          var match = qa.dataset.search.indexOf(q) !== -1;
+          qa.style.display = match ? '' : 'none';
+          qa.open = match;            // abre os que deram match
+          if (match) { anyInSection = true; anyGlobal = true; }
+        });
+        s.style.display = anyInSection ? '' : 'none';
+      });
+
+      empty.classList.toggle('is-visible', !anyGlobal);
+    });
+  })();
+</script>
+
+</body>
+</html>

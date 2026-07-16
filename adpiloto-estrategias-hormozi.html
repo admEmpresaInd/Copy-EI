@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AdPiloto — 5 Estratégias Hormozi de Vendas</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --background: #1a1a1a;
+    --foreground: #fafafa;
+    --primary: #34d399;
+    --primary-fg: #0a2e24;
+    --muted: #333333;
+    --muted-fg: #a3a3a3;
+    --card: #262626;
+    --border: rgba(255,255,255,0.1);
+    --destructive: #ef4444;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: 'Inter', system-ui, sans-serif;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--background); }
+  ::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 3px; }
+
+  /* Typography */
+  h1 { font-size: clamp(2.2rem, 6vw, 4.5rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; }
+  h2 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 700; line-height: 1.15; letter-spacing: -0.02em; }
+  h3 { font-size: 1.25rem; font-weight: 600; line-height: 1.3; }
+  h4 { font-size: 1rem; font-weight: 600; }
+  p { color: var(--muted-fg); }
+
+  /* Gradient text */
+  .gradient-text {
+    background: linear-gradient(135deg, var(--primary) 0%, #6ee7b7 50%, var(--primary) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 6s ease infinite;
+  }
+  @keyframes gradientShift {
+    0%,100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  /* Glows */
+  .glow { box-shadow: 0 0 24px rgba(52,211,153,0.18), 0 0 64px rgba(52,211,153,0.07); }
+  .glow-strong { box-shadow: 0 0 36px rgba(52,211,153,0.28), 0 0 90px rgba(52,211,153,0.12); }
+  .hero-glow {
+    position: absolute;
+    width: 700px; height: 700px;
+    background: rgba(52,211,153,0.07);
+    border-radius: 50%;
+    filter: blur(90px);
+    top: -180px; left: 50%; transform: translateX(-50%);
+    pointer-events: none;
+  }
+
+  /* Containers */
+  .container { max-width: 1152px; margin: 0 auto; padding: 0 1.5rem; }
+  .container-md { max-width: 896px; margin: 0 auto; padding: 0 1.5rem; }
+  .container-lg { max-width: 1024px; margin: 0 auto; padding: 0 1.5rem; }
+  .section { padding: 5rem 0; }
+  .section-alt { padding: 5rem 0; background: linear-gradient(to bottom, var(--background), rgba(52,211,153,0.02), var(--background)); }
+
+  /* Cards */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .card:hover { border-color: rgba(52,211,153,0.2); }
+  .card-premium {
+    background: var(--card);
+    border: 1px solid var(--primary);
+    border-radius: 16px;
+    padding: 2rem;
+  }
+
+  /* Badges */
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(52,211,153,0.08);
+    border: 1px solid rgba(52,211,153,0.2);
+    color: var(--primary);
+    border-radius: 999px;
+    padding: 0.35rem 1rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+  .badge-red { background: rgba(239,68,68,0.08); border-color: rgba(239,68,68,0.2); color: #ef4444; }
+  .badge-amber { background: rgba(245,158,11,0.08); border-color: rgba(245,158,11,0.2); color: #f59e0b; }
+  .badge-violet { background: rgba(139,92,246,0.08); border-color: rgba(139,92,246,0.2); color: #8b5cf6; }
+  .badge-blue { background: rgba(59,130,246,0.08); border-color: rgba(59,130,246,0.2); color: #3b82f6; }
+  .badge-orange { background: rgba(249,115,22,0.08); border-color: rgba(249,115,22,0.2); color: #f97316; }
+
+  /* Buttons */
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--primary); color: var(--primary-fg);
+    font-weight: 700; font-size: 1rem;
+    padding: 0.875rem 2rem; border-radius: 10px;
+    border: none; cursor: pointer;
+    transition: opacity 0.2s, transform 0.1s;
+    text-decoration: none;
+  }
+  .btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent; color: var(--foreground);
+    font-weight: 600; font-size: 1rem;
+    padding: 0.875rem 2rem; border-radius: 10px;
+    border: 1px solid var(--border); cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+    text-decoration: none;
+  }
+  .btn-outline:hover { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.2); }
+
+  /* Strategy number */
+  .strat-num {
+    width: 52px; height: 52px; border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 1.3rem; flex-shrink: 0;
+  }
+
+  /* Step list */
+  .step-item {
+    display: flex; gap: 1rem; align-items: flex-start;
+    padding: 1rem 0; border-bottom: 1px solid var(--border);
+  }
+  .step-item:last-child { border-bottom: none; }
+  .step-dot {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: rgba(52,211,153,0.12); border: 1px solid rgba(52,211,153,0.3);
+    color: var(--primary); font-weight: 700; font-size: 0.8rem;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* Grid */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+  @media (max-width: 900px) {
+    .grid-3 { grid-template-columns: 1fr 1fr; }
+    .grid-4 { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 640px) {
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  }
+
+  /* Value Equation Box */
+  .value-eq {
+    background: rgba(52,211,153,0.04);
+    border: 1px solid rgba(52,211,153,0.15);
+    border-radius: 12px; padding: 1.25rem 1.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+  }
+  .value-eq-label { color: var(--primary); font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .value-eq-formula { color: var(--foreground); font-size: 0.9rem; line-height: 2; }
+  .value-up { color: #34d399; }
+  .value-down { color: #ef4444; }
+
+  /* Table */
+  .data-table { width: 100%; border-collapse: collapse; }
+  .data-table th {
+    background: rgba(52,211,153,0.06);
+    color: var(--primary); font-size: 0.75rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    padding: 0.75rem 1rem; text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .data-table td {
+    padding: 0.85rem 1rem; font-size: 0.9rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    color: var(--muted-fg);
+  }
+  .data-table td:first-child { color: var(--foreground); font-weight: 500; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+  /* Comparison */
+  .comp-row {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--border);
+  }
+  .comp-row:last-child { border-bottom: none; }
+  .comp-bad { display: flex; gap: 8px; align-items: flex-start; color: var(--muted-fg); }
+  .comp-good { display: flex; gap: 8px; align-items: flex-start; color: var(--foreground); }
+  .icon-x { color: #ef4444; font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+  .icon-check { color: var(--primary); font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+
+  /* Roadmap */
+  .roadmap-phase {
+    position: relative; padding-left: 2.5rem;
+    border-left: 2px solid rgba(52,211,153,0.2);
+    margin-bottom: 2.5rem;
+  }
+  .roadmap-phase::before {
+    content: '';
+    position: absolute; left: -8px; top: 4px;
+    width: 14px; height: 14px;
+    background: var(--primary); border-radius: 50%;
+    box-shadow: 0 0 10px rgba(52,211,153,0.5);
+  }
+  .roadmap-phase-label {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--primary); margin-bottom: 0.25rem;
+  }
+  .roadmap-phase-title { font-size: 1.1rem; font-weight: 700; color: var(--foreground); margin-bottom: 0.75rem; }
+
+  /* Metric pill */
+  .metric-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(52,211,153,0.06); border: 1px solid rgba(52,211,153,0.15);
+    border-radius: 8px; padding: 0.4rem 0.85rem;
+    font-size: 0.8rem; color: var(--muted-fg);
+  }
+  .metric-pill strong { color: var(--foreground); }
+
+  /* Strategy color themes */
+  .s1 { --sc: #34d399; --sbg: rgba(52,211,153,0.08); }
+  .s2 { --sc: #8b5cf6; --sbg: rgba(139,92,246,0.08); }
+  .s3 { --sc: #3b82f6; --sbg: rgba(59,130,246,0.08); }
+  .s4 { --sc: #f59e0b; --sbg: rgba(245,158,11,0.08); }
+  .s5 { --sc: #f97316; --sbg: rgba(249,115,22,0.08); }
+
+  /* Animations */
+  @keyframes fadeUp { from { opacity:0; transform: translateY(24px); } to { opacity:1; transform: translateY(0); } }
+  .fade-up { animation: fadeUp 0.7s ease-out both; }
+  .d1 { animation-delay: 0.1s; }
+  .d2 { animation-delay: 0.2s; }
+  .d3 { animation-delay: 0.3s; }
+  .d4 { animation-delay: 0.4s; }
+  .d5 { animation-delay: 0.5s; }
+
+  /* Stat */
+  .stat-num { font-size: 2.2rem; font-weight: 800; color: var(--primary); line-height: 1; }
+  .stat-label { font-size: 0.8rem; color: var(--muted-fg); margin-top: 4px; }
+
+  /* Copy block */
+  .copy-block {
+    background: rgba(52,211,153,0.03);
+    border-left: 3px solid var(--primary);
+    border-radius: 0 8px 8px 0;
+    padding: 1rem 1.25rem;
+    font-style: italic; color: var(--muted-fg); font-size: 0.9rem;
+  }
+  .copy-block strong { color: var(--foreground); font-style: normal; }
+
+  /* Header */
+  header {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(26,26,26,0.85); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0.875rem 1.5rem;
+  }
+  .header-inner { max-width: 1152px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-icon {
+    width: 32px; height: 32px; background: var(--primary);
+    border-radius: 8px; display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 0.85rem; color: var(--primary-fg);
+  }
+  .logo-text { font-weight: 700; font-size: 1rem; color: var(--foreground); }
+  .nav-pill {
+    display: inline-block;
+    background: rgba(52,211,153,0.08); border: 1px solid rgba(52,211,153,0.15);
+    color: var(--primary); padding: 0.35rem 1rem; border-radius: 999px;
+    font-size: 0.8rem; font-weight: 500;
+  }
+
+  /* Section heading */
+  .section-heading { text-align: center; margin-bottom: 3.5rem; }
+  .section-heading .badge { margin-bottom: 1.25rem; }
+  .section-heading h2 { margin-bottom: 1rem; }
+  .section-heading p { max-width: 640px; margin: 0 auto; font-size: 1.1rem; }
+
+  /* Divider */
+  .divider { height: 1px; background: var(--border); margin: 0; }
+
+  /* Porter box */
+  .porter-box {
+    border: 1px solid var(--border); border-radius: 10px; padding: 1rem;
+    text-align: center; background: var(--card);
+  }
+  .porter-center {
+    border: 1px solid rgba(52,211,153,0.3); border-radius: 10px; padding: 1.25rem;
+    text-align: center; background: rgba(52,211,153,0.06);
+  }
+  .porter-rating { font-size: 0.7rem; font-weight: 700; border-radius: 999px; padding: 2px 10px; display: inline-block; margin-top: 4px; }
+  .rating-high { background: rgba(239,68,68,0.12); color: #ef4444; }
+  .rating-med { background: rgba(245,158,11,0.12); color: #f59e0b; }
+  .rating-low { background: rgba(52,211,153,0.12); color: #34d399; }
+
+  /* Hormozi score */
+  .score-bar-wrap { margin: 6px 0; }
+  .score-bar-label { display: flex; justify-content: space-between; font-size: 0.78rem; margin-bottom: 4px; }
+  .score-bar-label span:first-child { color: var(--muted-fg); }
+  .score-bar-label span:last-child { color: var(--foreground); font-weight: 600; }
+  .score-bar-track { height: 6px; background: var(--muted); border-radius: 3px; overflow: hidden; }
+  .score-bar-fill { height: 100%; border-radius: 3px; background: var(--primary); }
+
+  /* Niche card */
+  .niche-card {
+    border: 1px solid var(--border); border-radius: 10px;
+    padding: 1rem; display: flex; align-items: center; gap: 12px;
+    background: var(--card); transition: border-color 0.2s;
+  }
+  .niche-card:hover { border-color: rgba(52,211,153,0.25); }
+  .niche-icon { font-size: 1.75rem; }
+  .niche-name { font-size: 0.9rem; font-weight: 600; color: var(--foreground); }
+  .niche-pain { font-size: 0.78rem; color: var(--muted-fg); margin-top: 2px; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">EI</div>
+      <span class="logo-text">Empresa Independente</span>
+    </a>
+    <span class="nav-pill">📋 Estratégias AdPiloto — Hormozi</span>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="section" style="position:relative; overflow:hidden; text-align:center; padding-top: 5rem;">
+  <div class="hero-glow"></div>
+  <div class="container-md" style="position:relative; z-index:1;">
+    <div class="badge fade-up">🤖 Análise Estratégica · Alex Hormozi × AdPiloto</div>
+    <h1 class="fade-up d1" style="margin-top:1.25rem; margin-bottom:1.25rem;">
+      5 Estratégias para<br>Vender o <span class="gradient-text">AdPiloto</span>
+    </h1>
+    <p class="fade-up d2" style="font-size:1.15rem; max-width:600px; margin:0 auto 2rem; color: var(--muted-fg);">
+      Pesquisa de mercado + frameworks $100M Offers aplicados ao software de tráfego pago com IA para PMEs brasileiras. Com passo a passo de implementação.
+    </p>
+    <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;" class="fade-up d3">
+      <a href="#estrategias" class="btn-primary">Ver as 5 Estratégias →</a>
+      <a href="#mercado" class="btn-outline">Pesquisa de Mercado</a>
+    </div>
+    <div style="margin-top:2rem; display:flex; gap:2rem; justify-content:center; flex-wrap:wrap;" class="fade-up d4">
+      <span style="font-size:0.82rem; color:var(--muted-fg);">✓ Framework $100M Offers</span>
+      <span style="font-size:0.82rem; color:var(--muted-fg);">✓ Value Equation aplicada</span>
+      <span style="font-size:0.82rem; color:var(--muted-fg);">✓ ROI por estratégia</span>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR (Market Snapshot) -->
+<section id="mercado" style="padding: 3rem 0; background: var(--card); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="grid-4">
+      <div style="text-align:center; padding:1rem;">
+        <div class="stat-num">R$15B</div>
+        <div class="stat-label">Mercado de tráfego pago PMEs/ano no Brasil</div>
+      </div>
+      <div style="text-align:center; padding:1rem; border-left:1px solid var(--border);">
+        <div class="stat-num">21M+</div>
+        <div class="stat-label">MEIs e pequenas empresas ativas no Brasil</div>
+      </div>
+      <div style="text-align:center; padding:1rem; border-left:1px solid var(--border);">
+        <div class="stat-num">R$2.000</div>
+        <div class="stat-label">Custo médio mensal de um gestor de tráfego</div>
+      </div>
+      <div style="text-align:center; padding:1rem; border-left:1px solid var(--border);">
+        <div class="stat-num">3%</div>
+        <div class="stat-label">PMEs usando ferramentas automatizadas de ads</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PESQUISA DE MERCADO COMPLETA -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-heading">
+      <div class="badge">📊 Pesquisa de Mercado</div>
+      <h2>O Mercado de Tráfego Pago<br>para PMEs no Brasil</h2>
+      <p>Análise TAM/SAM/SOM, forças competitivas, dores do público e janela de oportunidade para o AdPiloto.</p>
+    </div>
+
+    <!-- TAM SAM SOM -->
+    <div class="grid-3" style="margin-bottom:3rem;">
+      <div class="card" style="text-align:center; border-color: rgba(52,211,153,0.15);">
+        <div style="font-size:0.7rem; color:var(--muted-fg); font-weight:700; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:0.75rem;">TAM · Mercado Total</div>
+        <div style="font-size:3rem; font-weight:900; color:var(--primary); line-height:1;">R$180B</div>
+        <div style="font-size:0.8rem; color:var(--muted-fg); margin-top:0.5rem;">Marketing digital no Brasil (2024)</div>
+        <div style="margin-top:1rem; font-size:0.82rem; color:var(--muted-fg);">Engloba todas as formas de publicidade digital, incluindo Google, Meta, programática e influenciadores.</div>
+      </div>
+      <div class="card glow" style="text-align:center; border-color: var(--primary);">
+        <div style="font-size:0.7rem; color:var(--primary); font-weight:700; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:0.75rem;">SAM · Mercado Endereçável</div>
+        <div style="font-size:3rem; font-weight:900; color:var(--primary); line-height:1;">R$15B</div>
+        <div style="font-size:0.8rem; color:var(--muted-fg); margin-top:0.5rem;">PMEs investindo em Meta Ads ativamente</div>
+        <div style="margin-top:1rem; font-size:0.82rem; color:var(--muted-fg);">~3M de pequenas empresas usando tráfego pago no Meta com gestores ou agências, gastando R$300–R$5.000/mês em gestão.</div>
+      </div>
+      <div class="card" style="text-align:center; border-color: rgba(52,211,153,0.15);">
+        <div style="font-size:0.7rem; color:var(--muted-fg); font-weight:700; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:0.75rem;">SOM · Mercado Obtível (3 anos)</div>
+        <div style="font-size:3rem; font-weight:900; color:var(--primary); line-height:1;">R$360M</div>
+        <div style="font-size:0.8rem; color:var(--muted-fg); margin-top:0.5rem;">~100k clientes a R$297/mês</div>
+        <div style="margin-top:1rem; font-size:0.82rem; color:var(--muted-fg);">Penetração realista de 3,3% do SAM em 3 anos, capturando clientes insatisfeitos com gestores humanos.</div>
+      </div>
+    </div>
+
+    <!-- Dores do Público -->
+    <h3 style="color:var(--foreground); margin-bottom:1.5rem; text-align:center;">As 6 Maiores Dores do Público-Alvo</h3>
+    <div class="grid-2" style="margin-bottom:3rem;">
+      <div class="card">
+        <div style="display:flex; align-items:flex-start; gap:1rem;">
+          <span style="font-size:1.5rem;">💸</span>
+          <div>
+            <h4 style="color:var(--foreground); margin-bottom:4px;">Custo Proibitivo de Gestores</h4>
+            <p style="font-size:0.85rem;">R$1.500–R$5.000/mês por gestores freelancers ou agências. Para um salão com faturamento de R$20k, isso representa 10–25% da receita bruta — inviável.</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div style="display:flex; align-items:flex-start; gap:1rem;">
+          <span style="font-size:1.5rem;">🕳️</span>
+          <div>
+            <h4 style="color:var(--foreground); margin-bottom:4px;">A "Caixa-Preta" das Agências</h4>
+            <p style="font-size:0.85rem;">O dono não sabe o que está sendo feito com o verba. Recebe relatórios confusos, não tem acesso à conta, e descobre o problema quando as vendas caem.</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div style="display:flex; align-items:flex-start; gap:1rem;">
+          <span style="font-size:1.5rem;">📵</span>
+          <div>
+            <h4 style="color:var(--foreground); margin-bottom:4px;">Dependência de Pessoa Física</h4>
+            <p style="font-size:0.85rem;">Gestor some nos finais de semana. Tira férias. Fica doente. Ou simplesmente some. Quando parte, leva o conhecimento das campanhas — e às vezes a conta.</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div style="display:flex; align-items:flex-start; gap:1rem;">
+          <span style="font-size:1.5rem;">⏳</span>
+          <div>
+            <h4 style="color:var(--foreground); margin-bottom:4px;">Demora na Implementação</h4>
+            <p style="font-size:0.85rem;">Agências levam 7–15 dias para subir a primeira campanha. Reuniões de onboarding, briefings, revisões. O cliente perde semanas de resultado esperando.</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div style="display:flex; align-items:flex-start; gap:1rem;">
+          <span style="font-size:1.5rem;">📊</span>
+          <div>
+            <h4 style="color:var(--foreground); margin-bottom:4px;">Falta de ROI Visível</h4>
+            <p style="font-size:0.85rem;">Dono não consegue ligar investimento em anúncio com resultado em vendas. Não sabe se o que está sendo feito funciona — só sente o dinheiro saindo.</p>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div style="display:flex; align-items:flex-start; gap:1rem;">
+          <span style="font-size:1.5rem;">🔒</span>
+          <div>
+            <h4 style="color:var(--foreground); margin-bottom:4px;">Conta Não É do Cliente</h4>
+            <p style="font-size:0.85rem;">Muitas agências operam a conta no BM delas, não do cliente. Quando o relacionamento acaba, o histórico das campanhas vai junto — recomeçar do zero.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Porter's Five Forces -->
+    <h3 style="color:var(--foreground); margin-bottom:1.5rem; text-align:center;">5 Forças de Porter — Mercado de Gestão de Tráfego</h3>
+    <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: auto auto auto; gap: 1rem; margin-bottom:3rem; max-width:700px; margin-left:auto; margin-right:auto;">
+      <!-- Top -->
+      <div></div>
+      <div class="porter-box">
+        <div style="font-size:0.82rem; font-weight:600; color:var(--foreground);">Novos Entrantes</div>
+        <p style="font-size:0.75rem; margin-top:4px;">IA democratizando criação de ads — barreira caindo</p>
+        <span class="porter-rating rating-high">ALTO</span>
+      </div>
+      <div></div>
+      <!-- Middle -->
+      <div class="porter-box">
+        <div style="font-size:0.82rem; font-weight:600; color:var(--foreground);">Poder dos Fornecedores</div>
+        <p style="font-size:0.75rem; margin-top:4px;">Meta é fornecedor único do inventário de ads</p>
+        <span class="porter-rating rating-med">MÉDIO</span>
+      </div>
+      <div class="porter-center">
+        <div style="font-size:0.82rem; font-weight:700; color:var(--primary);">Rivalidade</div>
+        <p style="font-size:0.75rem; margin-top:4px;">Fragmentada: gestores freelancers + agências + ferramentas</p>
+        <span class="porter-rating rating-high" style="background:rgba(139,92,246,0.12); color:#8b5cf6;">FRAGMENTADA</span>
+      </div>
+      <div class="porter-box">
+        <div style="font-size:0.82rem; font-weight:600; color:var(--foreground);">Poder dos Compradores</div>
+        <p style="font-size:0.75rem; margin-top:4px;">PMEs têm baixo poder individual, alto custo de troca</p>
+        <span class="porter-rating rating-low">BAIXO</span>
+      </div>
+      <!-- Bottom -->
+      <div></div>
+      <div class="porter-box">
+        <div style="font-size:0.82rem; font-weight:600; color:var(--foreground);">Substitutos</div>
+        <p style="font-size:0.75rem; margin-top:4px;">Orgânico, influenciadores, WhatsApp manual</p>
+        <span class="porter-rating rating-med">MÉDIO</span>
+      </div>
+      <div></div>
+    </div>
+
+    <!-- Competidores -->
+    <h3 style="color:var(--foreground); margin-bottom:1.5rem; text-align:center;">Mapa Competitivo</h3>
+    <div class="card" style="overflow-x:auto;">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Competidor</th>
+            <th>Preço/Mês</th>
+            <th>Automação IA</th>
+            <th>Foco PME</th>
+            <th>Suporte PT-BR</th>
+            <th>Conta do Cliente</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="color:var(--primary); font-weight:700;">AdPiloto ⭐</td>
+            <td>R$ 297</td>
+            <td style="color:#34d399;">✓ Completo</td>
+            <td style="color:#34d399;">✓ Sim</td>
+            <td style="color:#34d399;">✓ WhatsApp</td>
+            <td style="color:#34d399;">✓ Sempre</td>
+          </tr>
+          <tr>
+            <td>Gestor Freelancer</td>
+            <td>R$ 1.500–3.000</td>
+            <td style="color:#ef4444;">✗ Manual</td>
+            <td style="color:#34d399;">✓ Sim</td>
+            <td style="color:#34d399;">✓ Sim</td>
+            <td style="color:#f59e0b;">~ Às vezes</td>
+          </tr>
+          <tr>
+            <td>Agência Digital</td>
+            <td>R$ 2.000–8.000</td>
+            <td style="color:#f59e0b;">~ Parcial</td>
+            <td style="color:#ef4444;">✗ Foco enterprise</td>
+            <td style="color:#34d399;">✓ Sim</td>
+            <td style="color:#ef4444;">✗ BM da agência</td>
+          </tr>
+          <tr>
+            <td>AdEspresso</td>
+            <td>USD 49–199</td>
+            <td style="color:#f59e0b;">~ Parcial</td>
+            <td style="color:#f59e0b;">~ Parcial</td>
+            <td style="color:#ef4444;">✗ Só inglês</td>
+            <td style="color:#34d399;">✓ Sim</td>
+          </tr>
+          <tr>
+            <td>AdCreative.ai</td>
+            <td>USD 21–149</td>
+            <td style="color:#f59e0b;">~ Só criativo</td>
+            <td style="color:#f59e0b;">~ Parcial</td>
+            <td style="color:#ef4444;">✗ Limitado</td>
+            <td style="color:#34d399;">✓ Sim</td>
+          </tr>
+          <tr>
+            <td>Albert.ai</td>
+            <td>USD 1.000+</td>
+            <td style="color:#34d399;">✓ Avançado</td>
+            <td style="color:#ef4444;">✗ Enterprise</td>
+            <td style="color:#ef4444;">✗ Não</td>
+            <td style="color:#34d399;">✓ Sim</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Janela de Oportunidade -->
+    <div class="card-premium glow" style="margin-top:2rem; text-align:center;">
+      <div class="badge" style="margin-bottom:1rem;">🚀 Janela de Oportunidade</div>
+      <h3 style="color:var(--foreground); font-size:1.5rem; margin-bottom:1rem;">O AdPiloto tem a combinação única que o mercado ainda não tem</h3>
+      <div class="grid-4" style="margin-top:1.5rem;">
+        <div><div class="stat-num" style="font-size:1.6rem;">R$297</div><div class="stat-label">vs R$2.000+ dos concorrentes humanos</div></div>
+        <div style="border-left:1px solid var(--border);"><div class="stat-num" style="font-size:1.6rem;">7 dias</div><div class="stat-label">vs 15+ dias das agências tradicionais</div></div>
+        <div style="border-left:1px solid var(--border);"><div class="stat-num" style="font-size:1.6rem;">24/7</div><div class="stat-label">vs horário comercial dos gestores humanos</div></div>
+        <div style="border-left:1px solid var(--border);"><div class="stat-num" style="font-size:1.6rem;">0%</div><div class="stat-label">Comissão sobre verba · Conta sempre sua</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 5 ESTRATÉGIAS -->
+<section id="estrategias" class="section">
+  <div class="container">
+    <div class="section-heading">
+      <div class="badge">⚡ $100M Offers</div>
+      <h2>5 Estratégias Hormozi<br>para Vender o AdPiloto</h2>
+      <p>Cada estratégia aplica um framework distinto de Alex Hormozi com a equação de valor, copy, e passo a passo de implementação.</p>
+    </div>
+
+    <!-- ==================== ESTRATÉGIA 1 ==================== -->
+    <div class="card s1" style="border: 1px solid rgba(52,211,153,0.3); margin-bottom:2rem; padding:0; overflow:hidden;">
+      <div style="background: rgba(52,211,153,0.06); padding:2rem; border-bottom:1px solid rgba(52,211,153,0.15);">
+        <div style="display:flex; align-items:flex-start; gap:1.25rem; flex-wrap:wrap;">
+          <div class="strat-num" style="background:rgba(52,211,153,0.12); color:#34d399; border:1px solid rgba(52,211,153,0.3);">01</div>
+          <div style="flex:1; min-width:260px;">
+            <div class="badge" style="margin-bottom:0.75rem;">Grand Slam Offer</div>
+            <h3 style="color:var(--foreground); font-size:1.6rem; margin-bottom:0.5rem;">"O Gestor Que Nunca Dorme"</h3>
+            <p style="color:var(--muted-fg);">Stack de valor que torna o preço de R$297 absurdamente óbvio quando comparado ao real custo do problema. A oferta precisa parecer injusta — a favor do comprador.</p>
+          </div>
+        </div>
+      </div>
+      <div style="padding:2rem;">
+        <!-- Value Equation -->
+        <div class="value-eq" style="margin-bottom:1.5rem;">
+          <div class="value-eq-label">Value Equation — $100M Offers</div>
+          <div class="value-eq-formula">
+            Valor = (<span class="value-up">Dream Outcome</span> × <span class="value-up">Perceived Likelihood</span>) ÷ (<span class="value-down">Time Delay</span> × <span class="value-down">Effort & Sacrifice</span>)
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:1rem; font-size:0.82rem;">
+            <div><span class="value-up">↑ Dream Outcome:</span> Triplicar faturamento sem contratar ninguém (caso Ana: 3k→15k)</div>
+            <div><span class="value-up">↑ Perceived Likelihood:</span> IA + Meta parceiro oficial + depoimentos reais + 7 dias garantidos</div>
+            <div><span class="value-down">↓ Time Delay:</span> Campanha no ar em 7 dias (vs 15+ das agências)</div>
+            <div><span class="value-down">↓ Effort & Sacrifice:</span> Você só aprova — a IA escreve, publica e otimiza sozinha</div>
+          </div>
+        </div>
+
+        <!-- Value Stack -->
+        <h4 style="color:var(--foreground); margin-bottom:1rem;">Value Stack — O que R$297 Inclui</h4>
+        <div style="margin-bottom:1.5rem;">
+          <table class="data-table">
+            <thead><tr><th>Componente</th><th>Valor Real de Mercado</th><th>Incluído no AdPiloto</th></tr></thead>
+            <tbody>
+              <tr><td>Gestor de tráfego humano (30h/mês)</td><td style="color:#f59e0b;">R$ 2.000–3.000/mês</td><td style="color:var(--primary);">✓ IA 24/7</td></tr>
+              <tr><td>Copywriter de anúncios</td><td style="color:#f59e0b;">R$ 500–1.500/mês</td><td style="color:var(--primary);">✓ IA gera copy automático</td></tr>
+              <tr><td>Analista de dados / relatórios</td><td style="color:#f59e0b;">R$ 800–2.000/mês</td><td style="color:var(--primary);">✓ Painel em tempo real</td></tr>
+              <tr><td>Consultoria de estratégia de campanha</td><td style="color:#f59e0b;">R$ 300–800/mês</td><td style="color:var(--primary);">✓ 3 estruturas validadas</td></tr>
+              <tr><td>Suporte técnico Meta Ads</td><td style="color:#f59e0b;">R$ 200–500/mês</td><td style="color:var(--primary);">✓ WhatsApp + e-mail</td></tr>
+              <tr><td><strong>TOTAL DO STACK</strong></td><td style="color:#ef4444; font-weight:700;">R$ 3.800–7.800/mês</td><td style="color:var(--primary); font-weight:700;">R$ 297/mês</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Headline + Copy -->
+        <h4 style="color:var(--foreground); margin-bottom:0.75rem;">Copy Principal</h4>
+        <div class="copy-block" style="margin-bottom:1.5rem;">
+          <strong>Headline:</strong> "Você paga R$2.000/mês pra um gestor que some no feriado. Ou paga R$297/mês pra uma IA que nunca dorme, nunca falta e nunca cobra comissão sobre sua verba."<br><br>
+          <strong>Sub:</strong> "A IA do AdPiloto escreve seus anúncios, sobe as campanhas e entrega o relatório — você só aprova. Conta sempre no seu nome. Cancela quando quiser."
+        </div>
+
+        <!-- Garantias -->
+        <h4 style="color:var(--foreground); margin-bottom:0.75rem;">Estrutura de Garantias</h4>
+        <div class="grid-3" style="margin-bottom:1.5rem;">
+          <div class="card" style="padding:1rem;">
+            <div style="font-size:1.2rem; margin-bottom:0.5rem;">🛡️</div>
+            <div style="font-size:0.85rem; font-weight:600; color:var(--foreground); margin-bottom:4px;">Sem Fidelidade</div>
+            <div style="font-size:0.78rem; color:var(--muted-fg);">Cancela quando quiser, sem multa, sem burocracia.</div>
+          </div>
+          <div class="card" style="padding:1rem;">
+            <div style="font-size:1.2rem; margin-bottom:0.5rem;">🔑</div>
+            <div style="font-size:0.85rem; font-weight:600; color:var(--foreground); margin-bottom:4px;">Conta Sempre Sua</div>
+            <div style="font-size:0.78rem; color:var(--muted-fg);">A conta Meta fica no seu nome, com acesso total, para sempre.</div>
+          </div>
+          <div class="card" style="padding:1rem;">
+            <div style="font-size:1.2rem; margin-bottom:0.5rem;">⚡</div>
+            <div style="font-size:0.85rem; font-weight:600; color:var(--foreground); margin-bottom:4px;">7 Dias ou Menos</div>
+            <div style="font-size:0.78rem; color:var(--muted-fg);">Primeira campanha no ar em até 7 dias úteis após pagamento.</div>
+          </div>
+        </div>
+
+        <!-- Implementation Steps -->
+        <h4 style="color:var(--foreground); margin-bottom:1rem;">Passo a Passo de Implementação</h4>
+        <div>
+          <div class="step-item"><div class="step-dot">1</div><div><strong style="color:var(--foreground);">Crie a Landing Page "Grand Slam"</strong><p style="font-size:0.85rem; margin-top:4px;">Headline com math arbitrage (R$2.000 vs R$297), value stack visual com preços riscados, depoimentos com números concretos (% de aumento de faturamento), CTA único: "Começar por R$297/mês".</p></div></div>
+          <div class="step-item"><div class="step-dot">2</div><div><strong style="color:var(--foreground);">Configure Campanha Meta Ads — Objetivo: Tráfego para Landing</strong><p style="font-size:0.85rem; margin-top:4px;">Audiência: donos de negócio 28–55 anos, interesses em empreendedorismo + marketing digital + anúncios. Budget inicial: R$50/dia. Criativo: vídeo curto (15–30s) comparando "gestor que some" vs "IA 24/7".</p></div></div>
+          <div class="step-item"><div class="step-dot">3</div><div><strong style="color:var(--foreground);">Implemente Sequência de E-mail (5 dias pós-lead)</strong><p style="font-size:0.85rem; margin-top:4px;">D0: Boas-vindas + case de sucesso (Ana: 3k→15k). D1: Math arbitrage detalhado + "O que você está perdendo agora". D2: Objeções respondidas (minha conta fica segura? funciona pro meu nicho?). D3: Depoimento em vídeo. D4: Urgência + desconto de implementação (R$297→R$0 hoje).</p></div></div>
+          <div class="step-item"><div class="step-dot">4</div><div><strong style="color:var(--foreground);">Configure Retargeting em 3 Camadas</strong><p style="font-size:0.85rem; margin-top:4px;">Visitantes da LP (3d): "Você viu mas não comprou — alguém parecido com você triplicou o faturamento". Engajadores vídeo 50%+ (7d): depoimento social proof. Abandono de checkout (1d): urgência + garantia reforçada.</p></div></div>
+          <div class="step-item"><div class="step-dot">5</div><div><strong style="color:var(--foreground);">Métricas de Acompanhamento</strong><p style="font-size:0.85rem; margin-top:4px;">CPL (custo por lead) meta: R$15–35. Taxa de conversão LP meta: 8–15%. CAC meta: R$150–250. LTV esperado (12 meses): R$3.564. LTV/CAC alvo: &gt;10x.</p></div></div>
+        </div>
+
+        <div style="display:flex; flex-wrap:wrap; gap:0.75rem; margin-top:1.5rem;">
+          <div class="metric-pill">🎯 <strong>Canal principal:</strong> Meta Ads + Landing Page</div>
+          <div class="metric-pill">💰 <strong>CAC estimado:</strong> R$150–250</div>
+          <div class="metric-pill">⏱️ <strong>Time to revenue:</strong> 30–45 dias</div>
+          <div class="metric-pill">🔥 <strong>Dificuldade:</strong> Média</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== ESTRATÉGIA 2 ==================== -->
+    <div class="card s2" style="border: 1px solid rgba(139,92,246,0.3); margin-bottom:2rem; padding:0; overflow:hidden;">
+      <div style="background: rgba(139,92,246,0.06); padding:2rem; border-bottom:1px solid rgba(139,92,246,0.15);">
+        <div style="display:flex; align-items:flex-start; gap:1.25rem; flex-wrap:wrap;">
+          <div class="strat-num" style="background:rgba(139,92,246,0.12); color:#8b5cf6; border:1px solid rgba(139,92,246,0.3);">02</div>
+          <div style="flex:1; min-width:260px;">
+            <div class="badge badge-violet" style="margin-bottom:0.75rem;">Niche Attack · Avatar Específico</div>
+            <h3 style="color:var(--foreground); font-size:1.6rem; margin-bottom:0.5rem;">"O Anúncio Perfeito para [Seu Segmento]"</h3>
+            <p style="color:var(--muted-fg);">Hormozi ensina: niche down até doer. Em vez de falar com "pequenas empresas", fale com "donos de salão de beleza em [cidade]". A especificidade vende.</p>
+          </div>
+        </div>
+      </div>
+      <div style="padding:2rem;">
+        <div class="value-eq" style="margin-bottom:1.5rem; border-color:rgba(139,92,246,0.2); background:rgba(139,92,246,0.04);">
+          <div class="value-eq-label" style="color:#8b5cf6;">Princípio Hormozi Aplicado</div>
+          <div class="value-eq-formula" style="font-size:0.85rem; font-family:'Inter', sans-serif;">
+            "The riches are in the niches." — Quanto mais específico o avatar, maior a conversão e menor o CPL.<br>
+            Um anúncio genérico converte 1%. Um anúncio para "dono de salão em SP" converte 4–8%.
+          </div>
+        </div>
+
+        <h4 style="color:var(--foreground); margin-bottom:1rem;">6 Nichos Prioritários com Dor Específica</h4>
+        <div class="grid-3" style="margin-bottom:1.5rem;">
+          <div class="niche-card">
+            <div class="niche-icon">💇</div>
+            <div>
+              <div class="niche-name">Salões de Beleza</div>
+              <div class="niche-pain">Lotam na quinta/sexta, vazios na segunda/terça. Precisam de agendamentos nos dias fracos.</div>
+            </div>
+          </div>
+          <div class="niche-card">
+            <div class="niche-icon">🏥</div>
+            <div>
+              <div class="niche-name">Clínicas e Dentistas</div>
+              <div class="niche-pain">Horários cancelados e agenda com buracos. Querem novas consultas sem indicação.</div>
+            </div>
+          </div>
+          <div class="niche-card">
+            <div class="niche-icon">🍕</div>
+            <div>
+              <div class="niche-name">Restaurantes e Delivery</div>
+              <div class="niche-pain">Concorrência de iFood corrói margem. Precisam de pedidos diretos pelo WhatsApp.</div>
+            </div>
+          </div>
+          <div class="niche-card">
+            <div class="niche-icon">👗</div>
+            <div>
+              <div class="niche-name">Lojas de Roupas</div>
+              <div class="niche-pain">Sazonalidade mata o caixa. Precisam anunciar lançamento de coleção com urgência.</div>
+            </div>
+          </div>
+          <div class="niche-card">
+            <div class="niche-icon">🏋️</div>
+            <div>
+              <div class="niche-name">Academias e Studios</div>
+              <div class="niche-pain">Janeiro cheio, julho vazio. Precisam de matrícula constante fora da sazonalidade.</div>
+            </div>
+          </div>
+          <div class="niche-card">
+            <div class="niche-icon">🔧</div>
+            <div>
+              <div class="niche-name">Prestadores de Serviços</div>
+              <div class="niche-pain">Obra parada = zero receita. Precisam de orçamentos novos toda semana pelo WhatsApp.</div>
+            </div>
+          </div>
+        </div>
+
+        <h4 style="color:var(--foreground); margin-bottom:0.75rem;">Template de Copy por Nicho (Exemplo: Salão)</h4>
+        <div class="copy-block" style="margin-bottom:1.5rem; border-left-color:#8b5cf6;">
+          <strong>[Hook do vídeo]:</strong> "Dono de salão: você sabia que está pagando R$2.000+ por mês pra uma pessoa que não trabalha sábado à noite?"<br><br>
+          <strong>[Problema]:</strong> "Sua segunda e terça ficam com horários vazios enquanto quinta e sexta você recusa cliente. Isso é problema de anúncio — não de produto."<br><br>
+          <strong>[Solução]:</strong> "O AdPiloto cria anúncios de salão automaticamente e manda clientes pro seu WhatsApp nos dias que você precisa. IA + Meta Ads + R$297/mês."<br><br>
+          <strong>[CTA]:</strong> "Toca no botão e vê como funciona para salão."
+        </div>
+
+        <h4 style="color:var(--foreground); margin-bottom:1rem;">Passo a Passo de Implementação</h4>
+        <div>
+          <div class="step-item"><div class="step-dot">1</div><div><strong style="color:var(--foreground);">Crie 6 Landing Pages Específicas por Nicho</strong><p style="font-size:0.85rem; margin-top:4px;">URL: adpiloto.com.br/salao, /clinica, /restaurante, etc. Cada LP com: headline específica, caso de sucesso do nicho, foto/vídeo do tipo de negócio, CTA com menção ao nicho.</p></div></div>
+          <div class="step-item"><div class="step-dot">2</div><div><strong style="color:var(--foreground);">Produza Criativos de Vídeo 15–30s por Nicho</strong><p style="font-size:0.85rem; margin-top:4px;">Roteiro padrão: Hook com a dor específica (5s) → Problema ampliado (8s) → Solução AdPiloto (10s) → CTA direto (5s). Use UGC-style (câmera de celular, tom conversacional) — performa melhor que produção profissional para PME.</p></div></div>
+          <div class="step-item"><div class="step-dot">3</div><div><strong style="color:var(--foreground);">Configure Campaigns Separadas por Nicho no Meta</strong><p style="font-size:0.85rem; margin-top:4px;">6 campanhas de conversão, cada uma com audiência de interesse específico (ex: "Proprietário de salão de beleza"). Budget: R$30/dia por nicho. Teste 3 criativos diferentes por campanha. Mata o que não converte em 7 dias.</p></div></div>
+          <div class="step-item"><div class="step-dot">4</div><div><strong style="color:var(--foreground);">Adicione Prova Social Específica por Nicho</strong><p style="font-size:0.85rem; margin-top:4px;">Colete depoimentos de clientes de cada segmento. Pergunte: "Quanto você pagava antes?" e "Qual resultado em X semanas?". Use esses depoimentos nos anúncios do nicho correspondente.</p></div></div>
+          <div class="step-item"><div class="step-dot">5</div><div><strong style="color:var(--foreground);">Escale os Nichos que Convertem</strong><p style="font-size:0.85rem; margin-top:4px;">Após 30 dias, identifique os 2 nichos com menor CAC. Dobre o budget neles. Crie lookalike audiences de clientes convertidos. Expanda para outras cidades com o mesmo nicho.</p></div></div>
+        </div>
+
+        <div style="display:flex; flex-wrap:wrap; gap:0.75rem; margin-top:1.5rem;">
+          <div class="metric-pill" style="border-color:rgba(139,92,246,0.2);">🎯 <strong>Canal principal:</strong> Meta Ads segmentado por nicho</div>
+          <div class="metric-pill" style="border-color:rgba(139,92,246,0.2);">💰 <strong>CAC estimado:</strong> R$80–150 (menor que estratégia genérica)</div>
+          <div class="metric-pill" style="border-color:rgba(139,92,246,0.2);">⏱️ <strong>Time to revenue:</strong> 14–30 dias</div>
+          <div class="metric-pill" style="border-color:rgba(139,92,246,0.2);">🔥 <strong>Dificuldade:</strong> Baixa-Média</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== ESTRATÉGIA 3 ==================== -->
+    <div class="card s3" style="border: 1px solid rgba(59,130,246,0.3); margin-bottom:2rem; padding:0; overflow:hidden;">
+      <div style="background: rgba(59,130,246,0.06); padding:2rem; border-bottom:1px solid rgba(59,130,246,0.15);">
+        <div style="display:flex; align-items:flex-start; gap:1.25rem; flex-wrap:wrap;">
+          <div class="strat-num" style="background:rgba(59,130,246,0.12); color:#3b82f6; border:1px solid rgba(59,130,246,0.3);">03</div>
+          <div style="flex:1; min-width:260px;">
+            <div class="badge badge-blue" style="margin-bottom:0.75rem;">Demo-First · Risk Reversal Total</div>
+            <h3 style="color:var(--foreground); font-size:1.6rem; margin-bottom:0.5rem;">"Veja a IA Criando Seu Anúncio Agora"</h3>
+            <p style="color:var(--muted-fg);">Hormozi: "Remove all risk from the buyer." Deixa o cliente experimentar antes de comprar. Prova antes da promessa. Conversão de demo para trial: 35–60%.</p>
+          </div>
+        </div>
+      </div>
+      <div style="padding:2rem;">
+        <div class="value-eq" style="margin-bottom:1.5rem; border-color:rgba(59,130,246,0.2); background:rgba(59,130,246,0.04);">
+          <div class="value-eq-label" style="color:#3b82f6;">Framework Aplicado: "Try Before You Buy"</div>
+          <div class="value-eq-formula" style="font-size:0.85rem; font-family:'Inter', sans-serif;">
+            O maior inibidor de compra de software para PME é o medo do desconhecido.<br>
+            Solução: deixa a IA gerar um anúncio real para o negócio deles — GRÁTIS — antes de pedir qualquer cartão.<br>
+            Quem vê o produto funcionando para si mesmo converte 4–8x mais que quem só lê sobre o produto.
+          </div>
+        </div>
+
+        <h4 style="color:var(--foreground); margin-bottom:1rem;">Estrutura do Funil Demo-First</h4>
+        <div style="display:flex; gap:0; margin-bottom:1.5rem; overflow-x:auto;">
+          <div style="flex:1; min-width:120px; text-align:center; padding:1rem; background:rgba(59,130,246,0.06); border:1px solid rgba(59,130,246,0.2); border-radius:10px 0 0 10px;">
+            <div style="font-size:1.5rem; margin-bottom:6px;">📢</div>
+            <div style="font-size:0.78rem; font-weight:700; color:var(--foreground);">Anúncio</div>
+            <div style="font-size:0.7rem; color:var(--muted-fg); margin-top:4px;">"Gere seu 1º anúncio grátis com IA"</div>
+          </div>
+          <div style="display:flex; align-items:center; color:var(--muted-fg); padding:0 4px;">→</div>
+          <div style="flex:1; min-width:120px; text-align:center; padding:1rem; background:rgba(59,130,246,0.06); border:1px solid rgba(59,130,246,0.2); border-radius:0;">
+            <div style="font-size:1.5rem; margin-bottom:6px;">📋</div>
+            <div style="font-size:0.78rem; font-weight:700; color:var(--foreground);">Landing + Form</div>
+            <div style="font-size:0.7rem; color:var(--muted-fg); margin-top:4px;">Nome do negócio, nicho, cidade</div>
+          </div>
+          <div style="display:flex; align-items:center; color:var(--muted-fg); padding:0 4px;">→</div>
+          <div style="flex:1; min-width:120px; text-align:center; padding:1rem; background:rgba(59,130,246,0.1); border:1px solid rgba(59,130,246,0.4); border-radius:0;">
+            <div style="font-size:1.5rem; margin-bottom:6px;">🤖</div>
+            <div style="font-size:0.78rem; font-weight:700; color:#3b82f6);">IA Gera Copy</div>
+            <div style="font-size:0.7rem; color:var(--muted-fg); margin-top:4px;">Anúncio personalizado em segundos</div>
+          </div>
+          <div style="display:flex; align-items:center; color:var(--muted-fg); padding:0 4px;">→</div>
+          <div style="flex:1; min-width:120px; text-align:center; padding:1rem; background:rgba(52,211,153,0.08); border:1px solid rgba(52,211,153,0.3); border-radius:0;">
+            <div style="font-size:1.5rem; margin-bottom:6px;">😮</div>
+            <div style="font-size:0.78rem; font-weight:700; color:var(--primary);">Efeito Uau</div>
+            <div style="font-size:0.7rem; color:var(--muted-fg); margin-top:4px;">"Isso foi pra mim? É bom mesmo!"</div>
+          </div>
+          <div style="display:flex; align-items:center; color:var(--muted-fg); padding:0 4px;">→</div>
+          <div style="flex:1; min-width:120px; text-align:center; padding:1rem; background:rgba(52,211,153,0.12); border:1px solid rgba(52,211,153,0.4); border-radius:0 10px 10px 0;">
+            <div style="font-size:1.5rem; margin-bottom:6px;">💳</div>
+            <div style="font-size:0.78rem; font-weight:700; color:var(--primary);">Oferta Trial</div>
+            <div style="font-size:0.7rem; color:var(--muted-fg); margin-top:4px;">"Quer subir esse anúncio? R$297/mês"</div>
+          </div>
+        </div>
+
+        <h4 style="color:var(--foreground); margin-bottom:0.75rem;">Copy do Lead Magnet</h4>
+        <div class="copy-block" style="margin-bottom:1.5rem; border-left-color:#3b82f6;">
+          <strong>Headline:</strong> "A IA do AdPiloto vai escrever um anúncio para o seu negócio agora — de graça. Em 60 segundos."<br><br>
+          <strong>Sub:</strong> "Coloca o nome do seu negócio, o que você vende e pra quem. Nossa IA escreve a copy completa, com hook, descrição e CTA. Você vê o resultado — sem precisar pagar nada."<br><br>
+          <strong>Pós-demo:</strong> "Gostou? Clica em um botão e a IA sobe esse mesmo anúncio no seu Instagram agora — por R$297/mês, sem contrato."
+        </div>
+
+        <h4 style="color:var(--foreground); margin-bottom:1rem;">Passo a Passo de Implementação</h4>
+        <div>
+          <div class="step-item"><div class="step-dot">1</div><div><strong style="color:var(--foreground);">Crie a Página de Demo (sem fricção)</strong><p style="font-size:0.85rem; margin-top:4px;">Formulário com 3 campos: Nome do negócio · Categoria (dropdown) · O que você vende em 1 frase. Após envio: spinner "IA pensando" (2–3s de delay para efeito dramático) + resultado na tela.</p></div></div>
+          <div class="step-item"><div class="step-dot">2</div><div><strong style="color:var(--foreground);">Integre com a API de Copy do AdPiloto</strong><p style="font-size:0.85rem; margin-top:4px;">O formulário chama a API da IA e retorna: Hook (1 frase), Texto do anúncio (3–4 frases), CTA. Renderize em uma "prévia de post do Instagram" com mockup visual — aumenta o impacto emocional.</p></div></div>
+          <div class="step-item"><div class="step-dot">3</div><div><strong style="color:var(--foreground);">Oferta Imediata Pós-Demo</strong><p style="font-size:0.85rem; margin-top:4px;">Abaixo do resultado: "Quer que essa IA suba esse anúncio no seu Instagram AGORA? [Sim, começar por R$297/mês →]" + "Ou prefere receber por WhatsApp e pensar? [Enviar pro meu WhatsApp]"</p></div></div>
+          <div class="step-item"><div class="step-dot">4</div><div><strong style="color:var(--foreground);">Funil de WhatsApp para Leads Que Não Converteram</strong><p style="font-size:0.85rem; margin-top:4px;">D0: Envia o copy gerado pela IA. D1: "Esse anúncio poderia estar rodando no seu Instagram ontem. Posso mostrar como?" D3: Case de sucesso do mesmo nicho. D7: Oferta especial (R$0 na taxa de implementação).</p></div></div>
+          <div class="step-item"><div class="step-dot">5</div><div><strong style="color:var(--foreground);">Trafego para a Demo: TikTok Ads + Instagram Reels</strong><p style="font-size:0.85rem; margin-top:4px;">Vídeo: tela do computador mostrando a IA gerando copy em tempo real para um negócio real. Narração: "Coloquei o nome do meu salão aqui e em 30 segundos isso saiu." Budget: R$50/dia. Objetivo: geração de leads.</p></div></div>
+        </div>
+
+        <div style="display:flex; flex-wrap:wrap; gap:0.75rem; margin-top:1.5rem;">
+          <div class="metric-pill" style="border-color:rgba(59,130,246,0.2);">🎯 <strong>Canal principal:</strong> Meta + TikTok Ads (demo gratuita)</div>
+          <div class="metric-pill" style="border-color:rgba(59,130,246,0.2);">💰 <strong>CPL estimado:</strong> R$5–15 (demo grátis tem altíssima conversão)</div>
+          <div class="metric-pill" style="border-color:rgba(59,130,246,0.2);">🔄 <strong>Taxa demo→compra:</strong> 25–40%</div>
+          <div class="metric-pill" style="border-color:rgba(59,130,246,0.2);">🔥 <strong>Dificuldade:</strong> Média (requer integração API)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== ESTRATÉGIA 4 ==================== -->
+    <div class="card s4" style="border: 1px solid rgba(245,158,11,0.3); margin-bottom:2rem; padding:0; overflow:hidden;">
+      <div style="background: rgba(245,158,11,0.06); padding:2rem; border-bottom:1px solid rgba(245,158,11,0.15);">
+        <div style="display:flex; align-items:flex-start; gap:1.25rem; flex-wrap:wrap;">
+          <div class="strat-num" style="background:rgba(245,158,11,0.12); color:#f59e0b; border:1px solid rgba(245,158,11,0.3);">04</div>
+          <div style="flex:1; min-width:260px;">
+            <div class="badge badge-amber" style="margin-bottom:0.75rem;">Channel Partners · Warm Referrals</div>
+            <h3 style="color:var(--foreground); font-size:1.6rem; margin-bottom:0.5rem;">"Programa de Parceiros Estratégicos"</h3>
+            <p style="color:var(--muted-fg);">Hormozi no $100M Leads: "Warm referrals convert 5–10x better than cold traffic." Um contador que indica o AdPiloto para 50 clientes já faturou mais que uma campanha de R$10k.</p>
+          </div>
+        </div>
+      </div>
+      <div style="padding:2rem;">
+        <div class="value-eq" style="margin-bottom:1.5rem; border-color:rgba(245,158,11,0.2); background:rgba(245,158,11,0.04);">
+          <div class="value-eq-label" style="color:#f59e0b;">Por que Parceiros São o Canal Mais Rentável</div>
+          <div class="value-eq-formula" style="font-size:0.85rem; font-family:'Inter', sans-serif;">
+            Contador médio: 100–300 clientes PME ativo · Taxa de fechamento via indicação: 35–60%<br>
+            1 contador parceiro = potencial de 30–100 clientes em 12 meses a custo de aquisição próximo de zero.<br>
+            Com comissão de 20%: parceiro ganha R$59/mês por cliente indicado — renda passiva real.
+          </div>
+        </div>
+
+        <h4 style="color:var(--foreground); margin-bottom:1rem;">3 Tipos de Parceiro Estratégico</h4>
+        <div class="grid-3" style="margin-bottom:1.5rem;">
+          <div class="card" style="padding:1.25rem; border-color:rgba(245,158,11,0.2);">
+            <div style="font-size:1.5rem; margin-bottom:0.75rem;">📊</div>
+            <h4 style="color:var(--foreground); margin-bottom:0.5rem;">Contadores e BPOs</h4>
+            <p style="font-size:0.82rem;">Atendem 100–500 PMEs cada. Já têm confiança. A indicação vem com autoridade do "meu contador recomendou". CAC próximo de zero.</p>
+            <div class="badge badge-amber" style="margin-top:0.75rem; font-size:0.72rem;">Comissão: 20% recorrente</div>
+          </div>
+          <div class="card" style="padding:1.25rem; border-color:rgba(245,158,11,0.2);">
+            <div style="font-size:1.5rem; margin-bottom:0.75rem;">🏢</div>
+            <h4 style="color:var(--foreground); margin-bottom:0.5rem;">Consultores de Negócios</h4>
+            <p style="font-size:0.82rem;">SEBRAE, consultores freelancers, coaches de negócios. Seu cliente está em modo de crescimento — receptivo para ferramentas que acelerem resultados.</p>
+            <div class="badge badge-amber" style="margin-top:0.75rem; font-size:0.72rem;">Comissão: 25% recorrente</div>
+          </div>
+          <div class="card" style="padding:1.25rem; border-color:rgba(245,158,11,0.2);">
+            <div style="font-size:1.5rem; margin-bottom:0.75rem;">🏪</div>
+            <h4 style="color:var(--foreground); margin-bottom:0.5rem;">Associações e Franquias</h4>
+            <p style="font-size:0.82rem;">ABF, associações comerciais locais, redes de franquias regionais. Um acordo fechado com a associação vira comunicação para todos os associados.</p>
+            <div class="badge badge-amber" style="margin-top:0.75rem; font-size:0.72rem;">Acordo de volume: desconto + co-marketing</div>
+          </div>
+        </div>
+
+        <h4 style="color:var(--foreground); margin-bottom:0.75rem;">Kit do Parceiro AdPiloto</h4>
+        <div class="grid-2" style="margin-bottom:1.5rem;">
+          <div class="card" style="padding:1rem;">
+            <div style="font-size:0.85rem; font-weight:600; color:var(--foreground); margin-bottom:0.5rem;">📦 O que o parceiro recebe:</div>
+            <ul style="font-size:0.82rem; color:var(--muted-fg); list-style:none; display:flex; flex-direction:column; gap:4px;">
+              <li>✓ Link de afiliado com dashboard de conversões</li>
+              <li>✓ Deck de apresentação pronto (PDF + PowerPoint)</li>
+              <li>✓ Calculadora de ROI para mostrar ao cliente</li>
+              <li>✓ Script de indicação em 3 variações</li>
+              <li>✓ Grupo exclusivo de parceiros no WhatsApp</li>
+              <li>✓ Treinamento de 30 min sobre o produto</li>
+            </ul>
+          </div>
+          <div class="card" style="padding:1rem;">
+            <div style="font-size:0.85rem; font-weight:600; color:var(--foreground); margin-bottom:0.5rem;">💬 Script para o Parceiro Usar:</div>
+            <div class="copy-block" style="font-size:0.78rem; border-left-color:#f59e0b;">
+              "Cliente, você me perguntou como aumentar a captação de clientes. Existe uma ferramenta que substitui o gestor de tráfego por IA — R$297/mês vs R$2.000+. Meu link te garante suporte prioritário. Vale 10 minutos ver?"
+            </div>
+          </div>
+        </div>
+
+        <h4 style="color:var(--foreground); margin-bottom:1rem;">Passo a Passo de Implementação</h4>
+        <div>
+          <div class="step-item"><div class="step-dot">1</div><div><strong style="color:var(--foreground);">Configure o Portal de Parceiros</strong><p style="font-size:0.85rem; margin-top:4px;">Use Hotmart, Kiwify ou Stripe com affiliate tracking. Crie painel onde parceiro vê: cliques, trials, conversões, comissão acumulada, próximo pagamento.</p></div></div>
+          <div class="step-item"><div class="step-dot">2</div><div><strong style="color:var(--foreground);">Prospecte Contadores Ativamente (Cold Outreach Quente)</strong><p style="font-size:0.85rem; margin-top:4px;">LinkedIn: mensagem para contadores de PME com &gt;200 conexões. E-mail: "Você tem clientes que precisam de mais captação? Temos uma solução que paga R$59/mês por cliente que você indica." Meta de abertura: 40%.</p></div></div>
+          <div class="step-item"><div class="step-dot">3</div><div><strong style="color:var(--foreground);">Faça Evento de Onboarding Mensal (Zoom, 30 min)</strong><p style="font-size:0.85rem; margin-top:4px;">Demonstração ao vivo do produto, script de indicação, perguntas e respostas. Parceiro que assiste ao evento tem 3x mais chance de fazer sua primeira indicação nos 30 dias seguintes.</p></div></div>
+          <div class="step-item"><div class="step-dot">4</div><div><strong style="color:var(--foreground);">Gamifique o Programa</strong><p style="font-size:0.85rem; margin-top:4px;">Ranking mensal de parceiros. Top 3: bônus em dinheiro. Atingiu 10 indicações: vira "Parceiro Gold" com comissão de 25%. Atingiu 50: "Parceiro Platinum" com suporte dedicado e 30% de comissão.</p></div></div>
+          <div class="step-item"><div class="step-dot">5</div><div><strong style="color:var(--foreground);">Alvo de Crescimento do Canal</strong><p style="font-size:0.85rem; margin-top:4px;">Mês 1: 20 parceiros cadastrados. Mês 3: 50 parceiros ativos (ao menos 1 indicação). Mês 6: 150 parceiros, 30% das novas vendas via parceiros. Meta anual: parceiros = maior canal de aquisição.</p></div></div>
+        </div>
+
+        <div style="display:flex; flex-wrap:wrap; gap:0.75rem; margin-top:1.5rem;">
+          <div class="metric-pill" style="border-color:rgba(245,158,11,0.2);">🎯 <strong>Canal principal:</strong> Parceiros (contadores, consultores)</div>
+          <div class="metric-pill" style="border-color:rgba(245,158,11,0.2);">💰 <strong>CAC estimado:</strong> R$0–60 (só comissão)</div>
+          <div class="metric-pill" style="border-color:rgba(245,158,11,0.2);">🔄 <strong>Taxa de conversão:</strong> 35–60% (lead quente)</div>
+          <div class="metric-pill" style="border-color:rgba(245,158,11,0.2);">🔥 <strong>Dificuldade:</strong> Média (requer gestão de relacionamento)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== ESTRATÉGIA 5 ==================== -->
+    <div class="card s5" style="border: 1px solid rgba(249,115,22,0.3); margin-bottom:2rem; padding:0; overflow:hidden;">
+      <div style="background: rgba(249,115,22,0.06); padding:2rem; border-bottom:1px solid rgba(249,115,22,0.15);">
+        <div style="display:flex; align-items:flex-start; gap:1.25rem; flex-wrap:wrap;">
+          <div class="strat-num" style="background:rgba(249,115,22,0.12); color:#f97316; border:1px solid rgba(249,115,22,0.3);">05</div>
+          <div style="flex:1; min-width:260px;">
+            <div class="badge badge-orange" style="margin-bottom:0.75rem;">Community Flywheel · Content Loop</div>
+            <h3 style="color:var(--foreground); font-size:1.6rem; margin-bottom:0.5rem;">"Clube dos PMEs Que Anunciam"</h3>
+            <p style="color:var(--muted-fg);">Hormozi: "Build a community, and the community builds your business." Resultados dos membros viram anúncios. Anúncios trazem novos membros. Membros geram mais resultados. Loop infinito de crescimento orgânico.</p>
+          </div>
+        </div>
+      </div>
+      <div style="padding:2rem;">
+        <div class="value-eq" style="margin-bottom:1.5rem; border-color:rgba(249,115,22,0.2); background:rgba(249,115,22,0.04);">
+          <div class="value-eq-label" style="color:#f97316;">O Flywheel de Crescimento</div>
+          <div class="value-eq-formula" style="font-size:0.85rem; font-family:'Inter', sans-serif; line-height:2.2;">
+            Clientes com resultado → Compartilham no grupo → Novos membros veem a prova → Anunciam o resultado → Mais clientes compram → <span style="color:#f97316;">Loop</span>
+          </div>
+        </div>
+
+        <h4 style="color:var(--foreground); margin-bottom:1rem;">Estrutura da Comunidade</h4>
+        <div class="grid-3" style="margin-bottom:1.5rem;">
+          <div class="card" style="padding:1.25rem; border-color:rgba(249,115,22,0.2);">
+            <div style="font-size:1.5rem; margin-bottom:0.75rem;">💬</div>
+            <h4 style="color:var(--foreground); margin-bottom:0.5rem;">Grupo WhatsApp VIP</h4>
+            <p style="font-size:0.82rem;">Clientes ativos do AdPiloto. Compartilham resultados, tiram dúvidas, se motivam. AdPiloto modera e incentiva posts de resultado. Gratuito para clientes.</p>
+          </div>
+          <div class="card" style="padding:1.25rem; border-color:rgba(249,115,22,0.2);">
+            <div style="font-size:1.5rem; margin-bottom:0.75rem;">📅</div>
+            <h4 style="color:var(--foreground); margin-bottom:0.5rem;">Quarta do Anúncio (live mensal)</h4>
+            <p style="font-size:0.82rem;">Live de 45 min: 1 case de sucesso de cliente, Q&amp;A ao vivo, dica de otimização de campanha. Aberta para clientes + convidados (lead warm para conversão).</p>
+          </div>
+          <div class="card" style="padding:1.25rem; border-color:rgba(249,115,22,0.2);">
+            <div style="font-size:1.5rem; margin-bottom:0.75rem;">🏆</div>
+            <h4 style="color:var(--foreground); margin-bottom:0.5rem;">Ranking de Resultados</h4>
+            <p style="font-size:0.82rem;">Top 3 resultados do mês viram post no Instagram do AdPiloto. Cliente ganha: exposição, badge "Top AdPiloto", e 1 mês grátis. Incentiva compartilhamento.</p>
+          </div>
+        </div>
+
+        <h4 style="color:var(--foreground); margin-bottom:0.75rem;">Loop de Conteúdo Orgânico</h4>
+        <div class="comp-row" style="margin-bottom:1.5rem; display:block; border:1px solid var(--border); border-radius:10px; padding:0; overflow:hidden;">
+          <div style="padding:1rem; border-bottom:1px solid var(--border);">
+            <div style="display:flex; gap:1rem; align-items:flex-start;">
+              <span style="background:rgba(249,115,22,0.12); color:#f97316; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; font-size:0.75rem; font-weight:700; flex-shrink:0;">1</span>
+              <div><strong style="color:var(--foreground);">Cliente posta resultado no grupo</strong><p style="font-size:0.83rem; margin-top:2px;">"Pessoal, primeira semana com o AdPiloto: +12 pedidos pelo WhatsApp. Aqui tá o print do painel."</p></div>
+            </div>
+          </div>
+          <div style="padding:1rem; border-bottom:1px solid var(--border);">
+            <div style="display:flex; gap:1rem; align-items:flex-start;">
+              <span style="background:rgba(249,115,22,0.12); color:#f97316; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; font-size:0.75rem; font-weight:700; flex-shrink:0;">2</span>
+              <div><strong style="color:var(--foreground);">AdPiloto pede permissão para usar o case</strong><p style="font-size:0.83rem; margin-top:2px;">Time pede para transformar o resultado em post, stories, anúncio e e-mail marketing. Cliente vira embaixador.</p></div>
+            </div>
+          </div>
+          <div style="padding:1rem; border-bottom:1px solid var(--border);">
+            <div style="display:flex; gap:1rem; align-items:flex-start;">
+              <span style="background:rgba(249,115,22,0.12); color:#f97316; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; font-size:0.75rem; font-weight:700; flex-shrink:0;">3</span>
+              <div><strong style="color:var(--foreground);">Case vira criativo de anúncio pago</strong><p style="font-size:0.83rem; margin-top:2px;">UGC real converte 2–4x mais que criativo produzido. Custo de produção: zero. A prova social é orgânica.</p></div>
+            </div>
+          </div>
+          <div style="padding:1rem;">
+            <div style="display:flex; gap:1rem; align-items:flex-start;">
+              <span style="background:rgba(52,211,153,0.12); color:var(--primary); border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center; font-size:0.75rem; font-weight:700; flex-shrink:0;">4</span>
+              <div><strong style="color:var(--foreground);">Novo cliente compra → vira membro → gera novo case</strong><p style="font-size:0.83rem; margin-top:2px;">O flywheel fecha. Quanto mais clientes, mais provas. Mais provas = menor CPL. CPL cai enquanto escala.</p></div>
+            </div>
+          </div>
+        </div>
+
+        <h4 style="color:var(--foreground); margin-bottom:1rem;">Passo a Passo de Implementação</h4>
+        <div>
+          <div class="step-item"><div class="step-dot">1</div><div><strong style="color:var(--foreground);">Crie o Grupo WhatsApp "Clube AdPiloto" (Semana 1)</strong><p style="font-size:0.85rem; margin-top:4px;">Adicione os primeiros 20–30 clientes. Regras simples: resultados, dúvidas, motivação. Moderador ativo todo dia. Pin de boas-vindas com instrução para postar o primeiro resultado.</p></div></div>
+          <div class="step-item"><div class="step-dot">2</div><div><strong style="color:var(--foreground);">Implante Ritual de "Print da Semana" (Semana 2)</strong><p style="font-size:0.85rem; margin-top:4px;">Toda sexta: AdPiloto posta no grupo "quem manda o print mais impactante da semana ganha desconto no próximo mês?" Gera urgência, incentiva análise de dados, gera conteúdo.</p></div></div>
+          <div class="step-item"><div class="step-dot">3</div><div><strong style="color:var(--foreground);">Lance a "Quarta do Anúncio" (Mês 1)</strong><p style="font-size:0.85rem; margin-top:4px;">Live no YouTube/Instagram a cada 1ª quarta do mês. Estrutura: 15 min case de cliente, 15 min dica de campanha, 15 min Q&amp;A. Convide 50–100 prospects como "convidados especiais" — a live vira ferramenta de conversão.</p></div></div>
+          <div class="step-item"><div class="step-dot">4</div><div><strong style="color:var(--foreground);">Sistema de Coleta de Cases (Mês 1)</strong><p style="font-size:0.85rem; margin-top:4px;">Envie formulário para clientes com 60+ dias de conta: "Nos conte seu resultado (pode ser pequeno!)." Ofereça: 1 mês grátis para quem responder E autorizar uso do case em anúncios. Meta: 1 case novo por semana.</p></div></div>
+          <div class="step-item"><div class="step-dot">5</div><div><strong style="color:var(--foreground);">Recicle Cases em Todos os Canais (Contínuo)</strong><p style="font-size:0.85rem; margin-top:4px;">1 case → 1 post no Instagram → 1 stories → 1 e-mail → 1 criativo de anúncio → 1 segmento da landing page. Calendário editorial 100% baseado em resultados reais. Nunca precise inventar conteúdo.</p></div></div>
+        </div>
+
+        <div style="display:flex; flex-wrap:wrap; gap:0.75rem; margin-top:1.5rem;">
+          <div class="metric-pill" style="border-color:rgba(249,115,22,0.2);">🎯 <strong>Canal principal:</strong> Orgânico + UGC + live</div>
+          <div class="metric-pill" style="border-color:rgba(249,115,22,0.2);">💰 <strong>CAC estimado:</strong> Custo marginal próximo de zero</div>
+          <div class="metric-pill" style="border-color:rgba(249,115,22,0.2);">📈 <strong>Efeito:</strong> Cresce à medida que a base cresce</div>
+          <div class="metric-pill" style="border-color:rgba(249,115,22,0.2);">🔥 <strong>Dificuldade:</strong> Baixa (requer consistência, não budget)</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ROADMAP DE IMPLEMENTAÇÃO 90 DIAS -->
+<section class="section section-alt">
+  <div class="container-lg">
+    <div class="section-heading">
+      <div class="badge">🗺️ Plano de Execução</div>
+      <h2>Roadmap de Implementação<br><span class="gradient-text">90 Dias</span></h2>
+      <p>Sequência de implementação das 5 estratégias em ordem de retorno rápido → construção de longo prazo.</p>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <!-- Fase 1 -->
+        <div class="roadmap-phase">
+          <div class="roadmap-phase-label">Semana 1–2 · Fundação</div>
+          <div class="roadmap-phase-title">Estratégia 1 — Grand Slam Offer</div>
+          <div style="font-size:0.85rem; color:var(--muted-fg);">
+            <p style="margin-bottom:0.5rem;">Landing page com math arbitrage (R$2.000 vs R$297) + value stack + 3 depoimentos com números. Configure campanha Meta Ads com budget de R$50/dia.</p>
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:0.75rem;">
+              <span class="badge" style="font-size:0.72rem;">Landing Page</span>
+              <span class="badge" style="font-size:0.72rem;">Meta Ads</span>
+              <span class="badge" style="font-size:0.72rem;">E-mail Sequence</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fase 2 -->
+        <div class="roadmap-phase">
+          <div class="roadmap-phase-label">Semana 3–4 · Segmentação</div>
+          <div class="roadmap-phase-title">Estratégia 2 — Niche Attack</div>
+          <div style="font-size:0.85rem; color:var(--muted-fg);">
+            <p style="margin-bottom:0.5rem;">Escolha os 3 nichos com maior volume (salão, clínica, restaurante). Crie 3 LPs específicas + 3 criativos de vídeo 15s. Campaigns separadas. Analise após 2 semanas, escale o mais rentável.</p>
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:0.75rem;">
+              <span class="badge badge-violet" style="font-size:0.72rem;">3 LPs de Nicho</span>
+              <span class="badge badge-violet" style="font-size:0.72rem;">Vídeos UGC</span>
+              <span class="badge badge-violet" style="font-size:0.72rem;">Segmentação Meta</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fase 3 -->
+        <div class="roadmap-phase">
+          <div class="roadmap-phase-label">Mês 2 · Prova e Conversão</div>
+          <div class="roadmap-phase-title">Estratégia 3 — Demo-First</div>
+          <div style="font-size:0.85rem; color:var(--muted-fg);">
+            <p style="margin-bottom:0.5rem;">Crie a página de demo com geração de copy em tempo real. Integre com a API da IA. Configure funil de WhatsApp para nurturing dos leads que geraram copy mas não compraram.</p>
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:0.75rem;">
+              <span class="badge badge-blue" style="font-size:0.72rem;">Página de Demo</span>
+              <span class="badge badge-blue" style="font-size:0.72rem;">API IA</span>
+              <span class="badge badge-blue" style="font-size:0.72rem;">WhatsApp Bot</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <!-- Fase 4 -->
+        <div class="roadmap-phase">
+          <div class="roadmap-phase-label">Mês 2–3 · Canais Quentes</div>
+          <div class="roadmap-phase-title">Estratégia 4 — Parceiros</div>
+          <div style="font-size:0.85rem; color:var(--muted-fg);">
+            <p style="margin-bottom:0.5rem;">Monte kit do parceiro (deck + script + calculadora ROI). Configure portal de afiliados. Prospecte 50 contadores via LinkedIn. Faça 1º evento de onboarding para parceiros (Zoom, 30 min).</p>
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:0.75rem;">
+              <span class="badge badge-amber" style="font-size:0.72rem;">Portal Afiliados</span>
+              <span class="badge badge-amber" style="font-size:0.72rem;">Kit Parceiro</span>
+              <span class="badge badge-amber" style="font-size:0.72rem;">LinkedIn Outreach</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fase 5 -->
+        <div class="roadmap-phase">
+          <div class="roadmap-phase-label">Mês 3 · Comunidade</div>
+          <div class="roadmap-phase-title">Estratégia 5 — Community Flywheel</div>
+          <div style="font-size:0.85rem; color:var(--muted-fg);">
+            <p style="margin-bottom:0.5rem;">Crie grupo WhatsApp VIP para clientes ativos. Lance "Quarta do Anúncio" (live mensal). Sistema de coleta de cases com incentivo (1 mês grátis). Recicle cases como criativos de anúncios pagos.</p>
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:0.75rem;">
+              <span class="badge badge-orange" style="font-size:0.72rem;">WhatsApp VIP</span>
+              <span class="badge badge-orange" style="font-size:0.72rem;">Live Mensal</span>
+              <span class="badge badge-orange" style="font-size:0.72rem;">Cases + UGC</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fase 6 -->
+        <div class="roadmap-phase" style="border-left-color:var(--primary);">
+          <div class="roadmap-phase-label" style="color:var(--primary);">Mês 4+ · Escala</div>
+          <div class="roadmap-phase-title">Todas as 5 Estratégias em Paralelo</div>
+          <div style="font-size:0.85rem; color:var(--muted-fg);">
+            <p style="margin-bottom:0.5rem;">Escale o que converteu melhor. Dobre budget nos nichos campeões. Expanda programa de parceiros para 150+ ativos. A comunidade começa a gerar leads orgânicos. CAC cai, LTV sobe.</p>
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:0.75rem;">
+              <span class="badge" style="font-size:0.72rem;">Scale Up</span>
+              <span class="badge" style="font-size:0.72rem;">CAC caindo</span>
+              <span class="badge" style="font-size:0.72rem;">Orgânico crescendo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KPIs Esperados -->
+    <div class="card-premium glow" style="margin-top:2rem;">
+      <h3 style="color:var(--foreground); text-align:center; margin-bottom:1.5rem;">Projeção de Resultados — 90 Dias</h3>
+      <div class="grid-4">
+        <div style="text-align:center; padding:1rem;">
+          <div class="stat-num">200</div>
+          <div class="stat-label">Clientes ativos estimados ao final do dia 90</div>
+        </div>
+        <div style="text-align:center; padding:1rem; border-left:1px solid var(--border);">
+          <div class="stat-num">R$59k</div>
+          <div class="stat-label">MRR (Receita Recorrente Mensal) no mês 3</div>
+        </div>
+        <div style="text-align:center; padding:1rem; border-left:1px solid var(--border);">
+          <div class="stat-num">R$150</div>
+          <div class="stat-label">CAC médio no mix de estratégias (meta)</div>
+        </div>
+        <div style="text-align:center; padding:1rem; border-left:1px solid var(--border);">
+          <div class="stat-num">23x</div>
+          <div class="stat-label">LTV/CAC ratio (R$3.564 LTV ÷ R$150 CAC)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COMPARAÇÃO ANTES vs DEPOIS -->
+<section class="section">
+  <div class="container-md">
+    <div class="section-heading">
+      <div class="badge">⚖️ Posicionamento</div>
+      <h2>Gestor Humano vs AdPiloto</h2>
+      <p>A comparação que deve aparecer em toda landing page, anúncio e apresentação de vendas.</p>
+    </div>
+    <div class="card" style="overflow:hidden; padding:0;">
+      <div style="display:grid; grid-template-columns:1fr 1fr; background:rgba(255,255,255,0.03); border-bottom:1px solid var(--border);">
+        <div style="padding:1rem 1.5rem; font-size:0.8rem; font-weight:700; color:var(--destructive); letter-spacing:0.06em; text-transform:uppercase;">✗ Gestor Humano</div>
+        <div style="padding:1rem 1.5rem; font-size:0.8rem; font-weight:700; color:var(--primary); letter-spacing:0.06em; text-transform:uppercase; border-left:1px solid var(--border);">✓ AdPiloto (IA)</div>
+      </div>
+      <div style="padding:0 1.5rem;">
+        <div class="comp-row"><div class="comp-bad"><span class="icon-x">✗</span>R$1.500–R$5.000/mês + comissão sobre verba</div><div class="comp-good" style="border-left:1px solid var(--border); padding-left:1rem;"><span class="icon-check">✓</span>R$297/mês fixo, sem comissão sobre verba</div></div>
+        <div class="comp-row"><div class="comp-bad"><span class="icon-x">✗</span>Horário comercial · Some nos feriados</div><div class="comp-good" style="border-left:1px solid var(--border); padding-left:1rem;"><span class="icon-check">✓</span>Disponível 24/7, 365 dias do ano</div></div>
+        <div class="comp-row"><div class="comp-bad"><span class="icon-x">✗</span>7–15 dias para subir a primeira campanha</div><div class="comp-good" style="border-left:1px solid var(--border); padding-left:1rem;"><span class="icon-check">✓</span>Campanha no ar em até 7 dias</div></div>
+        <div class="comp-row"><div class="comp-bad"><span class="icon-x">✗</span>Relatórios confusos, sem acesso real aos dados</div><div class="comp-good" style="border-left:1px solid var(--border); padding-left:1rem;"><span class="icon-check">✓</span>Painel transparente em tempo real</div></div>
+        <div class="comp-row"><div class="comp-bad"><span class="icon-x">✗</span>Conta Meta no BM da agência · Não é sua</div><div class="comp-good" style="border-left:1px solid var(--border); padding-left:1rem;"><span class="icon-check">✓</span>Conta sempre no seu nome, para sempre</div></div>
+        <div class="comp-row"><div class="comp-bad"><span class="icon-x">✗</span>Fidelidade contratual de 3–6 meses</div><div class="comp-good" style="border-left:1px solid var(--border); padding-left:1rem;"><span class="icon-check">✓</span>Cancele quando quiser, sem multa</div></div>
+        <div class="comp-row" style="border-bottom:none;"><div class="comp-bad"><span class="icon-x">✗</span>Reuniões obrigatórias, briefings, aprovações lentas</div><div class="comp-good" style="border-left:1px solid var(--border); padding-left:1rem;"><span class="icon-check">✓</span>Você só aprova o anúncio — a IA faz o resto</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="section" style="text-align:center; position:relative; overflow:hidden;">
+  <div class="hero-glow" style="top:-50px; background:rgba(52,211,153,0.06);"></div>
+  <div class="container-md" style="position:relative; z-index:1;">
+    <div class="badge" style="margin-bottom:1.5rem;">🚀 Próximo Passo</div>
+    <h2 style="margin-bottom:1rem;">O mercado está esperando.<br><span class="gradient-text">Comece pela Estratégia 1.</span></h2>
+    <p style="font-size:1.1rem; max-width:540px; margin:0 auto 2rem;">Grand Slam Offer é o início mais rápido. Crie a landing page com math arbitrage e suba R$50/dia de Meta Ads. Você terá dados reais em 14 dias.</p>
+    <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+      <a href="#estrategias" class="btn-primary glow">Voltar para as Estratégias →</a>
+      <a href="https://www.adpiloto.com.br/" class="btn-outline" target="_blank">Ver AdPiloto ↗</a>
+    </div>
+    <div style="margin-top:3rem; padding:2rem; background:rgba(52,211,153,0.04); border:1px solid rgba(52,211,153,0.15); border-radius:16px; max-width:640px; margin-left:auto; margin-right:auto;">
+      <div style="font-size:0.75rem; color:var(--muted-fg); font-weight:600; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:1rem;">Resumo das 5 Estratégias</div>
+      <div style="display:flex; flex-direction:column; gap:0.5rem; text-align:left;">
+        <div style="display:flex; gap:0.75rem; font-size:0.875rem;"><span style="color:var(--primary); font-weight:700; width:20px; flex-shrink:0;">01</span><span style="color:var(--foreground);">Grand Slam Offer — Math arbitrage R$2.000 vs R$297</span></div>
+        <div style="display:flex; gap:0.75rem; font-size:0.875rem;"><span style="color:#8b5cf6; font-weight:700; width:20px; flex-shrink:0;">02</span><span style="color:var(--foreground);">Niche Attack — Copy específica por segmento de negócio</span></div>
+        <div style="display:flex; gap:0.75rem; font-size:0.875rem;"><span style="color:#3b82f6; font-weight:700; width:20px; flex-shrink:0;">03</span><span style="color:var(--foreground);">Demo-First — IA gera anúncio grátis antes de pedir cartão</span></div>
+        <div style="display:flex; gap:0.75rem; font-size:0.875rem;"><span style="color:#f59e0b; font-weight:700; width:20px; flex-shrink:0;">04</span><span style="color:var(--foreground);">Parceiros Estratégicos — Contadores e consultores com comissão</span></div>
+        <div style="display:flex; gap:0.75rem; font-size:0.875rem;"><span style="color:#f97316; font-weight:700; width:20px; flex-shrink:0;">05</span><span style="color:var(--foreground);">Community Flywheel — Cases reais viram anúncios, anúncios viram clientes</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="background: rgba(38,38,38,0.5); border-top:1px solid var(--border); padding:2.5rem 1.5rem; text-align:center;">
+  <div style="max-width:1152px; margin:0 auto;">
+    <div style="display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:1rem;">
+      <div class="logo-icon">EI</div>
+      <span style="font-weight:700; font-size:1rem; color:var(--foreground);">Empresa Independente</span>
+    </div>
+    <p style="font-size:0.8rem; margin-bottom:0.5rem;">Análise estratégica desenvolvida com base nos frameworks de Alex Hormozi ($100M Offers) e pesquisa de mercado do setor de tráfego pago para PMEs brasileiras.</p>
+    <p style="font-size:0.75rem; color:rgba(163,163,163,0.6);">© 2026 Empresa Independente · Todos os direitos reservados · Feito com dedicação para empresários brasileiros 🇧🇷</p>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('scroll-visible'); } });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.card, .roadmap-phase, .niche-card, .step-item, .porter-box, .porter-center').forEach(el => {
+    el.classList.add('scroll-hidden');
+    observer.observe(el);
+  });
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+</body>
+</html>

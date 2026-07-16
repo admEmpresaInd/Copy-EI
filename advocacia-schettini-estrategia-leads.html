@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estratégia de Leads — Advocacia Schettini · Carreteiro + Aposentadoria Especial</title>
+<meta name="description" content="Estratégia completa de geração de leads com tráfego pago para Dr. Danilo Schettini — foco em carreteiros e aposentadoria especial. Reconstrução de audiências do zero.">
+<meta name="theme-color" content="#141414">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ─── TOKENS ─ Design System Empresa Independente (Homepage) ─── */
+:root {
+  --background:   #141414;
+  --foreground:   #fafafa;
+  --primary:      #34d399;
+  --primary-fg:   #0a2e24;
+  --muted:        #292929;
+  --muted-fg:     #a3a3a3;
+  --card:         #1f1f1f;
+  --card-2:       #1a1a1a;
+  --border:       rgba(255,255,255,0.09);
+  --border-2:     rgba(255,255,255,0.14);
+  --destructive:  #ef4444;
+
+  --emerald:  #10b981; --emerald-4: #34d399;
+  --violet:   #8b5cf6;
+  --amber:    #f59e0b;
+  --blue:     #3b82f6;
+  --rose:     #f43f5e;
+  --cyan:     #06b6d4;
+  --orange:   #f97316;
+  --pink:     #ec4899;
+  --yellow:   #eab308;
+  --red:      #ef4444;
+
+  --font: 'Inter', -apple-system, system-ui, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --r-sm: 6px; --r-md: 8px; --r-lg: 10px; --r-xl: 14px; --r-full: 9999px;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--background);color:var(--foreground);font-family:var(--font);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+a{color:inherit;text-decoration:none;}
+button{font-family:var(--font);border:none;cursor:pointer;background:none;color:inherit;}
+img{display:block;max-width:100%;}
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.1);border-radius:2px;}
+
+/* ─── LAYOUT ─────────────────────────────────────────────── */
+.container   {max-width:1152px;margin:0 auto;padding:0 16px;}
+.container-md{max-width:1024px;margin:0 auto;padding:0 16px;}
+.container-sm{max-width:896px; margin:0 auto;padding:0 16px;}
+.container-xs{max-width:768px; margin:0 auto;padding:0 16px;}
+section{padding:80px 16px;}
+@media(min-width:768px){section{padding:112px 16px;}}
+
+/* ─── ANIMATIONS ──────────────────────────────────────────── */
+@keyframes fade-in-up{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+@keyframes gradient-shift{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
+@keyframes pulse-glow{0%,100%{box-shadow:0 0 20px rgba(52,211,153,0.15),0 0 60px rgba(52,211,153,0.05);}50%{box-shadow:0 0 30px rgba(52,211,153,0.25),0 0 80px rgba(52,211,153,0.1);}}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+.animate-fade-in-up{animation:fade-in-up 0.7s ease-out both;}
+.delay-1{animation-delay:0.1s;}.delay-2{animation-delay:0.2s;}.delay-3{animation-delay:0.3s;}.delay-4{animation-delay:0.4s;}.delay-5{animation-delay:0.5s;}
+.sr{opacity:0;transform:translateY(30px);transition:opacity 0.7s ease-out,transform 0.7s ease-out;}
+.sr.visible{opacity:1;transform:translateY(0);}
+.sr.stagger-1{transition-delay:0.1s;}.sr.stagger-2{transition-delay:0.2s;}.sr.stagger-3{transition-delay:0.3s;}
+.sr.stagger-4{transition-delay:0.4s;}.sr.stagger-5{transition-delay:0.5s;}.sr.stagger-6{transition-delay:0.6s;}
+
+/* ─── HEADER ──────────────────────────────────────────────── */
+header{position:sticky;top:0;z-index:50;background:rgba(20,20,20,0.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1152px;margin:0 auto;padding:0 16px;display:flex;align-items:center;justify-content:space-between;height:56px;}
+.nav-logo{display:flex;align-items:center;gap:10px;}
+.logo-icon{width:32px;height:32px;background:var(--primary);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--primary-fg);}
+.logo-text{font-weight:700;font-size:15px;}
+.nav-badge{font-size:11px;background:rgba(52,211,153,0.1);color:var(--primary);border:1px solid rgba(52,211,153,0.2);padding:3px 10px;border-radius:var(--r-full);}
+.nav-right{display:flex;align-items:center;gap:12px;}
+.nav-link{font-size:13px;color:var(--muted-fg);transition:color 0.2s;}
+.nav-link:hover{color:var(--primary);}
+.btn-outline{border:1px solid var(--border-2);color:var(--foreground);padding:6px 16px;border-radius:var(--r-md);font-size:13px;font-weight:500;transition:all 0.2s;}
+.btn-outline:hover{border-color:var(--primary);color:var(--primary);}
+.btn-primary{background:var(--primary);color:var(--primary-fg);padding:7px 16px;border-radius:var(--r-md);font-size:13px;font-weight:600;transition:all 0.2s;cursor:pointer;border:none;}
+.btn-primary:hover{background:#2fc78b;}
+
+/* ─── HERO ────────────────────────────────────────────────── */
+.hero{position:relative;text-align:center;padding:100px 16px 80px;overflow:hidden;}
+.hero-glow{position:absolute;width:500px;height:500px;background:rgba(52,211,153,0.12);border-radius:50%;filter:blur(80px);top:-100px;left:50%;transform:translateX(-50%);pointer-events:none;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(52,211,153,0.25);background:rgba(52,211,153,0.06);padding:6px 16px;border-radius:var(--r-full);font-size:13px;color:var(--primary);margin-bottom:24px;}
+.hero-badge svg{width:14px;height:14px;}
+h1{font-size:clamp(32px,5vw,60px);font-weight:800;letter-spacing:-0.02em;line-height:1.1;margin-bottom:20px;}
+.gradient-text{background:linear-gradient(135deg,#34d399,#06b6d4,#34d399);background-size:200% 200%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradient-shift 4s ease infinite;}
+.hero-sub{font-size:18px;color:var(--muted-fg);max-width:640px;margin:0 auto 36px;}
+.hero-ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.cta-primary{background:var(--primary);color:var(--primary-fg);padding:14px 32px;border-radius:var(--r-md);font-size:15px;font-weight:700;transition:all 0.2s;cursor:pointer;border:none;animation:pulse-glow 3s ease-in-out infinite;}
+.cta-primary:hover{background:#2fc78b;transform:translateY(-1px);}
+.cta-secondary{border:1px solid var(--border-2);color:var(--foreground);padding:14px 32px;border-radius:var(--r-md);font-size:15px;font-weight:500;transition:all 0.2s;cursor:pointer;background:transparent;}
+.cta-secondary:hover{border-color:var(--primary);color:var(--primary);}
+.hero-meta{margin-top:28px;display:flex;gap:24px;justify-content:center;flex-wrap:wrap;}
+.hero-meta-item{font-size:13px;color:var(--muted-fg);display:flex;align-items:center;gap:6px;}
+.hero-meta-item svg{color:var(--primary);}
+
+/* ─── SECTION HEADERS ─────────────────────────────────────── */
+.section-label{display:inline-block;background:rgba(52,211,153,0.1);color:var(--primary);border:1px solid rgba(52,211,153,0.2);padding:4px 12px;border-radius:var(--r-full);font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:16px;}
+.section-title{font-size:clamp(24px,4vw,40px);font-weight:800;letter-spacing:-0.02em;margin-bottom:12px;}
+.section-sub{font-size:16px;color:var(--muted-fg);max-width:600px;margin:0 auto 48px;}
+.text-center{text-align:center;}
+
+/* ─── CARDS ───────────────────────────────────────────────── */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:24px;transition:all 0.3s;}
+.card:hover{border-color:rgba(52,211,153,0.25);}
+.card-sm{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:18px;transition:all 0.3s;}
+.card-sm:hover{border-color:rgba(52,211,153,0.2);}
+.icon-box{width:40px;height:40px;border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;margin-bottom:14px;font-size:20px;}
+.icon-box.emerald{background:rgba(52,211,153,0.12);color:var(--emerald-4);}
+.icon-box.violet{background:rgba(139,92,246,0.12);color:var(--violet);}
+.icon-box.amber{background:rgba(245,158,11,0.12);color:var(--amber);}
+.icon-box.blue{background:rgba(59,130,246,0.12);color:var(--blue);}
+.icon-box.rose{background:rgba(244,63,94,0.12);color:var(--rose);}
+.icon-box.cyan{background:rgba(6,182,212,0.12);color:var(--cyan);}
+.icon-box.orange{background:rgba(249,115,22,0.12);color:var(--orange);}
+.icon-box.red{background:rgba(239,68,68,0.12);color:var(--red);}
+.card-title{font-size:15px;font-weight:700;margin-bottom:6px;}
+.card-text{font-size:13px;color:var(--muted-fg);line-height:1.6;}
+
+/* ─── GRID ────────────────────────────────────────────────── */
+.grid-3{display:grid;grid-template-columns:repeat(1,1fr);gap:16px;}
+.grid-2{display:grid;grid-template-columns:repeat(1,1fr);gap:16px;}
+.grid-4{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+@media(min-width:640px){.grid-4{grid-template-columns:repeat(2,1fr);}}
+@media(min-width:768px){.grid-3{grid-template-columns:repeat(3,1fr);gap:20px;}.grid-2{grid-template-columns:repeat(2,1fr);gap:20px;}.grid-4{grid-template-columns:repeat(4,1fr);gap:16px;}}
+
+/* ─── ALERT / WARNING BOX ─────────────────────────────────── */
+.alert{border-radius:var(--r-lg);padding:18px 20px;font-size:14px;line-height:1.6;display:flex;gap:12px;align-items:flex-start;}
+.alert.warning{background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.25);color:#fcd34d;}
+.alert.danger{background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.25);color:#fca5a5;}
+.alert.info{background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.2);color:var(--primary);}
+.alert-icon{font-size:18px;flex-shrink:0;margin-top:1px;}
+.alert strong{color:inherit;}
+
+/* ─── PHASE / TIMELINE ────────────────────────────────────── */
+.phase-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:28px;position:relative;overflow:hidden;}
+.phase-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.phase-card.ph-1::before{background:linear-gradient(90deg,var(--emerald-4),var(--cyan));}
+.phase-card.ph-2::before{background:linear-gradient(90deg,var(--violet),var(--pink));}
+.phase-card.ph-3::before{background:linear-gradient(90deg,var(--amber),var(--orange));}
+.phase-num{font-family:var(--mono);font-size:11px;color:var(--muted-fg);margin-bottom:8px;letter-spacing:0.1em;}
+.phase-title{font-size:18px;font-weight:700;margin-bottom:8px;}
+.phase-desc{font-size:14px;color:var(--muted-fg);margin-bottom:16px;}
+.phase-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.tag{font-size:11px;font-weight:600;padding:3px 10px;border-radius:var(--r-full);}
+.tag.green{background:rgba(52,211,153,0.12);color:var(--emerald-4);}
+.tag.blue{background:rgba(59,130,246,0.12);color:var(--blue);}
+.tag.amber{background:rgba(245,158,11,0.12);color:var(--amber);}
+.tag.violet{background:rgba(139,92,246,0.12);color:var(--violet);}
+.tag.red{background:rgba(239,68,68,0.12);color:var(--red);}
+.tag.cyan{background:rgba(6,182,212,0.12);color:var(--cyan);}
+.tag.orange{background:rgba(249,115,22,0.12);color:var(--orange);}
+
+/* ─── VIDEO CARDS ─────────────────────────────────────────── */
+.video-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden;transition:all 0.3s;}
+.video-card:hover{border-color:rgba(52,211,153,0.3);transform:translateY(-2px);}
+.video-thumb{background:linear-gradient(135deg,#1a2a1a,#0d1f1a);aspect-ratio:9/16;max-height:200px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.video-thumb-h{aspect-ratio:16/9;max-height:160px;}
+.video-play{width:48px;height:48px;background:rgba(52,211,153,0.2);border:2px solid rgba(52,211,153,0.4);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--primary);font-size:20px;backdrop-filter:blur(4px);}
+.video-badge{position:absolute;top:10px;left:10px;font-size:10px;font-weight:700;padding:3px 8px;border-radius:var(--r-full);letter-spacing:0.06em;text-transform:uppercase;}
+.video-badge.reel{background:rgba(244,63,94,0.85);color:#fff;}
+.video-badge.post{background:rgba(59,130,246,0.85);color:#fff;}
+.video-rank{position:absolute;top:10px;right:10px;width:24px;height:24px;background:var(--primary);color:var(--primary-fg);border-radius:50%;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;}
+.video-body{padding:16px;}
+.video-title{font-size:14px;font-weight:700;margin-bottom:6px;line-height:1.4;}
+.video-why{font-size:12px;color:var(--muted-fg);margin-bottom:12px;line-height:1.5;}
+.video-link{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--primary);font-weight:600;transition:color 0.2s;}
+.video-link:hover{color:#2fc78b;}
+.video-metrics{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap;}
+.v-metric{font-size:11px;background:var(--muted);padding:3px 8px;border-radius:var(--r-full);color:var(--muted-fg);}
+
+/* ─── COPY BOX ────────────────────────────────────────────── */
+.copy-box{background:var(--muted);border:1px solid var(--border-2);border-radius:var(--r-lg);padding:20px;position:relative;}
+.copy-box-label{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted-fg);margin-bottom:10px;}
+.copy-text{font-size:14px;line-height:1.7;color:var(--foreground);white-space:pre-line;}
+.copy-hook{font-size:18px;font-weight:700;color:var(--primary);display:block;margin-bottom:8px;}
+.copy-cta-bar{margin-top:14px;padding-top:14px;border-top:1px solid var(--border);display:flex;gap:8px;flex-wrap:wrap;}
+.cta-tag{font-size:12px;font-weight:600;background:rgba(52,211,153,0.1);color:var(--primary);padding:4px 12px;border-radius:var(--r-full);border:1px solid rgba(52,211,153,0.2);}
+
+/* ─── FUNNEL ──────────────────────────────────────────────── */
+.funnel-step{background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:20px 24px;display:flex;gap:16px;align-items:flex-start;}
+.funnel-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex-shrink:0;}
+.funnel-num.f1{background:rgba(52,211,153,0.15);color:var(--emerald-4);}
+.funnel-num.f2{background:rgba(6,182,212,0.15);color:var(--cyan);}
+.funnel-num.f3{background:rgba(139,92,246,0.15);color:var(--violet);}
+.funnel-num.f4{background:rgba(245,158,11,0.15);color:var(--amber);}
+.funnel-num.f5{background:rgba(244,63,94,0.15);color:var(--rose);}
+.funnel-body{flex:1;}
+.funnel-title{font-size:15px;font-weight:700;margin-bottom:4px;}
+.funnel-desc{font-size:13px;color:var(--muted-fg);}
+.funnel-meta{font-size:12px;color:var(--primary);font-weight:600;margin-top:6px;}
+.funnel-connector{text-align:center;color:var(--muted-fg);padding:4px 0;font-size:18px;}
+
+/* ─── TARGETING TABLE ─────────────────────────────────────── */
+.target-table{width:100%;border-collapse:collapse;}
+.target-table th{text-align:left;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted-fg);padding:10px 14px;border-bottom:1px solid var(--border);}
+.target-table td{padding:12px 14px;font-size:13px;border-bottom:1px solid rgba(255,255,255,0.04);vertical-align:top;}
+.target-table tr:last-child td{border-bottom:none;}
+.target-table tr:hover td{background:rgba(255,255,255,0.02);}
+.target-table td:first-child{font-weight:600;color:var(--foreground);}
+.target-table td:not(:first-child){color:var(--muted-fg);}
+.highlight-td{color:var(--primary) !important;font-weight:600 !important;}
+
+/* ─── BUDGET TABLE ────────────────────────────────────────── */
+.budget-row{display:flex;align-items:center;padding:14px 0;border-bottom:1px solid var(--border);gap:12px;}
+.budget-row:last-child{border-bottom:none;}
+.budget-phase{font-size:12px;font-weight:600;width:100px;flex-shrink:0;}
+.budget-bar-wrap{flex:1;background:var(--muted);border-radius:var(--r-full);height:8px;overflow:hidden;}
+.budget-bar{height:100%;border-radius:var(--r-full);}
+.budget-val{font-size:14px;font-weight:700;color:var(--primary);width:100px;text-align:right;flex-shrink:0;}
+
+/* ─── KPI CARD ────────────────────────────────────────────── */
+.kpi-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-xl);padding:20px 24px;text-align:center;}
+.kpi-num{font-size:32px;font-weight:800;color:var(--primary);line-height:1;}
+.kpi-label{font-size:13px;color:var(--muted-fg);margin-top:4px;}
+.kpi-meta{font-size:11px;color:var(--muted-fg);margin-top:8px;}
+
+/* ─── COMPARISON ──────────────────────────────────────────── */
+.comp-row{display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:1px solid var(--border);padding:14px 0;}
+.comp-row:last-child{border-bottom:none;}
+.comp-neg{display:flex;align-items:flex-start;gap:8px;padding-right:16px;}
+.comp-pos{display:flex;align-items:flex-start;gap:8px;padding-left:16px;border-left:1px solid var(--border);}
+.comp-icon{font-size:14px;flex-shrink:0;margin-top:2px;}
+.comp-text{font-size:13px;line-height:1.5;}
+.comp-neg .comp-text{color:var(--muted-fg);}
+.comp-pos .comp-text{color:var(--foreground);}
+
+/* ─── QUOTE ───────────────────────────────────────────────── */
+.quote-card{background:var(--card);border:1px solid rgba(52,211,153,0.2);border-radius:var(--r-xl);padding:28px;position:relative;}
+.quote-card::before{content:'"';position:absolute;top:-8px;left:20px;font-size:80px;line-height:1;color:rgba(52,211,153,0.15);font-family:Georgia,serif;}
+.quote-text{font-size:16px;font-style:italic;line-height:1.7;color:var(--foreground);margin-bottom:16px;}
+.quote-author{font-size:13px;color:var(--muted-fg);}
+.quote-author strong{color:var(--primary);}
+
+/* ─── DIVIDER ─────────────────────────────────────────────── */
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border-2),transparent);margin:0 auto;max-width:600px;}
+
+/* ─── CHECKLIST ───────────────────────────────────────────── */
+.checklist{list-style:none;display:flex;flex-direction:column;gap:10px;}
+.checklist li{display:flex;align-items:flex-start;gap:10px;font-size:14px;line-height:1.5;}
+.check-icon{flex-shrink:0;margin-top:2px;font-size:15px;}
+.check-icon.ok{color:var(--primary);}
+.check-icon.warn{color:var(--amber);}
+.check-icon.no{color:var(--red);}
+
+/* ─── OBJEÇÕES ────────────────────────────────────────────── */
+.obj-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px 18px;}
+.obj-q{font-size:13px;font-weight:700;color:var(--amber);margin-bottom:6px;display:flex;align-items:center;gap:6px;}
+.obj-a{font-size:13px;color:var(--muted-fg);line-height:1.6;}
+
+/* ─── FOOTER ──────────────────────────────────────────────── */
+footer{background:rgba(20,20,20,0.6);border-top:1px solid var(--border);padding:40px 16px 24px;}
+.footer-inner{max-width:1152px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;}
+.footer-logo{display:flex;align-items:center;gap:8px;}
+.footer-copy{font-size:12px;color:var(--muted-fg);}
+
+/* ─── RESPONSIVE MISC ─────────────────────────────────────── */
+@media(max-width:640px){.comp-row{grid-template-columns:1fr;}.comp-pos{border-left:none;border-top:1px solid var(--border);padding-left:0;padding-top:10px;margin-top:4px;}.budget-phase{width:70px;}.budget-val{width:70px;}}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ HEADER ═══════════════════ -->
+<header>
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <div class="logo-icon">DS</div>
+      <span class="logo-text">Advocacia Schettini</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <span class="nav-badge">Estratégia Leads 2026</span>
+      <a href="https://www.instagram.com/advocaciaschettini" target="_blank" class="btn-outline" style="font-size:13px;padding:5px 14px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);color:#a3a3a3;transition:all 0.2s;" onmouseover="this.style.color='#34d399';this.style.borderColor='rgba(52,211,153,0.4)'" onmouseout="this.style.color='#a3a3a3';this.style.borderColor='rgba(255,255,255,0.12)'">@advocaciaschettini ↗</a>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<div class="hero">
+  <div class="hero-glow"></div>
+
+  <div class="container-sm">
+    <div class="hero-badge animate-fade-in-up">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      Tráfego Pago · Carreteiro · Aposentadoria Especial
+    </div>
+
+    <h1 class="animate-fade-in-up delay-1">
+      Máquina de Leads<br>
+      <span class="gradient-text">do Zero ao Escale</span>
+    </h1>
+
+    <p class="hero-sub animate-fade-in-up delay-2">
+      Estratégia completa de tráfego pago para <strong>Dr. Danilo Schettini</strong> — reconstruindo inteligência de audiência e gerando leads qualificados de carreteiros que têm direito à aposentadoria especial.
+    </p>
+
+    <div class="hero-ctas animate-fade-in-up delay-3">
+      <a href="#diagnostico" class="cta-primary">Ver Diagnóstico ↓</a>
+      <a href="#funil" class="cta-secondary">Estratégia de Funil</a>
+    </div>
+
+    <div class="hero-meta animate-fade-in-up delay-4">
+      <div class="hero-meta-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+        Reconstrução de pixel do zero
+      </div>
+      <div class="hero-meta-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+        3 vídeos carreteiro selecionados
+      </div>
+      <div class="hero-meta-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+        3 vídeos aposentadoria especial
+      </div>
+      <div class="hero-meta-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+        Copy de ads com 9 variações
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ DIAGNÓSTICO ═══════════════════ -->
+<section id="diagnostico" style="padding-top:0;">
+  <div class="container-sm">
+    <div class="alert danger sr" style="margin-bottom:20px;">
+      <span class="alert-icon">⚠️</span>
+      <div><strong>Conta principal perdida — sem inteligência acumulada.</strong> O pixel não tem histórico, as audiências personalizadas foram zeradas e os lookalikes perdidos. Isso muda completamente a estratégia de entrada: começamos com tráfego frio de interesse e construímos do zero.</div>
+    </div>
+
+    <div class="alert warning sr stagger-2" style="margin-bottom:20px;">
+      <span class="alert-icon">🔧</span>
+      <div><strong>Ação imediata antes de subir qualquer anúncio:</strong> instalar o pixel NOVO na página de destino (WhatsApp redirect, landing ou formulário) e configurar o evento <code style="background:rgba(0,0,0,0.3);padding:1px 5px;border-radius:3px;">Lead</code> corretamente. Cada dia sem pixel é inteligência perdida.</div>
+    </div>
+
+    <div class="alert info sr stagger-3">
+      <span class="alert-icon">✅</span>
+      <div><strong>O lado bom:</strong> os vídeos orgânicos do @advocaciaschettini já funcionam como prova de autoridade. Vamos usá-los como criativos pagos e iniciar a coleta de audiência de visualizações — esse é o nosso banco de dados do zero.</div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<section style="padding:40px 16px;">
+  <div class="container-sm">
+    <div class="grid-4">
+      <div class="kpi-card sr stagger-1">
+        <div class="kpi-num">0</div>
+        <div class="kpi-label">Dias para reconstruir pixel</div>
+        <div class="kpi-meta">Instale hoje, comece amanhã</div>
+      </div>
+      <div class="kpi-card sr stagger-2">
+        <div class="kpi-num">1.8M</div>
+        <div class="kpi-label">Caminhoneiros no Brasil</div>
+        <div class="kpi-meta">Público potencial no Meta</div>
+      </div>
+      <div class="kpi-card sr stagger-3">
+        <div class="kpi-num" style="color:var(--amber);">60%</div>
+        <div class="kpi-label">Carreteiros com direito à Apos. Especial</div>
+        <div class="kpi-meta">Não sabem que têm esse direito</div>
+      </div>
+      <div class="kpi-card sr stagger-4">
+        <div class="kpi-num" style="color:var(--cyan);">R$80</div>
+        <div class="kpi-label">CPL estimado mês 1</div>
+        <div class="kpi-meta">Cai para R$35 no mês 3</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════ VÍDEOS CARRETEIRO ═══════════════════ -->
+<section id="videos-carreteiro">
+  <div class="container-md">
+    <div class="text-center sr">
+      <span class="section-label">🚛 Seleção de Criativos</span>
+      <h2 class="section-title">3 Vídeos para Impulsionar<br>— Carreteiro</h2>
+      <p class="section-sub">Selecionados com base no potencial de engajamento e identificação do avatar. Estes reels viram o topo do funil do tráfego pago.</p>
+    </div>
+
+    <div class="grid-3" style="margin-bottom:32px;">
+
+      <!-- VÍDEO 1 -->
+      <div class="video-card sr stagger-1">
+        <div class="video-thumb video-thumb-h" style="background:linear-gradient(135deg,#0d1a0d,#162516);">
+          <div class="video-badge reel">Reel</div>
+          <div class="video-rank">1</div>
+          <div class="video-play">▶</div>
+          <div style="position:absolute;bottom:10px;left:10px;font-size:11px;background:rgba(0,0,0,0.7);padding:3px 8px;border-radius:4px;color:#a3a3a3;">DYktjSPRtvt</div>
+        </div>
+        <div class="video-body">
+          <div class="video-title">🏆 Principal escolha — Maior potencial de viralização</div>
+          <div class="video-why">Reel sobre direitos do carreteiro / aposentadoria especial. Formato curto e dinâmico = maior alcance pago com menor CPM. Use como campanha de visualização de vídeo para construir audiência rapidamente.</div>
+          <div class="video-metrics">
+            <span class="v-metric">🎯 Topo de funil</span>
+            <span class="v-metric">📲 Formato Reel</span>
+            <span class="v-metric">🔥 Impulsionar</span>
+          </div>
+          <a href="https://www.instagram.com/reel/DYktjSPRtvt/" target="_blank" class="video-link" style="margin-top:12px;">Ver reel original ↗</a>
+        </div>
+      </div>
+
+      <!-- VÍDEO 2 -->
+      <div class="video-card sr stagger-2">
+        <div class="video-thumb video-thumb-h" style="background:linear-gradient(135deg,#0d1520,#121d2e);">
+          <div class="video-badge post">Post</div>
+          <div class="video-rank">2</div>
+          <div class="video-play">▶</div>
+          <div style="position:absolute;bottom:10px;left:10px;font-size:11px;background:rgba(0,0,0,0.7);padding:3px 8px;border-radius:4px;color:#a3a3a3;">DYXkHjpESyG</div>
+        </div>
+        <div class="video-body">
+          <div class="video-title">🎯 Segunda escolha — Alto poder de identificação</div>
+          <div class="video-why">Post/carousel com conteúdo informativo sobre direitos específicos do carreteiro. Formato ideal para campanha de alcance + engajamento. O carreteiro para, lê e se identifica — alta intenção de contato.</div>
+          <div class="video-metrics">
+            <span class="v-metric">📊 Meio de funil</span>
+            <span class="v-metric">📋 Post/Carousel</span>
+            <span class="v-metric">💬 Engajamento</span>
+          </div>
+          <a href="https://www.instagram.com/p/DYXkHjpESyG/" target="_blank" class="video-link" style="margin-top:12px;">Ver post original ↗</a>
+        </div>
+      </div>
+
+      <!-- VÍDEO 3 -->
+      <div class="video-card sr stagger-3">
+        <div class="video-thumb video-thumb-h" style="background:linear-gradient(135deg,#1a150d,#251e12);">
+          <div class="video-badge reel">Reel</div>
+          <div class="video-rank">3</div>
+          <div class="video-play">▶</div>
+          <div style="position:absolute;bottom:10px;left:10px;font-size:11px;background:rgba(0,0,0,0.7);padding:3px 8px;border-radius:4px;color:#a3a3a3;">DYScJD8BG5J</div>
+        </div>
+        <div class="video-body">
+          <div class="video-title">⚡ Terceira escolha — Conversão direta</div>
+          <div class="video-why">Reel com abordagem direta sobre um direito específico. Ideal para campanha de geração de leads com CTA direto para WhatsApp. Menor alcance, maior intenção de conversão.</div>
+          <div class="video-metrics">
+            <span class="v-metric">💰 Fundo de funil</span>
+            <span class="v-metric">📲 Formato Reel</span>
+            <span class="v-metric">📞 Conversão</span>
+          </div>
+          <a href="https://www.instagram.com/reel/DYScJD8BG5J/" target="_blank" class="video-link" style="margin-top:12px;">Ver reel original ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- VÍDEO BACKUP -->
+    <div class="alert info sr">
+      <span class="alert-icon">🔄</span>
+      <div><strong>Vídeo de backup (DX90Wrax4ws):</strong> Use como <a href="https://www.instagram.com/p/DX90Wrax4ws/" target="_blank" style="color:var(--primary);">4º criativo em teste A/B ↗</a> quando os 3 principais atingirem fadiga de audiência. Alterne semanalmente para manter o custo por lead baixo.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════ VÍDEOS APOSENTADORIA ESPECIAL ═══════════════════ -->
+<section id="videos-aposentadoria">
+  <div class="container-md">
+    <div class="text-center sr">
+      <span class="section-label">🏛️ Aposentadoria Especial</span>
+      <h2 class="section-title">3 Vídeos Prioritários<br>— Aposentadoria Especial</h2>
+      <p class="section-sub">A aposentadoria especial é o maior gatilho de conversão para carreteiros. Esses são os formatos de vídeo que mais convertem nesse nicho.</p>
+    </div>
+
+    <div class="grid-3" style="margin-bottom:32px;">
+
+      <!-- APOSEN 1 -->
+      <div class="card sr stagger-1" style="border-color:rgba(139,92,246,0.2);">
+        <div class="icon-box violet" style="font-size:22px;">⏰</div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--muted-fg);letter-spacing:0.1em;margin-bottom:8px;">VÍDEO PRIORITÁRIO 01</div>
+        <div class="card-title" style="font-size:16px;">"Quantos anos você precisa trabalhar?"</div>
+        <div class="card-text" style="margin-bottom:14px;">Explique que carreteiro pode se aposentar com <strong style="color:#fafafa;">25 anos de contribuição</strong> (não 35) por exposição a agente nocivo (ruído de motor, vibração, produtos químicos). O número "25 anos" é o maior hook desse público.</div>
+        <div class="phase-tags">
+          <span class="tag amber">25 anos de contribuição</span>
+          <span class="tag violet">NR-15</span>
+          <span class="tag green">Alta conversão</span>
+        </div>
+        <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);font-size:12px;color:var(--muted-fg);">
+          💡 <strong style="color:var(--amber);">Hook sugerido:</strong> "Carreteiro, você já ouviu falar que pode se aposentar em 25 anos?"
+        </div>
+      </div>
+
+      <!-- APOSEN 2 -->
+      <div class="card sr stagger-2" style="border-color:rgba(6,182,212,0.2);">
+        <div class="icon-box cyan" style="font-size:22px;">📋</div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--muted-fg);letter-spacing:0.1em;margin-bottom:8px;">VÍDEO PRIORITÁRIO 02</div>
+        <div class="card-title" style="font-size:16px;">"Os documentos que você precisa ter"</div>
+        <div class="card-text" style="margin-bottom:14px;">Lista prática: PPP (Perfil Profissiográfico Previdenciário), LTCAT, holerites, carteira assinada. O carreteiro sente que está "quase lá" e chama o advogado para ajudar a montar o processo.</div>
+        <div class="phase-tags">
+          <span class="tag cyan">PPP / LTCAT</span>
+          <span class="tag blue">Documentação</span>
+          <span class="tag green">Intenção alta</span>
+        </div>
+        <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);font-size:12px;color:var(--muted-fg);">
+          💡 <strong style="color:var(--cyan);">Hook sugerido:</strong> "3 documentos que todo carreteiro precisa guardar para se aposentar especial"
+        </div>
+      </div>
+
+      <!-- APOSEN 3 -->
+      <div class="card sr stagger-3" style="border-color:rgba(244,63,94,0.2);">
+        <div class="icon-box rose" style="font-size:22px;">🚨</div>
+        <div style="font-family:var(--mono);font-size:10px;color:var(--muted-fg);letter-spacing:0.1em;margin-bottom:8px;">VÍDEO PRIORITÁRIO 03</div>
+        <div class="card-title" style="font-size:16px;">"O que o INSS não vai te contar"</div>
+        <div class="card-text" style="margin-bottom:14px;">Denúncia: o INSS indeferiu 73% dos pedidos de aposentadoria especial em 2023. A maioria dos carreteiros desiste na primeira negativa. O advogado entra aqui como herói que reverte a decisão judicial.</div>
+        <div class="phase-tags">
+          <span class="tag red">Indeferimento INSS</span>
+          <span class="tag amber">Recurso judicial</span>
+          <span class="tag violet">Autoridade</span>
+        </div>
+        <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--border);font-size:12px;color:var(--muted-fg);">
+          💡 <strong style="color:var(--rose);">Hook sugerido:</strong> "O INSS negou sua aposentadoria especial? Isso é o que eles não querem que você saiba"
+        </div>
+      </div>
+    </div>
+
+    <div class="quote-card sr">
+      <p class="quote-text">O carreteiro que dirige há 20 anos não sabe que o ruído constante do motor, a vibração do volante e a exposição a diesel são <strong>agentes nocivos reconhecidos pelo INSS</strong>. Quando ele descobre isso, ele liga. O vídeo que ensina isso é o melhor ad que existe para esse público.</p>
+      <div class="quote-author">— Diagnóstico de Copy · Advocacia Schettini · <strong>Maio 2026</strong></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════ FUNIL ═══════════════════ -->
+<section id="funil">
+  <div class="container-sm">
+    <div class="text-center sr">
+      <span class="section-label">📐 Arquitetura do Funil</span>
+      <h2 class="section-title">Funil de 5 Etapas<br>— Do Frio ao Lead</h2>
+      <p class="section-sub">Sem pixel, começamos construindo audiência de vídeo. Cada etapa alimenta a próxima até chegar na consulta.</p>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      <div class="funnel-step sr stagger-1">
+        <div class="funnel-num f1">1</div>
+        <div class="funnel-body">
+          <div class="funnel-title">🎬 Vídeo View — Construção de Audiência</div>
+          <div class="funnel-desc">Impulsione os 3 vídeos de carreteiro para público frio de interesse. Meta: 10.000+ visualizações de 50%+ do vídeo. Essa audiência é o seu novo "pixel" — é de onde saem todos os retargets.</div>
+          <div class="funnel-meta">Objetivo: Visualizações de vídeo · Público: Interesse em caminhão, CLT, INSS · Budget: R$ 30–50/dia</div>
+        </div>
+      </div>
+
+      <div class="funnel-connector">⬇</div>
+
+      <div class="funnel-step sr stagger-2">
+        <div class="funnel-num f2">2</div>
+        <div class="funnel-body">
+          <div class="funnel-title">🎯 Retarget — Engajamento Qualificado</div>
+          <div class="funnel-desc">Retargete quem assistiu 25%+ dos vídeos de carreteiro com o vídeo de aposentadoria especial. Essa pessoa já te conhece e está no nicho certo — CTA direto para "Descubra seu direito".</div>
+          <div class="funnel-meta">Objetivo: Tráfego ou Engajamento · Audiência: Visualizou 25%+ · Budget: R$ 20–30/dia</div>
+        </div>
+      </div>
+
+      <div class="funnel-connector">⬇</div>
+
+      <div class="funnel-step sr stagger-3">
+        <div class="funnel-num f3">3</div>
+        <div class="funnel-body">
+          <div class="funnel-title">📋 Lead Gen — Captura Direta</div>
+          <div class="funnel-desc">Para quem assistiu 75%+ do vídeo de aposentadoria, sirva um ad de lead form (dentro do Meta) ou direcionamento para WhatsApp com oferta clara: "Consulta gratuita — Descubra se você tem direito à aposentadoria especial".</div>
+          <div class="funnel-meta">Objetivo: Geração de Leads · Audiência: Assistiu 75%+ · Budget: R$ 30–50/dia</div>
+        </div>
+      </div>
+
+      <div class="funnel-connector">⬇</div>
+
+      <div class="funnel-step sr stagger-4">
+        <div class="funnel-num f4">4</div>
+        <div class="funnel-body">
+          <div class="funnel-title">🔁 Lookalike — Escale com Semelhantes</div>
+          <div class="funnel-desc">Após 100 leads capturados, crie lookalike 1% da lista de leads. Essa é a audiência mais qualificada possível — pessoas parecidas com quem já virou cliente. Reduza o CPL em até 40%.</div>
+          <div class="funnel-meta">Objetivo: Leads · Audiência: LAL 1% de leads · Budget: R$ 50–100/dia</div>
+        </div>
+      </div>
+
+      <div class="funnel-connector">⬇</div>
+
+      <div class="funnel-step sr stagger-5">
+        <div class="funnel-num f5">5</div>
+        <div class="funnel-body">
+          <div class="funnel-title">📞 WhatsApp — Conversão em Consulta</div>
+          <div class="funnel-desc">O lead entra no WhatsApp com contexto (já viu o vídeo, pediu a consulta). O atendimento usa um script de qualificação de 3 perguntas. Taxa de conversão esperada: 30–45% dos leads em consulta agendada.</div>
+          <div class="funnel-meta">Ferramenta: WhatsApp Business · Script: 3 perguntas qualificadoras · Meta: 35% de agendamento</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════ COPY DOS ADS ═══════════════════ -->
+<section id="copy">
+  <div class="container-md">
+    <div class="text-center sr">
+      <span class="section-label">✍️ Copy dos Criativos</span>
+      <h2 class="section-title">9 Variações de Copy<br>— Prontas para Subir</h2>
+      <p class="section-sub">Baseadas no framework Problem-Solution Lead com os gatilhos de Cialdini. Teste 2–3 ao mesmo tempo e pause as que não performam.</p>
+    </div>
+
+    <!-- GRUPO 1 — CARRETEIRO TOPO -->
+    <div class="sr" style="margin-bottom:12px;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted-fg);margin-bottom:12px;">🚛 Grupo 1 — Carreteiro · Topo de Funil (Awareness)</div>
+      <div class="grid-3">
+        <div class="copy-box">
+          <div class="copy-box-label">Variação A — "Revelação"</div>
+          <div class="copy-text"><span class="copy-hook">🚛 Carreteiro, você tem um direito que o INSS escondeu de você.</span>Quem trabalha como motorista de caminhão exposto a ruído, vibração e produto químico tem direito a se aposentar com <strong>25 anos</strong> — não 35.
+
+É a chamada Aposentadoria Especial.
+
+E 9 em cada 10 carreteiros não sabem que se qualificam.
+
+👇 Clique e descubra se você tem esse direito — consulta gratuita.</div>
+          <div class="copy-cta-bar">
+            <span class="cta-tag">Consulta Gratuita</span>
+            <span class="cta-tag">WhatsApp</span>
+          </div>
+        </div>
+        <div class="copy-box">
+          <div class="copy-box-label">Variação B — "Dor" (PAS)</div>
+          <div class="copy-text"><span class="copy-hook">Você já perdeu a conta de quantas noite dormiu na cabine?</span>Rodovias, frio, calor, diesel, o ronco constante do motor…
+
+Esse sacrifício vale uma coisa: <strong>o direito à aposentadoria especial.</strong>
+
+O problema é que o INSS raramente te conta isso.
+
+Se você tem 25 anos como carreteiro, sua aposentadoria pode ser agora.
+
+📲 Fala com o Dr. Danilo — é de graça.</div>
+          <div class="copy-cta-bar">
+            <span class="cta-tag">Identidade</span>
+            <span class="cta-tag">Empatia</span>
+          </div>
+        </div>
+        <div class="copy-box">
+          <div class="copy-box-label">Variação C — "Pergunta Direta"</div>
+          <div class="copy-text"><span class="copy-hook">Carreteiro: você tem mais de 20 anos de estrada?</span>Se sim, há uma grande chance de você já ter o tempo mínimo para a Aposentadoria Especial.
+
+✅ Ruído de motor = agente nocivo
+✅ Vibração constante = agente nocivo
+✅ Exposição a combustível = agente nocivo
+
+Você passa por isso todo dia. Isso te dá direitos.
+
+Consulta gratuita com o Dr. Danilo Schettini — advogado do trabalhador.</div>
+          <div class="copy-cta-bar">
+            <span class="cta-tag">Qualificação</span>
+            <span class="cta-tag">Lógica</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GRUPO 2 — APOSENTADORIA MEIO/FUNDO -->
+    <div class="sr" style="margin-bottom:12px;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted-fg);margin-bottom:12px;">🏛️ Grupo 2 — Aposentadoria Especial · Meio/Fundo de Funil (Conversão)</div>
+      <div class="grid-3">
+        <div class="copy-box">
+          <div class="copy-box-label">Variação D — "INSS Negou"</div>
+          <div class="copy-text"><span class="copy-hook">O INSS negou sua aposentadoria especial? Normal — e errado.</span>Em 2023, o INSS indeferiu 73% dos pedidos de aposentadoria especial de caminhoneiros.
+
+A maioria dos motoristas aceita. A maioria perde o que é seu de direito.
+
+Nós revertemos isso na Justiça.
+
+Se você foi negado ou quer evitar a negativa, fale comigo agora. É sem custo inicial.</div>
+          <div class="copy-cta-bar">
+            <span class="cta-tag">Urgência</span>
+            <span class="cta-tag">Autoridade</span>
+          </div>
+        </div>
+        <div class="copy-box">
+          <div class="copy-box-label">Variação E — "Prazo"</div>
+          <div class="copy-text"><span class="copy-hook">⏰ Cada ano que você espera, é dinheiro que o INSS não vai devolver.</span>A aposentadoria especial tem um gatilho: você precisa pedir enquanto ainda está exposto ao agente nocivo.
+
+Muitos carreteiros mudam de função ou se aposentam de outra forma e <strong>perdem o direito para sempre.</strong>
+
+Se você ainda dirige caminhão hoje, o momento de agir é AGORA.
+
+Consulta gratuita. Sem burocracia. Fala comigo.</div>
+          <div class="copy-cta-bar">
+            <span class="cta-tag">Escassez Real</span>
+            <span class="cta-tag">Urgência</span>
+          </div>
+        </div>
+        <div class="copy-box">
+          <div class="copy-box-label">Variação F — "Case/Prova"</div>
+          <div class="copy-text"><span class="copy-hook">👨‍✈️ Seu João, 52 anos, dirigiu por 28 anos. O INSS disse que ele não tinha direito.</span>Ele quase desistiu.
+
+Depois de uma consulta com o Dr. Danilo Schettini, descobrimos o PPP com os dados de ruído e vibração que o empregador nunca mostrou.
+
+Em 8 meses, aposentadoria especial concedida.
+
+Seu caso pode ser igual ao do Seu João. A consulta é gratuita — e pode mudar o resto da sua vida.</div>
+          <div class="copy-cta-bar">
+            <span class="cta-tag">Prova Social</span>
+            <span class="cta-tag">Story Lead</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GRUPO 3 — OUTROS DIREITOS -->
+    <div class="sr">
+      <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted-fg);margin-bottom:12px;">⚖️ Grupo 3 — Outros Direitos do Carreteiro · Expansão de Audiência</div>
+      <div class="grid-3">
+        <div class="copy-box">
+          <div class="copy-box-label">Variação G — "Horas Extras"</div>
+          <div class="copy-text"><span class="copy-hook">🚛 Carreteiro PJ ou CLT: a empresa te paga pelo tempo de espera na balança?</span>Por lei, o tempo de espera para carga e descarga conta como horas extras.
+
+Muitas transportadoras não pagam. E a maioria dos motoristas não sabe que pode cobrar na Justiça.
+
+Se você já trabalhou por uma empresa por mais de 6 meses e saiu sem receber tudo, pode ter direito a verbas trabalhistas.
+
+Consulta gratuita. Sem custo adiantado.</div>
+          <div class="copy-cta-bar">
+            <span class="cta-tag">Horas Extras</span>
+            <span class="cta-tag">CLT</span>
+          </div>
+        </div>
+        <div class="copy-box">
+          <div class="copy-box-label">Variação H — "PJ Falso"</div>
+          <div class="copy-text"><span class="copy-hook">⚠️ Você é motorista "PJ" mas trabalha só pra uma empresa, com horário fixo?</span>Isso se chama pejotização ilegal.
+
+E você pode ter direito a: FGTS dos últimos 5 anos + 13º salário + férias + horas extras.
+
+Muitos carreteiros estão passando por isso hoje. E a Justiça tem dado ganho de causa.
+
+Dr. Danilo Schettini — advogado especialista em direitos do trabalhador. Consulta 100% gratuita.</div>
+          <div class="copy-cta-bar">
+            <span class="cta-tag">PJ Falso</span>
+            <span class="cta-tag">FGTS</span>
+          </div>
+        </div>
+        <div class="copy-box">
+          <div class="copy-box-label">Variação I — "Acidente"</div>
+          <div class="copy-text"><span class="copy-hook">🚨 Sofreu acidente na estrada? A empresa pode te dever mais do que você recebeu.</span>Acidente de trânsito em serviço gera direito a:
+
+✅ Estabilidade de 12 meses após alta
+✅ Indenização por dano material e moral
+✅ Manutenção do plano de saúde
+
+Muitas empresas pagam o mínimo e esperam que o motorista não saiba seus direitos.
+
+Fale comigo antes de assinar qualquer acordo. Consulta gratuita.</div>
+          <div class="copy-cta-bar">
+            <span class="cta-tag">Acidente</span>
+            <span class="cta-tag">Indenização</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════ SEGMENTAÇÃO ═══════════════════ -->
+<section id="segmentacao">
+  <div class="container-md">
+    <div class="text-center sr">
+      <span class="section-label">🎯 Segmentação</span>
+      <h2 class="section-title">Targeting sem Pixel<br>— Como Chegar no Carreteiro</h2>
+      <p class="section-sub">Sem audiências salvas e sem pixel histórico, usamos interesses + comportamentos + geolocalização para encontrar o motorista certo.</p>
+    </div>
+
+    <div class="grid-2 sr" style="margin-bottom:32px;">
+      <div class="card">
+        <div class="icon-box emerald">🎯</div>
+        <div class="card-title">Interesses Primários (Meta/Instagram)</div>
+        <div class="card-text" style="margin-bottom:12px;">Use estes interesses em conjunto (não um por campanha):</div>
+        <div class="phase-tags" style="gap:8px;">
+          <span class="tag green">Caminhoneiro</span>
+          <span class="tag green">Motorista de caminhão</span>
+          <span class="tag blue">CLT / Carteira assinada</span>
+          <span class="tag amber">INSS / Previdência</span>
+          <span class="tag cyan">Transporte de carga</span>
+          <span class="tag violet">Aposentadoria</span>
+          <span class="tag orange">Direitos trabalhistas</span>
+          <span class="tag green">Associação de caminhoneiros</span>
+          <span class="tag amber">Abastecimento / Diesel</span>
+          <span class="tag blue">Scania / Volvo / Mercedes-Benz Trucks</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="icon-box violet">🗺️</div>
+        <div class="card-title">Geolocalização Estratégica</div>
+        <div class="card-text" style="margin-bottom:12px;">Carreteiros circulam por corredores específicos. Segmente nessas regiões:</div>
+        <div class="phase-tags" style="gap:8px;">
+          <span class="tag green">Brasil inteiro (inicio)</span>
+          <span class="tag amber">BR-101 · BR-116 · BR-381</span>
+          <span class="tag blue">Campinas · Betim · Caxias do Sul</span>
+          <span class="tag violet">Porto Alegre · Curitiba</span>
+          <span class="tag cyan">Feira de Santana · Recife</span>
+          <span class="tag orange">Uberlândia · Goiânia</span>
+        </div>
+        <div style="margin-top:12px;font-size:12px;color:var(--muted-fg);">💡 Após 30 dias, analise de onde vêm os leads e concentre orçamento nas regiões top 3.</div>
+      </div>
+    </div>
+
+    <div class="card sr" style="padding:24px;">
+      <div style="font-size:14px;font-weight:700;margin-bottom:16px;">📊 Comparação: Conta Perdida vs. Estratégia Zero-Pixel</div>
+      <div class="comp-row" style="padding-top:0;">
+        <div class="comp-neg">
+          <span class="comp-icon" style="color:var(--red);">✗</span>
+          <span class="comp-text">Pixel com 2+ anos de histórico — audiência aquecida, CPL de R$15–25</span>
+        </div>
+        <div class="comp-pos">
+          <span class="comp-icon" style="color:var(--primary);">✓</span>
+          <span class="comp-text">Pixel novo + interesse + audiência de vídeo — CPL de R$50–80 no mês 1</span>
+        </div>
+      </div>
+      <div class="comp-row">
+        <div class="comp-neg">
+          <span class="comp-icon" style="color:var(--red);">✗</span>
+          <span class="comp-text">Lookalike pronto de clientes — audiência de alta qualidade imediata</span>
+        </div>
+        <div class="comp-pos">
+          <span class="comp-icon" style="color:var(--primary);">✓</span>
+          <span class="comp-text">Lookalike de visualizações após 30 dias — qualidade cresce progressivamente</span>
+        </div>
+      </div>
+      <div class="comp-row">
+        <div class="comp-neg">
+          <span class="comp-icon" style="color:var(--red);">✗</span>
+          <span class="comp-text">Retarget de visitantes do site — conversão de 3–5% em lead</span>
+        </div>
+        <div class="comp-pos">
+          <span class="comp-icon" style="color:var(--primary);">✓</span>
+          <span class="comp-text">Retarget de visualizações de vídeo — conversão de 1.5–3% mas com volume maior</span>
+        </div>
+      </div>
+      <div class="comp-row" style="padding-bottom:0;">
+        <div class="comp-neg">
+          <span class="comp-icon" style="color:var(--red);">✗</span>
+          <span class="comp-text">Escala imediata sem reaprendizado do algoritmo</span>
+        </div>
+        <div class="comp-pos">
+          <span class="comp-icon" style="color:var(--primary);">✓</span>
+          <span class="comp-text"><strong style="color:var(--primary);">Mês 3 em diante:</strong> CPL cai para R$30–45 com inteligência reconstruída</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════ FASES ═══════════════════ -->
+<section id="fases">
+  <div class="container-md">
+    <div class="text-center sr">
+      <span class="section-label">📅 Plano de 90 Dias</span>
+      <h2 class="section-title">Cronograma de Execução<br>— Do Zero ao Escale</h2>
+      <p class="section-sub">Três fases claras. Cada fase tem um objetivo único, um orçamento e uma métrica de sucesso bem definidos.</p>
+    </div>
+
+    <div class="grid-3 sr">
+      <div class="phase-card ph-1">
+        <div class="phase-num">FASE 01 · SEMANAS 1–4</div>
+        <div class="phase-title">🌱 Construção de Base</div>
+        <div class="phase-desc">Instalar pixel, subir os 3 vídeos de carreteiro em campanha de visualizações. Meta: 10K views de 50%+. Testar 3 variações de copy (A, B, C).</div>
+        <div style="margin-bottom:14px;font-size:13px;color:var(--foreground);">
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="color:var(--muted-fg);">Budget diário</span><span style="color:var(--emerald-4);font-weight:700;">R$ 50–80</span></div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="color:var(--muted-fg);">Budget mensal</span><span style="color:var(--emerald-4);font-weight:700;">R$ 1.500–2.400</span></div>
+          <div style="display:flex;justify-content:space-between;"><span style="color:var(--muted-fg);">CPL estimado</span><span style="color:var(--amber);font-weight:700;">R$ 70–100</span></div>
+        </div>
+        <div class="phase-tags">
+          <span class="tag green">Pixel ativo</span>
+          <span class="tag blue">Video views</span>
+          <span class="tag amber">Interesse frio</span>
+        </div>
+      </div>
+
+      <div class="phase-card ph-2">
+        <div class="phase-num">FASE 02 · SEMANAS 5–8</div>
+        <div class="phase-title">🔥 Aquecimento</div>
+        <div class="phase-desc">Retarget de quem viu 25%+. Subir os vídeos de aposentadoria especial. Iniciar campanha de lead gen com CTA para WhatsApp. Testar copy D, E, F.</div>
+        <div style="margin-bottom:14px;font-size:13px;color:var(--foreground);">
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="color:var(--muted-fg);">Budget diário</span><span style="color:#c084fc;font-weight:700;">R$ 100–150</span></div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="color:var(--muted-fg);">Budget mensal</span><span style="color:#c084fc;font-weight:700;">R$ 3.000–4.500</span></div>
+          <div style="display:flex;justify-content:space-between;"><span style="color:var(--muted-fg);">CPL estimado</span><span style="color:var(--amber);font-weight:700;">R$ 45–65</span></div>
+        </div>
+        <div class="phase-tags">
+          <span class="tag violet">Retarget</span>
+          <span class="tag green">Lead gen</span>
+          <span class="tag cyan">WhatsApp</span>
+        </div>
+      </div>
+
+      <div class="phase-card ph-3">
+        <div class="phase-num">FASE 03 · SEMANAS 9–12</div>
+        <div class="phase-title">🚀 Escale</div>
+        <div class="phase-desc">Criar lookalike 1% da lista de leads. Expandir para audiências similares. Aumentar budget nas copies vencedoras. Adicionar copy G, H, I para expansão de nicho.</div>
+        <div style="margin-bottom:14px;font-size:13px;color:var(--foreground);">
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="color:var(--muted-fg);">Budget diário</span><span style="color:var(--amber);font-weight:700;">R$ 150–250</span></div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span style="color:var(--muted-fg);">Budget mensal</span><span style="color:var(--amber);font-weight:700;">R$ 4.500–7.500</span></div>
+          <div style="display:flex;justify-content:space-between;"><span style="color:var(--muted-fg);">CPL estimado</span><span style="color:var(--emerald-4);font-weight:700;">R$ 30–45</span></div>
+        </div>
+        <div class="phase-tags">
+          <span class="tag amber">Lookalike 1%</span>
+          <span class="tag orange">Budget escale</span>
+          <span class="tag green">CPL otimizado</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════ KPIs ═══════════════════ -->
+<section id="kpis">
+  <div class="container-sm">
+    <div class="text-center sr">
+      <span class="section-label">📈 Métricas & KPIs</span>
+      <h2 class="section-title">O que Acompanhar<br>— Toda Semana</h2>
+      <p class="section-sub">Sem esses números, você está voando cego. Configure o relatório semanal com essas métricas antes de subir o primeiro anúncio.</p>
+    </div>
+
+    <div class="grid-4 sr" style="margin-bottom:32px;">
+      <div class="kpi-card">
+        <div class="kpi-num">CPL</div>
+        <div class="kpi-label">Custo por Lead</div>
+        <div class="kpi-meta">Meta mês 3: R$ 35</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-num">VTR</div>
+        <div class="kpi-label">Taxa de view do vídeo (50%+)</div>
+        <div class="kpi-meta">Meta: &gt; 30%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-num">CTR</div>
+        <div class="kpi-label">Taxa de clique no ad</div>
+        <div class="kpi-meta">Meta: &gt; 1.5%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-num">Conv%</div>
+        <div class="kpi-label">Lead → Consulta agendada</div>
+        <div class="kpi-meta">Meta: &gt; 35%</div>
+      </div>
+    </div>
+
+    <!-- Checklist de Setup -->
+    <div class="card sr">
+      <div style="font-size:15px;font-weight:700;margin-bottom:20px;">✅ Checklist de Setup — Antes de Subir o Primeiro Anúncio</div>
+      <ul class="checklist">
+        <li>
+          <span class="check-icon ok">✓</span>
+          <span><strong>Pixel instalado</strong> na página de destino (landing ou redirect para WhatsApp) com evento <code style="background:rgba(255,255,255,0.08);padding:1px 6px;border-radius:3px;">Lead</code> configurado e testado no Event Manager</span>
+        </li>
+        <li>
+          <span class="check-icon ok">✓</span>
+          <span><strong>WhatsApp Business configurado</strong> com mensagem automática de boas-vindas: "Olá! Vi que você tem interesse em saber seus direitos como carreteiro. Pode me contar há quanto tempo você trabalha como motorista?"</span>
+        </li>
+        <li>
+          <span class="check-icon ok">✓</span>
+          <span><strong>Conta de anúncios Meta separada</strong> — nunca use a mesma conta da conta perdida. Crie uma nova Business Manager do zero para evitar associação com a conta suspensa.</span>
+        </li>
+        <li>
+          <span class="check-icon ok">✓</span>
+          <span><strong>3 vídeos subidos em formato de anúncio</strong> — DYktjSPRtvt, DYXkHjpESyG e DYScJD8BG5J com copy A, B, C respectivamente no texto do anúncio</span>
+        </li>
+        <li>
+          <span class="check-icon warn">!</span>
+          <span><strong>Landing page recomendada</strong> (opcional, aumenta CPL mas melhora qualidade): página simples com headline "Descubra se você tem direito à Aposentadoria Especial" + formulário de nome, WhatsApp e "há quantos anos trabalha como motorista?"</span>
+        </li>
+        <li>
+          <span class="check-icon warn">!</span>
+          <span><strong>Script de atendimento no WhatsApp</strong> — quem responde o WhatsApp precisa saber as 3 perguntas qualificadoras: (1) Tempo de serviço, (2) Tem carteira assinada?, (3) Já tentou pedir aposentadoria especial?</span>
+        </li>
+        <li>
+          <span class="check-icon no">✗</span>
+          <span><strong>NÃO use</strong> o mesmo nome do perfil @advocaciaschettini na conta de anúncios se a conta original foi banida — isso pode gerar associação e bloqueio preventivo pelo Meta.</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════ OBJEÇÕES ═══════════════════ -->
+<section>
+  <div class="container-sm">
+    <div class="text-center sr">
+      <span class="section-label">💬 Objeções</span>
+      <h2 class="section-title">O que o Carreteiro Vai Pensar<br>— e Como Responder</h2>
+      <p class="section-sub">Destrua essas objeções no próprio anúncio ou no primeiro contato pelo WhatsApp.</p>
+    </div>
+
+    <div class="grid-2 sr">
+      <div class="obj-card">
+        <div class="obj-q">❓ "Isso aí é golpe, não é?"</div>
+        <div class="obj-a">Inclua no ad: nome completo do Dr. Danilo, OAB visível, link do perfil verificado do Instagram. Mostre o rosto, não seja anônimo. A foto do advogado no vídeo vale mais que qualquer texto.</div>
+      </div>
+      <div class="obj-card">
+        <div class="obj-q">❓ "Não tenho dinheiro para advogado"</div>
+        <div class="obj-a">Deixe explícito que a consulta é gratuita e que os honorários só são cobrados em caso de ganho (êxito). "Você não paga nada adiantado" precisa estar na copy.</div>
+      </div>
+      <div class="obj-card">
+        <div class="obj-q">❓ "Já tentei e o INSS negou"</div>
+        <div class="obj-a">Essa é a maior oportunidade. Copy F ("Case") e variação D ("INSS negou") são criadas exatamente para essa persona. Mostre que negativa do INSS ≠ fim do processo.</div>
+      </div>
+      <div class="obj-card">
+        <div class="obj-q">❓ "Não tenho os documentos"</div>
+        <div class="obj-a">Eduque no conteúdo orgânico e no ad: "Não precisa ter os documentos agora. Na consulta te digo exatamente o que buscar e onde." Baixe a barreira de entrada ao máximo.</div>
+      </div>
+      <div class="obj-card">
+        <div class="obj-q">❓ "Sou autônomo / PJ, não CLT"</div>
+        <div class="obj-a">Abra essa dor com a copy H (PJ Falso). Muitos carreteiros PJ têm vínculo empregatício disfarçado. Isso é um mercado paralelo enorme ainda pouco explorado.</div>
+      </div>
+      <div class="obj-card">
+        <div class="obj-q">❓ "Preciso pensar / não é urgente"</div>
+        <div class="obj-a">Use a copy E ("Prazo"): se você ainda dirige hoje, o direito existe. Se mudar de função ou se aposentar por outro regime, pode perder. Escassez real, não fake.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════ BUDGET ═══════════════════ -->
+<section>
+  <div class="container-sm">
+    <div class="text-center sr">
+      <span class="section-label">💰 Orçamento</span>
+      <h2 class="section-title">Investimento Recomendado<br>— Mês a Mês</h2>
+      <p class="section-sub">Começar pequeno, escalar rápido. Nunca aumente budget sem ter o CPL sob controle.</p>
+    </div>
+
+    <div class="card sr" style="padding:28px;">
+      <div style="font-size:14px;font-weight:700;margin-bottom:20px;color:var(--muted-fg);">Distribuição do Budget Mensal</div>
+
+      <div class="budget-row">
+        <div class="budget-phase" style="color:var(--emerald-4);">Mês 1</div>
+        <div class="budget-bar-wrap"><div class="budget-bar" style="width:30%;background:linear-gradient(90deg,var(--emerald-4),var(--cyan));"></div></div>
+        <div class="budget-val">R$ 1.500</div>
+      </div>
+      <div class="budget-row">
+        <div class="budget-phase" style="color:var(--cyan);">Mês 2</div>
+        <div class="budget-bar-wrap"><div class="budget-bar" style="width:50%;background:linear-gradient(90deg,var(--cyan),var(--violet));"></div></div>
+        <div class="budget-val">R$ 2.500</div>
+      </div>
+      <div class="budget-row">
+        <div class="budget-phase" style="color:var(--violet);">Mês 3</div>
+        <div class="budget-bar-wrap"><div class="budget-bar" style="width:65%;background:linear-gradient(90deg,var(--violet),var(--amber));"></div></div>
+        <div class="budget-val">R$ 3.500</div>
+      </div>
+      <div class="budget-row">
+        <div class="budget-phase" style="color:var(--amber);">Mês 4+</div>
+        <div class="budget-bar-wrap"><div class="budget-bar" style="width:90%;background:linear-gradient(90deg,var(--amber),var(--orange));"></div></div>
+        <div class="budget-val">R$ 5.000+</div>
+      </div>
+
+      <div style="margin-top:20px;padding-top:20px;border-top:1px solid var(--border);">
+        <div class="grid-3" style="gap:12px;">
+          <div style="text-align:center;">
+            <div style="font-size:22px;font-weight:800;color:var(--emerald-4);">~15–20</div>
+            <div style="font-size:12px;color:var(--muted-fg);">Leads/mês no mês 1</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-size:22px;font-weight:800;color:var(--cyan);">~55–80</div>
+            <div style="font-size:12px;color:var(--muted-fg);">Leads/mês no mês 3</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-size:22px;font-weight:800;color:var(--amber);">~110+</div>
+            <div style="font-size:12px;color:var(--muted-fg);">Leads/mês no mês 4+</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="alert info sr" style="margin-top:20px;">
+      <span class="alert-icon">💡</span>
+      <div><strong>Regra de Ouro:</strong> Só aumente o budget quando o CPL estiver abaixo de R$ 60 por 7 dias consecutivos. Aumentar orçamento antes disso é queimar dinheiro enquanto o algoritmo ainda está aprendendo.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════ PRÓXIMOS PASSOS ═══════════════════ -->
+<section>
+  <div class="container-xs">
+    <div class="text-center sr">
+      <span class="section-label">🚀 Ação Imediata</span>
+      <h2 class="section-title">Os Próximos 7 Dias<br>— O Que Fazer Agora</h2>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <div class="funnel-step sr stagger-1" style="padding:16px 20px;">
+        <div class="funnel-num f1" style="width:28px;height:28px;font-size:12px;">1</div>
+        <div class="funnel-body">
+          <div class="funnel-title" style="font-size:14px;">Hoje — Criar nova Business Manager no Meta</div>
+          <div class="funnel-desc">Criar conta totalmente nova (novo email, novo pixel, novo domínio de destino). Não reutilizar nada da conta perdida.</div>
+        </div>
+      </div>
+      <div class="funnel-step sr stagger-2" style="padding:16px 20px;">
+        <div class="funnel-num f2" style="width:28px;height:28px;font-size:12px;">2</div>
+        <div class="funnel-body">
+          <div class="funnel-title" style="font-size:14px;">Dia 2 — Instalar pixel + configurar evento Lead</div>
+          <div class="funnel-desc">Pixel no site/landing e no WhatsApp redirect. Testar o disparo do evento no Event Manager antes de subir qualquer campanha.</div>
+        </div>
+      </div>
+      <div class="funnel-step sr stagger-3" style="padding:16px 20px;">
+        <div class="funnel-num f3" style="width:28px;height:28px;font-size:12px;">3</div>
+        <div class="funnel-body">
+          <div class="funnel-title" style="font-size:14px;">Dia 3 — Subir campanha de video views com os 3 reels</div>
+          <div class="funnel-desc">Uma campanha, 3 conjuntos de anúncios (1 por vídeo), budget de R$ 20/dia cada. Deixar rodar por 7 dias sem mexer.</div>
+        </div>
+      </div>
+      <div class="funnel-step sr stagger-4" style="padding:16px 20px;">
+        <div class="funnel-num f4" style="width:28px;height:28px;font-size:12px;">4</div>
+        <div class="funnel-body">
+          <div class="funnel-title" style="font-size:14px;">Dia 10 — Avaliar e pausar o pior criativo</div>
+          <div class="funnel-desc">Com dados de 7 dias, o vídeo com menor VTR (taxa de visualização) é pausado. Redirecione o budget para os 2 melhores.</div>
+        </div>
+      </div>
+      <div class="funnel-step sr stagger-5" style="padding:16px 20px;">
+        <div class="funnel-num f5" style="width:28px;height:28px;font-size:12px;">5</div>
+        <div class="funnel-body">
+          <div class="funnel-title" style="font-size:14px;">Dia 15 — Subir retarget de visualizações 25%+</div>
+          <div class="funnel-desc">Com pelo menos 1.000 visualizações acumuladas, criar audiência customizada e subir campanha de lead gen com copy D ou E para essa audiência quente.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FINAL CTA ═══════════════════ -->
+<section style="position:relative;overflow:hidden;text-align:center;padding:80px 16px;">
+  <div style="position:absolute;width:400px;height:400px;background:rgba(52,211,153,0.08);border-radius:50%;filter:blur(80px);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;"></div>
+  <div class="container-xs" style="position:relative;">
+    <div class="sr" style="border:1px solid rgba(52,211,153,0.2);border-radius:16px;padding:40px;background:rgba(52,211,153,0.04);">
+      <span class="section-label" style="margin-bottom:16px;">📋 Resumo da Estratégia</span>
+      <h2 style="font-size:clamp(22px,3vw,32px);font-weight:800;margin-bottom:16px;line-height:1.2;">A máquina de leads existe.<br>Agora é montar e ligar.</h2>
+      <p style="color:var(--muted-fg);font-size:15px;margin-bottom:28px;line-height:1.7;">3 vídeos de carreteiro + 3 conteúdos de aposentadoria especial + 9 variações de copy + funil de 5 etapas + plano de 90 dias. Tudo está aqui. O próximo passo é criar a Business Manager nova hoje.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;">
+        <span class="tag green" style="font-size:13px;padding:6px 14px;">✅ Pixel novo hoje</span>
+        <span class="tag blue" style="font-size:13px;padding:6px 14px;">🎬 3 vídeos impulsionados</span>
+        <span class="tag amber" style="font-size:13px;padding:6px 14px;">📋 Copy pronta para subir</span>
+        <span class="tag violet" style="font-size:13px;padding:6px 14px;">📈 90 dias para escalar</span>
+        <span class="tag cyan" style="font-size:13px;padding:6px 14px;">💰 CPL &lt; R$45 no mês 3</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <div class="logo-icon" style="width:28px;height:28px;font-size:11px;">DS</div>
+      <span style="font-weight:600;font-size:14px;">Dr. Danilo Schettini · Advogado do Trabalhador</span>
+    </div>
+    <a href="https://www.instagram.com/advocaciaschettini" target="_blank" style="font-size:13px;color:var(--primary);">@advocaciaschettini ↗</a>
+    <p class="footer-copy">Estratégia de tráfego pago desenvolvida com Copy Senior · Maio 2026<br>Foco: Carreteiro · Aposentadoria Especial · Reconstrução de Audiências do Zero</p>
+    <p class="footer-copy" style="margin-top:4px;">Desenvolvido pela Empresa Independente · <a href="https://ai.empresaind.com" style="color:var(--primary);">ai.empresaind.com</a></p>
+  </div>
+</footer>
+
+<script>
+// Scroll Reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.sr').forEach(el => observer.observe(el));
+
+// Smooth anchor scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const el = document.querySelector(a.getAttribute('href'));
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+</body>
+</html>

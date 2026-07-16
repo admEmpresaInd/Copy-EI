@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<!--
+  ============================================================================
+  TEMPLATE — Empresa Independente (identidade "Imersão")
+  ============================================================================
+  COMO USAR:
+  1. Duplique este arquivo e renomeie (ex: minha-nova-pagina.html).
+  2. Mantenha este arquivo na MESMA pasta que "design-tokens-imersao-ev.css".
+  3. Troque TODOS os placeholders entre colchetes: [TEXTO AQUI], [SEU LINK],
+     [SEU NÚMERO], [URL DA IMAGEM]. Não precisa entender Tailwind — só substitua.
+  4. Remova (apague) blocos de <section> inteiros que você NÃO for usar.
+  5. NÃO mude cores, fontes, radius ou animações — isso mantém a marca consistente.
+  Referência de componentes: design-system-imersao-ev.md
+  ============================================================================
+-->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[TÍTULO DA PÁGINA AQUI]</title>
+  <meta name="description" content="[DESCRIÇÃO CURTA DA PÁGINA AQUI]">
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Config da marca — NÃO altere estes valores -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            dark: '#0a0a0a',
+            darker: '#090909',
+            card: '#121212',
+            accent: '#02b9a9',
+            'accent-light': '#6edcd2',
+            'accent-dark': '#074b45',
+          },
+          fontFamily: {
+            sans: ['Neue Montreal', 'Inter', 'system-ui', 'sans-serif'],
+            display: ['Thunder', 'Neue Montreal', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Fontes da marca + estilos globais de suporte -->
+  <style>
+    @font-face { font-family: "Neue Montreal"; src: url("https://framerusercontent.com/assets/EN0wrjjcgDdG3SMgxfEI19PNHRs.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+    @font-face { font-family: "Neue Montreal"; src: url("https://framerusercontent.com/assets/vEydk8LUwvYV3ZJtsQhKLqsza0.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+    @font-face { font-family: "Neue Montreal"; src: url("https://framerusercontent.com/assets/RPkJxzk3b5OHRdh8fGRoGBfE20Y.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+    @font-face { font-family: "Thunder"; src: url("https://framerusercontent.com/assets/x3msPgGbCGi4zmQFF10yd0Xs.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Neue Montreal', 'Inter', system-ui, sans-serif; background-color: #0a0806; color: #f5f5f5; overflow-x: hidden; padding-top: 40px; }
+
+    /* Marquee / ticker infinito */
+    @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .marquee-track { animation: ticker 45s linear infinite; width: max-content; display: flex; }
+    .marquee-track:hover { animation-play-state: paused; }
+    .marquee-fade {
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+              mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+    }
+
+    /* Faixa de palavras-chave */
+    @keyframes ticker-keywords { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    .ticker-keywords { animation: ticker-keywords 20s linear infinite; }
+
+    /* Scroll reveal (fade-up) */
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* FAQ accordion */
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+    .faq-item.open .faq-answer { max-height: 300px; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-icon { transition: transform 0.3s ease; }
+
+    /* Gradient text */
+    .gradient-text { background: linear-gradient(135deg, #6edcd2, #02b9a9); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+    /* Reserva espaço para o CTA sticky no mobile */
+    @media (max-width: 767px) { body { padding-bottom: 80px; } }
+  </style>
+
+  <!-- Tokens da marca (referência de valores; mesma pasta) -->
+  <link rel="stylesheet" href="design-tokens-imersao-ev.css">
+</head>
+<body>
+
+  <!-- ============================================================
+       COUNTDOWN BAR (fixa no topo) — remova se não houver urgência
+       ============================================================ -->
+  <div class="fixed top-0 left-0 right-0 z-[100] flex items-center justify-center gap-3 px-4 py-2 text-sm font-medium" style="background: linear-gradient(90deg, #074b45, #02b9a9 50%, #074b45);">
+    <span class="text-white">[MENSAGEM DE URGÊNCIA — ex: 40% OFF por tempo limitado]</span>
+    <a href="[SEU LINK DE CHECKOUT]" target="_blank" class="hidden sm:flex items-center gap-1 bg-white text-[#074b45] text-xs px-3 py-1 rounded-full hover:bg-gray-100 transition ml-1">
+      <span>[TEXTO DO BOTÃO — ex: Garantir agora]</span>
+      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+    </a>
+  </div>
+
+  <!-- ============================================================
+       HERO
+       ============================================================ -->
+  <section id="hero" class="relative min-h-[75vh] md:min-h-screen flex flex-col items-center justify-center px-5 md:px-16 py-20 overflow-hidden" style="background: linear-gradient(#171717, #090909);">
+    <div class="absolute inset-0 bg-gradient-to-t from-[#090909] to-transparent z-[2]"></div>
+    <div class="relative z-[3] max-w-[1216px] w-full flex flex-col items-center reveal">
+      <div class="flex flex-col items-center gap-8 max-w-[630px]">
+        <div class="flex flex-col items-center gap-6">
+
+          <!-- Badges informativos + pill de urgência -->
+          <div class="flex flex-wrap gap-3 justify-center">
+            <div class="flex items-center gap-2 px-3 py-2 rounded-lg border-t border-white/20 bg-white/5 backdrop-blur-sm">
+              <span class="text-sm font-medium">[INFO 1 — ex: 25 e 26 de julho]</span>
+            </div>
+            <div class="flex items-center gap-2 px-3 py-2 rounded-lg border-t border-white/20 bg-white/5 backdrop-blur-sm">
+              <span class="text-sm font-medium">[INFO 2 — ex: Florianópolis]</span>
+            </div>
+            <div class="flex items-center gap-2 px-3 py-2 rounded-lg border-t border-[#02b9a9]/50 bg-[#02b9a9]/15">
+              <span class="w-2 h-2 rounded-full bg-[#02b9a9] animate-pulse"></span>
+              <span class="text-sm font-medium text-[#6edcd2]">[ESCASSEZ — ex: 40% OFF · vagas limitadas]</span>
+            </div>
+          </div>
+
+          <!-- Título -->
+          <h1 class="text-3xl md:text-5xl font-medium text-center leading-[1.2] tracking-tight">[HEADLINE PRINCIPAL AQUI — curta e afiada]</h1>
+
+          <!-- Subtítulo -->
+          <p class="text-sm font-medium text-center text-[#f7f7f7] opacity-70 max-w-[420px]">[SUBTÍTULO — explique a promessa em 1-2 frases]</p>
+        </div>
+
+        <!-- CTAs (primário branco + secundário outline) -->
+        <div class="flex flex-col sm:flex-row items-center gap-3">
+          <a href="[SEU LINK DE CHECKOUT]" target="_blank" class="flex items-center gap-1 bg-white text-gray-800 text-sm pl-4 pr-1 py-1 rounded-full hover:bg-gray-100 transition whitespace-nowrap">
+            <span>[CTA PRIMÁRIO — ex: Garantir meu lugar]</span>
+            <span class="w-8 h-8 rounded-full bg-[#121212] flex items-center justify-center shrink-0">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+            </span>
+          </a>
+          <a href="[LINK SECUNDÁRIO — ou remova este botão]" target="_blank" class="flex items-center gap-1 text-sm font-medium text-white pl-4 pr-1 py-1 rounded-full border border-white/20 hover:bg-white/5 transition whitespace-nowrap">
+            <span>[CTA SECUNDÁRIO]</span>
+            <span class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FAIXA DE LOGOS / PATROCINADORES — remova se não houver
+       ============================================================ -->
+  <div class="bg-dark h-[104px] rounded-[10px] flex items-center justify-center gap-3 sm:gap-8 md:gap-16 lg:gap-20 px-3 md:px-6 overflow-hidden">
+    <img src="[URL LOGO 1]" alt="[Parceiro 1]" class="h-5 sm:h-8 md:h-10 opacity-25 max-w-full">
+    <img src="[URL LOGO 2]" alt="[Parceiro 2]" class="h-5 sm:h-8 md:h-10 opacity-25 max-w-full">
+    <img src="[URL LOGO 3]" alt="[Parceiro 3]" class="h-5 sm:h-8 md:h-10 opacity-25 max-w-full">
+  </div>
+
+  <!-- ============================================================
+       BLOCO DE URGÊNCIA / ESCASSEZ
+       ============================================================ -->
+  <section class="bg-[#0a0a0a] py-16 md:py-24 px-6 md:px-16 border-y border-white/5">
+    <div class="max-w-[860px] mx-auto flex flex-col items-center gap-8 text-center reveal">
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#02b9a9]/40 bg-[#02b9a9]/10">
+        <span class="w-2 h-2 rounded-full bg-[#02b9a9] animate-pulse"></span>
+        <span class="text-sm font-medium text-[#6edcd2] uppercase tracking-[0.15em]">[ETIQUETA DE URGÊNCIA — ex: Último lote · 40% OFF]</span>
+      </div>
+      <h2 class="text-2xl md:text-4xl font-medium text-white leading-[1.2]">[HEADLINE DA ESCASSEZ AQUI]</h2>
+      <p class="text-lg text-white/60 leading-[1.6] max-w-[640px]">[EXPLIQUE POR QUE É URGENTE — ex: quando esgotar, encerra de vez, sem reabertura.]</p>
+      <a href="[SEU LINK DE CHECKOUT]" target="_blank" class="flex items-center gap-2 bg-[#02b9a9] text-white text-sm font-medium pl-5 pr-2 py-2 rounded-full hover:bg-[#6edcd2] hover:text-dark transition">
+        <span>[CTA — ex: Garantir com 40% OFF]</span>
+        <span class="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+        </span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       GRID DE CARDS (palestrantes / produtos / itens genéricos)
+       ============================================================ -->
+  <section id="cards" class="bg-dark py-16 md:py-36 px-6 md:px-16">
+    <div class="max-w-[1216px] mx-auto">
+      <div class="flex flex-col items-center gap-4 text-center mb-16 reveal">
+        <span class="inline-block text-sm font-medium text-white px-3 py-2 rounded-lg border border-white/10">[ETIQUETA DA SEÇÃO]</span>
+        <h2 class="text-2xl md:text-[40px] leading-[1.2] font-normal text-white max-w-[663px]">[TÍTULO DA SEÇÃO DE CARDS]</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 reveal">
+        <!-- Card (duplique este bloco por item) -->
+        <div class="relative rounded-2xl overflow-hidden bg-card h-[600px] border border-white/20 group">
+          <img src="[URL DA FOTO]" alt="[Nome]" class="absolute inset-0 w-full h-full object-cover object-top transition-all duration-500">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+          <div class="absolute bottom-12 left-12 z-10">
+            <h3 class="text-[28px] leading-[1.2] text-white">[NOME / TÍTULO]</h3>
+            <p class="text-sm font-medium text-[#f7f7f7] mt-1">[CARGO / SUBTÍTULO]</p>
+          </div>
+        </div>
+        <!-- /Card -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MARQUEE DE PROVA SOCIAL (avatares em loop) — remova se não usar
+       ============================================================ -->
+  <section class="bg-dark pb-16 md:pb-24 px-0 overflow-hidden">
+    <div class="max-w-[1216px] mx-auto px-6 md:px-16 mb-7 text-center reveal">
+      <p class="text-[11px] md:text-xs font-medium text-white/40 uppercase tracking-[0.35em]">[EYEBROW — ex: Presenças Confirmadas]</p>
+      <p class="mt-2 text-sm text-white/30">[LINHA DE APOIO]</p>
+    </div>
+    <div class="bg-white/[0.02] border-y border-white/[0.06] py-8 md:py-10 overflow-hidden">
+      <div class="marquee-fade overflow-hidden">
+        <div class="marquee-track gap-8 md:gap-10">
+          <!-- Item (duplique; e DUPLIQUE o conjunto inteiro para o loop ficar contínuo) -->
+          <div class="flex flex-col items-center gap-2 shrink-0">
+            <div class="w-24 h-24 rounded-full overflow-hidden ring-1 ring-white/10 shadow-lg"><img src="[URL AVATAR]" alt="[Nome]" class="w-full h-full object-cover object-top"></div>
+            <span class="text-sm font-medium text-white/70 text-center leading-tight max-w-[100px]">[Nome]</span>
+          </div>
+          <!-- /Item -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FAIXA DE PALAVRAS-CHAVE — remova se não usar
+       ============================================================ -->
+  <div class="h-20 overflow-hidden flex items-center" style="background: linear-gradient(270deg, #6edcd2, #02b9a9 49%, #074b45);">
+    <div class="flex items-center gap-10 ticker-keywords whitespace-nowrap">
+      <!-- Duplique os termos várias vezes para o loop preencher a tela -->
+      <span class="text-sm font-medium text-white uppercase tracking-[0.3em]">[PALAVRA 1]</span><span class="text-sm font-medium text-white/30 tracking-[0.3em]">///</span>
+      <span class="text-sm font-medium text-white uppercase tracking-[0.3em]">[PALAVRA 2]</span><span class="text-sm font-medium text-white/30 tracking-[0.3em]">///</span>
+      <span class="text-sm font-medium text-white uppercase tracking-[0.3em]">[PALAVRA 3]</span><span class="text-sm font-medium text-white/30 tracking-[0.3em]">///</span>
+      <span class="text-sm font-medium text-white uppercase tracking-[0.3em]">[PALAVRA 1]</span><span class="text-sm font-medium text-white/30 tracking-[0.3em]">///</span>
+      <span class="text-sm font-medium text-white uppercase tracking-[0.3em]">[PALAVRA 2]</span><span class="text-sm font-medium text-white/30 tracking-[0.3em]">///</span>
+      <span class="text-sm font-medium text-white uppercase tracking-[0.3em]">[PALAVRA 3]</span><span class="text-sm font-medium text-white/30 tracking-[0.3em]">///</span>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       COMPARATIVO (lado certo ✓ vs lado errado ✕)
+       ============================================================ -->
+  <section class="bg-dark py-16 md:py-36 px-6 md:px-16">
+    <div class="max-w-[1216px] mx-auto flex flex-col items-center gap-8 md:gap-16">
+      <div class="text-center flex flex-col items-center gap-8 reveal">
+        <span class="inline-block text-sm font-medium text-white px-3 py-2 rounded-lg border border-white/10">[ETIQUETA]</span>
+        <h2 class="text-2xl md:text-[40px] leading-[1.2] font-normal text-white max-w-[663px]">[PERGUNTA / TÍTULO DO COMPARATIVO]</h2>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 w-full reveal">
+
+        <!-- Card POSITIVO (com glow — mantenha apenas UM card com glow no par) -->
+        <div class="rounded-xl p-2 overflow-hidden" style="background: linear-gradient(#000, #0c7b71); box-shadow: 0 4.5px 100px rgba(1,185,168,0.1), inset 0 -28px 59px -18px #18f1de, inset 0 44px 37px -54px rgba(23,241,221,0.6);">
+          <div class="rounded aspect-video overflow-hidden mb-8"><img src="[URL IMAGEM]" alt="" class="w-full h-full object-cover"></div>
+          <div class="p-8 pt-0">
+            <h4 class="text-xl font-medium text-[#f7f7f7] mb-4">[TÍTULO DO LADO CERTO]</h4>
+            <div class="space-y-0">
+              <div class="flex items-center gap-3 py-3 border-b border-white/10">
+                <div class="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0"><svg width="12" height="12" viewBox="0 0 20 20" fill="none"><path d="M14 7L8.5 12.5L6 10" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+                <span class="text-sm text-white opacity-70">[BENEFÍCIO 1]</span>
+              </div>
+              <div class="flex items-center gap-3 py-3 border-b border-white/10">
+                <div class="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0"><svg width="12" height="12" viewBox="0 0 20 20" fill="none"><path d="M14 7L8.5 12.5L6 10" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+                <span class="text-sm text-white opacity-70">[BENEFÍCIO 2]</span>
+              </div>
+              <div class="flex items-center gap-3 py-3">
+                <div class="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0"><svg width="12" height="12" viewBox="0 0 20 20" fill="none"><path d="M14 7L8.5 12.5L6 10" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+                <span class="text-sm text-white opacity-70">[BENEFÍCIO 3]</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card NEGATIVO (borda simples) -->
+        <div class="rounded-xl p-2 overflow-hidden border border-white/10">
+          <div class="rounded aspect-video overflow-hidden mb-8"><img src="[URL IMAGEM]" alt="" class="w-full h-full object-cover"></div>
+          <div class="p-8 pt-0">
+            <h4 class="text-xl font-medium text-[#f7f7f7] mb-4">[TÍTULO DO LADO ERRADO]</h4>
+            <div class="space-y-0">
+              <div class="flex items-center gap-3 py-3 border-b border-white/10">
+                <div class="w-5 h-5 rounded-full bg-[#ff5f56]/15 flex items-center justify-center flex-shrink-0"><svg width="10" height="10" viewBox="0 0 20 20" fill="none"><path d="M6 6L14 14M14 6L6 14" stroke="#ff8a8a" stroke-width="2" stroke-linecap="round"/></svg></div>
+                <span class="text-sm text-white opacity-70">[DOR 1]</span>
+              </div>
+              <div class="flex items-center gap-3 py-3 border-b border-white/10">
+                <div class="w-5 h-5 rounded-full bg-[#ff5f56]/15 flex items-center justify-center flex-shrink-0"><svg width="10" height="10" viewBox="0 0 20 20" fill="none"><path d="M6 6L14 14M14 6L6 14" stroke="#ff8a8a" stroke-width="2" stroke-linecap="round"/></svg></div>
+                <span class="text-sm text-white opacity-70">[DOR 2]</span>
+              </div>
+              <div class="flex items-center gap-3 py-3">
+                <div class="w-5 h-5 rounded-full bg-[#ff5f56]/15 flex items-center justify-center flex-shrink-0"><svg width="10" height="10" viewBox="0 0 20 20" fill="none"><path d="M6 6L14 14M14 6L6 14" stroke="#ff8a8a" stroke-width="2" stroke-linecap="round"/></svg></div>
+                <span class="text-sm text-white opacity-70">[DOR 3]</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TIMELINE / PROGRAMAÇÃO (horários gigantes) — remova se não usar
+       ============================================================ -->
+  <section id="programacao" class="bg-dark py-16 md:py-36 px-6 md:px-16">
+    <div class="max-w-[1216px] mx-auto text-center flex flex-col items-center gap-8 reveal">
+      <h2 class="text-2xl md:text-[40px] leading-[1.2] font-normal text-white max-w-[663px]">[TÍTULO DA PROGRAMAÇÃO]</h2>
+      <p class="text-lg text-white opacity-70 max-w-[408px]">[LINHA DE APOIO]</p>
+    </div>
+    <div class="max-w-[1216px] mx-auto mt-12 md:mt-24">
+      <p class="text-[40px] md:text-[100px] lg:text-[160px] font-medium text-white/10 text-center leading-none mb-8">[RÓTULO — ex: PRIMEIRO DIA]</p>
+
+      <!-- Mobile: card com foto de fundo -->
+      <div class="space-y-4 lg:hidden">
+        <div class="relative rounded-lg overflow-hidden h-[280px] reveal" style="background-image:url('[URL IMAGEM]');background-size:cover;background-position:center;">
+          <div class="absolute inset-0 bg-black/50"></div>
+          <div class="absolute bottom-5 left-5 right-5 z-10">
+            <h3 class="text-xl leading-[1.2] text-white mb-2"><span class="font-semibold" style="font-family:Thunder;">[9H]</span> | [TÍTULO DO ITEM]</h3>
+            <p class="text-sm text-[#f5f5f5] opacity-70 leading-[1.5]">[DESCRIÇÃO DO ITEM]</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Desktop: número gigante + thumb + texto -->
+      <div class="space-y-8 hidden lg:block">
+        <div class="flex flex-row items-center gap-16 reveal">
+          <p class="text-[200px] font-semibold text-white uppercase leading-none w-[220px] flex-shrink-0 text-right" style="font-family: Thunder;">[9h]</p>
+          <div class="rounded-lg overflow-hidden w-[40%] h-[250px]"><img src="[URL IMAGEM]" alt="" class="w-full h-full object-cover"></div>
+          <div class="flex-1">
+            <h3 class="text-[28px] leading-[1.2] text-white mb-3">[TÍTULO DO ITEM]</h3>
+            <p class="text-lg text-[#f5f5f5] opacity-70 leading-[1.5]">[DESCRIÇÃO DO ITEM]</p>
+          </div>
+        </div>
+        <!-- Duplique o bloco acima por horário -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       OFERTA / CARDS DE PREÇO
+       ============================================================ -->
+  <section id="oferta" class="bg-dark py-16 md:py-36 px-6 md:px-16">
+    <div class="max-w-[1216px] mx-auto">
+      <div class="text-center flex flex-col items-center gap-4 mb-8 md:mb-12 reveal">
+        <span class="inline-block text-sm font-medium text-white px-3 py-2 rounded-lg border border-white/10">[ETIQUETA — ex: Ingressos / Planos]</span>
+        <h2 class="text-2xl md:text-[40px] leading-[1.2] font-normal text-white max-w-[663px]">[TÍTULO DA OFERTA]</h2>
+      </div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-2 p-2 rounded-2xl border border-white/10 backdrop-blur-[42px] reveal">
+
+        <!-- Card DESTAQUE (com glow) -->
+        <div class="relative rounded-xl p-2 overflow-hidden" style="background: linear-gradient(#000, #0c7b71); box-shadow: 0 4.5px 100px rgba(1,185,168,0.1), inset 0 -28px 59px -18px #18f1de, inset 0 44px 37px -54px rgba(23,241,221,0.6);">
+          <span class="absolute top-4 right-4 z-10 bg-[#02b9a9] text-white text-[11px] font-semibold uppercase tracking-wide px-3 py-1 rounded-full shadow-lg">[SELO — ex: 40% OFF]</span>
+          <div class="rounded aspect-video overflow-hidden"><img src="[URL IMAGEM]" alt="" class="w-full h-full object-cover"></div>
+          <div class="p-8">
+            <h3 class="text-[28px] leading-[1.2] text-[#f7f7f7] text-center mb-4">[NOME DO PLANO 1]</h3>
+            <div class="space-y-0 mb-8">
+              <div class="flex items-center gap-3 py-3 border-b border-white/10">
+                <div class="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0"><svg width="12" height="12" viewBox="0 0 20 20" fill="none"><path d="M14 7L8.5 12.5L6 10" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+                <span class="text-sm text-white opacity-70">[BENEFÍCIO 1]</span>
+              </div>
+              <div class="flex items-center gap-3 py-3">
+                <div class="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0"><svg width="12" height="12" viewBox="0 0 20 20" fill="none"><path d="M14 7L8.5 12.5L6 10" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+                <span class="text-sm text-white opacity-70">[BENEFÍCIO 2]</span>
+              </div>
+            </div>
+            <div class="text-center mb-6">
+              <span class="inline-block text-sm font-medium text-white px-3 py-2 rounded-lg border border-white/10 mb-2">[NOME DO PLANO / LOTE]</span>
+              <p class="text-white/50 text-lg">[PREÇO CHEIO — ex: R$ 1.197,00 ou 12x de]</p>
+              <p class="text-white text-5xl md:text-6xl font-normal mt-1">[VALOR EM DESTAQUE — ex: R$ 120,18]</p>
+              <p class="text-xs text-[#6edcd2] mt-3 leading-[1.4]">[MICRO-URGÊNCIA — ex: 40% OFF por tempo limitado]</p>
+            </div>
+            <a href="[SEU LINK DE CHECKOUT]" target="_blank" class="flex items-center justify-center gap-1 bg-white text-gray-800 text-sm pl-4 pr-1 py-1 rounded-full hover:bg-gray-100 transition w-full">
+              <span>[CTA DO PLANO 1]</span>
+              <span class="w-8 h-8 rounded-full bg-[#121212] flex items-center justify-center shrink-0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Card PADRÃO (borda simples) -->
+        <div class="relative rounded-xl border border-white/10 p-2 overflow-hidden">
+          <span class="absolute top-4 right-4 z-10 bg-[#02b9a9] text-white text-[11px] font-semibold uppercase tracking-wide px-3 py-1 rounded-full shadow-lg">[SELO]</span>
+          <div class="rounded aspect-video overflow-hidden"><img src="[URL IMAGEM]" alt="" class="w-full h-full object-cover"></div>
+          <div class="p-8">
+            <h3 class="text-[28px] leading-[1.2] text-[#f7f7f7] text-center mb-4">[NOME DO PLANO 2]</h3>
+            <div class="space-y-0 mb-8">
+              <div class="flex items-center gap-3 py-3 border-b border-white/10">
+                <div class="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0"><svg width="12" height="12" viewBox="0 0 20 20" fill="none"><path d="M14 7L8.5 12.5L6 10" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+                <span class="text-sm text-white opacity-70">[BENEFÍCIO 1]</span>
+              </div>
+              <div class="flex items-center gap-3 py-3">
+                <div class="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0"><svg width="12" height="12" viewBox="0 0 20 20" fill="none"><path d="M14 7L8.5 12.5L6 10" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+                <span class="text-sm text-white opacity-70">[BENEFÍCIO 2]</span>
+              </div>
+            </div>
+            <div class="text-center mb-6">
+              <span class="inline-block text-sm font-medium text-white px-3 py-2 rounded-lg border border-white/10 mb-2">[NOME DO PLANO / LOTE]</span>
+              <p class="text-white/50 text-lg">[PREÇO CHEIO]</p>
+              <p class="text-white text-5xl md:text-6xl font-normal mt-1">[VALOR EM DESTAQUE]</p>
+              <p class="text-xs text-[#6edcd2] mt-3 leading-[1.4]">[MICRO-URGÊNCIA]</p>
+            </div>
+            <a href="[SEU LINK DE CHECKOUT]" target="_blank" class="flex items-center justify-center gap-1 bg-white text-gray-800 text-sm pl-4 pr-1 py-1 rounded-full hover:bg-gray-100 transition w-full">
+              <span>[CTA DO PLANO 2]</span>
+              <span class="w-8 h-8 rounded-full bg-[#121212] flex items-center justify-center shrink-0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       GARANTIA
+       ============================================================ -->
+  <section class="bg-[#0a0806] py-16 md:py-24 px-6 md:px-16">
+    <div class="max-w-[720px] mx-auto flex flex-col items-center gap-6 text-center reveal">
+      <div class="w-14 h-14 rounded-full border border-[#02b9a9]/40 bg-[#02b9a9]/10 flex items-center justify-center">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6edcd2" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h2 class="text-2xl md:text-[32px] leading-[1.3] font-normal text-white">[FRASE DA GARANTIA — ex: participou e não valeu? Devolvemos 100%.]</h2>
+      <p class="text-lg text-white/50">[LINHA DE APOIO — ex: Sem burocracia, sem perguntas.]</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FAQ (fundo branco)
+       ============================================================ -->
+  <section id="faq" class="bg-white py-16 md:py-36 px-6 md:px-16 relative overflow-hidden">
+    <div class="max-w-[1216px] mx-auto flex flex-col items-center gap-10 md:gap-20">
+      <div class="text-center flex flex-col items-center gap-8 max-w-[437px] reveal">
+        <span class="inline-block text-sm font-medium text-dark px-3 py-2 rounded-lg border border-dark/10">FAQ</span>
+        <h2 class="text-2xl md:text-[40px] leading-[1.2] font-normal text-dark">[TÍTULO DO FAQ — ex: Perguntas Frequentes]</h2>
+        <p class="text-lg text-dark opacity-70 leading-[1.5] max-w-[289px]">[LINHA DE APOIO]</p>
+      </div>
+      <div class="w-full max-w-[600px] space-y-3 reveal">
+
+        <!-- Item de FAQ (duplique por pergunta) -->
+        <div class="faq-item border border-dark/10 rounded-2xl bg-white overflow-hidden cursor-pointer p-4" onclick="this.classList.toggle('open')">
+          <div class="flex items-center justify-between">
+            <p class="text-lg text-dark font-medium">[PERGUNTA 1]</p>
+            <div class="w-[38px] h-[38px] rounded-full bg-[#c4c4c4] flex items-center justify-center faq-icon">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><line x1="7" y1="3" x2="7" y2="11" stroke="#191d24" stroke-width="1.5" stroke-linecap="round"/><line x1="3" y1="7" x2="11" y2="7" stroke="#191d24" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+          </div>
+          <div class="faq-answer"><p class="text-dark/70 mt-4 text-base leading-[1.5]">[RESPOSTA 1]</p></div>
+        </div>
+
+        <div class="faq-item border border-dark/10 rounded-2xl bg-white overflow-hidden cursor-pointer p-4" onclick="this.classList.toggle('open')">
+          <div class="flex items-center justify-between">
+            <p class="text-lg text-dark font-medium">[PERGUNTA 2]</p>
+            <div class="w-[38px] h-[38px] rounded-full bg-[#c4c4c4] flex items-center justify-center faq-icon">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><line x1="7" y1="3" x2="7" y2="11" stroke="#191d24" stroke-width="1.5" stroke-linecap="round"/><line x1="3" y1="7" x2="11" y2="7" stroke="#191d24" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+          </div>
+          <div class="faq-answer"><p class="text-dark/70 mt-4 text-base leading-[1.5]">[RESPOSTA 2]</p></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CTA FINAL (fundo branco, card com glow) — desktop
+       ============================================================ -->
+  <section class="hidden md:block bg-white py-16 px-6 md:px-16">
+    <div class="max-w-[1216px] mx-auto reveal">
+      <div class="rounded-3xl p-8 flex flex-col items-center justify-center gap-8 min-h-[546px] relative overflow-hidden" style="background: radial-gradient(100% 180% at 89.2% 10.7%, #b8fff9, #6edcd2 24%, #02b9a9 52%, #074b45 77%, #001917); box-shadow: 0 18px 39px rgba(3,73,68,0.21), 0 71px 71px rgba(3,73,68,0.18), 0 159px 95px rgba(3,73,68,0.11);">
+        <div class="text-center max-w-[500px] z-10">
+          <h2 class="text-2xl md:text-[40px] leading-[1.2] font-normal text-white mb-4">[HEADLINE DE FECHAMENTO]</h2>
+          <p class="text-lg text-white opacity-70 leading-[1.5] max-w-[399px] mx-auto mb-8">[REFORÇO FINAL — recapitule a oferta e a urgência]</p>
+          <a href="[SEU LINK DE CHECKOUT]" target="_blank" class="inline-flex items-center gap-1 bg-white text-gray-800 text-sm pl-4 pr-1 py-1 rounded-full hover:bg-gray-100 transition">
+            <span>[CTA FINAL]</span>
+            <span class="w-8 h-8 rounded-full bg-[#121212] flex items-center justify-center shrink-0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER (fundo branco)
+       ============================================================ -->
+  <footer class="bg-white border-t border-dark/10 py-16 px-6 md:px-16">
+    <div class="max-w-[1216px] mx-auto">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-16">
+        <div class="flex items-center gap-4">
+          <a href="#hero"><img src="[URL DO LOGO]" alt="Empresa Independente" class="h-7"></a>
+          <div class="w-px h-6 bg-dark/50"></div>
+          <div class="flex items-center gap-3">
+            <a href="[LINK LINKEDIN]" target="_blank" class="text-sm font-medium text-dark opacity-70 hover:opacity-100 transition">LinkedIn</a>
+            <a href="[LINK INSTAGRAM]" target="_blank" class="text-sm font-medium text-dark opacity-70 hover:opacity-100 transition">Instagram</a>
+            <a href="[LINK YOUTUBE]" target="_blank" class="text-sm font-medium text-dark opacity-70 hover:opacity-100 transition">YouTube</a>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <a href="#cards" class="text-sm font-medium text-dark px-3 py-1 rounded-lg hover:bg-dark/5 transition">[LINK 1]</a>
+          <a href="#oferta" class="text-sm font-medium text-dark px-3 py-1 rounded-lg hover:bg-dark/5 transition">[LINK 2]</a>
+          <a href="#faq" class="text-sm font-medium text-dark px-3 py-1 rounded-lg hover:bg-dark/5 transition">FAQ</a>
+        </div>
+      </div>
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4 pt-4 border-t border-dark/10">
+        <p class="text-sm font-medium text-dark opacity-70">[© EMPRESA INDEPENDENTE — Todos os direitos reservados.]</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       CTA STICKY MOBILE (segue a rolagem no celular)
+       ============================================================ -->
+  <div class="md:hidden fixed bottom-0 left-0 right-0 z-50 px-4 py-3 bg-[#141414]/85 backdrop-blur-xl border-t border-white/10">
+    <a href="[SEU LINK DE CHECKOUT]" target="_blank" class="flex items-center justify-center gap-1 bg-white text-gray-800 text-sm font-medium pl-4 pr-1 py-1.5 rounded-full hover:bg-gray-100 transition w-full">
+      <span>[CTA MOBILE — ex: Garantir meu lugar]</span>
+      <span class="w-8 h-8 rounded-full bg-[#121212] flex items-center justify-center shrink-0"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg></span>
+    </a>
+  </div>
+
+  <!-- ============================================================
+       BOTÃO FLUTUANTE WHATSAPP
+       ============================================================ -->
+  <a href="https://wa.me/[SEU NÚMERO — ex: 5548999999999]?text=[MENSAGEM URL-ENCODED]" target="_blank" rel="noopener" aria-label="Falar no WhatsApp" class="fixed bottom-24 md:bottom-6 right-4 md:right-6 z-40 w-14 h-14 rounded-full bg-[#25D366] flex items-center justify-center shadow-lg hover:scale-105 transition">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.29-1.39c1.44.79 3.06 1.2 4.71 1.2h.004c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.87 9.87 0 0012.05 2h-.01zm0 18.15h-.003a8.2 8.2 0 01-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.22 8.22 0 01-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.19 8.19 0 012.41 5.83c0 4.54-3.7 8.23-8.24 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.17.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.04-.38-1.99-1.22-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.16-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.57.12.17 1.75 2.67 4.25 3.74.59.26 1.06.41 1.42.52.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.14-1.18-.06-.11-.23-.17-.48-.29z"/></svg>
+  </a>
+
+  <!-- ============================================================
+       SCRIPTS MÍNIMOS (não precisa mexer)
+       ============================================================ -->
+  <script>
+    // Reveal on scroll: adiciona .visible aos blocos .reveal quando entram na tela
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+
+    // FAQ accordion: o onclick="this.classList.toggle('open')" no HTML já cuida do toggle.
+    // (Opcional) Fechar os outros ao abrir um — descomente se quiser esse comportamento:
+    // document.querySelectorAll('.faq-item').forEach(item => {
+    //   item.addEventListener('click', () => {
+    //     document.querySelectorAll('.faq-item').forEach(o => { if (o !== item) o.classList.remove('open'); });
+    //   });
+    // });
+  </script>
+</body>
+</html>

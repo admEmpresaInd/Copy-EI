@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Évora Charm Village · Vila Rosa · Goiânia</title>
+<meta name="description" content="Condomínio fechado de sobrados de alto padrão. 12 unidades exclusivas com 3 suítes, quintal privativo e acabamentos premium. Setor Vila Rosa, Goiânia — GO.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --void:        #090907;
+  --charcoal:    #1A1917;
+  --stone:       #2C2B28;
+  --stone-light: #3D3C38;
+  --gold:        #B8942E;
+  --gold-light:  #C4A84A;
+  --gold-pale:   #D4B96A;
+  --cream:       #F0EDE6;
+  --cream-warm:  #E8E3D8;
+  --off-white:   #FAF8F4;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans:  'DM Sans', sans-serif;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: clamp(14px, 1.5vw, 17px); -webkit-font-smoothing: antialiased; }
+body { background: var(--void); color: var(--cream); font-family: var(--sans); font-weight: 300; overflow-x: hidden; cursor: none; }
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 9998; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 200px 200px; opacity: 0.025; mix-blend-mode: overlay;
+}
+.cursor {
+  position: fixed; top: 0; left: 0; width: 12px; height: 12px;
+  background: var(--gold); border-radius: 50%; pointer-events: none; z-index: 9999;
+  transform: translate(-50%,-50%); transition: width .3s var(--ease-out-expo), height .3s var(--ease-out-expo); mix-blend-mode: screen;
+}
+.cursor-ring {
+  position: fixed; top: 0; left: 0; width: 44px; height: 44px;
+  border: 1px solid rgba(184,148,46,0.4); border-radius: 50%; pointer-events: none; z-index: 9998;
+  transform: translate(-50%,-50%); transition: width .5s var(--ease-out-expo), height .5s var(--ease-out-expo), border-color .3s; transition-delay: 0s, 0s, 0s;
+}
+body:has(a:hover) .cursor, body:has(button:hover) .cursor { width: 6px; height: 6px; }
+body:has(a:hover) .cursor-ring, body:has(button:hover) .cursor-ring { width: 60px; height: 60px; border-color: rgba(184,148,46,0.8); }
+@media (hover: none) { body { cursor: auto; } .cursor, .cursor-ring { display: none; } }
+
+/* LOADER */
+#loader {
+  position: fixed; inset: 0; z-index: 9000; background: var(--void);
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity .8s ease .3s, visibility .8s ease .3s;
+}
+#loader.hidden { opacity: 0; visibility: hidden; }
+.loader-inner { text-align: center; }
+.loader-logo {
+  font-family: var(--serif); font-size: clamp(3rem, 9vw, 7rem); font-weight: 300;
+  letter-spacing: 0.35em; color: transparent;
+  -webkit-text-stroke: 1px rgba(184,148,46,0.3);
+  animation: loader-reveal 2s var(--ease-out-expo) forwards;
+}
+.loader-line {
+  width: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 1.5rem auto 0; animation: loader-line 1.8s var(--ease-out-expo) .4s forwards;
+}
+.loader-sub {
+  font-size: 0.58rem; letter-spacing: 0.4em; text-transform: uppercase;
+  color: rgba(184,148,46,0.5); margin-top: 1rem; opacity: 0;
+  animation: fade-in .6s ease 1.2s forwards;
+}
+@keyframes loader-reveal {
+  0% { -webkit-text-stroke-color: rgba(184,148,46,0); letter-spacing: 0.6em; }
+  50% { -webkit-text-stroke-color: rgba(184,148,46,0.6); }
+  100% { -webkit-text-stroke-color: rgba(184,148,46,0.25); letter-spacing: 0.35em; color: rgba(240,237,230,0.07); }
+}
+@keyframes loader-line { to { width: 220px; } }
+@keyframes fade-in { to { opacity: 1; } }
+@keyframes fade-up { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes morph {
+  0%,100% { border-radius: 40% 60% 55% 45% / 50% 40% 60% 50%; transform: rotate(0deg); }
+  33%      { border-radius: 55% 45% 40% 60% / 60% 50% 40% 50%; transform: rotate(120deg); }
+  66%      { border-radius: 45% 55% 65% 35% / 45% 60% 40% 55%; transform: rotate(240deg); }
+}
+@keyframes scroll-pulse { 0%,100% { opacity: .4; transform: scaleY(1); } 50% { opacity: 1; transform: scaleY(1.1); } }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  padding: 2rem 4rem; display: flex; align-items: center; justify-content: space-between;
+  transition: padding .5s var(--ease-out-expo), background .5s;
+}
+nav.scrolled {
+  padding: 1.2rem 4rem; background: rgba(9,9,7,0.88);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(184,148,46,0.08);
+}
+.nav-logo {
+  font-family: var(--serif); font-size: 1.25rem; font-weight: 400;
+  letter-spacing: 0.2em; color: var(--cream); text-decoration: none; text-transform: uppercase;
+}
+.nav-logo span { color: var(--gold); }
+.nav-links { display: flex; gap: 2.4rem; list-style: none; }
+.nav-links a {
+  font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase;
+  color: rgba(240,237,230,0.5); text-decoration: none; transition: color .3s; font-weight: 400;
+}
+.nav-links a:hover { color: var(--gold-light); }
+.nav-cta {
+  font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gold); text-decoration: none; border: 1px solid rgba(184,148,46,0.35);
+  padding: 0.65rem 1.6rem; transition: all .4s var(--ease-out-expo); font-weight: 400;
+}
+.nav-cta:hover { background: rgba(184,148,46,0.08); border-color: var(--gold); }
+.nav-mobile-btn { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; }
+.nav-mobile-btn span { display: block; width: 22px; height: 1px; background: var(--cream); transition: .3s; }
+
+/* HERO */
+#hero {
+  position: relative; width: 100%; height: 100svh; min-height: 700px;
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+}
+.hero-bg-img {
+  position: absolute; inset: 0; z-index: 0;
+  background-image: url("Evora/Évora Charm Village - Drive/Perspectivas/Perspectivas - Condomínio/Fachada_Condomínio.png");
+  background-size: cover; background-position: center; background-attachment: fixed;
+  filter: brightness(0.82) saturate(1.05);
+  transform: scale(1.05); transition: transform 8s var(--ease-out-expo), opacity 2s ease 1.5s;
+  opacity: 0.9;
+}
+#hero.loaded .hero-bg-img { transform: scale(1); opacity: 1; }
+.hero-bg-gradient {
+  position: absolute; inset: 0; z-index: 2;
+  background:
+    linear-gradient(to bottom, rgba(9,9,7,0.1) 0%, rgba(9,9,7,0.25) 50%, rgba(9,9,7,0.75) 100%),
+    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(184,148,46,0.06) 0%, transparent 70%);
+}
+.hero-orb {
+  position: absolute; width: 700px; height: 700px; left: -200px; top: 30%; z-index: 1;
+  border-radius: 40% 60% 55% 45% / 50% 40% 60% 50%;
+  background: radial-gradient(ellipse, rgba(45,74,62,0.12) 0%, transparent 70%);
+  animation: morph 14s ease-in-out infinite; pointer-events: none;
+}
+.hero-orb-2 {
+  position: absolute; width: 500px; height: 500px; right: -150px; bottom: 10%; z-index: 1;
+  border-radius: 55% 45% 40% 60% / 60% 50% 40% 50%;
+  background: radial-gradient(ellipse, rgba(184,148,46,0.07) 0%, transparent 70%);
+  animation: morph 18s ease-in-out infinite reverse; pointer-events: none;
+}
+.hero-content {
+  position: relative; z-index: 3; text-align: center;
+  padding: 0 2rem; max-width: 1200px;
+}
+.hero-eyebrow {
+  display: flex; align-items: center; justify-content: center; gap: 1.5rem;
+  margin-bottom: 2.5rem; opacity: 0; animation: fade-up 1s var(--ease-out-expo) 2s forwards;
+}
+.hero-eyebrow-line { width: 40px; height: 1px; background: var(--gold); opacity: .5; }
+.hero-eyebrow-text {
+  font-size: 0.56rem; letter-spacing: 0.4em; text-transform: uppercase;
+  color: var(--gold); font-weight: 400;
+}
+.hero-title {
+  font-family: var(--serif); font-size: clamp(3.8rem, 11vw, 10rem);
+  font-weight: 300; line-height: 0.96; color: var(--cream); letter-spacing: -0.01em;
+  opacity: 0; animation: fade-up 1.4s var(--ease-out-expo) 2.2s forwards;
+}
+.hero-title em { font-style: italic; color: var(--gold-pale); font-weight: 300; }
+.hero-subtitle {
+  font-family: var(--serif); font-size: clamp(1rem, 1.8vw, 1.3rem); font-weight: 300;
+  font-style: italic; color: rgba(240,237,230,0.55); margin-top: 1.8rem; letter-spacing: 0.05em;
+  opacity: 0; animation: fade-up 1s var(--ease-out-expo) 2.6s forwards;
+}
+.hero-divider {
+  display: flex; align-items: center; justify-content: center; gap: 1rem;
+  margin: 2.5rem auto; opacity: 0; animation: fade-up 1s var(--ease-out-expo) 2.8s forwards;
+}
+.hero-diamond { width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); opacity: .7; }
+.hero-divider-line { width: 80px; height: 1px; background: linear-gradient(90deg, transparent, rgba(184,148,46,0.4), transparent); }
+.hero-stats {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  border: 1px solid rgba(184,148,46,0.15); background: rgba(26,25,23,0.75);
+  backdrop-filter: blur(12px); max-width: 800px; margin: 0 auto;
+  opacity: 0; animation: fade-up 1s var(--ease-out-expo) 3s forwards;
+}
+.hero-stat {
+  padding: 2rem 1.5rem; border-right: 1px solid rgba(184,148,46,0.08); text-align: center;
+}
+.hero-stat:last-child { border-right: none; }
+.hero-stat-value { font-family: var(--serif); font-size: clamp(1.6rem, 2.6vw, 2rem); font-weight: 300; color: var(--gold-pale); line-height: 1; margin-bottom: 0.4rem; }
+.hero-stat-label { font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(240,237,230,0.45); }
+.hero-scroll {
+  position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%); z-index: 3;
+  display: flex; flex-direction: column; align-items: center; gap: 0.8rem;
+  opacity: 0; animation: fade-in 1s ease 3.5s forwards;
+}
+.scroll-indicator {
+  width: 1px; height: 60px;
+  background: linear-gradient(180deg, rgba(184,148,46,0.6), transparent);
+  animation: scroll-pulse 2s ease infinite;
+}
+.scroll-text { font-size: 0.5rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(184,148,46,0.5); writing-mode: vertical-lr; transform: rotate(180deg); }
+
+/* REVEAL */
+.reveal { opacity: 0; transform: translateY(40px); transition: opacity 1s var(--ease-out-expo), transform 1.2s var(--ease-out-expo); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-d1 { transition-delay: .15s; }
+.reveal-d2 { transition-delay: .3s; }
+.reveal-d3 { transition-delay: .45s; }
+.reveal-d4 { transition-delay: .6s; }
+
+/* SHARED */
+.section-label {
+  display: inline-flex; align-items: center; gap: 1rem;
+  font-size: 0.54rem; letter-spacing: 0.4em; text-transform: uppercase;
+  color: var(--gold); font-weight: 400; margin-bottom: 3rem;
+}
+.section-label::before, .section-label::after { content: ''; display: block; width: 30px; height: 1px; background: rgba(184,148,46,0.4); }
+.divider { display: flex; align-items: center; justify-content: center; gap: 1.2rem; margin: 5rem auto; max-width: 300px; }
+.divider-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(184,148,46,0.35), transparent); }
+.diamond { width: 7px; height: 7px; background: var(--gold); transform: rotate(45deg); opacity: .75; }
+.section-title { font-family: var(--serif); font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 300; color: var(--cream); line-height: 1.1; }
+.section-title em { font-style: italic; color: var(--gold-pale); }
+.section-sub { font-family: var(--serif); font-style: italic; max-width: 700px; margin: 1.5rem auto 0; color: rgba(240,237,230,0.55); font-size: 1.1rem; line-height: 1.7; }
+.inner { max-width: 1300px; margin: 0 auto; padding: 0 4rem; }
+.btn-primary {
+  font-family: var(--sans); font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase;
+  font-weight: 400; color: var(--void); background: var(--gold); padding: 1.1rem 3rem;
+  text-decoration: none; transition: all .5s var(--ease-out-expo); position: relative; overflow: hidden; display: inline-block;
+}
+.btn-primary::before { content: ''; position: absolute; inset: 0; background: var(--gold-pale); transform: translateX(-100%); transition: transform .5s var(--ease-out-expo); }
+.btn-primary:hover::before { transform: translateX(0); }
+.btn-primary span { position: relative; z-index: 1; }
+.btn-ghost {
+  font-family: var(--sans); font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase;
+  font-weight: 400; color: rgba(240,237,230,0.6); text-decoration: none;
+  display: inline-flex; align-items: center; gap: 0.8rem; transition: color .3s;
+}
+.btn-ghost:hover { color: var(--cream); }
+
+/* MANIFESTO */
+#manifesto { position: relative; padding: clamp(8rem,15vw,13rem) 0; overflow: hidden; }
+.manifesto-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 100% 80% at 50% 50%, rgba(184,148,46,0.05) 0%, transparent 70%), var(--void); }
+.manifesto-accent { position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent 10%, rgba(184,148,46,0.15) 50%, transparent 90%); }
+.manifesto-inner { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 0 4rem; text-align: center; }
+.manifesto-quote {
+  font-family: var(--serif); font-size: clamp(1.7rem, 3.5vw, 3rem);
+  font-weight: 300; line-height: 1.5; color: var(--cream); letter-spacing: 0.01em;
+}
+.manifesto-quote .large-q {
+  font-size: clamp(3rem, 8vw, 7rem); line-height: 0.5; vertical-align: -0.3em;
+  color: rgba(184,148,46,0.12); font-family: var(--serif); display: inline;
+}
+.manifesto-quote .hl { color: var(--gold-pale); font-style: italic; }
+.manifesto-body { margin-top: 4rem; display: grid; gap: 1.4rem; }
+.manifesto-p { font-family: var(--serif); font-size: clamp(1rem, 1.7vw, 1.2rem); font-weight: 300; color: rgba(240,237,230,0.6); line-height: 1.85; font-style: italic; }
+.manifesto-p strong { color: rgba(240,237,230,0.9); font-weight: 400; font-style: normal; }
+
+/* EMPREENDIMENTO */
+#empreendimento { position: relative; padding: clamp(4rem,6vw,6rem) 0; background: linear-gradient(180deg, var(--void) 0%, #0c0c09 50%, var(--void) 100%); }
+.emp-header { text-align: center; margin-bottom: 5rem; }
+.emp-stats { display: grid; grid-template-columns: repeat(4,1fr); border: 1px solid rgba(184,148,46,0.1); background: var(--charcoal); margin-bottom: 5rem; }
+.emp-stat { padding: 3rem 2rem; border-right: 1px solid rgba(184,148,46,0.08); text-align: center; }
+.emp-stat:last-child { border-right: none; }
+.emp-stat-val { font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 300; color: var(--gold-pale); line-height: 1; margin-bottom: 0.6rem; }
+.emp-stat-lab { font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(240,237,230,0.4); }
+.emp-comparativo { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+.emp-comp-text h3 { font-family: var(--serif); font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 300; color: var(--cream); line-height: 1.2; margin-bottom: 2rem; }
+.emp-comp-text h3 em { font-style: italic; color: var(--gold-pale); }
+.emp-comp-text p { font-family: var(--serif); font-style: italic; color: rgba(240,237,230,0.6); font-size: 1.05rem; line-height: 1.85; margin-bottom: 1.2rem; }
+.emp-comp-text p strong { color: var(--cream); font-style: normal; font-weight: 400; }
+.emp-comp-img { border: 1px solid rgba(184,148,46,0.15); background: var(--stone); overflow: hidden; }
+.emp-comp-img img { width: 100%; height: auto; display: block; transition: transform 1.2s var(--ease-out-expo); filter: brightness(0.9) saturate(1.02); }
+.emp-comp-img:hover img { transform: scale(1.04); }
+.emp-comp-caption { font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(184,148,46,0.6); margin-top: 0.8rem; text-align: center; }
+
+/* LOCALIZAÇÃO */
+#localizacao { position: relative; padding: clamp(4rem,6vw,6rem) 0; overflow: hidden; }
+.loc-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(184,148,46,0.05) 0%, transparent 60%), var(--void); }
+.loc-orb { position: absolute; right: -200px; top: 30%; width: 600px; height: 600px; border-radius: 40% 60% 55% 45% / 50% 40% 60% 50%; background: radial-gradient(ellipse, rgba(184,148,46,0.07) 0%, transparent 70%); animation: morph 12s ease-in-out infinite; z-index: 0; pointer-events: none; }
+.loc-inner { position: relative; z-index: 1; max-width: 1300px; margin: 0 auto; padding: 0 4rem; }
+.loc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; margin-bottom: 5rem; align-items: center; }
+.loc-left h2 { font-family: var(--serif); font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 300; color: var(--cream); line-height: 1.1; margin-bottom: 2.5rem; }
+.loc-left h2 em { font-style: italic; color: var(--gold-pale); }
+.loc-left p { font-family: var(--serif); font-style: italic; color: rgba(240,237,230,0.6); font-size: 1.1rem; line-height: 1.85; margin-bottom: 1.3rem; }
+.loc-left p strong { color: var(--cream); font-style: normal; font-weight: 400; }
+.loc-facts { margin-top: 2.5rem; display: grid; gap: 0.5rem; }
+.loc-fact { display: flex; align-items: center; gap: 1.2rem; padding: 1rem 0; border-bottom: 1px solid rgba(184,148,46,0.08); }
+.loc-fact:last-child { border-bottom: none; }
+.loc-fact-num { font-family: var(--serif); font-size: 1.4rem; font-weight: 400; color: var(--gold-pale); min-width: 90px; }
+.loc-fact-text { font-size: 0.83rem; color: rgba(240,237,230,0.7); letter-spacing: 0.02em; }
+.loc-img-wrap { border: 1px solid rgba(184,148,46,0.15); background: var(--stone); overflow: hidden; aspect-ratio: 4/5; }
+.loc-img-wrap img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.88) saturate(0.95); transition: transform 1.2s var(--ease-out-expo), filter .5s; }
+.loc-img-wrap:hover img { transform: scale(1.04); filter: brightness(1) saturate(1); }
+
+/* UNIDADES */
+#unidades { position: relative; padding: clamp(4rem,6vw,6rem) 0; background: var(--charcoal); overflow: hidden; }
+.unid-header { text-align: center; margin-bottom: 5rem; }
+.unid-pavimentos { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 5rem; }
+.pavimento-card { background: var(--stone); border: 1px solid rgba(184,148,46,0.1); padding: 3rem; position: relative; }
+.pavimento-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform .6s var(--ease-out-expo); }
+.pavimento-card:hover::before { transform: scaleX(1); }
+.pavimento-num { font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; color: rgba(184,148,46,0.5); margin-bottom: 1.2rem; display: flex; align-items: center; gap: 1rem; }
+.pavimento-num::after { content: ''; width: 30px; height: 1px; background: rgba(184,148,46,0.3); }
+.pavimento-title { font-family: var(--serif); font-size: clamp(1.4rem, 2.2vw, 1.9rem); font-weight: 300; color: var(--cream); margin-bottom: 2rem; line-height: 1.2; }
+.pavimento-items { list-style: none; display: grid; gap: 0.5rem; }
+.pavimento-items li { font-size: 0.84rem; color: rgba(240,237,230,0.7); padding: 0.6rem 0; border-bottom: 1px solid rgba(184,148,46,0.06); display: flex; align-items: center; gap: 0.8rem; }
+.pavimento-items li:last-child { border-bottom: none; }
+.pavimento-items li::before { content: '◆'; color: var(--gold); font-size: 0.45rem; flex-shrink: 0; }
+.unid-spec-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; margin-bottom: 5rem; }
+.spec-card { background: var(--stone-light); border: 1px solid rgba(184,148,46,0.08); padding: 2.5rem 2rem; transition: border-color .4s, background .4s; position: relative; overflow: hidden; }
+.spec-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform .6s var(--ease-out-expo); }
+.spec-card:hover { border-color: rgba(184,148,46,0.3); background: rgba(184,148,46,0.03); }
+.spec-card:hover::before { transform: scaleX(1); }
+.spec-icon { margin-bottom: 1.5rem; color: var(--gold); }
+.spec-icon svg { width: 40px; height: 40px; stroke-width: 1; }
+.spec-title { font-family: var(--serif); font-size: 1.35rem; font-weight: 400; color: var(--cream); margin-bottom: 0.7rem; }
+.spec-desc { font-size: 0.82rem; color: rgba(240,237,230,0.55); line-height: 1.85; }
+.unid-renders { display: grid; grid-template-columns: repeat(12,1fr); gap: 2px; }
+.render-item { overflow: hidden; background: var(--stone); cursor: pointer; }
+.render-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 1.4s var(--ease-out-expo), filter .4s; filter: brightness(0.88); }
+.render-item:hover img { transform: scale(1.06); filter: brightness(1); }
+.render-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.2rem 1rem 0.8rem; background: linear-gradient(to top, rgba(9,9,7,0.85) 0%, transparent 100%); font-size: 0.58rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(240,237,230,0.7); opacity: 0; transition: opacity .4s; }
+.render-item { position: relative; }
+.render-item:hover .render-label { opacity: 1; }
+.r-col6 { grid-column: span 6; height: 360px; }
+.r-col4 { grid-column: span 4; height: 360px; }
+.r-col3 { grid-column: span 3; height: 360px; }
+.r-col8 { grid-column: span 8; height: 360px; }
+.r-col12 { grid-column: span 12; height: 320px; }
+
+/* ACABAMENTOS */
+#acabamentos { position: relative; padding: clamp(4rem,6vw,6rem) 0; background: var(--void); }
+.acab-header { text-align: center; margin-bottom: 5rem; }
+.acab-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
+.acab-card { background: var(--charcoal); border: 1px solid rgba(184,148,46,0.08); padding: 3rem 2.5rem; transition: border-color .4s, background .4s; position: relative; }
+.acab-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform .6s var(--ease-out-expo); }
+.acab-card:hover { border-color: rgba(184,148,46,0.3); background: rgba(184,148,46,0.03); }
+.acab-card:hover::before { transform: scaleX(1); }
+.acab-cat { font-size: 0.55rem; letter-spacing: 0.38em; text-transform: uppercase; color: rgba(184,148,46,0.6); margin-bottom: 1rem; }
+.acab-title { font-family: var(--serif); font-size: 1.35rem; font-weight: 400; color: var(--cream); margin-bottom: 1rem; line-height: 1.2; }
+.acab-items { list-style: none; display: grid; gap: 0.3rem; }
+.acab-items li { font-size: 0.8rem; color: rgba(240,237,230,0.6); padding: 0.45rem 0; border-bottom: 1px solid rgba(184,148,46,0.05); display: flex; align-items: flex-start; gap: 0.7rem; line-height: 1.5; }
+.acab-items li:last-child { border-bottom: none; }
+.acab-items li::before { content: '—'; color: var(--gold); font-size: 0.8rem; flex-shrink: 0; margin-top: 0.1rem; }
+
+/* PLANTAS */
+#plantas { position: relative; padding: clamp(4rem,6vw,6rem) 0; background: #0a0b08; }
+.plantas-header { text-align: center; margin-bottom: 5rem; }
+.plantas-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; }
+.planta-item { background: var(--stone); border: 1px solid rgba(184,148,46,0.1); overflow: hidden; cursor: pointer; position: relative; }
+.planta-item img { width: 100%; height: 340px; object-fit: cover; display: block; filter: brightness(0.92); transition: transform 1.2s var(--ease-out-expo), filter .5s; }
+.planta-item:hover img { transform: scale(1.04); filter: brightness(1); }
+.planta-caption { padding: 1.2rem 1.5rem; }
+.planta-caption-title { font-family: var(--serif); font-size: 1rem; color: var(--cream); margin-bottom: 0.3rem; }
+.planta-caption-sub { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(184,148,46,0.6); }
+
+/* GALERIA */
+#galeria { position: relative; padding: clamp(4rem,6vw,6rem) 0; background: #08090a; }
+.galeria-header { text-align: center; margin-bottom: 5rem; }
+.galeria-grid { display: grid; grid-template-columns: repeat(12,1fr); gap: 2px; }
+.gal-item { overflow: hidden; background: var(--stone); cursor: pointer; position: relative; }
+.gal-item img { width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(0.88) saturate(0.95); transition: transform 1.4s var(--ease-out-expo), filter .4s; }
+.gal-item:hover img { transform: scale(1.06); filter: brightness(1) saturate(1.05); }
+.gal-lab { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem 1.2rem 1rem; background: linear-gradient(to top, rgba(9,9,7,0.8) 0%, transparent 100%); font-size: 0.58rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(240,237,230,0.65); opacity: 0; transform: translateY(6px); transition: opacity .4s, transform .4s; }
+.gal-item:hover .gal-lab { opacity: 1; transform: translateY(0); }
+.g-col6 { grid-column: span 6; height: 380px; }
+.g-col4 { grid-column: span 4; height: 380px; }
+.g-col3 { grid-column: span 3; height: 380px; }
+.g-col8 { grid-column: span 8; height: 380px; }
+.g-col12 { grid-column: span 12; height: 340px; }
+
+/* TABELA */
+#tabela { position: relative; padding: clamp(4rem,6vw,6rem) 0; background: var(--charcoal); }
+.tabela-header { text-align: center; margin-bottom: 4rem; }
+.tabela-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+table.vendas { width: 100%; border-collapse: collapse; }
+table.vendas th { font-size: 0.58rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); padding: 1.2rem 1.5rem; border-bottom: 1px solid rgba(184,148,46,0.3); text-align: left; font-weight: 400; white-space: nowrap; }
+table.vendas td { font-size: 0.84rem; color: rgba(240,237,230,0.7); padding: 1.1rem 1.5rem; border-bottom: 1px solid rgba(184,148,46,0.06); white-space: nowrap; }
+table.vendas tr:hover td { background: rgba(184,148,46,0.03); }
+table.vendas td.unid { font-family: var(--serif); font-size: 1rem; color: var(--cream); }
+table.vendas td.disp { color: var(--gold-pale); font-weight: 400; }
+table.vendas td.val { font-family: var(--serif); font-size: 1rem; color: var(--cream); }
+.tabela-obs { margin-top: 2rem; padding: 1.5rem 2rem; border: 1px solid rgba(184,148,46,0.1); background: rgba(9,9,7,0.5); font-size: 0.72rem; color: rgba(240,237,230,0.4); line-height: 1.7; font-style: italic; font-family: var(--serif); }
+
+/* INVESTIMENTO */
+#investimento { position: relative; padding: clamp(4rem,6vw,6rem) 0; background: var(--void); overflow: hidden; }
+.invest-orb { position: absolute; left: -150px; top: 10%; width: 500px; height: 500px; border-radius: 55% 45% 40% 60% / 60% 50% 40% 50%; background: radial-gradient(ellipse, rgba(184,148,46,0.07) 0%, transparent 70%); animation: morph 16s ease-in-out infinite reverse; z-index: 0; pointer-events: none; }
+.invest-inner { max-width: 1300px; margin: 0 auto; padding: 0 4rem; position: relative; z-index: 1; }
+.invest-header { text-align: center; margin-bottom: 5rem; }
+.invest-top { display: grid; grid-template-columns: repeat(3,1fr); border: 1px solid rgba(184,148,46,0.12); background: var(--charcoal); margin-bottom: 4rem; }
+.invest-top-item { padding: 3rem 2rem; border-right: 1px solid rgba(184,148,46,0.08); text-align: center; }
+.invest-top-item:last-child { border-right: none; }
+.invest-top-val { font-family: var(--serif); font-size: clamp(1.8rem, 3vw, 2.6rem); color: var(--gold-pale); font-weight: 300; line-height: 1; margin-bottom: 0.6rem; }
+.invest-top-lab { font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(240,237,230,0.45); }
+.invest-conds { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+.invest-cond { background: var(--charcoal); border: 1px solid rgba(184,148,46,0.08); padding: 3rem 2.5rem; transition: border-color .4s, background .4s; position: relative; }
+.invest-cond::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform .6s var(--ease-out-expo); }
+.invest-cond:hover { border-color: rgba(184,148,46,0.3); background: rgba(184,148,46,0.03); }
+.invest-cond:hover::before { transform: scaleX(1); }
+.invest-cond-title { font-family: var(--serif); font-size: 1.6rem; font-weight: 400; color: var(--cream); margin-bottom: 1rem; }
+.invest-cond-title em { font-style: italic; color: var(--gold-pale); }
+.invest-cond-body { font-size: 0.85rem; color: rgba(240,237,230,0.6); line-height: 1.9; }
+.invest-cond-body strong { color: var(--cream); font-weight: 400; }
+.invest-disclaimer { margin-top: 2.5rem; padding: 1.5rem; border: 1px solid rgba(184,148,46,0.1); background: var(--charcoal); text-align: center; font-size: 0.68rem; color: rgba(240,237,230,0.4); line-height: 1.7; font-style: italic; font-family: var(--serif); }
+
+/* POR QUE INVESTIR */
+#porqueinvestir { position: relative; padding: clamp(4rem,6vw,6rem) 0; background: linear-gradient(180deg, var(--void) 0%, #0c0c09 50%, var(--void) 100%); }
+.razao-header { text-align: center; margin-bottom: 5rem; }
+.razao-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; margin-bottom: 5rem; }
+.razao-card { background: var(--charcoal); border: 1px solid rgba(184,148,46,0.08); padding: 3.5rem 2.5rem; transition: border-color .4s, background .4s; position: relative; overflow: hidden; }
+.razao-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform .6s var(--ease-out-expo); }
+.razao-card:hover { border-color: rgba(184,148,46,0.3); background: rgba(184,148,46,0.03); }
+.razao-card:hover::before { transform: scaleX(1); }
+.razao-num { font-family: var(--serif); font-size: 3.5rem; font-weight: 300; color: rgba(184,148,46,0.12); line-height: 1; margin-bottom: 1.5rem; }
+.razao-title { font-family: var(--serif); font-size: 1.5rem; font-weight: 400; color: var(--cream); margin-bottom: 1rem; line-height: 1.2; }
+.razao-desc { font-size: 0.84rem; color: rgba(240,237,230,0.55); line-height: 1.9; }
+.razao-ficha { display: grid; grid-template-columns: repeat(2,1fr); gap: 2px; border: 1px solid rgba(184,148,46,0.12); background: var(--charcoal); }
+.ficha-item { padding: 2rem 2.5rem; border-right: 1px solid rgba(184,148,46,0.08); border-bottom: 1px solid rgba(184,148,46,0.08); }
+.ficha-item:nth-child(2n) { border-right: none; }
+.ficha-item:nth-last-child(-n+2) { border-bottom: none; }
+.ficha-label { font-size: 0.55rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; }
+.ficha-val { font-family: var(--serif); font-size: 0.95rem; color: var(--cream); line-height: 1.5; }
+
+/* CTA */
+#contato { position: relative; padding: clamp(8rem,15vw,13rem) 0 clamp(4rem,8vw,6rem); overflow: hidden; background: linear-gradient(180deg, var(--void) 0%, #0a0b08 100%); }
+.cta-inner { max-width: 1000px; margin: 0 auto; padding: 0 4rem; text-align: center; position: relative; z-index: 1; }
+.cta-orb { position: absolute; left: 50%; top: 20%; transform: translateX(-50%); width: 800px; height: 800px; border-radius: 40% 60% 55% 45% / 50% 40% 60% 50%; background: radial-gradient(ellipse, rgba(184,148,46,0.06) 0%, transparent 70%); animation: morph 20s ease-in-out infinite; z-index: 0; pointer-events: none; }
+.cta-title { font-family: var(--serif); font-size: clamp(2.4rem, 5.5vw, 4.5rem); font-weight: 300; color: var(--cream); line-height: 1.15; margin-bottom: 2rem; letter-spacing: -0.01em; }
+.cta-title em { font-style: italic; color: var(--gold-pale); }
+.cta-sub { font-family: var(--serif); font-style: italic; color: rgba(240,237,230,0.6); font-size: clamp(1rem, 1.8vw, 1.25rem); line-height: 1.7; max-width: 700px; margin: 0 auto 4rem; }
+.cta-buttons { display: flex; gap: 2rem; justify-content: center; margin-bottom: 5rem; flex-wrap: wrap; }
+.cta-contact { display: grid; grid-template-columns: repeat(3,1fr); gap: 2px; margin-top: 4rem; border: 1px solid rgba(184,148,46,0.1); background: var(--charcoal); }
+.cta-contact-item { padding: 2.5rem 2rem; border-right: 1px solid rgba(184,148,46,0.08); }
+.cta-contact-item:last-child { border-right: none; }
+.cta-contact-label { font-size: 0.54rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.8rem; }
+.cta-contact-value { font-family: var(--serif); font-size: 1.05rem; color: var(--cream); line-height: 1.5; }
+.cta-contact-value a { color: var(--cream); text-decoration: none; transition: color .3s; }
+.cta-contact-value a:hover { color: var(--gold-light); }
+
+/* FOOTER */
+footer { padding: 5rem 4rem 3rem; background: #05060a; border-top: 1px solid rgba(184,148,46,0.07); }
+.footer-inner { max-width: 1300px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4rem; padding-bottom: 3rem; border-bottom: 1px solid rgba(184,148,46,0.06); }
+.footer-logo { font-family: var(--serif); font-size: 1.7rem; font-weight: 400; letter-spacing: 0.25em; color: var(--cream); text-transform: uppercase; margin-bottom: 1.5rem; }
+.footer-logo span { color: var(--gold); }
+.footer-desc { font-family: var(--serif); font-style: italic; font-size: 0.92rem; color: rgba(240,237,230,0.45); line-height: 1.7; max-width: 380px; }
+.footer-col-title { font-size: 0.54rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+.footer-col a, .footer-col p { display: block; font-size: 0.84rem; color: rgba(240,237,230,0.5); text-decoration: none; padding: 0.4rem 0; transition: color .3s; }
+.footer-col a:hover { color: var(--gold-light); }
+.footer-bottom { max-width: 1300px; margin: 0 auto; padding-top: 2rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(240,237,230,0.25); }
+
+/* LIGHTBOX */
+.lightbox { position: fixed; inset: 0; background: rgba(9,9,7,0.96); z-index: 10000; display: none; align-items: center; justify-content: center; padding: 4rem; backdrop-filter: blur(20px); }
+.lightbox.active { display: flex; }
+.lightbox-img { max-width: 100%; max-height: 100%; object-fit: contain; border: 1px solid rgba(184,148,46,0.2); }
+.lightbox-close { position: absolute; top: 2rem; right: 2rem; width: 44px; height: 44px; border: 1px solid rgba(184,148,46,0.3); background: transparent; color: var(--gold); cursor: pointer; font-size: 1.3rem; transition: background .3s; display: flex; align-items: center; justify-content: center; }
+.lightbox-close:hover { background: rgba(184,148,46,0.1); }
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .emp-comparativo, .loc-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .unid-pavimentos { grid-template-columns: 1fr; }
+  .invest-conds { grid-template-columns: 1fr; }
+  .plantas-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  nav { padding: 1.5rem 2rem; }
+  nav.scrolled { padding: 1rem 2rem; }
+  .nav-links, .nav-cta { display: none; }
+  .nav-mobile-btn { display: flex; }
+  .inner { padding: 0 2rem; }
+  .manifesto-inner { padding: 0 2rem; }
+  .loc-inner { padding: 0 2rem; }
+  .invest-inner { padding: 0 2rem; }
+  .cta-inner { padding: 0 2rem; }
+  footer { padding: 4rem 2rem 2rem; }
+  .footer-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .hero-stats { grid-template-columns: repeat(2,1fr); }
+  .emp-stats { grid-template-columns: repeat(2,1fr); }
+  .unid-spec-grid { grid-template-columns: 1fr 1fr; }
+  .acab-grid { grid-template-columns: 1fr; }
+  .razao-grid { grid-template-columns: 1fr; }
+  .galeria-grid, .unid-renders { grid-template-columns: repeat(6,1fr); }
+  .g-col6, .g-col8, .g-col12 { grid-column: span 6; }
+  .g-col4, .g-col3 { grid-column: span 3; }
+  .r-col6, .r-col8, .r-col12 { grid-column: span 6; }
+  .r-col4, .r-col3 { grid-column: span 3; }
+  .cta-contact { grid-template-columns: 1fr; }
+  .invest-top { grid-template-columns: 1fr; }
+  .invest-top-item { border-right: none; border-bottom: 1px solid rgba(184,148,46,0.08); }
+  .invest-top-item:last-child { border-bottom: none; }
+  .plantas-grid { grid-template-columns: 1fr; }
+  .razao-ficha { grid-template-columns: 1fr; }
+  .ficha-item { border-right: none; }
+  .ficha-item:nth-last-child(-n+2) { border-bottom: 1px solid rgba(184,148,46,0.08); }
+  .ficha-item:last-child { border-bottom: none; }
+}
+@media (max-width: 480px) {
+  .hero-stats { grid-template-columns: repeat(2,1fr); }
+  .unid-spec-grid { grid-template-columns: 1fr; }
+  .galeria-grid, .unid-renders { grid-template-columns: 1fr 1fr; }
+  .g-col6, .g-col8, .g-col12, .g-col4, .g-col3 { grid-column: span 2; height: 200px; }
+  .r-col6, .r-col8, .r-col12, .r-col4, .r-col3 { grid-column: span 2; height: 200px; }
+  .emp-stats { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div id="loader">
+  <div class="loader-inner">
+    <div class="loader-logo">ÉVORA</div>
+    <div class="loader-line"></div>
+    <div class="loader-sub">Charm Village &nbsp;·&nbsp; Vila Rosa &nbsp;·&nbsp; Goiânia</div>
+  </div>
+</div>
+
+<div class="cursor"></div>
+<div class="cursor-ring"></div>
+
+<nav>
+  <a class="nav-logo" href="#hero">ÉVORA <span>·</span> CHARM VILLAGE</a>
+  <ul class="nav-links">
+    <li><a href="#empreendimento">O Projeto</a></li>
+    <li><a href="#localizacao">Localização</a></li>
+    <li><a href="#unidades">Unidades</a></li>
+    <li><a href="#galeria">Galeria</a></li>
+    <li><a href="#tabela">Tabela de Vendas</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+  <a class="nav-cta" href="#contato">Quero Investir</a>
+  <button class="nav-mobile-btn" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<main>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-img"></div>
+  <div class="hero-bg-gradient"></div>
+  <div class="hero-orb"></div>
+  <div class="hero-orb-2"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <span class="hero-eyebrow-text">Setor Vila Rosa &nbsp;·&nbsp; Goiânia — GO &nbsp;·&nbsp; CST Construtora</span>
+      <div class="hero-eyebrow-line"></div>
+    </div>
+    <h1 class="hero-title">ÉVORA<br><em>Charm</em><br>Village</h1>
+    <p class="hero-subtitle">Condomínio fechado de sobrados de alto padrão &mdash; onde sofisticação e natureza urbana se encontram</p>
+    <div class="hero-divider">
+      <div class="hero-divider-line"></div>
+      <div class="hero-diamond"></div>
+      <div class="hero-divider-line"></div>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-value">12</div>
+        <div class="hero-stat-label">Sobrados Exclusivos</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">~154 m²</div>
+        <div class="hero-stat-label">Área Construída</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">3 Suítes</div>
+        <div class="hero-stat-label">Master com Closet</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">Jun/25</div>
+        <div class="hero-stat-label">Pronto para Morar</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-indicator"></div>
+    <span class="scroll-text">Scroll</span>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section id="manifesto">
+  <div class="manifesto-bg"></div>
+  <div class="manifesto-accent"></div>
+  <div class="manifesto-inner">
+    <div class="manifesto-quote reveal">
+      <span class="large-q">"</span>Sofisticação que se <span class="hl">vive.</span><br>Privacidade que se <span class="hl">sente.</span>
+    </div>
+    <div class="manifesto-body">
+      <p class="manifesto-p reveal reveal-d1">O <strong>Évora Charm Village</strong> foi concebido para quem entende que morar bem é um ato de inteligência. Doze sobrados autônomos, cada um com sua identidade, reunidos em torno de um ideal comum: <strong>a vida com qualidade, segurança e beleza.</strong></p>
+      <p class="manifesto-p reveal reveal-d2">No Setor Vila Rosa, região consolidada e arborizada de Goiânia, o empreendimento entrega o equilíbrio raro entre <strong>a conveniência urbana e a tranquilidade de um refúgio particular</strong> &mdash; com fachada contemporânea, acabamentos premium e uma planta inteligente pensada para cada detalhe da sua rotina.</p>
+      <p class="manifesto-p reveal reveal-d3">Para quem busca <strong>morar ou investir em alto padrão</strong>, o Évora é a convergência perfeita de localização, arquitetura e valor.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider inner"><div class="divider-line"></div><div class="diamond"></div><div class="divider-line"></div></div>
+
+<!-- EMPREENDIMENTO -->
+<section id="empreendimento">
+  <div class="inner">
+    <div class="emp-header reveal">
+      <div class="section-label">O Empreendimento</div>
+      <h2 class="section-title">O projeto em <em>números</em></h2>
+      <p class="section-sub">Um condomínio horizontal exclusivo com 12 sobrados autônomos de 2 pavimentos, projetado pela CST Construtora &mdash; entregue em junho de 2025.</p>
+    </div>
+    <div class="emp-stats">
+      <div class="emp-stat reveal">
+        <div class="emp-stat-val">12</div>
+        <div class="emp-stat-lab">Sobrados</div>
+      </div>
+      <div class="emp-stat reveal reveal-d1">
+        <div class="emp-stat-val">~154 m²</div>
+        <div class="emp-stat-lab">Área Construída/Unidade</div>
+      </div>
+      <div class="emp-stat reveal reveal-d2">
+        <div class="emp-stat-val">2</div>
+        <div class="emp-stat-lab">Pavimentos</div>
+      </div>
+      <div class="emp-stat reveal reveal-d3">
+        <div class="emp-stat-val">1.918 m²</div>
+        <div class="emp-stat-lab">Área Total do Terreno</div>
+      </div>
+    </div>
+    <div class="emp-comparativo">
+      <div class="emp-comp-text reveal">
+        <h3>A <em>sofisticação</em><br>está nos detalhes</h3>
+        <p>Cada sobrado é uma <strong>residência autônoma completa</strong> &mdash; com quintal privativo, garagem coberta para 2 carros, suíte master com closet e varanda, e integração total entre sala, jantar e cozinha.</p>
+        <p>A arquitetura da <strong>Carolina Gontijo Guimarães</strong> equilibra estética contemporânea e funcionalidade premium. Fachadas em reboco massa única com pedras naturais, revestimentos cimentícios e alumínio preto criam uma identidade visual única no Setor Vila Rosa.</p>
+        <p><strong>Incorporação registrada</strong> na matrícula 173.897 &mdash; Cartório de Registro de Imóveis da 1ª Circunscrição de Goiânia. Alvará de Construção nº 28772 emitido em setembro de 2022.</p>
+      </div>
+      <div class="emp-comp-img reveal reveal-d2">
+        <img src="Evora/Évora Charm Village - Drive/Perspectivas/Perspectivas - Condomínio/Perspectiva_Condominio.png" alt="Perspectiva do Condomínio Évora Charm Village" loading="lazy">
+        <div class="emp-comp-caption">Perspectiva do Condomínio &mdash; Évora Charm Village</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider inner"><div class="divider-line"></div><div class="diamond"></div><div class="divider-line"></div></div>
+
+<!-- LOCALIZAÇÃO -->
+<section id="localizacao">
+  <div class="loc-bg"></div>
+  <div class="loc-orb"></div>
+  <div class="loc-inner">
+    <div class="loc-grid">
+      <div class="loc-left reveal">
+        <div class="section-label">Localização</div>
+        <h2>Setor <em>Vila Rosa,</em><br>Goiânia &mdash; GO</h2>
+        <p>A <strong>Rua Avelino Rosa com Presidente Linhares</strong> é um dos endereços mais cobiçados de Goiânia. Colado ao Setor Bueno e às margens do Parque Cascavel, o terreno une a tranquilidade de uma rua residencial arborizada com a praticidade de tudo à mão.</p>
+        <p>O Setor Vila Rosa é uma das regiões de <strong>maior valorização imobiliária contínua</strong> da capital goiana &mdash; acesso rápido às principais vias, shoppings, colégios de referência e hospitais.</p>
+        <div class="loc-facts">
+          <div class="loc-fact">
+            <div class="loc-fact-num">~5 min</div>
+            <div class="loc-fact-text">Parque Cascavel &mdash; área verde de referência em Goiânia</div>
+          </div>
+          <div class="loc-fact">
+            <div class="loc-fact-num">Colado</div>
+            <div class="loc-fact-text">Setor Bueno &mdash; o bairro mais valorizado da cidade</div>
+          </div>
+          <div class="loc-fact">
+            <div class="loc-fact-num">~10 min</div>
+            <div class="loc-fact-text">Shopping Flamboyant e Buriti Shopping</div>
+          </div>
+          <div class="loc-fact">
+            <div class="loc-fact-num">~8 min</div>
+            <div class="loc-fact-text">Hospital das Clínicas e principais hospitais</div>
+          </div>
+          <div class="loc-fact">
+            <div class="loc-fact-num">~5 min</div>
+            <div class="loc-fact-text">Colégios e universidades de alto padrão</div>
+          </div>
+        </div>
+      </div>
+      <div class="loc-img-wrap reveal reveal-d2">
+        <img src="Evora/Évora Charm Village - Drive/Perspectivas/Perspectivas - Condomínio/Perspectiva_Portaria.png" alt="Portaria do Condomínio Évora Charm Village" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider inner"><div class="divider-line"></div><div class="diamond"></div><div class="divider-line"></div></div>
+
+<!-- UNIDADES -->
+<section id="unidades">
+  <div class="inner">
+    <div class="unid-header reveal">
+      <div class="section-label">As Unidades</div>
+      <h2 class="section-title">Planta <em>inteligente,</em><br>vida completa</h2>
+      <p class="section-sub">Dois pavimentos pensados para o cotidiano de quem não abre mão do conforto e da privacidade em cada detalhe.</p>
+    </div>
+    <div class="unid-pavimentos">
+      <div class="pavimento-card reveal">
+        <div class="pavimento-num">Pavimento Térreo</div>
+        <div class="pavimento-title">Convívio, conforto<br>e funcionalidade</div>
+        <ul class="pavimento-items">
+          <li>Sala de estar e jantar <strong>integradas</strong></li>
+          <li>Cozinha com bancada em granito preto São Gabriel</li>
+          <li>Lavabo</li>
+          <li>Garagem coberta para <strong>2 carros</strong></li>
+          <li>Quintal privativo com grama</li>
+          <li>Área de serviço com tanque</li>
+          <li>Depósito</li>
+          <li>Mezanino</li>
+          <li>Corredor lateral privativo</li>
+        </ul>
+      </div>
+      <div class="pavimento-card reveal reveal-d2">
+        <div class="pavimento-num">Pavimento Superior</div>
+        <div class="pavimento-title">Recolhimento,<br>privacidade e charme</div>
+        <ul class="pavimento-items">
+          <li><strong>Suíte Master</strong> com closet e balcão/varanda</li>
+          <li>Suíte 02 &mdash; ampla e arejada</li>
+          <li>Suíte 03 &mdash; versátil (home office ou hóspede)</li>
+          <li>Banheiro privativo em cada suíte</li>
+          <li>Circulação interna</li>
+          <li>Janelas com <strong>persianas embutidas</strong></li>
+          <li>Previsão para ar condicionado nas 3 suítes</li>
+          <li>Guarda-corpo em alumínio preto + vidro temperado</li>
+        </ul>
+      </div>
+    </div>
+    <div class="unid-spec-grid">
+      <div class="spec-card reveal">
+        <div class="spec-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div class="spec-title">154 m² Privativo</div>
+        <div class="spec-desc">Área total construída com aproveitamento máximo em cada ambiente &mdash; espaços amplos, pé-direito generoso e fluxo natural entre os ambientes.</div>
+      </div>
+      <div class="spec-card reveal reveal-d1">
+        <div class="spec-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <div class="spec-title">Condomínio Fechado</div>
+        <div class="spec-desc">Portões automatizados com fechadura elétrica, guarita com banheiro, previsão de sensoriamento perimetral e CFTV &mdash; segurança em todos os níveis.</div>
+      </div>
+      <div class="spec-card reveal reveal-d2">
+        <div class="spec-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <div class="spec-title">Pronto Jun/2025</div>
+        <div class="spec-desc">Unidades disponíveis para entrega imediata &mdash; sem prazo de espera. Mude-se ou comece a rentabilizar seu investimento agora.</div>
+      </div>
+      <div class="spec-card reveal reveal-d1">
+        <div class="spec-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="spec-title">Localização Premium</div>
+        <div class="spec-desc">Setor Vila Rosa, colado ao Setor Bueno &mdash; uma das regiões com maior valorização histórica de Goiânia, próxima a parques, shoppings e escolas.</div>
+      </div>
+      <div class="spec-card reveal reveal-d2">
+        <div class="spec-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <div class="spec-title">Quintal Privativo</div>
+        <div class="spec-desc">Área com grama e espaço para lazer exclusivo &mdash; churrasco, jardim, playground particular. Privacidade total, sem dividir com ninguém.</div>
+      </div>
+      <div class="spec-card reveal reveal-d3">
+        <div class="spec-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <div class="spec-title">Playground</div>
+        <div class="spec-desc">Área de lazer infantil equipada com brinquedos para crianças nas áreas comuns do condomínio &mdash; segurança e diversão para a família inteira.</div>
+      </div>
+    </div>
+    <div style="margin-top: 2px;" class="unid-renders reveal">
+      <div class="render-item r-col8">
+        <img src="Evora/Évora Charm Village - Drive/Perspectivas/Perspectivas - Sobrado/SALAS E COZINHA.jpg" alt="Salas e Cozinha Integradas" loading="lazy">
+        <div class="render-label">Salas e Cozinha Integradas</div>
+      </div>
+      <div class="render-item r-col4">
+        <img src="Evora/Évora Charm Village - Drive/Perspectivas/Perspectivas - Sobrado/SUITE MASTER01.jpg" alt="Suíte Master" loading="lazy">
+        <div class="render-label">Suíte Master</div>
+      </div>
+      <div class="render-item r-col4">
+        <img src="Evora/Évora Charm Village - Drive/Perspectivas/Perspectivas - Sobrado/CLOSET.jpg" alt="Closet" loading="lazy">
+        <div class="render-label">Closet da Master</div>
+      </div>
+      <div class="render-item r-col4">
+        <img src="Evora/Évora Charm Village - Drive/Perspectivas/Perspectivas - Sobrado/BANHO MASTER.jpg" alt="Banheiro Master" loading="lazy">
+        <div class="render-label">Banho Master</div>
+      </div>
+      <div class="render-item r-col4">
+        <img src="Evora/Évora Charm Village - Drive/Perspectivas/Perspectivas - Sobrado/COZINHA.jpg" alt="Cozinha" loading="lazy">
+        <div class="render-label">Cozinha</div>
+      </div>
+      <div class="render-item r-col6">
+        <img src="Evora/Évora Charm Village - Drive/Perspectivas/Perspectivas - Sobrado/QUINTAL MAIOR.jpg" alt="Quintal Privativo" loading="lazy">
+        <div class="render-label">Quintal Privativo</div>
+      </div>
+      <div class="render-item r-col6">
+        <img src="Evora/Évora Charm Village - Drive/Perspectivas/Perspectivas - Sobrado/SUITE02.jpg" alt="Suíte 02" loading="lazy">
+        <div class="render-label">Suíte 02</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider inner"><div class="divider-line"></div><div class="diamond"></div><div class="divider-line"></div></div>
+
+<!-- ACABAMENTOS -->
+<section id="acabamentos">
+  <div class="inner">
+    <div class="acab-header reveal">
+      <div class="section-label">Acabamentos</div>
+      <h2 class="section-title">Padrão <em>premium</em><br>em cada detalhe</h2>
+      <p class="section-sub">Materiais selecionados de marcas referência no mercado &mdash; granito, porcelanato formato grande, alumínio preto e vidro temperado em todos os ambientes.</p>
+    </div>
+    <div class="acab-grid">
+      <div class="acab-card reveal">
+        <div class="acab-cat">Pisos e Revestimentos</div>
+        <div class="acab-title">Porcelanato de<br>grande formato</div>
+        <ul class="acab-items">
+          <li>Porcelanato 80×80, 87×87 ou 90×90 &mdash; salas, quartos e garagem</li>
+          <li>Granito nacional nas escadas e soleiras</li>
+          <li>Bancada em granito preto São Gabriel (cozinha)</li>
+          <li>Marcas: Eliane, Portobello, Portinari, Cecrisa</li>
+        </ul>
+      </div>
+      <div class="acab-card reveal reveal-d1">
+        <div class="acab-cat">Esquadrias</div>
+        <div class="acab-title">Alumínio preto com<br>vidro temperado</div>
+        <ul class="acab-items">
+          <li>Porta de entrada pivotante em alumínio branco</li>
+          <li>Janelas alumínio preto + vidro temperado c/ persianas embutidas</li>
+          <li>Portas sala/cozinha em alumínio preto correr 2 folhas</li>
+          <li>Guarda-corpo: alumínio preto + vidro temperado</li>
+          <li>Portões automatizados com fechadura elétrica</li>
+        </ul>
+      </div>
+      <div class="acab-card reveal reveal-d2">
+        <div class="acab-cat">Instalações</div>
+        <div class="acab-title">Tecnologia e<br>infraestrutura</div>
+        <ul class="acab-items">
+          <li>Forro de gesso liso nas salas, quartos e closet</li>
+          <li>Pré-instalação de ar condicionado nas 3 suítes e sala</li>
+          <li>Medição individual de água por unidade</li>
+          <li>Tomadas 220V em todos os ambientes</li>
+          <li>Metais Deca, Docol ou Tramontina</li>
+          <li>Louças Deca, Incepa, Celite ou Icasa</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider inner"><div class="divider-line"></div><div class="diamond"></div><div class="divider-line"></div></div>
+
+<!-- PLANTAS -->
+<section id="plantas">
+  <div class="inner">
+    <div class="plantas-header reveal">
+      <div class="section-label">Plantas</div>
+      <h2 class="section-title">Cada espaço <em>pensado</em><br>com precisão</h2>
+      <p class="section-sub">Plantas humanizadas com divisão inteligente dos ambientes &mdash; fluxo natural, privacidade nas suítes e integração social no térreo.</p>
+    </div>
+    <div class="plantas-grid">
+      <div class="planta-item reveal" data-lightbox>
+        <img src="Evora/Évora Charm Village - Drive/Plantas/PLANTA HUMANIZADA - CONDOMÍNIO COMPLETO.png" alt="Planta Humanizada do Condomínio" loading="lazy">
+        <div class="planta-caption">
+          <div class="planta-caption-title">Implantação do Condomínio</div>
+          <div class="planta-caption-sub">12 unidades · Área total 1.918 m²</div>
+        </div>
+      </div>
+      <div class="planta-item reveal reveal-d1" data-lightbox>
+        <img src="Evora/Évora Charm Village - Drive/Plantas/PLANTA HUMANIZADA - SOBRADO PAVIMENTO INFERIOR.png" alt="Planta Pavimento Térreo" loading="lazy">
+        <div class="planta-caption">
+          <div class="planta-caption-title">Pavimento Térreo</div>
+          <div class="planta-caption-sub">Sala, cozinha, garagem, quintal</div>
+        </div>
+      </div>
+      <div class="planta-item reveal reveal-d2" data-lightbox>
+        <img src="Evora/Évora Charm Village - Drive/Plantas/PLANTA HUMANIZADA - SOBRADO PAVIMENTO SUPERIOR.png" alt="Planta Pavimento Superior" loading="lazy">
+        <div class="planta-caption">
+          <div class="planta-caption-title">Pavimento Superior</div>
+          <div class="planta-caption-sub">3 suítes · Master com closet e varanda</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider inner"><div class="divider-line"></div><div class="diamond"></div><div class="divider-line"></div></div>
+
+<!-- GALERIA -->
+<section id="galeria">
+  <div class="inner" style="margin-bottom: 4rem;">
+    <div class="galeria-header reveal">
+      <div class="section-label">Galeria</div>
+      <h2 class="section-title">Veja o <em>Évora</em><br>por dentro</h2>
+      <p class="section-sub">Fotos reais do decorado e perspectivas do condomínio &mdash; ambientes que traduzem o padrão de acabamento e a qualidade de vida que o Évora entrega.</p>
+    </div>
+  </div>
+  <div class="galeria-grid reveal">
+    <div class="gal-item g-col6" data-lightbox>
+      <img src="Evora/Évora Charm Village - Drive/Fotos do decorado/FACHADA.jpg" alt="Fachada" loading="lazy">
+      <div class="gal-lab">Fachada do Sobrado</div>
+    </div>
+    <div class="gal-item g-col6" data-lightbox>
+      <img src="Evora/Évora Charm Village - Drive/Fotos do decorado/SALAS ESTAR E JANTAR (1).jpeg" alt="Salas Integradas" loading="lazy">
+      <div class="gal-lab">Salas Integradas</div>
+    </div>
+    <div class="gal-item g-col4" data-lightbox>
+      <img src="Evora/Évora Charm Village - Drive/Fotos do decorado/COZINHA.jpg" alt="Cozinha" loading="lazy">
+      <div class="gal-lab">Cozinha Premium</div>
+    </div>
+    <div class="gal-item g-col4" data-lightbox>
+      <img src="Evora/Évora Charm Village - Drive/Fotos do decorado/SUITE MASTER.jpeg" alt="Suíte Master" loading="lazy">
+      <div class="gal-lab">Suíte Master</div>
+    </div>
+    <div class="gal-item g-col4" data-lightbox>
+      <img src="Evora/Évora Charm Village - Drive/Fotos do decorado/BANHEIRO MASTER.jpeg" alt="Banheiro Master" loading="lazy">
+      <div class="gal-lab">Banheiro Master</div>
+    </div>
+    <div class="gal-item g-col8" data-lightbox>
+      <img src="Evora/Évora Charm Village - Drive/Fotos do decorado/SUITE MASTER COM CLOSET.jpeg" alt="Master com Closet" loading="lazy">
+      <div class="gal-lab">Suíte Master com Closet</div>
+    </div>
+    <div class="gal-item g-col4" data-lightbox>
+      <img src="Evora/Évora Charm Village - Drive/Fotos do decorado/GARAGEM.jpg" alt="Garagem" loading="lazy">
+      <div class="gal-lab">Garagem para 2 Carros</div>
+    </div>
+    <div class="gal-item g-col4" data-lightbox>
+      <img src="Evora/Évora Charm Village - Drive/Fotos do decorado/CHURRASQUEIRA.jpg" alt="Churrasqueira" loading="lazy">
+      <div class="gal-lab">Quintal com Churrasqueira</div>
+    </div>
+    <div class="gal-item g-col4" data-lightbox>
+      <img src="Evora/Évora Charm Village - Drive/Fotos do decorado/SALA ESTAR POST.jpeg" alt="Sala de Estar" loading="lazy">
+      <div class="gal-lab">Sala de Estar</div>
+    </div>
+    <div class="gal-item g-col4" data-lightbox>
+      <img src="Evora/Évora Charm Village - Drive/Fotos do decorado/QUARTO 01 (1).jpeg" alt="Quarto 01" loading="lazy">
+      <div class="gal-lab">Suíte 01</div>
+    </div>
+    <div class="gal-item g-col3" data-lightbox>
+      <img src="Evora/Évora Charm Village - Drive/Perspectivas/Perspectivas - Condomínio/Perspectiva_Fachada.png" alt="Perspectiva Fachada" loading="lazy">
+      <div class="gal-lab">Perspectiva Fachada</div>
+    </div>
+    <div class="gal-item g-col3" data-lightbox>
+      <img src="Evora/Évora Charm Village - Drive/Perspectivas/Perspectivas - Condomínio/Perspectiva_fachada_sobrado.png" alt="Perspectiva Sobrado" loading="lazy">
+      <div class="gal-lab">Fachada do Sobrado</div>
+    </div>
+    <div class="gal-item g-col3" data-lightbox>
+      <img src="Evora/Évora Charm Village - Drive/Perspectivas/Perspectivas - Condomínio/Perspectiva_circulacao.png" alt="Circulação" loading="lazy">
+      <div class="gal-lab">Circulação do Condomínio</div>
+    </div>
+    <div class="gal-item g-col3" data-lightbox>
+      <img src="Evora/Évora Charm Village - Drive/Perspectivas/Perspectivas - Condomínio/Perspectiva_estacionamento.png" alt="Estacionamento" loading="lazy">
+      <div class="gal-lab">Área de Estacionamento</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider inner"><div class="divider-line"></div><div class="diamond"></div><div class="divider-line"></div></div>
+
+<!-- TABELA DE VENDAS -->
+<section id="tabela">
+  <div class="inner">
+    <div class="tabela-header reveal">
+      <div class="section-label">Tabela de Vendas</div>
+      <h2 class="section-title">Unidades <em>disponíveis</em></h2>
+      <p class="section-sub">Tabela de vigência junho/2025. 6 unidades disponíveis &mdash; entrada facilitada e financiamento bancário. Consulte condições atualizadas.</p>
+    </div>
+    <div class="tabela-wrapper reveal">
+      <table class="vendas">
+        <thead>
+          <tr>
+            <th>Unidade</th>
+            <th>Área Construída</th>
+            <th>Área Terreno</th>
+            <th>Status</th>
+            <th>Valor Total</th>
+            <th>Entrada (25%)</th>
+            <th>Financ. Bancário (75%)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="unid">Sobrado 02</td>
+            <td>152,73 m²</td>
+            <td>121,93 m²</td>
+            <td class="disp">● Disponível</td>
+            <td class="val">R$ 1.278.579,30</td>
+            <td>R$ 319.644,82</td>
+            <td>R$ 958.934,47</td>
+          </tr>
+          <tr>
+            <td class="unid">Sobrado 04</td>
+            <td>153,69 m²</td>
+            <td>122,82 m²</td>
+            <td class="disp">● Disponível</td>
+            <td class="val">R$ 1.278.579,30</td>
+            <td>R$ 319.644,82</td>
+            <td>R$ 958.934,47</td>
+          </tr>
+          <tr>
+            <td class="unid">Sobrado 05</td>
+            <td>152,73 m²</td>
+            <td>121,93 m²</td>
+            <td class="disp">● Disponível</td>
+            <td class="val">R$ 1.278.579,30</td>
+            <td>R$ 319.644,82</td>
+            <td>R$ 958.934,47</td>
+          </tr>
+          <tr>
+            <td class="unid">Sobrado 08</td>
+            <td>152,73 m²</td>
+            <td>103,51 m²</td>
+            <td class="disp">● Disponível</td>
+            <td class="val">R$ 1.227.824,63</td>
+            <td>R$ 306.956,16</td>
+            <td>R$ 920.868,47</td>
+          </tr>
+          <tr>
+            <td class="unid">Sobrado 10</td>
+            <td>153,70 m²</td>
+            <td>104,27 m²</td>
+            <td class="disp">● Disponível</td>
+            <td class="val">R$ 1.227.824,63</td>
+            <td>R$ 306.956,16</td>
+            <td>R$ 920.868,47</td>
+          </tr>
+          <tr>
+            <td class="unid">Sobrado 11</td>
+            <td>152,73 m²</td>
+            <td>103,51 m²</td>
+            <td class="disp">● Disponível</td>
+            <td class="val">R$ 1.227.824,63</td>
+            <td>R$ 306.956,16</td>
+            <td>R$ 920.868,47</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tabela-obs reveal">
+      As parcelas serão corrigidas mensalmente pelo IGP-M + 1% a.m. · Os valores acima estão representados em Reais (R$) · A presente tabela poderá ser alterada sem aviso prévio · Vigência: 01/06/2025 a 30/06/2025 · Pro soluto exige 2 fiadores com 2 imóveis aprovados pela CST
+    </div>
+  </div>
+</section>
+
+<div class="divider inner"><div class="divider-line"></div><div class="diamond"></div><div class="divider-line"></div></div>
+
+<!-- INVESTIMENTO -->
+<section id="investimento">
+  <div class="invest-orb"></div>
+  <div class="invest-inner">
+    <div class="invest-header reveal">
+      <div class="section-label">Condições de Investimento</div>
+      <h2 class="section-title">Entrada <em>acessível,</em><br>ativo premium</h2>
+      <p class="section-sub">Imóvel pronto, documentação regular e financiamento bancário disponível &mdash; a combinação ideal para quem quer morar ou investir com segurança.</p>
+    </div>
+    <div class="invest-top">
+      <div class="invest-top-item reveal">
+        <div class="invest-top-val">25%</div>
+        <div class="invest-top-lab">Entrada sobre o valor total</div>
+      </div>
+      <div class="invest-top-item reveal reveal-d1">
+        <div class="invest-top-val">75%</div>
+        <div class="invest-top-lab">Via financiamento bancário</div>
+      </div>
+      <div class="invest-top-item reveal reveal-d2">
+        <div class="invest-top-val">IGP-M+1%</div>
+        <div class="invest-top-lab">Correção mensal das parcelas</div>
+      </div>
+    </div>
+    <div class="invest-conds">
+      <div class="invest-cond reveal">
+        <div class="invest-cond-title"><em>Compra</em> para Moradia</div>
+        <div class="invest-cond-body">
+          Para quem busca um <strong>endereço premium em Goiânia</strong> com privacidade e conforto. Entrada a partir de R$ 306.956 e financiamento bancário pelo valor restante.<br><br>
+          <strong>Imóvel pronto</strong> para transferência &mdash; sem espera, sem obra. Incorporação registrada em cartório, CNPJ ativo e responsável técnico habilitado.<br><br>
+          Opção de entrega com <strong>armários planejados</strong> &mdash; consulte condições adicionais com o corretor.
+        </div>
+      </div>
+      <div class="invest-cond reveal reveal-d2">
+        <div class="invest-cond-title"><em>Investimento</em> para Renda</div>
+        <div class="invest-cond-body">
+          O Setor Vila Rosa tem <strong>altíssima demanda de locação</strong> &mdash; executivos, famílias e profissionais liberais buscam exatamente esse padrão de imóvel.<br><br>
+          Sobrados de 3 suítes com garagem e quintal são <strong>raridade no mercado de locação de Goiânia</strong>, garantindo retorno diferenciado e ocupação contínua.<br><br>
+          Ativo imobiliário com <strong>histórico sólido de valorização</strong> no bairro &mdash; capital protegido, renda passiva e patrimônio crescente.
+        </div>
+      </div>
+    </div>
+    <div class="invest-disclaimer reveal">
+      Valores e condições sujeitos a alteração sem aviso prévio. As informações desta apresentação têm caráter informativo. As condições definitivas constarão no contrato de compromisso de compra e venda. Consulte um corretor credenciado pela CST Construtora.
+    </div>
+  </div>
+</section>
+
+<div class="divider inner"><div class="divider-line"></div><div class="diamond"></div><div class="divider-line"></div></div>
+
+<!-- POR QUE INVESTIR -->
+<section id="porqueinvestir">
+  <div class="inner">
+    <div class="razao-header reveal">
+      <div class="section-label">Por Que Investir</div>
+      <h2 class="section-title">Três razões <em>incontestáveis</em></h2>
+      <p class="section-sub">O Évora Charm Village reúne os três pilares que todo investidor imobiliário de alto padrão busca: localização, produto e momento de mercado.</p>
+    </div>
+    <div class="razao-grid">
+      <div class="razao-card reveal">
+        <div class="razao-num">01</div>
+        <div class="razao-title">Localização que<br>protege o valor</div>
+        <div class="razao-desc">Setor Vila Rosa é um dos bairros com maior demanda de Goiânia, colado ao Setor Bueno &mdash; o mais valorizado da cidade. Proximidade com parques, shoppings, escolas e hospitais torna o imóvel desejado por qualquer perfil de comprador ou locatário.</div>
+      </div>
+      <div class="razao-card reveal reveal-d1">
+        <div class="razao-num">02</div>
+        <div class="razao-title">Produto escasso no<br>mercado premium</div>
+        <div class="razao-desc">Sobrados de alto padrão com 3 suítes, quintal privativo e garagem para 2 carros em condomínio fechado são raros em Goiânia. A escassez desse produto garante rentabilidade na venda futura e facilidade de locação com ticketes acima da média.</div>
+      </div>
+      <div class="razao-card reveal reveal-d2">
+        <div class="razao-num">03</div>
+        <div class="razao-title">Pronto, documentado<br>e sem riscos</div>
+        <div class="razao-desc">Imóvel pronto para entrega imediata, incorporação registrada em cartório, CNPJ ativo (SPE Vila Rosa), responsável técnico habilitado no CREA-GO e alvará de construção emitido pela Prefeitura de Goiânia. Zero risco de obra.</div>
+      </div>
+    </div>
+    <div class="razao-ficha reveal" style="margin-top: 5rem;">
+      <div class="ficha-item">
+        <div class="ficha-label">Empreendimento</div>
+        <div class="ficha-val">Évora Charm Village</div>
+      </div>
+      <div class="ficha-item">
+        <div class="ficha-label">Incorporação</div>
+        <div class="ficha-val">SPE Vila Rosa Empreendimentos Imobiliários Ltda</div>
+      </div>
+      <div class="ficha-item">
+        <div class="ficha-label">Construtora</div>
+        <div class="ficha-val">CST Construtora Incorporadora Ltda</div>
+      </div>
+      <div class="ficha-item">
+        <div class="ficha-label">Endereço</div>
+        <div class="ficha-val">Rua Avelino Rosa c/ Pres. Linhares, Q.52, Lts 01/03<br>Vila Rosa, Goiânia — GO</div>
+      </div>
+      <div class="ficha-item">
+        <div class="ficha-label">Resp. Técnico</div>
+        <div class="ficha-val">Eng. Ernesto Rassi Neiva — CREA 15862/D-GO</div>
+      </div>
+      <div class="ficha-item">
+        <div class="ficha-label">Registro de Incorporação</div>
+        <div class="ficha-val">Matrícula 173.897 — 1ª Circunscrição de Goiânia</div>
+      </div>
+      <div class="ficha-item">
+        <div class="ficha-label">Alvará de Construção</div>
+        <div class="ficha-val">Nº 28772 — Prefeitura de Goiânia</div>
+      </div>
+      <div class="ficha-item">
+        <div class="ficha-label">Status</div>
+        <div class="ficha-val">Pronto para Entrega · Jun/2025</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contato">
+  <div class="cta-orb"></div>
+  <div class="cta-inner">
+    <div class="divider" style="margin-bottom: 5rem;"><div class="divider-line"></div><div class="diamond"></div><div class="divider-line"></div></div>
+    <div class="section-label reveal" style="justify-content: center;">Fale com um Especialista</div>
+    <h2 class="cta-title reveal reveal-d1">
+      Seu próximo endereço<br>começa <em>aqui.</em>
+    </h2>
+    <p class="cta-sub reveal reveal-d2">
+      6 unidades disponíveis, imóvel pronto, documentação regular. Agende uma visita ou solicite a tabela completa atualizada com um de nossos corretores.
+    </p>
+    <div class="cta-buttons reveal reveal-d3">
+      <a class="btn-primary" href="https://wa.me/5562992274903?text=Olá,%20quero%20saber%20mais%20sobre%20o%20Évora%20Charm%20Village" target="_blank" rel="noopener"><span>Falar no WhatsApp</span></a>
+      <a class="btn-ghost" href="#tabela">Ver Tabela de Vendas →</a>
+    </div>
+    <div class="cta-contact reveal">
+      <div class="cta-contact-item">
+        <div class="cta-contact-label">WhatsApp</div>
+        <div class="cta-contact-value"><a href="https://wa.me/5562992274903" target="_blank" rel="noopener">(62) 99227-4903</a></div>
+      </div>
+      <div class="cta-contact-item">
+        <div class="cta-contact-label">Localização</div>
+        <div class="cta-contact-value">Rua Avelino Rosa c/ Pres. Linhares<br>Vila Rosa · Goiânia — GO</div>
+      </div>
+      <div class="cta-contact-item">
+        <div class="cta-contact-label">Construtora</div>
+        <div class="cta-contact-value">CST Construtora Incorporadora<br>CNPJ 40.778.497/0001-98</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">ÉVORA <span>·</span> CHARM VILLAGE</div>
+      <div class="footer-desc">Condomínio fechado de sobrados de alto padrão no Setor Vila Rosa, Goiânia — GO. Sofisticação, privacidade e natureza urbana reunidas em 12 unidades exclusivas.</div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Navegação</div>
+      <a href="#empreendimento">O Projeto</a>
+      <a href="#localizacao">Localização</a>
+      <a href="#unidades">Unidades</a>
+      <a href="#galeria">Galeria</a>
+      <a href="#tabela">Tabela de Vendas</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Contato</div>
+      <a href="https://wa.me/5562992274903" target="_blank" rel="noopener">(62) 99227-4903</a>
+      <p>Vila Rosa · Goiânia — GO</p>
+      <p>CST Construtora Incorporadora</p>
+      <p>SPE Vila Rosa Empreendimentos</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Évora Charm Village · CST Construtora Incorporadora Ltda</span>
+    <span>Vila Rosa · Goiânia — GO</span>
+  </div>
+</footer>
+
+<div class="lightbox">
+  <button class="lightbox-close">✕</button>
+  <img class="lightbox-img" src="" alt="">
+</div>
+
+<script>
+const cursor = document.querySelector('.cursor');
+const ring = document.querySelector('.cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx + 'px'; cursor.style.top = my + 'px'; });
+(function animRing() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px';
+  ring.style.top = ry + 'px';
+  requestAnimationFrame(animRing);
+})();
+
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hidden');
+    document.getElementById('hero').classList.add('loaded');
+  }, 2400);
+});
+
+const nav = document.querySelector('nav');
+window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', window.scrollY > 60); }, { passive: true });
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+const lb = document.querySelector('.lightbox');
+const lbImg = lb.querySelector('.lightbox-img');
+document.querySelectorAll('[data-lightbox]').forEach(el => {
+  el.addEventListener('click', () => {
+    const img = el.querySelector('img');
+    if (img) { lbImg.src = img.src; lbImg.alt = img.alt; lb.classList.add('active'); document.body.style.overflow = 'hidden'; }
+  });
+});
+lb.querySelector('.lightbox-close').addEventListener('click', closeLb);
+lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLb(); });
+function closeLb() { lb.classList.remove('active'); document.body.style.overflow = ''; }
+</script>
+</body>
+</html>

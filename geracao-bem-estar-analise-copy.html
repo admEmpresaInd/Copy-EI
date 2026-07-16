@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Análise de Copy — Geração Bem Estar</title>
+<style>
+  :root {
+    --background: #151515;
+    --foreground: #fafafa;
+    --primary: #34d399;
+    --primary-foreground: #0a2e24;
+    --muted: #262626;
+    --muted-foreground: #a3a3a3;
+    --card: #1e1e1e;
+    --border: rgba(255,255,255,0.08);
+    --destructive: #ef4444;
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 10px;
+    --radius-xl: 14px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── ANIMAÇÕES ── */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50%       { background-position: 100% 50%; }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-8px); }
+  }
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(52,211,153,.15), 0 0 60px rgba(52,211,153,.05); }
+    50%       { box-shadow: 0 0 30px rgba(52,211,153,.3),  0 0 80px rgba(52,211,153,.1);  }
+  }
+
+  .animate-fade-in-up { animation: fadeInUp .7s ease-out both; }
+  .delay-1 { animation-delay: .1s; }
+  .delay-2 { animation-delay: .2s; }
+  .delay-3 { animation-delay: .3s; }
+  .delay-4 { animation-delay: .4s; }
+  .delay-5 { animation-delay: .5s; }
+
+  .scroll-hidden { opacity:0; transform:translateY(30px); transition: opacity .7s ease-out, transform .7s ease-out; }
+  .scroll-visible { opacity:1; transform:translateY(0); }
+
+  /* ── GLOW ── */
+  .glow-emerald { box-shadow: 0 0 20px rgba(52,211,153,.15), 0 0 60px rgba(52,211,153,.05); }
+  .glow-emerald-strong { animation: pulse-glow 3s ease-in-out infinite; }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 1152px; margin: 0 auto; padding: 0 24px; }
+  .container-narrow { max-width: 896px; margin: 0 auto; padding: 0 24px; }
+  .container-default { max-width: 1024px; margin: 0 auto; padding: 0 24px; }
+
+  section { padding: 80px 24px; }
+  @media(min-width:768px){ section { padding: 112px 24px; } }
+
+  /* ── TIPOGRAFIA ── */
+  .text-gradient {
+    background: linear-gradient(90deg, var(--primary), #6ee7b7, var(--primary));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 6s ease-in-out infinite;
+  }
+  .text-muted { color: var(--muted-foreground); }
+  .text-primary { color: var(--primary); }
+
+  /* ── BADGE ── */
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    border: 1px solid rgba(52,211,153,.2);
+    background: rgba(52,211,153,.05);
+    color: var(--primary);
+    padding: 6px 16px;
+    border-radius: 9999px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  .badge-section {
+    display: inline-block;
+    background: rgba(52,211,153,.1);
+    color: var(--primary);
+    padding: 4px 12px;
+    border-radius: 9999px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+  }
+  .badge-red {
+    display: inline-block;
+    background: rgba(239,68,68,.1);
+    color: #f87171;
+    padding: 4px 10px;
+    border-radius: 9999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .5px;
+  }
+  .badge-yellow {
+    display: inline-block;
+    background: rgba(251,191,36,.1);
+    color: #fbbf24;
+    padding: 4px 10px;
+    border-radius: 9999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .5px;
+  }
+  .badge-green {
+    display: inline-block;
+    background: rgba(52,211,153,.1);
+    color: var(--primary);
+    padding: 4px 10px;
+    border-radius: 9999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .5px;
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: 24px;
+    transition: border-color .2s, transform .2s;
+  }
+  .card:hover { border-color: rgba(52,211,153,.2); transform: translateY(-2px); }
+
+  .card-problem {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: 28px;
+    border-left: 3px solid var(--destructive);
+  }
+  .card-action {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: 28px;
+  }
+  .card-action.priority-red  { border-left: 3px solid #ef4444; }
+  .card-action.priority-yellow { border-left: 3px solid #fbbf24; }
+  .card-action.priority-green  { border-left: 3px solid var(--primary); }
+
+  /* ── GRID ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr; gap: 16px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  @media(min-width:768px){
+    .grid-2 { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .grid-4 { grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  }
+
+  /* ── BOTÃO ── */
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--primary); color: var(--primary-foreground);
+    padding: 12px 32px; border-radius: var(--radius-md);
+    font-weight: 600; font-size: 15px;
+    border: none; cursor: pointer; text-decoration: none;
+    transition: background .2s, transform .1s;
+  }
+  .btn-primary:hover { background: #2dd48a; transform: translateY(-1px); }
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent; color: var(--foreground);
+    border: 1px solid var(--border);
+    padding: 12px 32px; border-radius: var(--radius-md);
+    font-weight: 500; font-size: 15px;
+    cursor: pointer; text-decoration: none;
+    transition: border-color .2s, background .2s;
+  }
+  .btn-outline:hover { border-color: rgba(52,211,153,.4); background: rgba(52,211,153,.05); }
+
+  /* ── STAT CARD ── */
+  .stat-card {
+    background: rgba(30,30,30,.5);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-xl);
+    padding: 24px;
+    text-align: center;
+  }
+  .stat-number { font-size: 2rem; font-weight: 700; color: var(--primary); display: block; }
+  .stat-label  { font-size: 13px; color: var(--muted-foreground); margin-top: 4px; display: block; }
+
+  /* ── COMPARISON ── */
+  .comparison-row {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 0; border-bottom: 1px solid var(--border);
+  }
+  .comparison-row:last-child { border-bottom: none; }
+  .comparison-cell { padding: 16px 20px; display: flex; align-items: flex-start; gap: 10px; font-size: 14px; }
+  .comparison-cell.bad  { border-right: 1px solid var(--border); color: var(--muted-foreground); }
+  .comparison-cell.good { color: var(--foreground); }
+  .icon-x    { color: #ef4444; font-weight: 700; font-size: 16px; flex-shrink: 0; }
+  .icon-check { color: var(--primary); font-weight: 700; font-size: 16px; flex-shrink: 0; }
+
+  /* ── DIAGNÓSTICO BOX ── */
+  .diagnostic-box {
+    background: rgba(52,211,153,.03);
+    border: 1px solid rgba(52,211,153,.15);
+    border-radius: var(--radius-xl);
+    padding: 32px;
+  }
+  .diagnostic-row {
+    display: flex; flex-direction: column; gap: 4px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .diagnostic-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .diagnostic-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .8px; color: var(--muted-foreground); }
+  .diagnostic-value { font-size: 15px; color: var(--foreground); }
+  .diagnostic-value span { color: var(--primary); font-weight: 600; }
+
+  /* ── IDEA ITEM ── */
+  .idea-item {
+    display: flex; gap: 14px; align-items: flex-start;
+    padding: 14px 0; border-bottom: 1px solid var(--border);
+  }
+  .idea-item:last-child { border-bottom: none; }
+  .idea-num {
+    width: 28px; height: 28px; flex-shrink: 0;
+    background: rgba(52,211,153,.1); color: var(--primary);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700;
+  }
+  .idea-content h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .idea-content p  { font-size: 13px; color: var(--muted-foreground); line-height: 1.6; }
+
+  /* ── COPY EXAMPLE ── */
+  .copy-box {
+    background: rgba(52,211,153,.04);
+    border: 1px solid rgba(52,211,153,.15);
+    border-radius: var(--radius-md);
+    padding: 18px 20px;
+    font-size: 14px;
+    font-style: italic;
+    color: #e2e8f0;
+    line-height: 1.7;
+    margin: 12px 0;
+    position: relative;
+  }
+  .copy-box::before {
+    content: '"';
+    font-size: 40px; font-style: normal; font-weight: 700;
+    color: rgba(52,211,153,.2);
+    position: absolute; top: 8px; left: 14px;
+    line-height: 1;
+  }
+  .copy-box p { padding-left: 20px; }
+  .copy-label {
+    font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px;
+    color: var(--primary); margin-bottom: 6px; padding-left: 20px; font-style: normal;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(21,21,21,.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 24px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .header-brand { display: flex; align-items: center; gap: 10px; }
+  .header-logo {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: var(--primary); color: var(--primary-foreground);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 14px;
+  }
+  .header-name { font-weight: 700; font-size: 16px; }
+  .header-sub  { font-size: 12px; color: var(--muted-foreground); margin-top: 1px; }
+  .header-meta { font-size: 12px; color: var(--muted-foreground); display: flex; gap: 16px; }
+
+  /* ── HERO GLOW ── */
+  .hero-glow {
+    position: absolute; width: 500px; height: 500px;
+    background: rgba(52,211,153,.12);
+    border-radius: 50%; filter: blur(80px);
+    top: -100px; left: 50%; transform: translateX(-50%);
+    pointer-events: none;
+  }
+
+  /* ── SECTION HEADER ── */
+  .section-header { text-align: center; margin-bottom: 48px; }
+  .section-header h2 { font-size: 2rem; font-weight: 700; margin: 12px 0; }
+  @media(min-width:768px){ .section-header h2 { font-size: 2.5rem; } }
+  .section-header p { color: var(--muted-foreground); font-size: 16px; max-width: 600px; margin: 0 auto; }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 0 24px;
+  }
+
+  /* ── PRIORITY HEADER ── */
+  .priority-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .priority-header h3 { font-size: 18px; font-weight: 700; }
+
+  /* ── TAGS ── */
+  .tag {
+    display: inline-block;
+    background: rgba(255,255,255,.05);
+    color: var(--muted-foreground);
+    padding: 3px 10px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    border: 1px solid var(--border);
+    margin: 3px 3px 3px 0;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: rgba(30,30,30,.5);
+    border-top: 1px solid var(--border);
+    padding: 32px 24px;
+    text-align: center;
+    color: var(--muted-foreground);
+    font-size: 13px;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--background); }
+  ::-webkit-scrollbar-thumb { background: var(--muted); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(52,211,153,.3); }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-brand">
+    <div class="header-logo">CS</div>
+    <div>
+      <div class="header-name">Copy Senior</div>
+      <div class="header-sub">Análise de Copy · Direct Response</div>
+    </div>
+  </div>
+  <div class="header-meta">
+    <span>Cliente: Geração Bem Estar</span>
+    <span>Junho 2026</span>
+  </div>
+</header>
+
+<!-- HERO -->
+<section style="padding:80px 24px 60px; position:relative; overflow:hidden; text-align:center;">
+  <div class="hero-glow"></div>
+  <div class="container-narrow" style="position:relative;">
+    <div class="animate-fade-in-up" style="margin-bottom:20px;">
+      <span class="badge">🌿 Relatório de Análise — @geracaobemestaroficial</span>
+    </div>
+    <h1 class="animate-fade-in-up delay-1" style="font-size:clamp(2.2rem,5vw,3.8rem); font-weight:800; line-height:1.15; margin-bottom:20px; letter-spacing:-1px;">
+      O que está <span class="text-gradient">funcionando</span> e o que está<br>bloqueando conversões
+    </h1>
+    <p class="animate-fade-in-up delay-2" style="font-size:17px; color:var(--muted-foreground); max-width:580px; margin:0 auto 36px;">
+      Diagnóstico completo de copy do site <strong style="color:var(--foreground);">geracaobemestar.com.br</strong> e
+      do perfil <strong style="color:var(--foreground);">@geracaobemestaroficial</strong> com plano de ação priorizado e
+      ideias concretas para implementação imediata.
+    </p>
+    <div class="animate-fade-in-up delay-3" style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; align-items:center;">
+      <span class="tag">🌱 Óleos Essenciais doTERRA</span>
+      <span class="tag">💆 Mentoria de Bem-Estar</span>
+      <span class="tag">📒 AGENPLANNER</span>
+      <span class="tag">📍 Uberlândia, MG</span>
+      <span class="tag">🛒 Loja Física + E-commerce</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- O QUE A MARCA FAZ -->
+<section>
+  <div class="container-default">
+    <div class="section-header scroll-hidden">
+      <span class="badge-section">Contexto do Negócio</span>
+      <h2>O que a Geração Bem Estar faz</h2>
+      <p>Entendendo o modelo antes de otimizar a copy</p>
+    </div>
+
+    <div class="grid-4 scroll-hidden" style="margin-bottom:40px;">
+      <div class="stat-card">
+        <span class="stat-number">4</span>
+        <span class="stat-label">Linhas de negócio ativas</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">20+</span>
+        <span class="stat-label">Anos de experiência da fundadora</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">0</span>
+        <span class="stat-label">Depoimentos no site atual</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">7</span>
+        <span class="stat-label">Pilares do método (subaproveitados)</span>
+      </div>
+    </div>
+
+    <div class="grid-2 scroll-hidden">
+      <div class="card">
+        <div style="font-size:24px; margin-bottom:12px;">🌿</div>
+        <h3 style="font-size:16px; font-weight:700; margin-bottom:8px;">Consultoria doTERRA</h3>
+        <p style="font-size:14px; color:var(--muted-foreground);">Venda de óleos essenciais com orientação técnica personalizada, protocolos para famílias e crianças. Modelo MLM com consultoria de aromaterapia.</p>
+      </div>
+      <div class="card">
+        <div style="font-size:24px; margin-bottom:12px;">🧠</div>
+        <h3 style="font-size:16px; font-weight:700; margin-bottom:8px;">Mentoria Individual e em Grupos</h3>
+        <p style="font-size:14px; color:var(--muted-foreground);">Desenvolvimento pessoal, autoconhecimento e equilíbrio emocional. Baseada nos 7 Pilares criados pela Roberta Guedes ao longo de 20 anos.</p>
+      </div>
+      <div class="card">
+        <div style="font-size:24px; margin-bottom:12px;">📒</div>
+        <h3 style="font-size:16px; font-weight:700; margin-bottom:8px;">AGENPLANNER</h3>
+        <p style="font-size:14px; color:var(--muted-foreground);">Produto próprio: agenda permanente com dicas de saúde física e equilíbrio emocional. Organização pessoal, profissional e financeira.</p>
+      </div>
+      <div class="card">
+        <div style="font-size:24px; margin-bottom:12px;">🛍️</div>
+        <h3 style="font-size:16px; font-weight:700; margin-bottom:8px;">Produtos Físicos</h3>
+        <p style="font-size:14px; color:var(--muted-foreground);">Difusores pessoais, cosméticos, artesanatos e acessórios. Loja física no Griff Shopping em Uberlândia + envio para todo o Brasil.</p>
+      </div>
+    </div>
+
+    <div class="card scroll-hidden" style="margin-top:24px; background:rgba(52,211,153,.03); border-color:rgba(52,211,153,.15);">
+      <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+        <span style="font-size:20px;">👩‍💼</span>
+        <strong>Roberta Guedes — Fundadora</strong>
+      </div>
+      <p style="font-size:14px; color:var(--muted-foreground); line-height:1.7;">
+        Administradora de empresas desde 1999. Em 2003 descobriu o autoconhecimento como propósito de vida.
+        Formada em <strong style="color:var(--foreground);">Saúde Integrativa, Nutrição Funcional, Aromaterapia, Fitoterapia,
+        Medicina Tradicional Chinesa, Práticas Integrativas Complementares e Neurociências.</strong>
+        Criou os 7 Pilares para apoiar famílias no cuidado diário da saúde de forma simples, natural e sustentável.
+        <strong style="color:var(--primary);"> Esta história está enterrada no final do site. Isso precisa mudar.</strong>
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- DIAGNÓSTICO DE COPY -->
+<section>
+  <div class="container-narrow">
+    <div class="section-header scroll-hidden">
+      <span class="badge-section">Diagnóstico</span>
+      <h2>Mapeamento estratégico de copy</h2>
+      <p>Os parâmetros que determinam como a copy deve ser estruturada</p>
+    </div>
+
+    <div class="diagnostic-box scroll-hidden">
+      <div class="diagnostic-row">
+        <span class="diagnostic-label">Nível de Consciência do Público</span>
+        <span class="diagnostic-value"><span>Nível 3–4</span> — Sente a dor (cansaço, filho doente, estresse, excesso de remédio) mas ainda não conhece a solução via óleos essenciais ou a metodologia da Roberta</span>
+      </div>
+      <div class="diagnostic-row">
+        <span class="diagnostic-label">Sofisticação do Mercado</span>
+        <span class="diagnostic-value"><span>Nível 3–4</span> — Bem-estar natural está saturado. O público já ouviu falar de óleos essenciais. Promessa genérica não converte mais. Precisa de mecanismo único</span>
+      </div>
+      <div class="diagnostic-row">
+        <span class="diagnostic-label">Crença Central a Mudar</span>
+        <span class="diagnostic-value"><span>"Óleos essenciais são modinha e bem-estar é caro e complicado"</span> → <span>"Existe um método simples e testado que já transformou centenas de famílias — sem dieta maluca nem remédio caro"</span></span>
+      </div>
+      <div class="diagnostic-row">
+        <span class="diagnostic-label">Lead Recomendado</span>
+        <span class="diagnostic-value"><span>Problem-Solution Lead + Story Lead</span> — A história da Roberta (2003, 20 anos de estudo, 7 Pilares) é o ativo mais subutilizado do negócio inteiro</span>
+      </div>
+      <div class="diagnostic-row">
+        <span class="diagnostic-label">Gatilhos de Persuasão Prioritários</span>
+        <span class="diagnostic-value"><span>1. Autoridade</span> (credenciais da Roberta — desperdiçadas) · <span>2. Prova Social</span> (depoimentos — completamente ausentes) · <span>3. Especificidade</span> (números, casos reais — inexistentes)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COMO ESTÁ vs COMO PODERIA SER -->
+<section>
+  <div class="container-narrow">
+    <div class="section-header scroll-hidden">
+      <span class="badge-section">Comparação</span>
+      <h2>Como está vs. como poderia ser</h2>
+      <p>Os 6 pontos de atrito mais críticos da copy atual</p>
+    </div>
+
+    <div class="card scroll-hidden" style="padding:0; overflow:hidden;">
+      <!-- Header -->
+      <div style="display:grid; grid-template-columns:1fr 1fr; background:rgba(255,255,255,.04); border-bottom:1px solid var(--border);">
+        <div style="padding:14px 20px; font-size:12px; font-weight:700; color:#f87171; text-transform:uppercase; letter-spacing:.5px; border-right:1px solid var(--border);">✗ Como está hoje</div>
+        <div style="padding:14px 20px; font-size:12px; font-weight:700; color:var(--primary); text-transform:uppercase; letter-spacing:.5px;">✓ Como deveria ser</div>
+      </div>
+
+      <div class="comparison-row">
+        <div class="comparison-cell bad"><span class="icon-x">✗</span> <div><strong style="color:var(--foreground); font-size:13px;">Headline:</strong><br>"DESCUBRA como TER uma VIDA com PROSPERIDADE e BEM ESTAR!!"</div></div>
+        <div class="comparison-cell good"><span class="icon-check">✓</span> <div><strong style="font-size:13px;">Headline:</strong><br>"Como 200+ mães protegem a saúde dos filhos sem correr pra farmácia toda semana"</div></div>
+      </div>
+      <div class="comparison-row">
+        <div class="comparison-cell bad"><span class="icon-x">✗</span> <div><strong style="color:var(--foreground); font-size:13px;">Lead magnet:</strong><br>"GANHE de PRESENTE um TESTE para saber como VOCÊ está"</div></div>
+        <div class="comparison-cell good"><span class="icon-check">✓</span> <div><strong style="font-size:13px;">Lead magnet:</strong><br>"Diagnóstico de Saúde Natural: 7 perguntas → plano personalizado em 24h"</div></div>
+      </div>
+      <div class="comparison-row">
+        <div class="comparison-cell bad"><span class="icon-x">✗</span> <div><strong style="color:var(--foreground); font-size:13px;">Proposta de valor:</strong><br>"Apoiar pessoas a buscarem informações... de forma simples, saudável, natural e sustentável"</div></div>
+        <div class="comparison-cell good"><span class="icon-check">✓</span> <div><strong style="font-size:13px;">Proposta de valor:</strong><br>"O Método dos 7 Pilares para sair do ciclo remédio-cansaço-estresse em 90 dias"</div></div>
+      </div>
+      <div class="comparison-row">
+        <div class="comparison-cell bad"><span class="icon-x">✗</span> <div><strong style="color:var(--foreground); font-size:13px;">Prova social:</strong><br>Zero depoimentos, zero números, zero cases</div></div>
+        <div class="comparison-cell good"><span class="icon-check">✓</span> <div><strong style="font-size:13px;">Prova social:</strong><br>5–8 depoimentos em vídeo + stat "500+ famílias atendidas desde 2003"</div></div>
+      </div>
+      <div class="comparison-row">
+        <div class="comparison-cell bad"><span class="icon-x">✗</span> <div><strong style="color:var(--foreground); font-size:13px;">Autoridade da fundadora:</strong><br>Bio com credenciais excepcionais enterrada no FINAL da página</div></div>
+        <div class="comparison-cell good"><span class="icon-check">✓</span> <div><strong style="font-size:13px;">Autoridade da fundadora:</strong><br>Story lead com história da Roberta no 2º bloco — antes do ceticismo se instalar</div></div>
+      </div>
+      <div class="comparison-row">
+        <div class="comparison-cell bad"><span class="icon-x">✗</span> <div><strong style="color:var(--foreground); font-size:13px;">Diferenciação:</strong><br>Por que comprar desta consultora doTERRA e não de qualquer outra?</div></div>
+        <div class="comparison-cell good"><span class="icon-check">✓</span> <div><strong style="font-size:13px;">Diferenciação:</strong><br>Os 7 Pilares como mecanismo exclusivo + 20 anos de formação = única no mercado</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- 7 PROBLEMAS CRÍTICOS -->
+<section>
+  <div class="container-default">
+    <div class="section-header scroll-hidden">
+      <span class="badge-section">Problemas Identificados</span>
+      <h2>Os 7 problemas críticos de copy</h2>
+      <p>Cada ponto representa uma sangria de conversão que pode ser corrigida</p>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:16px;">
+
+      <div class="card-problem scroll-hidden">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
+          <h3 style="font-size:17px; font-weight:700;">1. Headline genérica sem gancho</h3>
+          <span class="badge-red">Crítico</span>
+        </div>
+        <p style="font-size:14px; color:var(--muted-foreground); margin-bottom:12px;">Qualquer marca de autoajuda, suplemento ou academia poderia usar a headline atual. Não fala com ninguém específico. O uso aleatório de MAIÚSCULAS transmite amadorismo e dificulta a leitura.</p>
+        <div class="copy-box">
+          <p class="copy-label">Como está</p>
+          <p>"DESCUBRA como TER uma VIDA com PROSPERIDADE e BEM ESTAR!!"</p>
+        </div>
+      </div>
+
+      <div class="card-problem scroll-hidden">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
+          <h3 style="font-size:17px; font-weight:700;">2. Zero prova social no site inteiro</h3>
+          <span class="badge-red">Crítico</span>
+        </div>
+        <p style="font-size:14px; color:var(--muted-foreground);">Em um mercado de saúde natural — onde o ceticismo é alto — a ausência total de depoimentos, números de clientes atendidos ou casos de transformação é fatal. O visitante não tem nenhuma âncora de confiança.</p>
+      </div>
+
+      <div class="card-problem scroll-hidden">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
+          <h3 style="font-size:17px; font-weight:700;">3. A maior credencial está enterrada no final</h3>
+          <span class="badge-red">Crítico</span>
+        </div>
+        <p style="font-size:14px; color:var(--muted-foreground);">Roberta tem formação em 6 áreas técnicas e 20+ anos de experiência. Tudo isso aparece em uma bio no final da página, onde menos de 10% dos visitantes chegam. A autoridade precisa aparecer ANTES do ceticismo se instalar — no máximo no segundo bloco.</p>
+      </div>
+
+      <div class="card-problem scroll-hidden">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
+          <h3 style="font-size:17px; font-weight:700;">4. Proposta de valor abstrata demais</h3>
+          <span class="badge-yellow">Relevante</span>
+        </div>
+        <p style="font-size:14px; color:var(--muted-foreground); margin-bottom:12px;">A frase de proposta de valor tem 8 adjetivos genéricos e zero especificidade. "Simples, saudável, natural e sustentável" é o que qualquer marca de wellness usa.</p>
+        <div class="copy-box">
+          <p class="copy-label">Como está</p>
+          <p>"Apoiar pessoas a buscarem de forma prática informações completas que ajudam a cuidar da sua saúde física e equilíbrio emocional de forma simples, saudável, natural e sustentável."</p>
+        </div>
+      </div>
+
+      <div class="card-problem scroll-hidden">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
+          <h3 style="font-size:17px; font-weight:700;">5. Quatro negócios numa página só</h3>
+          <span class="badge-yellow">Relevante</span>
+        </div>
+        <p style="font-size:14px; color:var(--muted-foreground);">Óleos doTERRA + AGENPLANNER + mentoria + cosméticos + artesanatos = o visitante não sabe o que você faz de verdade. Copy que tenta vender 5 coisas ao mesmo tempo não vende nenhuma. Cada linha precisa de sua própria jornada.</p>
+      </div>
+
+      <div class="card-problem scroll-hidden">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
+          <h3 style="font-size:17px; font-weight:700;">6. Lead magnet vago — o que é o "teste"?</h3>
+          <span class="badge-yellow">Relevante</span>
+        </div>
+        <p style="font-size:14px; color:var(--muted-foreground); margin-bottom:12px;">O CTA principal oferece um "presente" que é um "teste" — sem dizer o que a pessoa vai descobrir, qual a transformação esperada ou o que recebe. Um lead magnet sem clareza sobre o que entrega não converte.</p>
+        <div class="copy-box">
+          <p class="copy-label">Como está</p>
+          <p>"GANHE de PRESENTE um TESTE para saber como VOCÊ está e conhecer os principais pontos para COMEÇAR a MELHORAR!!"</p>
+        </div>
+      </div>
+
+      <div class="card-problem scroll-hidden">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px; margin-bottom:12px;">
+          <h3 style="font-size:17px; font-weight:700;">7. Sem mecanismo único — por que a Roberta?</h3>
+          <span class="badge-yellow">Relevante</span>
+        </div>
+        <p style="font-size:14px; color:var(--muted-foreground);">O site não responde a pergunta mais importante: por que comprar desta consultora e não de qualquer outro distribuidor doTERRA? Os 7 Pilares mencionados na bio são o mecanismo único mais poderoso do negócio — mas estão completamente subaproveitados.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PLANO DE AÇÃO COM IDEIAS -->
+<section>
+  <div class="container-default">
+    <div class="section-header scroll-hidden">
+      <span class="badge-section">Plano de Ação</span>
+      <h2>7 prioridades com ideias de implementação</h2>
+      <p>Do mais impactante ao mais rápido — com o que fazer de concreto em cada etapa</p>
+    </div>
+
+    <!-- PRIORIDADE 1 -->
+    <div class="card-action priority-red scroll-hidden" style="margin-bottom:20px;">
+      <div class="priority-header">
+        <span class="badge-red">🔴 Prioridade 1</span>
+        <h3>Coletar 5 depoimentos em vídeo e publicar na homepage</h3>
+      </div>
+      <p style="font-size:14px; color:var(--muted-foreground); margin-bottom:20px;">
+        <strong style="color:var(--foreground);">Impacto: Alto · Dificuldade: Médio.</strong> Prova social é o ativo mais escasso e mais valioso no mercado de saúde natural. Um depoimento real de uma mãe que parou de correr para a farmácia vale mais que 10 textos sobre os benefícios dos óleos.
+      </p>
+
+      <div class="idea-item">
+        <div class="idea-num">1</div>
+        <div class="idea-content">
+          <h4>Roteiro de 3 frases para o cliente gravar</h4>
+          <p>Envie pelo WhatsApp: <em>"Conta rapidinho em vídeo: 1) Antes de conhecer os óleos, qual era o problema que você tinha? 2) O que mudou depois que você começou a usar? 3) O que você diria para quem ainda não conhece?"</em> — Vídeo de 30 a 60 segundos. Funciona em selfie mode.</p>
+        </div>
+      </div>
+      <div class="idea-item">
+        <div class="idea-num">2</div>
+        <div class="idea-content">
+          <h4>Selecionar depoimentos com especificidade mensurável</h4>
+          <p>Priorize relatos com dados concretos: "antes tomava remédio toda semana, faz 4 meses que não vou à farmácia", "meu filho dormia mal, em 15 dias com o protocolo da Roberta ele dorme a noite inteira". Evite genéricos como "mudou minha vida".</p>
+        </div>
+      </div>
+      <div class="idea-item">
+        <div class="idea-num">3</div>
+        <div class="idea-content">
+          <h4>Criar uma seção de depoimentos em grid 2×2 na homepage</h4>
+          <p>Cards estilo antes/depois com: foto da pessoa, nome, cidade, resultado específico em destaque (ex: <em>"Parei de usar antialérgico após 2 semanas"</em>) e um botão "ver mais histórias" linkando para uma página dedicada.</p>
+        </div>
+      </div>
+      <div class="idea-item">
+        <div class="idea-num">4</div>
+        <div class="idea-content">
+          <h4>Adicionar contador de famílias na hero section</h4>
+          <p>Se a Roberta atende desde 2003, provavelmente tem centenas de clientes. Contar esse número (mesmo que seja "mais de 300 famílias") e colocá-lo em destaque acima do dobra gera ancoragem de confiança imediata.</p>
+        </div>
+      </div>
+      <div class="idea-item">
+        <div class="idea-num">5</div>
+        <div class="idea-content">
+          <h4>Usar depoimentos como headlines de seção</h4>
+          <p>Em vez de "Nossos Resultados", usar a frase mais forte de um depoimento como título: <em>"Em 2 semanas o protocolo da Roberta fez mais pelo sono do meu filho do que 3 anos de remédio"</em> — assinado com nome e foto.</p>
+        </div>
+      </div>
+
+      <div class="copy-box" style="margin-top:16px;">
+        <p class="copy-label">Exemplo de card de depoimento</p>
+        <p>★★★★★ — <strong>"Antes eu corria pra UPA toda vez que meu filho tinha febre. Com o protocolo da Roberta, faz 5 meses que não precisei. Ela me ensinou a tratar de forma natural e segura."</strong><br>— Ana Paula M., mãe de 2 filhos, Uberlândia</p>
+      </div>
+    </div>
+
+    <!-- PRIORIDADE 2 -->
+    <div class="card-action priority-red scroll-hidden" style="margin-bottom:20px;">
+      <div class="priority-header">
+        <span class="badge-red">🔴 Prioridade 2</span>
+        <h3>Reescrever headline e subheadline com especificidade</h3>
+      </div>
+      <p style="font-size:14px; color:var(--muted-foreground); margin-bottom:20px;">
+        <strong style="color:var(--foreground);">Impacto: Alto · Dificuldade: Baixo.</strong> A headline é a primeira coisa que o visitante lê. Se ela não prender em 3 segundos, o resto da página nunca é lido. Esta é a mudança mais rápida com maior impacto potencial.
+      </p>
+
+      <div class="idea-item">
+        <div class="idea-num">1</div>
+        <div class="idea-content">
+          <h4>Versão A — Focada em mãe de família (avatar principal)</h4>
+          <p>Para testar primeiro, pois é o público de maior intenção de compra de óleos para crianças.</p>
+        </div>
+      </div>
+      <div class="copy-box">
+        <p class="copy-label">Headline versão A</p>
+        <p>Como centenas de mães em Uberlândia estão protegendo a saúde dos filhos sem correr pra farmácia toda semana<br><br><em>Subheadline:</em> Responda 7 perguntas e receba gratuitamente o protocolo de óleos essenciais ideal para sua família — analisado pessoalmente por Roberta Guedes, especialista em saúde integrativa com 20+ anos de experiência.</p>
+      </div>
+
+      <div class="idea-item" style="margin-top:8px;">
+        <div class="idea-num">2</div>
+        <div class="idea-content">
+          <h4>Versão B — Curiosidade e contra-intuitivo</h4>
+          <p>Para públicos mais céticos que já tentaram outras soluções e não confiam em promessas genéricas.</p>
+        </div>
+      </div>
+      <div class="copy-box">
+        <p class="copy-label">Headline versão B</p>
+        <p>Sua família usa remédio pra tudo. E se existisse um método natural, testado e aprovado que a maioria dos médicos não te conta?<br><br><em>Subheadline:</em> Não é dieta. Não é suplemento caro. São 7 protocolos simples que já transformaram a saúde de centenas de famílias desde 2003.</p>
+      </div>
+
+      <div class="idea-item" style="margin-top:8px;">
+        <div class="idea-num">3</div>
+        <div class="idea-content">
+          <h4>Versão C — Dados e resultado específico</h4>
+          <p>Ideal se tiver a estatística de clientes atendidos confirmada.</p>
+        </div>
+      </div>
+      <div class="copy-box">
+        <p class="copy-label">Headline versão C</p>
+        <p>O que 400+ famílias brasileiras descobriram sobre saúde que mudou tudo — sem dieta maluca, sem remédio caro e sem complicação<br><br><em>Subheadline:</em> O Método dos 7 Pilares de Roberta Guedes: 20 anos de estudo em saúde integrativa transformados em um protocolo simples para o dia a dia da sua família.</p>
+      </div>
+    </div>
+
+    <!-- PRIORIDADE 3 -->
+    <div class="card-action priority-red scroll-hidden" style="margin-bottom:20px;">
+      <div class="priority-header">
+        <span class="badge-red">🔴 Prioridade 3</span>
+        <h3>Mover a história da Roberta para o 2º bloco da página</h3>
+      </div>
+      <p style="font-size:14px; color:var(--muted-foreground); margin-bottom:20px;">
+        <strong style="color:var(--foreground);">Impacto: Alto · Dificuldade: Baixo.</strong> Regra do direct response: autoridade precisa aparecer antes do ceticismo. A história de 20 anos da Roberta, apresentada de forma humana e emocional, é o maior diferencial que existe no negócio. Está desperdiçada no final.
+      </p>
+
+      <div class="idea-item">
+        <div class="idea-num">1</div>
+        <div class="idea-content">
+          <h4>Story lead em 3 parágrafos — do problema à solução</h4>
+          <p>Estrutura: 1) A dor dela em 2003 (o que a levou a buscar alternativas), 2) A descoberta e os 20 anos de estudo, 3) A criação dos 7 Pilares e os resultados nas famílias que atendeu. Isso cria identificação antes de qualquer pitch.</p>
+        </div>
+      </div>
+      <div class="copy-box">
+        <p class="copy-label">Rascunho do Story Lead</p>
+        <p>"Em 2003, eu era administradora de empresas e vivia cansada, estressada e dependente de remédio para tudo. Foi aí que descobri que existia um caminho diferente — e decidi estudar profundamente o que realmente funciona para cuidar da saúde de forma natural e sustentável.<br><br>Desde então, me formei em Saúde Integrativa, Nutrição Funcional, Aromaterapia, Fitoterapia, Medicina Tradicional Chinesa e Neurociências. Não para virar guru. Para encontrar o que funciona de verdade no dia a dia de uma família brasileira.<br><br>Hoje, depois de 20 anos e centenas de famílias atendidas, criei os 7 Pilares da Geração Bem Estar: um método prático para sair do ciclo de remédio, cansaço e estresse de forma simples, natural e duradoura."</p>
+      </div>
+
+      <div class="idea-item" style="margin-top:8px;">
+        <div class="idea-num">2</div>
+        <div class="idea-content">
+          <h4>Credenciais em badges visuais</h4>
+          <p>Ao lado da foto da Roberta, listar cada formação em pequenos badges coloridos: "Saúde Integrativa · Aromaterapia · MTC · Neurociências · Nutrição Funcional · Fitoterapia". Isso cria escaneabilidade e impressiona mesmo quem não lê o texto completo.</p>
+        </div>
+      </div>
+      <div class="idea-item">
+        <div class="idea-num">3</div>
+        <div class="idea-content">
+          <h4>Foto humanizada, não institucional</h4>
+          <p>A foto da Roberta deve ser em contexto real — com óleos, em consulta com uma família, ou num ambiente natural. Evite foto tipo "linkedin formal". A conexão emocional começa na imagem antes mesmo do texto.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRIORIDADE 4 -->
+    <div class="card-action priority-yellow scroll-hidden" style="margin-bottom:20px;">
+      <div class="priority-header">
+        <span class="badge-yellow">🟡 Prioridade 4</span>
+        <h3>Reformular o lead magnet com clareza total</h3>
+      </div>
+      <p style="font-size:14px; color:var(--muted-foreground); margin-bottom:20px;">
+        <strong style="color:var(--foreground);">Impacto: Médio · Dificuldade: Baixo.</strong> O lead magnet é a porta de entrada do funil. Se a pessoa não entende exatamente o que vai receber, não clica. O atual oferece um "teste" sem especificar nada.
+      </p>
+
+      <div class="idea-item">
+        <div class="idea-num">1</div>
+        <div class="idea-content">
+          <h4>Renomear para "Diagnóstico de Saúde Natural"</h4>
+          <p>O nome "teste" é vago e tem conotação de avaliação. "Diagnóstico" é percebido como algo profissional, personalizado e valioso — especialmente com o respaldo das credenciais da Roberta.</p>
+        </div>
+      </div>
+      <div class="idea-item">
+        <div class="idea-num">2</div>
+        <div class="idea-content">
+          <h4>Especificar as 7 perguntas do diagnóstico</h4>
+          <p>Sugestão de perguntas: frequência de remédios na família, qualidade do sono, nível de estresse, saúde das crianças (se houver), sintomas mais frequentes, já usou óleos essenciais antes, qual é o maior desafio de saúde hoje. Perguntas específicas = percepção de personalização.</p>
+        </div>
+      </div>
+      <div class="idea-item">
+        <div class="idea-num">3</div>
+        <div class="idea-content">
+          <h4>Prometer o que a pessoa recebe com prazo</h4>
+          <p>O CTA reformulado deve incluir: o que recebe (plano personalizado), como recebe (WhatsApp) e quando (24h). Exemplo: <em>"Responda as 7 perguntas e receba em até 24h o protocolo de óleos certo para sua família — análise feita pela Roberta Guedes."</em></p>
+        </div>
+      </div>
+      <div class="idea-item">
+        <div class="idea-num">4</div>
+        <div class="idea-content">
+          <h4>Criar landing page exclusiva para o diagnóstico</h4>
+          <p>Uma página separada (ex: geracaobemestar.com.br/diagnostico) com foco único: o diagnóstico. Sem menu, sem outras ofertas, sem distração. Taxa de conversão de landing pages focadas é 3 a 5x maior que páginas genéricas.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRIORIDADE 5 -->
+    <div class="card-action priority-yellow scroll-hidden" style="margin-bottom:20px;">
+      <div class="priority-header">
+        <span class="badge-yellow">🟡 Prioridade 5</span>
+        <h3>Criar landing page separada para a mentoria</h3>
+      </div>
+      <p style="font-size:14px; color:var(--muted-foreground); margin-bottom:20px;">
+        <strong style="color:var(--foreground);">Impacto: Médio · Dificuldade: Médio.</strong> Mentoria é o produto de maior ticket e maior comprometimento. O cliente de mentoria tem uma jornada de decisão completamente diferente do comprador de um óleo. Misturar os dois numa página só faz os dois converterem menos.
+      </p>
+
+      <div class="idea-item">
+        <div class="idea-num">1</div>
+        <div class="idea-content">
+          <h4>Estrutura da landing page de mentoria</h4>
+          <p>Sequência: 1) Headline focada na transformação — 2) As dores que a mentoria resolve (específicas) — 3) O que é o Método dos 7 Pilares — 4) Como funciona (individual vs. grupo) — 5) Depoimentos de mentorados — 6) Currículo completo da Roberta — 7) Preço e formato — 8) CTA para agendar conversa.</p>
+        </div>
+      </div>
+      <div class="idea-item">
+        <div class="idea-num">2</div>
+        <div class="idea-content">
+          <h4>Diferenciar claramente individual vs. grupo</h4>
+          <p>Criar dois "cards" com preço, duração, número de participantes e o perfil de quem se beneficia mais de cada formato. Essa clareza reduz objeções e acelera a decisão.</p>
+        </div>
+      </div>
+      <div class="idea-item">
+        <div class="idea-num">3</div>
+        <div class="idea-content">
+          <h4>CTA de baixo compromisso primeiro</h4>
+          <p>Em vez de "quero fazer a mentoria" (alto comprometimento), usar "quero agendar uma conversa gratuita de 20 minutos para saber se a mentoria é para mim". Reduz a barreira de entrada e qualifica o lead antes da venda.</p>
+        </div>
+      </div>
+      <div class="copy-box" style="margin-top:8px;">
+        <p class="copy-label">Headline sugerida para a landing page de mentoria</p>
+        <p>Do estresse ao equilíbrio: o programa de mentoria que guia você pelos 7 Pilares da saúde natural em 90 dias — com acompanhamento personalizado da Roberta Guedes</p>
+      </div>
+    </div>
+
+    <!-- PRIORIDADE 6 -->
+    <div class="card-action priority-yellow scroll-hidden" style="margin-bottom:20px;">
+      <div class="priority-header">
+        <span class="badge-yellow">🟡 Prioridade 6</span>
+        <h3>Nomear e posicionar os "7 Pilares" como mecanismo único</h3>
+      </div>
+      <p style="font-size:14px; color:var(--muted-foreground); margin-bottom:20px;">
+        <strong style="color:var(--foreground);">Impacto: Médio · Dificuldade: Baixo.</strong> Este é o maior diferencial estratégico do negócio — e está completamente invisível. Dar um nome proprietário ao método e torná-lo visual cria percepção de exclusividade e dificulta a comparação com concorrentes.
+      </p>
+
+      <div class="idea-item">
+        <div class="idea-num">1</div>
+        <div class="idea-content">
+          <h4>Dar nome proprietário ao método</h4>
+          <p>Sugestões: <strong>"Método GB7"</strong> (Geração Bem Estar, 7 Pilares), <strong>"Protocolo 7 Pilares"</strong>, ou <strong>"Sistema Bem Estar Integrado"</strong>. Um nome proprietário cria propriedade intelectual percebida e impede a comparação direta com outros consultores.</p>
+        </div>
+      </div>
+      <div class="idea-item">
+        <div class="idea-num">2</div>
+        <div class="idea-content">
+          <h4>Criar uma seção visual dos 7 Pilares</h4>
+          <p>Grid de 7 cards com ícone, nome do pilar e uma linha explicativa. Ex: Pilar 1 — Alimentação, Pilar 2 — Suplementação, Pilar 3 — Movimento, Pilar 4 — Sono, Pilar 5 — Emoções, Pilar 6 — Relações, Pilar 7 — Propósito. Torna o método tangível e visualmente memorável.</p>
+        </div>
+      </div>
+      <div class="idea-item">
+        <div class="idea-num">3</div>
+        <div class="idea-content">
+          <h4>Usar o método para posicionar contra concorrentes</h4>
+          <p>Seção de comparação: "outros consultores vendem óleos. A Roberta oferece um sistema completo de 7 pilares que integra os óleos ao seu estilo de vida — com acompanhamento e protocolo personalizado". Isso justifica qualquer diferença de preço.</p>
+        </div>
+      </div>
+      <div class="copy-box" style="margin-top:8px;">
+        <p class="copy-label">Como introduzir o mecanismo único</p>
+        <p>Qualquer pessoa pode te vender um óleo essencial. O que a Geração Bem Estar oferece é diferente: o Método dos 7 Pilares — um sistema completo que integra nutrição, emoções, movimento, sono e saúde natural para transformar o bem-estar da sua família de forma sustentável.</p>
+      </div>
+    </div>
+
+    <!-- PRIORIDADE 7 -->
+    <div class="card-action priority-green scroll-hidden" style="margin-bottom:20px;">
+      <div class="priority-header">
+        <span class="badge-green">🟢 Prioridade 7</span>
+        <h3>Reformular a bio do Instagram</h3>
+      </div>
+      <p style="font-size:14px; color:var(--muted-foreground); margin-bottom:20px;">
+        <strong style="color:var(--foreground);">Impacto: Imediato · Dificuldade: Mínimo.</strong> A bio do Instagram é a homepage do perfil. É onde o visitante decide em 3 segundos se vale a pena seguir ou clicar no link. Esta é a mudança mais rápida de implementar com resultado imediato.
+      </p>
+
+      <div class="idea-item">
+        <div class="idea-num">1</div>
+        <div class="idea-content">
+          <h4>Versão A — Focada em resultado e autoridade</h4>
+          <p>Para o avatar mãe de família / pessoa buscando saúde natural.</p>
+        </div>
+      </div>
+      <div class="copy-box">
+        <p class="copy-label">Bio Instagram — Versão A</p>
+        <p>Roberta Guedes | Saúde Natural 🌿<br>
+Método dos 7 Pilares para saúde física e equilíbrio emocional<br>
+Especialista em Saúde Integrativa e Aromaterapia<br>
+400+ famílias transformadas desde 2003<br>
+👇 Diagnóstico gratuito no link</p>
+      </div>
+
+      <div class="idea-item" style="margin-top:8px;">
+        <div class="idea-num">2</div>
+        <div class="idea-content">
+          <h4>Versão B — Curiosidade e contra-intuitivo</h4>
+          <p>Para atrair novos seguidores que ainda não conhecem o conceito.</p>
+        </div>
+      </div>
+      <div class="copy-box">
+        <p class="copy-label">Bio Instagram — Versão B</p>
+        <p>Você sabia que 70% dos problemas de saúde da família têm solução natural? 🌿<br>
+Método dos 7 Pilares | doTERRA Brasil<br>
+Saúde Integrativa · Aromaterapia · Neurociências<br>
+20 anos transformando famílias<br>
+👇 Descubra o protocolo certo para a sua família</p>
+      </div>
+
+      <div class="idea-item" style="margin-top:8px;">
+        <div class="idea-num">3</div>
+        <div class="idea-content">
+          <h4>Link na bio — Linktree com 3 opções máximo</h4>
+          <p>Muitas opções no link matam a conversão. Máximo 3: <em>1) Diagnóstico gratuito (WhatsApp)</em> · <em>2) Kit inicial de óleos essenciais</em> · <em>3) Falar com a Roberta</em>. Quanto mais opções, menor a taxa de clique.</p>
+        </div>
+      </div>
+      <div class="idea-item">
+        <div class="idea-num">4</div>
+        <div class="idea-content">
+          <h4>Highlights do Instagram — 5 categorias estratégicas</h4>
+          <p>Organizar os destaques como uma mini-vitrine do negócio: <strong>⭐ Resultados</strong> (depoimentos), <strong>🌿 Protocolos</strong> (dicas práticas), <strong>🛍️ Produtos</strong> (catálogo), <strong>👩‍💼 Sobre mim</strong> (história da Roberta), <strong>🎯 Diagnóstico</strong> (CTA permanente).</p>
+        </div>
+      </div>
+      <div class="idea-item">
+        <div class="idea-num">5</div>
+        <div class="idea-content">
+          <h4>Padrão de conteúdo recomendado (proporção 3-1-1)</h4>
+          <p><strong>3 posts de educação/autoridade</strong> — "Por que o óleo de lavanda é melhor que sonífero para crianças" (com prova técnica) · <strong>1 post de prova social</strong> — depoimento de cliente com resultado específico · <strong>1 post de oferta</strong> — convite para o diagnóstico gratuito.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- RESUMO EXECUTIVO -->
+<section style="padding:60px 24px;">
+  <div class="container-narrow">
+    <div class="section-header scroll-hidden">
+      <span class="badge-section">Resumo</span>
+      <h2>O que fazer primeiro</h2>
+    </div>
+
+    <div class="card scroll-hidden" style="background:rgba(52,211,153,.03); border-color:rgba(52,211,153,.2); padding:32px;" >
+      <p style="font-size:16px; line-height:1.8; color:var(--muted-foreground); margin-bottom:24px;">
+        O negócio da Roberta tem <strong style="color:var(--foreground);">credencial real, história genuína e produto com demanda comprovada.</strong>
+        O que falta é copy que traduza isso em conversão. Não é necessário reinventar o negócio — é necessário
+        <strong style="color:var(--primary);">tornar visível o que já existe e já é poderoso.</strong>
+      </p>
+
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div style="display:flex; gap:12px; align-items:center;">
+          <span class="badge-red">Semana 1</span>
+          <span style="font-size:14px;">Reescrever a headline (2h) + Mover a história da Roberta para o 2º bloco (1h)</span>
+        </div>
+        <div style="display:flex; gap:12px; align-items:center;">
+          <span class="badge-red">Semana 2</span>
+          <span style="font-size:14px;">Solicitar 5 depoimentos em vídeo para clientes que já foram transformados</span>
+        </div>
+        <div style="display:flex; gap:12px; align-items:center;">
+          <span class="badge-yellow">Semana 3</span>
+          <span style="font-size:14px;">Reformular o lead magnet + publicar depoimentos coletados na homepage</span>
+        </div>
+        <div style="display:flex; gap:12px; align-items:center;">
+          <span class="badge-yellow">Semana 4–5</span>
+          <span style="font-size:14px;">Criar seção dos 7 Pilares + landing page separada para mentoria</span>
+        </div>
+        <div style="display:flex; gap:12px; align-items:center;">
+          <span class="badge-green">Hoje</span>
+          <span style="font-size:14px; color:var(--primary);">Reformular a bio do Instagram — menos de 30 minutos, impacto imediato</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p style="margin-bottom:6px;"><strong style="color:var(--foreground);">Copy Senior</strong> — Análise de Direct Response</p>
+  <p>Geração Bem Estar · geracaobemestar.com.br · @geracaobemestaroficial · Junho 2026</p>
+</footer>
+
+<!-- SCROLL REVEAL -->
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('scroll-visible');
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.scroll-hidden').forEach((el, i) => {
+    el.style.transitionDelay = (i % 4) * 0.08 + 's';
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>

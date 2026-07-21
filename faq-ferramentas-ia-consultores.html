@@ -328,6 +328,206 @@
     font-size: var(--fs-sm);
   }
 
+  /* ---------- TABBAR ---------- */
+  .tabbar {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    display: flex;
+    gap: .5rem;
+    padding: .75rem clamp(1.25rem, 4vw, 2.5rem);
+    background: rgba(10,8,6,0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+  .tabbar__btn {
+    appearance: none;
+    -webkit-appearance: none;
+    background: var(--color-card);
+    color: #cfcfcf;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-full);
+    padding: .55rem 1.25rem;
+    font-family: var(--font-sans);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-medium);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background var(--duration-hover) var(--ease-reveal),
+                color var(--duration-hover) var(--ease-reveal),
+                border-color var(--duration-hover) var(--ease-reveal);
+  }
+  .tabbar__btn:hover { border-color: var(--border-accent); color: var(--color-text-strong); }
+  .tabbar__btn.is-active {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: #041413;
+  }
+
+  /* ---------- TAB PANELS ---------- */
+  .tabpanel { display: none; }
+  .tabpanel.is-active { display: block; }
+
+  /* ---------- TOOLS TAB ---------- */
+  .tools-wrap {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 3.5rem clamp(1.5rem, 4vw, 4rem) 6rem;
+  }
+  .tools-header { margin-bottom: 3rem; max-width: 820px; }
+  .tools-header h1 {
+    font-family: var(--font-display);
+    font-weight: var(--fw-display);
+    font-size: clamp(2rem, 4.5vw, var(--fs-5xl));
+    line-height: 1.02;
+    margin: 0 0 1rem;
+    letter-spacing: .01em;
+  }
+  .tools-header h1 .hl {
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .tools-header p {
+    font-size: var(--fs-lg);
+    color: #c7c7c7;
+    margin: 0;
+  }
+  .tool-note {
+    padding: 1rem 1.25rem;
+    background: var(--color-card);
+    border: 1px solid var(--border-subtle);
+    border-left: 3px solid var(--color-accent);
+    border-radius: var(--radius-md);
+    font-size: var(--fs-sm);
+    color: #bdbdbd;
+    margin: 0 0 2.5rem;
+  }
+  .tool-cat { margin-bottom: 2.75rem; }
+  .tool-cat__title {
+    font-family: var(--font-display);
+    font-weight: var(--fw-display);
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    line-height: 1.1;
+    margin: 0 0 1.1rem;
+    padding-bottom: .6rem;
+    border-bottom: 1px solid var(--border-faint);
+  }
+  .tool-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+  .tool-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--color-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1.35rem 1.35rem;
+    transition: border-color var(--duration-hover) var(--ease-reveal),
+                transform var(--duration-hover) var(--ease-reveal);
+  }
+  .tool-card:hover { border-color: var(--border-accent); transform: translateY(-2px); }
+  .tool-card__name {
+    font-weight: var(--fw-medium);
+    font-size: var(--fs-lg);
+    color: var(--color-text-strong);
+    margin: 0 0 .5rem;
+  }
+  .tool-card__desc {
+    font-size: var(--fs-sm);
+    color: #b8b8b8;
+    margin: 0 0 1.1rem;
+    flex: 1;
+  }
+  .tool-link {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    padding: .5rem 1rem;
+    border: 1px solid var(--border-accent);
+    border-radius: var(--radius-full);
+    color: var(--color-accent-light);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-medium);
+    transition: background var(--duration-hover) var(--ease-reveal),
+                color var(--duration-hover) var(--ease-reveal);
+  }
+  .tool-link:hover { background: var(--color-accent); color: #041413; }
+  .tool-card__cmd {
+    display: block;
+    background: var(--color-darker, #0a0806);
+    border: 1px solid var(--border-faint);
+    border-radius: var(--radius-sm);
+    padding: .6rem .75rem;
+    margin: 0 0 1rem;
+    font-family: monospace;
+    font-size: .78rem;
+    line-height: 1.5;
+    color: var(--color-accent-light);
+    overflow-x: auto;
+    white-space: pre;
+  }
+  .tool-card--no {
+    border-color: var(--color-negative);
+    border-style: dashed;
+  }
+  .tool-card--no:hover { transform: none; border-color: var(--color-negative); }
+  .tool-card__flag {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    font-size: var(--fs-xs);
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--color-negative-stroke);
+  }
+  .tool-card__flag .dot--no { box-shadow: 0 0 8px rgba(0,0,0,.2); }
+
+  /* ---------- CALLS LIST ---------- */
+  .call-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1rem;
+  }
+  .call-card {
+    display: flex;
+    flex-direction: column;
+    gap: .55rem;
+    background: var(--color-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 1.15rem 1.3rem;
+    transition: border-color var(--duration-hover) var(--ease-reveal);
+  }
+  .call-card:hover { border-color: var(--border-accent); }
+  .call-card__top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: .75rem;
+  }
+  .call-card__name { font-weight: var(--fw-medium); color: var(--color-text-strong); }
+  .call-card__date { font-size: var(--fs-xs); color: #8a8a8a; white-space: nowrap; }
+  .call-card__tag {
+    font-size: var(--fs-xs);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--color-accent);
+    opacity: .85;
+  }
+  .call-link {
+    align-self: flex-start;
+    color: var(--color-accent-light);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-medium);
+    margin-top: .15rem;
+  }
+  .call-link:hover { text-decoration: underline; }
+
   /* ---------- MOBILE ---------- */
   .mobile-bar { display: none; }
   @media (max-width: 900px) {
@@ -355,10 +555,28 @@
     }
     .main { padding: 2rem 1.25rem 4rem; }
     .qa__body { padding-left: 1.35rem; }
+    .tabbar {
+      overflow-x: auto;
+      white-space: nowrap;
+      padding: .6rem 1rem;
+      -webkit-overflow-scrolling: touch;
+    }
+    .tabbar::-webkit-scrollbar { display: none; }
+    .tools-wrap { padding: 2rem 1.25rem 4rem; }
+    .tool-grid,
+    .call-list { grid-template-columns: 1fr; }
   }
 </style>
 </head>
 <body>
+
+<div class="tabbar">
+  <button class="tabbar__btn is-active" data-tab="faq" type="button">FAQ</button>
+  <button class="tabbar__btn" data-tab="tools" type="button">Ferramentas Recomendadas</button>
+</div>
+
+<!-- ================= ABA: FAQ ================= -->
+<div id="tab-faq" class="tabpanel is-active">
 
 <div class="mobile-bar">
   <select id="mobileNav" aria-label="Ir para seção">
@@ -474,6 +692,14 @@
           </div>
         </details>
 
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Dá pra compartilhar minha assinatura paga do Claude com a equipe do cliente?</span></summary>
+          <div class="qa__body">
+            <p>O plano pago tem limite de <strong>10 assinaturas</strong> vinculadas — o Gabriel já usa 6 e evita disponibilizar mais uma por causa disso. Pra quem só vai usar no dia a dia (sem rodar em loop, sem tarefas mais robustas), a <strong>versão gratuita do Claude Code</strong> resolve bem; reserve a conta paga pra quem realmente precisa de execução mais pesada. Cada colaborador deve acessar com login próprio vinculado à conta da empresa (convite de repositório no GitHub), nunca compartilhar o mesmo histórico de chat — evita que conversas pessoais de um apareçam pra todo mundo.</p>
+            <span class="qa__src">Fonte: P&S Digital — Call 20/07</span>
+          </div>
+        </details>
+
       </div>
     </section>
 
@@ -571,6 +797,14 @@
           <div class="qa__body">
             <p>Deixe claro: <strong>o sistema se adapta ao cliente</strong>, não o contrário. O cliente define exatamente o que quer e a ferramenta obedece. Quando o cliente começa a se moldar ao que a IA faz por padrão, o processo desanda.</p>
             <span class="qa__src">Fonte: LOOL Call 2</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Como estruturar a pesquisa de mercado antes de começar a construir?</span></summary>
+          <div class="qa__body">
+            <p>Peça pra pesquisa voltar sempre em uma <strong>página HTML já estilizada</strong> com um design system definido (o Gabriel tem um padrão fixo que usa pra isso) — dá pra revisar visualmente antes de aprovar, em vez de ler um relatório em texto corrido. Depois de aprovar, pegue as <strong>três referências de maior performance</strong> encontradas na pesquisa e use elas como base pra construir o MVP. A ordem é: pesquisa → aprovação → MVP → redes sociais básicas prontas; só depois disso entra funil e estratégia mais elaborada.</p>
+            <span class="qa__src">Fonte: P&S Digital — Call 20/07</span>
           </div>
         </details>
 
@@ -968,6 +1202,14 @@
           </div>
         </details>
 
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Tem prova real de que a Atomicat converte mais que WordPress/outra hospedagem?</span></summary>
+          <div class="qa__body">
+            <p>Sim. Um cliente rodou o mesmo criativo nas duas plataformas durante uma fase de escala e a diferença de conversão foi gritante mesmo sem mudar nada no criativo: subiu a <strong>taxa de abertura de página</strong>, o custo por lead melhorou e a <strong>taxa de play</strong> do vídeo aumentou. Ninguém conseguiu explicar o motivo exato, mas o resultado bateu de novo depois — reforça manter a Atomicat como padrão pra página de alta conversão.</p>
+            <span class="qa__src">Fonte: P&S Digital — Call 20/07</span>
+          </div>
+        </details>
+
       </div>
     </section>
 
@@ -1023,6 +1265,17 @@
         </details>
 
         <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Como encontrar melhorias e pontos cegos que nem sabia que existiam?</span></summary>
+          <div class="qa__body">
+            <p>Use o script do <strong>Stakeholder Round Table</strong>: peça para a IA simular uma mesa redonda com várias personas analisando o sistema, cada uma com uma perspectiva diferente. Os conflitos entre as personas é que revelam os pontos cegos, não a concordância entre elas.</p>
+            <p>Prompt que o Gabriel usa:</p>
+            <p>"Vou simular uma mesa redonda com 8 personas analisando o sistema. Cada uma traz uma perspectiva diferente — conflitos entre elas revelam pontos cegos."</p>
+            <p>Combine com os <strong>squads de agentes do Xquads</strong> (ver aba Ferramentas Recomendadas) para dar personas reais e especializadas a cada assento da mesa, em vez de personas genéricas.</p>
+            <span class="qa__src">Fonte: prática recorrente do Gabriel</span>
+          </div>
+        </details>
+
+        <details class="qa">
           <summary><span class="qa__icon"></span><span class="qa__q">Qual plano de token recomendar?</span></summary>
           <div class="qa__body">
             <p>Para uso profissional intenso, indique um plano <strong>a partir do intermediário</strong>: o Claude liberou várias vezes mais token para os planos superiores, o que já supre o dia a dia. O Codex consome token rápido, então reserve-o para tarefas estruturais. (Valores exatos: confirmar direto com o cliente, pois mudam.)</p>
@@ -1035,6 +1288,14 @@
           <div class="qa__body">
             <p>Use o comando de inicialização com a <strong>flag que pula as permissões</strong> (o "modo automático"). Assim ele para de fazer perguntas desnecessárias e executa direto. É o comando que o Gabriel entrega no onboarding para o cliente colar ao abrir o terminal.</p>
             <span class="qa__src">Fonte: LOOL Call 1 · P&S Digital</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Como zerar o custo de IA na fase inicial de testes de um projeto novo?</span></summary>
+          <div class="qa__body">
+            <p>Rode um <strong>modelo local open-weight</strong> (ex: Kimi, da Moonshot AI) na própria máquina durante a fase de construção e testes iniciais — custo praticamente zero porque não depende de API paga. Migre pra um modelo pago (Claude, GPT) só quando o projeto validar e precisar de mais robustez; antes disso, sendo honesto, não vale a pena se preocupar com custo de token.</p>
+            <span class="qa__src">Fonte: P&S Digital — Call 20/07</span>
           </div>
         </details>
 
@@ -1065,6 +1326,14 @@
           <div class="qa__body">
             <p>Porque o Claude sempre tenta "empurrar" o trabalho, dizer "vá no dashboard e cole isso". Ele consegue executar por trás sozinho. Ensine o cliente a sempre responder <strong>"vá lá e execute você"</strong>: aí ele faz. Nunca deixe a IA passar a tarefa de volta.</p>
             <span class="qa__src">Fonte: P&S Digital</span>
+          </div>
+        </details>
+
+        <details class="qa">
+          <summary><span class="qa__icon"></span><span class="qa__q">Por que não conectar o MCP direto na conta de anúncios da Meta?</span></summary>
+          <div class="qa__body">
+            <p>O Gabriel é resistente a isso: já viu diversos casos da galera conectando o MCP da Meta direto e a conta cair (o banimento é meio aleatório, pode acontecer com qualquer conta a qualquer momento). Prefira extrair os dados pra uma <strong>planilha</strong> ou pra uma plataforma de pagamento/tracking e alimentar a IA a partir daí — <span class="warn">'a conta não fecha' é o risco que ele não corre.</span></p>
+            <span class="qa__src">Fonte: P&S Digital — Call 20/07</span>
           </div>
         </details>
 
@@ -1211,7 +1480,383 @@
   </main>
 </div>
 
+</div><!-- /#tab-faq -->
+
+<!-- ================= ABA: FERRAMENTAS RECOMENDADAS ================= -->
+<div id="tab-tools" class="tabpanel">
+  <div class="tools-wrap">
+
+    <header class="tools-header">
+      <h1>Ferramentas <span class="hl">Recomendadas</span></h1>
+      <p>Resumo consolidado do stack que o Gabriel usa e recomenda, mais as gravações originais das calls de consultoria. Acesse cada ferramenta direto ou abra a call de origem quando uma resposta do FAQ citar a fonte.</p>
+    </header>
+
+    <!-- ===== BUSCA ===== -->
+    <div class="search-bar">
+      <span class="search-icon">🔍</span>
+      <input class="search-input" id="toolsSearchInput" type="text" autocomplete="off"
+             placeholder="Buscar por ferramenta, skill ou call...">
+    </div>
+    <p class="search-empty" id="toolsSearchEmpty">Nenhum resultado encontrado para essa busca. Tente outro termo.</p>
+
+    <!-- ===== PARTE A — STACK DE FERRAMENTAS ===== -->
+
+    <div class="tool-cat">
+      <h2 class="tool-cat__title">Fundações: onde rodar IA</h2>
+      <div class="tool-grid">
+        <div class="tool-card">
+          <p class="tool-card__name">neocortex</p>
+          <p class="tool-card__desc">Framework de terceiros (Luan Detoni) que roda por cima do Claude Code, lê o projeto em micro-documentos e executa em paralelo. Recomendação #1 do Gabriel.</p>
+          <a class="tool-link" href="https://neocortex.sh/" target="_blank" rel="noopener">Acessar ↗</a>
+        </div>
+        <div class="tool-card">
+          <p class="tool-card__name">Claude Code</p>
+          <p class="tool-card__desc">Base sobre a qual o neocortex roda. Bom sozinho também.</p>
+          <a class="tool-link" href="https://claude.com/product/claude-code" target="_blank" rel="noopener">Acessar ↗</a>
+        </div>
+        <div class="tool-card">
+          <p class="tool-card__name">Cursor</p>
+          <p class="tool-card__desc">Editor preferido do Gabriel ao app desktop do Claude: mais recursos e mais rápido.</p>
+          <a class="tool-link" href="https://cursor.com" target="_blank" rel="noopener">Acessar ↗</a>
+        </div>
+        <div class="tool-card">
+          <p class="tool-card__name">OpenCode</p>
+          <p class="tool-card__desc">Alternativa open source rápida, boa opção pra quem quer tudo centralizado.</p>
+          <a class="tool-link" href="https://opencode.ai" target="_blank" rel="noopener">Acessar ↗</a>
+        </div>
+        <div class="tool-card">
+          <p class="tool-card__name">Codex (OpenAI)</p>
+          <p class="tool-card__desc">Reserve para trabalho estrutural/back-end: consome menos token nessas tarefas.</p>
+          <a class="tool-link" href="https://developers.openai.com/codex/cli" target="_blank" rel="noopener">Acessar ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tool-cat">
+      <h2 class="tool-cat__title">Modelos locais (custo zero)</h2>
+      <div class="tool-grid">
+        <div class="tool-card">
+          <p class="tool-card__name">Kimi (Moonshot AI)</p>
+          <p class="tool-card__desc">LLM open-weight que roda localmente na máquina; usado na fase de testes/construção inicial de um projeto pra zerar o custo de token antes de migrar pra um modelo pago (Claude, GPT).</p>
+          <a class="tool-link" href="https://github.com/MoonshotAI/Kimi-K2" target="_blank" rel="noopener">Acessar ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tool-cat">
+      <h2 class="tool-cat__title">Squads e agentes de IA</h2>
+      <div class="tool-grid">
+        <div class="tool-card">
+          <p class="tool-card__name">Xquads — Squads de Agentes</p>
+          <p class="tool-card__desc">Biblioteca de squads temáticos com dezenas de agentes/personas cada (Copy Squad, Traffic Masters, Hormozi Squad, Brand Squad, Design Squad, C-Level Squad, Advisory Board, Cybersecurity, Data, Storytelling, Movement). Fonte recorrente do Gabriel pra simular especialistas analisando o projeto e achar pontos cegos.</p>
+          <a class="tool-link" href="https://www.sowsales.com.br/xquads/agents" target="_blank" rel="noopener">Acessar ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tool-cat">
+      <h2 class="tool-cat__title">Pesquisa de público e copy</h2>
+      <div class="tool-grid">
+        <div class="tool-card">
+          <p class="tool-card__name">Apify</p>
+          <p class="tool-card__desc">Scraper de anúncios ativos (Instagram, TikTok, Facebook). Baixíssimo custo, divisor de águas pra pesquisa de copy.</p>
+          <a class="tool-link" href="https://apify.com" target="_blank" rel="noopener">Acessar ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tool-cat">
+      <h2 class="tool-cat__title">Geração de imagem</h2>
+      <div class="tool-grid">
+        <div class="tool-card">
+          <p class="tool-card__name">ChatGPT (geração de imagem)</p>
+          <p class="tool-card__desc">Melhor ferramenta de imagem hoje segundo o Gabriel, ótima com texto na imagem.</p>
+          <a class="tool-link" href="https://chatgpt.com" target="_blank" rel="noopener">Acessar ↗</a>
+        </div>
+        <div class="tool-card">
+          <p class="tool-card__name">Nano Banana Pro (Gemini 3 Pro Image)</p>
+          <p class="tool-card__desc">Alternativa mais barata ao GPT pra imagem; boa quando custo é prioridade.</p>
+          <a class="tool-link" href="https://gemini.google.com" target="_blank" rel="noopener">Acessar ↗</a>
+        </div>
+        <div class="tool-card">
+          <p class="tool-card__name">Higgsfield</p>
+          <p class="tool-card__desc">Bom pra imagem (nano banana, Flux, GPT image, Seedream reunidos), mas via MCP é limitado.</p>
+          <a class="tool-link" href="https://higgsfield.ai" target="_blank" rel="noopener">Acessar ↗</a>
+        </div>
+        <div class="tool-card">
+          <p class="tool-card__name">Magnific</p>
+          <p class="tool-card__desc">Preferido do Gabriel ao Higgsfield: mais barato, mais gerações inclusas e integração API/MCP mais simples.</p>
+          <a class="tool-link" href="https://magnific.ai" target="_blank" rel="noopener">Acessar ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tool-cat">
+      <h2 class="tool-cat__title">Geração de vídeo e avatar</h2>
+      <div class="tool-grid">
+        <div class="tool-card">
+          <p class="tool-card__name">Kling AI</p>
+          <p class="tool-card__desc">Um dos grandes nomes pra gerar vídeo com avatar consistente.</p>
+          <a class="tool-link" href="https://klingai.com" target="_blank" rel="noopener">Acessar ↗</a>
+        </div>
+        <div class="tool-card">
+          <p class="tool-card__name">Seedream / Seedance (ByteDance)</p>
+          <p class="tool-card__desc">Modelo de imagem/vídeo da ByteDance usado nos cortes de vídeo com avatar.</p>
+          <a class="tool-link" href="https://www.byteplus.com/en/product/Seedream" target="_blank" rel="noopener">Acessar ↗</a>
+        </div>
+        <div class="tool-card">
+          <p class="tool-card__name">VEO 3 (Google)</p>
+          <p class="tool-card__desc">Outro grande nome pra geração de vídeo com avatar.</p>
+          <a class="tool-link" href="https://labs.google/flow" target="_blank" rel="noopener">Acessar ↗</a>
+        </div>
+        <div class="tool-card">
+          <p class="tool-card__name">HeyGen</p>
+          <p class="tool-card__desc">Melhor opção pra lip sync, ajusta entonação por palavra (exige autorização da pessoa que aparece).</p>
+          <a class="tool-link" href="https://www.heygen.com" target="_blank" rel="noopener">Acessar ↗</a>
+        </div>
+        <div class="tool-card">
+          <p class="tool-card__name">Remotion</p>
+          <p class="tool-card__desc">Framework de vídeo programático (React), usado pra automatizar cortes e legendas de vídeo.</p>
+          <a class="tool-link" href="https://www.remotion.dev" target="_blank" rel="noopener">Acessar ↗</a>
+        </div>
+        <div class="tool-card">
+          <p class="tool-card__name">FFmpeg</p>
+          <p class="tool-card__desc">Motor de processamento de vídeo via linha de comando, usado junto com a IA pra edição automática de criativos.</p>
+          <a class="tool-link" href="https://ffmpeg.org" target="_blank" rel="noopener">Acessar ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tool-cat">
+      <h2 class="tool-cat__title">Páginas, sites e design</h2>
+      <div class="tool-grid">
+        <div class="tool-card">
+          <p class="tool-card__name">Google Stitch</p>
+          <p class="tool-card__desc">Parte do stack de layout do Gabriel pra sites sem "cara de IA".</p>
+          <a class="tool-link" href="https://stitch.withgoogle.com" target="_blank" rel="noopener">Acessar ↗</a>
+        </div>
+        <div class="tool-card">
+          <p class="tool-card__name">21st.dev</p>
+          <p class="tool-card__desc">Componentes e animações prontas pra instalar no projeto (acessar via Chrome, não terminal).</p>
+          <a class="tool-link" href="https://21st.dev" target="_blank" rel="noopener">Acessar ↗</a>
+        </div>
+        <div class="tool-card">
+          <p class="tool-card__name">UI/UX Pro Max (Skill)</p>
+          <p class="tool-card__desc">Skill de design system pra web e mobile: 50+ estilos, 161 paletas de cor, 57 pares de fontes e 99 guidelines de UX. Instala direto como Skill do Claude.</p>
+          <code class="tool-card__cmd">npx skills add https://github.com/nextlevelbuilder/ui-ux-pro-max-skill --skill ui-ux-pro-max</code>
+          <a class="tool-link" href="https://github.com/nextlevelbuilder/ui-ux-pro-max-skill" target="_blank" rel="noopener">Repositório ↗</a>
+        </div>
+        <div class="tool-card">
+          <p class="tool-card__name">Landing Page Design (Skill)</p>
+          <p class="tool-card__desc">Skill focada em copy e design de landing pages de alta conversão, do pacote 101-skills. Instala direto como Skill do Claude.</p>
+          <code class="tool-card__cmd">npx skills add https://github.com/101-skills/skills --skill landing-page-design</code>
+          <a class="tool-link" href="https://github.com/101-skills/skills" target="_blank" rel="noopener">Repositório ↗</a>
+        </div>
+        <div class="tool-card tool-card--no">
+          <p class="tool-card__name">Claude Design</p>
+          <p class="tool-card__desc">Avaliado pelo Gabriel como uma das piores opções: tentaram ser generalistas demais.</p>
+          <span class="tool-card__flag"><i class="dot dot--no"></i> Não recomendado</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tool-cat">
+      <h2 class="tool-cat__title">Gestão de demandas de copy</h2>
+      <div class="tool-grid">
+        <div class="tool-card">
+          <p class="tool-card__name">Trello</p>
+          <p class="tool-card__desc">Indicação simples e gratuita pra quem sai de documento único.</p>
+          <a class="tool-link" href="https://trello.com" target="_blank" rel="noopener">Acessar ↗</a>
+        </div>
+        <div class="tool-card">
+          <p class="tool-card__name">ClickUp</p>
+          <p class="tool-card__desc">Pra operações mais avançadas, integrável à Skill via CLI.</p>
+          <a class="tool-link" href="https://clickup.com" target="_blank" rel="noopener">Acessar ↗</a>
+        </div>
+        <div class="tool-card">
+          <p class="tool-card__name">Google Drive</p>
+          <p class="tool-card__desc">Pasta fixa e pública (permissão de editor) pra anúncios validados, ICP e VSL.</p>
+          <a class="tool-link" href="https://drive.google.com" target="_blank" rel="noopener">Acessar ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tool-cat">
+      <h2 class="tool-cat__title">Tráfego e tracking</h2>
+      <div class="tool-grid">
+        <div class="tool-card">
+          <p class="tool-card__name">Everflow</p>
+          <p class="tool-card__desc">Tracking via webhook pra saber quando gerar mais criativo.</p>
+          <a class="tool-link" href="https://www.everflow.io" target="_blank" rel="noopener">Acessar ↗</a>
+        </div>
+        <div class="tool-card">
+          <p class="tool-card__name">EasyTracker</p>
+          <p class="tool-card__desc">Integração nativa com Claude, alternativa ao Everflow.</p>
+          <a class="tool-link" href="https://easytracker.digital" target="_blank" rel="noopener">Acessar ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tool-cat">
+      <h2 class="tool-cat__title">Hospedagem e deploy</h2>
+      <div class="tool-grid">
+        <div class="tool-card">
+          <p class="tool-card__name">Vercel</p>
+          <p class="tool-card__desc">Front-end, junto com Supabase pra quem está começando (mais fácil).</p>
+          <a class="tool-link" href="https://vercel.com" target="_blank" rel="noopener">Acessar ↗</a>
+        </div>
+        <div class="tool-card">
+          <p class="tool-card__name">Supabase</p>
+          <p class="tool-card__desc">Banco de dados, dupla padrão com Vercel.</p>
+          <a class="tool-link" href="https://supabase.com" target="_blank" rel="noopener">Acessar ↗</a>
+        </div>
+        <div class="tool-card">
+          <p class="tool-card__name">Cloudflare Pages</p>
+          <p class="tool-card__desc">Hospedar HTML direto.</p>
+          <a class="tool-link" href="https://pages.cloudflare.com" target="_blank" rel="noopener">Acessar ↗</a>
+        </div>
+        <div class="tool-card">
+          <p class="tool-card__name">Atomicat</p>
+          <p class="tool-card__desc">Favorita do Gabriel pra páginas: suporte excelente, servidor escalável e tem MCP pra Claude Code.</p>
+          <a class="tool-link" href="https://www.atomicat.com.br" target="_blank" rel="noopener">Acessar ↗</a>
+        </div>
+        <div class="tool-card">
+          <p class="tool-card__name">GitHub</p>
+          <p class="tool-card__desc">Compartilhar o projeto entre a equipe (lembrar de dar pull antes de usar).</p>
+          <a class="tool-link" href="https://github.com" target="_blank" rel="noopener">Acessar ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PARTE B — CALLS DE CONSULTORIA (TLDV) ===== -->
+
+    <div class="tool-cat">
+      <h2 class="tool-cat__title">Calls de consultoria (gravações no TLDV)</h2>
+      <p class="tool-note">As respostas do FAQ citam a fonte (ex: "Fonte: LOOL Call 1"). Use esta lista pra abrir a gravação original quando quiser reassistir o trecho.</p>
+      <div class="call-list">
+
+        <div class="call-card">
+          <div class="call-card__top">
+            <span class="call-card__name">P&amp;S Digital — Consultoria de Claude Code, Call 1</span>
+            <span class="call-card__date">20/07/2026</span>
+          </div>
+          <span class="call-card__tag">Consultoria de Claude Code</span>
+          <a class="call-link" href="https://tldv.io/app/meetings/6a5e56dc7cbab400130f4ae3" target="_blank" rel="noopener">Assistir call ↗</a>
+        </div>
+
+        <div class="call-card">
+          <div class="call-card__top">
+            <span class="call-card__name">P&amp;S Digital — Consultoria de Claude Code, Call 1</span>
+            <span class="call-card__date">14/07/2026</span>
+          </div>
+          <span class="call-card__tag">Consultoria de Claude Code</span>
+          <a class="call-link" href="https://tldv.io/app/meetings/6a568e293cccda00133c3222" target="_blank" rel="noopener">Assistir call ↗</a>
+        </div>
+
+        <div class="call-card">
+          <div class="call-card__top">
+            <span class="call-card__name">LOOL Marketing — Call 2</span>
+            <span class="call-card__date">10/07/2026</span>
+          </div>
+          <span class="call-card__tag">Gestão do Futuro</span>
+          <a class="call-link" href="https://tldv.io/app/meetings/6a50fae84b54180014cb2b0c" target="_blank" rel="noopener">Assistir call ↗</a>
+        </div>
+
+        <div class="call-card">
+          <div class="call-card__top">
+            <span class="call-card__name">P&amp;S Digital — Consultoria de Claude Code</span>
+            <span class="call-card__date">09/07/2026</span>
+          </div>
+          <span class="call-card__tag">Consultoria de Claude Code</span>
+          <a class="call-link" href="https://tldv.io/app/meetings/6a4fd393183dbe0013f3b2d4" target="_blank" rel="noopener">Assistir call ↗</a>
+        </div>
+
+        <div class="call-card">
+          <div class="call-card__top">
+            <span class="call-card__name">LOOL Marketing — Call 1</span>
+            <span class="call-card__date">30/06/2026</span>
+          </div>
+          <span class="call-card__tag">Gestão do Futuro</span>
+          <a class="call-link" href="https://tldv.io/app/meetings/6a44122be064b50013d8c329" target="_blank" rel="noopener">Assistir call ↗</a>
+        </div>
+
+        <div class="call-card">
+          <div class="call-card__top">
+            <span class="call-card__name">P&amp;S Digital — Engenharia Empresarial</span>
+            <span class="call-card__date">30/06/2026</span>
+          </div>
+          <span class="call-card__tag">Engenharia Empresarial</span>
+          <a class="call-link" href="https://tldv.io/app/meetings/6a44273c6a12db00139b8524" target="_blank" rel="noopener">Assistir call ↗</a>
+        </div>
+
+        <div class="call-card">
+          <div class="call-card__top">
+            <span class="call-card__name">Lucas Fazendeiro — Call 1</span>
+            <span class="call-card__date">19/06/2026</span>
+          </div>
+          <span class="call-card__tag">Gestão do Futuro</span>
+          <a class="call-link" href="https://tldv.io/app/meetings/6a3591aaf8875200130fa51d" target="_blank" rel="noopener">Assistir call ↗</a>
+        </div>
+
+        <div class="call-card">
+          <div class="call-card__top">
+            <span class="call-card__name">Lucas Fazendeiro — Alinhamento</span>
+            <span class="call-card__date">11/06/2026</span>
+          </div>
+          <span class="call-card__tag">Gestão do Futuro</span>
+          <a class="call-link" href="https://tldv.io/app/meetings/6a2b05b926dd330013803324" target="_blank" rel="noopener">Assistir call ↗</a>
+        </div>
+
+        <div class="call-card">
+          <div class="call-card__top">
+            <span class="call-card__name">Jönck — Reunião 5</span>
+            <span class="call-card__date">08/05/2026</span>
+          </div>
+          <span class="call-card__tag">Consultoria de Claude Code</span>
+          <a class="call-link" href="https://tldv.io/app/meetings/69fe0f83ef81e900139b0eb1" target="_blank" rel="noopener">Assistir call ↗</a>
+        </div>
+
+        <div class="call-card">
+          <div class="call-card__top">
+            <span class="call-card__name">Roberto — Call 5</span>
+            <span class="call-card__date">07/05/2026</span>
+          </div>
+          <span class="call-card__tag">Consultoria de Claude Code</span>
+          <a class="call-link" href="https://tldv.io/app/meetings/69fcd32bc1e4cf001350a56d" target="_blank" rel="noopener">Assistir call ↗</a>
+        </div>
+
+        <div class="call-card">
+          <div class="call-card__top">
+            <span class="call-card__name">Jönck — Reunião 4</span>
+            <span class="call-card__date">28/04/2026</span>
+          </div>
+          <span class="call-card__tag">Consultoria de Claude Code</span>
+          <a class="call-link" href="https://tldv.io/app/meetings/69f0ff5ea217960013c10fbb" target="_blank" rel="noopener">Assistir call ↗</a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div><!-- /#tab-tools -->
+
 <script>
+  // ---------- TROCA DE ABAS ----------
+  (function () {
+    var btns = document.querySelectorAll('.tabbar__btn');
+    var panels = document.querySelectorAll('.tabpanel');
+    btns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = 'tab-' + btn.dataset.tab;
+        btns.forEach(function (b) { b.classList.remove('is-active'); });
+        panels.forEach(function (p) { p.classList.remove('is-active'); });
+        btn.classList.add('is-active');
+        var panel = document.getElementById(target);
+        if (panel) panel.classList.add('is-active');
+      });
+    });
+  })();
+
   // Preenche o seletor mobile a partir do índice
   (function () {
     var nav = document.querySelectorAll('#nav a');
@@ -1272,6 +1917,43 @@
           if (match) { anyInSection = true; anyGlobal = true; }
         });
         s.style.display = anyInSection ? '' : 'none';
+      });
+
+      empty.classList.toggle('is-visible', !anyGlobal);
+    });
+  })();
+
+  // ---------- BUSCA / FILTRO (aba Ferramentas Recomendadas) ----------
+  (function () {
+    var input = document.getElementById('toolsSearchInput');
+    var empty = document.getElementById('toolsSearchEmpty');
+    if (!input) return;
+
+    var groups = document.querySelectorAll('#tab-tools .tool-cat');
+    var cards = document.querySelectorAll('#tab-tools .tool-card, #tab-tools .call-card');
+    cards.forEach(function (c) {
+      c.dataset.search = (c.textContent || '').toLowerCase().replace(/\s+/g, ' ').trim();
+    });
+
+    input.addEventListener('input', function () {
+      var q = this.value.toLowerCase().trim();
+      var anyGlobal = false;
+
+      if (!q) {
+        cards.forEach(function (c) { c.style.display = ''; });
+        groups.forEach(function (g) { g.style.display = ''; });
+        empty.classList.remove('is-visible');
+        return;
+      }
+
+      groups.forEach(function (g) {
+        var anyInGroup = false;
+        g.querySelectorAll('.tool-card, .call-card').forEach(function (c) {
+          var match = c.dataset.search.indexOf(q) !== -1;
+          c.style.display = match ? '' : 'none';
+          if (match) { anyInGroup = true; anyGlobal = true; }
+        });
+        g.style.display = anyInGroup ? '' : 'none';
       });
 
       empty.classList.toggle('is-visible', !anyGlobal);
